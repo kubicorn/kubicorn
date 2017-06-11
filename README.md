@@ -1,2 +1,6 @@
 # kubicorn
-The best way to bootstrap Kubernetes clusters.
+
+Magical Kubernetes Cluster Management
+
+### Create
+
