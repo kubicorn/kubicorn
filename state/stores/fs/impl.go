@@ -2,36 +2,46 @@ package fs
 
 import (
 	"fmt"
+	"github.com/ghodss/yaml"
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/logger"
 	"io"
+	"io/ioutil"
 	"os"
 	"path"
 	"strings"
 )
 
 type FileSystemStoreOptions struct {
-	Prefix string
-	Path   string
+	ClusterName string
+	BasePath    string
 }
 
 type FileSystemStore struct {
-	options *FileSystemStoreOptions
+	options      *FileSystemStoreOptions
+	ClusterName  string
+	BasePath     string
+	AbsolutePath string
 }
 
 func NewFileSystemStore(o *FileSystemStoreOptions) *FileSystemStore {
 	return &FileSystemStore{
-		options: o,
+		options:      o,
+		ClusterName:  o.ClusterName,
+		BasePath:     o.BasePath,
+		AbsolutePath: fmt.Sprintf("%s/%s", o.BasePath, o.ClusterName),
 	}
 }
 
 func (fs *FileSystemStore) Exists() bool {
-	if _, err := os.Stat(fmt.Sprintf("%s/%s", fs.options.Path, fs.options.Prefix)); os.IsNotExist(err) {
+	if _, err := os.Stat(fs.AbsolutePath); os.IsNotExist(err) {
 		return false
 	}
 	return true
 }
 
-func (fs *FileSystemStore) Write(relativePath string, data []byte) error {
-	fqn := fmt.Sprintf("%s/%s/%s", fs.options.Path, fs.options.Prefix, relativePath)
+func (fs *FileSystemStore) write(relativePath string, data []byte) error {
+	fqn := fmt.Sprintf("%s/%s", fs.AbsolutePath, relativePath)
 	os.MkdirAll(path.Dir(fqn), 0700)
 	fo, err := os.Create(fqn)
 	if err != nil {
@@ -43,4 +53,44 @@ func (fs *FileSystemStore) Write(relativePath string, data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (fs *FileSystemStore) read(relativePath string) ([]byte, error) {
+	fqn := fmt.Sprintf("%s/%s", fs.AbsolutePath, relativePath)
+	bytes, err := ioutil.ReadFile(fqn)
+	if err != nil {
+		return []byte(""), err
+	}
+	return bytes, nil
+}
+
+func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
+	bytes, err := yaml.Marshal(c)
+	if err != nil {
+		return err
+	}
+	fs.write("config", bytes)
+	return nil
+}
+
+func (fs *FileSystemStore) Rename(existingRelativePath, newRelativePath string) error {
+	return os.Rename(existingRelativePath, newRelativePath)
+}
+
+func (fs *FileSystemStore) Destroy() error {
+	logger.Warning("Removing path [%s]", fs.AbsolutePath)
+	return os.RemoveAll(fs.AbsolutePath)
+}
+
+func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
+	cluster := &cluster.Cluster{}
+	configBytes, err := fs.read("config")
+	if err != nil {
+		return cluster, err
+	}
+	err = yaml.Unmarshal(configBytes, cluster)
+	if err != nil {
+		return cluster, err
+	}
+	return cluster, nil
 }

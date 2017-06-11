@@ -28,6 +28,7 @@ var adjectives = []string{
 	"exciting",
 	"amazing",
 	"adorable",
+	"ferocious",
 }
 
 var words = []string{
@@ -41,4 +42,6 @@ var words = []string{
 	"mushroom",
 	"hideout",
 	"party",
+	"monster",
+	"sheepdog",
 }

@@ -13,7 +13,7 @@ var (
 )
 
 func Info(format string, a ...interface{}) {
-	if Level >= 4 {
+	if Level >= 3 {
 		if Color {
 			color.Blue(label(format, "✔"), a...)
 		} else {
@@ -23,7 +23,7 @@ func Info(format string, a ...interface{}) {
 }
 
 func Debug(format string, a ...interface{}) {
-	if Level >= 3 {
+	if Level >= 4 {
 		fmt.Printf(label(format, "▶"), a...)
 	}
 }

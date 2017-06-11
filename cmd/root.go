@@ -33,6 +33,12 @@ var RootCmd = &cobra.Command{
 	},
 }
 
+type Options struct {
+	StateStore     string
+	StateStorePath string
+	Name           string
+}
+
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)

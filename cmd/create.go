@@ -16,7 +16,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/kris-nova/kubicorn/api/cluster"
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/clustermap"
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/kris-nova/kubicorn/namer"
 	"github.com/kris-nova/kubicorn/state"
@@ -32,7 +33,7 @@ var createCmd = &cobra.Command{
 	Short: "Create a Kubernetes cluster",
 	Long:  `Create a Kubernetes cluster`,
 	Run: func(cmd *cobra.Command, args []string) {
-		err := RunCreate(o)
+		err := RunCreate(co)
 		if err != nil {
 			logger.Critical(err.Error())
 			os.Exit(1)
@@ -42,42 +43,21 @@ var createCmd = &cobra.Command{
 }
 
 type CreateOptions struct {
-	StateStore       string
-	StateStorePath   string
-	StateStorePrefix string
-	Name             string
+	Options
+	ClusterMap string
 }
 
-var o = &CreateOptions{}
+var co = &CreateOptions{}
 
 func init() {
-	createCmd.Flags().StringVarP(&o.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	createCmd.Flags().StringVarP(&o.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "."), "The state store path to use")
-	createCmd.Flags().StringVarP(&o.StateStorePrefix, "state-store-prefix", "x", strEnvDef("KUBICORN_STATE_STORE_PREFIX", "_state"), "Directory name prefix to use for state store")
-	createCmd.Flags().StringVarP(&o.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
+	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
+	createCmd.Flags().StringVarP(&co.ClusterMap, "cluster-map", "m", "baremetal", "The cluster map to use")
 	RootCmd.AddCommand(createCmd)
 }
 
 func RunCreate(options *CreateOptions) error {
-
-	// Expand state store path
-	options.StateStorePath = expandStateStorePath(options)
-
-	// Register state store
-	var stateStore stores.Storer
-	switch options.StateStore {
-	case "fs":
-		logger.Info("Selected [fs] state store")
-		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
-			Prefix: options.StateStorePrefix,
-			Path:   options.StateStorePath,
-		})
-	}
-
-	// Check if state store exists
-	if stateStore.Exists() {
-		return fmt.Errorf("State store [%s/%s] exists, will not overwrite", options.StateStorePath, options.StateStorePrefix)
-	}
 
 	// Ensure we have a name
 	name := options.Name
@@ -86,7 +66,31 @@ func RunCreate(options *CreateOptions) error {
 	}
 
 	// Create our cluster resource
-	cluster := cluster.NewCluster(name)
+	var cluster *cluster.Cluster
+	if _, ok := clustermap.ClusterMaps[options.ClusterMap]; ok {
+		cluster = clustermap.ClusterMaps[options.ClusterMap](name)
+	} else {
+		return fmt.Errorf("Invalid clustermap [%s]", options.ClusterMap)
+	}
+
+	// Expand state store path
+	options.StateStorePath = expandPath(options.StateStorePath)
+
+	// Register state store
+	var stateStore stores.ClusterStorer
+	switch options.StateStore {
+	case "fs":
+		logger.Info("Selected [fs] state store")
+		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
+	}
+
+	// Check if state store exists
+	if stateStore.Exists() {
+		return fmt.Errorf("State store [%s] exists, will not overwrite", name)
+	}
 
 	// Init new state store with the cluster resource
 	err := state.InitStateStore(stateStore, cluster)
@@ -97,8 +101,7 @@ func RunCreate(options *CreateOptions) error {
 	return nil
 }
 
-func expandStateStorePath(options *CreateOptions) string {
-	path := options.StateStorePath
+func expandPath(path string) string {
 	if path == "." {
 		wd, err := os.Getwd()
 		if err != nil {

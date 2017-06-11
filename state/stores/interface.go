@@ -1,6 +1,10 @@
 package stores
 
-type Storer interface {
+import "github.com/kris-nova/kubicorn/apis/cluster"
+
+type ClusterStorer interface {
 	Exists() bool
-	Write(relativePath string, data []byte) error
+	Commit(cluster *cluster.Cluster) error
+	Destroy() error
+	GetCluster() (*cluster.Cluster, error)
 }
