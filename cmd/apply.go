@@ -17,7 +17,7 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	"github.com/kris-nova/kubicorn/apply"
+	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/kris-nova/kubicorn/state/stores"
 	"github.com/kris-nova/kubicorn/state/stores/fs"
@@ -80,5 +80,5 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 
-	return apply.ApplyCluster(stateStore, cluster)
+	return cloud.ApplyCluster(stateStore, cluster)
 }

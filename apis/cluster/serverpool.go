@@ -17,8 +17,8 @@ const (
 type ServerPool struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	ServerCount       int
-	ServerType        string
+	Count             int
+	Type              string
 	Name              string
 	PoolType          string
 	Cloud             string

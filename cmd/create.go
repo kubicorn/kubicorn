@@ -53,7 +53,7 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
-	createCmd.Flags().StringVarP(&co.ClusterMap, "cluster-map", "m", "baremetal", "The cluster map to use")
+	createCmd.Flags().StringVarP(&co.ClusterMap, "cluster-map", "m", strEnvDef("KUBICORN_CLUSTER_MAP", "baremetal"), "The cluster map to use")
 	RootCmd.AddCommand(createCmd)
 }
 
