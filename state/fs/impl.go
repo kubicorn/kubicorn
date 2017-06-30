@@ -10,6 +10,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"github.com/kris-nova/kubicorn/state"
 )
 
 type FileSystemStoreOptions struct {
@@ -69,7 +70,7 @@ func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
-	fs.write("config", bytes)
+	fs.write(state.ClusterFile, bytes)
 	return nil
 }
 
@@ -84,7 +85,7 @@ func (fs *FileSystemStore) Destroy() error {
 
 func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
 	cluster := &cluster.Cluster{}
-	configBytes, err := fs.read("config")
+	configBytes, err := fs.read(state.ClusterFile)
 	if err != nil {
 		return cluster, err
 	}

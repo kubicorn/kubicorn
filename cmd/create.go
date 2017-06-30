@@ -17,12 +17,11 @@ package cmd
 import (
 	"fmt"
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/clustermap"
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/kris-nova/kubicorn/namer"
+	"github.com/kris-nova/kubicorn/profiles"
 	"github.com/kris-nova/kubicorn/state"
-	"github.com/kris-nova/kubicorn/state/stores"
-	"github.com/kris-nova/kubicorn/state/stores/fs"
+	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
 	"os"
 	"os/user"
@@ -53,8 +52,23 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
-	createCmd.Flags().StringVarP(&co.ClusterMap, "cluster-map", "m", strEnvDef("KUBICORN_CLUSTER_MAP", "baremetal"), "The cluster map to use")
+	createCmd.Flags().StringVarP(&co.ClusterMap, "cloud", "c", strEnvDef("KUBICORN_CLOUD", "azure"), "The cluster profile to use")
 	RootCmd.AddCommand(createCmd)
+}
+
+type profileFunc func(name string) *cluster.Cluster
+
+var alias = map[string]profileFunc{
+	"baremetal": profiles.NewSimpleBareMetal,
+	"metal":     profiles.NewSimpleBareMetal,
+	"amazon":    profiles.NewSimpleAmazonCluster,
+	"aws":       profiles.NewSimpleAmazonCluster,
+	"azure":     profiles.NewSimpleAzureCluster,
+	"az":        profiles.NewSimpleAzureCluster,
+	"google":    profiles.NewSimpleGoogleCluster,
+	"googs":     profiles.NewSimpleGoogleCluster,
+	"gce":       profiles.NewSimpleGoogleCluster,
+	"gke":       profiles.NewSimpleGoogleCluster,
 }
 
 func RunCreate(options *CreateOptions) error {
@@ -67,17 +81,18 @@ func RunCreate(options *CreateOptions) error {
 
 	// Create our cluster resource
 	var cluster *cluster.Cluster
-	if _, ok := clustermap.ClusterMaps[options.ClusterMap]; ok {
-		cluster = clustermap.ClusterMaps[options.ClusterMap](name)
+	if _, ok := alias[options.ClusterMap]; ok {
+		cluster = alias[options.ClusterMap](name)
 	} else {
 		return fmt.Errorf("Invalid clustermap [%s]", options.ClusterMap)
 	}
 
 	// Expand state store path
+	// Todo (@kris-nova) please pull this into a filepath package or something
 	options.StateStorePath = expandPath(options.StateStorePath)
 
 	// Register state store
-	var stateStore stores.ClusterStorer
+	var stateStore state.ClusterStorer
 	switch options.StateStore {
 	case "fs":
 		logger.Info("Selected [fs] state store")
@@ -93,7 +108,7 @@ func RunCreate(options *CreateOptions) error {
 	}
 
 	// Init new state store with the cluster resource
-	err := state.InitStateStore(stateStore, cluster)
+	err := stateStore.Commit(cluster)
 	if err != nil {
 		return fmt.Errorf("Unable to init state store: %v", err)
 	}

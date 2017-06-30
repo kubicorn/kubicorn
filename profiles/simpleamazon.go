@@ -1,14 +1,14 @@
-package clustermap
+package profiles
 
 import "github.com/kris-nova/kubicorn/apis/cluster"
 
 func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
-		Name: name,
+		Name:  name,
+		Cloud: cluster.Cloud_Amazon,
 		ServerPools: []*cluster.ServerPool{
 			{
 				PoolType: cluster.ServerPoolType_Master,
-				Cloud:    cluster.ServerPoolCloud_Amazon,
 				Name:     "amazon-master",
 				Networks: []*cluster.Network{
 					{
@@ -18,7 +18,6 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 			},
 			{
 				PoolType: cluster.ServerPoolType_Node,
-				Cloud:    cluster.ServerPoolCloud_Amazon,
 				Name:     "amazon-node",
 				Networks: []*cluster.Network{
 					{

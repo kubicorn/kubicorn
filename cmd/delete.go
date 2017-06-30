@@ -15,14 +15,13 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/kris-nova/kubicorn/state"
-	"github.com/kris-nova/kubicorn/state/stores"
-	"github.com/kris-nova/kubicorn/state/stores/fs"
+	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"os"
-	"fmt"
 )
 
 // deleteCmd represents the delete command
@@ -51,7 +50,7 @@ func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().StringVarP(&do.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "Cluster name to delete")
-	deleteCmd.Flags().BoolVarP(&do.Disable, "disable", "d", false, "Disable the state instead of destroying it. Will retain state store data.")
+	//deleteCmd.Flags().BoolVarP(&do.Disable, "disable", "d", false, "Disable the state instead of destroying it. Will retain state store data.")
 	RootCmd.AddCommand(deleteCmd)
 }
 
@@ -66,7 +65,7 @@ func RunDelete(options *DeleteOptions) error {
 	options.StateStorePath = expandPath(options.StateStorePath)
 
 	// Register state store
-	var stateStore stores.ClusterStorer
+	var stateStore state.ClusterStorer
 	switch options.StateStore {
 	case "fs":
 		logger.Info("Selected [fs] state store")
@@ -81,21 +80,15 @@ func RunDelete(options *DeleteOptions) error {
 		return nil
 	}
 
-	cluster, err := stateStore.GetCluster()
+	//cluster, err := stateStore.GetCluster()
+	//if err != nil {
+	//	return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
+	//}
+
+	err := stateStore.Destroy()
 	if err != nil {
-		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
+		return fmt.Errorf("Unable to destroy cluster: %v", err)
 	}
 
-	if options.Disable {
-		err := state.DisableStateStore(stateStore, cluster)
-		if err != nil {
-			return err
-		}
-	} else {
-		err := state.DestroyStateStore(stateStore, cluster)
-		if err != nil {
-			return err
-		}
-	}
 	return nil
 }

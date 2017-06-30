@@ -1,4 +1,4 @@
-package stores
+package state
 
 import "github.com/kris-nova/kubicorn/apis/cluster"
 

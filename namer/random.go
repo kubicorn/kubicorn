@@ -8,8 +8,8 @@ import (
 
 func RandomName() string {
 	adjl := len(adjectives)
-	wordl := len(words)
-	return fmt.Sprintf("%s-%s", adjectives[ran(1, adjl)], words[ran(1, wordl)])
+	nounl := len(nouns)
+	return fmt.Sprintf("%s-%s", adjectives[ran(1, adjl)], nouns[ran(1, nounl)])
 
 }
 
@@ -31,7 +31,7 @@ var adjectives = []string{
 	"ferocious",
 }
 
-var words = []string{
+var nouns = []string{
 	"unicorn",
 	"rainbow",
 	"painting",

@@ -49,7 +49,7 @@ func Execute() {
 func init() {
 	//flags here
 	RootCmd.PersistentFlags().IntVarP(&logger.Level, "verbose", "v", 2, "Log level")
-	RootCmd.PersistentFlags().BoolVarP(&logger.Color, "color", "c", true, "Toggle colorized logs")
+	RootCmd.PersistentFlags().BoolVarP(&logger.Color, "color", "C", true, "Toggle colorized logs")
 
 	// register env vars
 	registerEnvironmentalVariables()

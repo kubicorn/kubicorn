@@ -5,10 +5,11 @@ import (
 )
 
 type Cluster struct {
-	metav1.TypeMeta   `json:",inline"`
+	metav1.TypeMeta
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Name              string
 	ServerPools       []*ServerPool
+	Cloud             string
 }
 
 func NewCluster(name string) *Cluster {

@@ -7,8 +7,8 @@ import (
 type Cluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-
-	Name string
+	Cloud             string
+	Name              string
 }
 
 func NewCluster(name string) *Cluster {

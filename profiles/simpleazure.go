@@ -1,15 +1,16 @@
-package clustermap
+package profiles
 
 import "github.com/kris-nova/kubicorn/apis/cluster"
 
-func NewSimpleGoogleCluster(name string) *cluster.Cluster {
+func NewSimpleAzureCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
-		Name: name,
+		Name:  name,
+		Cloud: cluster.Cloud_Azure,
 		ServerPools: []*cluster.ServerPool{
 			{
 				PoolType: cluster.ServerPoolType_Master,
-				Cloud:    cluster.ServerPoolCloud_Google,
-				Name:     "google-master",
+				Name:     "azure-master",
+				Count:    1,
 				Networks: []*cluster.Network{
 					{
 						NetworkType: cluster.NetworkType_Public,
@@ -18,8 +19,8 @@ func NewSimpleGoogleCluster(name string) *cluster.Cluster {
 			},
 			{
 				PoolType: cluster.ServerPoolType_Node,
-				Cloud:    cluster.ServerPoolCloud_Google,
-				Name:     "google-node",
+				Name:     "azure-node",
+				Count:    3,
 				Networks: []*cluster.Network{
 					{
 						NetworkType: cluster.NetworkType_Public,

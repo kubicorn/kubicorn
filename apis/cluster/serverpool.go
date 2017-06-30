@@ -8,10 +8,10 @@ const (
 	ServerPoolType_Master     = "master"
 	ServerPoolType_Node       = "node"
 	ServerPoolType_Hybrid     = "hybrid"
-	ServerPoolCloud_Amazon    = "amazon"
-	ServerPoolCloud_Azure     = "azure"
-	ServerPoolCloud_Google    = "google"
-	ServerPoolCloud_Baremetal = "baremetal"
+	Cloud_Amazon    = "amazon"
+	Cloud_Azure     = "azure"
+	Cloud_Google    = "google"
+	Cloud_Baremetal = "baremetal"
 )
 
 type ServerPool struct {
@@ -21,6 +21,5 @@ type ServerPool struct {
 	Type              string
 	Name              string
 	PoolType          string
-	Cloud             string
 	Networks          []*Network
 }

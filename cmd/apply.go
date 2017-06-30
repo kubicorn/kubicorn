@@ -17,10 +17,10 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	"github.com/kris-nova/kubicorn/cloud"
+	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/logger"
-	"github.com/kris-nova/kubicorn/state/stores"
-	"github.com/kris-nova/kubicorn/state/stores/fs"
+	"github.com/kris-nova/kubicorn/state"
+	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -65,7 +65,7 @@ func RunApply(options *ApplyOptions) error {
 	options.StateStorePath = expandPath(options.StateStorePath)
 
 	// Register state store
-	var stateStore stores.ClusterStorer
+	var stateStore state.ClusterStorer
 	switch options.StateStore {
 	case "fs":
 		logger.Info("Selected [fs] state store")
@@ -80,5 +80,25 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 
-	return cloud.ApplyCluster(stateStore, cluster)
+	reconciler, err := cutil.GetReconciler(cluster)
+	if err != nil {
+		return fmt.Errorf("Unable to get reconciler: %v", err)
+	}
+
+	actualCluster, err := reconciler.GetActual(cluster)
+	if err != nil {
+		return fmt.Errorf("Unable to get actual cluster: %v", err)
+	}
+
+	expectedCluster, err := reconciler.GetExpected(cluster)
+	if err != nil {
+		return fmt.Errorf("Unable to get expected cluster: %v", err)
+	}
+
+	err = reconciler.Reconcile(actualCluster, expectedCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to reconcile cluster: %v", err)
+	}
+
+	return nil
 }
