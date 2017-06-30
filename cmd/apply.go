@@ -58,7 +58,7 @@ func RunApply(options *ApplyOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
-		return errors.New("Empty name. Must specify the name of the cluster to delete.")
+		return errors.New("Empty name. Must specify the name of the cluster to apply.")
 	}
 
 	// Expand state store path
@@ -79,22 +79,25 @@ func RunApply(options *ApplyOptions) error {
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
-
+	logger.Info("Loaded cluster: %s", cluster.Name)
 	reconciler, err := cutil.GetReconciler(cluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get reconciler: %v", err)
 	}
 
+	logger.Info("Loading actual")
 	actualCluster, err := reconciler.GetActual(cluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get actual cluster: %v", err)
 	}
 
+	logger.Info("Loading expected")
 	expectedCluster, err := reconciler.GetExpected(cluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get expected cluster: %v", err)
 	}
 
+	logger.Info("Reconciling")
 	err = reconciler.Reconcile(actualCluster, expectedCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to reconcile cluster: %v", err)
