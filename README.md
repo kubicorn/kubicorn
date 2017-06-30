@@ -32,17 +32,26 @@ A user defines the intended state of Kubernetes infrastructure, and `kubicorn` c
 
 # Supported Clouds
 
-<p align="center">
-  <img src="docs/img/aws.png" width="100"> </image>
+<p align="left">
+  <img src="docs/img/aws.png" width="200"> </image>
 </p>
 
-<p align="center">
-  <img src="docs/img/azure.png" width="100"> </image>
+ - Highly Available (HA)
+ - Public topology
+ - Private topology
+
+<p align="left">
+  <img src="docs/img/azure.png" width="200"> </image>
 </p>
 
-<p align="center">
-  <img src="docs/img/google.png" width="100"> </image>
+ - Public topology
+ - Private topology
+
+<p align="left">
+  <img src="docs/img/google.png" width="200"> </image>
 </p>
 
+ - Public topology
+ - Private topology
 
 
