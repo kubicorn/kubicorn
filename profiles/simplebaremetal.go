@@ -8,7 +8,7 @@ func NewSimpleBareMetal(name string) *cluster.Cluster {
 		Cloud: cluster.Cloud_Baremetal,
 		ServerPools: []*cluster.ServerPool{
 			{
-				PoolType: cluster.ServerPoolType_Hybrid,
+				Type: cluster.ServerPoolType_Hybrid,
 				Name:     "baremetal-hybrid",
 				Count:    1,
 				Networks: []*cluster.Network{

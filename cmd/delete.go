@@ -48,7 +48,7 @@ var do = &DeleteOptions{}
 
 func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().StringVarP(&do.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "Cluster name to delete")
 	//deleteCmd.Flags().BoolVarP(&do.Disable, "disable", "d", false, "Disable the state instead of destroying it. Will retain state store data.")
 	RootCmd.AddCommand(deleteCmd)

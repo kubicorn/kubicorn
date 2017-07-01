@@ -5,13 +5,9 @@ import (
 )
 
 const (
-	ServerPoolType_Master     = "master"
-	ServerPoolType_Node       = "node"
-	ServerPoolType_Hybrid     = "hybrid"
-	Cloud_Amazon    = "amazon"
-	Cloud_Azure     = "azure"
-	Cloud_Google    = "google"
-	Cloud_Baremetal = "baremetal"
+	ServerPoolType_Master = "master"
+	ServerPoolType_Node   = "node"
+	ServerPoolType_Hybrid = "hybrid"
 )
 
 type ServerPool struct {
@@ -20,6 +16,5 @@ type ServerPool struct {
 	Count             int
 	Type              string
 	Name              string
-	PoolType          string
 	Networks          []*Network
 }

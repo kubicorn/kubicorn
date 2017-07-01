@@ -16,11 +16,23 @@ func NewReconciler(expected *cluster.Cluster) cloud.Reconciler {
 }
 
 func (r *Reconciler) GetActual(known *cluster.Cluster) (*cluster.Cluster, error) {
-	return &cluster.Cluster{}, nil
+	if err := Graph.WalkInit(known); err != nil {
+		return nil, err
+	}
+	if err := Graph.WalkFind(); err != nil {
+		return nil, err
+	}
+	actual, err := Graph.RenderActual()
+	if err != nil {
+		return nil, err
+	}
+	return actual, nil
 }
+
 func (r *Reconciler) GetExpected(known *cluster.Cluster) (*cluster.Cluster, error) {
 	return &cluster.Cluster{}, nil
 }
+
 func (r *Reconciler) Reconcile(actual, expected *cluster.Cluster) error {
 	return nil
 }

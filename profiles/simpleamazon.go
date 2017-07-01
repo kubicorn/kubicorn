@@ -8,7 +8,7 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		Cloud: cluster.Cloud_Amazon,
 		ServerPools: []*cluster.ServerPool{
 			{
-				PoolType: cluster.ServerPoolType_Master,
+				Type: cluster.ServerPoolType_Master,
 				Name:     "amazon-master",
 				Networks: []*cluster.Network{
 					{
@@ -17,7 +17,7 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 				},
 			},
 			{
-				PoolType: cluster.ServerPoolType_Node,
+				Type: cluster.ServerPoolType_Node,
 				Name:     "amazon-node",
 				Networks: []*cluster.Network{
 					{
