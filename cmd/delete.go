@@ -1,4 +1,4 @@
-// Copyright © 2017 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2017 The Kubicorn Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,7 +28,13 @@ import (
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "Delete a Kubernetes cluster",
-	Long:  `Delete a Kubernetes cluster`,
+	Long: `Use this command to delete cloud resources.
+
+This command will attempt to build the resource graph based on an API model.
+Once the graph is built, the delete will attempt to delete the resources from the cloud.
+After the delete is complete, the state store will be left in tact and could potentially be applied later.
+
+To delete the resource AND the API model in the state store, use --purge.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		err := RunDelete(do)
 		if err != nil {
@@ -41,7 +47,7 @@ var deleteCmd = &cobra.Command{
 
 type DeleteOptions struct {
 	Options
-	Disable bool
+	Purge bool
 }
 
 var do = &DeleteOptions{}
@@ -50,7 +56,7 @@ func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().StringVarP(&do.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "Cluster name to delete")
-	//deleteCmd.Flags().BoolVarP(&do.Disable, "disable", "d", false, "Disable the state instead of destroying it. Will retain state store data.")
+	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 	RootCmd.AddCommand(deleteCmd)
 }
 

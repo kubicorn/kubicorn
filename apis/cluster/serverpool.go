@@ -16,5 +16,5 @@ type ServerPool struct {
 	Count             int
 	Type              string
 	Name              string
-	Networks          []*Network
+	Subnets           []*Subnet
 }

@@ -17,7 +17,8 @@ type Cluster struct {
 	Name              string
 	ServerPools       []*ServerPool
 	Cloud             string
-	NetworkIdentifier string
+	Location          string
+	Network           *Network
 }
 
 func NewCluster(name string) *Cluster {

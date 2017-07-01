@@ -1,4 +1,4 @@
-// Copyright © 2017 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2017 The Kubicorn Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,7 +29,10 @@ import (
 var applyCmd = &cobra.Command{
 	Use:   "apply",
 	Short: "Apply a cluster resource to a cloud",
-	Long:  `Apply a cluster resource to a cloud`,
+	Long: `Use this command to apply an API model in a cloud.
+
+This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
+The apply will run once, and ultimately time out if something goes wrong.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		err := RunApply(ao)
 		if err != nil {

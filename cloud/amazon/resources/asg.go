@@ -3,7 +3,6 @@ package resources
 import (
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
 	"github.com/kris-nova/kubicorn/logger"
 )
@@ -12,6 +11,7 @@ type Asg struct {
 	Resource
 	Actual   *autoscaling.Group
 	Expected *autoscaling.Group
+	Vpc      *Vpc
 }
 
 func (r *Asg) Find() error {
@@ -36,12 +36,11 @@ func (r *Asg) Apply() error {
 	return nil
 }
 
-func (r *Asg) Init(known *cluster.Cluster, sdk cloud.Sdk) error {
+func (r *Asg) Init(known *cluster.Cluster, sdk *awsSdkGo.Sdk) error {
 	r.Type = "asg"
-	r.Label = "kubicorn_asg_name"
-	r.Name = known.Name
-	r.Known = known
-	r.AwsSdk = sdk.(*awsSdkGo.Sdk)
+	r.Label = r.Name
+	r.KnownCluster = known
+	r.AwsSdk = sdk
 	logger.Debug("Loading AWS Resource [%s]", r.Type)
 	return nil
 }

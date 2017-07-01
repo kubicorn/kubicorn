@@ -7,11 +7,14 @@ import (
 )
 
 type Resource struct {
-	Type   string
-	Label  string
-	Name   string
-	AwsSdk *awsSdkGo.Sdk
-	Known  *cluster.Cluster
+	ID              string
+	Type            string
+	Label           string
+	Name            string
+	AwsSdk          *awsSdkGo.Sdk
+	KnownCluster    *cluster.Cluster
+	ActualCluster   *cluster.Cluster
+	ExpectedCluster *cluster.Cluster
 }
 
 func S(format string, a ...interface{}) *string {

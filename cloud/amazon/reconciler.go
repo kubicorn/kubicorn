@@ -3,6 +3,8 @@ package amazon
 import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
+	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
+	"github.com/kris-nova/kubicorn/cloud/amazon/resources"
 )
 
 type Reconciler struct {
@@ -15,24 +17,24 @@ func NewReconciler(expected *cluster.Cluster) cloud.Reconciler {
 	}
 }
 
+var actual = &cluster.Cluster{}
+var expected = &cluster.Cluster{}
+var vpc = &resources.Vpc{}
+
 func (r *Reconciler) GetActual(known *cluster.Cluster) (*cluster.Cluster, error) {
-	if err := Graph.WalkInit(known); err != nil {
-		return nil, err
-	}
-	if err := Graph.WalkFind(); err != nil {
-		return nil, err
-	}
-	actual, err := Graph.RenderActual()
+	sdk, err := awsSdkGo.NewSdk(known.Location)
 	if err != nil {
 		return nil, err
 	}
+	vpc.Init(known, actual, expected, sdk)
+	vpc.Parse()
 	return actual, nil
 }
 
 func (r *Reconciler) GetExpected(known *cluster.Cluster) (*cluster.Cluster, error) {
-	return &cluster.Cluster{}, nil
+	return expected, nil
 }
 
 func (r *Reconciler) Reconcile(actual, expected *cluster.Cluster) error {
-	return nil
+	return vpc.Apply()
 }

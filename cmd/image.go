@@ -12,10 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package cmd
 
-import "github.com/kris-nova/kubicorn/cmd"
+import (
+	"fmt"
 
-func main() {
-	cmd.Execute()
+	"github.com/spf13/cobra"
+)
+
+// imageCmd represents the image command
+var imageCmd = &cobra.Command{
+	Use:   "image",
+	Short: "Take an image of a Kubernetes cluster",
+	Long: `Use this command to image a Kubernetes cluster.
+
+This command will take an idempotent image of a Kubernetes cluster called a snapshot.
+The snapshot can be used to create a copy of your Kubernetes cluster.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		// TODO: Work your own magic here
+		fmt.Println("image called")
+	},
+}
+
+func init() {
+	RootCmd.AddCommand(imageCmd)
 }
