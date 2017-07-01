@@ -27,7 +27,9 @@ var cfgFile string
 var RootCmd = &cobra.Command{
 	Use:   "kubicorn",
 	Short: "Kubernetes cluster management, without any magic",
-	Long:  `Kubernetes cluster management, without any magic`,
+	Long: fmt.Sprintf(`
+%s
+`, Unicorn),
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
 	},

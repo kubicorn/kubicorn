@@ -43,7 +43,7 @@ var createCmd = &cobra.Command{
 
 type CreateOptions struct {
 	Options
-	ClusterMap string
+	Profile string
 }
 
 var co = &CreateOptions{}
@@ -52,7 +52,7 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
-	createCmd.Flags().StringVarP(&co.ClusterMap, "cloud", "c", strEnvDef("KUBICORN_CLOUD", "azure"), "The cluster profile to use")
+	createCmd.Flags().StringVarP(&co.Profile, "profile", "c", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 	RootCmd.AddCommand(createCmd)
 }
 
@@ -81,10 +81,10 @@ func RunCreate(options *CreateOptions) error {
 
 	// Create our cluster resource
 	var cluster *cluster.Cluster
-	if _, ok := alias[options.ClusterMap]; ok {
-		cluster = alias[options.ClusterMap](name)
+	if _, ok := alias[options.Profile]; ok {
+		cluster = alias[options.Profile](name)
 	} else {
-		return fmt.Errorf("Invalid clustermap [%s]", options.ClusterMap)
+		return fmt.Errorf("Invalid profile [%s]", options.Profile)
 	}
 
 	// Expand state store path
