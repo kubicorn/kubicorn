@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
@@ -86,14 +87,29 @@ func RunDelete(options *DeleteOptions) error {
 		return nil
 	}
 
-	//cluster, err := stateStore.GetCluster()
-	//if err != nil {
-	//	return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
-	//}
-
-	err := stateStore.Destroy()
+	cluster, err := stateStore.GetCluster()
 	if err != nil {
-		return fmt.Errorf("Unable to destroy cluster: %v", err)
+		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
+	}
+
+	reconciler, err := cutil.GetReconciler(cluster)
+	if err != nil {
+		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
+	}
+
+	if err = reconciler.Init(); err != nil {
+		return fmt.Errorf("Unable to init reconciler: %v", err)
+	}
+
+	if err := reconciler.Destroy(); err != nil {
+		return fmt.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
+	}
+
+	if options.Purge {
+		err := stateStore.Destroy()
+		if err != nil {
+			return fmt.Errorf("Unable to remove state store for cluster [%s]: %v", options.Name, err)
+		}
 	}
 
 	return nil

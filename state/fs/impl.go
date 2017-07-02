@@ -5,12 +5,12 @@ import (
 	"github.com/ghodss/yaml"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/logger"
+	"github.com/kris-nova/kubicorn/state"
 	"io"
 	"io/ioutil"
 	"os"
 	"path"
 	"strings"
-	"github.com/kris-nova/kubicorn/state"
 )
 
 type FileSystemStoreOptions struct {

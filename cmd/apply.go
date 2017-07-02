@@ -88,23 +88,25 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to get reconciler: %v", err)
 	}
 
-	logger.Info("Loading actual")
-	actualCluster, err := reconciler.GetActual(cluster)
-	if err != nil {
-		return fmt.Errorf("Unable to get actual cluster: %v", err)
-	}
-
-	logger.Info("Loading expected")
-	expectedCluster, err := reconciler.GetExpected(cluster)
-	if err != nil {
-		return fmt.Errorf("Unable to get expected cluster: %v", err)
+	if err := reconciler.Init(); err != nil {
+		return fmt.Errorf("Unable to init reconciler: %v", err)
 	}
 
 	logger.Info("Reconciling")
-	err = reconciler.Reconcile(actualCluster, expectedCluster)
+	err = reconciler.Reconcile()
 	if err != nil {
 		return fmt.Errorf("Unable to reconcile cluster: %v", err)
 	}
+
+	actual, err := reconciler.GetActual()
+	if err != nil {
+		return fmt.Errorf("Unable to get actual cluster to commit to state store: %v", err)
+	}
+	err = stateStore.Commit(actual)
+	if err != nil {
+		return fmt.Errorf("Unable to commit state store: %v", err)
+	}
+	logger.Info("Updating state store for cluster [%s]", options.Name)
 
 	return nil
 }

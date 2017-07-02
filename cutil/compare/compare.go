@@ -1,6 +1,7 @@
 package compare
 
 import (
+	"crypto/md5"
 	"encoding/json"
 	"github.com/kris-nova/kubicorn/logger"
 )
@@ -18,8 +19,10 @@ func Compare(a, b interface{}) bool {
 		return false
 	}
 
-	logger.Debug(string(abytes))
-	logger.Debug(string(bbytes))
+	ahash := md5.Sum(abytes)
+	bhash := md5.Sum(bbytes)
+	logger.Debug("A: %v", ahash)
+	logger.Debug("B: %v", bhash)
 
 	alen := len(abytes)
 	blen := len(bbytes)

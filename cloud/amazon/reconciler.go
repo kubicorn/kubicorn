@@ -8,12 +8,12 @@ import (
 )
 
 type Reconciler struct {
-	Expected *cluster.Cluster
+	Known *cluster.Cluster
 }
 
 func NewReconciler(expected *cluster.Cluster) cloud.Reconciler {
 	return &Reconciler{
-		Expected: expected,
+		Known: expected,
 	}
 }
 
@@ -21,20 +21,34 @@ var actual = &cluster.Cluster{}
 var expected = &cluster.Cluster{}
 var vpc = &resources.Vpc{}
 
-func (r *Reconciler) GetActual(known *cluster.Cluster) (*cluster.Cluster, error) {
-	sdk, err := awsSdkGo.NewSdk(known.Location)
+func (r *Reconciler) Init() error {
+	sdk, err := awsSdkGo.NewSdk(r.Known.Location)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	vpc.Init(known, actual, expected, sdk)
-	vpc.Parse()
-	return actual, nil
+	vpc.Init(r.Known, actual, expected, sdk)
+	err = vpc.Parse()
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
-func (r *Reconciler) GetExpected(known *cluster.Cluster) (*cluster.Cluster, error) {
-	return expected, nil
+func (r *Reconciler) GetActual() (*cluster.Cluster, error) {
+	vpc.Render()
+	return vpc.ActualCluster, nil
 }
 
-func (r *Reconciler) Reconcile(actual, expected *cluster.Cluster) error {
+func (r *Reconciler) GetExpected() (*cluster.Cluster, error) {
+	vpc.Render()
+	return vpc.ExpectedCluster, nil
+}
+
+func (r *Reconciler) Reconcile() error {
 	return vpc.Apply()
+}
+
+func (r *Reconciler) Destroy() error {
+	vpc.Render()
+	return vpc.Delete()
 }

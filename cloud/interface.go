@@ -5,7 +5,9 @@ import (
 )
 
 type Reconciler interface {
-	GetActual(known *cluster.Cluster) (*cluster.Cluster, error)
-	GetExpected(known *cluster.Cluster) (*cluster.Cluster, error)
-	Reconcile(actual, expected *cluster.Cluster) error
+	Init() error
+	GetActual() (*cluster.Cluster, error)
+	GetExpected() (*cluster.Cluster, error)
+	Reconcile() error
+	Destroy() error
 }

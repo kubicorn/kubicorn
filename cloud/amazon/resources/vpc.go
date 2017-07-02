@@ -35,7 +35,7 @@ func (r *Vpc) Parse() error {
 		}
 		lvpc := len(output.Vpcs)
 		if lvpc == 1 {
-			logger.Debug("Found %s [%s]", r.Type, r.Name)
+			logger.Debug("Found %s [%s]", r.Type, r.KnownCluster.Network.Identifier)
 			vpc = output.Vpcs[0]
 			actual.ID = *vpc.VpcId
 			actual.CIDR = *vpc.CidrBlock
@@ -61,6 +61,7 @@ func (r *Vpc) Parse() error {
 }
 
 func (r *Vpc) Apply() error {
+	logger.Debug("Compare: [%s]", r.Type)
 	if !compare.Compare(r.Actual, r.Expected) {
 		{
 			input := &ec2.CreateVpcInput{
@@ -81,8 +82,8 @@ func (r *Vpc) Apply() error {
 			for key, val := range r.Expected.Tags {
 				logger.Debug("Registering tag [%s] %s", key, val)
 				input.Tags = append(input.Tags, &ec2.Tag{
-					Key:   &key,
-					Value: &val,
+					Key:   S("%s", key),
+					Value: S("%s", val),
 				})
 			}
 			_, err := r.AwsSdk.Ec2.CreateTags(input)
@@ -90,6 +91,8 @@ func (r *Vpc) Apply() error {
 				return fmt.Errorf("Unable to tag new VPC: %v", err)
 			}
 		}
+	} else {
+		logger.Info("Unchanged resource: [%s]", r.Type)
 	}
 	return nil
 }
@@ -102,17 +105,38 @@ func (r *Vpc) Init(known, actual, expected *cluster.Cluster, sdk *awsSdkGo.Sdk) 
 	r.ActualCluster = actual
 	r.ExpectedCluster = expected
 	r.Tags = make(map[string]string)
-
 	r.AwsSdk = sdk
 	logger.Debug("Loading AWS Resource [%s]", r.Type)
 	return nil
 }
 
 func (r *Vpc) Render() error {
-	r.ExpectedCluster.Network.Identifier = r.Expected.ID
-	r.ExpectedCluster.Network.CIDR = r.Expected.CIDR
+	r.ExpectedCluster.Network = &cluster.Network{
+		Identifier: r.Expected.ID,
+		CIDR:       r.Expected.CIDR,
+	}
+	r.ExpectedCluster.Name = r.KnownCluster.Name
+	r.ExpectedCluster.Location = r.KnownCluster.Location
+	r.ExpectedCluster.Cloud = r.KnownCluster.Cloud
 
-	r.ActualCluster.Network.Identifier = r.Actual.ID
-	r.ActualCluster.Network.CIDR = r.Actual.CIDR
+	r.ActualCluster.Network = &cluster.Network{
+		Identifier: r.Actual.ID,
+		CIDR:       r.Actual.CIDR,
+	}
+	r.ActualCluster.Name = r.KnownCluster.Name
+	r.ActualCluster.Location = r.KnownCluster.Location
+	r.ActualCluster.Cloud = r.KnownCluster.Cloud
+	return nil
+}
+
+func (r *Vpc) Delete() error {
+	input := &ec2.DeleteVpcInput{
+		VpcId: &r.ActualCluster.Network.Identifier,
+	}
+	_, err := r.AwsSdk.Ec2.DeleteVpc(input)
+	if err != nil {
+		return err
+	}
+	logger.Info("Destroy resource: [%s] %s", r.ActualCluster.Network.Identifier, r.Type)
 	return nil
 }
