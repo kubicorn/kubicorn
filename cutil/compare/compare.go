@@ -21,8 +21,8 @@ func Compare(a, b interface{}) bool {
 
 	ahash := md5.Sum(abytes)
 	bhash := md5.Sum(bbytes)
-	logger.Debug("A: %v", ahash)
-	logger.Debug("B: %v", bhash)
+	logger.Debug("A: %x", ahash)
+	logger.Debug("B: %x", bhash)
 
 	alen := len(abytes)
 	blen := len(bbytes)

@@ -11,10 +11,11 @@ import (
 
 type Vpc struct {
 	Resource
-	Actual   *Vpc
-	Expected *Vpc
-	CIDR     string
-	Tags     map[string]string
+	Actual         *Vpc
+	Expected       *Vpc
+	CIDR           string
+	Tags           map[string]string
+	AssociatedAsgs []*Asg
 }
 
 func (r *Vpc) Parse() error {
@@ -57,6 +58,19 @@ func (r *Vpc) Parse() error {
 	expected.Tags["Name"] = r.Name
 	r.Expected = expected
 	r.Actual = actual
+
+	for _, serverPool := range r.KnownCluster.ServerPools {
+		asg := &Asg{
+			AssociatedServerPool: serverPool,
+		}
+		asg.Init(r.KnownCluster, r.AwsSdk)
+		err := asg.Parse()
+		if err != nil {
+			return fmt.Errorf("Unable to add associated ASG [%s]: %v", serverPool.Name, err)
+		}
+		r.Expected.AssociatedAsgs = append(r.Expected.AssociatedAsgs, asg)
+	}
+
 	return nil
 }
 
@@ -94,6 +108,14 @@ func (r *Vpc) Apply() error {
 	} else {
 		logger.Info("Unchanged resource: [%s]", r.Type)
 	}
+
+	for _, expectedAsg := range r.Expected.AssociatedAsgs {
+		err := expectedAsg.Apply()
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -119,6 +141,14 @@ func (r *Vpc) Render() error {
 	r.ExpectedCluster.Location = r.KnownCluster.Location
 	r.ExpectedCluster.Cloud = r.KnownCluster.Cloud
 
+	for _, expectedAsg := range r.Expected.AssociatedAsgs {
+		err := expectedAsg.Render()
+		if err != nil {
+			return err
+		}
+
+	}
+
 	r.ActualCluster.Network = &cluster.Network{
 		Identifier: r.Actual.ID,
 		CIDR:       r.Actual.CIDR,
@@ -126,6 +156,7 @@ func (r *Vpc) Render() error {
 	r.ActualCluster.Name = r.KnownCluster.Name
 	r.ActualCluster.Location = r.KnownCluster.Location
 	r.ActualCluster.Cloud = r.KnownCluster.Cloud
+
 	return nil
 }
 
@@ -138,5 +169,14 @@ func (r *Vpc) Delete() error {
 		return err
 	}
 	logger.Info("Destroy resource: [%s] %s", r.ActualCluster.Network.Identifier, r.Type)
+
+	for _, expectedAsg := range r.Expected.AssociatedAsgs {
+		err := expectedAsg.Delete()
+		if err != nil {
+			return err
+		}
+
+	}
+
 	return nil
 }
