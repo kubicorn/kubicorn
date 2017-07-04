@@ -3,36 +3,32 @@ package compare
 import (
 	"crypto/md5"
 	"encoding/json"
+	"fmt"
 	"github.com/kris-nova/kubicorn/logger"
 )
 
-func Compare(a, b interface{}) bool {
-
-	abytes, err := json.Marshal(a)
+func IsEqual(actual, expected interface{}) (bool, error) {
+	abytes, err := json.Marshal(actual)
 	if err != nil {
-		logger.Warning("Recoverable error comparing JSON: %v", err)
-		return false
+		return false, fmt.Errorf("Recoverable error comparing JSON: %v", err)
 	}
-	bbytes, err := json.Marshal(b)
+	ebytes, err := json.Marshal(expected)
 	if err != nil {
-		logger.Warning("Recoverable error comparing JSON: %v", err)
-		return false
+		return false, fmt.Errorf("Recoverable error comparing JSON: %v", err)
 	}
-
 	ahash := md5.Sum(abytes)
-	bhash := md5.Sum(bbytes)
-	logger.Debug("A: %x", ahash)
-	logger.Debug("B: %x", bhash)
-
+	ehash := md5.Sum(ebytes)
+	logger.Debug("Actual   : %x", ahash)
+	logger.Debug("Expected : %x", ehash)
 	alen := len(abytes)
-	blen := len(bbytes)
+	blen := len(ebytes)
 	if alen != blen {
-		return false
+		return false, nil
 	}
 	for i := 0; i < alen; i++ {
-		if abytes[i] != bbytes[i] {
-			return false
+		if abytes[i] != ebytes[i] {
+			return false, nil
 		}
 	}
-	return true
+	return true, nil
 }

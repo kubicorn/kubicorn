@@ -24,8 +24,9 @@ func (r *Reconciler) GetActual() (*cluster.Cluster, error) {
 func (r *Reconciler) GetExpected() (*cluster.Cluster, error) {
 	return &cluster.Cluster{}, nil
 }
-func (r *Reconciler) Reconcile() error {
-	return nil
+
+func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error) {
+	return nil, nil
 }
 func (r *Reconciler) Destroy() error {
 	return nil

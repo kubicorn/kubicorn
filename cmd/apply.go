@@ -91,18 +91,24 @@ func RunApply(options *ApplyOptions) error {
 	if err := reconciler.Init(); err != nil {
 		return fmt.Errorf("Unable to init reconciler: %v", err)
 	}
+	logger.Info("Query existing resources")
+	actual, err := reconciler.GetActual()
+	if err != nil {
+		return fmt.Errorf("Unable to get actual cluster: %v", err)
+	}
+	logger.Info("Resolving expected resources")
+	expected, err := reconciler.GetExpected()
+	if err != nil {
+		return fmt.Errorf("Unable to get expected cluster: %v", err)
+	}
 
 	logger.Info("Reconciling")
-	err = reconciler.Reconcile()
+	newCluster, err := reconciler.Reconcile(actual, expected)
 	if err != nil {
 		return fmt.Errorf("Unable to reconcile cluster: %v", err)
 	}
 
-	actual, err := reconciler.GetActual()
-	if err != nil {
-		return fmt.Errorf("Unable to get actual cluster to commit to state store: %v", err)
-	}
-	err = stateStore.Commit(actual)
+	err = stateStore.Commit(newCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to commit state store: %v", err)
 	}
