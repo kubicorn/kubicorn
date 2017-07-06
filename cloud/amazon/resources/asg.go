@@ -189,6 +189,7 @@ func (r *Asg) Tag(tags map[string]string) error {
 			Value:        S("%s", val),
 			ResourceType: S("auto-scaling-group"),
 			ResourceId:   &r.CloudID,
+			PropagateAtLaunch: B(true),
 		})
 	}
 	_, err := Sdk.ASG.CreateOrUpdateTags(tagInput)
