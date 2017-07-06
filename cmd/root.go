@@ -1,4 +1,4 @@
-// Copyright © 2017 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2017 The Kubicorn Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@ var RootCmd = &cobra.Command{
 	Long: fmt.Sprintf(`
 %s
 `, Unicorn),
-	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
-	},
+	//Run: func(cmd *cobra.Command, args []string) {
+	//	cmd.Help()
+	//},
 }
 
 type Options struct {

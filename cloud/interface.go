@@ -5,7 +5,18 @@ import (
 )
 
 type Reconciler interface {
-	GetActual(*cluster.Cluster) (*cluster.Cluster, error)
-	GetExpected(cluster *cluster.Cluster) (*cluster.Cluster, error)
-	Reconcile(actual, expected *cluster.Cluster) error
+	Init() error
+	GetActual() (*cluster.Cluster, error)
+	GetExpected() (*cluster.Cluster, error)
+	Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error)
+	Destroy() error
+}
+
+type Resource interface {
+	Actual(known *cluster.Cluster) (Resource, error)
+	Expected(known *cluster.Cluster) (Resource, error)
+	Apply(actual, expected Resource, expectedCluster *cluster.Cluster) (Resource, error)
+	Delete(actual Resource) error
+	Render(renderResource Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error)
+	Tag(tags map[string]string) error
 }

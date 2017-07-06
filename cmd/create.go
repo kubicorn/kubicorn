@@ -1,4 +1,4 @@
-// Copyright © 2017 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2017 The Kubicorn Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,8 +29,12 @@ import (
 
 var createCmd = &cobra.Command{
 	Use:   "create",
-	Short: "Create a Kubernetes cluster",
-	Long:  `Create a Kubernetes cluster`,
+	Short: "Create a Kubicorn API model from a profile",
+	Long:  `Use this command to create a Kubicorn API model in a defined state store.
+
+This command will create a cluster API model as a YAML manifest in a state store.
+Once the API model has been created, a user can optionally change the model to their liking.
+After a model is defined and configured properly, the user can then apply the model.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		err := RunCreate(co)
 		if err != nil {
@@ -50,9 +54,9 @@ var co = &CreateOptions{}
 
 func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
-	createCmd.Flags().StringVarP(&co.Profile, "profile", "c", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
+	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 	RootCmd.AddCommand(createCmd)
 }
 

@@ -1,0 +1,144 @@
+package resources
+
+import (
+	"fmt"
+	"github.com/aws/aws-sdk-go/service/autoscaling"
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/cloud"
+	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/logger"
+)
+
+type Lc struct {
+	Shared
+	InstanceType string
+	Image        string
+	ServerPool   *cluster.ServerPool
+}
+
+func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+	logger.Debug("lc.Actual")
+	if r.CachedActual != nil {
+		logger.Debug("Using cached LC [actual]")
+		return r.CachedActual, nil
+	}
+	actual := &Lc{
+		Shared: Shared{
+			Name:        r.Name,
+			Tags:        make(map[string]string),
+			TagResource: r.TagResource,
+		},
+	}
+
+	if r.ServerPool.Identifier != "" {
+		lcInput := &autoscaling.DescribeLaunchConfigurationsInput{
+			LaunchConfigurationNames: []*string{&r.Name},
+		}
+		lcOutput, err := Sdk.ASG.DescribeLaunchConfigurations(lcInput)
+		if err != nil {
+			return nil, err
+		}
+		llc := len(lcOutput.LaunchConfigurations)
+		if llc != 1 {
+			return nil, fmt.Errorf("Found [%d] Launch Configurations for ID [%s]", llc, known.Network.Identifier)
+		}
+		lc := lcOutput.LaunchConfigurations[0]
+		actual.Image = *lc.ImageId
+		actual.InstanceType = *lc.InstanceType
+	}
+	r.CachedActual = actual
+	return actual, nil
+}
+
+func (r *Lc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+	logger.Debug("asg.Expected")
+	if r.CachedExpected != nil {
+		logger.Debug("Using cached ASG [expected]")
+		return r.CachedExpected, nil
+	}
+	expected := &Lc{
+		Shared: Shared{
+			Tags: map[string]string{
+				"Name":              r.Name,
+				"KubernetesCluster": known.Name,
+			},
+			CloudID:     known.Network.Identifier,
+			Name:        r.Name,
+			TagResource: r.TagResource,
+		},
+		InstanceType: r.ServerPool.Size,
+		Image:        r.ServerPool.Image,
+	}
+	r.CachedExpected = expected
+	return expected, nil
+}
+
+func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+	logger.Debug("lc.Apply")
+	applyResource := expected.(*Lc)
+	isEqual, err := compare.IsEqual(actual.(*Lc), expected.(*Lc))
+	if err != nil {
+		return nil, err
+	}
+	if isEqual {
+		return applyResource, nil
+	}
+	newResource := &Lc{}
+	lcInput := &autoscaling.CreateLaunchConfigurationInput{
+		//AssociatePublicIpAddress: B(true),
+		LaunchConfigurationName: &r.Name,
+		ImageId:                 &expected.(*Lc).Image,
+		InstanceType:            &expected.(*Lc).InstanceType,
+	}
+	_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
+	if err != nil {
+		return nil, err
+	}
+	logger.Info("Created Launch Configuration [%s]", r.Name)
+	newResource.Image = expected.(*Lc).Image
+	newResource.InstanceType = expected.(*Lc).InstanceType
+	newResource.Name = applyResource.Name
+	return newResource, nil
+}
+
+func (r *Lc) Delete(actual cloud.Resource) error {
+	logger.Debug("lc.Delete")
+	deleteResource := actual.(*Asg)
+	if deleteResource.CloudID == "" {
+		return fmt.Errorf("Unable to delete Launch Configuration resource without ID [%s]", deleteResource.Name)
+	}
+	input := &autoscaling.DeleteLaunchConfigurationInput{
+		LaunchConfigurationName: &r.Name,
+	}
+	_, err := Sdk.ASG.DeleteLaunchConfiguration(input)
+	if err != nil {
+		return err
+	}
+	logger.Info("Deleted Launch Configuration [%s]", &actual.(*Asg).CloudID)
+	return nil
+}
+
+func (r *Lc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+	logger.Debug("lc.Render")
+	serverPool := &cluster.ServerPool{}
+	serverPool.Image = renderResource.(*Lc).Image
+	serverPool.Size = renderResource.(*Lc).InstanceType
+	serverPool.Name = renderResource.(*Lc).Name
+	found := false
+	for i := 0; i < len(renderCluster.ServerPools); i++ {
+		if renderCluster.ServerPools[i].Name == renderResource.(*Lc).Name {
+			renderCluster.ServerPools[i].Image = renderResource.(*Lc).Image
+			renderCluster.ServerPools[i].Size = renderResource.(*Lc).InstanceType
+			found = true
+		}
+	}
+	if !found {
+		renderCluster.ServerPools = append(renderCluster.ServerPools, serverPool)
+	}
+	return renderCluster, nil
+}
+
+func (r *Lc) Tag(tags map[string]string) error {
+	// Todo tag on another resource
+	return nil
+}

@@ -8,22 +8,12 @@ func NewSimpleGoogleCluster(name string) *cluster.Cluster {
 		Cloud: cluster.Cloud_Google,
 		ServerPools: []*cluster.ServerPool{
 			{
-				PoolType: cluster.ServerPoolType_Master,
-				Name:     "google-master",
-				Networks: []*cluster.Network{
-					{
-						NetworkType: cluster.NetworkType_Public,
-					},
-				},
+				Type: cluster.ServerPoolType_Master,
+				Name: "google-master",
 			},
 			{
-				PoolType: cluster.ServerPoolType_Node,
-				Name:     "google-node",
-				Networks: []*cluster.Network{
-					{
-						NetworkType: cluster.NetworkType_Public,
-					},
-				},
+				Type: cluster.ServerPoolType_Node,
+				Name: "google-node",
 			},
 		},
 	}

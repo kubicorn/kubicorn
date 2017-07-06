@@ -5,21 +5,20 @@ import (
 )
 
 const (
-	ServerPoolType_Master     = "master"
-	ServerPoolType_Node       = "node"
-	ServerPoolType_Hybrid     = "hybrid"
-	Cloud_Amazon    = "amazon"
-	Cloud_Azure     = "azure"
-	Cloud_Google    = "google"
-	Cloud_Baremetal = "baremetal"
+	ServerPoolType_Master = "master"
+	ServerPoolType_Node   = "node"
+	ServerPoolType_Hybrid = "hybrid"
 )
 
 type ServerPool struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Count             int
+	Identifier        string
+	MinCount          int
+	MaxCount          int
 	Type              string
 	Name              string
-	PoolType          string
-	Networks          []*Network
+	Image             string
+	Size              string
+	Subnets           []*Subnet
 }

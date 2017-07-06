@@ -1,4 +1,4 @@
-// Copyright © 2017 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2017 The Kubicorn Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,7 +29,10 @@ import (
 var applyCmd = &cobra.Command{
 	Use:   "apply",
 	Short: "Apply a cluster resource to a cloud",
-	Long:  `Apply a cluster resource to a cloud`,
+	Long: `Use this command to apply an API model in a cloud.
+
+This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
+The apply will run once, and ultimately time out if something goes wrong.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		err := RunApply(ao)
 		if err != nil {
@@ -49,7 +52,7 @@ var ao = &ApplyOptions{}
 func init() {
 	RootCmd.AddCommand(applyCmd)
 	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "p", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	applyCmd.Flags().StringVarP(&ao.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 }
 
@@ -85,23 +88,31 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to get reconciler: %v", err)
 	}
 
-	logger.Info("Loading actual")
-	actualCluster, err := reconciler.GetActual(cluster)
+	if err := reconciler.Init(); err != nil {
+		return fmt.Errorf("Unable to init reconciler: %v", err)
+	}
+	logger.Info("Query existing resources")
+	actual, err := reconciler.GetActual()
 	if err != nil {
 		return fmt.Errorf("Unable to get actual cluster: %v", err)
 	}
-
-	logger.Info("Loading expected")
-	expectedCluster, err := reconciler.GetExpected(cluster)
+	logger.Info("Resolving expected resources")
+	expected, err := reconciler.GetExpected()
 	if err != nil {
 		return fmt.Errorf("Unable to get expected cluster: %v", err)
 	}
 
 	logger.Info("Reconciling")
-	err = reconciler.Reconcile(actualCluster, expectedCluster)
+	newCluster, err := reconciler.Reconcile(actual, expected)
 	if err != nil {
 		return fmt.Errorf("Unable to reconcile cluster: %v", err)
 	}
+
+	err = stateStore.Commit(newCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to commit state store: %v", err)
+	}
+	logger.Info("Updating state store for cluster [%s]", options.Name)
 
 	return nil
 }
