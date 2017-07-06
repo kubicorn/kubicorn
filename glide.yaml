@@ -1,7 +1,7 @@
 package: github.com/kris-nova/kubicorn
 import:
 - package: github.com/aws/aws-sdk-go
-  version: ~1.10.6
+  version: v1.10.7
   subpackages:
   - aws
   - aws/session
@@ -9,11 +9,11 @@ import:
   - service/ec2
   - service/s3
 - package: github.com/fatih/color
-  version: ~1.5.0
+  version: v1.5.0
 - package: github.com/ghodss/yaml
-  version: ~1.0.0
+  version: v1.0.0
 - package: github.com/pkg/errors
-  version: ~0.8.0
+  version: v0.8.0
 - package: github.com/spf13/cobra
 - package: k8s.io/apimachinery
   subpackages:
