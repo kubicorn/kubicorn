@@ -57,7 +57,8 @@ func (r *Vpc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 	expected := &Vpc{
 		Shared: Shared{
 			Tags: map[string]string{
-				"Name": r.Name,
+				"Name":              r.Name,
+				"KubernetesCluster": known.Name,
 			},
 			CloudID: known.Network.Identifier,
 			Name:    r.Name,
@@ -67,11 +68,8 @@ func (r *Vpc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 	r.CachedExpected = expected
 	return expected, nil
 }
-func (r *Vpc) Apply(actual, expected cloud.Resource) (cloud.Resource, error) {
+func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("vpc.Apply")
-	if r.CachedExpected == nil || r.CachedActual == nil {
-		return nil, fmt.Errorf("Unable to call Vpc.Apply() without first calling Actual(), Expected()")
-	}
 	applyResource := expected.(*Vpc)
 	isEqual, err := compare.IsEqual(actual.(*Vpc), expected.(*Vpc))
 	if err != nil {
@@ -117,15 +115,9 @@ func (r *Vpc) Delete(actual cloud.Resource) error {
 
 func (r *Vpc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("vpc.Render")
-	if renderResource.(*Vpc).CIDR != "" {
-		renderCluster.Network.CIDR = renderResource.(*Vpc).CIDR
-	}
-	if renderResource.(*Vpc).CloudID != "" {
-		renderCluster.Network.Identifier = renderResource.(*Vpc).CloudID
-	}
-	if renderResource.(*Vpc).Name != "" {
-		renderCluster.Network.Name = renderResource.(*Vpc).Name
-	}
+	renderCluster.Network.CIDR = renderResource.(*Vpc).CIDR
+	renderCluster.Network.Identifier = renderResource.(*Vpc).CloudID
+	renderCluster.Network.Name = renderResource.(*Vpc).Name
 	return renderCluster, nil
 }
 

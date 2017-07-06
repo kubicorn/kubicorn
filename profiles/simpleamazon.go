@@ -13,8 +13,12 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		},
 		ServerPools: []*cluster.ServerPool{
 			{
-				Type: cluster.ServerPoolType_Master,
-				Name: "amazon-master",
+				Type:     cluster.ServerPoolType_Master,
+				Name:     "amazon-master",
+				MaxCount: 2,
+				MinCount: 2,
+				Image:    "ami-835b4efa",
+				Size:     "t2.nano",
 				Subnets: []*cluster.Subnet{
 					{
 						CIDR:     "10.0.0.0/24",
@@ -23,8 +27,12 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 				},
 			},
 			{
-				Type: cluster.ServerPoolType_Node,
-				Name: "amazon-node",
+				Type:     cluster.ServerPoolType_Node,
+				Name:     "amazon-node",
+				MaxCount: 2,
+				MinCount: 2,
+				Image:    "ami-835b4efa",
+				Size:     "t2.nano",
 				Subnets: []*cluster.Subnet{
 					{
 						CIDR:     "10.0.100.0/24",

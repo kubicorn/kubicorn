@@ -13,8 +13,12 @@ const (
 type ServerPool struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Count             int
+	Identifier        string
+	MinCount          int
+	MaxCount          int
 	Type              string
 	Name              string
+	Image             string
+	Size              string
 	Subnets           []*Subnet
 }

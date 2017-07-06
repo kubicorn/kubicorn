@@ -10,7 +10,8 @@ func NewSimpleBareMetal(name string) *cluster.Cluster {
 			{
 				Type:  cluster.ServerPoolType_Hybrid,
 				Name:  "baremetal-hybrid",
-				Count: 1,
+				MaxCount: 2,
+				MinCount: 2,
 			},
 		},
 	}

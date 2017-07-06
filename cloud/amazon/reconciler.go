@@ -17,7 +17,7 @@ func NewReconciler(expected *cluster.Cluster) cloud.Reconciler {
 	}
 }
 
-var model map[string]cloud.Resource
+var model map[int]cloud.Resource
 
 func (r *Reconciler) Init() error {
 	sdk, err := awsSdkGo.NewSdk(r.Known.Location)
@@ -31,7 +31,8 @@ func (r *Reconciler) Init() error {
 
 func (r *Reconciler) GetActual() (*cluster.Cluster, error) {
 	actualCluster := newClusterDefaults(r.Known)
-	for _, resource := range model {
+	for i := 0; i < len(model); i++ {
+		resource := model[i]
 		actualResource, err := resource.Actual(r.Known)
 		if err != nil {
 			return nil, err
@@ -46,7 +47,8 @@ func (r *Reconciler) GetActual() (*cluster.Cluster, error) {
 
 func (r *Reconciler) GetExpected() (*cluster.Cluster, error) {
 	expectedCluster := newClusterDefaults(r.Known)
-	for _, resource := range model {
+	for i := 0; i < len(model); i++ {
+		resource := model[i]
 		expectedResource, err := resource.Expected(r.Known)
 		if err != nil {
 			return nil, err
@@ -61,7 +63,8 @@ func (r *Reconciler) GetExpected() (*cluster.Cluster, error) {
 
 func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	newCluster := newClusterDefaults(r.Known)
-	for _, resource := range model {
+	for i := 0; i < len(model); i++ {
+		resource := model[i]
 		expectedResource, err := resource.Expected(expectedCluster)
 		if err != nil {
 			return nil, err
@@ -70,7 +73,7 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 		if err != nil {
 			return nil, err
 		}
-		appliedResource, err := resource.Apply(actualResource, expectedResource)
+		appliedResource, err := resource.Apply(actualResource, expectedResource, newCluster)
 		if err != nil {
 			return nil, err
 		}
@@ -83,7 +86,8 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 }
 
 func (r *Reconciler) Destroy() error {
-	for _, resource := range model {
+	for i := 0; i < len(model); i++ {
+		resource := model[i]
 		actualResource, err := resource.Actual(r.Known)
 		if err != nil {
 			return err
