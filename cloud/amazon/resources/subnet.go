@@ -34,7 +34,7 @@ func (r *Subnet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 
 	if r.ClusterSubnet.Identifier != "" {
 		input := &ec2.DescribeSubnetsInput{
-			SubnetIds: []*string{S(r.CloudID)},
+			SubnetIds: []*string{S(r.ClusterSubnet.Identifier)},
 		}
 		output, err := Sdk.Ec2.DescribeSubnets(input)
 		if err != nil {
@@ -42,7 +42,7 @@ func (r *Subnet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		lsn := len(output.Subnets)
 		if lsn != 1 {
-			return nil, fmt.Errorf("Found [%d] Subnets for ID [%s]", lsn, known.Network.Identifier)
+			return nil, fmt.Errorf("Found [%d] Subnets for ID [%s]", lsn, r.ClusterSubnet.Identifier)
 		}
 		subnet := output.Subnets[0]
 		actual.CIDR = *subnet.CidrBlock
@@ -118,12 +118,14 @@ func (r *Subnet) Delete(actual cloud.Resource) error {
 		return fmt.Errorf("Unable to delete subnet resource without ID [%s]", deleteResource.Name)
 	}
 
-	input := &ec2.DeleteSubnetInput{}
+	input := &ec2.DeleteSubnetInput{
+		SubnetId: &actual.(*Subnet).CloudID,
+	}
 	_, err := Sdk.Ec2.DeleteSubnet(input)
 	if err != nil {
 		return err
 	}
-	logger.Info("Deleted subnet [%s]", &actual.(*Subnet).CloudID)
+	logger.Info("Deleted subnet [%s]", actual.(*Subnet).CloudID)
 	return nil
 }
 

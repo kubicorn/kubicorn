@@ -5,6 +5,7 @@ import (
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
 	"github.com/kris-nova/kubicorn/cloud/amazon/resources"
+	"github.com/kris-nova/kubicorn/logger"
 )
 
 type Reconciler struct {
@@ -86,7 +87,7 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 }
 
 func (r *Reconciler) Destroy() error {
-	for i := 0; i < len(model); i++ {
+	for i := len(model) -1; i >= 0; i-- {
 		resource := model[i]
 		actualResource, err := resource.Actual(r.Known)
 		if err != nil {
@@ -94,7 +95,9 @@ func (r *Reconciler) Destroy() error {
 		}
 		err = resource.Delete(actualResource)
 		if err != nil {
-			return err
+			logger.Warning("Delete Failure: %v Retrying", err)
+			i++
+			continue
 		}
 	}
 	return nil

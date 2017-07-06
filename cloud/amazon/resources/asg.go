@@ -35,7 +35,7 @@ func (r *Asg) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 
 	if r.ServerPool.Identifier != "" {
 		input := &autoscaling.DescribeAutoScalingGroupsInput{
-			AutoScalingGroupNames: []*string{S(r.CloudID)},
+			AutoScalingGroupNames: []*string{S(r.ServerPool.Identifier)},
 		}
 		output, err := Sdk.ASG.DescribeAutoScalingGroups(input)
 		if err != nil {
@@ -43,7 +43,7 @@ func (r *Asg) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		lasg := len(output.AutoScalingGroups)
 		if lasg != 1 {
-			return nil, fmt.Errorf("Found [%d] VPCs for ID [%s]", lasg, known.Network.Identifier)
+			return nil, fmt.Errorf("Found [%d] ASGs for ID [%s]", lasg, r.ServerPool.Identifier)
 		}
 		asg := output.AutoScalingGroups[0]
 		for _, tag := range asg.Tags {
@@ -53,6 +53,8 @@ func (r *Asg) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		actual.MaxCount = int(*asg.MaxSize)
 		actual.MinCount = int(*asg.MinSize)
+		actual.CloudID = *asg.AutoScalingGroupName
+		actual.Name = *asg.AutoScalingGroupName
 	}
 	r.CachedActual = actual
 	return actual, nil
@@ -107,8 +109,8 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	newResource := &Asg{}
 	input := &autoscaling.CreateAutoScalingGroupInput{
 		AutoScalingGroupName:    &r.Name,
-		MinSize:                 I64(r.MinCount),
-		MaxSize:                 I64(r.MaxCount),
+		MinSize:                 I64(expected.(*Asg).MinCount),
+		MaxSize:                 I64(expected.(*Asg).MaxCount),
 		LaunchConfigurationName: &r.Name,
 		VPCZoneIdentifier:       &subnetId,
 	}
@@ -139,13 +141,14 @@ func (r *Asg) Delete(actual cloud.Resource) error {
 	// Delete ASG API
 
 	input := &autoscaling.DeleteAutoScalingGroupInput{
-		AutoScalingGroupName: &actual.(*Asg).Name,
+		AutoScalingGroupName: &actual.(*Asg).CloudID,
+		ForceDelete: B(true),
 	}
 	_, err := Sdk.ASG.DeleteAutoScalingGroup(input)
 	if err != nil {
 		return err
 	}
-	logger.Info("Deleted ASG [%s]", &actual.(*Asg).CloudID)
+	logger.Info("Deleted ASG [%s]", actual.(*Asg).CloudID)
 	return nil
 }
 
@@ -162,6 +165,7 @@ func (r *Asg) Render(renderResource cloud.Resource, renderCluster *cluster.Clust
 		if renderCluster.ServerPools[i].Name == renderResource.(*Asg).Name {
 			renderCluster.ServerPools[i].MaxCount = renderResource.(*Asg).MaxCount
 			renderCluster.ServerPools[i].MinCount = renderResource.(*Asg).MinCount
+			renderCluster.ServerPools[i].Name = renderResource.(*Asg).Name
 			renderCluster.ServerPools[i].Identifier = renderResource.(*Asg).CloudID
 			found = true
 		}

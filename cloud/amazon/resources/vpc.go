@@ -109,7 +109,7 @@ func (r *Vpc) Delete(actual cloud.Resource) error {
 	if err != nil {
 		return err
 	}
-	logger.Info("Deleted VPC [%s]", &actual.(*Vpc).CloudID)
+	logger.Info("Deleted VPC [%s]", actual.(*Vpc).CloudID)
 	return nil
 }
 

@@ -1,7 +1,6 @@
 package amazon
 
 import (
-	"fmt"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/amazon/resources"
@@ -22,8 +21,7 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 	i++
 
 	for _, serverPool := range known.ServerPools {
-
-		name := fmt.Sprintf("%s-%s", known.Name, serverPool.Name)
+		name := serverPool.Name
 		for _, subnet := range serverPool.Subnets {
 			r[i] = &resources.Subnet{
 				Shared: resources.Shared{

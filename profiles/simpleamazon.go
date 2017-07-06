@@ -1,6 +1,9 @@
 package profiles
 
-import "github.com/kris-nova/kubicorn/apis/cluster"
+import (
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"fmt"
+)
 
 func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
@@ -14,9 +17,9 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		ServerPools: []*cluster.ServerPool{
 			{
 				Type:     cluster.ServerPoolType_Master,
-				Name:     "amazon-master",
-				MaxCount: 2,
-				MinCount: 2,
+				Name:     fmt.Sprintf("%s.amazon-master", name),
+				MaxCount: 1,
+				MinCount: 1,
 				Image:    "ami-835b4efa",
 				Size:     "t2.nano",
 				Subnets: []*cluster.Subnet{
@@ -28,9 +31,9 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 			},
 			{
 				Type:     cluster.ServerPoolType_Node,
-				Name:     "amazon-node",
-				MaxCount: 2,
-				MinCount: 2,
+				Name:     fmt.Sprintf("%s.amazon-nodes", name),
+				MaxCount: 1,
+				MinCount: 1,
 				Image:    "ami-835b4efa",
 				Size:     "t2.nano",
 				Subnets: []*cluster.Subnet{
