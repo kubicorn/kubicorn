@@ -30,9 +30,9 @@ var RootCmd = &cobra.Command{
 	Long: fmt.Sprintf(`
 %s
 `, Unicorn),
-	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
-	},
+	//Run: func(cmd *cobra.Command, args []string) {
+	//	cmd.Help()
+	//},
 }
 
 type Options struct {
