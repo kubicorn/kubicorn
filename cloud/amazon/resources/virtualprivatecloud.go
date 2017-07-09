@@ -96,7 +96,7 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	newResource.Name = applyResource.Name
 	return newResource, nil
 }
-func (r *Vpc) Delete(actual cloud.Resource) error {
+func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("vpc.Delete")
 	deleteResource := actual.(*Vpc)
 	if deleteResource.CloudID == "" {

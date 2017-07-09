@@ -72,7 +72,7 @@ func cleanUp(cluster *cluster.Cluster, i int) error {
 	for j := i - 1; j >= 0; j-- {
 		resource := model[j]
 		createdResource := createdResources[j]
-		err := resource.Delete(createdResource)
+		err := resource.Delete(createdResource, cluster)
 		if err != nil {
 			err, j = destroyI(err, j)
 			if err != nil {
@@ -149,7 +149,7 @@ func (r *Reconciler) Destroy() error {
 			}
 			continue
 		}
-		err = resource.Delete(actualResource)
+		err = resource.Delete(actualResource, r.Known)
 		if err != nil {
 			err, i = destroyI(err, i)
 			if err != nil {

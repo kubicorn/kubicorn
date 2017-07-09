@@ -100,7 +100,7 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	newResource.Name = expected.(*KeyPair).Name
 	return newResource, nil
 }
-func (r *KeyPair) Delete(actual cloud.Resource) error {
+func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("keypair.Delete")
 	deleteResource := actual.(*KeyPair)
 	if deleteResource.CloudID == "" {

@@ -10,6 +10,15 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 	r := make(map[int]cloud.Resource)
 	i := 0
 
+	// ---- [Key Pair] ----
+	r[i] = &resources.KeyPair{
+		Shared: resources.Shared{
+			Name: known.Name,
+			Tags: make(map[string]string),
+		},
+	}
+	i++
+
 	// ---- [VPC] ----
 	r[i] = &resources.Vpc{
 		Shared: resources.Shared{
@@ -18,15 +27,6 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 		},
 	}
 	vpcIndex := i
-	i++
-
-	// ---- [Key Pair] ----
-	r[i] = &resources.KeyPair{
-		Shared: resources.Shared{
-			Name: known.Name,
-			Tags: make(map[string]string),
-		},
-	}
 	i++
 
 	// ---- [Internet Gateway] ----

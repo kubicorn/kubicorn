@@ -86,7 +86,6 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *c
 	if isEqual {
 		return applyResource, nil
 	}
-
 	input := &ec2.CreateInternetGatewayInput{}
 	output, err := Sdk.Ec2.CreateInternetGateway(input)
 	if err != nil {
@@ -105,7 +104,6 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *c
 		return nil, err
 	}
 	logger.Info("Attaching Internet Gateway [%s] to VPC [%s]", *ig.InternetGatewayId, applyCluster.Network.Identifier)
-
 	newResource := &InternetGateway{
 		Shared: Shared{
 			Tags: make(map[string]string),
@@ -123,12 +121,15 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *c
 	}
 	return newResource, nil
 }
-func (r *InternetGateway) Delete(actual cloud.Resource) error {
+
+
+func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("internetgateway.Delete")
 	deleteResource := actual.(*InternetGateway)
 	if deleteResource.CloudID == "" {
 		return fmt.Errorf("Unable to delete internetgateway resource without ID [%s]", deleteResource.Name)
 	}
+
 	input := &ec2.DescribeInternetGatewaysInput{
 		Filters: []*ec2.Filter{
 			{
@@ -136,16 +137,30 @@ func (r *InternetGateway) Delete(actual cloud.Resource) error {
 				Values: []*string{S(r.Name)},
 			},
 		},
+
 	}
 	output, err := Sdk.Ec2.DescribeInternetGateways(input)
 	if err != nil {
 		return err
 	}
 	lsn := len(output.InternetGateways)
+	if lsn == 0 {
+		return nil
+	}
 	if lsn != 1 {
 		return fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, r.Name)
 	}
 	ig := output.InternetGateways[0]
+
+	detinput := &ec2.DetachInternetGatewayInput{
+		InternetGatewayId: ig.InternetGatewayId,
+		VpcId:             &known.Network.Identifier,
+	}
+	_, err = Sdk.Ec2.DetachInternetGateway(detinput)
+	if err != nil {
+		return err
+	}
+
 	delinput := &ec2.DeleteInternetGatewayInput{
 		InternetGatewayId: ig.InternetGatewayId,
 	}

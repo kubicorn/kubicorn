@@ -167,17 +167,42 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, applyCluster *cluste
 	newResource.Name = expected.(*RouteTable).Name
 	return newResource, nil
 }
-func (r *RouteTable) Delete(actual cloud.Resource) error {
+func (r *RouteTable) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("routetable.Delete")
 	deleteResource := actual.(*RouteTable)
 	if deleteResource.CloudID == "" {
 		return fmt.Errorf("Unable to delete routetable resource without ID [%s]", deleteResource.Name)
 	}
-
-	input := &ec2.DeleteRouteTableInput{
-		RouteTableId: &actual.(*RouteTable).CloudID,
+	input := &ec2.DescribeRouteTablesInput{
+		Filters: []*ec2.Filter{
+			{
+				Name:   S("tag:kubicorn-route-table-subnet-pair"),
+				Values: []*string{S(r.ClusterSubnet.Name)},
+			},
+		},
 	}
-	_, err := Sdk.Ec2.DeleteRouteTable(input)
+	output, err := Sdk.Ec2.DescribeRouteTables(input)
+	if err != nil {
+		return err
+	}
+	llc := len(output.RouteTables)
+	if llc != 1 {
+		return fmt.Errorf("Found [%d] Route Tables for VPC ID [%s]", llc, r.ClusterSubnet.Identifier)
+	}
+	rt := output.RouteTables[0]
+
+	dainput := &ec2.DisassociateRouteTableInput{
+		AssociationId: rt.Associations[0].RouteTableAssociationId,
+	}
+	_, err = Sdk.Ec2.DisassociateRouteTable(dainput)
+	if err != nil {
+		return err
+	}
+
+	dinput := &ec2.DeleteRouteTableInput{
+		RouteTableId: rt.RouteTableId,
+	}
+	_, err = Sdk.Ec2.DeleteRouteTable(dinput)
 	if err != nil {
 		return err
 	}

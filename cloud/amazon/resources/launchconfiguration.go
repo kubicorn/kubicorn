@@ -119,7 +119,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	return newResource, nil
 }
 
-func (r *Lc) Delete(actual cloud.Resource) error {
+func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("lc.Delete")
 	deleteResource := actual.(*Lc)
 	if deleteResource.Name == "" {

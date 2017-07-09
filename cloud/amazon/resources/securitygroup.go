@@ -146,7 +146,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 	}
 	return newResource, nil
 }
-func (r *SecurityGroup) Delete(actual cloud.Resource) error {
+func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("securitygroup.Delete")
 	deleteResource := actual.(*SecurityGroup)
 	if deleteResource.CloudID == "" {

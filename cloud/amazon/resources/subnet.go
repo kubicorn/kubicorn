@@ -111,7 +111,7 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cl
 	newResource.CloudID = *output.Subnet.SubnetId
 	return newResource, nil
 }
-func (r *Subnet) Delete(actual cloud.Resource) error {
+func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("subnet.Delete")
 	deleteResource := actual.(*Subnet)
 	if deleteResource.CloudID == "" {
