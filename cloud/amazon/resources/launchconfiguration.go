@@ -99,8 +99,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 		return nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
 	}
 
-	userData := `
-#!/usr/bin/env bash
+	userData := `#!/bin/bash
 set -e
 cd ~
 
