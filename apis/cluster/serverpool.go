@@ -21,4 +21,5 @@ type ServerPool struct {
 	Image             string
 	Size              string
 	Subnets           []*Subnet
+	Firewalls         []*Firewall
 }

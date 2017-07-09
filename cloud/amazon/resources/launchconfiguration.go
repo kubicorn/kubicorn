@@ -84,12 +84,28 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	if isEqual {
 		return applyResource, nil
 	}
+	var sgs []*string
+	found := false
+	for _, serverPool := range applyCluster.ServerPools {
+		if serverPool.Name == expected.(*Lc).Name {
+			for _, firewall := range serverPool.Firewalls {
+				sgs = append(sgs, &firewall.Identifier)
+			}
+			found = true
+		}
+	}
+	if !found {
+		return nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
+	}
+
 	newResource := &Lc{}
 	lcInput := &autoscaling.CreateLaunchConfigurationInput{
-		//AssociatePublicIpAddress: B(true),
-		LaunchConfigurationName: &expected.(*Lc).Name,
-		ImageId:                 &expected.(*Lc).Image,
-		InstanceType:            &expected.(*Lc).InstanceType,
+		AssociatePublicIpAddress: B(true),
+		LaunchConfigurationName:  &expected.(*Lc).Name,
+		ImageId:                  &expected.(*Lc).Image,
+		InstanceType:             &expected.(*Lc).InstanceType,
+		KeyName:                  &applyCluster.Ssh.Identifier,
+		SecurityGroups:           sgs,
 	}
 	_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
 	if err != nil {

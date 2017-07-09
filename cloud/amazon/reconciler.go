@@ -5,10 +5,10 @@ import (
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
 	"github.com/kris-nova/kubicorn/cloud/amazon/resources"
+	"github.com/kris-nova/kubicorn/cutil/hang"
 	"github.com/kris-nova/kubicorn/logger"
 	"strings"
 	"time"
-	"github.com/kris-nova/kubicorn/cutil/hang"
 )
 
 type Reconciler struct {
@@ -66,19 +66,15 @@ func (r *Reconciler) GetExpected() (*cluster.Cluster, error) {
 }
 
 func cleanUp(cluster *cluster.Cluster, i int) error {
-	for j := i - 1; i >= 0; i-- {
+	logger.Warning("--------------------------------------")
+	logger.Warning("Attempting to delete created resources!")
+	logger.Warning("--------------------------------------")
+	for j := i - 1; j >= 0; j-- {
 		resource := model[j]
-		actualResource, err := resource.Actual(cluster)
+		createdResource := createdResources[j]
+		err := resource.Delete(createdResource)
 		if err != nil {
-			err, i = destroyI(err, j)
-			if err != nil {
-				return err
-			}
-			continue
-		}
-		err = resource.Delete(actualResource)
-		if err != nil {
-			err, i = destroyI(err, j)
+			err, j = destroyI(err, j)
 			if err != nil {
 				return err
 			}
@@ -87,6 +83,8 @@ func cleanUp(cluster *cluster.Cluster, i int) error {
 	}
 	return nil
 }
+
+var createdResources = make(map[int]cloud.Resource)
 
 func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	newCluster := newClusterDefaults(r.Known)
@@ -103,23 +101,25 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 		appliedResource, err := resource.Apply(actualResource, expectedResource, newCluster)
 		if err != nil {
 			logger.Critical("Error during apply! Attempting cleaning: %v", err)
-			err = cleanUp(actualCluster, i)
+			err = cleanUp(newCluster, i)
 			if err != nil {
 				logger.Critical("Failure during cleanup! Abandoned resources!")
 				return nil, err
 			}
-			return nil,  nil
+			return nil, nil
 		}
 		newCluster, err = resource.Render(appliedResource, newCluster)
 		if err != nil {
 			return nil, err
 		}
+		createdResources[i] = appliedResource
 	}
 	return newCluster, nil
 }
 
 var destroyRetryStrings = []string{
 	"DependencyViolation:",
+	"does not exist in default VPC",
 }
 
 var hg = &hang.Hanger{
@@ -138,10 +138,8 @@ func destroyI(err error, i int) (error, int) {
 	return err, 0
 }
 
-
-
 func (r *Reconciler) Destroy() error {
-	for i := len(model) -1; i >= 0; i-- {
+	for i := len(model) - 1; i >= 0; i-- {
 		resource := model[i]
 		actualResource, err := resource.Actual(r.Known)
 		if err != nil {
@@ -163,14 +161,13 @@ func (r *Reconciler) Destroy() error {
 	return nil
 }
 
-
-
 func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 	new := &cluster.Cluster{
 		Name:     base.Name,
 		Cloud:    base.Cloud,
 		Location: base.Location,
 		Network:  &cluster.Network{},
+		Ssh:      &cluster.Ssh{},
 	}
 	return new
 }

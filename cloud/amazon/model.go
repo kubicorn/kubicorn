@@ -20,17 +20,63 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 	vpcIndex := i
 	i++
 
+	// ---- [Key Pair] ----
+	r[i] = &resources.KeyPair{
+		Shared: resources.Shared{
+			Name: known.Name,
+			Tags: make(map[string]string),
+		},
+	}
+	i++
+
+	// ---- [Internet Gateway] ----
+	r[i] = &resources.InternetGateway{
+		Shared: resources.Shared{
+			Name: known.Name,
+			Tags: make(map[string]string),
+		},
+	}
+	i++
+
 	for _, serverPool := range known.ServerPools {
 		name := serverPool.Name
-		for _, subnet := range serverPool.Subnets {
-			r[i] = &resources.Subnet{
+
+		// ---- [Security Groups] ----
+		for _, firewall := range serverPool.Firewalls {
+			r[i] = &resources.SecurityGroup{
 				Shared: resources.Shared{
-					Name:        name,
+					Name:        firewall.Name,
 					Tags:        make(map[string]string),
 					TagResource: r[vpcIndex],
 				},
+				Firewall:   firewall,
 				ServerPool: serverPool,
+			}
+			i++
+		}
+
+		// ---- [Subnets] ----
+		for _, subnet := range serverPool.Subnets {
+			r[i] = &resources.Subnet{
+				Shared: resources.Shared{
+					Name:        subnet.Name,
+					Tags:        make(map[string]string),
+					TagResource: r[vpcIndex],
+				},
+				ServerPool:    serverPool,
 				ClusterSubnet: subnet,
+			}
+			i++
+
+			// ---- [Route Table] ----
+			r[i] = &resources.RouteTable{
+				Shared: resources.Shared{
+					Name:        subnet.Name,
+					Tags:        make(map[string]string),
+					TagResource: r[vpcIndex],
+				},
+				ClusterSubnet: subnet,
+				ServerPool:    serverPool,
 			}
 			i++
 		}

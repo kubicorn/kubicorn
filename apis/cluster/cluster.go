@@ -1,4 +1,3 @@
-
 package cluster
 
 import (
@@ -19,6 +18,7 @@ type Cluster struct {
 	ServerPools       []*ServerPool
 	Cloud             string
 	Location          string
+	Ssh               *Ssh
 	Network           *Network
 }
 
