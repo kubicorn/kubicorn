@@ -19,12 +19,13 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		},
 		ServerPools: []*cluster.ServerPool{
 			{
-				Type:     cluster.ServerPoolType_Master,
-				Name:     fmt.Sprintf("%s.amazon-master", name),
-				MaxCount: 1,
-				MinCount: 1,
-				Image:    "ami-835b4efa",
-				Size:     "t2.nano",
+				Type:            cluster.ServerPoolType_Master,
+				Name:            fmt.Sprintf("%s.amazon-master", name),
+				MaxCount:        1,
+				MinCount:        1,
+				Image:           "ami-835b4efa",
+				Size:            "t2.medium",
+				BootstrapScript: "master/ubuntu/16_04/1_7_0.sh",
 				Subnets: []*cluster.Subnet{
 					{
 						Name:     fmt.Sprintf("%s.amazon-master", name),
@@ -47,12 +48,13 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 				},
 			},
 			{
-				Type:     cluster.ServerPoolType_Node,
-				Name:     fmt.Sprintf("%s.amazon-node", name),
-				MaxCount: 1,
-				MinCount: 1,
-				Image:    "ami-835b4efa",
-				Size:     "t2.nano",
+				Type:            cluster.ServerPoolType_Node,
+				Name:            fmt.Sprintf("%s.amazon-node", name),
+				MaxCount:        1,
+				MinCount:        1,
+				Image:           "ami-835b4efa",
+				Size:            "t2.medium",
+				BootstrapScript: "node/ubuntu/16_04/1_7_0.sh",
 				Subnets: []*cluster.Subnet{
 					{
 						Name:     fmt.Sprintf("%s.amazon-node", name),

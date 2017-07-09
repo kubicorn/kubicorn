@@ -12,6 +12,10 @@ var (
 	Color = true
 )
 
+func Always(format string, a ...interface{}) {
+	color.Green(label(format, "✿"), a...)
+}
+
 func Info(format string, a ...interface{}) {
 	if Level >= 3 {
 		if Color {

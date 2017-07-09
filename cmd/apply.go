@@ -120,6 +120,5 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to commit state store: %v", err)
 	}
 	logger.Info("Updating state store for cluster [%s]", options.Name)
-
 	return nil
 }

@@ -1,6 +1,7 @@
 package resources
 
 import (
+	"encoding/base64"
 	"fmt"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -98,7 +99,33 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 		return nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
 	}
 
+	userData := `
+#!/usr/bin/env bash
+set -e
+cd ~
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+touch /etc/apt/sources.list.d/kubernetes.list
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+
+apt-get update -y
+apt-get install -y \
+    socat \
+    ebtables \
+    docker.io \
+    apt-transport-https \
+    kubelet \
+    kubeadm
+
+systemctl enable docker
+systemctl start docker
+
+kubeadm reset
+kubeadm init
+`
+
 	newResource := &Lc{}
+	b64data := base64.StdEncoding.EncodeToString([]byte(userData))
 	lcInput := &autoscaling.CreateLaunchConfigurationInput{
 		AssociatePublicIpAddress: B(true),
 		LaunchConfigurationName:  &expected.(*Lc).Name,
@@ -106,6 +133,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 		InstanceType:             &expected.(*Lc).InstanceType,
 		KeyName:                  &applyCluster.Ssh.Identifier,
 		SecurityGroups:           sgs,
+		UserData:                 &b64data,
 	}
 	_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
 	if err != nil {
