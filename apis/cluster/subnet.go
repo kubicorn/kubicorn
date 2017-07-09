@@ -11,4 +11,5 @@ type Subnet struct {
 	CIDR              string
 	Location          string
 	Zone              string
+	Name              string
 }

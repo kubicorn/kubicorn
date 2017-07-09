@@ -17,6 +17,7 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	clusterInit "github.com/kris-nova/kubicorn/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/kris-nova/kubicorn/state"
@@ -83,6 +84,12 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 	logger.Info("Loaded cluster: %s", cluster.Name)
+
+	cluster, err = clusterInit.InitCluster(cluster)
+	if err != nil {
+		return err
+	}
+
 	reconciler, err := cutil.GetReconciler(cluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get reconciler: %v", err)
@@ -113,6 +120,5 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to commit state store: %v", err)
 	}
 	logger.Info("Updating state store for cluster [%s]", options.Name)
-
 	return nil
 }

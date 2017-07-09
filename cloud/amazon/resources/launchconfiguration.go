@@ -1,6 +1,7 @@
 package resources
 
 import (
+	"encoding/base64"
 	"fmt"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -32,7 +33,7 @@ func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 
 	if r.ServerPool.Identifier != "" {
 		lcInput := &autoscaling.DescribeLaunchConfigurationsInput{
-			LaunchConfigurationNames: []*string{&r.Name},
+			LaunchConfigurationNames: []*string{&r.ServerPool.Identifier},
 		}
 		lcOutput, err := Sdk.ASG.DescribeLaunchConfigurations(lcInput)
 		if err != nil {
@@ -40,11 +41,12 @@ func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		llc := len(lcOutput.LaunchConfigurations)
 		if llc != 1 {
-			return nil, fmt.Errorf("Found [%d] Launch Configurations for ID [%s]", llc, known.Network.Identifier)
+			return nil, fmt.Errorf("Found [%d] Launch Configurations for ID [%s]", llc, r.ServerPool.Identifier)
 		}
 		lc := lcOutput.LaunchConfigurations[0]
 		actual.Image = *lc.ImageId
 		actual.InstanceType = *lc.InstanceType
+		actual.CloudID = *lc.LaunchConfigurationName
 	}
 	r.CachedActual = actual
 	return actual, nil
@@ -83,12 +85,54 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	if isEqual {
 		return applyResource, nil
 	}
+	var sgs []*string
+	found := false
+	for _, serverPool := range applyCluster.ServerPools {
+		if serverPool.Name == expected.(*Lc).Name {
+			for _, firewall := range serverPool.Firewalls {
+				sgs = append(sgs, &firewall.Identifier)
+			}
+			found = true
+		}
+	}
+	if !found {
+		return nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
+	}
+
+	userData := `#!/bin/bash
+set -e
+cd ~
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+touch /etc/apt/sources.list.d/kubernetes.list
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
+
+apt-get update -y
+apt-get install -y \
+    socat \
+    ebtables \
+    docker.io \
+    apt-transport-https \
+    kubelet \
+    kubeadm
+
+systemctl enable docker
+systemctl start docker
+
+kubeadm reset
+kubeadm init
+`
+
 	newResource := &Lc{}
+	b64data := base64.StdEncoding.EncodeToString([]byte(userData))
 	lcInput := &autoscaling.CreateLaunchConfigurationInput{
-		//AssociatePublicIpAddress: B(true),
-		LaunchConfigurationName: &r.Name,
-		ImageId:                 &expected.(*Lc).Image,
-		InstanceType:            &expected.(*Lc).InstanceType,
+		AssociatePublicIpAddress: B(true),
+		LaunchConfigurationName:  &expected.(*Lc).Name,
+		ImageId:                  &expected.(*Lc).Image,
+		InstanceType:             &expected.(*Lc).InstanceType,
+		KeyName:                  &applyCluster.Ssh.Identifier,
+		SecurityGroups:           sgs,
+		UserData:                 &b64data,
 	}
 	_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
 	if err != nil {
@@ -97,24 +141,25 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	logger.Info("Created Launch Configuration [%s]", r.Name)
 	newResource.Image = expected.(*Lc).Image
 	newResource.InstanceType = expected.(*Lc).InstanceType
-	newResource.Name = applyResource.Name
+	newResource.Name = expected.(*Lc).Name
+	newResource.CloudID = expected.(*Lc).Name
 	return newResource, nil
 }
 
-func (r *Lc) Delete(actual cloud.Resource) error {
+func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("lc.Delete")
-	deleteResource := actual.(*Asg)
-	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete Launch Configuration resource without ID [%s]", deleteResource.Name)
+	deleteResource := actual.(*Lc)
+	if deleteResource.Name == "" {
+		return fmt.Errorf("Unable to delete Launch Configuration resource without Name [%s]", deleteResource.Name)
 	}
 	input := &autoscaling.DeleteLaunchConfigurationInput{
-		LaunchConfigurationName: &r.Name,
+		LaunchConfigurationName: &actual.(*Lc).Name,
 	}
 	_, err := Sdk.ASG.DeleteLaunchConfiguration(input)
 	if err != nil {
 		return err
 	}
-	logger.Info("Deleted Launch Configuration [%s]", &actual.(*Asg).CloudID)
+	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).CloudID)
 	return nil
 }
 
@@ -123,7 +168,6 @@ func (r *Lc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluste
 	serverPool := &cluster.ServerPool{}
 	serverPool.Image = renderResource.(*Lc).Image
 	serverPool.Size = renderResource.(*Lc).InstanceType
-	serverPool.Name = renderResource.(*Lc).Name
 	found := false
 	for i := 0; i < len(renderCluster.ServerPools); i++ {
 		if renderCluster.ServerPools[i].Name == renderResource.(*Lc).Name {

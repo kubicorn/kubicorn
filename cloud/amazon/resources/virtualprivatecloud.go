@@ -86,6 +86,29 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	if err != nil {
 		return nil, fmt.Errorf("Unable to create new VPC: %v", err)
 	}
+
+	minput1 := &ec2.ModifyVpcAttributeInput{
+		EnableDnsHostnames: &ec2.AttributeBooleanValue{
+			Value: B(true),
+		},
+		VpcId: output.Vpc.VpcId,
+	}
+	_, err = Sdk.Ec2.ModifyVpcAttribute(minput1)
+	if err != nil {
+		return nil, err
+	}
+
+	minput2 := &ec2.ModifyVpcAttributeInput{
+		EnableDnsSupport: &ec2.AttributeBooleanValue{
+			Value: B(true),
+		},
+		VpcId: output.Vpc.VpcId,
+	}
+	_, err = Sdk.Ec2.ModifyVpcAttribute(minput2)
+	if err != nil {
+		return nil, err
+	}
+
 	logger.Info("Created VPC [%s]", *output.Vpc.VpcId)
 	newResource.CIDR = *output.Vpc.CidrBlock
 	newResource.CloudID = *output.Vpc.VpcId
@@ -96,7 +119,7 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	newResource.Name = applyResource.Name
 	return newResource, nil
 }
-func (r *Vpc) Delete(actual cloud.Resource) error {
+func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("vpc.Delete")
 	deleteResource := actual.(*Vpc)
 	if deleteResource.CloudID == "" {
@@ -109,7 +132,7 @@ func (r *Vpc) Delete(actual cloud.Resource) error {
 	if err != nil {
 		return err
 	}
-	logger.Info("Deleted VPC [%s]", &actual.(*Vpc).CloudID)
+	logger.Info("Deleted VPC [%s]", actual.(*Vpc).CloudID)
 	return nil
 }
 
