@@ -9,6 +9,9 @@ import (
 	"github.com/kris-nova/kubicorn/logger"
 	"strings"
 	"time"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 type Reconciler struct {
@@ -87,8 +90,31 @@ func cleanUp(cluster *cluster.Cluster, i int) error {
 var createdResources = make(map[int]cloud.Resource)
 
 func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error) {
+
 	newCluster := newClusterDefaults(r.Known)
+
+	errorOccured := false
+
 	for i := 0; i < len(model); i++ {
+
+
+		c := make(chan os.Signal, 2)
+		signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+		go func() {
+			<-c
+			logger.Warning("SIGTERM Received while reconciling! Why in the world would you do that? Attempting to clean up!")
+			errorOccured = true
+
+			err := cleanUp(newCluster, i)
+			if err != nil {
+				logger.Critical("Failure during cleanup! Abandoned resources!")
+			}
+			os.Exit(1)
+		}()
+
+		if errorOccured == true {
+			break
+		}
 		resource := model[i]
 		expectedResource, err := resource.Expected(expectedCluster)
 		if err != nil {
@@ -113,6 +139,9 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 			return nil, err
 		}
 		createdResources[i] = appliedResource
+	}
+	if errorOccured == true {
+		os.Exit(1)
 	}
 	return newCluster, nil
 }
