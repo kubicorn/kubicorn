@@ -20,3 +20,7 @@ sudo systemctl start docker
 
 sudo -E kubeadm reset
 sudo -E kubeadm init
+
+sudo kubectl apply \
+  -f http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml \
+  --kubeconfig /etc/kubernetes/admin.conf
