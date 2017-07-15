@@ -4,19 +4,37 @@
 
 Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
 
-**NOTE:**  This is not a replacement for any other project. This is a tool that is aimed at providing a library and a framework for managing kubernetes infrastructure. 
-
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
 
 ## About
 
-`kubicorn` is a project that solves the Kubernetes infrastructure problem.
+`kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a library to work with infrastructure.
 
-`kubicorn` is a command line tool that helps a user manage cloud infrastructure for Kubernetes.
+`kubicorn` is a cproject that helps a user manage cloud infrastructure for Kubernetes.
 With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
 
 If you're new to `kubicorn`, check out this end-to-end [walkthrough](docs/walkthrough.md).
+
+## Why I built this tool
+
+**I built this tool for myself, and you should not use it.**
+
+I have strong opinions about software, and how infrastructure management could be handled. I believe in pulling configuration out of the library, and using a tool like this as a framework more than an actual tool. This tool is designed to give myself easy ways to manage infrastructure in the clouds I work most in. I wanted a tool that did that, so I coded one.
+
+If you don't like it, don't use it.
+
+### How is Kubicorn different?
+
+1) We use kubeadm to bootstrap our clusters
+2) We strive for developer empathy, and clean and simple code.
+3) We strive for operational empathy, and clean and simple user experience
+4) We start with struct literals for profiles, and then marshal into an object
+5) We offer the tooling as a library, more than a command line tool
+6) We are atomic, and will un-do any work if there is an error
+7) We run on many operating systems
+8) We allow users to define their own arbitrary bootstrap logic
+9) We have no guarentee that anything happens, ever, use at your own risk
 
 ### Create
 
@@ -34,28 +52,3 @@ A user defines the intended state of Kubernetes infrastructure, and `kubicorn` c
 ### Snapshot
 
 `kubicorn` allows a user to take a snapshot of a Kubernetes cluster, and run the image in any cloud at any time.
-
-
-# Supported Clouds
-
-<p align="left">
-  <img src="docs/img/aws.png" width="200"> </image>
-</p>
-
- - Highly Available (HA)
- - Public topology
- - Private topology
-
-<p align="left">
-  <img src="docs/img/azure.png" width="200"> </image>
-</p>
-
- - Public topology
- - Private topology
-
-<p align="left">
-  <img src="docs/img/google.png" width="200"> </image>
-</p>
-
- - Public topology
- - Private topology
