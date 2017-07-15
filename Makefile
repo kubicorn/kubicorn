@@ -3,7 +3,7 @@ SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 
-default: compile bindata
+default: bindata compile
 compile:
 	@go build -o ${GOPATH}/bin/kubicorn -ldflags "-X github.com/kris-nova/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kris-nova/kubicorn/cmd.Version=${VERSION}" main.go
 
