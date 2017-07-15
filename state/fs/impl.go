@@ -95,3 +95,19 @@ func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
 	}
 	return cluster, nil
 }
+
+func (fs *FileSystemStore) List() ([]string, error) {
+
+	var state_list []string
+
+	files, err := ioutil.ReadDir(fs.options.BasePath)
+	if err != nil {
+		return state_list, err
+	}
+
+	for _, file := range files {
+		state_list = append(state_list, file.Name())
+	}
+
+	return state_list, nil
+}
