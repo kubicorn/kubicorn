@@ -2,7 +2,10 @@
 
 # kubicorn
 
-Create, Manage, Image, and Scale Kubernetes infrastructure in the cloud.
+Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
+
+**NOTE:** This is a work-in-progress, we do not consider it production ready.
+Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
 
 ## About
 
@@ -11,6 +14,7 @@ Create, Manage, Image, and Scale Kubernetes infrastructure in the cloud.
 `kubicorn` is a command line tool that helps a user manage cloud infrastructure for Kubernetes.
 With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
 
+If you're new to `kubicorn`, check out this end-to-end [walkthrough](docs/walkthrough.md).
 
 ### Create
 
@@ -53,5 +57,3 @@ A user defines the intended state of Kubernetes infrastructure, and `kubicorn` c
 
  - Public topology
  - Private topology
-
-
