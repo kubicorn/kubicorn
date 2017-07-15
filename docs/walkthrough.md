@@ -1,6 +1,6 @@
 # Walkthrough
 
-In the following, we gonna show you how to use `kubicorn` to ramp up a Kubernetes cluster in AWS, use it and tear it down again.
+In the following, we're going to show you how to use `kubicorn` to ramp up a Kubernetes cluster in AWS, use it and tear it down again.
 
 As a prerequisite, you need to have `kubicorn` installed. Since we don't have binary releases yet, we assume you've got Go installed and simply do:
 
