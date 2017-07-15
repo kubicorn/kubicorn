@@ -34,7 +34,7 @@ If you don't like it, don't use it.
 6) We are atomic, and will un-do any work if there is an error
 7) We run on many operating systems
 8) We allow users to define their own arbitrary bootstrap logic
-9) We have no guarentee that anything happens, ever, use at your own risk
+9) We have no guarantee that anything happens, ever, use at your own risk
 
 ### Create
 
