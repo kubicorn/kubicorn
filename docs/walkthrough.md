@@ -29,11 +29,11 @@ We're now in a position to have the cluster resources defined, locally, based on
 
 ![AWS IAM permissions required for kubicorn](img/aws-iam-user-perm-screen-shot.png)
 
-Next, export the two environment variables `ACCESS_KEY_ID` and `SECRET_ACCESS_KEY` so that `kubicorn` can pick it up in the next step:
+Next, export the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` so that `kubicorn` can pick it up in the next step:
 
 ```
-$ export ACCESS_KEY_ID=***************
-$ export SECRET_ACCESS_KEY=*****************************************
+$ export AWS_ACCESS_KEY_ID=***************
+$ export AWS_SECRET_ACCESS_KEY=*****************************************
 ```
 
 Also, make sure that the public SSH key for your AWS account is called `id_rsa.pub`, which is the default in above profile:
