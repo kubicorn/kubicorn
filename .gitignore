@@ -1,3 +1,7 @@
 _state*
 .idea*
+<<<<<<< HEAD
 bootstrap/bootstrap.go
+=======
+.DS_Store
+>>>>>>> 7ea9a00... updates ignore
