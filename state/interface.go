@@ -7,4 +7,5 @@ type ClusterStorer interface {
 	Commit(cluster *cluster.Cluster) error
 	Destroy() error
 	GetCluster() (*cluster.Cluster, error)
+	List() ([]string, error)
 }
