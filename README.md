@@ -4,7 +4,7 @@
 
 Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
 
-Note: This is not a replacement for any other project. This is a tool that is aimed at providing a library and a framework for managing kubernetes infrastructure. 
+**NOTE:**  This is not a replacement for any other project. This is a tool that is aimed at providing a library and a framework for managing kubernetes infrastructure. 
 
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
