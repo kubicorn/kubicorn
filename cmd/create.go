@@ -30,7 +30,7 @@ import (
 var createCmd = &cobra.Command{
 	Use:   "create",
 	Short: "Create a Kubicorn API model from a profile",
-	Long:  `Use this command to create a Kubicorn API model in a defined state store.
+	Long: `Use this command to create a Kubicorn API model in a defined state store.
 
 This command will create a cluster API model as a YAML manifest in a state store.
 Once the API model has been created, a user can optionally change the model to their liking.
@@ -117,6 +117,7 @@ func RunCreate(options *CreateOptions) error {
 		return fmt.Errorf("Unable to init state store: %v", err)
 	}
 
+	fmt.Printf(options.StateStorePath + "/" + name + "/" + "cluster.yaml has been created.\nNow run `kubicorn apply`.\n")
 	return nil
 }
 
