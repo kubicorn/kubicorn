@@ -14,6 +14,7 @@ type KeyPair struct {
 	PublicKeyData        string
 	PublicKeyPath        string
 	PublicKeyFingerprint string
+	User string
 }
 
 func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -46,6 +47,7 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.CloudID = *keypair.KeyName
 		actual.PublicKeyFingerprint = *keypair.KeyFingerprint
 	}
+	actual.User = known.Ssh.User
 	r.CachedActual = actual
 	return actual, nil
 }
@@ -68,6 +70,7 @@ func (r *KeyPair) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		},
 		PublicKeyPath: known.Ssh.PublicKeyPath,
 		PublicKeyData: string(known.Ssh.PublicKeyData),
+		User: known.Ssh.User,
 	}
 	r.CachedExpected = expected
 	return expected, nil
@@ -95,6 +98,7 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	newResource := &KeyPair{}
 	newResource.PublicKeyData = expected.(*KeyPair).PublicKeyData
 	newResource.PublicKeyPath = expected.(*KeyPair).PublicKeyPath
+	newResource.User = expected.(*KeyPair).User
 	newResource.PublicKeyFingerprint = *output.KeyFingerprint
 	newResource.CloudID = expected.(*KeyPair).Name
 	newResource.Name = expected.(*KeyPair).Name
@@ -125,7 +129,7 @@ func (r *KeyPair) Render(renderResource cloud.Resource, renderCluster *cluster.C
 	renderCluster.Ssh.PublicKeyData = []byte(renderResource.(*KeyPair).PublicKeyData)
 	renderCluster.Ssh.PublicKeyFingerprint = renderResource.(*KeyPair).PublicKeyFingerprint
 	renderCluster.Ssh.PublicKeyPath = renderResource.(*KeyPair).PublicKeyPath
-
+	renderCluster.Ssh.User = renderResource.(*KeyPair).User
 	return renderCluster, nil
 }
 

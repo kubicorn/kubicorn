@@ -10,29 +10,38 @@ cd ~
 #
 #
 TOKEN="INJECTEDTOKEN"
+PORT="INJECTEDPORT"
 # ------------------------------------------------------------------------------------------------------------------------
 
-sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo touch /etc/apt/sources.list.d/kubernetes.list
-sudo sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+touch /etc/apt/sources.list.d/kubernetes.list
+sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
 
-sudo apt-get update -y
-sudo apt-get install -y \
+apt-get update -y
+apt-get install -y \
     socat \
     ebtables \
     docker.io \
     apt-transport-https \
     kubelet \
-    kubeadm
+    kubeadm \
+    cloud-utils
 
-sudo systemctl enable docker
-sudo systemctl start docker
 
-sudo -E kubeadm reset
-sudo -E kubeadm init --apiserver-bind-port 443 --token ${TOKEN}
+systemctl enable docker
+systemctl start docker
 
-# Add Calico to fix networking
-sudo kubectl apply \
+PUBLICIP=$(ec2metadata --public-ipv4 | cut -d " " -f 2)
+PRIVATEIP=$(ifconfig | grep -A 1 eth0 | grep inet | cut -d ":" -f 2 | cut -d " " -f 1 | xargs)
+
+kubeadm reset
+kubeadm init --apiserver-bind-port ${PORT} --token ${TOKEN}  --apiserver-advertise-address ${PUBLICIP} --apiserver-cert-extra-sans ${PUBLICIP} ${PRIVATEIP}
+
+# Thanks Kelsey :)
+kubectl apply \
   -f http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml \
   --kubeconfig /etc/kubernetes/admin.conf
 
+mkdir -p /home/ubuntu/.kube
+cp /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
+chown -R ubuntu:ubuntu /home/ubuntu/.kube

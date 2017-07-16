@@ -19,7 +19,7 @@ func Always(format string, a ...interface{}) {
 func Info(format string, a ...interface{}) {
 	if Level >= 3 {
 		if Color {
-			color.Blue(label(format, "✔"), a...)
+			color.Cyan(label(format, "✔"), a...)
 		} else {
 			fmt.Printf(label(format, "✔"), a...)
 		}
