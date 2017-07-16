@@ -18,6 +18,7 @@ If you are making a table in markdown: YES, I expect you to format them nicely. 
 A complete sentence expresses a complete thought.
 Always write complete sentences.
 Always use proper grammar.
+Each sentence goes on a new line.
 
 ###### Write inclusively
 
