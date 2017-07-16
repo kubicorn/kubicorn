@@ -122,7 +122,6 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *c
 	return newResource, nil
 }
 
-
 func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	logger.Debug("internetgateway.Delete")
 	deleteResource := actual.(*InternetGateway)
@@ -137,7 +136,6 @@ func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) 
 				Values: []*string{S(r.Name)},
 			},
 		},
-
 	}
 	output, err := Sdk.Ec2.DescribeInternetGateways(input)
 	if err != nil {

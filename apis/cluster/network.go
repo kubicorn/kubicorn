@@ -17,4 +17,3 @@ type Network struct {
 	Identifier        string
 	Type              string
 }
-

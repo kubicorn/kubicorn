@@ -7,7 +7,5 @@ import (
 type Values struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	ItemMap             map[string]string
+	ItemMap           map[string]string
 }
-
-

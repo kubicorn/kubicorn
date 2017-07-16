@@ -142,7 +142,7 @@ func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 
 	input := &autoscaling.DeleteAutoScalingGroupInput{
 		AutoScalingGroupName: &actual.(*Asg).CloudID,
-		ForceDelete: B(true),
+		ForceDelete:          B(true),
 	}
 	_, err := Sdk.ASG.DeleteAutoScalingGroup(input)
 	if err != nil {
@@ -177,8 +177,6 @@ func (r *Asg) Render(renderResource cloud.Resource, renderCluster *cluster.Clust
 	return renderCluster, nil
 }
 
-
-
 // kris left off here
 // 2017-07-05T00:22:36-06:00 [✖]  Unable to reconcile cluster: Unable to tag new VPC: ValidationError: Incomplete tags information for these tags. Tag - 'Key:Name,PropagateAtLaunch:null,ResourceId:knova-amazon-master,ResourceType:auto-scaling-group' , Tag - 'Key:KubernetesCluster,PropagateAtLaunch:null,ResourceId:knova-amazon-master,ResourceType:auto-scaling-group' ,
 // status code: 400, request id: 569ec7d4-614a-11e7-a82d-f902128f85b7
@@ -189,10 +187,10 @@ func (r *Asg) Tag(tags map[string]string) error {
 	for key, val := range tags {
 		logger.Debug("Registering Asg tag [%s] %s", key, val)
 		tagInput.Tags = append(tagInput.Tags, &autoscaling.Tag{
-			Key:          S("%s", key),
-			Value:        S("%s", val),
-			ResourceType: S("auto-scaling-group"),
-			ResourceId:   &r.CloudID,
+			Key:               S("%s", key),
+			Value:             S("%s", val),
+			ResourceType:      S("auto-scaling-group"),
+			ResourceId:        &r.CloudID,
 			PropagateAtLaunch: B(true),
 		})
 	}
