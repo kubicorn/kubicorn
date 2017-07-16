@@ -8,14 +8,14 @@ func NewSimpleAzureCluster(name string) *cluster.Cluster {
 		Cloud: cluster.Cloud_Azure,
 		ServerPools: []*cluster.ServerPool{
 			{
-				Type:  cluster.ServerPoolType_Master,
-				Name:  "azure-master",
+				Type:     cluster.ServerPoolType_Master,
+				Name:     "azure-master",
 				MaxCount: 2,
 				MinCount: 2,
 			},
 			{
-				Type:  cluster.ServerPoolType_Node,
-				Name:  "azure-node",
+				Type:     cluster.ServerPoolType_Node,
+				Name:     "azure-node",
 				MaxCount: 2,
 				MinCount: 2,
 			},
