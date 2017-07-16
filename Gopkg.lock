@@ -1,4 +1,4 @@
-memo = "e12702bc2f4629b40e652b9b7e5be6d87e146185c1629637c69703f9f215639b"
+memo = "ff7f874b2d7d45e239557faf5d3cc75a46cbdea7cd7212a2d7c556b556049ed4"
 
 [[projects]]
   name = "github.com/PuerkitoBio/purell"
@@ -98,6 +98,12 @@ memo = "e12702bc2f4629b40e652b9b7e5be6d87e146185c1629637c69703f9f215639b"
 
 [[projects]]
   branch = "master"
+  name = "github.com/kr/fs"
+  packages = ["."]
+  revision = "2788f0dbd16903de03cb8186e5c7d97b69ad387b"
+
+[[projects]]
+  branch = "master"
   name = "github.com/kris-nova/klone"
   packages = ["pkg/local"]
   revision = "0f45f451971d2a84d8435d07a46df6ddaac3c8be"
@@ -128,6 +134,12 @@ memo = "e12702bc2f4629b40e652b9b7e5be6d87e146185c1629637c69703f9f215639b"
 
 [[projects]]
   branch = "master"
+  name = "github.com/pkg/sftp"
+  packages = ["."]
+  revision = "314a5ccb89b21e053d7d96c3a706eacaf2b18231"
+
+[[projects]]
+  branch = "master"
   name = "github.com/spf13/cobra"
   packages = ["."]
   revision = "c46add8a652801b61513ad36c56759f302fbb028"
@@ -137,6 +149,12 @@ memo = "e12702bc2f4629b40e652b9b7e5be6d87e146185c1629637c69703f9f215639b"
   name = "github.com/spf13/pflag"
   packages = ["."]
   revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = ["curve25519","ed25519","ed25519/internal/edwards25519","ssh"]
+  revision = "7f7c0c2d75ebb4e32a21396ce36e87b6dadc91c9"
 
 [[projects]]
   branch = "master"

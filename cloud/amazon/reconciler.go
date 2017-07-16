@@ -180,12 +180,13 @@ func (r *Reconciler) Destroy() error {
 
 func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 	new := &cluster.Cluster{
-		Name:     base.Name,
-		Cloud:    base.Cloud,
-		Location: base.Location,
-		Network:  &cluster.Network{},
-		Ssh:      &cluster.Ssh{},
-		Values:   base.Values,
+		Name:          base.Name,
+		Cloud:         base.Cloud,
+		Location:      base.Location,
+		Network:       &cluster.Network{},
+		Ssh:           &cluster.Ssh{},
+		Values:        base.Values,
+		KubernetesApi: base.KubernetesApi,
 	}
 	return new
 }

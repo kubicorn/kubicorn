@@ -8,6 +8,7 @@ type Ssh struct {
 	metav1.TypeMeta      `json:",inline"`
 	metav1.ObjectMeta    `json:"metadata,omitempty"`
 	Name                 string
+	User                 string
 	Identifier           string
 	PublicKeyPath        string
 	PublicKeyData        []byte

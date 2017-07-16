@@ -21,6 +21,7 @@ type Cluster struct {
 	Ssh               *Ssh
 	Network           *Network
 	Values            *Values
+	KubernetesApi     *KubernetesApi
 }
 
 func NewCluster(name string) *Cluster {
