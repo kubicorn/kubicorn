@@ -2,13 +2,11 @@
 
 # kubicorn
 
-Do not use this tool. Go away.
+Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
 
 ## About
 
-Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
-
-`kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a library to work with infrastructure.
+`kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a rich golang library to work with infrastructure.
 
 `kubicorn` is a project that helps a user manage cloud infrastructure for Kubernetes.
 With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
@@ -22,7 +20,7 @@ $ go get github.com/kris-nova/kubicorn
 
 ## Why I built this tool
 
-**I built this tool for myself, and you should not use it.**
+**I built this tool for myself, and nothing else.**
 
 I have strong opinions about software, and how infrastructure management could be handled. I believe in pulling configuration out of the library, and using a tool like this as a framework more than an actual tool. This tool is designed to give myself easy ways to manage infrastructure in the clouds I work most in. 
 
