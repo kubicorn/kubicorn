@@ -117,7 +117,7 @@ func RunCreate(options *CreateOptions) error {
 		return fmt.Errorf("Unable to init state store: %v", err)
 	}
 
-	fmt.Printf(options.StateStorePath + "/" + name + "/" + "cluster.yaml has been created.\nNow run `kubicorn apply`.\n")
+	logger.Always("%s/%s/cluster.yaml has been created. Now run `kubicorn apply %s`", options.StateStorePath, name, name)
 	return nil
 }
 
