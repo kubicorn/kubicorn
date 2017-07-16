@@ -2,7 +2,6 @@ package restful
 
 import (
 	"testing"
-	"time"
 )
 
 func TestRouteBuilder_PathParameter(t *testing.T) {
@@ -42,7 +41,7 @@ func TestRouteBuilder(t *testing.T) {
 	json := "application/json"
 	b := new(RouteBuilder)
 	b.To(dummy)
-	b.Path("/routes").Method("HEAD").Consumes(json).Produces(json).Metadata("test", "test-value").DefaultReturns("default", time.Now())
+	b.Path("/routes").Method("HEAD").Consumes(json).Produces(json).Metadata("test", "test-value")
 	r := b.Build()
 	if r.Path != "/routes" {
 		t.Error("path invalid")
@@ -58,9 +57,6 @@ func TestRouteBuilder(t *testing.T) {
 	}
 	if r.Metadata["test"] != "test-value" {
 		t.Errorf("Metadata not set")
-	}
-	if _, ok := r.ResponseErrors[0]; !ok {
-		t.Fatal("expected default response")
 	}
 }
 
