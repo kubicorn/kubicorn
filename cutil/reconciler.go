@@ -3,11 +3,11 @@ package cutil
 import (
 	"fmt"
 	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/amazon"
 	"github.com/kris-nova/kubicorn/cloud/azure"
 	"github.com/kris-nova/kubicorn/cloud/baremetal"
 	"github.com/kris-nova/kubicorn/cloud/google"
-	"github.com/kris-nova/kubicorn/cloud"
 )
 
 func GetReconciler(c *cluster.Cluster) (cloud.Reconciler, error) {
