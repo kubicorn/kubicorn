@@ -63,16 +63,10 @@ func init() {
 type profileFunc func(name string) *cluster.Cluster
 
 var alias = map[string]profileFunc{
-	"baremetal": profiles.NewSimpleBareMetal,
-	"metal":     profiles.NewSimpleBareMetal,
-	"amazon":    profiles.NewSimpleAmazonCluster,
-	"aws":       profiles.NewSimpleAmazonCluster,
-	"azure":     profiles.NewSimpleAzureCluster,
-	"az":        profiles.NewSimpleAzureCluster,
-	"google":    profiles.NewSimpleGoogleCluster,
-	"googs":     profiles.NewSimpleGoogleCluster,
-	"gce":       profiles.NewSimpleGoogleCluster,
-	"gke":       profiles.NewSimpleGoogleCluster,
+	"amazon":       profiles.NewSimpleAmazonCluster,
+	"aws":          profiles.NewSimpleAmazonCluster,
+	"do":           profiles.NewSimpleDigitalOceanCluster,
+	"digitalocean": profiles.NewSimpleDigitalOceanCluster,
 }
 
 func RunCreate(options *CreateOptions) error {
