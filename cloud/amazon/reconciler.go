@@ -197,6 +197,7 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 		Location: base.Location,
 		Network:  &cluster.Network{},
 		Ssh:      &cluster.Ssh{},
+		Values:   base.Values,
 	}
 	return new
 }

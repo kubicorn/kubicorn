@@ -20,6 +20,7 @@ type Cluster struct {
 	Location          string
 	Ssh               *Ssh
 	Network           *Network
+	Values            *Values
 }
 
 func NewCluster(name string) *Cluster {

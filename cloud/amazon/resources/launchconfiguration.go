@@ -4,11 +4,14 @@ import (
 	"encoding/base64"
 	"fmt"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
+	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/logger"
+	"strings"
+	"time"
 )
 
 type Lc struct {
@@ -17,6 +20,11 @@ type Lc struct {
 	Image        string
 	ServerPool   *cluster.ServerPool
 }
+
+const (
+	MasterIpAttempts               = 40
+	MasterIpSleepSecondsPerAttempt = 3
+)
 
 func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("lc.Actual")
@@ -100,11 +108,68 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 		return nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
 	}
 
+	// --- Hack in here for master IP
+	ip := ""
+	if strings.Contains(r.ServerPool.Name, "node") {
+		found := false
+		logger.Debug("Tag query: [%s] %s", "Name", fmt.Sprintf("%s.master", applyCluster.Name))
+		logger.Debug("Tag query: [%s] %s", "KubernetesCluster", applyCluster.Name)
+		for !found {
+			logger.Debug("Attempting to lookup master IP for node registration..")
+			input := &ec2.DescribeInstancesInput{
+				Filters: []*ec2.Filter{
+					{
+						Name:   S("tag:Name"),
+						Values: []*string{S(fmt.Sprintf("%s.master", applyCluster.Name))},
+					},
+					{
+						Name:   S("tag:KubernetesCluster"),
+						Values: []*string{S(applyCluster.Name)},
+					},
+				},
+			}
+			output, err := Sdk.Ec2.DescribeInstances(input)
+			if err != nil {
+				return nil, err
+			}
+			lr := len(output.Reservations)
+			if lr == 0 {
+				logger.Debug("Found [%d] Reservations, hanging ", lr)
+				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				continue
+			}
+			for _, reservation := range output.Reservations {
+				for _, instance := range reservation.Instances {
+					if instance.PublicIpAddress != nil {
+						ip = *instance.PrivateIpAddress
+						applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:443", ip)
+						logger.Info("Found public IP for master: [%s]", ip)
+						found = true
+					}
+				}
+			}
+			if found == true {
+				break
+			}
+			time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+		}
+		if !found {
+			return nil, fmt.Errorf("Unable to find Master IP")
+		}
+	}
+
 	newResource := &Lc{}
 	userData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", r.ServerPool.BootstrapScript))
 	if err != nil {
 		return nil, err
 	}
+
+	//fmt.Println(string(userData))
+	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
+	if err != nil {
+		return nil, err
+	}
+	//fmt.Println(string(userData))
 	b64data := base64.StdEncoding.EncodeToString(userData)
 	lcInput := &autoscaling.CreateLaunchConfigurationInput{
 		AssociatePublicIpAddress: B(true),
@@ -146,6 +211,7 @@ func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 
 func (r *Lc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("lc.Render")
+
 	serverPool := &cluster.ServerPool{}
 	serverPool.Image = renderResource.(*Lc).Image
 	serverPool.Size = renderResource.(*Lc).InstanceType
@@ -160,6 +226,7 @@ func (r *Lc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluste
 	if !found {
 		renderCluster.ServerPools = append(renderCluster.ServerPools, serverPool)
 	}
+
 	return renderCluster, nil
 }
 
