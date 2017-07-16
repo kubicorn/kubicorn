@@ -24,14 +24,16 @@ $ go get github.com/kris-nova/kubicorn
 
 **I built this tool for myself, and you should not use it.**
 
-I have strong opinions about software, and how infrastructure management could be handled. I believe in pulling configuration out of the library, and using a tool like this as a framework more than an actual tool. This tool is designed to give myself easy ways to manage infrastructure in the clouds I work most in. I wanted a tool that did that, so I coded one.
+I have strong opinions about software, and how infrastructure management could be handled. I believe in pulling configuration out of the library, and using a tool like this as a framework more than an actual tool. This tool is designed to give myself easy ways to manage infrastructure in the clouds I work most in. 
+
+I wanted a tool that did that, nothing existed, so I coded one.
 
 If you don't like it, don't use it.
 
 ## How is Kubicorn different?
 
 1) We use kubeadm to bootstrap our clusters
-2) We strive for developer empathy, and clean and simple code.
+2) We strive for developer empathy, and clean and simple code
 3) We strive for operational empathy, and clean and simple user experience
 4) We start with struct literals for profiles, and then marshal into an object
 5) We offer the tooling as a library, more than a command line tool
@@ -40,7 +42,20 @@ If you don't like it, don't use it.
 8) We allow users to define their own arbitrary bootstrap logic
 9) We have no guarantee that anything works, ever, use at your own risk
 10) We have no dependency on DNS
-11) We believe in snapshots, and that a user should be able to capture a cluster, and move it.
+11) We believe in snapshots, and that a user should be able to capture a cluster, and move it
+
+## Why it will never have a guarentee
+
+We want you to break shit. Plain and simple.
+
+This tool is allows you to define your own profiles, and define your own bootstrap logic. 
+Implicitly this means you can break something, and we encourage you to do that.
+We offer `profiles` that are designed to be starting places. 
+Our goal is that all of our `profiles` work out of the box, but we never guarentee anything.
+
+In a nutshell our philosophy is:
+
+> Breaking things is part of learning, and learning is a good thing. But if you are going to break something, at least break it reliably and in the same way every time.
 
 # Concepts
 
