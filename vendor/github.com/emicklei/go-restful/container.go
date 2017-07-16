@@ -32,7 +32,7 @@ type Container struct {
 	contentEncodingEnabled bool          // default is false
 }
 
-// NewContainer creates a new Container using a new ServeMux and default router (CurlyRouter)
+// NewContainer creates a new Container using a new ServeMux and default router (RouterJSR311)
 func NewContainer() *Container {
 	return &Container{
 		webServices:            []*WebService{},
@@ -74,7 +74,7 @@ func (c *Container) DoNotRecover(doNot bool) {
 	c.doNotRecover = doNot
 }
 
-// Router changes the default Router (currently CurlyRouter)
+// Router changes the default Router (currently RouterJSR311)
 func (c *Container) Router(aRouter RouteSelector) {
 	c.router = aRouter
 }
