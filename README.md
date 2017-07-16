@@ -2,6 +2,8 @@
 
 # kubicorn
 
+Do not use this tool. Go away.
+
 Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
 
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
