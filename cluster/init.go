@@ -13,8 +13,8 @@ var preProcessors = []preProcessorFunc{
 
 func InitCluster(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Info("Init Cluster")
+	logger.Debug("Running preprocessors")
 	for _, f := range preProcessors {
-		logger.Debug("Running preprocessors: %v", f)
 		var err error
 		initCluster, err = f(initCluster)
 		if err != nil {
