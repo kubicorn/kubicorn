@@ -7,6 +7,10 @@ Create, manage, snapshot, and scale Kubernetes infrastructure in the public clou
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
 
+```
+$ go get github.com/kris-nova/kubicorn
+```
+
 ## About
 
 `kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a library to work with infrastructure.
@@ -14,7 +18,6 @@ Use at your own risk and if you're as excited about it as we are, maybe you want
 `kubicorn` is a project that helps a user manage cloud infrastructure for Kubernetes.
 With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
 
-If you're new to `kubicorn`, check out this end-to-end [walkthrough](docs/walkthrough.md) or watch the [walkthrough video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754).
 
 ## Why I built this tool
 
@@ -66,3 +69,12 @@ Take a snap, save a snap, deploy a snap.
 ### Enforce
 
 `kubicorn` is built as a library and a framework. Thus allowing it to be easily vendored into operator and controller patterns to enforce indeded state of infrastructure.
+
+# Documentation
+
+### AWS
+
+| Name                       | Description                                                 | Link                                                                   |
+| ---------------------------| ----------------------------------------------------------- |:----------------------------------------------------------------------:|
+| **Walkthrough**            | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                 |
+| **Video**                  | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)|
