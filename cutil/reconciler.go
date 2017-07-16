@@ -17,4 +17,5 @@ func GetReconciler(c *cluster.Cluster) (cloud.Reconciler, error) {
 	default:
 		return nil, fmt.Errorf("Invalid cloud type: %s", c.Cloud)
 	}
+
 }
