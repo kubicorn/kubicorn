@@ -11,14 +11,18 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 	i := 0
 
 	for _, serverPool := range known.ServerPools {
-		// ---- [Autoscale Group] ----
-		r[i] = &resources.Droplet{
-			Shared: resources.Shared{
-				Name: serverPool.Name,
-			},
-			ServerPool: serverPool,
+		total := serverPool.MaxCount
+		for j := 0; j < total; j++ {
+			// ---- [Droplet] ----
+			r[i] = &resources.Droplet{
+				Shared: resources.Shared{
+					Name: serverPool.Name,
+				},
+				ServerPool: serverPool,
+			}
+			i++
 		}
-		i++
+
 	}
 	return r
 }
