@@ -11,7 +11,7 @@ Use at your own risk and if you're as excited about it as we are, maybe you want
 
 `kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a library to work with infrastructure.
 
-`kubicorn` is a cproject that helps a user manage cloud infrastructure for Kubernetes.
+`kubicorn` is a project that helps a user manage cloud infrastructure for Kubernetes.
 With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
 
 If you're new to `kubicorn`, check out this end-to-end [walkthrough](docs/walkthrough.md).
