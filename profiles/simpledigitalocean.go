@@ -29,23 +29,22 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 		ServerPools: []*cluster.ServerPool{
 			{
 				Type:            cluster.ServerPoolType_Master,
-				Name:            fmt.Sprintf("%s.master", name),
+				Name:            fmt.Sprintf("%s-master", name),
 				MaxCount:        1,
-				MinCount:        1,
 				Image:           "ubuntu-16-04-x64",
 				Size:            "1gb",
 				BootstrapScript: "digitalocean_k8s_1.7.0_ubuntu_16.04_master.sh",
 				Subnets: []*cluster.Subnet{
 					{
-						Name:     fmt.Sprintf("%s.master", name),
-						CIDR:     "10.0.0.0/24",
+						Name: fmt.Sprintf("%s-master", name),
+						CIDR: "10.0.0.0/24",
 						//Location: "us-west-2a",
 					},
 				},
 
 				Firewalls: []*cluster.Firewall{
 					{
-						Name: fmt.Sprintf("%s.master-external", name),
+						Name: fmt.Sprintf("%s-master-external", name),
 						Rules: []*cluster.Rule{
 							{
 								IngressFromPort: 22,
@@ -65,22 +64,21 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 			},
 			{
 				Type:            cluster.ServerPoolType_Node,
-				Name:            fmt.Sprintf("%s.node", name),
+				Name:            fmt.Sprintf("%s-node", name),
 				MaxCount:        1,
-				MinCount:        1,
 				Image:           "ubuntu-16-04-x64",
-				Size:            "t2.medium",
+				Size:            "1gb",
 				BootstrapScript: "digitalocean_k8s_1.7.0_ubuntu_16.04_node.sh",
 				Subnets: []*cluster.Subnet{
 					{
-						Name:     fmt.Sprintf("%s.node", name),
-						CIDR:     "10.0.100.0/24",
+						Name: fmt.Sprintf("%s-node", name),
+						CIDR: "10.0.100.0/24",
 						//Location: "us-west-2b",
 					},
 				},
 				Firewalls: []*cluster.Firewall{
 					{
-						Name: fmt.Sprintf("%s.node-external", name),
+						Name: fmt.Sprintf("%s-node-external", name),
 						Rules: []*cluster.Rule{
 							{
 								IngressFromPort: 22,
