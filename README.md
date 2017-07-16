@@ -24,7 +24,7 @@ I have strong opinions about software, and how infrastructure management could b
 
 If you don't like it, don't use it.
 
-### How is Kubicorn different?
+## How is Kubicorn different?
 
 1) We use kubeadm to bootstrap our clusters
 2) We strive for developer empathy, and clean and simple code.
@@ -37,9 +37,15 @@ If you don't like it, don't use it.
 9) We have no guarantee that anything works, ever, use at your own risk
 10) We have no dependency on DNS
 
+# Concepts
+
 ### Create
 
 `kubicorn` let's a user create a Kubernetes cluster in a cloud of their choice.
+
+### Apply
+
+Define what you want, then apply it. That simple.
 
 ### Adopt
 
@@ -53,3 +59,9 @@ A user defines the intended state of Kubernetes infrastructure, and `kubicorn` c
 ### Snapshot
 
 `kubicorn` allows a user to take a snapshot of a Kubernetes cluster, and run the image in any cloud at any time.
+A snapshot is compressed file that will represent intedend infrastructure **and** intended application definitions.
+Take a snap, save a snap, deploy a snap.
+
+### Enforce
+
+`kubicorn` is built as a library and a framework. Thus allowing it to be easily vendored into operator and controller patterns to enforce indeded state of infrastructure.
