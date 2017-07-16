@@ -19,6 +19,14 @@ clean:
 
 gofmt:
 	gofmt -w ./cmd
+	gofmt -w ./apis
+	gofmt -w ./cloud
+	gofmt -w ./cluster
+	gofmt -w ./cutil
+	gofmt -w ./logger
+	gofmt -w ./namer
+	gofmt -w ./profiles
+	gofmt -w ./state
 
 # Because of https://github.com/golang/go/issues/6376 We actually have to build this in a container
 build-linux-amd64:
