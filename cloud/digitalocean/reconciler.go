@@ -187,6 +187,7 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 		Ssh:           &cluster.Ssh{},
 		Values:        base.Values,
 		KubernetesApi: base.KubernetesApi,
+		//ServerPools:   base.ServerPools,
 	}
 	return new
 }
