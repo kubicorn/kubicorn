@@ -36,6 +36,7 @@ If you don't like it, don't use it.
 8) We allow users to define their own arbitrary bootstrap logic
 9) We have no guarantee that anything works, ever, use at your own risk
 10) We have no dependency on DNS
+11) Snapshots. We believe in saving infrastructure and application state, and easily recreating.
 
 # Concepts
 
