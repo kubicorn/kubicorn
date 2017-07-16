@@ -66,6 +66,9 @@ func (fs *FileSystemStore) read(relativePath string) ([]byte, error) {
 }
 
 func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
+	if c == nil {
+		return fmt.Errorf("Nil cluster spec!")
+	}
 	bytes, err := yaml.Marshal(c)
 	if err != nil {
 		return err
