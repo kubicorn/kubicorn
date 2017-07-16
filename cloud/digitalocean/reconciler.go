@@ -3,6 +3,8 @@ package digitalocean
 import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
+	"github.com/kris-nova/kubicorn/cloud/digitalocean/godoSdk"
+	"github.com/kris-nova/kubicorn/cloud/digitalocean/resources"
 	"github.com/kris-nova/kubicorn/cutil/hang"
 	"github.com/kris-nova/kubicorn/logger"
 	"os"
@@ -10,8 +12,6 @@ import (
 	"strings"
 	"syscall"
 	"time"
-	"github.com/kris-nova/kubicorn/cloud/digitalocean/godoSdk"
-	"github.com/kris-nova/kubicorn/cloud/digitalocean/resources"
 )
 
 var sigCaught = false
@@ -34,7 +34,7 @@ func (r *Reconciler) Init() error {
 		return err
 	}
 	resources.Sdk = sdk
-	//model = ClusterModel(r.Known)
+	model = ClusterModel(r.Known)
 	return nil
 }
 
