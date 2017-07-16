@@ -4,7 +4,14 @@
 
 Do not use this tool. Go away.
 
+## About
+
 Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
+
+`kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a library to work with infrastructure.
+
+`kubicorn` is a project that helps a user manage cloud infrastructure for Kubernetes.
+With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
 
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
@@ -12,14 +19,6 @@ Use at your own risk and if you're as excited about it as we are, maybe you want
 ```
 $ go get github.com/kris-nova/kubicorn
 ```
-
-## About
-
-`kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a library to work with infrastructure.
-
-`kubicorn` is a project that helps a user manage cloud infrastructure for Kubernetes.
-With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
-
 
 ## Why I built this tool
 
