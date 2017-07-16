@@ -12,6 +12,10 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		Location: "us-west-2",
 		Ssh: &cluster.Ssh{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
+			User:          "ubuntu",
+		},
+		KubernetesApi: &cluster.KubernetesApi{
+			Port: "443",
 		},
 		Network: &cluster.Network{
 			Type: cluster.NetworkType_Public,

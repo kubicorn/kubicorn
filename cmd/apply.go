@@ -19,11 +19,13 @@ import (
 	"fmt"
 	clusterInit "github.com/kris-nova/kubicorn/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
+	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
 	"os"
+	"strings"
 )
 
 // applyCmd represents the apply command
@@ -119,7 +121,18 @@ func RunApply(options *ApplyOptions) error {
 	if err != nil {
 		return fmt.Errorf("Unable to commit state store: %v", err)
 	}
+
 	logger.Info("Updating state store for cluster [%s]", options.Name)
-	logger.Always("%s has applied successfully", cluster.Name)
+
+	err = kubeconfig.RetryGetConfig(newCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to write kubeconfig: %v", err)
+	}
+
+	logger.Always("The [%s] cluster has applied successfully!", cluster.Name)
+	logger.Always("You can now `kubectl get nodes`")
+	privKeyPath := strings.Replace(cluster.Ssh.PublicKeyPath, ".pub", "", 1)
+	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, cluster.Ssh.User, cluster.KubernetesApi.Endpoint)
+
 	return nil
 }
