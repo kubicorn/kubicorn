@@ -7,9 +7,14 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/amazon/resources"
 	"github.com/kris-nova/kubicorn/cutil/hang"
 	"github.com/kris-nova/kubicorn/logger"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 	"time"
 )
+
+var sigCaught = false
 
 type Reconciler struct {
 	Known *cluster.Cluster
@@ -88,7 +93,18 @@ var createdResources = make(map[int]cloud.Resource)
 
 func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	newCluster := newClusterDefaults(r.Known)
+
 	for i := 0; i < len(model); i++ {
+		if sigCaught {
+			cleanUp(newCluster, i)
+			os.Exit(1)
+		}
+
+		c := make(chan os.Signal, 1)
+		signal.Notify(c, os.Interrupt)
+
+		go handleCtrlC(c)
+
 		resource := model[i]
 		expectedResource, err := resource.Expected(expectedCluster)
 		if err != nil {
@@ -114,6 +130,7 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 		}
 		createdResources[i] = appliedResource
 	}
+
 	return newCluster, nil
 }
 
@@ -171,4 +188,12 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 		Values:   base.Values,
 	}
 	return new
+}
+
+func handleCtrlC(c chan os.Signal) {
+	sig := <-c
+	if sig == syscall.SIGINT {
+		sigCaught = true
+		logger.Warning("SIGINT! Why did you do that? Trying to rewind to clean up orphaned resources!")
+	}
 }
