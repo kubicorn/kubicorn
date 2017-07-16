@@ -4,4 +4,9 @@ _state*
 bootstrap/bootstrap.go
 =======
 .DS_Store
+<<<<<<< HEAD
 >>>>>>> 7ea9a00... updates ignore
+=======
+bin/*
+bootstrap/bootstrap.go
+>>>>>>> 0a6103d... Remove some hard coded paths in Makefile
