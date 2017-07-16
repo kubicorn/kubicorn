@@ -156,10 +156,9 @@ func (b *RouteBuilder) ReturnsError(code int, message string, model interface{})
 // The model parameter is optional ; either pass a struct instance or use nil if not applicable.
 func (b *RouteBuilder) Returns(code int, message string, model interface{}) *RouteBuilder {
 	err := ResponseError{
-		Code:      code,
-		Message:   message,
-		Model:     model,
-		IsDefault: false,
+		Code:    code,
+		Message: message,
+		Model:   model,
 	}
 	// lazy init because there is no NewRouteBuilder (yet)
 	if b.errorMap == nil {
@@ -169,22 +168,6 @@ func (b *RouteBuilder) Returns(code int, message string, model interface{}) *Rou
 	return b
 }
 
-// DefaultReturns is a special Returns call that sets the default of the response ; the code is zero.
-func (b *RouteBuilder) DefaultReturns(message string, model interface{}) *RouteBuilder {
-	b.Returns(0, message, model)
-	// Modify the ResponseError just added/updated
-	re := b.errorMap[0]
-	// errorMap is initialized
-	b.errorMap[0] = ResponseError{
-		Code:      re.Code,
-		Message:   re.Message,
-		Model:     re.Model,
-		IsDefault: true,
-	}
-	return b
-}
-
-// Metadata adds or updates a key=value pair to the metadata map.
 func (b *RouteBuilder) Metadata(key string, value interface{}) *RouteBuilder {
 	if b.metadata == nil {
 		b.metadata = map[string]interface{}{}
@@ -193,12 +176,10 @@ func (b *RouteBuilder) Metadata(key string, value interface{}) *RouteBuilder {
 	return b
 }
 
-// ResponseError represents a response; not necessarily an error.
 type ResponseError struct {
-	Code      int
-	Message   string
-	Model     interface{}
-	IsDefault bool
+	Code    int
+	Message string
+	Model   interface{}
 }
 
 func (b *RouteBuilder) servicePath(path string) *RouteBuilder {
