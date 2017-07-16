@@ -2,6 +2,7 @@ package awsSdkGo
 
 import (
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials/stscreds"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/ec2"
@@ -16,7 +17,12 @@ type Sdk struct {
 
 func NewSdk(region string) (*Sdk, error) {
 	sdk := &Sdk{}
-	session, err := session.NewSession(&aws.Config{Region: aws.String(region)})
+	session, err := session.NewSessionWithOptions(session.Options{
+		Config: aws.Config{Region: aws.String(region)},
+		// Support MFA when authing using assumed roles.
+		SharedConfigState:       session.SharedConfigEnable,
+		AssumeRoleTokenProvider: stscreds.StdinTokenProvider,
+	})
 	if err != nil {
 		return nil, err
 	}
