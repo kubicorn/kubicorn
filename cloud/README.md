@@ -3,6 +3,8 @@
 A `Reconciler` defines a core worker in `kubicorn` and there is one per cloud.
 The `Reconciler` for each cloud implements the same interface and is used to interact and audit a cloud.
 
+**This interface is designed explicitly to work well with developing controllers and operators**
+
 
 ```go
 type Reconciler interface {

@@ -49,7 +49,7 @@ Define what you want, then apply it. That simple.
 
 ### Scale
 
-`kubicorn` is powered by a state enforcement model.
+`kubicorn` is powered by a state enforcement pattern.
 A user defines the intended state of Kubernetes infrastructure, and `kubicorn` can enforce the intended state.
 
 ### Snapshot
