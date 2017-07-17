@@ -4,6 +4,8 @@
 
 Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
 
+**Phonetic pronunciation**: `KEW - BHIK - OH - AR - IN`
+
 ## About
 
 `kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a rich golang library to work with infrastructure.
