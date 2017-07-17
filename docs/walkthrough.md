@@ -8,7 +8,15 @@ As a prerequisite, you need to have `kubicorn` installed. Since we don't have bi
 $ go get github.com/kris-nova/kubicorn
 ```
 
-If you're a Go newbie, before you proceed you've to build the kubicorn binary from source. For this you'd need to build go-bindata and provide it in your path: 
+If you're new to Go, before you proceed you've to set GOPATH and build the kubicorn binary from source. For this you'd need to build go-bindata and provide it in your path: 
+
+Set GOPATH in your bash profile:
+
+```
+$ vi .bash_profil
+export GOPATH=/Users/<your user>/go
+export PATH=$GOPATH/bin:$PATH
+```
 
 ```
 $ go get github.com/jteeuwen/go-bindata
@@ -22,6 +30,11 @@ And run make from the src directory of kubicorn:
 $ cd $GOPATH/src/github.com/kris-nova/kubicorn/
 $ make
 ```
+The kubicorn binary will get built and placed under $GOPATH/bin, run kubicorn -h to get the nice Unicorn:
+
+```
+$ kubicorn -h
+```
 
 The next thing you will do now is to define the cluster resources. For this, you need to select a certain profile. Of course, once you're more familiar with `kubicorn`, you can go ahead and extend existing profiles or create new ones.
 In the following we'll be using an existing profile called `aws`, which is—surprise, surprise—a profile for a cluster in AWS.
@@ -30,6 +43,8 @@ Now execute the following command:
 
 ```
 $ kubicorn create --name myfirstk8s --profile aws
+
+2017-07-17T16:42:00+02:00 [✿]  ./_state/myfirstk8s/cluster.yaml has been created. Now run `kubicorn apply myfirstk8s`
 ```
 
 Note that `kubicorn` executes silently as long as there are no errors but you can always use the `--verbose` flag to increase the information output, for example `kubicorn create --verbose 4` gives you detailed info on what it is doing at any step.
