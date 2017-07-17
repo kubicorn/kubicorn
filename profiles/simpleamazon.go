@@ -3,6 +3,7 @@ package profiles
 import (
 	"fmt"
 	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/bootstrap"
 )
 
 func NewSimpleAmazonCluster(name string) *cluster.Cluster {
@@ -23,7 +24,7 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
-				"INJECTEDTOKEN": "829a9b.a839d03b8d810c56",
+				"INJECTEDTOKEN": bootstrap.GetToken(),
 			},
 		},
 		ServerPools: []*cluster.ServerPool{
