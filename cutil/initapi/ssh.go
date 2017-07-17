@@ -15,7 +15,6 @@
 package initapi
 
 import (
-	"fmt"
 	"github.com/gravitational/teleport/lib/sshutils"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -25,7 +24,6 @@ import (
 
 func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if initCluster.Ssh.PublicKeyPath != "" {
-		fmt.Println(initCluster.Ssh.PublicKeyPath)
 		bytes, err := ioutil.ReadFile(local.Expand(initCluster.Ssh.PublicKeyPath))
 		if err != nil {
 			return nil, err
