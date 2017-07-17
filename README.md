@@ -1,4 +1,7 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/kris-nova/klone)](https://goreportcard.com/report/github.com/nivenly/kamp)
+[![Go Report Card](https://goreportcard.com/badge/github.com/kris-nova/klone)](https://goreportcard.com/report/github.com/nivenly/kamp)  [![GoDoc Widget]][GoDoc]
+
+[GoDoc]: https://godoc.org/k8s.io/kops
+[GoDoc Widget]: https://godoc.org/k8s.io/kops?status.svg
 
 # kubicorn
 
