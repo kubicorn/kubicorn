@@ -14,7 +14,7 @@ type KeyPair struct {
 	PublicKeyData        string
 	PublicKeyPath        string
 	PublicKeyFingerprint string
-	User string
+	User                 string
 }
 
 func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -70,7 +70,7 @@ func (r *KeyPair) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		},
 		PublicKeyPath: known.Ssh.PublicKeyPath,
 		PublicKeyData: string(known.Ssh.PublicKeyData),
-		User: known.Ssh.User,
+		User:          known.Ssh.User,
 	}
 	r.CachedExpected = expected
 	return expected, nil
