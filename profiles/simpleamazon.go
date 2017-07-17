@@ -24,7 +24,7 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
-				"INJECTEDTOKEN": bootstrap.GetToken()),
+				"INJECTEDTOKEN": bootstrap.GetToken(),
 			},
 		},
 		ServerPools: []*cluster.ServerPool{
