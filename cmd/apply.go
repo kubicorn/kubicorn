@@ -17,7 +17,7 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	clusterInit "github.com/kris-nova/kubicorn/cluster"
+	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/logger"
@@ -87,7 +87,7 @@ func RunApply(options *ApplyOptions) error {
 	}
 	logger.Info("Loaded cluster: %s", cluster.Name)
 
-	cluster, err = clusterInit.InitCluster(cluster)
+	cluster, err = initapi.InitCluster(cluster)
 	if err != nil {
 		return err
 	}

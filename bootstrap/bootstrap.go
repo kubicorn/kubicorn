@@ -85,7 +85,7 @@ func bootstrap170_ubuntu_1604_masterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/1.7.0_ubuntu_16.04_master.sh", size: 1786, mode: os.FileMode(420), modTime: time.Unix(1500236061, 0)}
+	info := bindataFileInfo{name: "bootstrap/1.7.0_ubuntu_16.04_master.sh", size: 1786, mode: os.FileMode(420), modTime: time.Unix(1500250167, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -105,7 +105,7 @@ func bootstrap170_ubuntu_1604_nodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/1.7.0_ubuntu_16.04_node.sh", size: 1236, mode: os.FileMode(420), modTime: time.Unix(1500236061, 0)}
+	info := bindataFileInfo{name: "bootstrap/1.7.0_ubuntu_16.04_node.sh", size: 1236, mode: os.FileMode(420), modTime: time.Unix(1500250167, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -183,8 +183,8 @@ func AssetNames() []string {
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
 	"bootstrap/1.7.0_ubuntu_16.04_master.sh": bootstrap170_ubuntu_1604_masterSh,
-	"bootstrap/1.7.0_ubuntu_16.04_node.sh":   bootstrap170_ubuntu_1604_nodeSh,
-	"bootstrap/inject.go":                    bootstrapInjectGo,
+	"bootstrap/1.7.0_ubuntu_16.04_node.sh": bootstrap170_ubuntu_1604_nodeSh,
+	"bootstrap/inject.go": bootstrapInjectGo,
 }
 
 // AssetDir returns the file names below a certain
@@ -226,12 +226,11 @@ type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
 }
-
 var _bintree = &bintree{nil, map[string]*bintree{
 	"bootstrap": &bintree{nil, map[string]*bintree{
 		"1.7.0_ubuntu_16.04_master.sh": &bintree{bootstrap170_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"1.7.0_ubuntu_16.04_node.sh":   &bintree{bootstrap170_ubuntu_1604_nodeSh, map[string]*bintree{}},
-		"inject.go":                    &bintree{bootstrapInjectGo, map[string]*bintree{}},
+		"1.7.0_ubuntu_16.04_node.sh": &bintree{bootstrap170_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"inject.go": &bintree{bootstrapInjectGo, map[string]*bintree{}},
 	}},
 }}
 
@@ -281,3 +280,4 @@ func _filePath(dir, name string) string {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
+
