@@ -5,10 +5,11 @@ import (
 )
 
 const (
-	Cloud_Amazon    = "amazon"
-	Cloud_Azure     = "azure"
-	Cloud_Google    = "google"
-	Cloud_Baremetal = "baremetal"
+	Cloud_Amazon       = "amazon"
+	Cloud_Azure        = "azure"
+	Cloud_Google       = "google"
+	Cloud_Baremetal    = "baremetal"
+	Cloud_DigitalOcean = "digitalocean"
 )
 
 type Cluster struct {
