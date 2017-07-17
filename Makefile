@@ -12,7 +12,10 @@ bindata:
 	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/
 
 
-build: clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
+build: authors clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
+
+authors:
+	git log --all --format='%aN <%cE>' | sort -u | grep -v "noreply@github.com" > AUTHORS
 
 clean:
 	rm -rf bin/*
