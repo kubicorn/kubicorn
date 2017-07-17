@@ -109,7 +109,7 @@ func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	if deleteResource.CloudID == "" {
 		return fmt.Errorf("Unable to delete ssh resource without Id [%s]", deleteResource.Name)
 	}
-	id, err := strconv.Atoi(r.CloudID)
+	id, err := strconv.Atoi(known.Ssh.Identifier)
 	if err != nil {
 		return err
 	}
