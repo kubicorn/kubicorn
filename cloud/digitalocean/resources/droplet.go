@@ -17,6 +17,7 @@ type Droplet struct {
 	Size       string
 	Image      string
 	Count      int
+	SShFingerprint string
 	ServerPool *cluster.ServerPool
 }
 
@@ -96,6 +97,10 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			Slug: expected.(*Droplet).Image,
 		},
 		Tags: []string{expected.(*Droplet).Name},
+		PrivateNetworking: true,
+		SSHKeys: []godo.DropletCreateSSHKey{
+			Fingerprint: "",
+		},
 	}
 	droplet, _, err := Sdk.Client.Droplets.Create(context.TODO(), createRequest)
 	if err != nil {
