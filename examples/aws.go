@@ -3,15 +3,16 @@ package main
 import (
 	"fmt"
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	clusterInit "github.com/kris-nova/kubicorn/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
+	"github.com/kris-nova/kubicorn/cutil/initapi"
+	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 	"github.com/kris-nova/kubicorn/logger"
 )
 
 func main() {
 	logger.Level = 4
 	cluster := getCluster("mycluster")
-	cluster, err := clusterInit.InitCluster(cluster)
+	cluster, err := initapi.InitCluster(cluster)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -61,7 +62,7 @@ func getCluster(name string) *cluster.Cluster {
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
-				"INJECTEDTOKEN": "829a9b.a839d03b8d810c56",
+				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
 			},
 		},
 		ServerPools: []*cluster.ServerPool{
