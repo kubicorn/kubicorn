@@ -1,4 +1,4 @@
-package cluster
+package initapi
 
 import (
 	"github.com/kris-nova/klone/pkg/local"
