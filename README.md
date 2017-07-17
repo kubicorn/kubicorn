@@ -19,6 +19,8 @@ With `kubicorn` a user can create new clusters, modify and scale them, and take 
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
 
+## Installing
+
 ```
 $ go get github.com/kris-nova/kubicorn
 ```
