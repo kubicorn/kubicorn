@@ -1,4 +1,4 @@
-package cluster
+package initapi
 
 import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
