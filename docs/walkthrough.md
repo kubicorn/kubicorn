@@ -8,7 +8,22 @@ As a prerequisite, you need to have `kubicorn` installed. Since we don't have bi
 $ go get github.com/kris-nova/kubicorn
 ```
 
-The first thing you will do now is to define the cluster resources. For this, you need to select a certain profile. Of course, once you're more familiar with `kubicorn`, you can go ahead and extend existing profiles or create new ones.
+If you're a Go newbie, before you proceed you've to build the kubicorn binary from source. For this you'd need to build go-bindata and provide it in your path: 
+
+```
+$ go get github.com/jteeuwen/go-bindata
+$ cd $GOPATH/src/github.com/jteeuwen/go-bindata/go-bindata
+$ go build
+$ cp go-bindata /usr/local/bin/
+```
+And run make from the src directory of kubicorn:
+
+```
+$ cd $GOPATH/src/github.com/kris-nova/kubicorn/
+$ make
+```
+
+The next thing you will do now is to define the cluster resources. For this, you need to select a certain profile. Of course, once you're more familiar with `kubicorn`, you can go ahead and extend existing profiles or create new ones.
 In the following we'll be using an existing profile called `aws`, which is—surprise, surprise—a profile for a cluster in AWS.
 
 Now execute the following command:
