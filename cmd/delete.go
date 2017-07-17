@@ -111,6 +111,5 @@ func RunDelete(options *DeleteOptions) error {
 			return fmt.Errorf("Unable to remove state store for cluster [%s]: %v", options.Name, err)
 		}
 	}
-
 	return nil
 }
