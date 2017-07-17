@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/digitalocean/godo"
 	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/logger"
@@ -86,6 +87,36 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		PublicKey: expected.(*SSH).PublicKeyData,
 	}
 	key, _, err := Sdk.Client.Keys.Create(context.TODO(), request)
+	var userData []byte
+	userData, err = bootstrap.Asset(fmt.Sprintf("bootstrap/%s", r.ServerPool.BootstrapScript))
+	if err != nil {
+		return nil, err
+	}
+
+	//fmt.Println(string(userData))
+	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
+	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
+	if err != nil {
+		return nil, err
+	}
+
+	createRequest := &godo.DropletCreateRequest{
+		Name:   expected.(*SSH).Name,
+		Region: expected.(*SSH).Region,
+		Size:   expected.(*SSH).Size,
+		Image: godo.DropletCreateImage{
+			Slug: expected.(*SSH).Image,
+		},
+		Tags:              []string{expected.(*SSH).Name},
+		PrivateNetworking: true,
+		SSHKeys: []godo.DropletCreateSSHKey{
+			{
+				Fingerprint: expected.(*SSH).SShFingerprint,
+			},
+		},
+		UserData: string(userData),
+	}
+	droplet, _, err := Sdk.Client.Droplets.Create(context.TODO(), createRequest)
 	if err != nil {
 		return nil, err
 	}

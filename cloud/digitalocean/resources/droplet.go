@@ -118,6 +118,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		return nil, err
 	}
 
+	//fmt.Println(string(userData))
+	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
+	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
+	if err != nil {
+		return nil, err
+	}
+
 	sshId, err := strconv.Atoi(applyCluster.Ssh.Identifier)
 	if err != nil {
 		return nil, err
@@ -133,7 +140,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		PrivateNetworking: true,
 		SSHKeys: []godo.DropletCreateSSHKey{
 			{
-				ID: sshId,
+				ID:          sshId,
+				Fingerprint: expected.(*Droplet).SShFingerprint,
 			},
 		},
 		UserData: string(userData),

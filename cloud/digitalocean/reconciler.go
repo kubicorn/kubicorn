@@ -23,6 +23,7 @@ import (
 	"github.com/kris-nova/kubicorn/logger"
 	"os"
 	"os/signal"
+	"fmt"
 	"strings"
 	"syscall"
 	"time"
