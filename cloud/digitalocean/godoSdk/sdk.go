@@ -2,10 +2,10 @@ package godoSdk
 
 import (
 	"context"
+	"fmt"
 	"github.com/digitalocean/godo"
 	"golang.org/x/oauth2"
 	"os"
-	"fmt"
 )
 
 type Sdk struct {
