@@ -21,11 +21,13 @@ clean:
 	rm -rf bin/*
 
 gofmt:
-	gofmt -w ./cmd
 	gofmt -w ./apis
+	gofmt -w ./bootstrap
 	gofmt -w ./cloud
-	gofmt -w ./cluster
+	gofmt -w ./cmd
 	gofmt -w ./cutil
+	gofmt -w ./docs
+	gofmt -w ./examples
 	gofmt -w ./logger
 	gofmt -w ./namer
 	gofmt -w ./profiles
