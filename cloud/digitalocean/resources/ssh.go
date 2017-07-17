@@ -116,7 +116,7 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		},
 		UserData: string(userData),
 	}
-	droplet, _, err := Sdk.Client.Droplets.Create(context.TODO(), createRequest)
+	key, _, err := Sdk.Client.Keys.Create(context.TODO(), request)
 	if err != nil {
 		return nil, err
 	}
