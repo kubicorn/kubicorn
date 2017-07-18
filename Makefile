@@ -4,7 +4,7 @@ GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
 
-default: bindata compile
+default: authorsfile bindata compile
 
 all: default install
 
@@ -21,7 +21,7 @@ bindata:
 
 build: authors clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
 
-authors:
+authorsfile:
 	git log --all --format='%aN <%cE>' | sort -u | grep -v "noreply@github.com" > AUTHORS
 
 clean:
