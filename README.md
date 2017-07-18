@@ -21,9 +21,8 @@ Use at your own risk and if you're as excited about it as we are, maybe you want
 
 ## Installing
 
-```
-$ go get github.com/kris-nova/kubicorn
-```
+run `go get github.com/kris-nova/kubicorn` or read the [Install Guide](docs/INSTALL.md).
+
 ## How is Kubicorn different?
 
 1) We use kubeadm to bootstrap our clusters
@@ -75,3 +74,4 @@ Take a snap, save a snap, deploy a snap.
 | ---------------------------| ----------------------------------------------------------- |:----------------------------------------------------------------------:|
 | **Walkthrough**            | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                 |
 | **Video**                  | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)|
+| **Install**                | Install guide for Kubicorn CLI                              | [install](docs/INSTALL.md)                                             |

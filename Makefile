@@ -2,15 +2,22 @@ PKGS=$(shell go list ./... | grep -v /vendor)
 SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
+PWD=$(shell pwd)
 
 default: bindata compile
+
+all: default install
+
 compile:
-	@go build -o ${GOPATH}/bin/kubicorn -ldflags "-X github.com/kris-nova/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kris-nova/kubicorn/cmd.Version=${VERSION}" main.go
+	go build -o bin/kubicorn -ldflags "-X github.com/kris-nova/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kris-nova/kubicorn/cmd.Version=${VERSION}" main.go
+
+install:
+	install --mode=0755 bin/kubicorn ${GOPATH}/bin/kubicorn
 
 bindata:
+	which go-bindata > /dev/null || go get -u github.com/jteeuwen/go-bindata/...
 	rm -rf bootstrap/bootstrap.go
 	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/
-
 
 build: authors clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
 
@@ -19,6 +26,7 @@ authors:
 
 clean:
 	rm -rf bin/*
+	rm -rf bootstrap/bootstrap.go
 
 gofmt:
 	gofmt -w ./apis
@@ -35,10 +43,11 @@ gofmt:
 
 # Because of https://github.com/golang/go/issues/6376 We actually have to build this in a container
 build-linux-amd64:
+	mkdir -p bin
 	docker run \
 	-it \
 	-w /go/src/github.com/kris-nova/kubicorn \
-	-v ${GOPATH}/src/github.com/kris-nova/klone:/go/src/github.com/kris-nova/kubicorn \
+	-v ${PWD}:/go/src/github.com/kris-nova/kubicorn \
 	-e GOPATH=/go \
 	--rm golang:1.8.1 make docker-build-linux-amd64
 
@@ -59,7 +68,7 @@ shell:
 	docker run \
 	-i -t \
 	-w /go/src/github.com/kris-nova/kubicorn \
-	-v ${GOPATH}/src/github.com/Nivenly/kubicorn:/go/src/github.com/kris-nova/kubicorn \
+	-v ${PWD}:/go/src/github.com/kris-nova/kubicorn \
 	--rm ${SHELL_IMAGE} /bin/bash
 
 test:
