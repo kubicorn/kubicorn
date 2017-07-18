@@ -1,4 +1,5 @@
 _state*
 .idea*
 .DS_Store
+bin/*
 bootstrap/bootstrap.go
