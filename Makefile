@@ -65,6 +65,9 @@ shell:
 test:
 	@go test $(PKGS)
 
+vet:
+	@go vet $(PKGS)
+
 .PHONY: apimachinery
 apimachinery:
 	go get k8s.io/kubernetes/cmd/libs/go2idl/conversion-gen
