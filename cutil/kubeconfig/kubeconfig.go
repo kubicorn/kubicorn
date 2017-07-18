@@ -7,6 +7,7 @@ import (
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/terminal"
 	"io/ioutil"
 	"os"
 	"strings"
@@ -32,7 +33,8 @@ func GetConfig(existing *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
-	signer, err := ssh.ParsePrivateKey(pemBytes)
+
+	signer, err := GetSigner(pemBytes)
 	if err != nil {
 		return err
 	}
@@ -108,4 +110,23 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 		break
 	}
 	return nil
+}
+
+func GetSigner(pemBytes []byte) (ssh.Signer, error) {
+	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
+	if err != nil {
+		fmt.Print("SSH Key Passphrase [none]: ")
+		passPhrase, err := terminal.ReadPassword(0)
+		if err != nil {
+			return nil, err
+		}
+		signerwithpassphrase, err := ssh.ParsePrivateKeyWithPassphrase(pemBytes, passPhrase)
+		if err != nil {
+			return nil, err
+		} else {
+			return signerwithpassphrase, err
+		}
+	} else {
+		return signerwithoutpassphrase, err
+	}
 }
