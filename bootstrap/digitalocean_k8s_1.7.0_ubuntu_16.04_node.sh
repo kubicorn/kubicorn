@@ -24,7 +24,7 @@ sudo apt-get install -y \
     docker.io \
     apt-transport-https \
     kubelet \
-    kubeadm
+    kubeadm=1.7.0-00
 
 sudo systemctl enable docker
 sudo systemctl start docker

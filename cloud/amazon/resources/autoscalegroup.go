@@ -120,7 +120,6 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	logger.Info("Created Asg [%s]", r.Name)
 
-	// Todo popualte newResource here with values from API
 	newResource.Name = r.Name
 	newResource.CloudID = r.Name
 	newResource.MaxCount = r.MaxCount
