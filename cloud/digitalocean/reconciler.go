@@ -31,16 +31,19 @@ var model map[int]cloud.Resource
 
 func (r *Reconciler) Init() error {
 
-	// Disable DO
-	return fmt.Errorf("Digital Ocean not yet supported, but close!")
+	// Disable DO and hack for go vet...
+	if true {
+		return fmt.Errorf("Digital Ocean not yet supported, but close!")
+	}
 
-	// sdk, err := godoSdk.NewSdk()
-	// if err != nil {
-	// 	return err
-	// }
-	// resources.Sdk = sdk
-	// model = ClusterModel(r.Known)
-	// return nil
+	sdk, err := godoSdk.NewSdk()
+	if err != nil {
+		return err
+	}
+
+	resources.Sdk = sdk
+	model = ClusterModel(r.Known)
+	return nil
 }
 
 func (r *Reconciler) GetActual() (*cluster.Cluster, error) {
