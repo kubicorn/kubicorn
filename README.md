@@ -68,10 +68,9 @@ Take a snap, save a snap, deploy a snap.
 
 # Documentation
 
-### AWS
-
 | Name                       | Description                                                 | Link                                                                   |
 | ---------------------------| ----------------------------------------------------------- |:----------------------------------------------------------------------:|
-| **Walkthrough**            | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                 |
-| **Video**                  | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)|
 | **Install**                | Install guide for Kubicorn CLI                              | [install](docs/INSTALL.md)                                             |
+| **Kops vs Kubicorn**       | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                   |
+| **AWS Walkthrough**        | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                 |
+| **AWS Video**              | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)|
