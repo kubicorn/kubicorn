@@ -39,9 +39,6 @@ const (
 	StyleTryingFork    Style = 4 // The user is NOT the owner, and the repository is already forked
 )
 
-// ForceKloner will force a kloner implementation if set
-var ForceKloner string
-
 // NewKlonerFunc defines the type of function we expect for new kloners
 type NewKlonerFunc func(server provider.GitServer) kloners.Kloner
 
@@ -82,30 +79,6 @@ func (k *Kloneable) findKloner() error {
 	if k.gitServer == nil {
 		return errors.New("nil getServer")
 	}
-	if ForceKloner != "" {
-		//local.Printf("Trying force kloner [%s]", ForceKloner)
-		switch ForceKloner {
-		case "simple":
-			k.kloner = simple.NewKloner(k.gitServer)
-			local.Printf("Using kloner [%s]", "simple")
-			return nil
-		case "gogit":
-			k.kloner = gogit.NewKloner(k.gitServer)
-			local.Printf("Using kloner [%s]", "golang")
-			return nil
-		case "golang":
-			k.kloner = gogit.NewKloner(k.gitServer)
-			local.Printf("Using kloner [%s]", "golang")
-			return nil
-		case "go":
-			k.kloner = gogit.NewKloner(k.gitServer)
-			local.Printf("Using kloner [%s]", "golang")
-			return nil
-		default:
-			local.Printf("Unable to force kloner [%s] (not defined)", ForceKloner)
-		}
-	}
-
 	var lang string
 	if k.repo.Language() == "" {
 		// Then check for a parent
