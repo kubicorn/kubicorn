@@ -1,7 +1,8 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/kris-nova/klone)](https://goreportcard.com/report/github.com/nivenly/kamp)  [![GoDoc Widget]][GoDoc]
-[![Build Status](https://travis-ci.org/kris-nova/kubicorn.svg?branch=master)](https://travis-ci.org/kris-nova/kubicorn)
 [GoDoc]: https://godoc.org/k8s.io/kops
 [GoDoc Widget]: https://godoc.org/k8s.io/kops?status.svg
+
+[![Build Status](https://travis-ci.org/kris-nova/kubicorn.svg?branch=master)](https://travis-ci.org/kris-nova/kubicorn)
 
 # kubicorn
 
