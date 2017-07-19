@@ -20,7 +20,12 @@ With `kubicorn` a user can create new clusters, modify and scale them, and take 
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
 
-## Installing
+
+### Proudly packaged with [dep](https://github.com/golang/dep)
+<img src="https://github.com/ashleymcnamara/gophers/blob/master/NERDY.png" width="48">
+
+
+# Installing
 
 run `go get github.com/kris-nova/kubicorn` or read the [Install Guide](docs/INSTALL.md).
 
