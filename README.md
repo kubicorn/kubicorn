@@ -41,7 +41,7 @@ run `go get github.com/kris-nova/kubicorn` or read the [Install Guide](docs/INST
 
 ### Create
 
-`kubicorn` let's a user create a Kubernetes cluster in a cloud of their choice.
+`kubicorn` lets a user create a Kubernetes cluster in a cloud of their choice.
 
 ### Apply
 
