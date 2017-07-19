@@ -1,8 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/kris-nova/klone)](https://goreportcard.com/report/github.com/nivenly/kamp)  [![GoDoc Widget]][GoDoc]
-[![Build Status](https://travis-ci.org/kris-nova/kubicorn.svg?branch=master)](https://travis-ci.org/kris-nova/kubicorn)
-[GoDoc]: https://godoc.org/k8s.io/kops
-[GoDoc Widget]: https://godoc.org/k8s.io/kops?status.svg
-
+[![Build Status](https://travis-ci.org/kris-nova/kubicorn.svg?branch=master)](https://travis-ci.org/kris-nova/kubicorn) [![Go Report Card](https://goreportcard.com/badge/github.com/kris-nova/klone)](https://goreportcard.com/report/github.com/nivenly/kamp)
 # kubicorn
 
 Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
@@ -19,7 +15,11 @@ With `kubicorn` a user can create new clusters, modify and scale them, and take 
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
 
-## Installing
+
+<img src="https://github.com/ashleymcnamara/gophers/blob/master/NERDY.png" width="60"> Proudly packaged with Golang [dep](https://github.com/golang/dep)
+
+
+# Installing
 
 run `go get github.com/kris-nova/kubicorn` or read the [Install Guide](docs/INSTALL.md).
 
