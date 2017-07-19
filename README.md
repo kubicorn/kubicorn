@@ -2,7 +2,7 @@
 [GoDoc]: https://godoc.org/k8s.io/kops
 [GoDoc Widget]: https://godoc.org/k8s.io/kops?status.svg
 
-[![Build Status](https://travis-ci.org/kris-nova/kubicorn.svg?branch=master)](https://travis-ci.org/kris-nova/kubicorn)
+
 
 # kubicorn
 
@@ -21,8 +21,7 @@ With `kubicorn` a user can create new clusters, modify and scale them, and take 
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the Gophers Slack community.
 
 
-### Proudly packaged with [dep](https://github.com/golang/dep)
-<img src="https://github.com/ashleymcnamara/gophers/blob/master/NERDY.png" width="48">
+Proudly packaged with [dep](https://github.com/golang/dep): <img src="https://github.com/ashleymcnamara/gophers/blob/master/NERDY.png" width="80">
 
 
 # Installing
