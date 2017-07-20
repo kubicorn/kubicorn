@@ -24,11 +24,15 @@ var adjectives = []string{
 	"attractive",
 	"wonderful",
 	"fabulous",
-	"extravagent",
+	"extravagant",
+	"ridiculous",
 	"exciting",
 	"amazing",
 	"adorable",
 	"ferocious",
+	"hilarious",
+	"scrumptious",
+	"floral",
 }
 
 var nouns = []string{
@@ -39,9 +43,12 @@ var nouns = []string{
 	"mongoose",
 	"sculpture",
 	"creature",
+	"gopher",
+	"wardrobe",
 	"mushroom",
 	"hideout",
 	"party",
 	"monster",
 	"sheepdog",
+	"outfit",
 }
