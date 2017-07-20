@@ -12,8 +12,14 @@ Issue sizes (small, medium, large) represent amount of effort, and not complexit
 Try to keep pull requests tidy, and be prepared for feedback.
 Everyone is welcome to contribute to `kubicorn` but I do keep a high quality of code standard. 
 Be ready to face this.
-Feel free to open a pull request for anything, at anything. 
-Everyone is welcome. 
+Feel free to open a pull request for anything, about anything.
+Everyone is welcome.
+
+### Deadlines
+
+I will do my best to keep the pull request backlog clean and tidy.
+If you open a pull request and it becomes stale (15+ days) I might leave a note asking you to reopen, and close the pull request.
+Please know it means that I am trying to keep our code tidy, and that your pull request is ABSOLUTELY still welcome!
 
 # Testing
 
