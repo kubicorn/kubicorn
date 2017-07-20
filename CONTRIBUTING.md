@@ -26,3 +26,8 @@ Please know it means that I am trying to keep our code tidy, and that your pull 
 As the tool continues to mature we will implement a testing harness.
 Once the harness is in place, tests will be required for all bug fixes and features.
 No exceptions. 
+
+# Twitter
+
+You can read the [full documentation](docs/twitter.md) for more information, but be aware that every commit message will be forwarded on to twitter via the `kubicornk8s` account.
+If you want to contribute, but do **not** want your commit messages forwarded on to twitter, please send a private message to @kris-nova and she will help!
