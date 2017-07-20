@@ -71,6 +71,7 @@ Take a snap, save a snap, deploy a snap.
 | Name                       | Description                                                 | Link                                                                   |
 | ---------------------------| ----------------------------------------------------------- |:----------------------------------------------------------------------:|
 | **Install**                | Install guide for Kubicorn CLI                              | [install](docs/INSTALL.md)                                             |
+| **Environmental Variables**| Master list of supported environmental variables            | [envvars](docs/envar.md)                                               |
 | **Kops vs Kubicorn**       | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                   |
 | **AWS Walkthrough**        | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                 |
 | **AWS Video**              | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)|
