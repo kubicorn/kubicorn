@@ -11,6 +11,10 @@ cd ~
 #
 TOKEN="INJECTEDTOKEN"
 MASTER="INJECTEDMASTER"
+CA_CRT="INJECTEDCACRT"
+CLUSTER_CRT="INJECTEDCLUSTERCERT"
+CLUSTER_KEY="INJECTEDCLUSTERKEY"
+NAME="INJECTEDNAME"
 # ------------------------------------------------------------------------------------------------------------------------
 
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -31,3 +35,10 @@ sudo systemctl start docker
 
 sudo -E kubeadm reset
 sudo -E kubeadm join --token ${TOKEN} ${MASTER}
+
+# VPN Mesh
+echo $CA_CRT > /etc/openvpn/ca.crt
+echo $CLUSTER_CRT > /etc/openvpn/easy-rsa/keys/${NAME}.crt
+echo $CLUSTER_KEY > /etc/openvpn/easy-rsa/keys/${NAME}.key
+apt-get update -y && apt-get install openvpn -y
+cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn/

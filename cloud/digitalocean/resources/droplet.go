@@ -156,7 +156,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
 			found = true
-
+			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, applyCluster.KubernetesApi.Port)
 			break
 		}
 		if !found {
@@ -164,14 +164,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		}
 	}
 
-	applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, applyCluster.KubernetesApi.Port)
-	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
-	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
-	if err != nil {
-		return nil, err
-	}
-
-	//fmt.Println(string(userData))
+	applyCluster.Values.ItemMap["INJECTEDNAME"] = applyCluster.Name
 	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
 	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
 	if err != nil {
