@@ -123,8 +123,8 @@ func GetConfig(existing *cluster.Cluster) error {
 }
 
 const (
-	RetryAttempts     = 120
-	RetrySleepSeconds = 2
+	RetryAttempts     = 90
+	RetrySleepSeconds = 3
 )
 
 func RetryGetConfig(existing *cluster.Cluster) error {
@@ -132,7 +132,7 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 		err := GetConfig(existing)
 		if err != nil {
 			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") {
-				logger.Warning(err.Error())
+				//logger.Warning(err.Error())
 				logger.Debug("Waiting for Kubernetes to come up..")
 				time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
 				continue
