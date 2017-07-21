@@ -14,6 +14,7 @@ import (
 
 type SSH struct {
 	Shared
+	User                 string
 	PublicKeyFingerprint string
 	PublicKeyData        string
 	PublicKeyPath        string
@@ -30,6 +31,7 @@ func (r *SSH) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 			Name:    r.Name,
 			CloudID: known.Ssh.Identifier,
 		},
+		User: known.Ssh.User,
 	}
 
 	if r.CloudID != "" {
@@ -67,6 +69,7 @@ func (r *SSH) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		PublicKeyFingerprint: known.Ssh.PublicKeyFingerprint,
 		PublicKeyData:        string(known.Ssh.PublicKeyData),
 		PublicKeyPath:        known.Ssh.PublicKeyPath,
+		User:                 known.Ssh.User,
 	}
 	r.CachedExpected = expected
 	return expected, nil
@@ -131,6 +134,7 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		PublicKeyFingerprint: key.Fingerprint,
 		PublicKeyData:        key.PublicKey,
 		PublicKeyPath:        expected.(*SSH).PublicKeyPath,
+		User:                 expected.(*SSH).User,
 	}
 	return newResource, nil
 }
@@ -160,6 +164,7 @@ func (r *SSH) Render(renderResource cloud.Resource, renderCluster *cluster.Clust
 	renderCluster.Ssh.PublicKeyFingerprint = renderResource.(*SSH).PublicKeyFingerprint
 	renderCluster.Ssh.PublicKeyPath = renderResource.(*SSH).PublicKeyPath
 	renderCluster.Ssh.Identifier = renderResource.(*SSH).CloudID
+	renderCluster.Ssh.User = renderResource.(*SSH).User
 	return renderCluster, nil
 }
 

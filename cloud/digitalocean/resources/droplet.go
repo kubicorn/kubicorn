@@ -24,6 +24,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/logger"
 	"strconv"
+	"time"
 )
 
 type Droplet struct {
@@ -35,6 +36,11 @@ type Droplet struct {
 	SShFingerprint string
 	ServerPool     *cluster.ServerPool
 }
+
+const (
+	MasterIpAttempts               = 40
+	MasterIpSleepSecondsPerAttempt = 3
+)
 
 func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("droplet.Actual")
@@ -111,7 +117,54 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		return nil, err
 	}
 
-	//fmt.Println(string(userData))
+	masterIpPrivate := ""
+	masterIpPublic := ""
+	if r.ServerPool.Type == cluster.ServerPoolType_Node {
+		found := false
+		for i := 0; i < MasterIpAttempts; i++ {
+			masterTag := ""
+			for _, serverPool := range applyCluster.ServerPools {
+				if serverPool.Type == cluster.ServerPoolType_Master {
+					masterTag = serverPool.Name
+				}
+			}
+			if masterTag == "" {
+				return nil, fmt.Errorf("Unable to find master tag for master IP")
+			}
+			droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), masterTag, &godo.ListOptions{})
+			if err != nil {
+				logger.Debug("Hanging for master IP..")
+				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				continue
+			}
+			ld := len(droplets)
+			if ld == 0 {
+				logger.Debug("Hanging for master IP..")
+				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				continue
+			}
+			if ld > 1 {
+				return nil, fmt.Errorf("Found [%d] droplets for tag [%s]", ld, masterTag)
+			}
+			droplet := droplets[0]
+			masterIpPrivate, err = droplet.PrivateIPv4()
+			if err != nil {
+				return nil, fmt.Errorf("Unable to detect private IP: %v", err)
+			}
+			masterIpPublic, err = droplet.PublicIPv4()
+			if err != nil {
+				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
+			}
+			found = true
+
+			break
+		}
+		if !found {
+			return nil, fmt.Errorf("Unable to find Master IP after defined wait")
+		}
+	}
+
+	applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, applyCluster.KubernetesApi.Port)
 	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
 	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
 	if err != nil {
@@ -163,6 +216,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		Region: droplet.Region.Name,
 		Count:  expected.(*Droplet).Count,
 	}
+	applyCluster.KubernetesApi.Endpoint = masterIpPublic
 	return newResource, nil
 }
 func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
@@ -193,6 +247,7 @@ func (r *Droplet) Render(renderResource cloud.Resource, renderCluster *cluster.C
 	logger.Debug("droplet.Render")
 
 	serverPool := &cluster.ServerPool{}
+	serverPool.Type = r.ServerPool.Type
 	serverPool.Image = renderResource.(*Droplet).Image
 	serverPool.Size = renderResource.(*Droplet).Size
 	serverPool.Name = renderResource.(*Droplet).Name

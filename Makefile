@@ -16,7 +16,7 @@ compile:
 	go build -o bin/kubicorn -ldflags "-X github.com/kris-nova/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kris-nova/kubicorn/cmd.Version=${VERSION}" main.go
 
 install:
-	install --mode=0755 bin/kubicorn ${GOPATH}/bin/kubicorn
+	install -m 0755 bin/kubicorn ${GOPATH}/bin/kubicorn
 
 bindata:
 	which go-bindata > /dev/null || go get -u github.com/jteeuwen/go-bindata/...

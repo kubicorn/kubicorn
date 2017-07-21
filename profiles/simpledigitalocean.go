@@ -26,7 +26,7 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 		Location: "sfo2",
 		Ssh: &cluster.Ssh{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "ubuntu",
+			User:          "root",
 		},
 		KubernetesApi: &cluster.KubernetesApi{
 			Port: "443",

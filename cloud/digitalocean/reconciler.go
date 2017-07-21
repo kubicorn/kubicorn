@@ -23,7 +23,6 @@ import (
 	"github.com/kris-nova/kubicorn/logger"
 	"os"
 	"os/signal"
-	"fmt"
 	"strings"
 	"syscall"
 	"time"
@@ -48,7 +47,6 @@ func (r *Reconciler) Init() error {
 	if err != nil {
 		return err
 	}
-
 	resources.Sdk = sdk
 	model = ClusterModel(r.Known)
 	return nil

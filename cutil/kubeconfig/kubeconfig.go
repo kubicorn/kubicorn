@@ -35,11 +35,18 @@ func GetConfig(existing *cluster.Cluster) error {
 	pubKeyPath := local.Expand(existing.Ssh.PublicKeyPath)
 	privKeyPath := strings.Replace(pubKeyPath, ".pub", "", 1)
 	address := fmt.Sprintf("%s:%s", existing.KubernetesApi.Endpoint, "22")
-	remotePath := fmt.Sprintf("/home/%s/.kube/config", user)
 	localPath := fmt.Sprintf("%s/.kube/config", local.Home())
+<<<<<<< HEAD
 	sshConfig := &ssh.ClientConfig{
 		User:            user,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+=======
+	remotePath := ""
+	if user == "root" {
+		remotePath = "/root/.kube/config"
+	} else {
+		remotePath = fmt.Sprintf("/home/%s/.kube/config", user)
+>>>>>>> Working k8s (sans vpn mesh) in #kubicorn
 	}
 
 	//fmt.Println(pubKeyPath)
@@ -116,24 +123,25 @@ func GetConfig(existing *cluster.Cluster) error {
 }
 
 const (
-	RetryAttempts     = 40
-	RetrySleepSeconds = 3
+	RetryAttempts     = 120
+	RetrySleepSeconds = 2
 )
 
 func RetryGetConfig(existing *cluster.Cluster) error {
 	for i := 0; i <= RetryAttempts; i++ {
 		err := GetConfig(existing)
 		if err != nil {
-			if strings.Contains(err.Error(), "file does not exist") {
+			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") {
+				logger.Warning(err.Error())
 				logger.Debug("Waiting for Kubernetes to come up..")
 				time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
 				continue
 			}
-			return nil
+			return err
 		}
-		break
+		return nil
 	}
-	return nil
+	return fmt.Errorf("Timedout writing kubeconfig")
 }
 
 func GetSigner(pemBytes []byte) (ssh.Signer, error) {
