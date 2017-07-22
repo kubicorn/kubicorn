@@ -8,8 +8,10 @@ import (
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/crypto/ssh/agent"
 	"io/ioutil"
 	"os"
+	"net"
 	"strings"
 	"time"
 )
@@ -21,6 +23,10 @@ func GetConfig(existing *cluster.Cluster) error {
 	address := fmt.Sprintf("%s:%s", existing.KubernetesApi.Endpoint, "22")
 	remotePath := fmt.Sprintf("/home/%s/.kube/config", user)
 	localPath := fmt.Sprintf("%s/.kube/config", local.Home())
+	sshConfig := &ssh.ClientConfig{
+		User:            user,
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+	}
 
 	//fmt.Println(pubKeyPath)
 	//fmt.Println(privKeyPath)
@@ -29,25 +35,29 @@ func GetConfig(existing *cluster.Cluster) error {
 	//fmt.Println(remotePath)
 	//fmt.Println(localPath)
 
-	pemBytes, err := ioutil.ReadFile(privKeyPath)
-	if err != nil {
-		return err
+  agent := sshAgent()
+  if agent != nil {
+		auths := []ssh.AuthMethod{
+			agent,
+		}
+		sshConfig.Auth = auths
+	} else {
+		pemBytes, err := ioutil.ReadFile(privKeyPath)
+		if err != nil {
+			return err
+		}
+
+		signer, err := GetSigner(pemBytes)
+		if err != nil {
+			return err
+		}
+
+		auths := []ssh.AuthMethod{
+			ssh.PublicKeys(signer),
+		}
+		sshConfig.Auth = auths
 	}
 
-	signer, err := GetSigner(pemBytes)
-	if err != nil {
-		return err
-	}
-
-	auths := []ssh.AuthMethod{
-		ssh.PublicKeys(signer),
-	}
-
-	sshConfig := &ssh.ClientConfig{
-		User:            user,
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-		Auth:            auths,
-	}
 	sshConfig.SetDefaults()
 
 	conn, err := ssh.Dial("tcp", address, sshConfig)
@@ -129,4 +139,11 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 	} else {
 		return signerwithoutpassphrase, err
 	}
+}
+
+func sshAgent() ssh.AuthMethod {
+	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
+		return ssh.PublicKeysCallback(agent.NewClient(sshAgent).Signers)
+	}
+	return nil
 }
