@@ -75,4 +75,4 @@ Take a snap, save a snap, deploy a snap.
 | **Kops vs Kubicorn**       | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                            |
 | **AWS Walkthrough**        | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                          |
 | **AWS Video**              | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)         |
-| **Tech N Talk Deep Dive**  | A technical deep dive courtesy of RedHat                    | [youtube](https://youtu.be/2DmUG0RgS70?list=PLaR6Rq6Z4IqfwXtKT7KeARRvxdvyLqG72_ |
+| **Tech N Talk Deep Dive**  | A technical deep dive courtesy of RedHat                    | [youtube](https://youtu.be/2DmUG0RgS70?list=PLaR6Rq6Z4IqfwXtKT7KeARRvxdvyLqG72) |
