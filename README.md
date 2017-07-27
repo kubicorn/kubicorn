@@ -59,7 +59,7 @@ A user defines the intended state of Kubernetes infrastructure, and `kubicorn` c
 ### Snapshot
 
 `kubicorn` allows a user to take a snapshot of a Kubernetes cluster, and run the image in any cloud at any time.
-A snapshot is compressed file that will represent intended infrastructure **and** intended application definitions.
+A snapshot is compressed file that will represent intedend infrastructure **and** intended application definitions.
 Take a snap, save a snap, deploy a snap.
 
 ### Enforce
@@ -68,24 +68,11 @@ Take a snap, save a snap, deploy a snap.
 
 # Documentation
 
-| Name                       | Description                                                 | Link                                                                   |
-| ---------------------------| ----------------------------------------------------------- |:----------------------------------------------------------------------:|
-| **Install**                | Install guide for Kubicorn CLI                              | [install](docs/INSTALL.md)                                             |
-| **Environmental Variables**| Master list of supported environmental variables            | [envvars](docs/envar.md)                                               |
-| **Kops vs Kubicorn**       | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                   |
-| **AWS Walkthrough**        | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                 |
-| **AWS Video**              | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)|
-
-
-# Goals for Version 1.0
-
-- Digital Ocean
-- AWS
-- Implementation of the official cluster API for Kubernetes
-- Ad hoc bootstrap scripts
-- Full cluster API on disk 
-- E2E testing
-- Working examples
-- Refactor Reconciler(s)
-
-We will not release a stable version until these goals are met. Please help us get there. In the mean time stay tuned, and follow [KubicornK8s](https://twitter.com/kubicornk8s) on twitter for play-by-play updates.
+| Name                       | Description                                                 | Link                                                                            |
+| ---------------------------| ----------------------------------------------------------- |:-------------------------------------------------------------------------------:|
+| **Install**                | Install guide for Kubicorn CLI                              | [install](docs/INSTALL.md)                                                      |
+| **Environmental Variables**| Master list of supported environmental variables            | [envvars](docs/envar.md)                                                        |
+| **Kops vs Kubicorn**       | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                            |
+| **AWS Walkthrough**        | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                          |
+| **AWS Video**              | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)         |
+| **Tech N Talk Deep Dive**  | A technical deep dive courtesy of RedHat                    | [youtube](https://youtu.be/2DmUG0RgS70?list=PLaR6Rq6Z4IqfwXtKT7KeARRvxdvyLqG72_ |
