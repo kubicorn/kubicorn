@@ -75,3 +75,17 @@ Take a snap, save a snap, deploy a snap.
 | **Kops vs Kubicorn**       | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                   |
 | **AWS Walkthrough**        | A walkthrough guide on install Kubernetes 1.7.0 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                 |
 | **AWS Video**              | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)|
+
+
+# Goals for Version 1.0
+
+- Digital Ocean
+- AWS
+- Implementation of the official cluster API for Kubernetes
+- Ad hoc bootstrap scripts
+- Full cluster API on disk 
+- E2E testing
+- Working examples
+- Refactor Reconciler(s)
+
+We will not release a stable version until these goals are met. Please help us get there. In the mean time stay tuned, and follow [KubicornK8s](https://twitter.com/kubicornk8s) on twitter for play-by-play updates.
