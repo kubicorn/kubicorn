@@ -59,7 +59,7 @@ A user defines the intended state of Kubernetes infrastructure, and `kubicorn` c
 ### Snapshot
 
 `kubicorn` allows a user to take a snapshot of a Kubernetes cluster, and run the image in any cloud at any time.
-A snapshot is compressed file that will represent intedend infrastructure **and** intended application definitions.
+A snapshot is compressed file that will represent intended infrastructure **and** intended application definitions.
 Take a snap, save a snap, deploy a snap.
 
 ### Enforce
