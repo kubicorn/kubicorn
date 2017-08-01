@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/kris-nova/kubicorn.svg?branch=master)](https://travis-ci.org/kris-nova/kubicorn) [![Go Report Card](https://goreportcard.com/badge/github.com/kris-nova/klone)](https://goreportcard.com/report/github.com/nivenly/kamp)
+[![Build Status](https://travis-ci.org/kris-nova/kubicorn.svg?branch=master)](https://travis-ci.org/kris-nova/kubicorn) [![Go Report Card](https://goreportcard.com/badge/github.com/kris-nova/kubicorn)](https://goreportcard.com/report/github.com/kris-nova/kubicorn)
 # kubicorn
 
 Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
