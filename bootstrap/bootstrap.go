@@ -245,12 +245,12 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	"bootstrap/README.md": bootstrapReadmeMd,
-	"bootstrap/amazon_k8s_1.7.0_ubuntu_16.04_master.sh": bootstrapAmazon_k8s_170_ubuntu_1604_masterSh,
-	"bootstrap/amazon_k8s_1.7.0_ubuntu_16.04_node.sh": bootstrapAmazon_k8s_170_ubuntu_1604_nodeSh,
+	"bootstrap/README.md":                                     bootstrapReadmeMd,
+	"bootstrap/amazon_k8s_1.7.0_ubuntu_16.04_master.sh":       bootstrapAmazon_k8s_170_ubuntu_1604_masterSh,
+	"bootstrap/amazon_k8s_1.7.0_ubuntu_16.04_node.sh":         bootstrapAmazon_k8s_170_ubuntu_1604_nodeSh,
 	"bootstrap/digitalocean_k8s_1.7.0_ubuntu_16.04_master.sh": bootstrapDigitalocean_k8s_170_ubuntu_1604_masterSh,
-	"bootstrap/digitalocean_k8s_1.7.0_ubuntu_16.04_node.sh": bootstrapDigitalocean_k8s_170_ubuntu_1604_nodeSh,
-	"bootstrap/inject.go": bootstrapInjectGo,
+	"bootstrap/digitalocean_k8s_1.7.0_ubuntu_16.04_node.sh":   bootstrapDigitalocean_k8s_170_ubuntu_1604_nodeSh,
+	"bootstrap/inject.go":                                     bootstrapInjectGo,
 }
 
 // AssetDir returns the file names below a certain
@@ -292,13 +292,14 @@ type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
 }
+
 var _bintree = &bintree{nil, map[string]*bintree{
 	"bootstrap": &bintree{nil, map[string]*bintree{
-		"README.md": &bintree{bootstrapReadmeMd, map[string]*bintree{}},
-		"amazon_k8s_1.7.0_ubuntu_16.04_master.sh": &bintree{bootstrapAmazon_k8s_170_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"amazon_k8s_1.7.0_ubuntu_16.04_node.sh": &bintree{bootstrapAmazon_k8s_170_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"README.md":                                     &bintree{bootstrapReadmeMd, map[string]*bintree{}},
+		"amazon_k8s_1.7.0_ubuntu_16.04_master.sh":       &bintree{bootstrapAmazon_k8s_170_ubuntu_1604_masterSh, map[string]*bintree{}},
+		"amazon_k8s_1.7.0_ubuntu_16.04_node.sh":         &bintree{bootstrapAmazon_k8s_170_ubuntu_1604_nodeSh, map[string]*bintree{}},
 		"digitalocean_k8s_1.7.0_ubuntu_16.04_master.sh": &bintree{bootstrapDigitalocean_k8s_170_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"digitalocean_k8s_1.7.0_ubuntu_16.04_node.sh": &bintree{bootstrapDigitalocean_k8s_170_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"digitalocean_k8s_1.7.0_ubuntu_16.04_node.sh":   &bintree{bootstrapDigitalocean_k8s_170_ubuntu_1604_nodeSh, map[string]*bintree{}},
 		"inject.go": &bintree{bootstrapInjectGo, map[string]*bintree{}},
 	}},
 }}
@@ -349,4 +350,3 @@ func _filePath(dir, name string) string {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
-
