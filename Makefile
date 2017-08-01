@@ -81,6 +81,9 @@ test:
 vet:
 	@go vet $(PKGS)
 
+check-header:
+	./scripts/check-header.sh
+
 .PHONY: apimachinery
 apimachinery:
 	go get k8s.io/kubernetes/cmd/libs/go2idl/conversion-gen
