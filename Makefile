@@ -26,7 +26,7 @@ bindata:
 build: authors clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
 
 authorsfile:
-	git log --all --format='%aN <%cE>' | sort -u | grep -v "noreply@github.com" > AUTHORS
+	git log --all --format='%aN <%cE>' | sort -u | egrep -v "noreply|mailchimp|@Kris" > AUTHORS
 
 clean:
 	rm -rf bin/*
