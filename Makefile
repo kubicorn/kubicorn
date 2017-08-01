@@ -1,3 +1,7 @@
+ifndef VERBOSE
+	MAKEFLAGS += --silent
+endif
+
 PKGS=$(shell go list ./... | grep -v /vendor)
 SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)

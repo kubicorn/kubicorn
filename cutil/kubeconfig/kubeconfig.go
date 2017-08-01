@@ -7,11 +7,11 @@ import (
 	"github.com/kris-nova/kubicorn/logger"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
-	"golang.org/x/crypto/ssh/terminal"
 	"golang.org/x/crypto/ssh/agent"
+	"golang.org/x/crypto/ssh/terminal"
 	"io/ioutil"
-	"os"
 	"net"
+	"os"
 	"strings"
 	"time"
 )
@@ -35,8 +35,8 @@ func GetConfig(existing *cluster.Cluster) error {
 	//fmt.Println(remotePath)
 	//fmt.Println(localPath)
 
-  agent := sshAgent()
-  if agent != nil {
+	agent := sshAgent()
+	if agent != nil {
 		auths := []ssh.AuthMethod{
 			agent,
 		}
