@@ -84,6 +84,9 @@ vet:
 check-header:
 	./scripts/check-header.sh
 
+headers:
+	./scripts/headers.sh
+
 .PHONY: apimachinery
 apimachinery:
 	go get k8s.io/kubernetes/cmd/libs/go2idl/conversion-gen
