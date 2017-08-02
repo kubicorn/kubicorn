@@ -4,7 +4,7 @@ VERBOSE_DOCKER_RUN=""
 VERBOSE_DOCKER_BUILD="-q"
 REMOVE_IMAGE=FALSE
 
-docker >/dev/null 2>&1 || { echo >&2 "Docker is required but it's not installed. Aborting."; exit 1; }
+which docker >/dev/null 2>&1 || { echo >&2 "Docker is required but it's not installed. Aborting."; exit 1; }
 
 for i in "$@"
 do
