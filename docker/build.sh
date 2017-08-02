@@ -22,10 +22,17 @@ done
 
 if ${REMOVE_IMAGE} ; then
     echo removing old container if exists
-    docker image rm gobuilder
+    docker image rm gobuilder-kubicorn
 fi
-echo Building container
-docker build -t gobuilder "$(pwd)" ${VERBOSE_DOCKER_BUILD}
-echo Running make script
-docker run --rm -v "/$(pwd)/.."://go/src/github.com/kris-nova/kubicorn -w //go/src/github.com/kris-nova/kubicorn gobuilder make ${VERBOSE_DOCKER_RUN}
+
+if ${VERBOSE} ; then
+    echo Building container
+fi
+docker build -t gobuilder-kubicorn "$(pwd)" ${VERBOSE_DOCKER_BUILD}
+
+if ${VERBOSE} ; then
+    echo Running make script
+fi
+docker run --rm -v "/$(pwd)/.."://go/src/github.com/kris-nova/kubicorn -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn make ${VERBOSE_DOCKER_RUN}
+
 read -p "Done. Press enter to continue"
