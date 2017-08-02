@@ -30,11 +30,15 @@ read -r -d '' EXPECTED <<EOF
 // limitations under the License.
 EOF
 
+STATUS=0
 FILES=$(find . -name "*.go" -not -path "./vendor/*")
 
 for FILE in $FILES; do
         HEADER=$(head -n 13 $FILE)
         if [ "$HEADER" != "$EXPECTED" ]; then
                 echo "incorrect license header: $FILE"                
+		STATUS=1
         fi
 done
+
+exit $STATUS
