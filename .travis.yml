@@ -6,4 +6,4 @@ go:
 script:
   - make compile
   - make test
-
+  - make check-header
