@@ -3,12 +3,12 @@
 ## Make
 
 First off you will need to have a working Golang-1.8 development environment. 
-So make sure you can use the `go` command and your `GOPATH` environment variable set.
-Als a alternative you aan have a look at the [Docker build script](#docker), you wont need go localy for this.    
+Make sure you can use the `go` command and that your `GOPATH` environment variable is set.
+Als a alternative you can have a look at the [Docker build script](#docker), you wont need `go` localy for this.    
 
 ### Environment
 
-Set GOPATH in your bash profile:
+Set `GOPATH` in your bash profile:
 ```bash
 $ export GOPATH=/Users/<your user>/go
 $ export PATH=$GOPATH/bin:$PATH
@@ -22,14 +22,14 @@ $ go get github.com/kris-nova/kubicorn
 ```
 
 ### Building
-Now you can run make from the src directory of kubicorn:
+Now you can run `make` from the src directory of kubicorn:
 
 ```bash
 $ cd $GOPATH/src/github.com/kris-nova/kubicorn/
 $ make
 ```
-The kubicorn binary will get built and placed under `$GOPATH/bin` and `$GOPATH/src/github.com/kris-nova/kubicorn/`, 
-run kubicorn -h to get the nice Unicorn:
+The kubicorn binary will get built and placed under `$GOPATH/bin` and `$GOPATH/src/github.com/kris-nova/kubicorn/`. 
+Run kubicorn -h to get the nice Unicorn:
 
 ```bash
 $ kubicorn -h
@@ -55,11 +55,11 @@ Keep in mind that other branches might have different dependencies that will nee
 
 ## Docker
 
-As a simple alternative there is a script in located in the Docker folder name "build.sh". 
+As a simple alternative there is a script located in the Docker folder name "build.sh". 
 This can be used to build Kubicorn without the need to setup a golang environment on your local machine.
 You will need to have Docker installed on your development environment.
 This als should work on any platform that support Docker.
-Have a look at the [official Docker documentation](https://docs.docker.com/engine/installation/.) on how to install docker for your platform of choice.
+Have a look at the [official Docker documentation](https://docs.docker.com/engine/installation/.) on how to install Docker for your platform of choice.
 
 To use this script just make a git checkout of the Kubicorn repository and run the build.sh:
 ```bash
