@@ -124,8 +124,14 @@
 [[projects]]
   name = "github.com/kris-nova/klone"
   packages = ["pkg/local"]
-  revision = "a9d1a9905c22559b040697cd0a22b89217d56c9a"
-  version = "v1.2.0"
+  revision = "2217bf3479abb92275417e26b948209df4e402e9"
+  version = "v1.1.1"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/kris-nova/lolgopher"
+  packages = ["."]
+  revision = "49e783e2935d48b5a613654d06a11ebddb6c4b79"
 
 [[projects]]
   branch = "master"
@@ -178,7 +184,7 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
-  packages = ["curve25519","ed25519","ed25519/internal/edwards25519","ssh"]
+  packages = ["curve25519","ed25519","ed25519/internal/edwards25519","ssh","ssh/agent","ssh/terminal"]
   revision = "7f7c0c2d75ebb4e32a21396ce36e87b6dadc91c9"
 
 [[projects]]
@@ -232,6 +238,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d4bb2d38c9a3dbf20adcede743d20bd0b1b3ade6d66b225de56fb22a95f24a69"
+  inputs-digest = "31739959bc7856fbc7c734241ff500be7824a0675f6c94e79ff542682a333f05"
   solver-name = "gps-cdcl"
   solver-version = 1
