@@ -25,8 +25,8 @@ import (
 
 var cfgFile string
 
-// Fabolous enables rainbow colored output
-var Fabolous bool
+// fabulous enables rainbow colored output
+var fabulous bool
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -36,8 +36,11 @@ var RootCmd = &cobra.Command{
 %s
 `, Unicorn),
 	Run: func(cmd *cobra.Command, args []string) {
-		if Fabolous {
-			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256})			
+		if fabulous {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256})
+		}
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
 		}
 		cmd.Help()
 	},	
@@ -60,7 +63,7 @@ func init() {
 	//flags here
 	RootCmd.PersistentFlags().IntVarP(&logger.Level, "verbose", "v", 3, "Log level")
 	RootCmd.PersistentFlags().BoolVarP(&logger.Color, "color", "C", true, "Toggle colorized logs")
-	RootCmd.PersistentFlags().BoolVarP(&Fabolous, "fab", "f", false, "Toggle colorized logs")
+	RootCmd.PersistentFlags().BoolVarP(&fabulous, "fab", "f", false, "Toggle colorized logs")
 
 	// register env vars
 	registerEnvironmentalVariables()
