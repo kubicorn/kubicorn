@@ -28,7 +28,7 @@ Now you can run `make` from the src directory of kubicorn:
 $ cd $GOPATH/src/github.com/kris-nova/kubicorn/
 $ make
 ```
-The kubicorn binary will get built and placed under `$GOPATH/src/github.com/kris-nova/kubicorn/`. You can also run `make all` to also get the binary under `$GOPATH/bin`. 
+The kubicorn binary will get built and placed under `$GOPATH/src/github.com/kris-nova/kubicorn/bin`. You can also run `make all` to also get the binary under `$GOPATH/bin`. 
 
 Now you can run kubicorn to check if everything is working:
 
