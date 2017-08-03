@@ -3,6 +3,7 @@ VERBOSE=FALSE
 VERBOSE_DOCKER_RUN=""
 VERBOSE_DOCKER_BUILD="-q"
 REMOVE_IMAGE=FALSE
+SHOW_HELP=FALSE
 
 which docker >/dev/null 2>&1 || { echo >&2 "Docker is required but it's not installed. Aborting."; exit 1; }
 
@@ -15,12 +16,30 @@ case $i in
     VERBOSE_DOCKER_BUILD=""
     shift # past argument=value
     ;;
-    --remove-image)
+    -i|--remove-image)
     REMOVE_IMAGE=TRUE
+    shift # past argument=value
+    ;;
+    -h|--help)
+    SHOW_HELP=TRUE
     shift # past argument=value
     ;;
 esac
 done
+
+if ${SHOW_HELP} ; then
+    echo ""
+    echo "Usage:  ./build.sh"
+    echo ""
+    echo "A script to build Kubicorn with Docker."
+    echo ""
+    echo "Flags:"
+    echo "    -v, --verbose        Writes output to terminal"
+    echo "    -i, --remove-image   Removes the docker image before building"
+    echo "    -h, --help           Outputs all flags"
+    echo ""
+    exit 0;
+fi
 
 if ${REMOVE_IMAGE} ; then
     echo removing old container if exists
