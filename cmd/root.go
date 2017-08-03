@@ -28,6 +28,8 @@ var cfgFile string
 // fabulous enables rainbow colored output
 var fabulous bool
 
+var fabulousWriter = &lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256}
+
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:   "kubicorn",
@@ -37,10 +39,10 @@ var RootCmd = &cobra.Command{
 `, Unicorn),
 	Run: func(cmd *cobra.Command, args []string) {
 		if fabulous {
-			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256})
+			cmd.SetOutput(fabulousWriter)
 		}
 		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
-			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+			cmd.SetOutput(fabulousWriter)
 		}
 		cmd.Help()
 	},	
