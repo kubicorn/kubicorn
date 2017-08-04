@@ -245,6 +245,14 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
+	if len(droplets) != actual.(*Droplet).Count {
+		logger.Info("Droplet count mis-match, trying query again")
+		time.Sleep(5 * time.Second)
+		droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
+		if err != nil {
+			return err
+		}
+	}
 	for _, droplet := range droplets {
 		_, err = Sdk.Client.Droplets.Delete(context.TODO(), droplet.ID)
 		if err != nil {
