@@ -1,4 +1,4 @@
-# Setting up Kubernetes 1.7.0 in AWS
+# Setting up Kubernetes 1.7 in AWS
 
 In the following, we're going to show you how to use `kubicorn` to ramp up a Kubernetes cluster in AWS, use it and tear it down again.
 
