@@ -23,7 +23,11 @@ Use at your own risk and if you're as excited about it as we are, maybe you want
 
 # Installing
 
-run `go get github.com/kris-nova/kubicorn` or read the [Install Guide](docs/INSTALL.md).
+```bash
+$ go get github.com/kris-nova/kubicorn
+``` 
+
+..or read the [Install Guide](docs/INSTALL.md).
 
 ## How is Kubicorn different?
 
