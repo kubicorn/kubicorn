@@ -15,6 +15,10 @@
 package initapi
 
 import (
+	"golang.org/x/crypto/ssh/agent"
+	"os"
+	"net"
+	"golang.org/x/crypto/ssh/terminal"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"io/ioutil"
@@ -65,9 +69,36 @@ func AuthorizedKeyFingerprint(publicKey []byte) (string, error) {
 }
 
 func PrivateKeyFingerprint(keyBytes []byte) (string, error) {
-	signer, err := ssh.ParsePrivateKey(keyBytes)
+	signer, err := GetSigner(keyBytes)
 	if err != nil {
 		return "", trace.Wrap(err)
 	}
 	return fingerprint(signer.PublicKey()), nil
+}
+
+func GetSigner(pemBytes []byte) (ssh.Signer, error) {
+	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
+	if err != nil {
+		fmt.Print("SSH Key Passphrase [none]: ")
+		passPhrase, err := terminal.ReadPassword(0)
+		fmt.Println("")
+		if err != nil {
+			return nil, err
+		}
+		signerwithpassphrase, err := ssh.ParsePrivateKeyWithPassphrase(pemBytes, passPhrase)
+		if err != nil {
+			return nil, err
+		} else {
+			return signerwithpassphrase, err
+		}
+	} else {
+		return signerwithoutpassphrase, err
+	}
+}
+
+func sshAgent() ssh.AuthMethod {
+	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
+		return ssh.PublicKeysCallback(agent.NewClient(sshAgent).Signers)
+	}
+	return nil
 }
