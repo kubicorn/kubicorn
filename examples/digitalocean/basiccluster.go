@@ -62,17 +62,13 @@ func getCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.Cloud_DigitalOcean,
-		Location: "nyc1",
+		Location: "sfo2",
 		Ssh: &cluster.Ssh{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "ubuntu",
+			User:          "root",
 		},
 		KubernetesApi: &cluster.KubernetesApi{
 			Port: "443",
-		},
-		Network: &cluster.Network{
-			Type: cluster.NetworkType_Public,
-			CIDR: "10.0.0.0/16",
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
@@ -84,66 +80,17 @@ func getCluster(name string) *cluster.Cluster {
 				Type:            cluster.ServerPoolType_Master,
 				Name:            fmt.Sprintf("%s.master", name),
 				MaxCount:        1,
-				MinCount:        1,
 				Image:           "ubuntu-16-04-x64",
-				Size:            "512mb",
+				Size:            "1gb",
 				BootstrapScript: "digitalocean_k8s_ubuntu_16.04_master.sh",
-				Subnets: []*cluster.Subnet{
-					{
-						Name:     fmt.Sprintf("%s.master", name),
-						CIDR:     "10.0.0.0/24",
-						Location: "nyc1",
-					},
-				},
-
-				Firewalls: []*cluster.Firewall{
-					{
-						Name: fmt.Sprintf("%s.master-external", name),
-						Rules: []*cluster.Rule{
-							{
-								IngressFromPort: 22,
-								IngressToPort:   22,
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "tcp",
-							},
-							{
-								IngressFromPort: 443,
-								IngressToPort:   443,
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "tcp",
-							},
-						},
-					},
-				},
 			},
 			{
 				Type:            cluster.ServerPoolType_Node,
 				Name:            fmt.Sprintf("%s.node", name),
-				MaxCount:        1,
-				MinCount:        1,
+				MaxCount:        3,
 				Image:           "ubuntu-16-04-x64",
-				Size:            "512mb",
+				Size:            "1gb",
 				BootstrapScript: "digitalocean_k8s_ubuntu_16.04_node.sh",
-				Subnets: []*cluster.Subnet{
-					{
-						Name:     fmt.Sprintf("%s.node", name),
-						CIDR:     "10.0.100.0/24",
-						Location: "nyc1",
-					},
-				},
-				Firewalls: []*cluster.Firewall{
-					{
-						Name: fmt.Sprintf("%s.node-external", name),
-						Rules: []*cluster.Rule{
-							{
-								IngressFromPort: 22,
-								IngressToPort:   22,
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "tcp",
-							},
-						},
-					},
-				},
 			},
 		},
 	}
