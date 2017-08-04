@@ -148,6 +148,7 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 		logger.Info(err.Error())
 		fmt.Print("SSH Key Passphrase [none]: ")
 		passPhrase, err := terminal.ReadPassword(0)
+		fmt.Println("")
 		if err != nil {
 			return nil, err
 		}
