@@ -25,6 +25,9 @@ import (
 	"github.com/kris-nova/kubicorn/logger"
 	"strconv"
 	"time"
+	"github.com/kris-nova/kubicorn/cutil/scp"
+	"github.com/kris-nova/klone/pkg/local"
+	"strings"
 )
 
 type Droplet struct {
@@ -117,7 +120,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		return nil, err
 	}
 
-	masterIpPrivate := ""
+	//masterIpPrivate := ""
 	masterIpPublic := ""
 	if r.ServerPool.Type == cluster.ServerPoolType_Node {
 		found := false
@@ -134,6 +137,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), masterTag, &godo.ListOptions{})
 			if err != nil {
 				logger.Debug("Hanging for master IP..")
+				logger.Debug("Error: %v", err)
 				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
@@ -147,16 +151,37 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 				return nil, fmt.Errorf("Found [%d] droplets for tag [%s]", ld, masterTag)
 			}
 			droplet := droplets[0]
-			masterIpPrivate, err = droplet.PrivateIPv4()
-			if err != nil {
-				return nil, fmt.Errorf("Unable to detect private IP: %v", err)
-			}
+			//masterIpPrivate, err = droplet.PrivateIPv4()
+			//if err != nil {
+			//	return nil, fmt.Errorf("Unable to detect private IP: %v", err)
+			//}
 			masterIpPublic, err = droplet.PublicIPv4()
 			if err != nil {
 				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
+
+			pubPath := local.Expand(applyCluster.Ssh.PublicKeyPath)
+			privPath := strings.Replace(pubPath, ".pub", "", 1)
+			scp := scp.NewSecureCopier(applyCluster.Ssh.User, masterIpPublic, "22", privPath)
+			masterVpnIp, err := scp.ReadBytes("/tmp/.ip")
+			if err != nil {
+				logger.Debug("Hanging for VPN mesh..")
+				logger.Debug("Error: %v", err)
+				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				continue
+			}
+			masterVpnIpStr := strings.Replace(string(masterVpnIp), "\n", "", -1)
+			meshKey, err := scp.ReadBytes("/tmp/.key")
+			if err != nil {
+				logger.Debug("Hanging for VPN mesh..")
+				logger.Debug("Error: %v", err)
+				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				continue
+			}
+			meshKeyStr := strings.Replace(string(meshKey), "\n", "", -1)
 			found = true
-			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIpPrivate, applyCluster.KubernetesApi.Port)
+			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIpStr, applyCluster.KubernetesApi.Port)
+			applyCluster.Values.ItemMap["INJECTEDMESHKEY"] = meshKeyStr
 			break
 		}
 		if !found {
@@ -164,7 +189,6 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		}
 	}
 
-	applyCluster.Values.ItemMap["INJECTEDNAME"] = applyCluster.Name
 	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
 	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
 	if err != nil {

@@ -18,6 +18,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/resources"
+	"fmt"
 )
 
 func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
@@ -37,7 +38,7 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 			// ---- [Droplet] ----
 			r[i] = &resources.Droplet{
 				Shared: resources.Shared{
-					Name: serverPool.Name,
+					Name: fmt.Sprintf("%s-%d",serverPool.Name, j),
 				},
 				ServerPool: serverPool,
 			}
