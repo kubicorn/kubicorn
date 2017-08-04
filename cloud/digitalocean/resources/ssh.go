@@ -102,9 +102,14 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		Name:      expected.(*SSH).Name,
 		PublicKey: expected.(*SSH).PublicKeyData,
 	}
+	fmt.Println(expected.(*SSH).PublicKeyFingerprint)
 	key, _, err := Sdk.Client.Keys.Create(context.TODO(), request)
 	if err != nil {
-		return nil, err
+		keyGet, _, errGet := Sdk.Client.Keys.GetByFingerprint(context.TODO(), expected.(*SSH).PublicKeyFingerprint)
+		if errGet != nil {
+			return nil, err
+		}
+		key = keyGet
 	}
 	logger.Info("Created SSH Key [%d]", key.ID)
 	id := strconv.Itoa(key.ID)

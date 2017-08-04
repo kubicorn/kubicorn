@@ -15,9 +15,6 @@
 package initapi
 
 import (
-	"golang.org/x/crypto/ssh/agent"
-	"os"
-	"net"
 	"golang.org/x/crypto/ssh/terminal"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -94,11 +91,4 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 	} else {
 		return signerwithoutpassphrase, err
 	}
-}
-
-func sshAgent() ssh.AuthMethod {
-	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
-		return ssh.PublicKeysCallback(agent.NewClient(sshAgent).Signers)
-	}
-	return nil
 }
