@@ -77,7 +77,7 @@ shell:
 
 .PHONY: test
 test:
-	go test -v $(PKGS)
+	go test -timeout 20m -v $(PKGS)
 
 vet:
 	@go vet $(PKGS)
