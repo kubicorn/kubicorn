@@ -15,11 +15,14 @@
 package initapi
 
 import (
-	"github.com/gravitational/teleport/lib/sshutils"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"io/ioutil"
 	"strings"
+	"crypto/md5"
+	"fmt"
+	"golang.org/x/crypto/ssh"
+	"github.com/gravitational/trace"
 )
 
 func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
@@ -33,7 +36,7 @@ func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 		if err != nil {
 			return nil, err
 		}
-		fp, err := sshutils.PrivateKeyFingerprint(privateBytes)
+		fp, err := PrivateKeyFingerprint(privateBytes)
 		if err != nil {
 			return nil, err
 		}
@@ -41,4 +44,30 @@ func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	}
 
 	return initCluster, nil
+}
+
+func fingerprint(key ssh.PublicKey) string {
+	sum := md5.Sum(key.Marshal())
+	parts := make([]string, len(sum))
+	for i := 0; i < len(sum); i++ {
+		parts[i] = fmt.Sprintf("%0.2x", sum[i])
+	}
+	return strings.Join(parts, ":")
+}
+
+func AuthorizedKeyFingerprint(publicKey []byte) (string, error) {
+	key, _, _, _, err := ssh.ParseAuthorizedKey(publicKey)
+	if err != nil {
+		return "", err
+	}
+
+	return fingerprint(key), nil
+}
+
+func PrivateKeyFingerprint(keyBytes []byte) (string, error) {
+	signer, err := ssh.ParsePrivateKey(keyBytes)
+	if err != nil {
+		return "", trace.Wrap(err)
+	}
+	return fingerprint(signer.PublicKey()), nil
 }
