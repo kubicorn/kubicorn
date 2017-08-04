@@ -2,7 +2,11 @@
 # kubicorn
 
 
-<img src="docs/img/kubicorn-trans.png" width="360"> Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud. The `kubicorn` project is a library that is specifically designed to be vendored into a controller or operator for rock solid Kubernetes infrastructure management from Kubernetes itself!
+
+
+| Kubicorn  | Simple. Kubernetes. Infrastructure. |
+| ------------- | ------------- |
+| <img src="docs/img/kubicorn-trans.png" width="360">  |  Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud. The `kubicorn` project is a library that is specifically designed to be vendored into a controller or operator for rock solid Kubernetes infrastructure management from Kubernetes itself! |
 
 **Phonetic pronunciation**: `KEW - BHIK - OH - AR - IN`
 
