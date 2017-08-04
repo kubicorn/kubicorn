@@ -20,7 +20,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
-	"github.com/kris-nova/kubicorn/logger"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 type InternetGateway struct {

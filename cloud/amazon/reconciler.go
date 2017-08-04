@@ -20,7 +20,7 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
 	"github.com/kris-nova/kubicorn/cloud/amazon/resources"
 	"github.com/kris-nova/kubicorn/cutil/hang"
-	"github.com/kris-nova/kubicorn/logger"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 	"os"
 	"os/signal"
 	"strings"

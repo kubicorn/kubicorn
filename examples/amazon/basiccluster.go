@@ -20,7 +20,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
-	"github.com/kris-nova/kubicorn/logger"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 func main() {

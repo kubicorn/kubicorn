@@ -20,7 +20,7 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/godoSdk"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/resources"
 	"github.com/kris-nova/kubicorn/cutil/hang"
-	"github.com/kris-nova/kubicorn/logger"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 	"os"
 	"os/signal"
 	"strings"

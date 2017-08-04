@@ -15,7 +15,7 @@
 package local
 
 import (
-	"github.com/kris-nova/kubicorn/logger"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 	"os"
 	"os/user"
 	"strings"
