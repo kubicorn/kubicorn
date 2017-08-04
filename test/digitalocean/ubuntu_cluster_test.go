@@ -25,6 +25,7 @@ func TestMain(m *testing.M) {
 	//		}
 	//	}
 	//}()
+	test.InitRsaTravis()
 	testCluster = profiles.NewSimpleDigitalOceanCluster("ubuntu-test")
 	testCluster, err = test.Create(testCluster)
 	if err != nil {
