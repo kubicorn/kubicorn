@@ -9,12 +9,14 @@ import (
 	"github.com/kris-nova/kubicorn/test"
 	"os"
 	"testing"
+	"time"
 )
 
 var testCluster *cluster.Cluster
 
 func TestMain(m *testing.M) {
 	logger.TestMode = true
+	logger.Level = 4
 	var err error
 	//func() {
 	//	for {
@@ -45,9 +47,23 @@ func TestMain(m *testing.M) {
 	os.Exit(exitCode)
 }
 
+const (
+	ApiSleepSeconds   = 5
+	ApiSocketAttempts = 40
+)
+
 func TestApiListen(t *testing.T) {
-	_, err := network.AssertTcpSocketAcceptsConnection(fmt.Sprintf("%s:%s", testCluster.KubernetesApi.Endpoint, testCluster.KubernetesApi.Port), "opening a new socket connection against the Kubernetes API")
-	if err != nil {
-		t.Fatalf("Failed: %v", err)
+	success := false
+	for i := 0; i < ApiSocketAttempts; i++ {
+		_, err := network.AssertTcpSocketAcceptsConnection(fmt.Sprintf("%s:%s", testCluster.KubernetesApi.Endpoint, testCluster.KubernetesApi.Port), "opening a new socket connection against the Kubernetes API")
+		if err != nil {
+			logger.Info("Attempting to open a socket to the Kubernetes API: %v...\n", err)
+			time.Sleep(time.Duration(ApiSleepSeconds) * time.Second)
+			continue
+		}
+		success = true
+	}
+	if !success {
+		t.Fatalf("Unable to connect to Kubernetes API")
 	}
 }

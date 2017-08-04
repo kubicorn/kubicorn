@@ -1,7 +1,6 @@
 package test
 
 import (
-	"fmt"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
@@ -86,17 +85,14 @@ func Update(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 
 // Delete will delete a test cluster
 func Delete(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
-	fmt.Println(1)
 	reconciler, err := cutil.GetReconciler(testCluster)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(2)
 	err = reconciler.Init()
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(3)
 	err = reconciler.Destroy()
 	if err != nil {
 		return nil, err
