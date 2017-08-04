@@ -1,11 +1,16 @@
 package local
 
 import (
+	"os"
 	"os/user"
 	"strings"
 )
 
 func Home() string {
+	home := os.Getenv("HOME")
+	if strings.Contains(home, "root") {
+		return "/root"
+	}
 	usr, err := user.Current()
 	if err != nil {
 		Printf("unable to find user: %v", err)

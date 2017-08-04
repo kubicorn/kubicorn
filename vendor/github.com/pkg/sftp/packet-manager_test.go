@@ -2,6 +2,7 @@ package sftp
 
 import (
 	"encoding"
+	"fmt"
 	"sync"
 	"testing"
 	"time"
@@ -87,6 +88,19 @@ func TestPacketManager(t *testing.T) {
 		}
 	}
 	s.close()
+}
+
+func (p sshFxpRemovePacket) String() string {
+	return fmt.Sprintf("RmPct:%d", p.ID)
+}
+func (p sshFxpOpenPacket) String() string {
+	return fmt.Sprintf("OpPct:%d", p.ID)
+}
+func (p sshFxpWritePacket) String() string {
+	return fmt.Sprintf("WrPct:%d", p.ID)
+}
+func (p sshFxpClosePacket) String() string {
+	return fmt.Sprintf("ClPct:%d", p.ID)
 }
 
 // Test what happens when the pool processes a close packet on a file that it

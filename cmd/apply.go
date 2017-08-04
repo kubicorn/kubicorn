@@ -129,10 +129,10 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to write kubeconfig: %v", err)
 	}
 
-	logger.Always("The [%s] cluster has applied successfully!", cluster.Name)
+	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)
 	logger.Always("You can now `kubectl get nodes`")
 	privKeyPath := strings.Replace(cluster.Ssh.PublicKeyPath, ".pub", "", 1)
-	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, cluster.Ssh.User, cluster.KubernetesApi.Endpoint)
+	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, newCluster.Ssh.User, newCluster.KubernetesApi.Endpoint)
 
 	return nil
 }

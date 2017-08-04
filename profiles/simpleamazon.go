@@ -49,7 +49,7 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 				MinCount:        1,
 				Image:           "ami-835b4efa",
 				Size:            "t2.medium",
-				BootstrapScript: "amazon_k8s_1.7.0_ubuntu_16.04_master.sh",
+				BootstrapScript: "amazon_k8s_ubuntu_16.04_master.sh",
 				Subnets: []*cluster.Subnet{
 					{
 						Name:     fmt.Sprintf("%s.master", name),
@@ -85,7 +85,7 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 				MinCount:        1,
 				Image:           "ami-835b4efa",
 				Size:            "t2.medium",
-				BootstrapScript: "amazon_k8s_1.7.0_ubuntu_16.04_node.sh",
+				BootstrapScript: "amazon_k8s_ubuntu_16.04_node.sh",
 				Subnets: []*cluster.Subnet{
 					{
 						Name:     fmt.Sprintf("%s.node", name),

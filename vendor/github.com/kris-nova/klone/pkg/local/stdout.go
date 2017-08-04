@@ -89,7 +89,7 @@ func PrintErrorExitCode(err error, code int) {
 const banner = `  _  ___
  | |/ / | ___  _ __   ___
  | ' /| |/ _ \| '_ \ / _ \   V%s
- | . \| | (_) | | | |  __/   ☥ Kris Nova ☥
+ | . \| | (_) | | | |  __/   Kris Nova ⚧
  |_|\_\_|\___/|_| |_|\___|   kris@nivenly.com
  --------------------------------------------
 `

@@ -22,7 +22,7 @@ import (
 type preProcessorFunc func(initCluster *cluster.Cluster) (*cluster.Cluster, error)
 
 var preProcessors = []preProcessorFunc{
-	ssh,
+	sshLoader,
 }
 
 func InitCluster(initCluster *cluster.Cluster) (*cluster.Cluster, error) {

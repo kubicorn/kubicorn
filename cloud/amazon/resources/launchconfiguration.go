@@ -123,7 +123,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	}
 
 	// --- Hack in here for master IP
-	//privip := ""
+	privip := ""
 	pubip := ""
 	if strings.Contains(r.ServerPool.Name, "node") {
 		found := false
@@ -156,9 +156,9 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 			for _, reservation := range output.Reservations {
 				for _, instance := range reservation.Instances {
 					if instance.PublicIpAddress != nil {
-						//privip = *instance.PrivateIpAddress
+						privip = *instance.PrivateIpAddress
 						pubip = *instance.PublicIpAddress
-						applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", pubip, applyCluster.KubernetesApi.Port)
+						applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, applyCluster.KubernetesApi.Port)
 						applyCluster.KubernetesApi.Endpoint = pubip
 						logger.Info("Found public IP for master: [%s]", pubip)
 						found = true
