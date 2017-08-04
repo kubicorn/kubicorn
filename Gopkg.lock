@@ -134,6 +134,12 @@
   revision = "2788f0dbd16903de03cb8186e5c7d97b69ad387b"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/kris-nova/charlie"
+  packages = ["network"]
+  revision = "578849637e3fa527c280c9fb7909a5406bec5553"
+
+[[projects]]
   name = "github.com/kris-nova/klone"
   packages = ["pkg/local"]
   revision = "a9d1a9905c22559b040697cd0a22b89217d56c9a"
@@ -256,6 +262,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "16bbcf02219401e6bd2c1a50e5ddf9378771f32024af692cd61724a68f6bfe31"
+  inputs-digest = "bf1643f0ffcf816d6be2478f1431bacb99c2a5c0b24ccb0b0b86ee61467c3249"
   solver-name = "gps-cdcl"
   solver-version = 1
