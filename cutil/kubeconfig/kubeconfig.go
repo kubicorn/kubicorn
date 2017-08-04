@@ -45,10 +45,6 @@ func GetConfig(existing *cluster.Cluster) error {
 		remotePath = "/root/.kube/config"
 	} else {
 		remotePath = fmt.Sprintf("/home/%s/.kube/config", user)
-<<<<<<< HEAD
->>>>>>> Working k8s (sans vpn mesh) in #kubicorn
-=======
->>>>>>> Time to release DO
 	}
 
 	//fmt.Println(pubKeyPath)
