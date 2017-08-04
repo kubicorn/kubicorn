@@ -3,6 +3,9 @@
 
 Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
 
+<img src="docs/img/kubicorn.jpg" width="360">
+
+
 The `kubicorn` project is a library that is specifically designed to be vendored into a controller or operator for rock solid Kubernetes infrastructure management from Kubernetes itself!
 
 **Phonetic pronunciation**: `KEW - BHIK - OH - AR - IN`
