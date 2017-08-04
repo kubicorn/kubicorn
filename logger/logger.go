@@ -24,14 +24,23 @@ import (
 var (
 	Level = 2
 	Color = true
+	TestMode = false
 )
 
 func Always(format string, a ...interface{}) {
+	if TestMode {
+		fmt.Printf(label(format, "✿"), a...)
+		return
+	}
 	color.Green(label(format, "✿"), a...)
 }
 
 func Info(format string, a ...interface{}) {
 	if Level >= 3 {
+		if TestMode {
+			fmt.Printf(label(format, "✔"), a...)
+			return
+		}
 		if Color {
 			color.Cyan(label(format, "✔"), a...)
 		} else {
@@ -42,12 +51,20 @@ func Info(format string, a ...interface{}) {
 
 func Debug(format string, a ...interface{}) {
 	if Level >= 4 {
+		if TestMode {
+			fmt.Printf(label(format, "▶"), a...)
+			return
+		}
 		fmt.Printf(label(format, "▶"), a...)
 	}
 }
 
 func Warning(format string, a ...interface{}) {
 	if Level >= 2 {
+		if TestMode {
+			fmt.Printf(label(format, "!"), a...)
+			return
+		}
 		if Color {
 			color.Green(label(format, "!"), a...)
 		} else {
@@ -58,6 +75,10 @@ func Warning(format string, a ...interface{}) {
 
 func Critical(format string, a ...interface{}) {
 	if Level >= 1 {
+		if TestMode {
+			fmt.Printf(label(format, "✖"), a...)
+			return
+		}
 		if Color {
 			color.Red(label(format, "✖"), a...)
 		} else {

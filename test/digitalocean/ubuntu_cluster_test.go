@@ -14,6 +14,7 @@ import (
 var testCluster *cluster.Cluster
 
 func TestMain(m *testing.M) {
+	logger.TestMode = true
 	var err error
 	//func() {
 	//	for {
@@ -24,20 +25,24 @@ func TestMain(m *testing.M) {
 	//}()
 	testCluster = profiles.NewSimpleDigitalOceanCluster("ubuntu-test")
 	testCluster, err = test.Create(testCluster)
-	defer func() {
-		_, err := test.Delete(testCluster)
-		if err != nil {
-			logger.Critical(err.Error())
-		}
-	}()
 	if err != nil {
-		logger.Critical("Unable to create digital ocean test cluster: %v", err)
+		fmt.Printf("Unable to create digital ocean test cluster: %v\n", err)
 		os.Exit(1)
 	}
 	status := m.Run()
+	exitCode := 0
 	if status != 0 {
-		os.Exit(1)
+		fmt.Printf("-----------------------------------------------------------------------\n")
+		fmt.Printf("[FAILURE]\n")
+		fmt.Printf("-----------------------------------------------------------------------\n")
+		exitCode = 1
 	}
+	_, err = test.Delete(testCluster)
+	if err != nil {
+		exitCode = 99
+		fmt.Println("Failure cleaning up cluster! Abandoned resources!")
+	}
+	os.Exit(exitCode)
 }
 
 func TestApiListen(t *testing.T) {
