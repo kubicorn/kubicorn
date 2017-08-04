@@ -18,7 +18,7 @@ import (
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
-	"github.com/kris-nova/kubicorn/logger"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 func IsEqual(actual, expected interface{}) (bool, error) {

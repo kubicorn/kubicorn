@@ -16,7 +16,7 @@ package initapi
 
 import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/logger"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 type preProcessorFunc func(initCluster *cluster.Cluster) (*cluster.Cluster, error)
