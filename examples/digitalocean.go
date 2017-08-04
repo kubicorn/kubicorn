@@ -25,7 +25,7 @@ import (
 
 func main() {
 	logger.Level = 4
-	cluster := getCluster("mycluster")
+	cluster := getDOCluster("mycluster")
 	cluster, err := initapi.InitCluster(cluster)
 	if err != nil {
 		panic(err.Error())
@@ -58,7 +58,7 @@ func main() {
 	}
 }
 
-func getCluster(name string) *cluster.Cluster {
+func getDOCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.Cloud_DigitalOcean,
