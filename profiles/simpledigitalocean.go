@@ -49,7 +49,7 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 			{
 				Type:            cluster.ServerPoolType_Node,
 				Name:            fmt.Sprintf("%s-node", name),
-				MaxCount:        3,
+				MaxCount:        1,
 				Image:           "ubuntu-16-04-x64",
 				Size:            "1gb",
 				BootstrapScript: "digitalocean_k8s_ubuntu_16.04_node.sh",

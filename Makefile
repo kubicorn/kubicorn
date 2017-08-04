@@ -75,8 +75,9 @@ shell:
 	-v ${PWD}:/go/src/github.com/kris-nova/kubicorn \
 	--rm ${SHELL_IMAGE} /bin/bash
 
+.PHONY: test
 test:
-	@go test $(PKGS)
+	go test -timeout 20m -v $(PKGS)
 
 vet:
 	@go vet $(PKGS)

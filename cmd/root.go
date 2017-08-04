@@ -42,7 +42,7 @@ var RootCmd = &cobra.Command{
 			cmd.SetOutput(fabulousWriter)
 		}
 		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
-			cmd.SetOutput(fabulousWriter)
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
 		}
 		cmd.Help()
 	},	
