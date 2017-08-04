@@ -18,16 +18,16 @@ import (
 	"context"
 	"fmt"
 	"github.com/digitalocean/godo"
+	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/scp"
 	"github.com/kris-nova/kubicorn/logger"
 	"strconv"
-	"time"
-	"github.com/kris-nova/kubicorn/cutil/scp"
-	"github.com/kris-nova/klone/pkg/local"
 	"strings"
+	"time"
 )
 
 type Droplet struct {
@@ -58,16 +58,15 @@ func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		},
 	}
 
-	if r.CloudID != "" {
+	droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+	ld := len(droplets)
+	if ld > 0 {
+		actual.Count = len(droplets)
 
-		droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
-		if err != nil {
-			return nil, err
-		}
-		ld := len(droplets)
-		if ld != 1 {
-			return nil, fmt.Errorf("Found [%d] Droplets for Name [%s]", ld, r.Name)
-		}
+		// Todo (@kris-nova) once we start to test these implementations we really need to work on the droplet logic. Right now we just pick the first one..
 		droplet := droplets[0]
 		id := strconv.Itoa(droplet.ID)
 		actual.Name = droplet.Name
@@ -75,9 +74,8 @@ func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.Size = droplet.Size.Slug
 		actual.Region = droplet.Region.Name
 		actual.Image = droplet.Image.Slug
+		actual.SShFingerprint = known.Ssh.PublicKeyFingerprint
 	}
-	actual.SShFingerprint = known.Ssh.PublicKeyFingerprint
-	actual.Count = r.ServerPool.MaxCount
 	actual.Name = r.Name
 	r.CachedActual = actual
 	return actual, nil
@@ -136,8 +134,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			}
 			droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), masterTag, &godo.ListOptions{})
 			if err != nil {
-				logger.Debug("Hanging for master IP..")
-				logger.Debug("Error: %v", err)
+				logger.Debug("Hanging for master IP.. (%v)", err)
 				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
@@ -165,16 +162,14 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			scp := scp.NewSecureCopier(applyCluster.Ssh.User, masterIpPublic, "22", privPath)
 			masterVpnIp, err := scp.ReadBytes("/tmp/.ip")
 			if err != nil {
-				logger.Debug("Hanging for VPN mesh..")
-				logger.Debug("Error: %v", err)
+				logger.Debug("Hanging for VPN mesh.. /tmp/.ip (%v)", err)
 				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			masterVpnIpStr := strings.Replace(string(masterVpnIp), "\n", "", -1)
 			meshKey, err := scp.ReadBytes("/tmp/.key")
 			if err != nil {
-				logger.Debug("Hanging for VPN mesh..")
-				logger.Debug("Error: %v", err)
+				logger.Debug("Hanging for VPN mesh.. /tmp/.key (%v)", err)
 				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
@@ -199,34 +194,37 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	if err != nil {
 		return nil, err
 	}
-	createRequest := &godo.DropletCreateRequest{
-		Name:   expected.(*Droplet).Name,
-		Region: expected.(*Droplet).Region,
-		Size:   expected.(*Droplet).Size,
-		Image: godo.DropletCreateImage{
-			Slug: expected.(*Droplet).Image,
-		},
-		Tags:              []string{expected.(*Droplet).Name},
-		PrivateNetworking: true,
-		SSHKeys: []godo.DropletCreateSSHKey{
-			{
-				ID:          sshId,
-				Fingerprint: expected.(*Droplet).SShFingerprint,
+
+	var droplet *godo.Droplet
+	for j := 0; j < expected.(*Droplet).Count; j++ {
+		createRequest := &godo.DropletCreateRequest{
+			Name:   fmt.Sprintf("%s-%d", expected.(*Droplet).Name, j),
+			Region: expected.(*Droplet).Region,
+			Size:   expected.(*Droplet).Size,
+			Image: godo.DropletCreateImage{
+				Slug: expected.(*Droplet).Image,
 			},
-		},
-		UserData: string(userData),
-	}
-	droplet, _, err := Sdk.Client.Droplets.Create(context.TODO(), createRequest)
-	if err != nil {
-		return nil, err
+			Tags:              []string{expected.(*Droplet).Name},
+			PrivateNetworking: true,
+			SSHKeys: []godo.DropletCreateSSHKey{
+				{
+					ID:          sshId,
+					Fingerprint: expected.(*Droplet).SShFingerprint,
+				},
+			},
+			UserData: string(userData),
+		}
+		droplet, _, err = Sdk.Client.Droplets.Create(context.TODO(), createRequest)
+		if err != nil {
+			return nil, err
+		}
+		logger.Info("Created Droplet [%d]", droplet.ID)
 	}
 
-	logger.Info("Created Droplet [%d]", droplet.ID)
-	id := strconv.Itoa(droplet.ID)
 	newResource := &Droplet{
 		Shared: Shared{
-			Name:    droplet.Name,
-			CloudID: id,
+			Name: r.ServerPool.Name,
+			//CloudID: id,
 		},
 		Image:  droplet.Image.Slug,
 		Size:   droplet.Size.Slug,
@@ -247,16 +245,13 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
-	ld := len(droplets)
-	if ld != 1 {
-		return fmt.Errorf("Found [%d] Droplets for Name [%s]", ld, r.Name)
+	for _, droplet := range droplets {
+		_, err = Sdk.Client.Droplets.Delete(context.TODO(), droplet.ID)
+		if err != nil {
+			return err
+		}
+		logger.Info("Deleted Droplet [%d]", droplet.ID)
 	}
-	droplet := droplets[0]
-	_, err = Sdk.Client.Droplets.Delete(context.TODO(), droplet.ID)
-	if err != nil {
-		return err
-	}
-	logger.Info("Deleted Droplet [%d]", droplet.ID)
 	return nil
 }
 

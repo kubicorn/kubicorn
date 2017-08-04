@@ -24,6 +24,7 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 	r := make(map[int]cloud.Resource)
 	i := 0
 
+	// ---- [SSH Key] ----
 	r[i] = &resources.SSH{
 		Shared: resources.Shared{
 			Name: known.Name,
@@ -32,17 +33,14 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 	i++
 
 	for _, serverPool := range known.ServerPools {
-		total := serverPool.MaxCount
-		for j := 0; j < total; j++ {
-			// ---- [Droplet] ----
-			r[i] = &resources.Droplet{
-				Shared: resources.Shared{
-					Name: serverPool.Name,
-				},
-				ServerPool: serverPool,
-			}
-			i++
+		// ---- [Droplet] ----
+		r[i] = &resources.Droplet{
+			Shared: resources.Shared{
+				Name: serverPool.Name,
+			},
+			ServerPool: serverPool,
 		}
+		i++
 	}
 	return r
 }
