@@ -21,6 +21,12 @@ If you have this you should be able to run the following command:
 $ go get github.com/kris-nova/kubicorn
 ```
 
+You will also need a the `libncurses5-dev` package.
+```bash
+$ apt-get install libncurses5-dev
+```
+
+
 ### Building
 Now you can run `make` from the src directory of kubicorn:
 
