@@ -15,6 +15,9 @@
 package scp
 
 import (
+	"golang.org/x/crypto/ssh/agent"
+	"net"
+	"os"
 	"fmt"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/pkg/sftp"
@@ -40,23 +43,32 @@ func NewSecureCopier(remoteUser, remoteAddress, remotePort, privateKeyPath strin
 }
 
 func (s *SecureCopier) ReadBytes(remotePath string) ([]byte, error) {
-	pemBytes, err := ioutil.ReadFile(s.PrivateKeyPath)
-	if err != nil {
-		return nil, err
-	}
-	signer, err := GetSigner(pemBytes)
-	if err != nil {
-		return nil, err
-	}
-	auths := []ssh.AuthMethod{
-		ssh.PublicKeys(signer),
-	}
-
 	sshConfig := &ssh.ClientConfig{
 		User:            s.RemoteUser,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-		Auth:            auths,
 	}
+	
+	agent := sshAgent()
+	if agent != nil {
+		auths := []ssh.AuthMethod{
+			agent,
+		}
+		sshConfig.Auth = auths
+	} else {	
+		pemBytes, err := ioutil.ReadFile(s.PrivateKeyPath)
+		if err != nil {
+			return nil, err
+		}
+		signer, err := GetSigner(pemBytes)
+		if err != nil {
+			return nil, err
+		}
+		auths := []ssh.AuthMethod{
+			ssh.PublicKeys(signer),
+		}
+		sshConfig.Auth = auths
+	}
+	
 	sshConfig.SetDefaults()
 	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%s",s.RemoteAddress, s.RemotePort), sshConfig)
 	if err != nil {
@@ -90,6 +102,7 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 	if err != nil {
 		logger.Warning(err.Error())
 		fmt.Print("SSH Key Passphrase [none]: ")
+		fmt.Println("")
 		passPhrase, err := terminal.ReadPassword(0)
 		if err != nil {
 			return nil, err
@@ -103,4 +116,11 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 	} else {
 		return signerwithoutpassphrase, err
 	}
+}
+
+func sshAgent() ssh.AuthMethod {
+	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
+		return ssh.PublicKeysCallback(agent.NewClient(sshAgent).Signers)
+	}
+	return nil
 }
