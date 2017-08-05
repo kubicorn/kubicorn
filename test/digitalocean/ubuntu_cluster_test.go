@@ -43,7 +43,7 @@ func TestMain(m *testing.M) {
 	testCluster = profiles.NewSimpleDigitalOceanCluster("ubuntu-test")
 	testCluster, err = test.Create(testCluster)
 	if err != nil {
-		fmt.Printf("Unable to create digital ocean test cluster: %v\n", err)
+		fmt.Printf("Unable to create Digital Ocean test cluster: %v\n", err)
 		os.Exit(1)
 	}
 	status := m.Run()

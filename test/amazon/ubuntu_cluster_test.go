@@ -40,10 +40,10 @@ func TestMain(m *testing.M) {
 	//	}
 	//}()
 	test.InitRsaTravis()
-	testCluster = profiles.NewSimpleDigitalOceanCluster("ubuntu-test")
+	testCluster = profiles.NewSimpleAmazonCluster("ubuntu-test")
 	testCluster, err = test.Create(testCluster)
 	if err != nil {
-		fmt.Printf("Unable to create digital ocean test cluster: %v\n", err)
+		fmt.Printf("Unable to create Amazon test cluster: %v\n", err)
 		os.Exit(1)
 	}
 	status := m.Run()
