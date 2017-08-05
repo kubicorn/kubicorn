@@ -133,21 +133,26 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	newResource.Name = applyResource.Name
 	return newResource, nil
 }
-func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("vpc.Delete")
 	deleteResource := actual.(*Vpc)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
 	input := &ec2.DeleteVpcInput{
 		VpcId: &actual.(*Vpc).CloudID,
 	}
 	_, err := Sdk.Ec2.DeleteVpc(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted VPC [%s]", actual.(*Vpc).CloudID)
-	return nil
+
+	newResource := &Vpc{}
+	newResource.Name = actual.(*Vpc).Name
+	newResource.Tags = actual.(*Vpc).Tags
+
+	return newResource, nil
 }
 
 func (r *Vpc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

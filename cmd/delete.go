@@ -109,7 +109,7 @@ func RunDelete(options *DeleteOptions) error {
 	errchan := make(chan error)
 
 	go func() {
-		errchan <- reconciler.Destroy()
+		_, errchan <- reconciler.Destroy()
 	}()
 
 	go func(description string, symbol string, c chan bool) {

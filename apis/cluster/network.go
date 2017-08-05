@@ -27,7 +27,7 @@ const (
 type Network struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	CIDR              string
-	Identifier        string
-	Type              string
+	CIDR              string `json:"cidr,omitempty"`
+	Identifier        string `json:"identifier,omitempty"`
+	Type              string `json:"type,omitempty"`
 }

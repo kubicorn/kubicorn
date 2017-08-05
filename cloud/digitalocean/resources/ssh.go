@@ -127,24 +127,29 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	return newResource, nil
 }
-func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("ssh.Delete")
 	deleteResource := actual.(*SSH)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete ssh resource without Id [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete ssh resource without Id [%s]", deleteResource.Name)
 	}
 	id, err := strconv.Atoi(known.SSH.Identifier)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	_, err = Sdk.Client.Keys.DeleteByID(context.TODO(), id)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	logger.Info("Deleted SSH Key [%d]", id)
-	return nil
+
+	newResource := &SSH{}
+	newResource.Name = actual.(*SSH).Name
+	newResource.Tags = actual.(*SSH).Tags
+
+	return newResource, nil
 }
 
 func (r *SSH) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

@@ -235,33 +235,38 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	applyCluster.KubernetesAPI.Endpoint = masterIPPublic
 	return newResource, nil
 }
-func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("droplet.Delete")
 	deleteResource := actual.(*Droplet)
 	if deleteResource.Name == "" {
-		return fmt.Errorf("Unable to delete droplet resource without Name [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete droplet resource without Name [%s]", deleteResource.Name)
 	}
 
 	droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if len(droplets) != actual.(*Droplet).Count {
 		logger.Info("Droplet count mis-match, trying query again")
 		time.Sleep(5 * time.Second)
 		droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
 	for _, droplet := range droplets {
 		_, err = Sdk.Client.Droplets.Delete(context.TODO(), droplet.ID)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		logger.Info("Deleted Droplet [%d]", droplet.ID)
 	}
-	return nil
+
+	newResource := &Droplet{}
+	newResource.Name = actual.(*Droplet).Name
+	newResource.Tags = actual.(*Droplet).Tags
+
+	return newResource, nil
 }
 
 func (r *Droplet) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

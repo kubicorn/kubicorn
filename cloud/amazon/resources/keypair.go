@@ -50,8 +50,14 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 			KeyNames: []*string{&known.SSH.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeKeyPairs(input)
-		if err != nil {
-			return nil, err
+		if err == nil {
+			lsn := len(output.KeyPairs)
+			if lsn != 1 {
+				return nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.Ssh.Identifier)
+			}
+			keypair := output.KeyPairs[0]
+			actual.CloudID = *keypair.KeyName
+			actual.PublicKeyFingerprint = *keypair.KeyFingerprint
 		}
 		lsn := len(output.KeyPairs)
 		if lsn != 1 {
@@ -118,11 +124,11 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	newResource.Name = expected.(*KeyPair).Name
 	return newResource, nil
 }
-func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("keypair.Delete")
 	deleteResource := actual.(*KeyPair)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete keypair resource without ID [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete keypair resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DeleteKeyPairInput{
@@ -130,10 +136,14 @@ func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	}
 	_, err := Sdk.Ec2.DeleteKeyPair(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted keypair [%s]", actual.(*KeyPair).CloudID)
-	return nil
+	newResource := &KeyPair{}
+	newResource.Tags = actual.(*KeyPair).Tags
+	newResource.Name = actual.(*KeyPair).Name
+	newResource.PublicKeyPath = actual.(*KeyPair).PublicKeyPath
+	return newResource, nil
 }
 
 func (r *KeyPair) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

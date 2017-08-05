@@ -211,21 +211,25 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	return newResource, nil
 }
 
-func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("lc.Delete")
 	deleteResource := actual.(*Lc)
 	if deleteResource.Name == "" {
-		return fmt.Errorf("Unable to delete Launch Configuration resource without Name [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete Launch Configuration resource without Name [%s]", deleteResource.Name)
 	}
 	input := &autoscaling.DeleteLaunchConfigurationInput{
 		LaunchConfigurationName: &actual.(*Lc).Name,
 	}
 	_, err := Sdk.ASG.DeleteLaunchConfiguration(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).CloudID)
-	return nil
+
+	newResource := &Lc{}
+	newResource.Name = actual.(*Lc).Name
+	newResource.Tags = actual.(*Lc).Tags
+	return newResource, nil
 }
 
 func (r *Lc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

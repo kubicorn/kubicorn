@@ -145,11 +145,11 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	return newResource, nil
 }
-func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("asg.Delete")
 	deleteResource := actual.(*Asg)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete ASG resource without ID [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete ASG resource without ID [%s]", deleteResource.Name)
 	}
 	// Delete ASG API
 
@@ -159,10 +159,13 @@ func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	}
 	_, err := Sdk.ASG.DeleteAutoScalingGroup(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted ASG [%s]", actual.(*Asg).CloudID)
-	return nil
+	newResource := &Asg{}
+	newResource.Name = actual.(*Asg).Name
+	newResource.Tags = actual.(*Asg).Tags
+	return newResource, nil
 }
 
 func (r *Asg) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

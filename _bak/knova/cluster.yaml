@@ -1,0 +1,86 @@
+cloud: amazon
+kubernetesApi:
+  endpoint: 52.41.197.117
+  metadata:
+    creationTimestamp: null
+  port: "443"
+location: us-west-2
+metadata:
+  creationTimestamp: null
+name: knova
+network:
+  cidr: 10.0.0.0/16
+  identifier: vpc-d46bcbb2
+  metadata:
+    creationTimestamp: null
+    name: knova
+serverPools:
+- firewalls:
+  - Identifier: sg-ad1375d7
+    Name: knova.master-external
+    Rules:
+    - ingressFromPort: 22
+      ingressSource: 0.0.0.0/0
+      ingressToPort: 22
+      metadata:
+        creationTimestamp: null
+    - ingressFromPort: 443
+      ingressSource: 0.0.0.0/0
+      ingressToPort: 443
+      metadata:
+        creationTimestamp: null
+    metadata:
+      creationTimestamp: null
+  identifier: knova.master
+  image: ami-835b4efa
+  metadata:
+    creationTimestamp: null
+  name: knova.master
+  size: t2.medium
+  subnets:
+  - cidr: 10.0.0.0/24
+    identifier: subnet-0f011546
+    metadata:
+      creationTimestamp: null
+    name: knova.master
+    zone: us-west-2b
+- firewalls:
+  - Identifier: sg-0a1e7870
+    Name: knova.node-external
+    Rules:
+    - ingressFromPort: 22
+      ingressSource: 0.0.0.0/0
+      ingressToPort: 22
+      metadata:
+        creationTimestamp: null
+    metadata:
+      creationTimestamp: null
+  identifier: knova.node
+  image: ami-835b4efa
+  metadata:
+    creationTimestamp: null
+  name: knova.node
+  size: t2.medium
+  subnets:
+  - cidr: 10.0.100.0/24
+    identifier: subnet-be0612f7
+    metadata:
+      creationTimestamp: null
+    name: knova.node
+    zone: us-west-2b
+ssh:
+  Identifier: knova
+  metadata:
+    creationTimestamp: null
+  name: knova
+  publicKeyData: c3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFCQVFDMzRRR0plMStNa2NpbW1RbWlSZ1ppWlg1eTdrL3o3WTRXMkgwV1RuaC9XaEtrVXZqUmdXY2QzQTBrVWI1TUlXOXpiUnpCRklKQkVCcm04SFJsRjRlblhSQUNyK3RWYkhVcUk1Sk8zeElFSEtXa0pIR2YwQmc0MytWVzhYLzdmdFA3UVBlNWltZXQ1VEwrQXFzQzYyV3EyYVVUWk1IYWcxUjZ4djRBR0hIUE54L2RiYlJuMjZNdHJjOEpoNFdKWHRZZmszQ0RVNDZ6SEhVVytWSW51RE1GbXRXNHlrZXlQcUJhS1F2cmpyK1hRbTE1dmZzcnRvYUJHNEp3ZUtPRC9MSkxzK3RpS3RzVk1mNTVzV1p4ZFBkSEx0TzEvUnNiK1orMXdTZVQ4bU0xdEJhbmlnU2h4bUplQzBnWjhIUU9PMk92ZUYwallVak1LNHdQd0dyeVBaa2Yga3Jpc0BLcmlzcy1NYWNCb29rLVByby5sb2NhbAo=
+  publicKeyFingerprint: 19:3e:90:6f:46:9d:43:b8:4e:c9:35:31:f7:1d:a8:5d
+  publicKeyPath: ~/.ssh/id_rsa.pub
+  user: ubuntu
+values:
+  itemMap:
+    INJECTEDMASTER: 10.0.0.173:443
+    INJECTEDPORT: "443"
+    INJECTEDTOKEN: 650830.e850b1052a804392
+  metadata:
+    creationTimestamp: null

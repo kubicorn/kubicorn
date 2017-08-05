@@ -125,11 +125,11 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cl
 	newResource.CloudID = *output.Subnet.SubnetId
 	return newResource, nil
 }
-func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("subnet.Delete")
 	deleteResource := actual.(*Subnet)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete subnet resource without ID [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete subnet resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DeleteSubnetInput{
@@ -137,10 +137,15 @@ func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	}
 	_, err := Sdk.Ec2.DeleteSubnet(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted subnet [%s]", actual.(*Subnet).CloudID)
-	return nil
+
+	newResource := &Subnet{}
+	newResource.Name = actual.(*Subnet).Name
+	newResource.Tags = actual.(*Subnet).Tags
+
+	return newResource, nil
 }
 
 func (r *Subnet) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

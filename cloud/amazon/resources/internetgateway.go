@@ -136,11 +136,11 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *c
 	return newResource, nil
 }
 
-func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("internetgateway.Delete")
 	deleteResource := actual.(*InternetGateway)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete internetgateway resource without ID [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete internetgateway resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DescribeInternetGatewaysInput{
@@ -153,14 +153,14 @@ func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) 
 	}
 	output, err := Sdk.Ec2.DescribeInternetGateways(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	lsn := len(output.InternetGateways)
 	if lsn == 0 {
-		return nil
+		return nil, nil
 	}
 	if lsn != 1 {
-		return fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, r.Name)
+		return nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, r.Name)
 	}
 	ig := output.InternetGateways[0]
 
@@ -170,7 +170,7 @@ func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) 
 	}
 	_, err = Sdk.Ec2.DetachInternetGateway(detinput)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	delinput := &ec2.DeleteInternetGatewayInput{
@@ -178,10 +178,13 @@ func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) 
 	}
 	_, err = Sdk.Ec2.DeleteInternetGateway(delinput)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted internetgateway [%s]", actual.(*InternetGateway).CloudID)
-	return nil
+	newResource := &InternetGateway{}
+	newResource.Name = actual.(*InternetGateway).Name
+	newResource.Tags = actual.(*InternetGateway).Tags
+	return newResource, nil
 }
 
 func (r *InternetGateway) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

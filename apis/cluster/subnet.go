@@ -21,9 +21,9 @@ import (
 type Subnet struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Identifier        string
-	CIDR              string
-	Location          string
-	Zone              string
-	Name              string
+	Identifier        string `json:"identifier,omitempty"`
+	CIDR              string `json:"cidr,omitempty"`
+	Location          string `json:"location,omitempty"`
+	Zone              string `json:"zone,omitempty"`
+	Name              string `json:"name,omitempty"`
 }
