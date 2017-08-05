@@ -125,15 +125,15 @@ func GetConfig(existing *cluster.Cluster) error {
 }
 
 const (
-	RetryAttempts     = 90
-	RetrySleepSeconds = 3
+	RetryAttempts     = 150
+	RetrySleepSeconds = 5
 )
 
 func RetryGetConfig(existing *cluster.Cluster) error {
 	for i := 0; i <= RetryAttempts; i++ {
 		err := GetConfig(existing)
 		if err != nil {
-			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") || strings.Contains(err.Error(), "unable to authenticate"){
+			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") || strings.Contains(err.Error(), "unable to authenticate") {
 				//logger.Warning(err.Error())
 				logger.Debug("Waiting for Kubernetes to come up..")
 				time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
@@ -174,11 +174,11 @@ func sshAgent() ssh.AuthMethod {
 	return nil
 }
 
-func getKubeConfigPath(path string) (string, error) {	
-	if _, err := os.Stat(path); os.IsNotExist(err) {	
-			if err := os.Mkdir(path, 0777); err != nil {
-				return "", err
-			}
+func getKubeConfigPath(path string) (string, error) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		if err := os.Mkdir(path, 0777); err != nil {
+			return "", err
+		}
 	}
 	return fmt.Sprintf("%s/config", path), nil
 }
