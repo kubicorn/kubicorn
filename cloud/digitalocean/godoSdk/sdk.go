@@ -30,7 +30,7 @@ func NewSdk() (*Sdk, error) {
 	sdk := &Sdk{}
 	pat := GetToken()
 	if pat == "" {
-		return nil, fmt.Errorf("Empty access token. Remember to export DIGITALOCEAN_ACCESS_TOKEN='mytoken'")
+		return nil, fmt.Errorf("Empty $DIGITALOCEAN_ACCESS_TOKEN")
 	}
 	tokenSource := &TokenSource{
 		AccessToken: pat,
