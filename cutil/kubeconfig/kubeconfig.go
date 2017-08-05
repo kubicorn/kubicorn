@@ -35,7 +35,13 @@ func GetConfig(existing *cluster.Cluster) error {
 	pubKeyPath := local.Expand(existing.Ssh.PublicKeyPath)
 	privKeyPath := strings.Replace(pubKeyPath, ".pub", "", 1)
 	address := fmt.Sprintf("%s:%s", existing.KubernetesApi.Endpoint, "22")
-	localPath := fmt.Sprintf("%s/.kube/config", local.Home())
+	localDir := fmt.Sprintf("%s/.kube", local.Home())
+	if _, err := os.Stat(localDir); os.IsNotExist(err) {	
+			if err := os.Mkdir(localDir, 0777); err != nil {
+				return err
+			}
+	}
+	localPath := fmt.Sprintf("%s/config", localDir)
 	sshConfig := &ssh.ClientConfig{
 		User:            user,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
