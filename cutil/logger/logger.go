@@ -19,12 +19,17 @@ import (
 	"github.com/fatih/color"
 	"strings"
 	"time"
+	"os"
+
+	lol "github.com/kris-nova/lolgopher"
 )
 
 var (
 	Level = 2
 	Color = true
 	TestMode = false
+	Fabulous = false
+	FabulousWriter = &lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256}
 )
 
 func Always(format string, a ...interface{}) {
@@ -32,7 +37,11 @@ func Always(format string, a ...interface{}) {
 		fmt.Printf(label(format, "✿"), a...)
 		return
 	}
-	color.Green(label(format, "✿"), a...)
+	if Fabulous {
+		fmt.Fprintf(FabulousWriter, label(format, "✿"), a...)
+	} else {
+		color.Green(label(format, "✿"), a...)
+	}
 }
 
 func Info(format string, a ...interface{}) {
@@ -41,7 +50,9 @@ func Info(format string, a ...interface{}) {
 			fmt.Printf(label(format, "✔"), a...)
 			return
 		}
-		if Color {
+		if Fabulous {
+			fmt.Fprintf(FabulousWriter, label(format, "✔"), a...)
+		} else if Color {
 			color.Cyan(label(format, "✔"), a...)
 		} else {
 			fmt.Printf(label(format, "✔"), a...)
@@ -65,7 +76,9 @@ func Warning(format string, a ...interface{}) {
 			fmt.Printf(label(format, "!"), a...)
 			return
 		}
-		if Color {
+		if Fabulous {
+			fmt.Fprintf(FabulousWriter, label(format, "!"), a...)
+		} else if Color {
 			color.Green(label(format, "!"), a...)
 		} else {
 			fmt.Printf(label(format, "!"), a...)
@@ -79,7 +92,9 @@ func Critical(format string, a ...interface{}) {
 			fmt.Printf(label(format, "✖"), a...)
 			return
 		}
-		if Color {
+		if Fabulous {
+			fmt.Fprintf(FabulousWriter, label(format, "✖"), a...)
+		} else if Color {
 			color.Red(label(format, "✖"), a...)
 		} else {
 			fmt.Printf(label(format, "✖"), a...)
