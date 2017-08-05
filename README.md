@@ -1,8 +1,9 @@
-[![Build Status](https://travis-ci.org/kris-nova/kubicorn.svg?branch=master)](https://travis-ci.org/kris-nova/kubicorn) [![Go Report Card](https://goreportcard.com/badge/github.com/kris-nova/kubicorn)](https://goreportcard.com/report/github.com/kris-nova/kubicorn)
-
-| Kubicorn  | Simple. Kubernetes. Infrastructure. |
-| ------------- | ------------- |
-| <img src="docs/img/kubicorn-trans.png" width="360">  |  Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud. |
+<p align="center"><img src="docs/img/kubicorn-trans.png" width="360"></p>
+<p align="center"><b>Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.</b></p>
+<p align="center">
+  <img src="https://travis-ci.org/kris-nova/kubicorn.svg?branch=master" alt="Build Status"><a href="https://travis-ci.org/kris-nova/kubicorn"></a></img>
+  <img src="https://goreportcard.com/badge/github.com/kris-nova/kubicorn" alt="Go Report Card"><a href="https://goreportcard.com/report/github.com/kris-nova/kubicorn"></a></img>
+</p>
 
 **Phonetic pronunciation**: `KEW - BHIK - OH - AR - IN`
 
