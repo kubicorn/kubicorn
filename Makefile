@@ -77,8 +77,9 @@ shell:
 	--rm ${SHELL_IMAGE} /bin/bash
 
 lint:
-    which golint > /dev/null || go get -u github.com/golang/lint/golint...
-    golint $(PKGS)
+	which golint > /dev/null || go get -u github.com/golang/lint/golint...
+	golint $(PKGS)
+
 
 .PHONY: test
 test:
