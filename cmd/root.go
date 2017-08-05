@@ -19,16 +19,9 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/spf13/cobra"
 	"os"
-
-	lol "github.com/kris-nova/lolgopher"
 )
 
 var cfgFile string
-
-// fabulous enables rainbow colored output
-var fabulous bool
-
-var fabulousWriter = &lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256}
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -38,11 +31,11 @@ var RootCmd = &cobra.Command{
 %s
 `, Unicorn),
 	Run: func(cmd *cobra.Command, args []string) {
-		if fabulous {
-			cmd.SetOutput(fabulousWriter)
+		if logger.Fabulous {
+			cmd.SetOutput(logger.FabulousWriter)
 		}
 		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
-			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+			cmd.SetOutput(logger.FabulousWriter)
 		}
 		cmd.Help()
 	},	
@@ -65,7 +58,7 @@ func init() {
 	//flags here
 	RootCmd.PersistentFlags().IntVarP(&logger.Level, "verbose", "v", 3, "Log level")
 	RootCmd.PersistentFlags().BoolVarP(&logger.Color, "color", "C", true, "Toggle colorized logs")
-	RootCmd.PersistentFlags().BoolVarP(&fabulous, "fab", "f", false, "Toggle colorized logs")
+	RootCmd.PersistentFlags().BoolVarP(&logger.Fabulous, "fab", "f", false, "Toggle colorized logs")
 
 	// register env vars
 	registerEnvironmentalVariables()

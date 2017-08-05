@@ -15,6 +15,7 @@
 package cmd
 
 import (
+	"github.com/kris-nova/kubicorn/cutil/logger"
 	"bytes"
 	"fmt"
 	"os"
@@ -58,11 +59,11 @@ Once installed, you must load bash_completion by adding following
 line to your .profile or .bashrc/.zshrc:
 	source $(brew --prefix)/etc/bash_completion`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		if fabulous {
-			cmd.SetOutput(fabulousWriter)
+		if logger.Fabulous {
+			cmd.SetOutput(logger.FabulousWriter)
 		}
 		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
-			cmd.SetOutput(fabulousWriter)
+			cmd.SetOutput(logger.FabulousWriter)
 		}
 
 		if len(args) != 1 {
