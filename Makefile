@@ -76,6 +76,11 @@ shell:
 	-v ${PWD}:/go/src/github.com/kris-nova/kubicorn \
 	--rm ${SHELL_IMAGE} /bin/bash
 
+lint:
+	which golint > /dev/null || go get -u github.com/golang/lint/golint
+	golint $(PKGS)
+
+
 .PHONY: test
 test:
 	go test -timeout 20m -v $(PKGS)
