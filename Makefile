@@ -3,6 +3,7 @@ ifndef VERBOSE
 endif
 
 PKGS=$(shell go list ./... | grep -v /vendor)
+CI_PKGS=$(shell go list ./... | grep -v /vendor | grep -v test)
 SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
@@ -78,6 +79,12 @@ shell:
 .PHONY: test
 test:
 	go test -timeout 20m -v $(PKGS)
+
+
+.PHONY: ci
+ci:
+	go test -timeout 20m -v $(CI_PKGS)
+
 
 vet:
 	@go vet $(PKGS)
