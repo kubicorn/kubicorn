@@ -18,7 +18,7 @@ MESHBIRD_KEY="INJECTEDMESHKEY"
 # VPN Mesh
 curl http://meshbird.com/install.sh | sh
 export MESHBIRD_KEY=$MESHBIRD_KEY
-meshbird join &> /var/log/meshbird.log &
+meshbird join &
 
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo touch /etc/apt/sources.list.d/kubernetes.list
