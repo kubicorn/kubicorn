@@ -28,6 +28,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	"syscall"
 )
 
 func GetConfig(existing *cluster.Cluster) error {
@@ -151,7 +152,7 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 	if err != nil {
 		logger.Info(err.Error())
 		fmt.Print("SSH Key Passphrase [none]: ")
-		passPhrase, err := terminal.ReadPassword(0)
+		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
 		fmt.Println("")
 		if err != nil {
 			return nil, err
