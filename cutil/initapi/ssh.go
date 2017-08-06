@@ -24,6 +24,7 @@ import (
 	"fmt"
 	"golang.org/x/crypto/ssh"
 	"github.com/gravitational/trace"
+	"syscall"
 )
 
 func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
@@ -77,7 +78,7 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
 	if err != nil {
 		fmt.Print("SSH Key Passphrase [none]: ")
-		passPhrase, err := terminal.ReadPassword(0)
+		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
 		fmt.Println("")
 		if err != nil {
 			return nil, err

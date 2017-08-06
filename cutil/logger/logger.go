@@ -19,17 +19,13 @@ import (
 	"github.com/fatih/color"
 	"strings"
 	"time"
-	"os"
-
-	lol "github.com/kris-nova/lolgopher"
 )
 
 var (
 	Level = 2
 	Color = true
 	TestMode = false
-	Fabulous = false
-	FabulousWriter = &lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256}
+	Fabulous = false	
 )
 
 func Always(format string, a ...interface{}) {

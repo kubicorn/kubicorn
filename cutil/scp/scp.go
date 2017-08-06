@@ -24,6 +24,7 @@ import (
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
 	"io/ioutil"
+	"syscall"
 )
 
 type SecureCopier struct {
@@ -103,7 +104,7 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 		logger.Warning(err.Error())
 		fmt.Print("SSH Key Passphrase [none]: ")
 		fmt.Println("")
-		passPhrase, err := terminal.ReadPassword(0)
+		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
 		if err != nil {
 			return nil, err
 		}
