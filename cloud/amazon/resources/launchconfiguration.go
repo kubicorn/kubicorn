@@ -150,8 +150,8 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 			}
 			lr := len(output.Reservations)
 			if lr == 0 {
-				logger.Debug("Found [%d] Reservations, hanging ", lr)
-				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
+				logger.Debug("Found %d Reservations, hanging ", lr)
+				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			for _, reservation := range output.Reservations {
