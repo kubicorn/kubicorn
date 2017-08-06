@@ -78,7 +78,7 @@ func getCluster(name string) *cluster.Cluster {
 		ServerPools: []*cluster.ServerPool{
 			{
 				Type:            cluster.ServerPoolType_Master,
-				Name:            fmt.Sprintf("%s.master", name),
+				Name:            fmt.Sprintf("%s-master", name),
 				MaxCount:        1,
 				Image:           "ubuntu-16-04-x64",
 				Size:            "1gb",
@@ -86,7 +86,7 @@ func getCluster(name string) *cluster.Cluster {
 			},
 			{
 				Type:            cluster.ServerPoolType_Node,
-				Name:            fmt.Sprintf("%s.node", name),
+				Name:            fmt.Sprintf("%s-node", name),
 				MaxCount:        3,
 				Image:           "ubuntu-16-04-x64",
 				Size:            "1gb",
