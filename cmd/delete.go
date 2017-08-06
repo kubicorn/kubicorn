@@ -111,7 +111,7 @@ func RunDelete(options *DeleteOptions) error {
 
 	go func(description string, symbol string, c chan bool) {
 		if description != "" {
-			fmt.Print(description)
+			logger.Log(description)
 		}
 
 		for {
@@ -122,7 +122,7 @@ func RunDelete(options *DeleteOptions) error {
 				}
 			default:
 				time.Sleep(200 * time.Millisecond)
-				fmt.Print(symbol)
+				logger.Log(symbol)
 			}
 		}
 	}(fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".", donechan)
