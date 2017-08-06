@@ -102,11 +102,11 @@ func RunDelete(options *DeleteOptions) error {
 		return fmt.Errorf("Unable to init reconciler: %v", err)
 	}
 
-	done := make(chan bool)
-	message := make(chan error)
+	donechan := make(chan bool)
+	errchan := make(chan error)
 
 	go func() {
-		message <- reconciler.Destroy()
+		errchan <- reconciler.Destroy()
 	}()
 
 	go func(description string, symbol string, c chan bool) {
@@ -125,10 +125,10 @@ func RunDelete(options *DeleteOptions) error {
 				fmt.Print(symbol)
 			}
 		}
-	}(fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".", done)
+	}(fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".", donechan)
 
-	err = <-message
-	done <- true
+	err = <-errchan
+	donechan <- true
 	if err != nil {
 		return errors.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
 	}
