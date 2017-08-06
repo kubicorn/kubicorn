@@ -23,6 +23,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"os"
+	"time"
 )
 
 // deleteCmd represents the delete command
@@ -126,7 +127,7 @@ func RunDelete(options *DeleteOptions) error {
 		}
 	}(fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".", done)
 
-	err := <-message;
+	err = <-message
 	done <- true
 	if err != nil {
 		return errors.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
