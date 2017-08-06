@@ -23,6 +23,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"os"
+	"time"
 )
 
 // deleteCmd represents the delete command
@@ -101,8 +102,35 @@ func RunDelete(options *DeleteOptions) error {
 		return fmt.Errorf("Unable to init reconciler: %v", err)
 	}
 
-	if err := reconciler.Destroy(); err != nil {
-		return fmt.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
+	donechan := make(chan bool)
+	errchan := make(chan error)
+
+	go func() {
+		errchan <- reconciler.Destroy()
+	}()
+
+	go func(description string, symbol string, c chan bool) {
+		if description != "" {
+			logger.Log(description)
+		}
+
+		for {
+			select {
+			case quit := <-c:
+				if quit {
+					return
+				}
+			default:
+				time.Sleep(200 * time.Millisecond)
+				logger.Log(symbol)
+			}
+		}
+	}(fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".", donechan)
+
+	err = <-errchan
+	donechan <- true
+	if err != nil {
+		return errors.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
 	}
 
 	if options.Purge {

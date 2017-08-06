@@ -98,6 +98,10 @@ func Critical(format string, a ...interface{}) {
 	}
 }
 
+func Log(format string, a ...interface{}) {
+	fmt.Printf(format, a...)
+}
+
 func label(format, label string) string {
 	t := time.Now()
 	rfct := t.Format(time.RFC3339)
