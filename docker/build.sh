@@ -59,6 +59,6 @@ docker build -t gobuilder-kubicorn "$(pwd)" ${VERBOSE_DOCKER_BUILD}
 if ${VERBOSE} ; then
     echo Running make script
 fi
-docker run --rm -v "/$(pwd)/.."://go/src/github.com/kris-nova/kubicorn -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn ${MAKE_COMMAND} ${VERBOSE_DOCKER_RUN}
+docker run --rm -v "/$(pwd)/.."://go/src/github.com/kris-nova/kubicorn -v "/${GOPATH}/bin"://go/bin -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn ${MAKE_COMMAND} ${VERBOSE_DOCKER_RUN}
 
 read -p "Done. Press enter to continue"
