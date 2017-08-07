@@ -18,12 +18,12 @@ import (
 	"fmt"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/cutil/task"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"os"
-	"time"
 )
 
 // deleteCmd represents the delete command
@@ -102,33 +102,7 @@ func RunDelete(options *DeleteOptions) error {
 		return fmt.Errorf("Unable to init reconciler: %v", err)
 	}
 
-	donechan := make(chan bool)
-	errchan := make(chan error)
-
-	go func() {
-		errchan <- reconciler.Destroy()
-	}()
-
-	go func(description string, symbol string, c chan bool) {
-		if description != "" {
-			logger.Log(description)
-		}
-
-		for {
-			select {
-			case quit := <-c:
-				if quit {
-					return
-				}
-			default:
-				time.Sleep(200 * time.Millisecond)
-				logger.Log(symbol)
-			}
-		}
-	}(fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".", donechan)
-
-	err = <-errchan
-	donechan <- true
+	err = task.RunAnnotated(reconciler.Destroy, fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".")
 	if err != nil {
 		return errors.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
 	}
