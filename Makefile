@@ -41,7 +41,6 @@ gofmt:
 	gofmt -w ./cutil
 	gofmt -w ./docs
 	gofmt -w ./examples
-	gofmt -w ./logger
 	gofmt -w ./namer
 	gofmt -w ./profiles
 	gofmt -w ./state
