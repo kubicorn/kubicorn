@@ -38,6 +38,13 @@ __kubicorn_list_resource()
     fi
     __kubicorn_parse_list "${nouns[${#nouns[@]} -1]}"
 }
+__kubicorn_parse_profiles()
+{
+    local kubicorn_out
+    if kubicorn_out=(amazon aws digitalocean do); then
+        COMPREPLY=( $( compgen -W "${kubicorn_out[*]}" -- "$cur" ) )
+    fi
+}
 `
 )
 

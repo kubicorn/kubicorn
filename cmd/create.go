@@ -29,7 +29,7 @@ import (
 )
 
 var createCmd = &cobra.Command{
-	Use:   "create [-n|--name NAME]",
+	Use:   "create [-n|--name NAME] [-p|--profile PROFILENAME]",
 	Short: "Create a Kubicorn API model from a profile",
 	Long: `Use this command to create a Kubicorn API model in a defined state store.
 
@@ -66,6 +66,16 @@ func init() {
 			createCmd.Flag("name").Annotations[cobra.BashCompCustom] = append(
 				createCmd.Flag("name").Annotations[cobra.BashCompCustom],
 				"__kubicorn_parse_list",
+			)
+	}
+
+	if createCmd.Flag("profile") != nil {
+			if createCmd.Flag("profile").Annotations == nil {
+				createCmd.Flag("profile").Annotations = map[string][]string{}
+			}
+			createCmd.Flag("profile").Annotations[cobra.BashCompCustom] = append(
+				createCmd.Flag("profile").Annotations[cobra.BashCompCustom],
+				"__kubicorn_parse_profiles",
 			)
 	}
 	
