@@ -4,27 +4,31 @@ VERBOSE_DOCKER_RUN=""
 VERBOSE_DOCKER_BUILD="-q"
 REMOVE_IMAGE=FALSE
 SHOW_HELP=FALSE
+MAKE_COMMAND="make"
 
 which docker >/dev/null 2>&1 || { echo >&2 "Docker is required but it's not installed. Aborting."; exit 1; }
 
-for i in "$@"
-do
-case $i in
-    -v|--verbose)
-    VERBOSE=TRUE
-    VERBOSE_DOCKER_RUN="-e 'VERBOSE=1'"
-    VERBOSE_DOCKER_BUILD=""
-    shift # past argument=value
-    ;;
-    -i|--remove-image)
-    REMOVE_IMAGE=TRUE
-    shift # past argument=value
-    ;;
-    -h|--help)
-    SHOW_HELP=TRUE
-    shift # past argument=value
-    ;;
-esac
+while test $# -gt 0; do
+    case "$1" in
+        -h|--help)
+            SHOW_HELP=TRUE
+            shift
+            ;;
+        -v|--verbose)
+            VERBOSE=TRUE
+            VERBOSE_DOCKER_RUN="-e 'VERBOSE=1'"
+            VERBOSE_DOCKER_BUILD=""
+            shift
+            ;;
+        -i|--remove-image)
+            REMOVE_IMAGE=TRUE
+            shift
+            ;;
+        --make*)
+            MAKE_COMMAND="make "`echo $1 | sed -e 's/^[^=]*=//g'`
+            shift
+            ;;
+    esac
 done
 
 if ${SHOW_HELP} ; then
@@ -37,6 +41,7 @@ if ${SHOW_HELP} ; then
     echo "    -v, --verbose        Writes output to terminal"
     echo "    -i, --remove-image   Removes the docker image before building"
     echo "    -h, --help           Outputs all flags"
+    echo "    --make=COMMAND       Make command e.g. 'lint'"
     echo ""
     exit 0;
 fi
@@ -54,6 +59,6 @@ docker build -t gobuilder-kubicorn "$(pwd)" ${VERBOSE_DOCKER_BUILD}
 if ${VERBOSE} ; then
     echo Running make script
 fi
-docker run --rm -v "/$(pwd)/.."://go/src/github.com/kris-nova/kubicorn -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn make ${VERBOSE_DOCKER_RUN}
+docker run --rm -v "/$(pwd)/.."://go/src/github.com/kris-nova/kubicorn -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn ${MAKE_COMMAND} ${VERBOSE_DOCKER_RUN}
 
 read -p "Done. Press enter to continue"
