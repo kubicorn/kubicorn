@@ -43,7 +43,7 @@ After a model is defined and configured properly, the user can then apply the mo
 			os.Exit(1)
 		}
 
-	},	
+	},
 }
 
 type CreateOptions struct {
@@ -58,10 +58,10 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
-	
+
 	flagApplyAnnotations(createCmd, "name", "__kubicorn_parse_list")
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
-	
+
 	RootCmd.AddCommand(createCmd)
 }
 

@@ -61,7 +61,7 @@ func init() {
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 
 	flagApplyAnnotations(deleteCmd, "name", "__kubicorn_parse_list")
-	
+
 	RootCmd.AddCommand(deleteCmd)
 }
 

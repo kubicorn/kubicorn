@@ -17,9 +17,9 @@ package cmd
 import (
 	"fmt"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 	"os"
-	lol "github.com/kris-nova/lolgopher"
 )
 
 const (
@@ -83,8 +83,6 @@ func init() {
 
 	// register env vars
 	registerEnvironmentalVariables()
-
-	
 }
 
 func registerEnvironmentalVariables() {
@@ -93,12 +91,12 @@ func registerEnvironmentalVariables() {
 
 func flagApplyAnnotations(cmd *cobra.Command, flag, completion string) {
 	if cmd.Flag(flag) != nil {
-			if cmd.Flag(flag).Annotations == nil {
-				cmd.Flag(flag).Annotations = map[string][]string{}
-			}
-			cmd.Flag(flag).Annotations[cobra.BashCompCustom] = append(
-				cmd.Flag(flag).Annotations[cobra.BashCompCustom],
-				completion,
-			)
+		if cmd.Flag(flag).Annotations == nil {
+			cmd.Flag(flag).Annotations = map[string][]string{}
+		}
+		cmd.Flag(flag).Annotations[cobra.BashCompCustom] = append(
+			cmd.Flag(flag).Annotations[cobra.BashCompCustom],
+			completion,
+		)
 	}
 }

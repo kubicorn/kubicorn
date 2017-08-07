@@ -39,7 +39,7 @@ var listCmd = &cobra.Command{
 
 type ListOptions struct {
 	Options
-	Profile string	
+	Profile string
 }
 
 var lo = &ListOptions{}
