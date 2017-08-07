@@ -36,13 +36,13 @@ type Droplet struct {
 	Size           string
 	Image          string
 	Count          int
-	SShFingerprint string
+	SSHFingerprint string
 	ServerPool     *cluster.ServerPool
 }
 
 const (
-	MasterIpAttempts               = 40
-	MasterIpSleepSecondsPerAttempt = 3
+	MasterIPAttempts               = 40
+	MasterIPSleepSecondsPerAttempt = 3
 )
 
 func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -74,7 +74,7 @@ func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.Size = droplet.Size.Slug
 		actual.Region = droplet.Region.Name
 		actual.Image = droplet.Image.Slug
-		actual.SShFingerprint = known.Ssh.PublicKeyFingerprint
+		actual.SSHFingerprint = known.SSH.PublicKeyFingerprint
 	}
 	actual.Name = r.Name
 	r.CachedActual = actual
@@ -96,7 +96,7 @@ func (r *Droplet) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		Region:         known.Location,
 		Image:          r.ServerPool.Image,
 		Count:          r.ServerPool.MaxCount,
-		SShFingerprint: known.Ssh.PublicKeyFingerprint,
+		SSHFingerprint: known.SSH.PublicKeyFingerprint,
 	}
 	r.CachedExpected = expected
 	return expected, nil
@@ -119,13 +119,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	}
 
 	//masterIpPrivate := ""
-	masterIpPublic := ""
-	if r.ServerPool.Type == cluster.ServerPoolType_Node {
+	masterIPPublic := ""
+	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
 		found := false
-		for i := 0; i < MasterIpAttempts; i++ {
+		for i := 0; i < MasterIPAttempts; i++ {
 			masterTag := ""
 			for _, serverPool := range applyCluster.ServerPools {
-				if serverPool.Type == cluster.ServerPoolType_Master {
+				if serverPool.Type == cluster.ServerPoolTypeMaster {
 					masterTag = serverPool.Name
 				}
 			}
@@ -135,13 +135,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), masterTag, &godo.ListOptions{})
 			if err != nil {
 				logger.Debug("Hanging for master IP.. (%v)", err)
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			ld := len(droplets)
 			if ld == 0 {
 				logger.Debug("Hanging for master IP..")
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			if ld > 1 {
@@ -152,30 +152,30 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			//if err != nil {
 			//	return nil, fmt.Errorf("Unable to detect private IP: %v", err)
 			//}
-			masterIpPublic, err = droplet.PublicIPv4()
+			masterIPPublic, err = droplet.PublicIPv4()
 			if err != nil {
 				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
 
-			pubPath := local.Expand(applyCluster.Ssh.PublicKeyPath)
+			pubPath := local.Expand(applyCluster.SSH.PublicKeyPath)
 			privPath := strings.Replace(pubPath, ".pub", "", 1)
-			scp := scp.NewSecureCopier(applyCluster.Ssh.User, masterIpPublic, "22", privPath)
-			masterVpnIp, err := scp.ReadBytes("/tmp/.ip")
+			scp := scp.NewSecureCopier(applyCluster.SSH.User, masterIPPublic, "22", privPath)
+			masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
 			if err != nil {
 				logger.Debug("Hanging for VPN mesh.. /tmp/.ip (%v)", err)
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
-			masterVpnIpStr := strings.Replace(string(masterVpnIp), "\n", "", -1)
+			masterVpnIPStr := strings.Replace(string(masterVpnIP), "\n", "", -1)
 			meshKey, err := scp.ReadBytes("/tmp/.key")
 			if err != nil {
 				logger.Debug("Hanging for VPN mesh.. /tmp/.key (%v)", err)
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			meshKeyStr := strings.Replace(string(meshKey), "\n", "", -1)
 			found = true
-			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIpStr, applyCluster.KubernetesApi.Port)
+			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, applyCluster.KubernetesAPI.Port)
 			applyCluster.Values.ItemMap["INJECTEDMESHKEY"] = meshKeyStr
 			break
 		}
@@ -184,13 +184,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		}
 	}
 
-	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
+	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesAPI.Port
 	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
 	if err != nil {
 		return nil, err
 	}
 
-	sshId, err := strconv.Atoi(applyCluster.Ssh.Identifier)
+	sshID, err := strconv.Atoi(applyCluster.SSH.Identifier)
 	if err != nil {
 		return nil, err
 	}
@@ -208,8 +208,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			PrivateNetworking: true,
 			SSHKeys: []godo.DropletCreateSSHKey{
 				{
-					ID:          sshId,
-					Fingerprint: expected.(*Droplet).SShFingerprint,
+					ID:          sshID,
+					Fingerprint: expected.(*Droplet).SSHFingerprint,
 				},
 			},
 			UserData: string(userData),
@@ -231,7 +231,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		Region: droplet.Region.Name,
 		Count:  expected.(*Droplet).Count,
 	}
-	applyCluster.KubernetesApi.Endpoint = masterIpPublic
+	applyCluster.KubernetesAPI.Endpoint = masterIPPublic
 	return newResource, nil
 }
 func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) error {

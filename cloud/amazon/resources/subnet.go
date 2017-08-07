@@ -28,7 +28,7 @@ type Subnet struct {
 	ClusterSubnet *cluster.Subnet
 	ServerPool    *cluster.ServerPool
 	CIDR          string
-	VpcId         string
+	VpcID         string
 	Zone          string
 }
 
@@ -61,7 +61,7 @@ func (r *Subnet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		subnet := output.Subnets[0]
 		actual.CIDR = *subnet.CidrBlock
 		actual.CloudID = *subnet.SubnetId
-		actual.VpcId = *subnet.VpcId
+		actual.VpcID = *subnet.VpcId
 		actual.Zone = *subnet.AvailabilityZone
 		for _, tag := range subnet.Tags {
 			key := *tag.Key
@@ -91,7 +91,7 @@ func (r *Subnet) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 			TagResource: r.TagResource,
 		},
 		CIDR:  r.ClusterSubnet.CIDR,
-		VpcId: known.Network.Identifier,
+		VpcID: known.Network.Identifier,
 		Zone:  r.ClusterSubnet.Zone,
 	}
 	r.CachedExpected = expected
@@ -119,7 +119,7 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cl
 	logger.Info("Created Subnet [%s]", *output.Subnet.SubnetId)
 	newResource := &Subnet{}
 	newResource.CIDR = *output.Subnet.CidrBlock
-	newResource.VpcId = *output.Subnet.VpcId
+	newResource.VpcID = *output.Subnet.VpcId
 	newResource.Zone = *output.Subnet.AvailabilityZone
 	newResource.Name = applyResource.Name
 	newResource.CloudID = *output.Subnet.SubnetId

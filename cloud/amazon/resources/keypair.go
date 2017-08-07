@@ -45,9 +45,9 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		},
 	}
 
-	if known.Ssh.Identifier != "" {
+	if known.SSH.Identifier != "" {
 		input := &ec2.DescribeKeyPairsInput{
-			KeyNames: []*string{&known.Ssh.Identifier},
+			KeyNames: []*string{&known.SSH.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeKeyPairs(input)
 		if err != nil {
@@ -55,13 +55,13 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		lsn := len(output.KeyPairs)
 		if lsn != 1 {
-			return nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.Ssh.Identifier)
+			return nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
 		}
 		keypair := output.KeyPairs[0]
 		actual.CloudID = *keypair.KeyName
 		actual.PublicKeyFingerprint = *keypair.KeyFingerprint
 	}
-	actual.User = known.Ssh.User
+	actual.User = known.SSH.User
 	r.CachedActual = actual
 	return actual, nil
 }
@@ -78,13 +78,13 @@ func (r *KeyPair) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 				"Name":              r.Name,
 				"KubernetesCluster": known.Name,
 			},
-			CloudID:     known.Ssh.Identifier,
+			CloudID:     known.SSH.Identifier,
 			Name:        r.Name,
 			TagResource: r.TagResource,
 		},
-		PublicKeyPath: known.Ssh.PublicKeyPath,
-		PublicKeyData: string(known.Ssh.PublicKeyData),
-		User:          known.Ssh.User,
+		PublicKeyPath: known.SSH.PublicKeyPath,
+		PublicKeyData: string(known.SSH.PublicKeyData),
+		User:          known.SSH.User,
 	}
 	r.CachedExpected = expected
 	return expected, nil
@@ -138,12 +138,12 @@ func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 
 func (r *KeyPair) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("keypair.Render")
-	renderCluster.Ssh.Name = renderResource.(*KeyPair).Name
-	renderCluster.Ssh.Identifier = renderResource.(*KeyPair).Name
-	renderCluster.Ssh.PublicKeyData = []byte(renderResource.(*KeyPair).PublicKeyData)
-	renderCluster.Ssh.PublicKeyFingerprint = renderResource.(*KeyPair).PublicKeyFingerprint
-	renderCluster.Ssh.PublicKeyPath = renderResource.(*KeyPair).PublicKeyPath
-	renderCluster.Ssh.User = renderResource.(*KeyPair).User
+	renderCluster.SSH.Name = renderResource.(*KeyPair).Name
+	renderCluster.SSH.Identifier = renderResource.(*KeyPair).Name
+	renderCluster.SSH.PublicKeyData = []byte(renderResource.(*KeyPair).PublicKeyData)
+	renderCluster.SSH.PublicKeyFingerprint = renderResource.(*KeyPair).PublicKeyFingerprint
+	renderCluster.SSH.PublicKeyPath = renderResource.(*KeyPair).PublicKeyPath
+	renderCluster.SSH.User = renderResource.(*KeyPair).User
 	return renderCluster, nil
 }
 

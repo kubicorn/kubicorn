@@ -111,12 +111,12 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 		signerwithpassphrase, err := ssh.ParsePrivateKeyWithPassphrase(pemBytes, passPhrase)
 		if err != nil {
 			return nil, err
-		} else {
-			return signerwithpassphrase, err
 		}
-	} else {
-		return signerwithoutpassphrase, err
+
+		return signerwithpassphrase, err
 	}
+
+	return signerwithoutpassphrase, err
 }
 
 func sshAgent() ssh.AuthMethod {

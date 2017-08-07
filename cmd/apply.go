@@ -64,7 +64,7 @@ func RunApply(options *ApplyOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
-		return errors.New("Empty name. Must specify the name of the cluster to apply.")
+		return errors.New("Empty name. Must specify the name of the cluster to apply")
 	}
 
 	// Expand state store path
@@ -131,8 +131,8 @@ func RunApply(options *ApplyOptions) error {
 
 	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)
 	logger.Always("You can now `kubectl get nodes`")
-	privKeyPath := strings.Replace(cluster.Ssh.PublicKeyPath, ".pub", "", 1)
-	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, newCluster.Ssh.User, newCluster.KubernetesApi.Endpoint)
+	privKeyPath := strings.Replace(cluster.SSH.PublicKeyPath, ".pub", "", 1)
+	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, newCluster.SSH.User, newCluster.KubernetesAPI.Endpoint)
 
 	return nil
 }

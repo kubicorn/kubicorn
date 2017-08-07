@@ -23,13 +23,13 @@ import (
 func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
-		Cloud:    cluster.Cloud_DigitalOcean,
+		Cloud:    cluster.CloudDigitalOcean,
 		Location: "sfo2",
-		Ssh: &cluster.Ssh{
+		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "root",
 		},
-		KubernetesApi: &cluster.KubernetesApi{
+		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
 		},
 		Values: &cluster.Values{
@@ -39,7 +39,7 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 		},
 		ServerPools: []*cluster.ServerPool{
 			{
-				Type:            cluster.ServerPoolType_Master,
+				Type:            cluster.ServerPoolTypeMaster,
 				Name:            fmt.Sprintf("%s-master", name),
 				MaxCount:        1,
 				Image:           "ubuntu-16-04-x64",
@@ -47,7 +47,7 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 				BootstrapScript: "digitalocean_k8s_ubuntu_16.04_master.sh",
 			},
 			{
-				Type:            cluster.ServerPoolType_Node,
+				Type:            cluster.ServerPoolTypeNode,
 				Name:            fmt.Sprintf("%s-node", name),
 				MaxCount:        1,
 				Image:           "ubuntu-16-04-x64",
