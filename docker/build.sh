@@ -41,7 +41,7 @@ if ${SHOW_HELP} ; then
     echo "    -v, --verbose        Writes output to terminal"
     echo "    -i, --remove-image   Removes the docker image before building"
     echo "    -h, --help           Outputs all flags"
-    echo "    --make=COMMAND       Make command e.g. 'lint'"
+    echo "    --make=COMMAND       Specify the make command to be performd, e.g. '--make=lint'"
     echo ""
     exit 0;
 fi
