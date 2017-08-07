@@ -15,6 +15,7 @@
 package cmd
 
 import (
+	//"github.com/spf13/pflag"
 	"fmt"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -28,7 +29,7 @@ import (
 )
 
 var createCmd = &cobra.Command{
-	Use:   "create",
+	Use:   "create [-n|--name NAME]",
 	Short: "Create a Kubicorn API model from a profile",
 	Long: `Use this command to create a Kubicorn API model in a defined state store.
 
@@ -42,7 +43,7 @@ After a model is defined and configured properly, the user can then apply the mo
 			os.Exit(1)
 		}
 
-	},
+	},	
 }
 
 type CreateOptions struct {
@@ -57,6 +58,17 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
+	
+	if createCmd.Flag("name") != nil {
+			if createCmd.Flag("name").Annotations == nil {
+				createCmd.Flag("name").Annotations = map[string][]string{}
+			}
+			createCmd.Flag("name").Annotations[cobra.BashCompCustom] = append(
+				createCmd.Flag("name").Annotations[cobra.BashCompCustom],
+				"__kubicorn_parse_list",
+			)
+	}
+	
 	RootCmd.AddCommand(createCmd)
 }
 

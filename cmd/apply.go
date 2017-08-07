@@ -52,11 +52,22 @@ type ApplyOptions struct {
 
 var ao = &ApplyOptions{}
 
-func init() {
-	RootCmd.AddCommand(applyCmd)
+func init() {	
 	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	applyCmd.Flags().StringVarP(&ao.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
+
+	if applyCmd.Flag("name") != nil {
+			if applyCmd.Flag("name").Annotations == nil {
+				applyCmd.Flag("name").Annotations = map[string][]string{}
+			}
+			applyCmd.Flag("name").Annotations[cobra.BashCompCustom] = append(
+				applyCmd.Flag("name").Annotations[cobra.BashCompCustom],
+				"__kubicorn_parse_list",
+			)
+	}
+
+	RootCmd.AddCommand(applyCmd)
 }
 
 func RunApply(options *ApplyOptions) error {

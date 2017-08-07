@@ -22,6 +22,25 @@ import (
 	lol "github.com/kris-nova/lolgopher"
 )
 
+const (
+	bashCompletionFunc = `# call kubectl get $1,
+__kubicorn_parse_list()
+{
+    local kubicorn_out
+    if kubicorn_out=$(kubicorn list --no-headers 2>/dev/null); then
+        COMPREPLY=( $( compgen -W "${kubicorn_out[*]}" -- "$cur" ) )
+    fi
+}
+__kubicorn_list_resource()
+{
+    if [[ ${#nouns[@]} -eq 0 ]]; then
+        return 1
+    fi
+    __kubicorn_parse_list "${nouns[${#nouns[@]} -1]}"
+}
+`
+)
+
 var cfgFile string
 
 // RootCmd represents the base command when called without any subcommands
@@ -39,7 +58,8 @@ var RootCmd = &cobra.Command{
 			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
 		}
 		cmd.Help()
-	},	
+	},
+	BashCompletionFunction: bashCompletionFunc,
 }
 
 type Options struct {
@@ -63,6 +83,8 @@ func init() {
 
 	// register env vars
 	registerEnvironmentalVariables()
+
+	
 }
 
 func registerEnvironmentalVariables() {

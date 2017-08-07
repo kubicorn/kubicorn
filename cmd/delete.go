@@ -59,6 +59,17 @@ func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().StringVarP(&do.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "Cluster name to delete")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
+
+	if deleteCmd.Flag("name") != nil {
+			if deleteCmd.Flag("name").Annotations == nil {
+				deleteCmd.Flag("name").Annotations = map[string][]string{}
+			}
+			deleteCmd.Flag("name").Annotations[cobra.BashCompCustom] = append(
+				deleteCmd.Flag("name").Annotations[cobra.BashCompCustom],
+				"__kubicorn_parse_list",
+			)
+	}
+	
 	RootCmd.AddCommand(deleteCmd)
 }
 
