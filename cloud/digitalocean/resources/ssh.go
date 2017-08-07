@@ -42,9 +42,9 @@ func (r *SSH) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 	actual := &SSH{
 		Shared: Shared{
 			Name:    r.Name,
-			CloudID: known.Ssh.Identifier,
+			CloudID: known.SSH.Identifier,
 		},
-		User: known.Ssh.User,
+		User: known.SSH.User,
 	}
 
 	if r.CloudID != "" {
@@ -61,7 +61,7 @@ func (r *SSH) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.Name = ssh.Name
 		actual.CloudID = strid
 		actual.PublicKeyFingerprint = ssh.Fingerprint
-		actual.PublicKeyPath = known.Ssh.PublicKeyPath
+		actual.PublicKeyPath = known.SSH.PublicKeyPath
 		actual.PublicKeyData = ssh.PublicKey
 	}
 	r.CachedActual = actual
@@ -77,12 +77,12 @@ func (r *SSH) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 	expected := &SSH{
 		Shared: Shared{
 			Name:    r.Name,
-			CloudID: known.Ssh.Identifier,
+			CloudID: known.SSH.Identifier,
 		},
-		PublicKeyFingerprint: known.Ssh.PublicKeyFingerprint,
-		PublicKeyData:        string(known.Ssh.PublicKeyData),
-		PublicKeyPath:        known.Ssh.PublicKeyPath,
-		User:                 known.Ssh.User,
+		PublicKeyFingerprint: known.SSH.PublicKeyFingerprint,
+		PublicKeyData:        string(known.SSH.PublicKeyData),
+		PublicKeyPath:        known.SSH.PublicKeyPath,
+		User:                 known.SSH.User,
 	}
 	r.CachedExpected = expected
 	return expected, nil
@@ -130,7 +130,7 @@ func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	if deleteResource.CloudID == "" {
 		return fmt.Errorf("Unable to delete ssh resource without Id [%s]", deleteResource.Name)
 	}
-	id, err := strconv.Atoi(known.Ssh.Identifier)
+	id, err := strconv.Atoi(known.SSH.Identifier)
 	if err != nil {
 		return err
 	}
@@ -146,11 +146,11 @@ func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 
 func (r *SSH) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("ssh.Render")
-	renderCluster.Ssh.PublicKeyData = []byte(renderResource.(*SSH).PublicKeyData)
-	renderCluster.Ssh.PublicKeyFingerprint = renderResource.(*SSH).PublicKeyFingerprint
-	renderCluster.Ssh.PublicKeyPath = renderResource.(*SSH).PublicKeyPath
-	renderCluster.Ssh.Identifier = renderResource.(*SSH).CloudID
-	renderCluster.Ssh.User = renderResource.(*SSH).User
+	renderCluster.SSH.PublicKeyData = []byte(renderResource.(*SSH).PublicKeyData)
+	renderCluster.SSH.PublicKeyFingerprint = renderResource.(*SSH).PublicKeyFingerprint
+	renderCluster.SSH.PublicKeyPath = renderResource.(*SSH).PublicKeyPath
+	renderCluster.SSH.Identifier = renderResource.(*SSH).CloudID
+	renderCluster.SSH.User = renderResource.(*SSH).User
 	return renderCluster, nil
 }
 

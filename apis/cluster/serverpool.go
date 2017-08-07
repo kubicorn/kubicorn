@@ -19,9 +19,9 @@ import (
 )
 
 const (
-	ServerPoolType_Master = "master"
-	ServerPoolType_Node   = "node"
-	ServerPoolType_Hybrid = "hybrid"
+	ServerPoolTypeMaster = "master"
+	ServerPoolTypeNode   = "node"
+	ServerPoolTypeHybrid = "hybrid"
 )
 
 type ServerPool struct {

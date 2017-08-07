@@ -32,10 +32,10 @@ import (
 )
 
 func GetConfig(existing *cluster.Cluster) error {
-	user := existing.Ssh.User
-	pubKeyPath := local.Expand(existing.Ssh.PublicKeyPath)
+	user := existing.SSH.User
+	pubKeyPath := local.Expand(existing.SSH.PublicKeyPath)
 	privKeyPath := strings.Replace(pubKeyPath, ".pub", "", 1)
-	address := fmt.Sprintf("%s:%s", existing.KubernetesApi.Endpoint, "22")
+	address := fmt.Sprintf("%s:%s", existing.KubernetesAPI.Endpoint, "22")
 	localDir := fmt.Sprintf("%s/.kube", local.Home())
 	localPath, err := getKubeConfigPath(localDir)
 	if err != nil {
@@ -160,12 +160,12 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 		signerwithpassphrase, err := ssh.ParsePrivateKeyWithPassphrase(pemBytes, passPhrase)
 		if err != nil {
 			return nil, err
-		} else {
-			return signerwithpassphrase, err
 		}
-	} else {
-		return signerwithoutpassphrase, err
+
+		return signerwithpassphrase, err
 	}
+
+	return signerwithoutpassphrase, err
 }
 
 func sshAgent() ssh.AuthMethod {

@@ -61,7 +61,7 @@ func RunGetConfig(options *GetConfigOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
-		return errors.New("Empty name. Must specify the name of the cluster to get config.")
+		return errors.New("Empty name. Must specify the name of the cluster to get config")
 	}
 
 	// Expand state store path

@@ -37,7 +37,7 @@ type SecurityGroup struct {
 }
 
 const (
-	KUBICORN_AUTO_CREATED_GROUP = "A FABULOUS security group created by Kubicorn for cluster [%s]"
+	KubicornAutoCreatedGroup = "A FABULOUS security group created by Kubicorn for cluster [%s]"
 )
 
 func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -129,7 +129,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 	input := &ec2.CreateSecurityGroupInput{
 		GroupName:   &expected.(*SecurityGroup).Name,
 		VpcId:       &applyCluster.Network.Identifier,
-		Description: S(fmt.Sprintf(KUBICORN_AUTO_CREATED_GROUP, applyCluster.Name)),
+		Description: S(fmt.Sprintf(KubicornAutoCreatedGroup, applyCluster.Name)),
 	}
 	output, err := Sdk.Ec2.CreateSecurityGroup(input)
 	if err != nil {

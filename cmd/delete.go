@@ -67,7 +67,7 @@ func RunDelete(options *DeleteOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
-		return errors.New("Empty name. Must specify the name of the cluster to delete.")
+		return errors.New("Empty name. Must specify the name of the cluster to delete")
 	}
 	// Expand state store path
 	options.StateStorePath = expandPath(options.StateStorePath)

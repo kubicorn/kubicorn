@@ -81,7 +81,7 @@ func (fs *FileSystemStore) read(relativePath string) ([]byte, error) {
 
 func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
 	if c == nil {
-		return fmt.Errorf("Nil cluster spec!")
+		return fmt.Errorf("Nil cluster spec")
 	}
 	bytes, err := yaml.Marshal(c)
 	if err != nil {
@@ -115,16 +115,16 @@ func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
 
 func (fs *FileSystemStore) List() ([]string, error) {
 
-	var state_list []string
+	var stateList []string
 
 	files, err := ioutil.ReadDir(fs.options.BasePath)
 	if err != nil {
-		return state_list, err
+		return stateList, err
 	}
 
 	for _, file := range files {
-		state_list = append(state_list, file.Name())
+		stateList = append(stateList, file.Name())
 	}
 
-	return state_list, nil
+	return stateList, nil
 }
