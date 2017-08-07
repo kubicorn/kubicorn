@@ -21,7 +21,7 @@ import (
 
 type Task func() error
 
-const (
+var (
 	DefaultTicker = time.NewTicker(200 * time.Millisecond)
 )
 
