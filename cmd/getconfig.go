@@ -28,7 +28,7 @@ import (
 
 // getConfigCmd represents the apply command
 var getConfigCmd = &cobra.Command{
-	Use:   "getconfig",
+	Use:   "getconfig [-n|--name NAME]",
 	Short: "Manage Kubernetes configuration",
 	Long: `Use this command to pull a kubeconfig file from a cluster so you can use kubectl.
 
@@ -54,15 +54,7 @@ func init() {
 	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	getConfigCmd.Flags().StringVarP(&cro.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 
-	if getConfigCmd.Flag("name") != nil {
-			if getConfigCmd.Flag("name").Annotations == nil {
-				getConfigCmd.Flag("name").Annotations = map[string][]string{}
-			}
-			getConfigCmd.Flag("name").Annotations[cobra.BashCompCustom] = append(
-				getConfigCmd.Flag("name").Annotations[cobra.BashCompCustom],
-				"__kubicorn_parse_list",
-			)
-	}
+	flagApplyAnnotations(getConfigCmd, "name", "__kubicorn_parse_list")
 
 	RootCmd.AddCommand(getConfigCmd)
 }

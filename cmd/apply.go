@@ -30,7 +30,7 @@ import (
 
 // applyCmd represents the apply command
 var applyCmd = &cobra.Command{
-	Use:   "apply",
+	Use:   "apply [-n|--name NAME]",
 	Short: "Apply a cluster resource to a cloud",
 	Long: `Use this command to apply an API model in a cloud.
 
@@ -57,15 +57,7 @@ func init() {
 	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	applyCmd.Flags().StringVarP(&ao.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 
-	if applyCmd.Flag("name") != nil {
-			if applyCmd.Flag("name").Annotations == nil {
-				applyCmd.Flag("name").Annotations = map[string][]string{}
-			}
-			applyCmd.Flag("name").Annotations[cobra.BashCompCustom] = append(
-				applyCmd.Flag("name").Annotations[cobra.BashCompCustom],
-				"__kubicorn_parse_list",
-			)
-	}
+	flagApplyAnnotations(applyCmd, "name", "__kubicorn_parse_list")
 
 	RootCmd.AddCommand(applyCmd)
 }

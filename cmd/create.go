@@ -59,25 +59,8 @@ func init() {
 	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 	
-	if createCmd.Flag("name") != nil {
-			if createCmd.Flag("name").Annotations == nil {
-				createCmd.Flag("name").Annotations = map[string][]string{}
-			}
-			createCmd.Flag("name").Annotations[cobra.BashCompCustom] = append(
-				createCmd.Flag("name").Annotations[cobra.BashCompCustom],
-				"__kubicorn_parse_list",
-			)
-	}
-
-	if createCmd.Flag("profile") != nil {
-			if createCmd.Flag("profile").Annotations == nil {
-				createCmd.Flag("profile").Annotations = map[string][]string{}
-			}
-			createCmd.Flag("profile").Annotations[cobra.BashCompCustom] = append(
-				createCmd.Flag("profile").Annotations[cobra.BashCompCustom],
-				"__kubicorn_parse_profiles",
-			)
-	}
+	flagApplyAnnotations(createCmd, "name", "__kubicorn_parse_list")
+	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	
 	RootCmd.AddCommand(createCmd)
 }

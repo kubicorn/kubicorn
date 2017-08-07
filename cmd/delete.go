@@ -28,7 +28,7 @@ import (
 
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
-	Use:   "delete",
+	Use:   "delete [-n|--name NAME]",
 	Short: "Delete a Kubernetes cluster",
 	Long: `Use this command to delete cloud resources.
 
@@ -60,15 +60,7 @@ func init() {
 	deleteCmd.Flags().StringVarP(&do.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "Cluster name to delete")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 
-	if deleteCmd.Flag("name") != nil {
-			if deleteCmd.Flag("name").Annotations == nil {
-				deleteCmd.Flag("name").Annotations = map[string][]string{}
-			}
-			deleteCmd.Flag("name").Annotations[cobra.BashCompCustom] = append(
-				deleteCmd.Flag("name").Annotations[cobra.BashCompCustom],
-				"__kubicorn_parse_list",
-			)
-	}
+	flagApplyAnnotations(deleteCmd, "name", "__kubicorn_parse_list")
 	
 	RootCmd.AddCommand(deleteCmd)
 }

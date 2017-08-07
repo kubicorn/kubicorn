@@ -90,3 +90,15 @@ func init() {
 func registerEnvironmentalVariables() {
 
 }
+
+func flagApplyAnnotations(cmd *cobra.Command, flag, completion string) {
+	if cmd.Flag(flag) != nil {
+			if cmd.Flag(flag).Annotations == nil {
+				cmd.Flag(flag).Annotations = map[string][]string{}
+			}
+			cmd.Flag(flag).Annotations[cobra.BashCompCustom] = append(
+				cmd.Flag(flag).Annotations[cobra.BashCompCustom],
+				completion,
+			)
+	}
+}
