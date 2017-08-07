@@ -150,7 +150,7 @@ func bootstrapDigitalocean_k8s_ubuntu_1604_masterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh", size: 1774, mode: os.FileMode(493), modTime: time.Unix(1502123295, 0)}
+	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh", size: 1774, mode: os.FileMode(493), modTime: time.Unix(1502134047, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -170,7 +170,7 @@ func bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh", size: 1279, mode: os.FileMode(493), modTime: time.Unix(1502123295, 0)}
+	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh", size: 1279, mode: os.FileMode(493), modTime: time.Unix(1502134047, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -210,7 +210,7 @@ func bootstrapVpnMeshbirdmasterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/vpn/meshbirdMaster.sh", size: 926, mode: os.FileMode(493), modTime: time.Unix(1502123295, 0)}
+	info := bindataFileInfo{name: "bootstrap/vpn/meshbirdMaster.sh", size: 926, mode: os.FileMode(493), modTime: time.Unix(1502134047, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -230,7 +230,7 @@ func bootstrapVpnMeshbirdnodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/vpn/meshbirdNode.sh", size: 143, mode: os.FileMode(493), modTime: time.Unix(1502123295, 0)}
+	info := bindataFileInfo{name: "bootstrap/vpn/meshbirdNode.sh", size: 143, mode: os.FileMode(493), modTime: time.Unix(1502134047, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
