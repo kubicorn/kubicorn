@@ -23,20 +23,13 @@ import (
 )
 
 const (
-	bashCompletionFunc = `# call kubectl get $1,
+	bashCompletionFunc = `
 __kubicorn_parse_list()
 {
     local kubicorn_out
     if kubicorn_out=$(kubicorn list --no-headers 2>/dev/null); then
         COMPREPLY=( $( compgen -W "${kubicorn_out[*]}" -- "$cur" ) )
     fi
-}
-__kubicorn_list_resource()
-{
-    if [[ ${#nouns[@]} -eq 0 ]]; then
-        return 1
-    fi
-    __kubicorn_parse_list "${nouns[${#nouns[@]} -1]}"
 }
 __kubicorn_parse_profiles()
 {
