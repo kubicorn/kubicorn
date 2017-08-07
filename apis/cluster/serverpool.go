@@ -16,6 +16,8 @@ package cluster
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"fmt"
+	"github.com/kris-nova/kubicorn/bootstrap"
 )
 
 const (
@@ -37,4 +39,17 @@ type ServerPool struct {
 	BootstrapScripts  []string
 	Subnets           []*Subnet
 	Firewalls         []*Firewall
+}
+
+func BuildServerPoolScript(serverPool *ServerPool) ([]byte, error) {
+	var userData []byte
+	for _, bootstrapScript := range serverPool.BootstrapScripts {
+		scriptData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapScript))
+		if err != nil {
+			return nil, err
+		}
+		userData = append(userData, scriptData...)
+	}
+
+	return userData, nil;
 }

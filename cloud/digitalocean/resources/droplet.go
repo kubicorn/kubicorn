@@ -113,13 +113,9 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		return applyResource, nil
 	}
 
-	var userData []byte
-	for _, bootstrapScript := range r.ServerPool.BootstrapScripts {
-		scriptData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapScript))
-		if err != nil {
-			return nil, err
-		}
-		userData = append(userData, scriptData...)
+	userData, err := cluster.BuildServerPoolScript(r.ServerPool);
+	if err != nil {
+		return nil, err
 	}
 
 	if err != nil {

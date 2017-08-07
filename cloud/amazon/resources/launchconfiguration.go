@@ -176,13 +176,9 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	}
 
 	newResource := &Lc{}
-	var userData []byte
-	for _, bootstrapScript := range r.ServerPool.BootstrapScripts {
-		scriptData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapScript))
-		if err != nil {
-			return nil, err
-		}
-		userData = append(userData, scriptData...)
+	userData, err := cluster.BuildServerPoolScript(r.ServerPool);
+	if err != nil {
+		return nil, err
 	}
 
 	//fmt.Println(string(userData))
