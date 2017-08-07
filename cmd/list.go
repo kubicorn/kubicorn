@@ -44,9 +44,12 @@ type ListOptions struct {
 
 var lo = &ListOptions{}
 
+var noHeaders bool
+
 func init() {
 	listCmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	listCmd.Flags().StringVarP(&lo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	listCmd.Flags().BoolVarP(&noHeaders, "no-headers", "n", false, "Show the list containing names only")
 	RootCmd.AddCommand(listCmd)
 
 }
@@ -57,7 +60,9 @@ func RunList(options *ListOptions) error {
 	var stateStore state.ClusterStorer
 	switch options.StateStore {
 	case "fs":
-		logger.Info("Selected [fs] state store")
+		if !noHeaders {
+			logger.Info("Selected [fs] state store")
+		}
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath: options.StateStorePath,
 		})
@@ -68,7 +73,11 @@ func RunList(options *ListOptions) error {
 		return fmt.Errorf("Unable to list clusters: %v", err)
 	}
 	for _, cluster := range clusters {
-		logger.Always(cluster)
+		if !noHeaders {
+			logger.Always(cluster)
+		} else {
+			fmt.Println(cluster)
+		}
 	}
 
 	return nil

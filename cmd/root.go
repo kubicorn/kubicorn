@@ -17,9 +17,28 @@ package cmd
 import (
 	"fmt"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 	"os"
-	lol "github.com/kris-nova/lolgopher"
+)
+
+const (
+	bashCompletionFunc = `
+__kubicorn_parse_list()
+{
+    local kubicorn_out
+    if kubicorn_out=$(kubicorn list --no-headers 2>/dev/null); then
+        COMPREPLY=( $( compgen -W "${kubicorn_out[*]}" -- "$cur" ) )
+    fi
+}
+__kubicorn_parse_profiles()
+{
+    local kubicorn_out
+    if kubicorn_out=(amazon aws digitalocean do); then
+        COMPREPLY=( $( compgen -W "${kubicorn_out[*]}" -- "$cur" ) )
+    fi
+}
+`
 )
 
 var cfgFile string
@@ -39,7 +58,8 @@ var RootCmd = &cobra.Command{
 			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
 		}
 		cmd.Help()
-	},	
+	},
+	BashCompletionFunction: bashCompletionFunc,
 }
 
 type Options struct {
@@ -67,4 +87,16 @@ func init() {
 
 func registerEnvironmentalVariables() {
 
+}
+
+func flagApplyAnnotations(cmd *cobra.Command, flag, completion string) {
+	if cmd.Flag(flag) != nil {
+		if cmd.Flag(flag).Annotations == nil {
+			cmd.Flag(flag).Annotations = map[string][]string{}
+		}
+		cmd.Flag(flag).Annotations[cobra.BashCompCustom] = append(
+			cmd.Flag(flag).Annotations[cobra.BashCompCustom],
+			completion,
+		)
+	}
 }
