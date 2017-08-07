@@ -118,10 +118,6 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		return nil, err
 	}
 
-	if err != nil {
-		return nil, err
-	}
-
 	//masterIpPrivate := ""
 	masterIPPublic := ""
 	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
