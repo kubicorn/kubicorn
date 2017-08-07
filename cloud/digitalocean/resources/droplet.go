@@ -28,6 +28,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"github.com/kris-nova/kubicorn/cutil/script"
 )
 
 type Droplet struct {
@@ -112,8 +113,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	if isEqual {
 		return applyResource, nil
 	}
-	var userData []byte
-	userData, err = bootstrap.Asset(fmt.Sprintf("bootstrap/%s", r.ServerPool.BootstrapScript))
+
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts);
 	if err != nil {
 		return nil, err
 	}
