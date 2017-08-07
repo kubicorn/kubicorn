@@ -35,7 +35,7 @@ type ServerPool struct {
 	Image             string
 	Size              string
 	BootstrapScript   string
+	VPNScript         string
 	Subnets           []*Subnet
 	Firewalls         []*Firewall
-	VPNScript         string
 }

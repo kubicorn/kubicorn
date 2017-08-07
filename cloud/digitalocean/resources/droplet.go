@@ -113,14 +113,19 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		return applyResource, nil
 	}
 
-	vpnData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/vpn/%s", r.ServerPool.VPNScript))
-	if err != nil {
-		return nil, err
+	var vpnData []byte
+	if r.ServerPool.VPNScript != "" {
+		vpnData, err = bootstrap.Asset(fmt.Sprintf("bootstrap/vpn/%s", r.ServerPool.VPNScript))
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	var userData []byte
 	userData, err = bootstrap.Asset(fmt.Sprintf("bootstrap/%s", r.ServerPool.BootstrapScript))
-	userData = append(vpnData, userData...)
+	if r.ServerPool.VPNScript != "" {
+		userData = append(vpnData, userData...)
+	}
 	if err != nil {
 		return nil, err
 	}
