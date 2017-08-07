@@ -14,7 +14,7 @@
 
 package resources
 
-import (
+import (	
 	"context"
 	"fmt"
 	"github.com/digitalocean/godo"
@@ -103,12 +103,15 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		PublicKey: expected.(*SSH).PublicKeyData,
 	}
 	key, _, err := Sdk.Client.Keys.Create(context.TODO(), request)
-	if err != nil {
-		keyGet, _, errGet := Sdk.Client.Keys.GetByFingerprint(context.TODO(), expected.(*SSH).PublicKeyFingerprint)
-		if errGet != nil {
+	if err != nil {		
+		godoErr := err.(*godo.ErrorResponse)				
+		if godoErr.Message != "SSH Key is already in use on your account" {
 			return nil, err
 		}
-		key = keyGet
+		key, _, err = Sdk.Client.Keys.GetByFingerprint(context.TODO(), expected.(*SSH).PublicKeyFingerprint)
+		if err != nil {
+			return nil, err
+		}
 	}
 	logger.Info("Created SSH Key [%d]", key.ID)
 	id := strconv.Itoa(key.ID)
