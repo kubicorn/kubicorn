@@ -28,6 +28,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+	"github.com/kris-nova/kubicorn/cutil/script"
 )
 
 type Droplet struct {
@@ -113,7 +114,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		return applyResource, nil
 	}
 
-	userData, err := cluster.BuildServerPoolScript(r.ServerPool);
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts);
 	if err != nil {
 		return nil, err
 	}

@@ -12,29 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cluster
+package script
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"fmt"
+	"github.com/kris-nova/kubicorn/bootstrap"
 )
 
-const (
-	ServerPoolTypeMaster = "master"
-	ServerPoolTypeNode   = "node"
-	ServerPoolTypeHybrid = "hybrid"
-)
+func BuildBootstrapScript(bootstrapScripts []string) ([]byte, error) {
+	var userData []byte
+	for _, bootstrapScript := range bootstrapScripts {
+		scriptData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapScript))
+		if err != nil {
+			return nil, err
+		}
+		userData = append(userData, scriptData...)
+	}
 
-type ServerPool struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Identifier        string
-	MinCount          int
-	MaxCount          int
-	Type              string
-	Name              string
-	Image             string
-	Size              string
-	BootstrapScripts  []string
-	Subnets           []*Subnet
-	Firewalls         []*Firewall
+	return userData, nil;
 }
