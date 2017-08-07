@@ -26,6 +26,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"strings"
 	"time"
+	"github.com/kris-nova/kubicorn/cutil/script"
 )
 
 type Lc struct {
@@ -36,8 +37,8 @@ type Lc struct {
 }
 
 const (
-	MasterIpAttempts               = 40
-	MasterIpSleepSecondsPerAttempt = 3
+	MasterIPAttempts               = 40
+	MasterIPSleepSecondsPerAttempt = 3
 )
 
 func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -150,7 +151,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 			lr := len(output.Reservations)
 			if lr == 0 {
 				logger.Debug("Found [%d] Reservations, hanging ", lr)
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			for _, reservation := range output.Reservations {
@@ -158,8 +159,8 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 					if instance.PublicIpAddress != nil {
 						privip = *instance.PrivateIpAddress
 						pubip = *instance.PublicIpAddress
-						applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, applyCluster.KubernetesApi.Port)
-						applyCluster.KubernetesApi.Endpoint = pubip
+						applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, applyCluster.KubernetesAPI.Port)
+						applyCluster.KubernetesAPI.Endpoint = pubip
 						logger.Info("Found public IP for master: [%s]", pubip)
 						found = true
 					}
@@ -168,7 +169,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 			if found == true {
 				break
 			}
-			time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+			time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 		}
 		if !found {
 			return nil, fmt.Errorf("Unable to find Master IP")
@@ -176,13 +177,13 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	}
 
 	newResource := &Lc{}
-	userData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", r.ServerPool.BootstrapScript))
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts);
 	if err != nil {
 		return nil, err
 	}
 
 	//fmt.Println(string(userData))
-	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
+	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesAPI.Port
 	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
 	if err != nil {
 		return nil, err
@@ -194,7 +195,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 		LaunchConfigurationName:  &expected.(*Lc).Name,
 		ImageId:                  &expected.(*Lc).Image,
 		InstanceType:             &expected.(*Lc).InstanceType,
-		KeyName:                  &applyCluster.Ssh.Identifier,
+		KeyName:                  &applyCluster.SSH.Identifier,
 		SecurityGroups:           sgs,
 		UserData:                 &b64data,
 	}

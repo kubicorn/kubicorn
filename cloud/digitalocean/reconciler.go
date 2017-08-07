@@ -93,7 +93,7 @@ func cleanUp(cluster *cluster.Cluster, i int) error {
 		createdResource := createdResources[j]
 		err := resource.Delete(createdResource, cluster)
 		if err != nil {
-			err, j = destroyI(err, j)
+			j, err = destroyI(err, j)
 			if err != nil {
 				return err
 			}
@@ -157,16 +157,16 @@ var hg = &hang.Hanger{
 	Ratio: 1,
 }
 
-func destroyI(err error, i int) (error, int) {
+func destroyI(err error, i int) (int, error) {
 	hg.Hang()
 	for _, retryString := range destroyRetryStrings {
 		if strings.Contains(err.Error(), retryString) {
 			logger.Debug("Retry failed delete: %v", err)
 			time.Sleep(1 * time.Second)
-			return nil, i + 1
+			return i + 1, nil
 		}
 	}
-	return err, 0
+	return 0, err
 }
 
 func (r *Reconciler) Destroy() error {
@@ -174,7 +174,7 @@ func (r *Reconciler) Destroy() error {
 		resource := model[i]
 		actualResource, err := resource.Actual(r.Known)
 		if err != nil {
-			err, i = destroyI(err, i)
+			i, err = destroyI(err, i)
 			if err != nil {
 				return err
 			}
@@ -182,7 +182,7 @@ func (r *Reconciler) Destroy() error {
 		}
 		err = resource.Delete(actualResource, r.Known)
 		if err != nil {
-			err, i = destroyI(err, i)
+			i, err = destroyI(err, i)
 			if err != nil {
 				return err
 			}
@@ -198,9 +198,9 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 		Cloud:         base.Cloud,
 		Location:      base.Location,
 		Network:       &cluster.Network{},
-		Ssh:           &cluster.Ssh{},
+		SSH:           &cluster.SSH{},
 		Values:        base.Values,
-		KubernetesApi: base.KubernetesApi,
+		KubernetesAPI: base.KubernetesAPI,
 		//ServerPools:   base.ServerPools,
 	}
 	return new

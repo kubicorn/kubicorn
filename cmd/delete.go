@@ -28,7 +28,7 @@ import (
 
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
-	Use:   "delete",
+	Use:   "delete [-n|--name NAME]",
 	Short: "Delete a Kubernetes cluster",
 	Long: `Use this command to delete cloud resources.
 
@@ -59,6 +59,9 @@ func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().StringVarP(&do.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "Cluster name to delete")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
+
+	flagApplyAnnotations(deleteCmd, "name", "__kubicorn_parse_list")
+
 	RootCmd.AddCommand(deleteCmd)
 }
 
@@ -67,7 +70,7 @@ func RunDelete(options *DeleteOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
-		return errors.New("Empty name. Must specify the name of the cluster to delete.")
+		return errors.New("Empty name. Must specify the name of the cluster to delete")
 	}
 	// Expand state store path
 	options.StateStorePath = expandPath(options.StateStorePath)

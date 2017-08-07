@@ -28,7 +28,7 @@ import (
 
 // getConfigCmd represents the apply command
 var getConfigCmd = &cobra.Command{
-	Use:   "getconfig",
+	Use:   "getconfig [-n|--name NAME]",
 	Short: "Manage Kubernetes configuration",
 	Long: `Use this command to pull a kubeconfig file from a cluster so you can use kubectl.
 
@@ -50,10 +50,13 @@ type GetConfigOptions struct {
 var cro = &GetConfigOptions{}
 
 func init() {
-	RootCmd.AddCommand(getConfigCmd)
 	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	getConfigCmd.Flags().StringVarP(&cro.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
+
+	flagApplyAnnotations(getConfigCmd, "name", "__kubicorn_parse_list")
+
+	RootCmd.AddCommand(getConfigCmd)
 }
 
 func RunGetConfig(options *GetConfigOptions) error {
@@ -61,7 +64,7 @@ func RunGetConfig(options *GetConfigOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
-		return errors.New("Empty name. Must specify the name of the cluster to get config.")
+		return errors.New("Empty name. Must specify the name of the cluster to get config")
 	}
 
 	// Expand state store path

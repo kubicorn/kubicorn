@@ -19,9 +19,9 @@ import (
 )
 
 const (
-	NetworkType_Local   = "local"
-	NetworkType_Public  = "public"
-	NetworkType_Private = "private"
+	NetworkTypeLocal   = "local"
+	NetworkTypePublic  = "public"
+	NetworkTypePrivate = "private"
 )
 
 type Network struct {

@@ -19,9 +19,9 @@ import (
 )
 
 const (
-	ServerPoolType_Master = "master"
-	ServerPoolType_Node   = "node"
-	ServerPoolType_Hybrid = "hybrid"
+	ServerPoolTypeMaster = "master"
+	ServerPoolTypeNode   = "node"
+	ServerPoolTypeHybrid = "hybrid"
 )
 
 type ServerPool struct {
@@ -34,7 +34,7 @@ type ServerPool struct {
 	Name              string
 	Image             string
 	Size              string
-	BootstrapScript   string
+	BootstrapScripts  []string
 	Subnets           []*Subnet
 	Firewalls         []*Firewall
 }

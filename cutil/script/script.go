@@ -12,24 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cutil
+package script
 
 import (
 	"fmt"
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/amazon"
-	"github.com/kris-nova/kubicorn/cloud/digitalocean"
+	"github.com/kris-nova/kubicorn/bootstrap"
 )
 
-func GetReconciler(c *cluster.Cluster) (cloud.Reconciler, error) {
-	switch c.Cloud {
-	case cluster.CloudAmazon:
-		return amazon.NewReconciler(c), nil
-	case cluster.CloudDigitalOcean:
-		return digitalocean.NewReconciler(c), nil
-	default:
-		return nil, fmt.Errorf("Invalid cloud type: %s", c.Cloud)
+func BuildBootstrapScript(bootstrapScripts []string) ([]byte, error) {
+	var userData []byte
+	for _, bootstrapScript := range bootstrapScripts {
+		scriptData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapScript))
+		if err != nil {
+			return nil, err
+		}
+		userData = append(userData, scriptData...)
 	}
 
+	return userData, nil;
 }

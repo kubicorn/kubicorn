@@ -146,23 +146,23 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, applyCluster *cluste
 		return nil, err
 	}
 
-	subnetId := ""
+	subnetID := ""
 	for _, sp := range applyCluster.ServerPools {
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {
-					subnetId = sn.Identifier
+					subnetID = sn.Identifier
 				}
 			}
 		}
 	}
-	if subnetId == "" {
+	if subnetID == "" {
 		return nil, fmt.Errorf("Unable to find subnet id")
 	}
 
 	// --- Associate Route table to this particular subnet
 	asInput := &ec2.AssociateRouteTableInput{
-		SubnetId:     &subnetId,
+		SubnetId:     &subnetID,
 		RouteTableId: rtOutput.RouteTable.RouteTableId,
 	}
 	_, err = Sdk.Ec2.AssociateRouteTable(asInput)
@@ -175,7 +175,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, applyCluster *cluste
 	if err != nil {
 		return nil, err
 	}
-	logger.Info("Associated route table [%s] to subnet [%s]", *rtOutput.RouteTable.RouteTableId, subnetId)
+	logger.Info("Associated route table [%s] to subnet [%s]", *rtOutput.RouteTable.RouteTableId, subnetID)
 	newResource := &RouteTable{}
 	newResource.CloudID = expected.(*RouteTable).CloudID
 	newResource.Name = expected.(*RouteTable).Name

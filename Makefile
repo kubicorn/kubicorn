@@ -22,7 +22,7 @@ install:
 bindata:
 	which go-bindata > /dev/null || go get -u github.com/jteeuwen/go-bindata/...
 	rm -rf bootstrap/bootstrap.go
-	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/
+	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/ bootstrap/vpn
 
 build: authors clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
 
@@ -41,7 +41,6 @@ gofmt:
 	gofmt -w ./cutil
 	gofmt -w ./docs
 	gofmt -w ./examples
-	gofmt -w ./logger
 	gofmt -w ./namer
 	gofmt -w ./profiles
 	gofmt -w ./state

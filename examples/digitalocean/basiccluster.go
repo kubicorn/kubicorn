@@ -61,13 +61,13 @@ func main() {
 func getCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
-		Cloud:    cluster.Cloud_DigitalOcean,
+		Cloud:    cluster.CloudDigitalOcean,
 		Location: "sfo2",
-		Ssh: &cluster.Ssh{
+		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "root",
 		},
-		KubernetesApi: &cluster.KubernetesApi{
+		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
 		},
 		Values: &cluster.Values{
@@ -77,20 +77,26 @@ func getCluster(name string) *cluster.Cluster {
 		},
 		ServerPools: []*cluster.ServerPool{
 			{
-				Type:            cluster.ServerPoolType_Master,
-				Name:            fmt.Sprintf("%s-master", name),
-				MaxCount:        1,
-				Image:           "ubuntu-16-04-x64",
-				Size:            "1gb",
-				BootstrapScript: "digitalocean_k8s_ubuntu_16.04_master.sh",
+				Type:             cluster.ServerPoolTypeMaster,
+				Name:             fmt.Sprintf("%s-master", name),
+				MaxCount:         1,
+				Image:            "ubuntu-16-04-x64",
+				Size:             "1gb",
+				BootstrapScripts: []string{
+					"vpn/meshbirdMaster.sh",
+					"digitalocean_k8s_ubuntu_16.04_master.sh",
+				},
 			},
 			{
-				Type:            cluster.ServerPoolType_Node,
-				Name:            fmt.Sprintf("%s-node", name),
-				MaxCount:        3,
-				Image:           "ubuntu-16-04-x64",
-				Size:            "1gb",
-				BootstrapScript: "digitalocean_k8s_ubuntu_16.04_node.sh",
+				Type:             cluster.ServerPoolTypeNode,
+				Name:             fmt.Sprintf("%s-node", name),
+				MaxCount:         3,
+				Image:            "ubuntu-16-04-x64",
+				Size:             "1gb",
+				BootstrapScripts: []string{
+					"vpn/meshbirdNode.sh",
+					"digitalocean_k8s_ubuntu_16.04_node.sh",
+				},
 			},
 		},
 	}

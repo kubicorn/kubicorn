@@ -106,17 +106,17 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	if isEqual {
 		return applyResource, nil
 	}
-	subnetId := ""
+	subnetID := ""
 	for _, sp := range applyCluster.ServerPools {
 		if sp.Name == r.Name {
 			for _, sn := range sp.Subnets {
 				if sn.Name == r.Name {
-					subnetId = sn.Identifier
+					subnetID = sn.Identifier
 				}
 			}
 		}
 	}
-	if subnetId == "" {
+	if subnetID == "" {
 		return nil, fmt.Errorf("Unable to find subnet id")
 	}
 
@@ -126,7 +126,7 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		MinSize:                 I64(expected.(*Asg).MinCount),
 		MaxSize:                 I64(expected.(*Asg).MaxCount),
 		LaunchConfigurationName: &r.Name,
-		VPCZoneIdentifier:       &subnetId,
+		VPCZoneIdentifier:       &subnetID,
 	}
 	_, err = Sdk.ASG.CreateAutoScalingGroup(input)
 	if err != nil {

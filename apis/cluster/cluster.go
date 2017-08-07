@@ -19,24 +19,24 @@ import (
 )
 
 const (
-	Cloud_Amazon       = "amazon"
-	Cloud_Azure        = "azure"
-	Cloud_Google       = "google"
-	Cloud_Baremetal    = "baremetal"
-	Cloud_DigitalOcean = "digitalocean"
+	CloudAmazon       = "amazon"
+	CloudAzure        = "azure"
+	CloudGoogle       = "google"
+	CloudBaremetal    = "baremetal"
+	CloudDigitalOcean = "digitalocean"
 )
 
 type Cluster struct {
 	metav1.TypeMeta
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Name              string
-	ServerPools       []*ServerPool
-	Cloud             string
-	Location          string
-	Ssh               *Ssh
-	Network           *Network
-	Values            *Values
-	KubernetesApi     *KubernetesApi
+	Name          string
+	ServerPools   []*ServerPool
+	Cloud         string
+	Location      string
+	SSH           *SSH
+	Network       *Network
+	Values        *Values
+	KubernetesAPI *KubernetesAPI
 }
 
 func NewCluster(name string) *Cluster {
