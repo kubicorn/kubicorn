@@ -15,14 +15,6 @@ PORT="INJECTEDPORT"
 #
 # ------------------------------------------------------------------------------------------------------------------------
 
-# VPN Mesh
-curl http://meshbird.com/install.sh | sh
-meshbird new &> /tmp/logkey
-MESHBIRD_KEY=$(cat /tmp/logkey | cut -d " " -f 5)
-echo $MESHBIRD_KEY > /tmp/.key
-export MESHBIRD_KEY=$MESHBIRD_KEY
-meshbird join &
-
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 touch /etc/apt/sources.list.d/kubernetes.list
 sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'

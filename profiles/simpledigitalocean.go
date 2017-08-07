@@ -45,6 +45,7 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 				Image:           "ubuntu-16-04-x64",
 				Size:            "1gb",
 				BootstrapScript: "digitalocean_k8s_ubuntu_16.04_master.sh",
+				VPNScript:       "meshbirdMaster.sh",
 			},
 			{
 				Type:            cluster.ServerPoolTypeNode,
@@ -53,6 +54,7 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 				Image:           "ubuntu-16-04-x64",
 				Size:            "1gb",
 				BootstrapScript: "digitalocean_k8s_ubuntu_16.04_node.sh",
+				VPNScript:       "meshbirdNode.sh",
 			},
 		},
 	}

@@ -9,25 +9,13 @@ cd ~
 # or make another shell script.
 #
 #
-TOKEN="INJECTEDTOKEN"
-MASTER="INJECTEDMASTER"
+MESHBIRD_KEY="INJECTEDMESHKEY"
 # ------------------------------------------------------------------------------------------------------------------------
 
-sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo touch /etc/apt/sources.list.d/kubernetes.list
-sudo sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
-
-sudo apt-get update -y
-sudo apt-get install -y \
-    socat \
-    ebtables \
-    docker.io \
-    apt-transport-https \
-    kubelet \
-    kubeadm=1.7.0-00
-
-sudo systemctl enable docker
-sudo systemctl start docker
-
-sudo -E kubeadm reset
-sudo -E kubeadm join --token ${TOKEN} ${MASTER}
+# VPN Mesh
+curl http://meshbird.com/install.sh | sh
+meshbird new &> /tmp/logkey
+MESHBIRD_KEY=$(cat /tmp/logkey | cut -d " " -f 5)
+echo $MESHBIRD_KEY > /tmp/.key
+export MESHBIRD_KEY=$MESHBIRD_KEY
+meshbird join &
