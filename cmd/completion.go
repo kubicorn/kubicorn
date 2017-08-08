@@ -15,10 +15,11 @@
 package cmd
 
 import (
-	"github.com/kris-nova/kubicorn/cutil/logger"
 	"bytes"
 	"fmt"
 	"os"
+
+	"github.com/kris-nova/kubicorn/cutil/logger"
 
 	"github.com/spf13/cobra"
 )
@@ -77,7 +78,7 @@ line to your .profile or .bashrc/.zshrc:
 			return RunZshGeneration()
 		} else {
 			return fmt.Errorf("invalid shell argument")
-		}		
+		}
 	},
 }
 

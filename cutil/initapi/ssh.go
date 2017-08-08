@@ -15,25 +15,27 @@
 package initapi
 
 import (
-	"golang.org/x/crypto/ssh/terminal"
-	"github.com/kris-nova/klone/pkg/local"
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"io/ioutil"
-	"strings"
 	"crypto/md5"
 	"fmt"
-	"golang.org/x/crypto/ssh"
+	"io/ioutil"
+	"strings"
+	"syscall"
+
 	"github.com/gravitational/trace"
+	"github.com/kris-nova/klone/pkg/local"
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
-	if initCluster.Ssh.PublicKeyPath != "" {
-		bytes, err := ioutil.ReadFile(local.Expand(initCluster.Ssh.PublicKeyPath))
+	if initCluster.SSH.PublicKeyPath != "" {
+		bytes, err := ioutil.ReadFile(local.Expand(initCluster.SSH.PublicKeyPath))
 		if err != nil {
 			return nil, err
 		}
-		initCluster.Ssh.PublicKeyData = bytes
-		privateBytes, err := ioutil.ReadFile(strings.Replace(local.Expand(initCluster.Ssh.PublicKeyPath), ".pub", "", 1))
+		initCluster.SSH.PublicKeyData = bytes
+		privateBytes, err := ioutil.ReadFile(strings.Replace(local.Expand(initCluster.SSH.PublicKeyPath), ".pub", "", 1))
 		if err != nil {
 			return nil, err
 		}
@@ -41,7 +43,7 @@ func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 		if err != nil {
 			return nil, err
 		}
-		initCluster.Ssh.PublicKeyFingerprint = fp
+		initCluster.SSH.PublicKeyFingerprint = fp
 	}
 
 	return initCluster, nil
@@ -77,7 +79,7 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
 	if err != nil {
 		fmt.Print("SSH Key Passphrase [none]: ")
-		passPhrase, err := terminal.ReadPassword(0)
+		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
 		fmt.Println("")
 		if err != nil {
 			return nil, err
@@ -85,10 +87,10 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 		signerwithpassphrase, err := ssh.ParsePrivateKeyWithPassphrase(pemBytes, passPhrase)
 		if err != nil {
 			return nil, err
-		} else {
-			return signerwithpassphrase, err
 		}
-	} else {
-		return signerwithoutpassphrase, err
+
+		return signerwithpassphrase, err
 	}
+
+	return signerwithoutpassphrase, err
 }

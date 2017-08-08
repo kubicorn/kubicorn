@@ -17,32 +17,35 @@ package resources
 import (
 	"context"
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/digitalocean/godo"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
-	"github.com/kris-nova/kubicorn/cutil/scp"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"strconv"
-	"strings"
-	"time"
+	"github.com/kris-nova/kubicorn/cutil/scp"
+	"github.com/kris-nova/kubicorn/cutil/script"
 )
 
 type Droplet struct {
 	Shared
-	Region         string
-	Size           string
-	Image          string
-	Count          int
-	SShFingerprint string
-	ServerPool     *cluster.ServerPool
+	Region           string
+	Size             string
+	Image            string
+	Count            int
+	SSHFingerprint   string
+	BootstrapScripts []string
+	ServerPool       *cluster.ServerPool
 }
 
 const (
-	MasterIpAttempts               = 40
-	MasterIpSleepSecondsPerAttempt = 3
+	MasterIPAttempts               = 40
+	MasterIPSleepSecondsPerAttempt = 3
 )
 
 func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -72,10 +75,11 @@ func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.Name = droplet.Name
 		actual.CloudID = id
 		actual.Size = droplet.Size.Slug
-		actual.Region = droplet.Region.Name
 		actual.Image = droplet.Image.Slug
-		actual.SShFingerprint = known.Ssh.PublicKeyFingerprint
+		actual.Region = droplet.Region.Slug
 	}
+	actual.BootstrapScripts = r.ServerPool.BootstrapScripts
+	actual.SSHFingerprint = known.SSH.PublicKeyFingerprint
 	actual.Name = r.Name
 	r.CachedActual = actual
 	return actual, nil
@@ -92,11 +96,12 @@ func (r *Droplet) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
 		},
-		Size:           r.ServerPool.Size,
-		Region:         known.Location,
-		Image:          r.ServerPool.Image,
-		Count:          r.ServerPool.MaxCount,
-		SShFingerprint: known.Ssh.PublicKeyFingerprint,
+		Size:             r.ServerPool.Size,
+		Region:           known.Location,
+		Image:            r.ServerPool.Image,
+		Count:            r.ServerPool.MaxCount,
+		SSHFingerprint:   known.SSH.PublicKeyFingerprint,
+		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
 	r.CachedExpected = expected
 	return expected, nil
@@ -112,20 +117,20 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	if isEqual {
 		return applyResource, nil
 	}
-	var userData []byte
-	userData, err = bootstrap.Asset(fmt.Sprintf("bootstrap/%s", r.ServerPool.BootstrapScript))
+
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
 	if err != nil {
 		return nil, err
 	}
 
 	//masterIpPrivate := ""
-	masterIpPublic := ""
-	if r.ServerPool.Type == cluster.ServerPoolType_Node {
+	masterIPPublic := ""
+	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
 		found := false
-		for i := 0; i < MasterIpAttempts; i++ {
+		for i := 0; i < MasterIPAttempts; i++ {
 			masterTag := ""
 			for _, serverPool := range applyCluster.ServerPools {
-				if serverPool.Type == cluster.ServerPoolType_Master {
+				if serverPool.Type == cluster.ServerPoolTypeMaster {
 					masterTag = serverPool.Name
 				}
 			}
@@ -135,13 +140,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), masterTag, &godo.ListOptions{})
 			if err != nil {
 				logger.Debug("Hanging for master IP.. (%v)", err)
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			ld := len(droplets)
 			if ld == 0 {
 				logger.Debug("Hanging for master IP..")
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			if ld > 1 {
@@ -152,30 +157,30 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			//if err != nil {
 			//	return nil, fmt.Errorf("Unable to detect private IP: %v", err)
 			//}
-			masterIpPublic, err = droplet.PublicIPv4()
+			masterIPPublic, err = droplet.PublicIPv4()
 			if err != nil {
 				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
 
-			pubPath := local.Expand(applyCluster.Ssh.PublicKeyPath)
+			pubPath := local.Expand(applyCluster.SSH.PublicKeyPath)
 			privPath := strings.Replace(pubPath, ".pub", "", 1)
-			scp := scp.NewSecureCopier(applyCluster.Ssh.User, masterIpPublic, "22", privPath)
-			masterVpnIp, err := scp.ReadBytes("/tmp/.ip")
+			scp := scp.NewSecureCopier(applyCluster.SSH.User, masterIPPublic, "22", privPath)
+			masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
 			if err != nil {
 				logger.Debug("Hanging for VPN mesh.. /tmp/.ip (%v)", err)
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
-			masterVpnIpStr := strings.Replace(string(masterVpnIp), "\n", "", -1)
+			masterVpnIPStr := strings.Replace(string(masterVpnIP), "\n", "", -1)
 			meshKey, err := scp.ReadBytes("/tmp/.key")
 			if err != nil {
 				logger.Debug("Hanging for VPN mesh.. /tmp/.key (%v)", err)
-				time.Sleep(time.Duration(MasterIpSleepSecondsPerAttempt) * time.Second)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			meshKeyStr := strings.Replace(string(meshKey), "\n", "", -1)
 			found = true
-			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIpStr, applyCluster.KubernetesApi.Port)
+			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, applyCluster.KubernetesAPI.Port)
 			applyCluster.Values.ItemMap["INJECTEDMESHKEY"] = meshKeyStr
 			break
 		}
@@ -184,13 +189,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		}
 	}
 
-	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesApi.Port
+	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesAPI.Port
 	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
 	if err != nil {
 		return nil, err
 	}
 
-	sshId, err := strconv.Atoi(applyCluster.Ssh.Identifier)
+	sshID, err := strconv.Atoi(applyCluster.SSH.Identifier)
 	if err != nil {
 		return nil, err
 	}
@@ -208,8 +213,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			PrivateNetworking: true,
 			SSHKeys: []godo.DropletCreateSSHKey{
 				{
-					ID:          sshId,
-					Fingerprint: expected.(*Droplet).SShFingerprint,
+					ID:          sshID,
+					Fingerprint: expected.(*Droplet).SSHFingerprint,
 				},
 			},
 			UserData: string(userData),
@@ -226,41 +231,54 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			Name: r.ServerPool.Name,
 			//CloudID: id,
 		},
-		Image:  droplet.Image.Slug,
-		Size:   droplet.Size.Slug,
-		Region: droplet.Region.Name,
-		Count:  expected.(*Droplet).Count,
+		Image:            droplet.Image.Slug,
+		Size:             droplet.Size.Slug,
+		Region:           droplet.Region.Slug,
+		Count:            expected.(*Droplet).Count,
+		BootstrapScripts: expected.(*Droplet).BootstrapScripts,
 	}
-	applyCluster.KubernetesApi.Endpoint = masterIpPublic
+	applyCluster.KubernetesAPI.Endpoint = masterIPPublic
 	return newResource, nil
 }
-func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("droplet.Delete")
 	deleteResource := actual.(*Droplet)
 	if deleteResource.Name == "" {
-		return fmt.Errorf("Unable to delete droplet resource without Name [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete droplet resource without Name [%s]", deleteResource.Name)
 	}
 
 	droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if len(droplets) != actual.(*Droplet).Count {
 		logger.Info("Droplet count mis-match, trying query again")
 		time.Sleep(5 * time.Second)
 		droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
 	for _, droplet := range droplets {
 		_, err = Sdk.Client.Droplets.Delete(context.TODO(), droplet.ID)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		logger.Info("Deleted Droplet [%d]", droplet.ID)
 	}
-	return nil
+
+	// Kubernetes API
+	known.KubernetesAPI.Endpoint = ""
+
+	newResource := &Droplet{}
+	newResource.Name = actual.(*Droplet).Name
+	newResource.Tags = actual.(*Droplet).Tags
+	newResource.Image = actual.(*Droplet).Image
+	newResource.Size = actual.(*Droplet).Size
+	newResource.Count = actual.(*Droplet).Count
+	newResource.Region = actual.(*Droplet).Region
+	newResource.BootstrapScripts = actual.(*Droplet).BootstrapScripts
+	return newResource, nil
 }
 
 func (r *Droplet) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
@@ -272,12 +290,14 @@ func (r *Droplet) Render(renderResource cloud.Resource, renderCluster *cluster.C
 	serverPool.Size = renderResource.(*Droplet).Size
 	serverPool.Name = renderResource.(*Droplet).Name
 	serverPool.MaxCount = renderResource.(*Droplet).Count
+	serverPool.BootstrapScripts = renderResource.(*Droplet).BootstrapScripts
 	found := false
 	for i := 0; i < len(renderCluster.ServerPools); i++ {
 		if renderCluster.ServerPools[i].Name == renderResource.(*Droplet).Name {
 			renderCluster.ServerPools[i].Image = renderResource.(*Droplet).Image
 			renderCluster.ServerPools[i].Size = renderResource.(*Droplet).Size
 			renderCluster.ServerPools[i].MaxCount = renderResource.(*Droplet).Count
+			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Droplet).BootstrapScripts
 			found = true
 		}
 	}

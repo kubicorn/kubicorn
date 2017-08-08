@@ -19,15 +19,15 @@ import (
 )
 
 const (
-	NetworkType_Local   = "local"
-	NetworkType_Public  = "public"
-	NetworkType_Private = "private"
+	NetworkTypeLocal   = "local"
+	NetworkTypePublic  = "public"
+	NetworkTypePrivate = "private"
 )
 
 type Network struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	CIDR              string
-	Identifier        string
-	Type              string
+	CIDR              string `json:"cidr,omitempty"`
+	Identifier        string `json:"identifier,omitempty"`
+	Type              string `json:"type,omitempty"`
 }

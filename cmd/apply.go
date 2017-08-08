@@ -17,6 +17,9 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	"os"
+	"strings"
+
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
@@ -24,13 +27,11 @@ import (
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
-	"os"
-	"strings"
 )
 
 // applyCmd represents the apply command
 var applyCmd = &cobra.Command{
-	Use:   "apply",
+	Use:   "apply [-n|--name NAME]",
 	Short: "Apply a cluster resource to a cloud",
 	Long: `Use this command to apply an API model in a cloud.
 
@@ -53,10 +54,13 @@ type ApplyOptions struct {
 var ao = &ApplyOptions{}
 
 func init() {
-	RootCmd.AddCommand(applyCmd)
 	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	applyCmd.Flags().StringVarP(&ao.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
+
+	flagApplyAnnotations(applyCmd, "name", "__kubicorn_parse_list")
+
+	RootCmd.AddCommand(applyCmd)
 }
 
 func RunApply(options *ApplyOptions) error {
@@ -64,7 +68,7 @@ func RunApply(options *ApplyOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
-		return errors.New("Empty name. Must specify the name of the cluster to apply.")
+		return errors.New("Empty name. Must specify the name of the cluster to apply")
 	}
 
 	// Expand state store path
@@ -131,8 +135,8 @@ func RunApply(options *ApplyOptions) error {
 
 	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)
 	logger.Always("You can now `kubectl get nodes`")
-	privKeyPath := strings.Replace(cluster.Ssh.PublicKeyPath, ".pub", "", 1)
-	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, newCluster.Ssh.User, newCluster.KubernetesApi.Endpoint)
+	privKeyPath := strings.Replace(cluster.SSH.PublicKeyPath, ".pub", "", 1)
+	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, newCluster.SSH.User, newCluster.KubernetesAPI.Endpoint)
 
 	return nil
 }

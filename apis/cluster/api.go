@@ -18,9 +18,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-type KubernetesApi struct {
+type KubernetesAPI struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Endpoint          string
-	Port              string
+	Endpoint          string `json:"endpoint,omitempty"`
+	Port              string `json:"port,omitempty"`
 }

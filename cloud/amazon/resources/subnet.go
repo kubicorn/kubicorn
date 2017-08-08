@@ -16,6 +16,7 @@ package resources
 
 import (
 	"fmt"
+
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -28,7 +29,7 @@ type Subnet struct {
 	ClusterSubnet *cluster.Subnet
 	ServerPool    *cluster.ServerPool
 	CIDR          string
-	VpcId         string
+	VpcID         string
 	Zone          string
 }
 
@@ -61,7 +62,7 @@ func (r *Subnet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		subnet := output.Subnets[0]
 		actual.CIDR = *subnet.CidrBlock
 		actual.CloudID = *subnet.SubnetId
-		actual.VpcId = *subnet.VpcId
+		actual.VpcID = *subnet.VpcId
 		actual.Zone = *subnet.AvailabilityZone
 		for _, tag := range subnet.Tags {
 			key := *tag.Key
@@ -91,7 +92,7 @@ func (r *Subnet) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 			TagResource: r.TagResource,
 		},
 		CIDR:  r.ClusterSubnet.CIDR,
-		VpcId: known.Network.Identifier,
+		VpcID: known.Network.Identifier,
 		Zone:  r.ClusterSubnet.Zone,
 	}
 	r.CachedExpected = expected
@@ -119,17 +120,17 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cl
 	logger.Info("Created Subnet [%s]", *output.Subnet.SubnetId)
 	newResource := &Subnet{}
 	newResource.CIDR = *output.Subnet.CidrBlock
-	newResource.VpcId = *output.Subnet.VpcId
+	newResource.VpcID = *output.Subnet.VpcId
 	newResource.Zone = *output.Subnet.AvailabilityZone
 	newResource.Name = applyResource.Name
 	newResource.CloudID = *output.Subnet.SubnetId
 	return newResource, nil
 }
-func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("subnet.Delete")
 	deleteResource := actual.(*Subnet)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete subnet resource without ID [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete subnet resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DeleteSubnetInput{
@@ -137,10 +138,16 @@ func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	}
 	_, err := Sdk.Ec2.DeleteSubnet(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted subnet [%s]", actual.(*Subnet).CloudID)
-	return nil
+
+	newResource := &Subnet{}
+	newResource.Name = actual.(*Subnet).Name
+	newResource.Tags = actual.(*Subnet).Tags
+	newResource.CIDR = actual.(*Subnet).CIDR
+	newResource.Zone = actual.(*Subnet).Zone
+	return newResource, nil
 }
 
 func (r *Subnet) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

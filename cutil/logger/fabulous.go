@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cluster
+// +build !windows
+
+package logger
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"os"
+
+	lol "github.com/kris-nova/lolgopher"
 )
 
-type Values struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-	ItemMap           map[string]string `json:"itemMap,omitempty"`
-}
+var FabulousWriter = &lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256}

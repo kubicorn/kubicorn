@@ -4,10 +4,13 @@ endif
 
 PKGS=$(shell go list ./... | grep -v /vendor)
 CI_PKGS=$(shell go list ./... | grep -v /vendor | grep -v test)
+FMT_PKGS=$(shell go list -f {{.Dir}} ./... | grep -v vendor | grep -v test | tail -n +2)
 SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
+
+GOIMPORTS := $(shell command -v goimports 2> /dev/null)
 
 default: authorsfile bindata compile
 
@@ -22,7 +25,7 @@ install:
 bindata:
 	which go-bindata > /dev/null || go get -u github.com/jteeuwen/go-bindata/...
 	rm -rf bootstrap/bootstrap.go
-	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/
+	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/ bootstrap/vpn
 
 build: authors clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
 
@@ -34,17 +37,16 @@ clean:
 	rm -rf bootstrap/bootstrap.go
 
 gofmt:
-	gofmt -w ./apis
-	gofmt -w ./bootstrap
-	gofmt -w ./cloud
-	gofmt -w ./cmd
-	gofmt -w ./cutil
-	gofmt -w ./docs
-	gofmt -w ./examples
-	gofmt -w ./logger
-	gofmt -w ./namer
-	gofmt -w ./profiles
-	gofmt -w ./state
+ifndef GOIMPORTS
+	echo "Installing goimports..."
+	go get golang.org/x/tools/cmd/goimports
+endif
+	echo "Fixing format of go files..."; \
+	for package in $(FMT_PKGS); \
+	do \
+		gofmt -w $$package ; \
+		goimports -l -w $$package ; \
+	done
 
 # Because of https://github.com/golang/go/issues/6376 We actually have to build this in a container
 build-linux-amd64:
@@ -80,6 +82,15 @@ lint:
 	which golint > /dev/null || go get -u github.com/golang/lint/golint
 	golint $(PKGS)
 
+# versioning
+bump-major:
+	./scripts/bump-version.sh major
+
+bump-minor:
+	./scripts/bump-version.sh minor
+
+bump-patch:
+	./scripts/bump-version.sh patch
 
 .PHONY: test
 test:

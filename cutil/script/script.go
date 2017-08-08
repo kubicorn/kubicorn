@@ -12,21 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package v1alpha1
+package script
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"fmt"
+
+	"github.com/kris-nova/kubicorn/bootstrap"
 )
 
-type Cluster struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Cloud             string
-	Name              string
-}
-
-func NewCluster(name string) *Cluster {
-	return &Cluster{
-		Name: name,
+func BuildBootstrapScript(bootstrapScripts []string) ([]byte, error) {
+	var userData []byte
+	for _, bootstrapScript := range bootstrapScripts {
+		scriptData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapScript))
+		if err != nil {
+			return nil, err
+		}
+		userData = append(userData, scriptData...)
 	}
+
+	return userData, nil
 }

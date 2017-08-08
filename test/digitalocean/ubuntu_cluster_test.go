@@ -43,7 +43,7 @@ func TestMain(m *testing.M) {
 	testCluster = profiles.NewSimpleDigitalOceanCluster("ubuntu-test")
 	testCluster, err = test.Create(testCluster)
 	if err != nil {
-		fmt.Printf("Unable to create Digital Ocean test cluster: %v\n", err)
+		fmt.Printf("Unable to create DigitalOcean test cluster: %v\n", err)
 		os.Exit(1)
 	}
 	status := m.Run()
@@ -63,17 +63,17 @@ func TestMain(m *testing.M) {
 }
 
 const (
-	ApiSleepSeconds   = 5
-	ApiSocketAttempts = 40
+	APISleepSeconds   = 5
+	APISocketAttempts = 40
 )
 
 func TestApiListen(t *testing.T) {
 	success := false
-	for i := 0; i < ApiSocketAttempts; i++ {
-		_, err := network.AssertTcpSocketAcceptsConnection(fmt.Sprintf("%s:%s", testCluster.KubernetesApi.Endpoint, testCluster.KubernetesApi.Port), "opening a new socket connection against the Kubernetes API")
+	for i := 0; i < APISocketAttempts; i++ {
+		_, err := network.AssertTcpSocketAcceptsConnection(fmt.Sprintf("%s:%s", testCluster.KubernetesAPI.Endpoint, testCluster.KubernetesAPI.Port), "opening a new socket connection against the Kubernetes API")
 		if err != nil {
 			logger.Info("Attempting to open a socket to the Kubernetes API: %v...\n", err)
-			time.Sleep(time.Duration(ApiSleepSeconds) * time.Second)
+			time.Sleep(time.Duration(APISleepSeconds) * time.Second)
 			continue
 		}
 		success = true

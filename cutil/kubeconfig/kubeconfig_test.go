@@ -15,13 +15,13 @@
 package kubeconfig
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
-	"fmt"
 	"testing"
 )
 
-func TestMain(m *testing.M) {	
+func TestMain(m *testing.M) {
 	m.Run()
 }
 
@@ -30,12 +30,12 @@ func TestSdkHappy(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer func() {		
+	defer func() {
 		os.RemoveAll(tmpdir)
 	}()
 
 	localDir := fmt.Sprintf("%s/.kube", tmpdir)
-	localPath,err := getKubeConfigPath(localDir)
+	localPath, err := getKubeConfigPath(localDir)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -16,6 +16,13 @@ package kubeconfig
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net"
+	"os"
+	"strings"
+	"syscall"
+	"time"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/local"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -23,18 +30,13 @@ import (
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/agent"
 	"golang.org/x/crypto/ssh/terminal"
-	"io/ioutil"
-	"net"
-	"os"
-	"strings"
-	"time"
 )
 
 func GetConfig(existing *cluster.Cluster) error {
-	user := existing.Ssh.User
-	pubKeyPath := local.Expand(existing.Ssh.PublicKeyPath)
+	user := existing.SSH.User
+	pubKeyPath := local.Expand(existing.SSH.PublicKeyPath)
 	privKeyPath := strings.Replace(pubKeyPath, ".pub", "", 1)
-	address := fmt.Sprintf("%s:%s", existing.KubernetesApi.Endpoint, "22")
+	address := fmt.Sprintf("%s:%s", existing.KubernetesAPI.Endpoint, "22")
 	localDir := fmt.Sprintf("%s/.kube", local.Home())
 	localPath, err := getKubeConfigPath(localDir)
 	if err != nil {
@@ -58,31 +60,20 @@ func GetConfig(existing *cluster.Cluster) error {
 	//fmt.Println(remotePath)
 	//fmt.Println(localPath)
 
+	pemBytes, err := ioutil.ReadFile(privKeyPath)
+	if err != nil {
+		return err
+	}
+	signer, err := getSigner(pemBytes)
+	if err != nil {
+		return err
+	}
+	sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 	agent := sshAgent()
 	if agent != nil {
-		auths := []ssh.AuthMethod{
-			agent,
-		}
-		sshConfig.Auth = auths
-	} else {
-		pemBytes, err := ioutil.ReadFile(privKeyPath)
-		if err != nil {
-			return err
-		}
-
-		signer, err := GetSigner(pemBytes)
-		if err != nil {
-			return err
-		}
-
-		auths := []ssh.AuthMethod{
-			ssh.PublicKeys(signer),
-		}
-		sshConfig.Auth = auths
+		sshConfig.Auth = append(sshConfig.Auth, agent)
 	}
-
 	sshConfig.SetDefaults()
-
 	conn, err := ssh.Dial("tcp", address, sshConfig)
 	if err != nil {
 		return err
@@ -134,8 +125,7 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 		err := GetConfig(existing)
 		if err != nil {
 			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") || strings.Contains(err.Error(), "unable to authenticate") {
-				//logger.Warning(err.Error())
-				logger.Debug("Waiting for Kubernetes to come up..")
+				logger.Debug("Waiting for Kubernetes to come up.. [%v]", err)
 				time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
 				continue
 			}
@@ -146,12 +136,12 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 	return fmt.Errorf("Timedout writing kubeconfig")
 }
 
-func GetSigner(pemBytes []byte) (ssh.Signer, error) {
+func getSigner(pemBytes []byte) (ssh.Signer, error) {
 	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
 	if err != nil {
-		logger.Info(err.Error())
+		logger.Debug(err.Error())
 		fmt.Print("SSH Key Passphrase [none]: ")
-		passPhrase, err := terminal.ReadPassword(0)
+		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
 		fmt.Println("")
 		if err != nil {
 			return nil, err
@@ -159,16 +149,17 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 		signerwithpassphrase, err := ssh.ParsePrivateKeyWithPassphrase(pemBytes, passPhrase)
 		if err != nil {
 			return nil, err
-		} else {
-			return signerwithpassphrase, err
 		}
-	} else {
-		return signerwithoutpassphrase, err
+
+		return signerwithpassphrase, err
 	}
+
+	return signerwithoutpassphrase, err
 }
 
 func sshAgent() ssh.AuthMethod {
-	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
+	sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK"))
+	if err == nil {
 		return ssh.PublicKeysCallback(agent.NewClient(sshAgent).Signers)
 	}
 	return nil

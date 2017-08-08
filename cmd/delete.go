@@ -16,19 +16,21 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"time"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
-	"os"
-	"time"
 )
 
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
-	Use:   "delete",
+	Use:   "delete [-n|--name NAME]",
 	Short: "Delete a Kubernetes cluster",
 	Long: `Use this command to delete cloud resources.
 
@@ -59,6 +61,9 @@ func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().StringVarP(&do.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "Cluster name to delete")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
+
+	flagApplyAnnotations(deleteCmd, "name", "__kubicorn_parse_list")
+
 	RootCmd.AddCommand(deleteCmd)
 }
 
@@ -67,7 +72,7 @@ func RunDelete(options *DeleteOptions) error {
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
-		return errors.New("Empty name. Must specify the name of the cluster to delete.")
+		return errors.New("Empty name. Must specify the name of the cluster to delete")
 	}
 	// Expand state store path
 	options.StateStorePath = expandPath(options.StateStorePath)
@@ -88,12 +93,12 @@ func RunDelete(options *DeleteOptions) error {
 		return nil
 	}
 
-	cluster, err := stateStore.GetCluster()
+	expectedCluster, err := stateStore.GetCluster()
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 
-	reconciler, err := cutil.GetReconciler(cluster)
+	reconciler, err := cutil.GetReconciler(expectedCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
 	}
@@ -104,14 +109,16 @@ func RunDelete(options *DeleteOptions) error {
 
 	donechan := make(chan bool)
 	errchan := make(chan error)
-
+	var deleteCluster *cluster.Cluster
 	go func() {
-		errchan <- reconciler.Destroy()
+		deleteCluster, err = reconciler.Destroy()
+		errchan <- err
 	}()
 
 	go func(description string, symbol string, c chan bool) {
 		if description != "" {
-			fmt.Print(description)
+			logger.Log("\n")
+			logger.Log(description)
 		}
 
 		for {
@@ -122,7 +129,7 @@ func RunDelete(options *DeleteOptions) error {
 				}
 			default:
 				time.Sleep(200 * time.Millisecond)
-				fmt.Print(symbol)
+				logger.Log(symbol)
 			}
 		}
 	}(fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".", donechan)
@@ -131,6 +138,11 @@ func RunDelete(options *DeleteOptions) error {
 	donechan <- true
 	if err != nil {
 		return errors.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
+	}
+
+	err = stateStore.Commit(deleteCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to save state store: %v", err)
 	}
 
 	if options.Purge {

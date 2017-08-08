@@ -16,6 +16,7 @@ package profiles
 
 import (
 	"fmt"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
@@ -23,17 +24,17 @@ import (
 func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
-		Cloud:    cluster.Cloud_Amazon,
+		Cloud:    cluster.CloudAmazon,
 		Location: "us-west-2",
-		Ssh: &cluster.Ssh{
+		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "ubuntu",
 		},
-		KubernetesApi: &cluster.KubernetesApi{
+		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
 		},
 		Network: &cluster.Network{
-			Type: cluster.NetworkType_Public,
+			Type: cluster.NetworkTypePublic,
 			CIDR: "10.0.0.0/16",
 		},
 		Values: &cluster.Values{
@@ -43,13 +44,15 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		},
 		ServerPools: []*cluster.ServerPool{
 			{
-				Type:            cluster.ServerPoolType_Master,
-				Name:            fmt.Sprintf("%s.master", name),
-				MaxCount:        1,
-				MinCount:        1,
-				Image:           "ami-835b4efa",
-				Size:            "t2.medium",
-				BootstrapScript: "amazon_k8s_ubuntu_16.04_master.sh",
+				Type:     cluster.ServerPoolTypeMaster,
+				Name:     fmt.Sprintf("%s.master", name),
+				MaxCount: 1,
+				MinCount: 1,
+				Image:    "ami-835b4efa",
+				Size:     "t2.medium",
+				BootstrapScripts: []string{
+					"amazon_k8s_ubuntu_16.04_master.sh",
+				},
 				Subnets: []*cluster.Subnet{
 					{
 						Name:     fmt.Sprintf("%s.master", name),
@@ -79,13 +82,15 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 				},
 			},
 			{
-				Type:            cluster.ServerPoolType_Node,
-				Name:            fmt.Sprintf("%s.node", name),
-				MaxCount:        1,
-				MinCount:        1,
-				Image:           "ami-835b4efa",
-				Size:            "t2.medium",
-				BootstrapScript: "amazon_k8s_ubuntu_16.04_node.sh",
+				Type:     cluster.ServerPoolTypeNode,
+				Name:     fmt.Sprintf("%s.node", name),
+				MaxCount: 1,
+				MinCount: 1,
+				Image:    "ami-835b4efa",
+				Size:     "t2.medium",
+				BootstrapScripts: []string{
+					"amazon_k8s_ubuntu_16.04_node.sh",
+				},
 				Subnets: []*cluster.Subnet{
 					{
 						Name:     fmt.Sprintf("%s.node", name),

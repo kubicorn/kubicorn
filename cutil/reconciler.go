@@ -16,6 +16,7 @@ package cutil
 
 import (
 	"fmt"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/amazon"
@@ -24,9 +25,9 @@ import (
 
 func GetReconciler(c *cluster.Cluster) (cloud.Reconciler, error) {
 	switch c.Cloud {
-	case cluster.Cloud_Amazon:
+	case cluster.CloudAmazon:
 		return amazon.NewReconciler(c), nil
-	case cluster.Cloud_DigitalOcean:
+	case cluster.CloudDigitalOcean:
 		return digitalocean.NewReconciler(c), nil
 	default:
 		return nil, fmt.Errorf("Invalid cloud type: %s", c.Cloud)
