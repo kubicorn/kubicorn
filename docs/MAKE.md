@@ -31,7 +31,7 @@ More about the building and installing proccess can be found in [BUILD docs](htt
 
 ### Formatting Go code
 
-The following commands can be used to format and check Go code:
+The following commands can be used to format and verify Go code:
 * `make gofmt` — forma the all Go files using `go fmt`.
 * `make lint` — check for style mistakes all Go files using `golint`.
 * `make vet` — apply `go vet` to the all Go files.
