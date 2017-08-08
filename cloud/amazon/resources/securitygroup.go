@@ -83,6 +83,7 @@ func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.CloudID = *sg.GroupId
 		actual.Name = *sg.GroupName
 	}
+
 	r.CachedActual = actual
 	return actual, nil
 }
@@ -156,6 +157,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 			IngressSource:   expectedRule.IngressSource,
 			IngressToPort:   expectedRule.IngressToPort,
 			IngressFromPort: expectedRule.IngressFromPort,
+			IngressProtocol: expectedRule.IngressProtocol,
 		})
 	}
 	return newResource, nil
@@ -179,7 +181,14 @@ func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) (c
 	newResource := &SecurityGroup{}
 	newResource.Tags = actual.(*SecurityGroup).Tags
 	newResource.Name = actual.(*SecurityGroup).Name
-
+	//for _, renderRule := range actual.(*SecurityGroup).Rules {
+	//	newResource.Rules = append(newResource.Rules, &Rule{
+	//		IngressSource:   renderRule.IngressSource,
+	//		IngressFromPort: renderRule.IngressFromPort,
+	//		IngressToPort:   renderRule.IngressToPort,
+	//		IngressProtocol: renderRule.IngressProtocol,
+	//	})
+	//}
 	return newResource, nil
 }
 

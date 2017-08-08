@@ -226,9 +226,16 @@ func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resour
 	}
 	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).CloudID)
 
+	// Kubernetes API
+	known.KubernetesApi.Endpoint = ""
+
+
 	newResource := &Lc{}
 	newResource.Name = actual.(*Lc).Name
 	newResource.Tags = actual.(*Lc).Tags
+	newResource.Image = actual.(*Lc).Image
+	newResource.InstanceType = actual.(*Lc).InstanceType
+	newResource.
 	return newResource, nil
 }
 

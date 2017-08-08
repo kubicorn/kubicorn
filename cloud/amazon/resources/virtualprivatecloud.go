@@ -59,6 +59,8 @@ func (r *Vpc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 			actual.Tags[key] = val
 		}
 	}
+	actual.CIDR = known.Network.CIDR
+	actual.Name = known.Network.Name
 	r.CachedActual = actual
 	return actual, nil
 }
@@ -151,7 +153,7 @@ func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resou
 	newResource := &Vpc{}
 	newResource.Name = actual.(*Vpc).Name
 	newResource.Tags = actual.(*Vpc).Tags
-
+	newResource.CIDR = actual.(*Vpc).CIDR
 	return newResource, nil
 }
 

@@ -144,7 +144,8 @@ func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Re
 	newResource := &Subnet{}
 	newResource.Name = actual.(*Subnet).Name
 	newResource.Tags = actual.(*Subnet).Tags
-
+	newResource.CIDR = actual.(*Subnet).CIDR
+	newResource.Zone = actual.(*Subnet).Zone
 	return newResource, nil
 }
 
