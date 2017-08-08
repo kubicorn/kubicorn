@@ -18,6 +18,8 @@ OPENVPN_KEYOU="Kubicorn"
 OPENVPN_KEYNAME="server"
 # ------------------------------------------------------------------------------------------------------------------------
 
+PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/)
+
 # OpenVPN
 
 apt-get update
@@ -67,3 +69,12 @@ sed -i -e "s/\#net.ipv4.ip_forward.*/net.ipv4.ip_forward=1/" /etc/sysctl.conf
 
 systemctl start openvpn@${OPENVPN_KEYNAME}
 systemctl enable openvpn@${OPENVPN_KEYNAME}
+
+## Generate client configuration
+
+### Create the directory structure and secure it
+mkdir -p ~/client-configs/files
+chmod 700 ~/client-configs/files
+
+### Generate config from examples
+cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/client-configs/base.conf
