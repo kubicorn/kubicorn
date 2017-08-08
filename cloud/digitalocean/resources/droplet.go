@@ -167,21 +167,20 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			scp := scp.NewSecureCopier(applyCluster.SSH.User, masterIPPublic, "22", privPath)
 			masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
 			if err != nil {
-				logger.Debug("Hanging for VPN mesh.. /tmp/.ip (%v)", err)
+				logger.Debug("Hanging for VPN IP.. /tmp/.ip (%v)", err)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			masterVpnIPStr := strings.Replace(string(masterVpnIP), "\n", "", -1)
-			meshKey, err := scp.ReadBytes("/tmp/.key")
+			openvpnConfig, err := scp.ReadBytes("/tmp/clients.ovpn")
 			if err != nil {
-				logger.Debug("Hanging for VPN mesh.. /tmp/.key (%v)", err)
+				logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
-			meshKeyStr := strings.Replace(string(meshKey), "\n", "", -1)
 			found = true
 			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, applyCluster.KubernetesAPI.Port)
-			applyCluster.Values.ItemMap["INJECTEDMESHKEY"] = meshKeyStr
+			applyCluster.Values.ItemMap["INJECTEDMESHKEY"] = fmt.Sprintf("%s", openvpnConfig)
 			break
 		}
 		if !found {

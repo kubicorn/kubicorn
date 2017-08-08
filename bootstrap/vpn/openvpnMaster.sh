@@ -18,7 +18,7 @@ OPENVPN_KEYOU="Kubicorn"
 OPENVPN_KEYNAME="server"
 # ------------------------------------------------------------------------------------------------------------------------
 
-PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/)
+PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
 # OpenVPN
 
@@ -78,3 +78,42 @@ chmod 700 ~/client-configs/files
 
 ### Generate config from examples
 cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/client-configs/base.conf
+
+### Add remote IP address
+sed -i -e "s/remote my-server-1 1194/remote ${PRIVATE_IP} 1194/" ~/client-configs/base.conf
+
+### Set nobody:nogroup to run OpenVPN
+sed -i -e "s/\;user nobody.*/user nobody/" ~/client-configs/base.conf
+sed -i -e "s/\;group nogroup.*/group nogroup/" ~/client-configs/base.conf
+
+### Make it not use default certificate
+sed -i -e "s/ca ca.crt/\#ca ca.crt/" ~/client-configs/base.conf
+sed -i -e "s/cert client.crt/\#cert client.crt/" ~/client-configs/base.conf
+sed -i -e "s/key client.key/\#key client.key/" ~/client-configs/base.conf
+
+### Configure chipers
+sed -i -e "s/\;cipher x.*/cipher AES-128-CBC/" ~/client-configs/base.conf
+sed -i -e "/cipher AES-128-CBC/a auth SHA256" ~/client-configs/base.conf
+
+### Additional settings
+echo "key-direction 1" >> ~/client-configs/base.conf
+echo "script-security 2" >> ~/client-configs/base.conf
+echo "up /etc/openvpn/update-resolv-conf" >> ~/client-configs/base.conf
+echo "down /etc/openvpn/update-resolv-conf" >> ~/client-configs/base.conf
+
+## Generate keys
+KEY_DIR=~/openvpn-ca/keys
+OUTPUT_DIR=/tmp
+BASE_CONFIG=~/client-configs/base.conf
+
+cat ${BASE_CONFIG} \
+    <(echo -e '<ca>') \
+    ${KEY_DIR}/ca.crt \
+    <(echo -e '</ca>\n<cert>') \
+    ${KEY_DIR}/clients.crt \
+    <(echo -e '</cert>\n<key>') \
+    ${KEY_DIR}/clients.key \
+    <(echo -e '</key>\n<tls-auth>') \
+    ${KEY_DIR}/ta.key \
+    <(echo -e '</tls-auth>') \
+    > ${OUTPUT_DIR}/clients.conf
