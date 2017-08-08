@@ -82,6 +82,15 @@ lint:
 	which golint > /dev/null || go get -u github.com/golang/lint/golint
 	golint $(PKGS)
 
+# versioning
+bump-major:
+	./scripts/bump-version.sh major
+
+bump-minor:
+	./scripts/bump-version.sh minor
+
+bump-patch:
+	./scripts/bump-version.sh patch
 
 .PHONY: test
 test:
