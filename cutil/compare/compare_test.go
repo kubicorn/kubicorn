@@ -18,13 +18,12 @@ import (
 	"testing"
 )
 
-
-func TestCompare(t *testing.T){
-	tt := []struct{
-		name string
-		actual interface{}
+func TestCompare(t *testing.T) {
+	tt := []struct {
+		name     string
+		actual   interface{}
 		expected interface{}
-		isEqual bool
+		isEqual  bool
 	}{
 		{"a equals a", "a", "a", true},
 		{"a not equals b", "a", "b", false},
@@ -39,10 +38,10 @@ func TestCompare(t *testing.T){
 	}
 
 	for _, tc := range tt {
-		t.Run(tc.name, func(t *testing.T){
-			isEqual, _ := IsEqual(tc.actual,tc.expected)
-			if isEqual != tc.isEqual{
-				t.Fatalf("%v should be %v got %v\n", tc.name, tc.isEqual, isEqual )
+		t.Run(tc.name, func(t *testing.T) {
+			isEqual, _ := IsEqual(tc.actual, tc.expected)
+			if isEqual != tc.isEqual {
+				t.Fatalf("%v should be %v got %v\n", tc.name, tc.isEqual, isEqual)
 			}
 		})
 	}

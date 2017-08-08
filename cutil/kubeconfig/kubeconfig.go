@@ -27,8 +27,8 @@ import (
 	"net"
 	"os"
 	"strings"
-	"time"
 	"syscall"
+	"time"
 )
 
 func GetConfig(existing *cluster.Cluster) error {

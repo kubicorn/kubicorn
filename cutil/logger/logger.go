@@ -22,10 +22,10 @@ import (
 )
 
 var (
-	Level = 2
-	Color = true
+	Level    = 2
+	Color    = true
 	TestMode = false
-	Fabulous = false	
+	Fabulous = false
 )
 
 func Always(format string, a ...interface{}) {

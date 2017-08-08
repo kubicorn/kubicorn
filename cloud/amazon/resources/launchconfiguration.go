@@ -24,9 +24,9 @@ import (
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/cutil/script"
 	"strings"
 	"time"
-	"github.com/kris-nova/kubicorn/cutil/script"
 )
 
 type Lc struct {
@@ -177,7 +177,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	}
 
 	newResource := &Lc{}
-	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts);
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
 	if err != nil {
 		return nil, err
 	}
