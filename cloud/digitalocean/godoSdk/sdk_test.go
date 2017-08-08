@@ -32,7 +32,7 @@ func TestSdkHappy(t *testing.T) {
 	os.Setenv("DIGITALOCEAN_ACCESS_TOKEN", "123")
 	_, err := NewSdk()
 	if err != nil {
-		t.Fatalf("Unable to get Digital Ocean SDK: %v", err)
+		t.Fatalf("Unable to get DigitalOcean SDK: %v", err)
 	}
 }
 
