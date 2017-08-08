@@ -17,6 +17,10 @@ package resources
 import (
 	"context"
 	"fmt"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/digitalocean/godo"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -26,9 +30,6 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/scp"
 	"github.com/kris-nova/kubicorn/cutil/script"
-	"strconv"
-	"strings"
-	"time"
 )
 
 type Droplet struct {

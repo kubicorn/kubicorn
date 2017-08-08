@@ -17,13 +17,14 @@ package cmd
 import (
 	"errors"
 	"fmt"
+	"os"
+
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 // getConfigCmd represents the apply command
