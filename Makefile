@@ -4,10 +4,13 @@ endif
 
 PKGS=$(shell go list ./... | grep -v /vendor)
 CI_PKGS=$(shell go list ./... | grep -v /vendor | grep -v test)
+FMT_PKGS=$(shell go list -f {{.Dir}} ./... | grep -v vendor | grep -v test | tail -n +2)
 SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
+
+GOIMPORTS := $(shell command -v goimports 2> /dev/null)
 
 default: authorsfile bindata compile
 
@@ -34,16 +37,16 @@ clean:
 	rm -rf bootstrap/bootstrap.go
 
 gofmt:
-	gofmt -w ./apis
-	gofmt -w ./bootstrap
-	gofmt -w ./cloud
-	gofmt -w ./cmd
-	gofmt -w ./cutil
-	gofmt -w ./docs
-	gofmt -w ./examples
-	gofmt -w ./namer
-	gofmt -w ./profiles
-	gofmt -w ./state
+ifndef GOIMPORTS
+	echo "Installing goimports..."
+	go get golang.org/x/tools/cmd/goimports
+endif
+	echo "Fixing format of go files..."; \
+	for package in $(FMT_PKGS); \
+	do \
+		gofmt -w $$package ; \
+		goimports -l -w $$package ; \
+	done
 
 # Because of https://github.com/golang/go/issues/6376 We actually have to build this in a container
 build-linux-amd64:
