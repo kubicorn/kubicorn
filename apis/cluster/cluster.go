@@ -36,7 +36,7 @@ type Cluster struct {
 	SSH               *SSH           `json:"SSH,omitempty"`
 	Network           *Network       `json:"network,omitempty"`
 	Values            *Values        `json:"values,omitempty"`
-	KubernetesApi     *KubernetesAPI `json:"kubernetesAPI,omitempty"`
+	KubernetesAPI     *KubernetesAPI `json:"kubernetesAPI,omitempty"`
 }
 
 func NewCluster(name string) *Cluster {

@@ -69,6 +69,9 @@ func (r *Asg) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.MinCount = int(*asg.MinSize)
 		actual.CloudID = *asg.AutoScalingGroupName
 		actual.Name = *asg.AutoScalingGroupName
+	} else {
+		actual.MaxCount = r.ServerPool.MaxCount
+		actual.MinCount = r.ServerPool.MinCount
 	}
 	r.CachedActual = actual
 	return actual, nil
@@ -165,6 +168,8 @@ func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resou
 	newResource := &Asg{}
 	newResource.Name = actual.(*Asg).Name
 	newResource.Tags = actual.(*Asg).Tags
+	newResource.MaxCount = actual.(*Asg).MaxCount
+	newResource.MinCount = actual.(*Asg).MinCount
 	return newResource, nil
 }
 
@@ -192,10 +197,6 @@ func (r *Asg) Render(renderResource cloud.Resource, renderCluster *cluster.Clust
 
 	return renderCluster, nil
 }
-
-// kris left off here
-// 2017-07-05T00:22:36-06:00 [✖]  Unable to reconcile cluster: Unable to tag new VPC: ValidationError: Incomplete tags information for these tags. Tag - 'Key:Name,PropagateAtLaunch:null,ResourceId:knova-amazon-master,ResourceType:auto-scaling-group' , Tag - 'Key:KubernetesCluster,PropagateAtLaunch:null,ResourceId:knova-amazon-master,ResourceType:auto-scaling-group' ,
-// status code: 400, request id: 569ec7d4-614a-11e7-a82d-f902128f85b7
 
 func (r *Asg) Tag(tags map[string]string) error {
 	logger.Debug("asg.Tag")

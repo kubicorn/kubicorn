@@ -75,7 +75,6 @@ func GetConfig(existing *cluster.Cluster) error {
 	sshConfig.SetDefaults()
 	conn, err := ssh.Dial("tcp", address, sshConfig)
 	if err != nil {
-		fmt.Println(1)
 		return err
 	}
 	defer conn.Close()

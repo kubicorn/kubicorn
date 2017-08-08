@@ -54,7 +54,7 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		if err == nil {
 			lsn := len(output.KeyPairs)
 			if lsn != 1 {
-				return nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.Ssh.Identifier)
+				return nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
 			}
 			keypair := output.KeyPairs[0]
 			actual.CloudID = *keypair.KeyName
@@ -68,10 +68,10 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.CloudID = *keypair.KeyName
 		actual.PublicKeyFingerprint = *keypair.KeyFingerprint
 	}
-	actual.PublicKeyPath = known.Ssh.PublicKeyPath
-	actual.PublicKeyData = string(known.Ssh.PublicKeyData)
-	actual.PublicKeyFingerprint = known.Ssh.PublicKeyFingerprint
-	actual.User = known.Ssh.User
+	actual.PublicKeyPath = known.SSH.PublicKeyPath
+	actual.PublicKeyData = string(known.SSH.PublicKeyData)
+	actual.PublicKeyFingerprint = known.SSH.PublicKeyFingerprint
+	actual.User = known.SSH.User
 	r.CachedActual = actual
 	return actual, nil
 }
@@ -152,6 +152,7 @@ func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 	newResource.Tags = actual.(*KeyPair).Tags
 	newResource.Name = actual.(*KeyPair).Name
 	newResource.PublicKeyPath = actual.(*KeyPair).PublicKeyPath
+	newResource.User = actual.(*KeyPair).User
 	return newResource, nil
 }
 
