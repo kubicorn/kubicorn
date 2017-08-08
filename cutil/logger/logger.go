@@ -16,9 +16,10 @@ package logger
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"strings"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 var (

@@ -16,6 +16,13 @@ package kubeconfig
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net"
+	"os"
+	"strings"
+	"syscall"
+	"time"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/local"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -23,12 +30,6 @@ import (
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/agent"
 	"golang.org/x/crypto/ssh/terminal"
-	"io/ioutil"
-	"net"
-	"os"
-	"strings"
-	"syscall"
-	"time"
 )
 
 func GetConfig(existing *cluster.Cluster) error {

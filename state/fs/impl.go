@@ -16,15 +16,16 @@ package fs
 
 import (
 	"fmt"
-	"github.com/ghodss/yaml"
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/state"
 	"io"
 	"io/ioutil"
 	"os"
 	"path"
 	"strings"
+
+	"github.com/ghodss/yaml"
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/state"
 )
 
 type FileSystemStoreOptions struct {

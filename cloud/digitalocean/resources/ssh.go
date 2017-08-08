@@ -17,12 +17,13 @@ package resources
 import (
 	"context"
 	"fmt"
+	"strconv"
+
 	"github.com/digitalocean/godo"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"strconv"
 )
 
 type SSH struct {

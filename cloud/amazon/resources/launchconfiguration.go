@@ -17,6 +17,9 @@ package resources
 import (
 	"encoding/base64"
 	"fmt"
+	"strings"
+	"time"
+
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -25,8 +28,6 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/script"
-	"strings"
-	"time"
 )
 
 type Lc struct {
