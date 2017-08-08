@@ -40,6 +40,6 @@ func TestSdkSad(t *testing.T) {
 	os.Setenv("DIGITALOCEAN_ACCESS_TOKEN", "")
 	_, err := NewSdk()
 	if err == nil {
-		t.Fatalf("Able to get Amazon SDK with empty variables")
+		t.Fatalf("Able to get DigitalOcean SDK with empty variables")
 	}
 }
