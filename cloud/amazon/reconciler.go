@@ -215,6 +215,6 @@ func handleCtrlC(c chan os.Signal) {
 	sig := <-c
 	if sig == syscall.SIGINT {
 		sigCaught = true
-		logger.Critical("Detected SIGINT. Please be patient while kubicorn cleanly exists. Maybe get a cup of tea?")
+		logger.Critical("Detected SIGINT. Please be patient while kubicorn cleanly exits. Maybe get a cup of tea?")
 	}
 }

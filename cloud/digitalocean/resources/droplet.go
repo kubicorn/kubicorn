@@ -33,12 +33,13 @@ import (
 
 type Droplet struct {
 	Shared
-	Region         string
-	Size           string
-	Image          string
-	Count          int
-	SSHFingerprint string
-	ServerPool     *cluster.ServerPool
+	Region           string
+	Size             string
+	Image            string
+	Count            int
+	SSHFingerprint   string
+	BootstrapScripts []string
+	ServerPool       *cluster.ServerPool
 }
 
 const (
@@ -73,10 +74,11 @@ func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.Name = droplet.Name
 		actual.CloudID = id
 		actual.Size = droplet.Size.Slug
-		actual.Region = droplet.Region.Name
 		actual.Image = droplet.Image.Slug
-		actual.SSHFingerprint = known.SSH.PublicKeyFingerprint
+		actual.Region = droplet.Region.Slug
 	}
+	actual.BootstrapScripts = r.ServerPool.BootstrapScripts
+	actual.SSHFingerprint = known.SSH.PublicKeyFingerprint
 	actual.Name = r.Name
 	r.CachedActual = actual
 	return actual, nil
@@ -93,11 +95,12 @@ func (r *Droplet) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
 		},
-		Size:           r.ServerPool.Size,
-		Region:         known.Location,
-		Image:          r.ServerPool.Image,
-		Count:          r.ServerPool.MaxCount,
-		SSHFingerprint: known.SSH.PublicKeyFingerprint,
+		Size:             r.ServerPool.Size,
+		Region:           known.Location,
+		Image:            r.ServerPool.Image,
+		Count:            r.ServerPool.MaxCount,
+		SSHFingerprint:   known.SSH.PublicKeyFingerprint,
+		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
 	r.CachedExpected = expected
 	return expected, nil
@@ -227,10 +230,11 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			Name: r.ServerPool.Name,
 			//CloudID: id,
 		},
-		Image:  droplet.Image.Slug,
-		Size:   droplet.Size.Slug,
-		Region: droplet.Region.Name,
-		Count:  expected.(*Droplet).Count,
+		Image:            droplet.Image.Slug,
+		Size:             droplet.Size.Slug,
+		Region:           droplet.Region.Slug,
+		Count:            expected.(*Droplet).Count,
+		BootstrapScripts: expected.(*Droplet).BootstrapScripts,
 	}
 	applyCluster.KubernetesAPI.Endpoint = masterIPPublic
 	return newResource, nil
@@ -262,10 +266,17 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 		logger.Info("Deleted Droplet [%d]", droplet.ID)
 	}
 
+	// Kubernetes API
+	known.KubernetesAPI.Endpoint = ""
+
 	newResource := &Droplet{}
 	newResource.Name = actual.(*Droplet).Name
 	newResource.Tags = actual.(*Droplet).Tags
-
+	newResource.Image = actual.(*Droplet).Image
+	newResource.Size = actual.(*Droplet).Size
+	newResource.Count = actual.(*Droplet).Count
+	newResource.Region = actual.(*Droplet).Region
+	newResource.BootstrapScripts = actual.(*Droplet).BootstrapScripts
 	return newResource, nil
 }
 
@@ -278,12 +289,14 @@ func (r *Droplet) Render(renderResource cloud.Resource, renderCluster *cluster.C
 	serverPool.Size = renderResource.(*Droplet).Size
 	serverPool.Name = renderResource.(*Droplet).Name
 	serverPool.MaxCount = renderResource.(*Droplet).Count
+	serverPool.BootstrapScripts = renderResource.(*Droplet).BootstrapScripts
 	found := false
 	for i := 0; i < len(renderCluster.ServerPools); i++ {
 		if renderCluster.ServerPools[i].Name == renderResource.(*Droplet).Name {
 			renderCluster.ServerPools[i].Image = renderResource.(*Droplet).Image
 			renderCluster.ServerPools[i].Size = renderResource.(*Droplet).Size
 			renderCluster.ServerPools[i].MaxCount = renderResource.(*Droplet).Count
+			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Droplet).BootstrapScripts
 			found = true
 		}
 	}

@@ -107,9 +107,9 @@ func Delete(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = reconciler.Destroy()
+	destroyCluster, err := reconciler.Destroy()
 	if err != nil {
 		return nil, err
 	}
-	return nil, nil
+	return destroyCluster, nil
 }
