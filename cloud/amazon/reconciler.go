@@ -91,7 +91,7 @@ func cleanUp(cluster *cluster.Cluster, i int) error {
 	for j := i - 1; j >= 0; j-- {
 		resource := model[j]
 		createdResource := createdResources[j]
-		err := resource.Delete(createdResource, cluster)
+		_, err := resource.Delete(createdResource, cluster)
 		if err != nil {
 			j, err = destroyI(err, j)
 			if err != nil {
@@ -169,27 +169,33 @@ func destroyI(err error, i int) (int, error) {
 	return 0, err
 }
 
-func (r *Reconciler) Destroy() error {
+func (r *Reconciler) Destroy() (*cluster.Cluster, error) {
+	var renderCluster *cluster.Cluster
 	for i := len(model) - 1; i >= 0; i-- {
 		resource := model[i]
 		actualResource, err := resource.Actual(r.Known)
 		if err != nil {
 			i, err = destroyI(err, i)
 			if err != nil {
-				return err
+				return nil, err
 			}
 			continue
 		}
-		err = resource.Delete(actualResource, r.Known)
+		deleteResource, err := resource.Delete(actualResource, r.Known)
 		if err != nil {
 			i, err = destroyI(err, i)
 			if err != nil {
-				return err
+				return nil, err
 			}
 			continue
 		}
+		renderCluster, err = resource.Render(deleteResource, r.Known)
+		if err != nil {
+			return nil, err
+		}
+
 	}
-	return nil
+	return renderCluster, nil
 }
 
 func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
@@ -209,6 +215,6 @@ func handleCtrlC(c chan os.Signal) {
 	sig := <-c
 	if sig == syscall.SIGINT {
 		sigCaught = true
-		logger.Warning("SIGINT! Why did you do that? Trying to rewind to clean up orphaned resources!")
+		logger.Critical("Detected SIGINT. Please be patient while kubicorn cleanly exits. Maybe get a cup of tea?")
 	}
 }

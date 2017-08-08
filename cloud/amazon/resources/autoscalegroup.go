@@ -69,6 +69,9 @@ func (r *Asg) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.MinCount = int(*asg.MinSize)
 		actual.CloudID = *asg.AutoScalingGroupName
 		actual.Name = *asg.AutoScalingGroupName
+	} else {
+		actual.MaxCount = r.ServerPool.MaxCount
+		actual.MinCount = r.ServerPool.MinCount
 	}
 	r.CachedActual = actual
 	return actual, nil
@@ -145,11 +148,11 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	return newResource, nil
 }
-func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("asg.Delete")
 	deleteResource := actual.(*Asg)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete ASG resource without ID [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete ASG resource without ID [%s]", deleteResource.Name)
 	}
 	// Delete ASG API
 
@@ -159,10 +162,15 @@ func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) error {
 	}
 	_, err := Sdk.ASG.DeleteAutoScalingGroup(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted ASG [%s]", actual.(*Asg).CloudID)
-	return nil
+	newResource := &Asg{}
+	newResource.Name = actual.(*Asg).Name
+	newResource.Tags = actual.(*Asg).Tags
+	newResource.MaxCount = actual.(*Asg).MaxCount
+	newResource.MinCount = actual.(*Asg).MinCount
+	return newResource, nil
 }
 
 func (r *Asg) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
@@ -189,10 +197,6 @@ func (r *Asg) Render(renderResource cloud.Resource, renderCluster *cluster.Clust
 
 	return renderCluster, nil
 }
-
-// kris left off here
-// 2017-07-05T00:22:36-06:00 [✖]  Unable to reconcile cluster: Unable to tag new VPC: ValidationError: Incomplete tags information for these tags. Tag - 'Key:Name,PropagateAtLaunch:null,ResourceId:knova-amazon-master,ResourceType:auto-scaling-group' , Tag - 'Key:KubernetesCluster,PropagateAtLaunch:null,ResourceId:knova-amazon-master,ResourceType:auto-scaling-group' ,
-// status code: 400, request id: 569ec7d4-614a-11e7-a82d-f902128f85b7
 
 func (r *Asg) Tag(tags map[string]string) error {
 	logger.Debug("asg.Tag")

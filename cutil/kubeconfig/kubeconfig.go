@@ -59,31 +59,20 @@ func GetConfig(existing *cluster.Cluster) error {
 	//fmt.Println(remotePath)
 	//fmt.Println(localPath)
 
+	pemBytes, err := ioutil.ReadFile(privKeyPath)
+	if err != nil {
+		return err
+	}
+	signer, err := getSigner(pemBytes)
+	if err != nil {
+		return err
+	}
+	sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 	agent := sshAgent()
 	if agent != nil {
-		auths := []ssh.AuthMethod{
-			agent,
-		}
-		sshConfig.Auth = auths
-	} else {
-		pemBytes, err := ioutil.ReadFile(privKeyPath)
-		if err != nil {
-			return err
-		}
-
-		signer, err := GetSigner(pemBytes)
-		if err != nil {
-			return err
-		}
-
-		auths := []ssh.AuthMethod{
-			ssh.PublicKeys(signer),
-		}
-		sshConfig.Auth = auths
+		sshConfig.Auth = append(sshConfig.Auth, agent)
 	}
-
 	sshConfig.SetDefaults()
-
 	conn, err := ssh.Dial("tcp", address, sshConfig)
 	if err != nil {
 		return err
@@ -135,8 +124,7 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 		err := GetConfig(existing)
 		if err != nil {
 			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") || strings.Contains(err.Error(), "unable to authenticate") {
-				//logger.Warning(err.Error())
-				logger.Debug("Waiting for Kubernetes to come up..")
+				logger.Debug("Waiting for Kubernetes to come up.. [%v]", err)
 				time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
 				continue
 			}
@@ -147,10 +135,10 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 	return fmt.Errorf("Timedout writing kubeconfig")
 }
 
-func GetSigner(pemBytes []byte) (ssh.Signer, error) {
+func getSigner(pemBytes []byte) (ssh.Signer, error) {
 	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
 	if err != nil {
-		logger.Info(err.Error())
+		logger.Debug(err.Error())
 		fmt.Print("SSH Key Passphrase [none]: ")
 		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
 		fmt.Println("")
@@ -169,7 +157,8 @@ func GetSigner(pemBytes []byte) (ssh.Signer, error) {
 }
 
 func sshAgent() ssh.AuthMethod {
-	if sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK")); err == nil {
+	sshAgent, err := net.Dial("unix", os.Getenv("SSH_AUTH_SOCK"))
+	if err == nil {
 		return ssh.PublicKeysCallback(agent.NewClient(sshAgent).Signers)
 	}
 	return nil

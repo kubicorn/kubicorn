@@ -31,9 +31,10 @@ import (
 
 type Lc struct {
 	Shared
-	InstanceType string
-	Image        string
-	ServerPool   *cluster.ServerPool
+	InstanceType     string
+	Image            string
+	ServerPool       *cluster.ServerPool
+	BootstrapScripts []string
 }
 
 const (
@@ -71,7 +72,11 @@ func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.Image = *lc.ImageId
 		actual.InstanceType = *lc.InstanceType
 		actual.CloudID = *lc.LaunchConfigurationName
+	} else {
+		actual.Image = r.ServerPool.Image
+		actual.InstanceType = r.ServerPool.Size
 	}
+	actual.BootstrapScripts = r.ServerPool.BootstrapScripts
 	r.CachedActual = actual
 	return actual, nil
 }
@@ -94,6 +99,7 @@ func (r *Lc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		},
 		InstanceType: r.ServerPool.Size,
 		Image:        r.ServerPool.Image,
+		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
 	r.CachedExpected = expected
 	return expected, nil
@@ -130,7 +136,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 		found := false
 		logger.Debug("Tag query: [%s] %s", "Name", fmt.Sprintf("%s.master", applyCluster.Name))
 		logger.Debug("Tag query: [%s] %s", "KubernetesCluster", applyCluster.Name)
-		for !found {
+		for i := 0; i < MasterIPAttempts; i++ {
 			logger.Debug("Attempting to lookup master IP for node registration..")
 			input := &ec2.DescribeInstancesInput{
 				Filters: []*ec2.Filter{
@@ -150,7 +156,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 			}
 			lr := len(output.Reservations)
 			if lr == 0 {
-				logger.Debug("Found [%d] Reservations, hanging ", lr)
+				logger.Debug("Found %d Reservations, hanging ", lr)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
@@ -208,37 +214,49 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	newResource.InstanceType = expected.(*Lc).InstanceType
 	newResource.Name = expected.(*Lc).Name
 	newResource.CloudID = expected.(*Lc).Name
+	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
 	return newResource, nil
 }
 
-func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("lc.Delete")
 	deleteResource := actual.(*Lc)
 	if deleteResource.Name == "" {
-		return fmt.Errorf("Unable to delete Launch Configuration resource without Name [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete Launch Configuration resource without Name [%s]", deleteResource.Name)
 	}
 	input := &autoscaling.DeleteLaunchConfigurationInput{
 		LaunchConfigurationName: &actual.(*Lc).Name,
 	}
 	_, err := Sdk.ASG.DeleteLaunchConfiguration(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).CloudID)
-	return nil
+
+	// Kubernetes API
+	known.KubernetesAPI.Endpoint = ""
+
+	newResource := &Lc{}
+	newResource.Name = actual.(*Lc).Name
+	newResource.Tags = actual.(*Lc).Tags
+	newResource.Image = actual.(*Lc).Image
+	newResource.InstanceType = actual.(*Lc).InstanceType
+	newResource.BootstrapScripts = actual.(*Lc).BootstrapScripts
+	return newResource, nil
 }
 
 func (r *Lc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("lc.Render")
-
 	serverPool := &cluster.ServerPool{}
 	serverPool.Image = renderResource.(*Lc).Image
 	serverPool.Size = renderResource.(*Lc).InstanceType
+	serverPool.BootstrapScripts = renderResource.(*Lc).BootstrapScripts
 	found := false
 	for i := 0; i < len(renderCluster.ServerPools); i++ {
 		if renderCluster.ServerPools[i].Name == renderResource.(*Lc).Name {
 			renderCluster.ServerPools[i].Image = renderResource.(*Lc).Image
 			renderCluster.ServerPools[i].Size = renderResource.(*Lc).InstanceType
+			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Lc).BootstrapScripts
 			found = true
 		}
 	}

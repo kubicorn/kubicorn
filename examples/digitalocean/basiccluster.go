@@ -52,7 +52,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	err = reconciler.Destroy()
+	_, err = reconciler.Destroy()
 	if err != nil {
 		panic(err.Error())
 	}

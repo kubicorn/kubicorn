@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
@@ -91,12 +92,12 @@ func RunDelete(options *DeleteOptions) error {
 		return nil
 	}
 
-	cluster, err := stateStore.GetCluster()
+	expectedCluster, err := stateStore.GetCluster()
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 
-	reconciler, err := cutil.GetReconciler(cluster)
+	reconciler, err := cutil.GetReconciler(expectedCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
 	}
@@ -107,13 +108,15 @@ func RunDelete(options *DeleteOptions) error {
 
 	donechan := make(chan bool)
 	errchan := make(chan error)
-
+	var deleteCluster *cluster.Cluster
 	go func() {
-		errchan <- reconciler.Destroy()
+		deleteCluster, err = reconciler.Destroy()
+		errchan <- err
 	}()
 
 	go func(description string, symbol string, c chan bool) {
 		if description != "" {
+			logger.Log("\n")
 			logger.Log(description)
 		}
 
@@ -134,6 +137,11 @@ func RunDelete(options *DeleteOptions) error {
 	donechan <- true
 	if err != nil {
 		return errors.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
+	}
+
+	err = stateStore.Commit(deleteCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to save state store: %v", err)
 	}
 
 	if options.Purge {

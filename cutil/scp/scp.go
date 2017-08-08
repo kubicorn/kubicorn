@@ -48,28 +48,19 @@ func (s *SecureCopier) ReadBytes(remotePath string) ([]byte, error) {
 		User:            s.RemoteUser,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
-
+	pemBytes, err := ioutil.ReadFile(s.PrivateKeyPath)
+	if err != nil {
+		return nil, err
+	}
+	signer, err := getSigner(pemBytes)
+	if err != nil {
+		return nil, err
+	}
+	sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 	agent := sshAgent()
 	if agent != nil {
-		auths := []ssh.AuthMethod{
-			agent,
-		}
-		sshConfig.Auth = auths
-	} else {
-		pemBytes, err := ioutil.ReadFile(s.PrivateKeyPath)
-		if err != nil {
-			return nil, err
-		}
-		signer, err := GetSigner(pemBytes)
-		if err != nil {
-			return nil, err
-		}
-		auths := []ssh.AuthMethod{
-			ssh.PublicKeys(signer),
-		}
-		sshConfig.Auth = auths
+		sshConfig.Auth = append(sshConfig.Auth, agent)
 	}
-
 	sshConfig.SetDefaults()
 	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%s", s.RemoteAddress, s.RemotePort), sshConfig)
 	if err != nil {
@@ -98,7 +89,7 @@ func (s *SecureCopier) Write(localPath, remotePath string) error {
 	return nil
 }
 
-func GetSigner(pemBytes []byte) (ssh.Signer, error) {
+func getSigner(pemBytes []byte) (ssh.Signer, error) {
 	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
 	if err != nil {
 		logger.Warning(err.Error())
