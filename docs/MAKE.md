@@ -7,11 +7,13 @@ Before continuing, make sure that you can use `go` command from your shell.
 
 ### Building `kubicorn`
 
+Details about the building proccess can be found in [BUILD docs](https://github.com/kris-nova/kubicorn/blob/master/docs/BUILD.md) and [INSTALL docs](https://github.com/kris-nova/kubicorn/blob/master/docs/INSTALL.md).
+
 The following `make` commands are available for building `kubicorn`:
 * `make` — parse Bootstrap scripts and create `kubicorn` executable in the `./bin` directory and the `AUTHORS` file.
 * `make compile` — create the `kubicorn` executable in the `./bin` directory.
 * `make install` — create the `kubicorn` executable in `$GOPATH/bin` directory.
-* `make build` — clean project tree and generate the `kubicorn` executables for 64-bit Linux, macOS, Windows and FreeBSD in the `./bin` directory, as well as generate the `AUTHORS` file.
+* `make build` — clean the project tree and generate the `kubicorn` executables for 64-bit Linux, macOS, Windows and FreeBSD in the `./bin` directory, as well as generate the `AUTHORS` file.
 * `make clean` — removes files from the `./bin` directory and the `bootstrap/bootstrap.go` file.
 
 #### Additional building commands
@@ -21,7 +23,6 @@ The following `make` commands are available for building `kubicorn`:
 * `make build-freebsd-amd64` — create the `kubicorn` executable for FreeBSD 64-bit in the `./bin` directory.
 * `make build-windows-amd64` — create the `kubicorn` executable for Windows 64-bit in the `./bin` directory.
 
-More about the building and installing proccess can be found in [BUILD docs](https://github.com/kris-nova/kubicorn/blob/master/docs/BUILD.md) and [INSTALL docs](https://github.com/kris-nova/kubicorn/blob/master/docs/INSTALL.md).
 
 ### Miscellaneous
 
@@ -38,11 +39,8 @@ The following commands can be used to format and verify Go code:
 
 ### Testing
 
-`make test` and `make ci` are used to run tests and E2E tests. More about testing can be found in [`test` package](https://github.com/kris-nova/kubicorn/tree/master/test).
+`make test` and `make ci` are used to run tests and E2E tests. More about testing can be found in the [`test` package](https://github.com/kris-nova/kubicorn/tree/master/test).
 
 ### `Makefile` verbose mode
 
-By default, `make` will not show which commands it runs. To see what exactly is being run, you need to set `VERBOSE` variable, such as:
-```bash
-VERBOSE=1 make
-```
+By default, `make` will not show which commands it runs. To see what exactly is being run, you need to set `VERBOSE` variable, such as `VERBOSE=1 make`.
