@@ -29,14 +29,14 @@ const (
 type Cluster struct {
 	metav1.TypeMeta
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Name          string
-	ServerPools   []*ServerPool
-	Cloud         string
-	Location      string
-	SSH           *SSH
-	Network       *Network
-	Values        *Values
-	KubernetesAPI *KubernetesAPI
+	Name              string
+	ServerPools       []*ServerPool
+	Cloud             string
+	Location          string
+	SSH               *SSH
+	Network           *Network
+	Values            *Values
+	KubernetesAPI     *KubernetesAPI
 }
 
 func NewCluster(name string) *Cluster {

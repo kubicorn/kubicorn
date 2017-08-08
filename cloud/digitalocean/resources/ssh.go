@@ -14,7 +14,7 @@
 
 package resources
 
-import (	
+import (
 	"context"
 	"fmt"
 	"github.com/digitalocean/godo"
@@ -103,8 +103,8 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		PublicKey: expected.(*SSH).PublicKeyData,
 	}
 	key, _, err := Sdk.Client.Keys.Create(context.TODO(), request)
-	if err != nil {		
-		godoErr := err.(*godo.ErrorResponse)				
+	if err != nil {
+		godoErr := err.(*godo.ErrorResponse)
 		if godoErr.Message != "SSH Key is already in use on your account" {
 			return nil, err
 		}

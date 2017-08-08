@@ -15,15 +15,15 @@
 package initapi
 
 import (
-	"golang.org/x/crypto/ssh/terminal"
-	"github.com/kris-nova/klone/pkg/local"
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"io/ioutil"
-	"strings"
 	"crypto/md5"
 	"fmt"
-	"golang.org/x/crypto/ssh"
 	"github.com/gravitational/trace"
+	"github.com/kris-nova/klone/pkg/local"
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/terminal"
+	"io/ioutil"
+	"strings"
 	"syscall"
 )
 

@@ -23,12 +23,12 @@ import (
 	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
-	"github.com/kris-nova/kubicorn/cutil/scp"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/cutil/scp"
+	"github.com/kris-nova/kubicorn/cutil/script"
 	"strconv"
 	"strings"
 	"time"
-	"github.com/kris-nova/kubicorn/cutil/script"
 )
 
 type Droplet struct {
@@ -114,7 +114,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		return applyResource, nil
 	}
 
-	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts);
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
 	if err != nil {
 		return nil, err
 	}
