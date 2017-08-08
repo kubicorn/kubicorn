@@ -16,6 +16,7 @@ package script
 
 import (
 	"fmt"
+
 	"github.com/kris-nova/kubicorn/bootstrap"
 )
 

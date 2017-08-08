@@ -16,6 +16,9 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -23,8 +26,6 @@ import (
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
-	"os"
-	"time"
 )
 
 // deleteCmd represents the delete command

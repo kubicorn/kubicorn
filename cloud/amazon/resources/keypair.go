@@ -16,12 +16,13 @@ package resources
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"strings"
 )
 
 type KeyPair struct {

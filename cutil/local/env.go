@@ -15,10 +15,11 @@
 package local
 
 import (
-	"github.com/kris-nova/kubicorn/cutil/logger"
 	"os"
 	"os/user"
 	"strings"
+
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 func Home() string {

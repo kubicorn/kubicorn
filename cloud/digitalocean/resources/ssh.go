@@ -17,12 +17,13 @@ package resources
 import (
 	"context"
 	"fmt"
+	"strconv"
+
 	"github.com/digitalocean/godo"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"strconv"
 )
 
 type SSH struct {
@@ -114,7 +115,7 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 			return nil, err
 		}
 		logger.Info("Using existing SSH Key [%s]", actual.(*SSH).Name)
-	}else {
+	} else {
 		logger.Info("Created SSH Key [%d]", key.ID)
 	}
 
