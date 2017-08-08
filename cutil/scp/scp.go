@@ -16,15 +16,16 @@ package scp
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net"
+	"os"
+	"syscall"
+
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/agent"
 	"golang.org/x/crypto/ssh/terminal"
-	"io/ioutil"
-	"net"
-	"os"
-	"syscall"
 )
 
 type SecureCopier struct {

@@ -17,6 +17,9 @@ package cmd
 import (
 	//"github.com/spf13/pflag"
 	"fmt"
+	"os"
+	"os/user"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/namer"
@@ -24,8 +27,6 @@ import (
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
-	"os"
-	"os/user"
 )
 
 var createCmd = &cobra.Command{
