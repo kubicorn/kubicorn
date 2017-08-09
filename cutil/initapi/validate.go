@@ -26,15 +26,6 @@ func validateAtLeastOneServerPool(initCluster *cluster.Cluster) error {
 	return nil
 }
 
-func validateServerPoolMinCountGreaterThan1(initCluster *cluster.Cluster) error {
-	for _, p := range initCluster.ServerPools {
-		if p.MinCount < 1 {
-			return fmt.Errorf("server pool %v in cluster %v must have a minimum count greater than 0", p.Name, initCluster.Name)
-		}
-	}
-	return nil
-}
-
 func validateServerPoolMaxCountGreaterThan1(initCluster *cluster.Cluster) error {
 	for _, p := range initCluster.ServerPools {
 		if p.MaxCount < 1 {
