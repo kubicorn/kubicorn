@@ -19,74 +19,111 @@ import (
 	"testing"
 )
 
-func TestServerPoolCountsHappy(t *testing.T) {
+func TestValidateAtLeastOneServerPoolHappy(t *testing.T) {
 	c := &cluster.Cluster{
-		Name: "c",
+		Name:        "c",
 		ServerPools: []*cluster.ServerPool{
-			{
-				Name:     "p",
-				MaxCount: 1,
-				MinCount: 1,
-			},
+			{},
 		},
 	}
-	err := serverPoolCounts(c)
+	err := validateAtLeastOneServerPool(c)
 	if err != nil {
-		t.Fatalf("error message incorrect for valid server pool counts"+
+		t.Fatalf("error message incorrect\n"+
 			"should be: nil\n"+
 			"got:       %v\n", err)
 	}
 }
 
-func TestServerPoolCountsSad(t *testing.T) {
-	tt := []struct {
-		name     string
-		cluster  *cluster.Cluster
-		expected string
-	}{
-		{"no server pools", emptyCluster(), "cluster c must have at least one server pool"},
-		{"min count of 0", badMinCount(), "server pool p in cluster c must have a minimum count greater than 0"},
-		{"min count of 0", badMaxCount(), "server pool p in cluster c must have a maximum count greater than 0"},
+func TestValidateAtLeastOneServerPoolSad(t *testing.T) {
+	c := cluster.NewCluster("c")
+	expected := "cluster c must have at least one server pool"
+	err := validateAtLeastOneServerPool(c)
+	if err == nil {
+		t.Fatalf("expected an error")
 	}
-
-	for _, tc := range tt {
-		t.Run(tc.name, func(t *testing.T) {
-			actual := serverPoolCounts(tc.cluster)
-			if actual.Error() != tc.expected {
-				t.Fatalf("error message incorrect for %v\n"+
-					"should be: %v\n"+
-					"got:       %v\n", tc.name, tc.expected, actual)
-			}
-		})
+	if err.Error() != expected {
+		t.Fatalf("error message incorrect\n"+
+			"should be: %v\n"+
+			"got:       %v\n", expected, err.Error())
 	}
 }
 
-func emptyCluster() *cluster.Cluster {
-	return cluster.NewCluster("c")
-}
-
-func badMinCount() *cluster.Cluster {
-	return &cluster.Cluster{
-		Name: "c",
+func TestValidateServerPoolMinCountGreaterThan1Happy(t *testing.T) {
+	c := &cluster.Cluster{
+		Name:        "c",
 		ServerPools: []*cluster.ServerPool{
 			{
 				Name:     "p",
-				MaxCount: 1,
+				MinCount: 1,
+			},
+		},
+	}
+	err := validateServerPoolMinCountGreaterThan1(c)
+	if err != nil {
+		t.Fatalf("error message incorrect\n"+
+			"should be: nil\n"+
+			"got:       %v\n", err)
+	}
+}
+
+func TestValidateServerPoolMinCountGreaterThan1Sad(t *testing.T) {
+	c := &cluster.Cluster{
+		Name:        "c",
+		ServerPools: []*cluster.ServerPool{
+			{
+				Name:     "p",
 				MinCount: 0,
 			},
 		},
 	}
+	expected := "server pool p in cluster c must have a minimum count greater than 0"
+	err := validateServerPoolMinCountGreaterThan1(c)
+	if err == nil {
+		t.Fatalf("expected an error")
+	}
+	if err.Error() != expected {
+		t.Fatalf("error message incorrect\n"+
+			"should be: %v\n"+
+			"got:       %v\n", expected, err.Error())
+	}
 }
 
-func badMaxCount() *cluster.Cluster {
-	return &cluster.Cluster{
-		Name: "c",
+func TestValidateServerPoolMaxCountGreaterThan1Happy(t *testing.T) {
+	c := &cluster.Cluster{
+		Name:        "c",
+		ServerPools: []*cluster.ServerPool{
+			{
+				Name:     "p",
+				MaxCount: 1,
+			},
+		},
+	}
+	err := validateServerPoolMaxCountGreaterThan1(c)
+	if err != nil {
+		t.Fatalf("error message incorrect\n"+
+			"should be: nil\n"+
+			"got:       %v\n", err)
+	}
+}
+
+func TestValidateServerPoolMaxCountGreaterThan1Sad(t *testing.T) {
+	c := &cluster.Cluster{
+		Name:        "c",
 		ServerPools: []*cluster.ServerPool{
 			{
 				Name:     "p",
 				MaxCount: 0,
-				MinCount: 1,
 			},
 		},
+	}
+	expected := "server pool p in cluster c must have a maximum count greater than 0"
+	err := validateServerPoolMaxCountGreaterThan1(c)
+	if err == nil {
+		t.Fatalf("expected an error")
+	}
+	if err.Error() != expected {
+		t.Fatalf("error message incorrect\n"+
+			"should be: %v\n"+
+			"got:       %v\n", expected, err.Error())
 	}
 }

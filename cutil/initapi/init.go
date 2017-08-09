@@ -28,7 +28,9 @@ var preProcessors = []preProcessorFunc{
 type validationFunc func(initCluster *cluster.Cluster) error
 
 var validations = []validationFunc{
-	serverPoolCounts,
+	validateAtLeastOneServerPool,
+	validateServerPoolMinCountGreaterThan1,
+	validateServerPoolMaxCountGreaterThan1,
 }
 
 func InitCluster(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
