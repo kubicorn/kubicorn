@@ -25,12 +25,28 @@ var preProcessors = []preProcessorFunc{
 	sshLoader,
 }
 
+type validationFunc func(initCluster *cluster.Cluster) error
+
+var validations = []validationFunc{
+	validateAtLeastOneServerPool,
+	validateServerPoolMinCountGreaterThan1,
+	validateServerPoolMaxCountGreaterThan1,
+}
+
 func InitCluster(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Info("Init Cluster")
 	logger.Debug("Running preprocessors")
 	for _, f := range preProcessors {
 		var err error
 		initCluster, err = f(initCluster)
+		if err != nil {
+			return nil, err
+		}
+	}
+	logger.Debug("Running validations")
+	for _, f := range validations {
+		var err error
+		err = f(initCluster)
 		if err != nil {
 			return nil, err
 		}
