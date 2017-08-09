@@ -103,7 +103,7 @@ echo "down /etc/openvpn/update-resolv-conf" >> ~/client-configs/base.conf
 
 ## Generate keys
 KEY_DIR=~/openvpn-ca/keys
-OUTPUT_DIR=/tmp
+OUTPUT_DIR=~/client-configs
 BASE_CONFIG=~/client-configs/base.conf
 
 cat ${BASE_CONFIG} \
@@ -117,3 +117,5 @@ cat ${BASE_CONFIG} \
     ${KEY_DIR}/ta.key \
     <(echo -e '</tls-auth>') \
     > ${OUTPUT_DIR}/clients.conf
+
+cp ~/client-configs/clients.conf /tmp/
