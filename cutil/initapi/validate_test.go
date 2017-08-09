@@ -15,8 +15,9 @@
 package initapi
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"testing"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
 )
 
 func TestValidateAtLeastOneServerPoolHappy(t *testing.T) {

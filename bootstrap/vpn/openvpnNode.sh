@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 set -e
 cd ~
@@ -10,25 +9,17 @@ cd ~
 # or make another shell script.
 #
 #
-TOKEN="INJECTEDTOKEN"
-MASTER="INJECTEDMASTER"
+OPENVPN_CONF="INJECTEDCONF"
 # ------------------------------------------------------------------------------------------------------------------------
 
-sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo touch /etc/apt/sources.list.d/kubernetes.list
-sudo sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
+PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
-sudo apt-get update -y
-sudo apt-get install -y \
-    socat \
-    ebtables \
-    docker.io \
-    apt-transport-https \
-    kubelet \
-    kubeadm=1.7.0-00
+# OpenVPN
 
-sudo systemctl enable docker
-sudo systemctl start docker
+apt-get update
+apt-get install -y openvpn
 
-sudo -E kubeadm reset
-sudo -E kubeadm join --token ${TOKEN} ${MASTER}
+echo -e ${OPENVPN_CONF} > /etc/openvpn/clients.conf
+
+systemctl start openvpn@clients
+systemctl enable openvpn@clients
