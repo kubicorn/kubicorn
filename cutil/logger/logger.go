@@ -16,37 +16,38 @@ package logger
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"io"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 type Logger func(format string, a ...interface{})
 
 const (
-	AlwaysLabel = "✿"
+	AlwaysLabel   = "✿"
 	CriticalLabel = "✖"
-	DebugLabel = "▶"
-	InfoLabel = "✔"
-	WarningLabel = "!"
+	DebugLabel    = "▶"
+	InfoLabel     = "✔"
+	WarningLabel  = "!"
 )
 
 var (
-	Level = 2
-	Color = true
-	Fabulous = false	
+	Level    = 2
+	Color    = true
+	Fabulous = false
 	TestMode = false
 )
 
-func extractLoggerArgs(format string, a... interface{}) ([]interface{}, io.Writer) {
+func extractLoggerArgs(format string, a ...interface{}) ([]interface{}, io.Writer) {
 	var w io.Writer = os.Stdout
 
 	n := len(a)
-	if n > 0 && IsOfTypeIOWriter(a[n - 1]) {
-		w = (a[n - 1]).(io.Writer)
-		a = a[0:n - 1]
+	if n > 0 && IsOfTypeIOWriter(a[n-1]) {
+		w = (a[n-1]).(io.Writer)
+		a = a[0 : n-1]
 	}
 
 	return a, w
