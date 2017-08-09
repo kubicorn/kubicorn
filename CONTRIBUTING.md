@@ -25,7 +25,14 @@ Please know it means that I am trying to keep our code tidy, and that your pull 
 
 As the tool continues to mature we will implement a testing harness.
 Once the harness is in place, tests will be required for all bug fixes and features.
-No exceptions. 
+No exceptions.
+
+### Licensing Header
+
+The CI build will fail if non-vendored Golang files are missing the required licensing header.
+Please use the `check-headers` make target or run scripts/check-header.sh to validate.
+
+The `update-headers` make target or scripts/headers.sh will add the necessary headers.
 
 # Twitter
 
