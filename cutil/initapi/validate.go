@@ -14,4 +14,22 @@
 
 package initapi
 
-// keep
+import (
+	"fmt"
+	"github.com/kris-nova/kubicorn/apis/cluster"
+)
+
+func serverPoolCounts(initCluster *cluster.Cluster) error {
+	if len(initCluster.ServerPools) < 1 {
+		return fmt.Errorf("cluster %v must have at least one server pool", initCluster.Name)
+	}
+	for _, p := range initCluster.ServerPools {
+		if p.MinCount < 1 {
+			return fmt.Errorf("server pool %v in cluster %v must have a minimum count greater than 0", p.Name, initCluster.Name)
+		}
+		if p.MaxCount < 1 {
+			return fmt.Errorf("server pool %v in cluster %v must have a maximum count greater than 0", p.Name, initCluster.Name)
+		}
+	}
+	return nil
+}
