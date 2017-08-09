@@ -33,7 +33,7 @@ apt-get install -y \
 systemctl enable docker
 systemctl start docker
 
-PRIVATEIP=$(ifconfig | grep -A 1 "tun0" | grep inet  | cut -d ":" -f 2 | cut -d " " -f 1)
+PRIVATEIP=$(ip addr show dev tun0 | awk '/inet / {print $2}' | cut -d"/" -f1)
 echo $PRIVATEIP > /tmp/.ip
 PUBLICIP=$(curl ifconfig.me)
 
