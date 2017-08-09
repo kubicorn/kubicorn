@@ -5,6 +5,7 @@ VERBOSE_DOCKER_BUILD="-q"
 REMOVE_IMAGE=FALSE
 SHOW_HELP=FALSE
 MAKE_COMMAND="make"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 which docker >/dev/null 2>&1 || { echo >&2 "Docker is required but it's not installed. Aborting."; exit 1; }
 
@@ -54,11 +55,11 @@ fi
 if ${VERBOSE} ; then
     echo Building container
 fi
-docker build -t gobuilder-kubicorn "$(pwd)" ${VERBOSE_DOCKER_BUILD}
+docker build -t gobuilder-kubicorn "${DIR}" ${VERBOSE_DOCKER_BUILD}
 
 if ${VERBOSE} ; then
     echo Running make script
 fi
-docker run --rm -v "/$(pwd)/.."://go/src/github.com/kris-nova/kubicorn -v "/${GOPATH}/bin"://go/bin -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn ${MAKE_COMMAND} ${VERBOSE_DOCKER_RUN}
+docker run --rm -v "/${DIR}/.."://go/src/github.com/kris-nova/kubicorn -v "/${GOPATH}/bin"://go/bin -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn ${MAKE_COMMAND} ${VERBOSE_DOCKER_RUN}
 
 read -p "Done. Press enter to continue"

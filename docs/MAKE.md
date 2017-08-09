@@ -1,5 +1,7 @@
 # Using `Makefile`
 
+Run `make help` for command line usage.
+
 ## Prerequisites
 
 To be able to build `kubicorn` using Makefile you need to have configured Go 1.8 environment, which you can set up by following the official [install tutorial](https://golang.org/doc/install).

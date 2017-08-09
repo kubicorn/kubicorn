@@ -1,5 +1,7 @@
 # Installing Kubicorn
 
+**Note**: You can always run `make help` to learn more about the `Makefile`.
+
 ## Quickstart
 
 If you have a working Golang environment the fastest way to install and run

@@ -5,9 +5,11 @@ go:
 
 jobs:
   include:
+    - stage: Check headers
+      script: make check-headers
+    - stage: Check go files
+      script: make check-code
     - stage: Compile
       script: make compile
-    - stage: Check headers
-      script: make check-header
     - stage: CI
       script: make ci

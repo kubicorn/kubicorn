@@ -1,3 +1,4 @@
+
 #!/usr/bin/env bash
 set -e
 cd ~
@@ -14,6 +15,10 @@ PORT="INJECTEDPORT"
 #
 #
 # ------------------------------------------------------------------------------------------------------------------------
+
+PRIVATEIP=$(ifconfig | grep -A 1 "tun0" | grep inet  | cut -d ":" -f 2 | cut -d " " -f 1)
+echo $PRIVATEIP > /tmp/.ip
+PUBLICIP=$(curl ifconfig.me)
 
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 touch /etc/apt/sources.list.d/kubernetes.list
@@ -33,10 +38,9 @@ apt-get install -y \
 systemctl enable docker
 systemctl start docker
 
-PRIVATEIP=$(ifconfig | grep -A 1 "tun0" | grep inet  | cut -d ":" -f 2 | cut -d " " -f 1)
+PRIVATEIP=$(ip addr show dev tun0 | awk '/inet / {print $2}' | cut -d"/" -f1)
 echo $PRIVATEIP > /tmp/.ip
 PUBLICIP=$(curl ifconfig.me)
-
 
 kubeadm reset
 kubeadm init --apiserver-bind-port ${PORT} --token ${TOKEN}  --apiserver-advertise-address ${PUBLICIP} --apiserver-cert-extra-sans ${PUBLICIP} ${PRIVATEIP}

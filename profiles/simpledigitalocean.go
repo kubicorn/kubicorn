@@ -46,7 +46,7 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 				Image:    "ubuntu-16-04-x64",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					"vpn/meshbirdMaster.sh",
+					"vpn/openvpnMaster.sh",
 					"digitalocean_k8s_ubuntu_16.04_master.sh",
 				},
 			},
@@ -57,7 +57,7 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 				Image:    "ubuntu-16-04-x64",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					"vpn/meshbirdNode.sh",
+					"vpn/openvpnNode.sh",
 					"digitalocean_k8s_ubuntu_16.04_node.sh",
 				},
 			},

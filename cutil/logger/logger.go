@@ -16,91 +16,125 @@ package logger
 
 import (
 	"fmt"
+	"io"
+	"os"
 	"strings"
 	"time"
 
 	"github.com/fatih/color"
 )
 
+type Logger func(format string, a ...interface{})
+
+const (
+	AlwaysLabel   = "✿"
+	CriticalLabel = "✖"
+	DebugLabel    = "▶"
+	InfoLabel     = "✔"
+	WarningLabel  = "!"
+)
+
 var (
 	Level    = 2
 	Color    = true
-	TestMode = false
 	Fabulous = false
+	TestMode = false
 )
 
-func Always(format string, a ...interface{}) {
-	if TestMode {
-		fmt.Printf(label(format, "✿"), a...)
-		return
+func extractLoggerArgs(format string, a ...interface{}) ([]interface{}, io.Writer) {
+	var w io.Writer = os.Stdout
+
+	n := len(a)
+	if n > 0 && IsOfTypeIOWriter(a[n-1]) {
+		w = (a[n-1]).(io.Writer)
+		a = a[0 : n-1]
 	}
-	if Fabulous {
-		fmt.Fprintf(FabulousWriter, label(format, "✿"), a...)
-	} else {
-		color.Green(label(format, "✿"), a...)
+
+	return a, w
+}
+
+func Log(format string, a ...interface{}) {
+	a, w := extractLoggerArgs(format, a...)
+	fmt.Fprintf(w, format, a...)
+}
+
+func Always(format string, a ...interface{}) {
+	a, w := extractLoggerArgs(format, a...)
+	s := fmt.Sprintf(label(format, AlwaysLabel), a...)
+
+	if !TestMode {
+		if Color {
+			w = color.Output
+			s = color.GreenString(s)
+		} else if Fabulous {
+			w = FabulousWriter
+		}
+	}
+
+	fmt.Fprintf(w, s)
+}
+
+func Critical(format string, a ...interface{}) {
+	if Level >= 1 {
+		a, w := extractLoggerArgs(format, a...)
+		s := fmt.Sprintf(label(format, CriticalLabel), a...)
+
+		if !TestMode {
+			if Color {
+				w = color.Output
+				s = color.RedString(s)
+			} else if Fabulous {
+				w = FabulousWriter
+			}
+		}
+
+		fmt.Fprintf(w, s)
 	}
 }
 
 func Info(format string, a ...interface{}) {
 	if Level >= 3 {
-		if TestMode {
-			fmt.Printf(label(format, "✔"), a...)
-			return
+		a, w := extractLoggerArgs(format, a...)
+		s := fmt.Sprintf(label(format, InfoLabel), a...)
+
+		if !TestMode {
+			if Color {
+				w = color.Output
+				s = color.CyanString(s)
+			} else if Fabulous {
+				w = FabulousWriter
+			}
 		}
-		if Fabulous {
-			fmt.Fprintf(FabulousWriter, label(format, "✔"), a...)
-		} else if Color {
-			color.Cyan(label(format, "✔"), a...)
-		} else {
-			fmt.Printf(label(format, "✔"), a...)
-		}
+
+		fmt.Fprintf(w, s)
 	}
 }
 
 func Debug(format string, a ...interface{}) {
 	if Level >= 4 {
-		if TestMode {
-			fmt.Printf(label(format, "▶"), a...)
-			return
-		}
-		fmt.Printf(label(format, "▶"), a...)
+		a, w := extractLoggerArgs(format, a...)
+		s := fmt.Sprintf(label(format, DebugLabel), a...)
+
+		fmt.Fprintf(w, s)
 	}
 }
 
 func Warning(format string, a ...interface{}) {
 	if Level >= 2 {
-		if TestMode {
-			fmt.Printf(label(format, "!"), a...)
-			return
-		}
-		if Fabulous {
-			fmt.Fprintf(FabulousWriter, label(format, "!"), a...)
-		} else if Color {
-			color.Green(label(format, "!"), a...)
-		} else {
-			fmt.Printf(label(format, "!"), a...)
-		}
-	}
-}
+		a, w := extractLoggerArgs(format, a...)
+		s := fmt.Sprintf(label(format, WarningLabel), a...)
 
-func Critical(format string, a ...interface{}) {
-	if Level >= 1 {
-		if TestMode {
-			fmt.Printf(label(format, "✖"), a...)
-			return
+		if !TestMode {
+			if Color {
+				w = color.Output
+				s = color.GreenString(s)
+			} else if Fabulous {
+				w = FabulousWriter
+			}
 		}
-		if Fabulous {
-			fmt.Fprintf(FabulousWriter, label(format, "✖"), a...)
-		} else if Color {
-			color.Red(label(format, "✖"), a...)
-		} else {
-			fmt.Printf(label(format, "✖"), a...)
-		}
-	}
-}
 
-func Log(format string, a ...interface{}) {
-	fmt.Printf(format, a...)
+		fmt.Fprintf(w, s)
+	}
 }
 
 func label(format, label string) string {

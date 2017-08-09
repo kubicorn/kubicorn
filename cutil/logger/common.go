@@ -12,26 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package initapi
+package logger
 
 import (
-	"fmt"
-
-	"github.com/kris-nova/kubicorn/apis/cluster"
+	"io"
+	"reflect"
 )
 
-func validateAtLeastOneServerPool(initCluster *cluster.Cluster) error {
-	if len(initCluster.ServerPools) < 1 {
-		return fmt.Errorf("cluster %v must have at least one server pool", initCluster.Name)
+func IsOfTypeIOWriter(a interface{}) bool {
+	if a == nil {
+		return false
 	}
-	return nil
-}
 
-func validateServerPoolMaxCountGreaterThan1(initCluster *cluster.Cluster) error {
-	for _, p := range initCluster.ServerPools {
-		if p.MaxCount < 1 {
-			return fmt.Errorf("server pool %v in cluster %v must have a maximum count greater than 0", p.Name, initCluster.Name)
-		}
-	}
-	return nil
+	writerType := reflect.TypeOf((*io.Writer)(nil)).Elem()
+	return reflect.TypeOf(a).Implements(writerType)
 }
