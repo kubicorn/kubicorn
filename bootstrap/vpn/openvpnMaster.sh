@@ -64,6 +64,10 @@ sed -i -e "/cipher AES-128-CBC/a auth SHA256" /etc/openvpn/${OPENVPN_KEYNAME}.co
 sed -i -e "s/\;user nobody.*/user nobody/" /etc/openvpn/${OPENVPN_KEYNAME}.conf
 sed -i -e "s/\;group nogroup.*/group nogroup/" /etc/openvpn/${OPENVPN_KEYNAME}.conf
 
+### TODO(xmudrii): find way to generate new cert for every client
+### Enable duplicate certificates
+sed -i -e "s/\;duplicate-cn.*/duplicate-cn/" /etc/openvpn/${OPENVPN_KEYNAME}.conf
+
 ## Enable IP forwarding
 sed -i -e "s/\#net.ipv4.ip_forward.*/net.ipv4.ip_forward=1/" /etc/sysctl.conf
 
