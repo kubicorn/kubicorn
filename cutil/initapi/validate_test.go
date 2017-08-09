@@ -48,46 +48,6 @@ func TestValidateAtLeastOneServerPoolSad(t *testing.T) {
 	}
 }
 
-func TestValidateServerPoolMinCountGreaterThan1Happy(t *testing.T) {
-	c := &cluster.Cluster{
-		Name: "c",
-		ServerPools: []*cluster.ServerPool{
-			{
-				Name:     "p",
-				MinCount: 1,
-			},
-		},
-	}
-	err := validateServerPoolMinCountGreaterThan1(c)
-	if err != nil {
-		t.Fatalf("error message incorrect\n"+
-			"should be: nil\n"+
-			"got:       %v\n", err)
-	}
-}
-
-func TestValidateServerPoolMinCountGreaterThan1Sad(t *testing.T) {
-	c := &cluster.Cluster{
-		Name: "c",
-		ServerPools: []*cluster.ServerPool{
-			{
-				Name:     "p",
-				MinCount: 0,
-			},
-		},
-	}
-	expected := "server pool p in cluster c must have a minimum count greater than 0"
-	err := validateServerPoolMinCountGreaterThan1(c)
-	if err == nil {
-		t.Fatalf("expected an error")
-	}
-	if err.Error() != expected {
-		t.Fatalf("error message incorrect\n"+
-			"should be: %v\n"+
-			"got:       %v\n", expected, err.Error())
-	}
-}
-
 func TestValidateServerPoolMaxCountGreaterThan1Happy(t *testing.T) {
 	c := &cluster.Cluster{
 		Name: "c",
