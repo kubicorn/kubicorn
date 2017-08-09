@@ -9,9 +9,7 @@ cd ~
 # or make another shell script.
 #
 #
-read -r -d '' OPENVPN_CONF <<EOF
-INJECTEDCONF
-EOF
+OPENVPN_CONF="INJECTEDCONF"
 # ------------------------------------------------------------------------------------------------------------------------
 
 PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
@@ -21,7 +19,7 @@ PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/a
 apt-get update
 apt-get install -y openvpn
 
-echo ${OPENVPN_CONF} > /etc/openvpn/clients.conf
+echo -e ${OPENVPN_CONF} > /etc/openvpn/clients.conf
 
 systemctl start openvpn@clients
 systemctl enable openvpn@clients

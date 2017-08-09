@@ -44,8 +44,8 @@ type Droplet struct {
 }
 
 const (
-	MasterIPAttempts               = 40
-	MasterIPSleepSecondsPerAttempt = 3
+	MasterIPAttempts               = 100
+	MasterIPSleepSecondsPerAttempt = 5
 )
 
 func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -162,6 +162,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
 
+			logger.Info("Setting up VPN on Droplets... This could a little bit longer...")
 			pubPath := local.Expand(applyCluster.SSH.PublicKeyPath)
 			privPath := strings.Replace(pubPath, ".pub", "", 1)
 			scp := scp.NewSecureCopier(applyCluster.SSH.User, masterIPPublic, "22", privPath)
@@ -172,15 +173,16 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 				continue
 			}
 			masterVpnIPStr := strings.Replace(string(masterVpnIP), "\n", "", -1)
-			openvpnConfig, err := scp.ReadBytes("/tmp/clients.ovpn")
+			openvpnConfig, err := scp.ReadBytes("/tmp/clients.conf")
 			if err != nil {
 				logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
+			openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
 			found = true
 			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, applyCluster.KubernetesAPI.Port)
-			applyCluster.Values.ItemMap["INJECTEDMESHKEY"] = fmt.Sprintf("%s", openvpnConfig)
+			applyCluster.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
 			break
 		}
 		if !found {
