@@ -46,6 +46,8 @@ type Droplet struct {
 const (
 	MasterIPAttempts               = 100
 	MasterIPSleepSecondsPerAttempt = 5
+	DeleteAttempts                 = 25
+	DeleteSleepSecondsPerAttempt   = 3
 )
 
 func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -253,14 +255,28 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 		return nil, err
 	}
 	if len(droplets) != actual.(*Droplet).Count {
-		logger.Info("Droplet count mis-match, trying query again")
-		time.Sleep(5 * time.Second)
-		droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
-		if err != nil {
-			return nil, err
+		for i := 0; i < DeleteAttempts; i++ {
+			logger.Info("Droplet count mis-match, trying query again")
+			time.Sleep(5 * time.Second)
+			droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
+			if err != nil {
+				return nil, err
+			}
+			if len(droplets) == actual.(*Droplet).Count {
+				break
+			}
 		}
 	}
+
 	for _, droplet := range droplets {
+		for i := 0; i < DeleteAttempts; i++ {
+			if droplet.Status == "new" {
+				logger.Debug("Waiting for Droplet creation to finish [%d]...", droplet.ID)
+				time.Sleep(DeleteSleepSecondsPerAttempt * time.Second)
+			} else {
+				break
+			}
+		}
 		_, err = Sdk.Client.Droplets.Delete(context.TODO(), droplet.ID)
 		if err != nil {
 			return nil, err
