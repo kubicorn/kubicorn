@@ -21,7 +21,7 @@ import (
 
 func TestValidateAtLeastOneServerPoolHappy(t *testing.T) {
 	c := &cluster.Cluster{
-		Name:        "c",
+		Name: "c",
 		ServerPools: []*cluster.ServerPool{
 			{},
 		},
@@ -50,7 +50,7 @@ func TestValidateAtLeastOneServerPoolSad(t *testing.T) {
 
 func TestValidateServerPoolMinCountGreaterThan1Happy(t *testing.T) {
 	c := &cluster.Cluster{
-		Name:        "c",
+		Name: "c",
 		ServerPools: []*cluster.ServerPool{
 			{
 				Name:     "p",
@@ -68,7 +68,7 @@ func TestValidateServerPoolMinCountGreaterThan1Happy(t *testing.T) {
 
 func TestValidateServerPoolMinCountGreaterThan1Sad(t *testing.T) {
 	c := &cluster.Cluster{
-		Name:        "c",
+		Name: "c",
 		ServerPools: []*cluster.ServerPool{
 			{
 				Name:     "p",
@@ -90,7 +90,7 @@ func TestValidateServerPoolMinCountGreaterThan1Sad(t *testing.T) {
 
 func TestValidateServerPoolMaxCountGreaterThan1Happy(t *testing.T) {
 	c := &cluster.Cluster{
-		Name:        "c",
+		Name: "c",
 		ServerPools: []*cluster.ServerPool{
 			{
 				Name:     "p",
@@ -108,7 +108,7 @@ func TestValidateServerPoolMaxCountGreaterThan1Happy(t *testing.T) {
 
 func TestValidateServerPoolMaxCountGreaterThan1Sad(t *testing.T) {
 	c := &cluster.Cluster{
-		Name:        "c",
+		Name: "c",
 		ServerPools: []*cluster.ServerPool{
 			{
 				Name:     "p",
