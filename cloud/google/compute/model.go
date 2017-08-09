@@ -12,29 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cutil
+package compute
 
 import (
-	"fmt"
-
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/amazon"
-	"github.com/kris-nova/kubicorn/cloud/digitalocean"
-	"github.com/kris-nova/kubicorn/cloud/google/compute"
+	"github.com/kris-nova/kubicorn/cloud/google/compute/resources"
 )
 
-// GetReconciler gets the correct Reconciler for the cloud provider currenty used.
-func GetReconciler(c *cluster.Cluster) (cloud.Reconciler, error) {
-	switch c.Cloud {
-	case cluster.CloudAmazon:
-		return amazon.NewReconciler(c), nil
-	case cluster.CloudDigitalOcean:
-		return digitalocean.NewReconciler(c), nil
-	case cluster.CloudGoogle:
-		return compute.NewReconciler(c), nil
-	default:
-		return nil, fmt.Errorf("Invalid cloud type: %s", c.Cloud)
+// ClusterModel Creates and adds Google compute instances to server pools.
+func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
+	r := make(map[int]cloud.Resource)
+	i := 0
+
+	for _, serverPool := range known.ServerPools {
+		// ---- [Engine] ----
+		r[i] = &resources.Instance{
+			Shared: resources.Shared{
+				Name: serverPool.Name,
+			},
+			ServerPool: serverPool,
+		}
+		i++
 	}
 
+	return r
 }

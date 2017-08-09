@@ -47,6 +47,7 @@ After a model is defined and configured properly, the user can then apply the mo
 	},
 }
 
+// CreateOptions represents the options and profile specified by the user running the create command.
 type CreateOptions struct {
 	Options
 	Profile string
@@ -74,8 +75,10 @@ var alias = map[string]profileFunc{
 	"do":           profiles.NewSimpleDigitalOceanCluster,
 	"digitalocean": profiles.NewSimpleDigitalOceanCluster,
 	"do-centos":    profiles.CentosDigitalOceanCluster,
+	"google":       profiles.NewSimpleGoogleComputeCluster,
 }
 
+// RunCreate is the starting point when a user runs the create command.
 func RunCreate(options *CreateOptions) error {
 
 	// Ensure we have a name

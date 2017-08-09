@@ -18,6 +18,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 )
 
+// Reconciler interface to specify methods needed by Kubicorn for clusters.
 type Reconciler interface {
 	Init() error
 	GetActual() (*cluster.Cluster, error)
@@ -26,6 +27,7 @@ type Reconciler interface {
 	Destroy() (*cluster.Cluster, error)
 }
 
+// Resource interface to specify methods need by Kubicorn for resources.
 type Resource interface {
 	Actual(known *cluster.Cluster) (Resource, error)
 	Expected(known *cluster.Cluster) (Resource, error)

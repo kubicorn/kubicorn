@@ -21,15 +21,15 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
-// CentosDigitalOceanCluster creates a basic CentOS DigitalOcean cluster.
-func CentosDigitalOceanCluster(name string) *cluster.Cluster {
+// NewSimpleGoogleComputeCluster creates a basic Ubuntu Google Compute cluster.
+func NewSimpleGoogleComputeCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
-		Cloud:    cluster.CloudDigitalOcean,
-		Location: "sfo2",
+		Cloud:    cluster.CloudGoogle,
+		Location: "us-central1-a",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "root",
+			User:          "ubuntu",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
@@ -44,22 +44,20 @@ func CentosDigitalOceanCluster(name string) *cluster.Cluster {
 				Type:     cluster.ServerPoolTypeMaster,
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
-				Image:    "centos-7-x64",
+				Image:    "ubuntu-1604-xenial-v20170811",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					"vpn/openvpnMaster-centos.sh",
-					"digitalocean_k8s_centos_7_master.sh",
+					"google_compute_k8s_ubuntu_16.04_master.sh",
 				},
 			},
 			{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
-				MaxCount: 1,
-				Image:    "centos-7-x64",
+				MaxCount: 2,
+				Image:    "ubuntu-1604-xenial-v20170811",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					"vpn/openvpnNode-centos.sh",
-					"digitalocean_k8s_centos_7_node.sh",
+					"google_compute_k8s_ubuntu_16.04_node.sh",
 				},
 			},
 		},

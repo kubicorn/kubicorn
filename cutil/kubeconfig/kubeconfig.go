@@ -118,7 +118,9 @@ func GetConfig(existing *cluster.Cluster) error {
 }
 
 const (
-	RetryAttempts     = 150
+	// RetryAttempts specifies the amount of retries are allowed when getting a file from a server.
+	RetryAttempts = 150
+	// RetrySleepSeconds specifies the time to sleep after a failed attempt to get a file form a server.
 	RetrySleepSeconds = 5
 )
 
@@ -126,7 +128,7 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 	for i := 0; i <= RetryAttempts; i++ {
 		err := GetConfig(existing)
 		if err != nil {
-			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") || strings.Contains(err.Error(), "unable to authenticate") {
+			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") || strings.Contains(err.Error(), "unable to authenticate") || strings.Contains(err.Error(), "target machine actively refused") || strings.Contains(err.Error(), "did not properly respond after a period of time") {
 				logger.Debug("Waiting for Kubernetes to come up.. [%v]", err)
 				time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
 				continue

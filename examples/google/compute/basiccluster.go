@@ -12,24 +12,61 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package profiles
+package main
 
 import (
 	"fmt"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/cutil"
+	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
-// CentosDigitalOceanCluster creates a basic CentOS DigitalOcean cluster.
-func CentosDigitalOceanCluster(name string) *cluster.Cluster {
+func main() {
+	logger.Level = 4
+	cluster := getCluster("intense-crow-158609")
+	cluster, err := initapi.InitCluster(cluster)
+	if err != nil {
+		panic(err.Error())
+	}
+	reconciler, err := cutil.GetReconciler(cluster)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	err = reconciler.Init()
+	if err != nil {
+		panic(err.Error())
+	}
+	expected, err := reconciler.GetExpected()
+	if err != nil {
+		panic(err.Error())
+	}
+	actual, err := reconciler.GetActual()
+	if err != nil {
+		panic(err.Error())
+	}
+	created, err := reconciler.Reconcile(actual, expected)
+	logger.Info("Created cluster [%s]", created.Name)
+	if err != nil {
+		panic(err.Error())
+	}
+	_, err = reconciler.Destroy()
+	if err != nil {
+		panic(err.Error())
+	}
+}
+
+func getCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
-		Cloud:    cluster.CloudDigitalOcean,
-		Location: "sfo2",
+		Cloud:    cluster.CloudGoogle,
+		Location: "us-central1-a",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "root",
+			User:          "ubuntu",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
@@ -44,22 +81,20 @@ func CentosDigitalOceanCluster(name string) *cluster.Cluster {
 				Type:     cluster.ServerPoolTypeMaster,
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
-				Image:    "centos-7-x64",
+				Image:    "ubuntu-1604-xenial-v20170811",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					"vpn/openvpnMaster-centos.sh",
-					"digitalocean_k8s_centos_7_master.sh",
+					"google_compute_k8s_ubuntu_16.04_master.sh",
 				},
 			},
 			{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
-				MaxCount: 1,
-				Image:    "centos-7-x64",
+				MaxCount: 2,
+				Image:    "ubuntu-1604-xenial-v20170811",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					"vpn/openvpnNode-centos.sh",
-					"digitalocean_k8s_centos_7_node.sh",
+					"google_compute_k8s_ubuntu_16.04_node.sh",
 				},
 			},
 		},
