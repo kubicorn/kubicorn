@@ -132,12 +132,12 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 		}
 		appliedResource, err := resource.Apply(actualResource, expectedResource, newCluster)
 		if err != nil {
-			/*logger.Critical("Error during apply! Attempting cleaning: %v", err)
+			logger.Critical("Error during apply! Attempting cleaning: %v", err)
 			err = cleanUp(newCluster, i)
 			if err != nil {
 				logger.Critical("Failure during cleanup! Abandoned resources!")
 				return nil, err
-			}*/
+			}
 			return nil, nil
 		}
 		newCluster, err = resource.Render(appliedResource, newCluster)
