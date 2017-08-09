@@ -9,13 +9,13 @@ cd ~
 # or make another shell script.
 #
 #
-OPENVPN_KEYCOUNTRY="RS"
-OPENVPN_KEYPROVINCE="BG"
-OPENVPN_KEYCITY="Belgrade"
-OPENVPN_KEYORG="Kubicorn"
-OPENVPN_KEYEMAIL="root@localhost"
-OPENVPN_KEYOU="Kubicorn"
-OPENVPN_KEYNAME="server"
+OPENVPN_KEYCOUNTRY="INJECTEDCOUNTRY"
+OPENVPN_KEYPROVINCE="INJECTEDPROVINCE"
+OPENVPN_KEYCITY="INJECTEDCITY"
+OPENVPN_KEYORG="INJECTEDORG"
+OPENVPN_KEYEMAIL="INJECTEDEMAIL"
+OPENVPN_KEYOU="INJECTEDOU"
+OPENVPN_KEYNAME="INJECTEDNAME"
 # ------------------------------------------------------------------------------------------------------------------------
 
 PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
@@ -103,7 +103,7 @@ echo "down /etc/openvpn/update-resolv-conf" >> ~/client-configs/base.conf
 
 ## Generate keys
 KEY_DIR=~/openvpn-ca/keys
-OUTPUT_DIR=~/client-configs
+OUTPUT_DIR=/tmp
 BASE_CONFIG=~/client-configs/base.conf
 
 cat ${BASE_CONFIG} \
@@ -118,4 +118,3 @@ cat ${BASE_CONFIG} \
     <(echo -e '</tls-auth>') \
     > ${OUTPUT_DIR}/clients.conf
 
-cp ~/client-configs/clients.conf /tmp/
