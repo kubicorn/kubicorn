@@ -9,13 +9,13 @@ cd ~
 # or make another shell script.
 #
 #
-OPENVPN_KEYCOUNTRY="INJECTEDCOUNTRY"
-OPENVPN_KEYPROVINCE="INJECTEDPROVINCE"
-OPENVPN_KEYCITY="INJECTEDCITY"
-OPENVPN_KEYORG="INJECTEDORG"
-OPENVPN_KEYEMAIL="INJECTEDEMAIL"
-OPENVPN_KEYOU="INJECTEDOU"
-OPENVPN_KEYNAME="INJECTEDNAME"
+OPENVPN_KEYCOUNTRY="US"
+OPENVPN_KEYPROVINCE="CA"
+OPENVPN_KEYCITY="SanFrancisco"
+OPENVPN_KEYORG="Kubicorn"
+OPENVPN_KEYEMAIL="root@localhost"
+OPENVPN_KEYOU="Kubicorn"
+OPENVPN_KEYNAME="server"
 # ------------------------------------------------------------------------------------------------------------------------
 
 PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
