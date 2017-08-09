@@ -24,7 +24,7 @@ import (
 
 const (
 	format = "%v, %v, %v, all eyes on me!"
-	exp = `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.* \[%s\]  \d, \d, \d, all eyes on me!`
+	exp    = `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.* \[%s\]  \d, \d, \d, all eyes on me!`
 )
 
 var (
@@ -32,7 +32,7 @@ var (
 )
 
 func captureLoggerOutput(l Logger, format string, a []interface{}) string {
-    b := new(bytes.Buffer)
+	b := new(bytes.Buffer)
 	l(format, append(a, b)...)
 	return b.String()
 }

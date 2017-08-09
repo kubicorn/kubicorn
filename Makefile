@@ -10,8 +10,6 @@ GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
 
-GOIMPORTS := $(shell command -v goimports 2> /dev/null)
-
 default: authorsfile bindata compile ## Parse Bootstrap scripts and create kubicorn executable in the ./bin directory and the AUTHORS file.
 
 all: default install
@@ -36,11 +34,7 @@ clean: ## Clean the project tree from binary files, and any bootstrap files.
 	rm -rf bin/*
 	rm -rf bootstrap/bootstrap.go
 
-gofmt:
-ifndef GOIMPORTS
-	echo "Installing goimports..."
-	go get golang.org/x/tools/cmd/goimports
-endif
+gofmt: install-tools
 	echo "Fixing format of go files..."; \
 	for package in $(FMT_PKGS); \
 	do \
@@ -78,8 +72,7 @@ shell: ## Exec into a container with the kubicorn source mounted inside
 	-v ${PWD}:/go/src/github.com/kris-nova/kubicorn \
 	--rm ${SHELL_IMAGE} /bin/bash
 
-lint: ## check for style mistakes all Go files using golint
-	which golint > /dev/null || go get -u github.com/golang/lint/golint
+lint: install-tools ## check for style mistakes all Go files using golint
 	golint $(PKGS)
 
 # versioning
@@ -96,11 +89,13 @@ bump-patch:
 test: ## Run the INTEGRATION TESTS. This will create cloud resources and potentially cost money.
 	go test -timeout 20m -v $(PKGS)
 
-
 .PHONY: ci
 ci: ## Run the CI TESTS. This will never cost money, and will never communicate with a cloud API.
 	go test -timeout 20m -v $(CI_PKGS)
 
+.PHONY: check-code
+check-code: install-tools ## Run code checks	
+	PKGS="${FMT_PKGS}" GOFMT="gofmt" GOLINT="golint" ./scripts/ci-checks.sh
 
 vet: ## apply go vet to all the Go files
 	@go vet $(PKGS)
@@ -120,8 +115,18 @@ apimachinery:
 	${GOPATH}/bin/defaulter-gen --input-dirs github.com/kris-nova/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.defaults
 	${GOPATH}/bin/defaulter-gen --input-dirs github.com/kris-nova/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.defaults
 
+.PHONY: install-tools
+install-tools:
+	GOIMPORTS_CMD=$(shell command -v goimports 2> /dev/null)
+ifndef GOIMPORTS_CMD
+	go get golang.org/x/tools/cmd/goimports
+endif
+
+	GOLINT_CMD=$(shell command -v golint 2> /dev/null)
+ifndef GOLINT_CMD
+	$(go get github.com/golang/lint/golint)
+endif
 
 .PHONY: help
 help:  ## Show help messages for make targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[40m%-30s\033[0m %s\n", $$1, $$2}'
-
