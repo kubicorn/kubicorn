@@ -24,18 +24,12 @@ import (
 
 const (
 	format = "%v, %v, %v, all eyes on me!"
-	exp    = `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.* \[%s\]  \d, \d, \d, all eyes on me!`
+	formatExp    = `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.* \[%s\]  \d, \d, \d, all eyes on me!`
 )
 
 var (
 	a = []interface{}{1, 2, 3}
 )
-
-func captureLoggerOutput(l Logger, format string, a []interface{}) string {
-	b := new(bytes.Buffer)
-	l(format, append(a, b)...)
-	return b.String()
-}
 
 func TestMain(m *testing.M) {
 	TestMode = true
@@ -58,7 +52,7 @@ func TestLog(t *testing.T) {
 }
 
 func TestAlways(t *testing.T) {
-	e, err := regexp.Compile(fmt.Sprintf(exp, AlwaysLabel))
+	e, err := regexp.Compile(fmt.Sprintf(formatExp, AlwaysLabel))
 	g := captureLoggerOutput(Always, format, a)
 
 	if err != nil {
@@ -66,14 +60,14 @@ func TestAlways(t *testing.T) {
 	}
 
 	if !e.MatchString(g) {
-		t.Fatalf("Always should produce a pattern'%v' but produces: %v", e.String(), g)
+		t.Fatalf("Always should produce a pattern '%v' but produces: %v", e.String(), g)
 	}
 }
 
 func TestCritical(t *testing.T) {
 	Level = 1
 
-	e, err := regexp.Compile(fmt.Sprintf(exp, CriticalLabel))
+	e, err := regexp.Compile(fmt.Sprintf(formatExp, CriticalLabel))
 	g := captureLoggerOutput(Critical, format, a)
 
 	if err != nil {
@@ -81,14 +75,14 @@ func TestCritical(t *testing.T) {
 	}
 
 	if !e.MatchString(g) {
-		t.Fatalf("Critical should produce a pattern'%v' but produces: %v", e.String(), g)
+		t.Fatalf("Critical should produce a pattern '%v' but produces: %v", e.String(), g)
 	}
 }
 
 func TestInfo(t *testing.T) {
 	Level = 3
 
-	e, err := regexp.Compile(fmt.Sprintf(exp, InfoLabel))
+	e, err := regexp.Compile(fmt.Sprintf(formatExp, InfoLabel))
 	g := captureLoggerOutput(Info, format, a)
 
 	if err != nil {
@@ -96,14 +90,14 @@ func TestInfo(t *testing.T) {
 	}
 
 	if !e.MatchString(g) {
-		t.Fatalf("Info should produce a pattern'%v' but produces: %v", e.String(), g)
+		t.Fatalf("Info should produce a pattern '%v' but produces: %v", e.String(), g)
 	}
 }
 
 func TestDebug(t *testing.T) {
 	Level = 4
 
-	e, err := regexp.Compile(fmt.Sprintf(exp, DebugLabel))
+	e, err := regexp.Compile(fmt.Sprintf(formatExp, DebugLabel))
 	g := captureLoggerOutput(Debug, format, a)
 
 	if err != nil {
@@ -111,14 +105,14 @@ func TestDebug(t *testing.T) {
 	}
 
 	if !e.MatchString(g) {
-		t.Fatalf("Info should produce a pattern'%v' but produces: %v", e.String(), g)
+		t.Fatalf("Info should produce a pattern '%v' but produces: %v", e.String(), g)
 	}
 }
 
 func TestWarning(t *testing.T) {
 	Level = 2
 
-	e, err := regexp.Compile(fmt.Sprintf(exp, WarningLabel))
+	e, err := regexp.Compile(fmt.Sprintf(formatExp, WarningLabel))
 	g := captureLoggerOutput(Warning, format, a)
 
 	if err != nil {
@@ -126,6 +120,12 @@ func TestWarning(t *testing.T) {
 	}
 
 	if !e.MatchString(g) {
-		t.Fatalf("Info should produce a pattern'%v' but produces: %v", e.String(), g)
+		t.Fatalf("Info should produce a pattern '%v' but produces: %v", e.String(), g)
 	}
+}
+
+func captureLoggerOutput(l Logger, format string, a []interface{}) string {
+	b := new(bytes.Buffer)
+	l(format, append(a, b)...)
+	return b.String()
 }

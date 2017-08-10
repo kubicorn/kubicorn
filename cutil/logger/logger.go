@@ -41,18 +41,6 @@ var (
 	TestMode = false
 )
 
-func extractLoggerArgs(format string, a ...interface{}) ([]interface{}, io.Writer) {
-	var w io.Writer = os.Stdout
-
-	n := len(a)
-	if n > 0 && IsOfTypeIOWriter(a[n-1]) {
-		w = (a[n-1]).(io.Writer)
-		a = a[0 : n-1]
-	}
-
-	return a, w
-}
-
 func Log(format string, a ...interface{}) {
 	a, w := extractLoggerArgs(format, a...)
 	fmt.Fprintf(w, format, a...)
@@ -135,6 +123,20 @@ func Warning(format string, a ...interface{}) {
 
 		fmt.Fprintf(w, s)
 	}
+}
+
+func extractLoggerArgs(format string, a ...interface{}) ([]interface{}, io.Writer) {
+	var w io.Writer = os.Stdout
+
+	if n := len(a); n > 0 {
+		// extract an io.Writer at the end of a
+		if value, ok := a[n-1].(io.Writer); ok {
+			w = value
+			a = a[0 : n-1]
+		}
+	}
+
+	return a, w
 }
 
 func label(format, label string) string {
