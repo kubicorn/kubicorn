@@ -53,13 +53,13 @@ func RunAnnotated(task Task, description string, symbol string, options ...inter
 	logger_(description)
 	logActivity(symbol, logger_, ticker, donechan)
 
-	err := <- errchan
+	err := <-errchan
 	donechan <- true
 
 	return err
 }
 
-// logs a sequence of symbols (one for each tick) indicating task activity until a quit is received 
+// logs a sequence of symbols (one for each tick) indicating task activity until a quit is received
 func logActivity(symbol string, logger logger.Logger, ticker *time.Ticker, quit <-chan bool) {
 	go func() {
 		for {

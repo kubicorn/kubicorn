@@ -23,8 +23,8 @@ import (
 )
 
 const (
-	format = "%v, %v, %v, all eyes on me!"
-	formatExp    = `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.* \[%s\]  \d, \d, \d, all eyes on me!`
+	format    = "%v, %v, %v, all eyes on me!"
+	formatExp = `^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.* \[%s\]  \d, \d, \d, all eyes on me!`
 )
 
 var (

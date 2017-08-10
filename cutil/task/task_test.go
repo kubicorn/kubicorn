@@ -81,7 +81,7 @@ func byteBufferLogger(l logger.Logger, b *bytes.Buffer) logger.Logger {
 
 func calcTickerTickBounds(workerDuration time.Duration, tickerDuration time.Duration) tickerTickBounds {
 	n := (float64)(workerDuration) / (float64)(tickerDuration)
-	return tickerTickBounds {
+	return tickerTickBounds{
 		lower: (int)(math.Floor(n)),
 		upper: (int)(math.Ceil(n)),
 	}
