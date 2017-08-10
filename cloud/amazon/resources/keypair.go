@@ -16,6 +16,8 @@ package resources
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -50,8 +52,14 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 			KeyNames: []*string{&known.SSH.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeKeyPairs(input)
-		if err != nil {
-			return nil, err
+		if err == nil {
+			lsn := len(output.KeyPairs)
+			if lsn != 1 {
+				return nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
+			}
+			keypair := output.KeyPairs[0]
+			actual.CloudID = *keypair.KeyName
+			actual.PublicKeyFingerprint = *keypair.KeyFingerprint
 		}
 		lsn := len(output.KeyPairs)
 		if lsn != 1 {
@@ -61,6 +69,9 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.CloudID = *keypair.KeyName
 		actual.PublicKeyFingerprint = *keypair.KeyFingerprint
 	}
+	actual.PublicKeyPath = known.SSH.PublicKeyPath
+	actual.PublicKeyData = string(known.SSH.PublicKeyData)
+	actual.PublicKeyFingerprint = known.SSH.PublicKeyFingerprint
 	actual.User = known.SSH.User
 	r.CachedActual = actual
 	return actual, nil
@@ -103,37 +114,47 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		KeyName:           &expected.(*KeyPair).Name,
 		PublicKeyMaterial: []byte(expected.(*KeyPair).PublicKeyData),
 	}
+	newResource := &KeyPair{}
 	output, err := Sdk.Ec2.ImportKeyPair(input)
 	if err != nil {
-		return nil, err
+		if !strings.Contains(err.Error(), "InvalidKeyPair.Duplicate") {
+			return nil, err
+		}
+		logger.Info("Using existing KeyPair [%s]", expected.(*KeyPair).Name)
+	} else {
+		logger.Info("Created KeyPair [%s]", *output.KeyName)
+		newResource.PublicKeyFingerprint = *output.KeyFingerprint
 	}
-	logger.Info("Created KeyPair [%s]", *output.KeyName)
-
-	newResource := &KeyPair{}
+	newResource.CloudID = expected.(*KeyPair).Name
 	newResource.PublicKeyData = expected.(*KeyPair).PublicKeyData
 	newResource.PublicKeyPath = expected.(*KeyPair).PublicKeyPath
 	newResource.User = expected.(*KeyPair).User
-	newResource.PublicKeyFingerprint = *output.KeyFingerprint
-	newResource.CloudID = expected.(*KeyPair).Name
 	newResource.Name = expected.(*KeyPair).Name
 	return newResource, nil
 }
-func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("keypair.Delete")
-	deleteResource := actual.(*KeyPair)
-	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete keypair resource without ID [%s]", deleteResource.Name)
+	force := false
+	if force {
+		deleteResource := actual.(*KeyPair)
+		if deleteResource.CloudID == "" {
+			return nil, fmt.Errorf("Unable to delete keypair resource without ID [%s]", deleteResource.Name)
+		}
+		input := &ec2.DeleteKeyPairInput{
+			KeyName: &actual.(*KeyPair).Name,
+		}
+		_, err := Sdk.Ec2.DeleteKeyPair(input)
+		if err != nil {
+			return nil, err
+		}
+		logger.Info("Deleted keypair [%s]", actual.(*KeyPair).CloudID)
 	}
-
-	input := &ec2.DeleteKeyPairInput{
-		KeyName: &actual.(*KeyPair).Name,
-	}
-	_, err := Sdk.Ec2.DeleteKeyPair(input)
-	if err != nil {
-		return err
-	}
-	logger.Info("Deleted keypair [%s]", actual.(*KeyPair).CloudID)
-	return nil
+	newResource := &KeyPair{}
+	newResource.Tags = actual.(*KeyPair).Tags
+	newResource.Name = actual.(*KeyPair).Name
+	newResource.PublicKeyPath = actual.(*KeyPair).PublicKeyPath
+	newResource.User = actual.(*KeyPair).User
+	return newResource, nil
 }
 
 func (r *KeyPair) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

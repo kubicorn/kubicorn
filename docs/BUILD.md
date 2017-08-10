@@ -2,6 +2,8 @@
 
 ## Make
 
+Run `make help` for command line usage.
+
 First off you will need to have a working Golang-1.8 development environment. To get this you can follow [this](https://golang.org/doc/install) tutorial.
 Make sure you can use the `go` command and that your `GOPATH` environment variable is set.
 As a alternative you can have a look at the [Docker build script](#docker), you wont need `go` locally for this, but you will need `docker`.    

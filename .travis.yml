@@ -3,7 +3,13 @@ language: go
 go:
   - 1.8.3
 
-script:
-  - make compile
-  - make check-header
-  - make ci
+jobs:
+  include:
+    - stage: Check headers
+      script: make check-headers
+    - stage: Check go files
+      script: make check-code
+    - stage: Compile
+      script: make compile
+    - stage: CI
+      script: make ci

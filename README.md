@@ -1,8 +1,8 @@
 <p align="center"><img src="docs/img/kubicorn-trans.png" width="360"></p>
 <p align="center"><b>Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.</b></p>
 <p align="center">
-  <img src="https://travis-ci.org/kris-nova/kubicorn.svg?branch=master" alt="Build Status"><a href="https://travis-ci.org/kris-nova/kubicorn"></a></img>
-  <img src="https://goreportcard.com/badge/github.com/kris-nova/kubicorn" alt="Go Report Card"><a href="https://goreportcard.com/report/github.com/kris-nova/kubicorn"></a></img>
+  <a href="https://travis-ci.org/kris-nova/kubicorn"><img src="https://travis-ci.org/kris-nova/kubicorn.svg?branch=master" alt="Build Status"></img></a>
+  <a href="https://goreportcard.com/report/github.com/kris-nova/kubicorn"><img src="https://goreportcard.com/badge/github.com/kris-nova/kubicorn" alt="Go Report Card"></img></a>
 </p>
 
 **Phonetic pronunciation**: `KEW - BHIK - OH - AR - IN`
@@ -80,6 +80,6 @@ Take a snap, save a snap, deploy a snap.
 | **Environmental Variables**   | Master list of supported environmental variables            | [envvars](docs/envar.md)                                                        |
 | **Kops vs Kubicorn**          | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                            |
 | **AWS Walkthrough**           | A walkthrough guide on install Kubernetes 1.7 in AWS      | [walkthrough](docs/aws/walkthrough.md)                                          |
-| **Digital Ocean Walkthrough** | A walkthrough guide on install Kubernetes 1.7 in D.O.     | [walkthrough](docs/do/walkthrough.md)                                           |
+| **DigitalOcean Walkthrough** | A walkthrough guide on install Kubernetes 1.7 in D.O.     | [walkthrough](docs/do/walkthrough.md)                                           |
 | **AWS Video**                 | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)         |
 | **Tech N Talk Deep Dive**     | A technical deep dive courtesy of RedHat                    | [youtube](https://youtu.be/2DmUG0RgS70?list=PLaR6Rq6Z4IqfwXtKT7KeARRvxdvyLqG72) |

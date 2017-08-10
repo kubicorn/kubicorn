@@ -17,8 +17,9 @@ package cmd
 import (
 	"bytes"
 	"fmt"
-	"github.com/kris-nova/kubicorn/cutil/logger"
 	"os"
+
+	"github.com/kris-nova/kubicorn/cutil/logger"
 
 	"github.com/spf13/cobra"
 )

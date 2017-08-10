@@ -29,9 +29,9 @@ type Firewall struct {
 type Rule struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Identifier        string
-	IngressFromPort   int
-	IngressToPort     int
-	IngressSource     string
-	IngressProtocol   string
+	Identifier        string `json:"identifier,omitempty"`
+	IngressFromPort   int    `json:"ingressFromPort,omitempty"`
+	IngressToPort     int    `json:"ingressToPort,omitempty"`
+	IngressSource     string `json:"ingressSource,omitempty"`
+	IngressProtocol   string `json:"ingressProtocol,omitempty"`
 }

@@ -28,7 +28,7 @@ func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
-// Hexidecimal
+// Hexadecimal
 var letterRunes = []rune("0123456789abcdef")
 
 func RandStringRunes(n int) string {

@@ -16,6 +16,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
@@ -52,7 +53,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	err = reconciler.Destroy()
+	_, err = reconciler.Destroy()
 	if err != nil {
 		panic(err.Error())
 	}
@@ -77,22 +78,22 @@ func getCluster(name string) *cluster.Cluster {
 		},
 		ServerPools: []*cluster.ServerPool{
 			{
-				Type:             cluster.ServerPoolTypeMaster,
-				Name:             fmt.Sprintf("%s-master", name),
-				MaxCount:         1,
-				Image:            "ubuntu-16-04-x64",
-				Size:             "1gb",
+				Type:     cluster.ServerPoolTypeMaster,
+				Name:     fmt.Sprintf("%s-master", name),
+				MaxCount: 1,
+				Image:    "ubuntu-16-04-x64",
+				Size:     "1gb",
 				BootstrapScripts: []string{
 					"vpn/meshbirdMaster.sh",
 					"digitalocean_k8s_ubuntu_16.04_master.sh",
 				},
 			},
 			{
-				Type:             cluster.ServerPoolTypeNode,
-				Name:             fmt.Sprintf("%s-node", name),
-				MaxCount:         3,
-				Image:            "ubuntu-16-04-x64",
-				Size:             "1gb",
+				Type:     cluster.ServerPoolTypeNode,
+				Name:     fmt.Sprintf("%s-node", name),
+				MaxCount: 3,
+				Image:    "ubuntu-16-04-x64",
+				Size:     "1gb",
 				BootstrapScripts: []string{
 					"vpn/meshbirdNode.sh",
 					"digitalocean_k8s_ubuntu_16.04_node.sh",

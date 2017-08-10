@@ -16,6 +16,7 @@ package script
 
 import (
 	"fmt"
+
 	"github.com/kris-nova/kubicorn/bootstrap"
 )
 
@@ -29,5 +30,5 @@ func BuildBootstrapScript(bootstrapScripts []string) ([]byte, error) {
 		userData = append(userData, scriptData...)
 	}
 
-	return userData, nil;
+	return userData, nil
 }

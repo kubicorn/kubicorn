@@ -16,10 +16,11 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 const (

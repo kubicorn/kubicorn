@@ -15,16 +15,17 @@
 package initapi
 
 import (
-	"golang.org/x/crypto/ssh/terminal"
-	"github.com/kris-nova/klone/pkg/local"
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"io/ioutil"
-	"strings"
 	"crypto/md5"
 	"fmt"
-	"golang.org/x/crypto/ssh"
-	"github.com/gravitational/trace"
+	"io/ioutil"
+	"strings"
 	"syscall"
+
+	"github.com/gravitational/trace"
+	"github.com/kris-nova/klone/pkg/local"
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"golang.org/x/crypto/ssh"
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {

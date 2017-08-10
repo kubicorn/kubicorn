@@ -16,6 +16,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
@@ -52,7 +53,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	err = reconciler.Destroy()
+	_, err = reconciler.Destroy()
 	if err != nil {
 		panic(err.Error())
 	}
@@ -81,12 +82,12 @@ func getCluster(name string) *cluster.Cluster {
 		},
 		ServerPools: []*cluster.ServerPool{
 			{
-				Type:            cluster.ServerPoolTypeMaster,
-				Name:            fmt.Sprintf("%s.master", name),
-				MaxCount:        1,
-				MinCount:        1,
-				Image:           "ami-835b4efa",
-				Size:            "t2.medium",
+				Type:     cluster.ServerPoolTypeMaster,
+				Name:     fmt.Sprintf("%s.master", name),
+				MaxCount: 1,
+				MinCount: 1,
+				Image:    "ami-835b4efa",
+				Size:     "t2.medium",
 				BootstrapScripts: []string{
 					"amazon_k8s_ubuntu_16.04_master.sh",
 				},
@@ -119,12 +120,12 @@ func getCluster(name string) *cluster.Cluster {
 				},
 			},
 			{
-				Type:            cluster.ServerPoolTypeNode,
-				Name:            fmt.Sprintf("%s.node", name),
-				MaxCount:        1,
-				MinCount:        1,
-				Image:           "ami-835b4efa",
-				Size:            "t2.medium",
+				Type:     cluster.ServerPoolTypeNode,
+				Name:     fmt.Sprintf("%s.node", name),
+				MaxCount: 1,
+				MinCount: 1,
+				Image:    "ami-835b4efa",
+				Size:     "t2.medium",
 				BootstrapScripts: []string{
 					"amazon_k8s_ubuntu_16.04_node.sh",
 				},

@@ -12,6 +12,6 @@ KUBICORN_TRUECOLOR | bool | Always run kubicorn with lolgopher truecolor
 AWS_ACCESS_KEY_ID | string | The AWS access key to use with AWS profiles
 AWS_SECRET_ACCESS_KEY | string | The AWS secret to use with AWS profiles
 --- | --- | ---
-DIGITALOCEAN_ACCESS_TOKEN | string | The Digital Ocean access token used to authenticate with the API
+DIGITALOCEAN_ACCESS_TOKEN | string | The DigitalOcean access token used to authenticate with the API
 
 

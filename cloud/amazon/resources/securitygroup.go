@@ -16,6 +16,7 @@ package resources
 
 import (
 	"fmt"
+
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -83,6 +84,7 @@ func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.CloudID = *sg.GroupId
 		actual.Name = *sg.GroupName
 	}
+
 	r.CachedActual = actual
 	return actual, nil
 }
@@ -156,15 +158,16 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 			IngressSource:   expectedRule.IngressSource,
 			IngressToPort:   expectedRule.IngressToPort,
 			IngressFromPort: expectedRule.IngressFromPort,
+			IngressProtocol: expectedRule.IngressProtocol,
 		})
 	}
 	return newResource, nil
 }
-func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) error {
+func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("securitygroup.Delete")
 	deleteResource := actual.(*SecurityGroup)
 	if deleteResource.CloudID == "" {
-		return fmt.Errorf("Unable to delete Security Group resource without ID [%s]", deleteResource.Name)
+		return nil, fmt.Errorf("Unable to delete Security Group resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DeleteSecurityGroupInput{
@@ -172,10 +175,22 @@ func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) er
 	}
 	_, err := Sdk.Ec2.DeleteSecurityGroup(input)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	logger.Info("Deleted Security Group [%s]", actual.(*SecurityGroup).CloudID)
-	return nil
+
+	newResource := &SecurityGroup{}
+	newResource.Tags = actual.(*SecurityGroup).Tags
+	newResource.Name = actual.(*SecurityGroup).Name
+	//for _, renderRule := range actual.(*SecurityGroup).Rules {
+	//	newResource.Rules = append(newResource.Rules, &Rule{
+	//		IngressSource:   renderRule.IngressSource,
+	//		IngressFromPort: renderRule.IngressFromPort,
+	//		IngressToPort:   renderRule.IngressToPort,
+	//		IngressProtocol: renderRule.IngressProtocol,
+	//	})
+	//}
+	return newResource, nil
 }
 
 func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {

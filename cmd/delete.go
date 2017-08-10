@@ -16,6 +16,9 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/task"
@@ -23,7 +26,6 @@ import (
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 // deleteCmd represents the delete command
@@ -91,12 +93,12 @@ func RunDelete(options *DeleteOptions) error {
 		return nil
 	}
 
-	cluster, err := stateStore.GetCluster()
+	expectedCluster, err := stateStore.GetCluster()
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 
-	reconciler, err := cutil.GetReconciler(cluster)
+	reconciler, err := cutil.GetReconciler(expectedCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
 	}
@@ -105,9 +107,20 @@ func RunDelete(options *DeleteOptions) error {
 		return fmt.Errorf("Unable to init reconciler: %v", err)
 	}
 
-	err = task.RunAnnotated(reconciler.Destroy, fmt.Sprintf("Destroying resources for cluster [%s]:\n", options.Name), ".")
+	var deleteCluster *cluster.Cluster
+	var deleteClusterTask = func() error {
+		deleteCluster, err = reconciler.Destroy()
+		return err
+	}
+
+	err = task.RunAnnotated(deleteClusterTask, fmt.Sprintf("\nDestroying resources for cluster [%s]:\n", options.Name), ".")
 	if err != nil {
-		return errors.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
+		return fmt.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
+	}
+
+	err = stateStore.Commit(deleteCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to save state store: %v", err)
 	}
 
 	if options.Purge {
