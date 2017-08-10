@@ -164,7 +164,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
 
-			logger.Info("Setting up VPN on Droplets... This could a little bit longer...")
+			logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
 			pubPath := local.Expand(applyCluster.SSH.PublicKeyPath)
 			privPath := strings.Replace(pubPath, ".pub", "", 1)
 			scp := scp.NewSecureCopier(applyCluster.SSH.User, masterIPPublic, "22", privPath)
