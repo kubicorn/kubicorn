@@ -15,8 +15,9 @@
 package task
 
 import (
-	"github.com/kris-nova/kubicorn/cutil/logger"
 	"time"
+
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 type Task func() error
@@ -25,16 +26,32 @@ var (
 	DefaultTicker = time.NewTicker(200 * time.Millisecond)
 )
 
-// annotates a task with a description and a sequence of symbols until the task terminates
-func RunAnnotated(task Task, description string, symbol string) error {
+// annotates a task with a description and a sequence of symbols indicating task activity until it terminates
+func RunAnnotated(task Task, description string, symbol string, options ...interface{}) error {
 	donechan := make(chan bool)
 	errchan := make(chan error)
+
+	logger_ := logger.Log
+	ticker := DefaultTicker
+
+	for _, o := range options {
+		if value, ok := o.(logger.Logger); ok {
+			logger_ = value
+			continue
+		}
+
+		if value, ok := o.(*time.Ticker); ok {
+			ticker = value
+			continue
+		}
+	}
 
 	go func() {
 		errchan <- task()
 	}()
 
-	LogAnnotation(description, symbol, DefaultTicker, donechan)
+	logger_(description)
+	logActivity(symbol, logger_, ticker, donechan)
 
 	err := <- errchan
 	donechan <- true
@@ -42,23 +59,17 @@ func RunAnnotated(task Task, description string, symbol string) error {
 	return err
 }
 
-// logs a description and a sequence of symbols (one for each tick) until a quit is received 
-func LogAnnotation(description string, symbol string, ticker *time.Ticker, quit <-chan bool) {
-	if description != "" {
-		logger.Log(description)
-	}
-
-	if symbol != "" {
-		go func() {
-			for {
-				select {
-				case <-ticker.C:
-					logger.Log(symbol)
-				case <-quit:
-					ticker.Stop()
-					return
-				}
+// logs a sequence of symbols (one for each tick) indicating task activity until a quit is received 
+func logActivity(symbol string, logger logger.Logger, ticker *time.Ticker, quit <-chan bool) {
+	go func() {
+		for {
+			select {
+			case <-ticker.C:
+				logger(symbol)
+			case <-quit:
+				ticker.Stop()
+				return
 			}
-		}()
-	}
+		}
+	}()
 }
