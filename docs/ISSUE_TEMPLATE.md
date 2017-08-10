@@ -1,6 +1,4 @@
 
--------------------------------------------------------------------------------
-                                   Kubicorn
 
 Please open an issue, no matter what it is about.
 
@@ -11,8 +9,4 @@ If you are reporting a bug:
 
 
 
-
-
-
-                     Thank you for contributing to Kubicorn!
--------------------------------------------------------------------------------
+Thank you for contributing to Kubicorn!
