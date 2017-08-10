@@ -44,8 +44,10 @@ type Droplet struct {
 }
 
 const (
-	MasterIPAttempts               = 40
-	MasterIPSleepSecondsPerAttempt = 3
+	MasterIPAttempts               = 100
+	MasterIPSleepSecondsPerAttempt = 5
+	DeleteAttempts                 = 25
+	DeleteSleepSecondsPerAttempt   = 3
 )
 
 func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
@@ -162,26 +164,27 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
 
+			logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
 			pubPath := local.Expand(applyCluster.SSH.PublicKeyPath)
 			privPath := strings.Replace(pubPath, ".pub", "", 1)
 			scp := scp.NewSecureCopier(applyCluster.SSH.User, masterIPPublic, "22", privPath)
 			masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
 			if err != nil {
-				logger.Debug("Hanging for VPN mesh.. /tmp/.ip (%v)", err)
+				logger.Debug("Hanging for VPN IP.. /tmp/.ip (%v)", err)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
 			masterVpnIPStr := strings.Replace(string(masterVpnIP), "\n", "", -1)
-			meshKey, err := scp.ReadBytes("/tmp/.key")
+			openvpnConfig, err := scp.ReadBytes("/tmp/clients.conf")
 			if err != nil {
-				logger.Debug("Hanging for VPN mesh.. /tmp/.key (%v)", err)
+				logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
-			meshKeyStr := strings.Replace(string(meshKey), "\n", "", -1)
+			openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
 			found = true
 			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, applyCluster.KubernetesAPI.Port)
-			applyCluster.Values.ItemMap["INJECTEDMESHKEY"] = meshKeyStr
+			applyCluster.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
 			break
 		}
 		if !found {
@@ -252,14 +255,28 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 		return nil, err
 	}
 	if len(droplets) != actual.(*Droplet).Count {
-		logger.Info("Droplet count mis-match, trying query again")
-		time.Sleep(5 * time.Second)
-		droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
-		if err != nil {
-			return nil, err
+		for i := 0; i < DeleteAttempts; i++ {
+			logger.Info("Droplet count mis-match, trying query again")
+			time.Sleep(5 * time.Second)
+			droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
+			if err != nil {
+				return nil, err
+			}
+			if len(droplets) == actual.(*Droplet).Count {
+				break
+			}
 		}
 	}
+
 	for _, droplet := range droplets {
+		for i := 0; i < DeleteAttempts; i++ {
+			if droplet.Status == "new" {
+				logger.Debug("Waiting for Droplet creation to finish [%d]...", droplet.ID)
+				time.Sleep(DeleteSleepSecondsPerAttempt * time.Second)
+			} else {
+				break
+			}
+		}
 		_, err = Sdk.Client.Droplets.Delete(context.TODO(), droplet.ID)
 		if err != nil {
 			return nil, err

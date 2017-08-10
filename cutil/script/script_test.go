@@ -12,26 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package initapi
+package script
 
-import (
-	"fmt"
+import "testing"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-)
-
-func validateAtLeastOneServerPool(initCluster *cluster.Cluster) error {
-	if len(initCluster.ServerPools) < 1 {
-		return fmt.Errorf("cluster %v must have at least one server pool", initCluster.Name)
+func TestBuildBootstrapScriptHappy(t *testing.T) {
+	scripts := []string{
+		"vpn/meshbirdMaster.sh",
+		"digitalocean_k8s_ubuntu_16.04_master.sh",
 	}
-	return nil
+	_, err := BuildBootstrapScript(scripts)
+	if err != nil {
+		t.Fatalf("Unable to get scripts: %v", err)
+	}
 }
 
-func validateServerPoolMaxCountGreaterThan1(initCluster *cluster.Cluster) error {
-	for _, p := range initCluster.ServerPools {
-		if p.MaxCount < 1 {
-			return fmt.Errorf("server pool %v in cluster %v must have a maximum count greater than 0", p.Name, initCluster.Name)
-		}
+func TestBuildBootstrapScriptSad(t *testing.T) {
+	scripts := []string{
+		"vpn/meshbirdMaster.s",
+		"digitalocean_k8s_ubuntu_16.04_master.s",
 	}
-	return nil
+	_, err := BuildBootstrapScript(scripts)
+	if err == nil {
+		t.Fatalf("Merging non existing scripts: %v", err)
+	}
 }

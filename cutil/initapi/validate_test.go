@@ -15,8 +15,9 @@
 package initapi
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"testing"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
 )
 
 func TestValidateAtLeastOneServerPoolHappy(t *testing.T) {
@@ -38,46 +39,6 @@ func TestValidateAtLeastOneServerPoolSad(t *testing.T) {
 	c := cluster.NewCluster("c")
 	expected := "cluster c must have at least one server pool"
 	err := validateAtLeastOneServerPool(c)
-	if err == nil {
-		t.Fatalf("expected an error")
-	}
-	if err.Error() != expected {
-		t.Fatalf("error message incorrect\n"+
-			"should be: %v\n"+
-			"got:       %v\n", expected, err.Error())
-	}
-}
-
-func TestValidateServerPoolMinCountGreaterThan1Happy(t *testing.T) {
-	c := &cluster.Cluster{
-		Name: "c",
-		ServerPools: []*cluster.ServerPool{
-			{
-				Name:     "p",
-				MinCount: 1,
-			},
-		},
-	}
-	err := validateServerPoolMinCountGreaterThan1(c)
-	if err != nil {
-		t.Fatalf("error message incorrect\n"+
-			"should be: nil\n"+
-			"got:       %v\n", err)
-	}
-}
-
-func TestValidateServerPoolMinCountGreaterThan1Sad(t *testing.T) {
-	c := &cluster.Cluster{
-		Name: "c",
-		ServerPools: []*cluster.ServerPool{
-			{
-				Name:     "p",
-				MinCount: 0,
-			},
-		},
-	}
-	expected := "server pool p in cluster c must have a minimum count greater than 0"
-	err := validateServerPoolMinCountGreaterThan1(c)
 	if err == nil {
 		t.Fatalf("expected an error")
 	}
