@@ -20,6 +20,27 @@ Use at your own risk and if you're as excited about it as we are, maybe you want
 
 <img src="https://github.com/ashleymcnamara/gophers/blob/master/NERDY.png" width="60"> Proudly packaged with Golang [dep](https://github.com/golang/dep)
 
+# Core Values
+
+#### Community first.
+
+This is a community driven project. We love you, and respect you. We are here to help you learn, help you grow, and help you succeed. If you have an idea, please share it.
+
+#### Developer empathy. 
+
+We are all software engineers, and we all work in many different code bases. We want the code to be stable, and approachable. We strive for clean and simple software, and we encourage refactoring and fixing technical debt.
+
+#### Operational empathy. 
+
+We want our tool to work, and work well. If an operator is running `kubicorn` it should feel comfortable and make sense to them. We want operators to feel empowered.
+
+#### Infrastructure as software.
+
+We believe that the oh-so important layer of infrastructure should be represented as software (not as code!). We hope that our project demonstrates this idea, so the community can begin thinking in the way of the new paradigm.
+
+#### Rainbows and Unicorns 
+
+We believe that sharing is important, and encouraging our peers is even more important. Part of conrtibuting to `kubicorn` means respecting, encouraging, and welcoming others to the project. 
 
 # Installing
 
