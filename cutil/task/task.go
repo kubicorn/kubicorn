@@ -28,45 +28,41 @@ var (
 
 // annotates a task with a description and a sequence of symbols indicating task activity until it terminates
 func RunAnnotated(task Task, description string, symbol string, options ...interface{}) error {
-	donechan := make(chan bool)
-	errchan := make(chan error)
+	doneCh   := make(chan bool)
+	errCh := make(chan error)
 
-	logger_ := logger.Log
-	ticker := DefaultTicker
+	l := logger.Log
+	t := DefaultTicker
 
 	for _, o := range options {
 		if value, ok := o.(logger.Logger); ok {
-			logger_ = value
-			continue
-		}
-
-		if value, ok := o.(*time.Ticker); ok {
-			ticker = value
-			continue
+			l = value
+		} else if value, ok := o.(*time.Ticker); ok {
+			t = value
 		}
 	}
 
 	go func() {
-		errchan <- task()
+		errCh <- task()
 	}()
 
 	logger_(description)
-	logActivity(symbol, logger_, ticker, donechan)
+	logActivity(symbol, l, t, doneCh)
 
-	err := <-errchan
-	donechan <- true
+	err := <-errCh
+	doneCh <- true
 
 	return err
 }
 
 // logs a sequence of symbols (one for each tick) indicating task activity until a quit is received
-func logActivity(symbol string, logger logger.Logger, ticker *time.Ticker, quit <-chan bool) {
+func logActivity(symbol string, logger logger.Logger, ticker *time.Ticker, quitCh <-chan bool) {
 	go func() {
 		for {
 			select {
 			case <-ticker.C:
 				logger(symbol)
-			case <-quit:
+			case <-quitCh:
 				ticker.Stop()
 				return
 			}
