@@ -28,7 +28,7 @@ var (
 
 // annotates a task with a description and a sequence of symbols indicating task activity until it terminates
 func RunAnnotated(task Task, description string, symbol string, options ...interface{}) error {
-	doneCh   := make(chan bool)
+	doneCh := make(chan bool)
 	errCh := make(chan error)
 
 	l := logger.Log
