@@ -46,7 +46,7 @@ func RunAnnotated(task Task, description string, symbol string, options ...inter
 		errCh <- task()
 	}()
 
-	logger_(description)
+	l(description)
 	logActivity(symbol, l, t, doneCh)
 
 	err := <-errCh

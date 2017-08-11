@@ -39,7 +39,7 @@ gofmt: install-tools
 	for package in $(FMT_PKGS); \
 	do \
 		gofmt -w $$package ; \
-		goimports -l -w $$package ; \
+		~/go/bin/goimports -l -w $$package ; \
 	done
 
 # Because of https://github.com/golang/go/issues/6376 We actually have to build this in a container
@@ -73,7 +73,7 @@ shell: ## Exec into a container with the kubicorn source mounted inside
 	--rm ${SHELL_IMAGE} /bin/bash
 
 lint: install-tools ## check for style mistakes all Go files using golint
-	golint $(PKGS)
+	~/go/bin/golint $(PKGS)
 
 # versioning
 bump-major:
