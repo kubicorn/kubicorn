@@ -73,6 +73,7 @@ var alias = map[string]profileFunc{
 	"aws":          profiles.NewSimpleAmazonCluster,
 	"do":           profiles.NewSimpleDigitalOceanCluster,
 	"digitalocean": profiles.NewSimpleDigitalOceanCluster,
+	"do-centos":    profiles.CentosDigitalOceanCluster,
 }
 
 func RunCreate(options *CreateOptions) error {
