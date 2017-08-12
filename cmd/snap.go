@@ -136,6 +136,9 @@ func RunSnap(options *SnapOptions) error {
 	//	return fmt.Errorf("Unable to init state store: %v", err)
 	//}
 
-	logger.Always("The snapshot has been saved [%s]", snap.AbsolutelyPath())
+	logger.Always("The snapshot has been saved [%s]", snap.AbsolutePath())
+
+	//fmt.Println(string(snap.Bytes()))
+
 	return nil
 }

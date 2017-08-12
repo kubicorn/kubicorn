@@ -16,6 +16,10 @@ func NewSnapshot(actualCluster *cluster.Cluster, appData []byte, absolutePath st
 	}
 }
 
-func (s *Snapshot) AbsolutelyPath() string {
+func (s *Snapshot) AbsolutePath() string {
 	return s.absolutePath
+}
+
+func (s *Snapshot) Bytes() []byte {
+	return s.app
 }

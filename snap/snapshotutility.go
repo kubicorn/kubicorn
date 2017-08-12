@@ -21,10 +21,14 @@ func NewSnapShotUtility(actualCluster *cluster.Cluster, stateStore state.Cluster
 
 func (s *SnapshotUtility) Capture(namespaces []string, absolutePath string) (*Snapshot, error) {
 	query := NewKubernetesQuery(s.kubeConfigPath, namespaces)
-	err := query.Execute()
+	err := query.Authenticate()
 	if err != nil {
 		return nil, err
 	}
-	snap := NewSnapshot(s.cluster, query.Bytes(), absolutePath)
-	return snap, nil
+	err = query.Execute()
+	if err != nil {
+		return nil, err
+	}
+	snapshot := NewSnapshot(s.cluster, query.Bytes(), absolutePath)
+	return snapshot, nil
 }
