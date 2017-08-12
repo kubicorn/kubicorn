@@ -130,15 +130,17 @@ func RunSnap(options *SnapOptions) error {
 		return fmt.Errorf("Unable to snapshot cluster: %v", err)
 	}
 
-	//
-	//err := stateStore.Commit(actual)
-	//if err != nil {
-	//	return fmt.Errorf("Unable to init state store: %v", err)
-	//}
+	// Always audit and commit
+	err = stateStore.Commit(actual)
+	if err != nil {
+		return fmt.Errorf("Unable to init state store: %v", err)
+	}
 
-	logger.Always("The snapshot has been saved [%s]", snap.AbsolutePath())
-
-	//fmt.Println(string(snap.Bytes()))
-
+	err = snap.WriteCompressedFile()
+	if err != nil {
+		return fmt.Errorf("Unable to compress and write file: %v", err)
+	}
+	logger.Always("The snapshot has been successfully saved!")
+	logger.Always("%s", snap.AbsolutePath())
 	return nil
 }
