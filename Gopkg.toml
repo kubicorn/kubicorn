@@ -56,3 +56,15 @@
 [[constraint]]
   branch = "master"
   name = "golang.org/x/oauth2"
+
+[[ constraint ]]
+  name = "k8s.io/client-go"
+  version = "v4.0.0-beta.0"
+
+[[ constraint ]]
+  name = "k8s.io/apimachinery"
+  branch = "release-1.7"
+
+[[ constraint ]]
+  name = "k8s.io/api"
+  version = "72c6251508ff27810939c23363113e1fbe0f075a"

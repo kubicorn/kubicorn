@@ -18,9 +18,12 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/kris-nova/kubicorn/cutil/local"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
+	"os/user"
+	"strings"
 )
 
 const (
@@ -80,7 +83,7 @@ func init() {
 	//flags here
 	RootCmd.PersistentFlags().IntVarP(&logger.Level, "verbose", "v", 3, "Log level")
 	RootCmd.PersistentFlags().BoolVarP(&logger.Color, "color", "C", true, "Toggle colorized logs")
-	RootCmd.PersistentFlags().BoolVarP(&logger.Fabulous, "fab", "f", false, "Toggle colorized logs")
+	RootCmd.PersistentFlags().BoolVarP(&logger.Fabulous, "fab", "X", false, "Toggle colorized logs")
 
 	// register env vars
 	registerEnvironmentalVariables()
@@ -100,4 +103,28 @@ func flagApplyAnnotations(cmd *cobra.Command, flag, completion string) {
 			completion,
 		)
 	}
+}
+
+func expandPath(path string) string {
+	if path == "." {
+		wd, err := os.Getwd()
+		if err != nil {
+			logger.Critical("Unable to get current working directory: %v", err)
+			return ""
+		}
+		path = wd
+	} else if path == "~" {
+		homeVar := os.Getenv("HOME")
+		if homeVar == "" {
+			homeUser, err := user.Current()
+			if err != nil {
+				logger.Critical("Unable to use user.Current() for user. Maybe a cross compile issue: %v", err)
+				return ""
+			}
+			path = homeUser.HomeDir
+		}
+	} else if strings.Contains(path, "~") {
+		path = strings.Replace(path, "~", local.Home(), 1)
+	}
+	return path
 }

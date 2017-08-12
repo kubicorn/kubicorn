@@ -19,6 +19,14 @@ import (
 	"strconv"
 )
 
+func strSliceEnvDef(env string, def []string) []string {
+	val := os.Getenv(env)
+	if val == "" {
+		return def
+	}
+	return []string{val}
+}
+
 func strEnvDef(env string, def string) string {
 	val := os.Getenv(env)
 	if val == "" {

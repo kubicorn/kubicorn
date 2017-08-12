@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/golang/glog"
-
 	"k8s.io/apimachinery/pkg/runtime"
+
+	"github.com/golang/glog"
 )
 
 // Interface can be implemented by anything that knows how to watch and report changes.
@@ -50,7 +50,6 @@ const (
 )
 
 // Event represents a single event to a watched resource.
-// +k8s:deepcopy-gen=true
 type Event struct {
 	Type EventType
 

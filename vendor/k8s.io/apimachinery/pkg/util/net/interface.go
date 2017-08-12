@@ -29,47 +29,18 @@ import (
 	"github.com/golang/glog"
 )
 
-type AddressFamily uint
-
-const (
-	familyIPv4 AddressFamily = 4
-	familyIPv6 AddressFamily = 6
-)
-
-const (
-	ipv4RouteFile = "/proc/net/route"
-	ipv6RouteFile = "/proc/net/ipv6_route"
-)
-
 type Route struct {
 	Interface   string
 	Destination net.IP
 	Gateway     net.IP
-	Family      AddressFamily
+	// TODO: add more fields here if needed
 }
 
-type RouteFile struct {
-	name  string
-	parse func(input io.Reader) ([]Route, error)
-}
-
-var (
-	v4File = RouteFile{name: ipv4RouteFile, parse: getIPv4DefaultRoutes}
-	v6File = RouteFile{name: ipv6RouteFile, parse: getIPv6DefaultRoutes}
-)
-
-func (rf RouteFile) extract() ([]Route, error) {
-	file, err := os.Open(rf.name)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-	return rf.parse(file)
-}
-
-// getIPv4DefaultRoutes obtains the IPv4 routes, and filters out non-default routes.
-func getIPv4DefaultRoutes(input io.Reader) ([]Route, error) {
+func getRoutes(input io.Reader) ([]Route, error) {
 	routes := []Route{}
+	if input == nil {
+		return nil, fmt.Errorf("input is nil")
+	}
 	scanner := bufio.NewReader(input)
 	for {
 		line, err := scanner.ReadString('\n')
@@ -81,71 +52,24 @@ func getIPv4DefaultRoutes(input io.Reader) ([]Route, error) {
 			continue
 		}
 		fields := strings.Fields(line)
-		// Interested in fields:
-		//  0 - interface name
-		//  1 - destination address
-		//  2 - gateway
-		dest, err := parseIP(fields[1], familyIPv4)
+		routes = append(routes, Route{})
+		route := &routes[len(routes)-1]
+		route.Interface = fields[0]
+		ip, err := parseIP(fields[1])
 		if err != nil {
 			return nil, err
 		}
-		gw, err := parseIP(fields[2], familyIPv4)
+		route.Destination = ip
+		ip, err = parseIP(fields[2])
 		if err != nil {
 			return nil, err
 		}
-		if !dest.Equal(net.IPv4zero) {
-			continue
-		}
-		routes = append(routes, Route{
-			Interface:   fields[0],
-			Destination: dest,
-			Gateway:     gw,
-			Family:      familyIPv4,
-		})
+		route.Gateway = ip
 	}
 	return routes, nil
 }
 
-func getIPv6DefaultRoutes(input io.Reader) ([]Route, error) {
-	routes := []Route{}
-	scanner := bufio.NewReader(input)
-	for {
-		line, err := scanner.ReadString('\n')
-		if err == io.EOF {
-			break
-		}
-		fields := strings.Fields(line)
-		// Interested in fields:
-		//  0 - destination address
-		//  4 - gateway
-		//  9 - interface name
-		dest, err := parseIP(fields[0], familyIPv6)
-		if err != nil {
-			return nil, err
-		}
-		gw, err := parseIP(fields[4], familyIPv6)
-		if err != nil {
-			return nil, err
-		}
-		if !dest.Equal(net.IPv6zero) {
-			continue
-		}
-		if gw.Equal(net.IPv6zero) {
-			continue // loopback
-		}
-		routes = append(routes, Route{
-			Interface:   fields[9],
-			Destination: dest,
-			Gateway:     gw,
-			Family:      familyIPv6,
-		})
-	}
-	return routes, nil
-}
-
-// parseIP takes the hex IP address string from route file and converts it
-// to a net.IP address. For IPv4, the value must be converted to big endian.
-func parseIP(str string, family AddressFamily) (net.IP, error) {
+func parseIP(str string) (net.IP, error) {
 	if str == "" {
 		return nil, fmt.Errorf("input is nil")
 	}
@@ -153,16 +77,11 @@ func parseIP(str string, family AddressFamily) (net.IP, error) {
 	if err != nil {
 		return nil, err
 	}
-	if family == familyIPv4 {
-		if len(bytes) != net.IPv4len {
-			return nil, fmt.Errorf("invalid IPv4 address in route")
-		}
-		return net.IP([]byte{bytes[3], bytes[2], bytes[1], bytes[0]}), nil
+	//TODO add ipv6 support
+	if len(bytes) != net.IPv4len {
+		return nil, fmt.Errorf("only IPv4 is supported")
 	}
-	// Must be IPv6
-	if len(bytes) != net.IPv6len {
-		return nil, fmt.Errorf("invalid IPv6 address in route")
-	}
+	bytes[0], bytes[1], bytes[2], bytes[3] = bytes[3], bytes[2], bytes[1], bytes[0]
 	return net.IP(bytes), nil
 }
 
@@ -177,13 +96,10 @@ func isInterfaceUp(intf *net.Interface) bool {
 	return false
 }
 
-func isLoopbackOrPointToPoint(intf *net.Interface) bool {
-	return intf.Flags&(net.FlagLoopback|net.FlagPointToPoint) != 0
-}
-
-// getMatchingGlobalIP returns the first valid global unicast address of the given
-// 'family' from the list of 'addrs'.
-func getMatchingGlobalIP(addrs []net.Addr, family AddressFamily) (net.IP, error) {
+//getFinalIP method receives all the IP addrs of a Interface
+//and returns a nil if the address is Loopback, Ipv6, link-local or nil.
+//It returns a valid IPv4 if an Ipv4 address is found in the array.
+func getFinalIP(addrs []net.Addr) (net.IP, error) {
 	if len(addrs) > 0 {
 		for i := range addrs {
 			glog.V(4).Infof("Checking addr  %s.", addrs[i].String())
@@ -191,15 +107,17 @@ func getMatchingGlobalIP(addrs []net.Addr, family AddressFamily) (net.IP, error)
 			if err != nil {
 				return nil, err
 			}
-			if memberOf(ip, family) {
-				if ip.IsGlobalUnicast() {
+			//Only IPv4
+			//TODO : add IPv6 support
+			if ip.To4() != nil {
+				if !ip.IsLoopback() && !ip.IsLinkLocalMulticast() && !ip.IsLinkLocalUnicast() {
 					glog.V(4).Infof("IP found %v", ip)
 					return ip, nil
 				} else {
-					glog.V(4).Infof("Non-global unicast address found %v", ip)
+					glog.V(4).Infof("Loopback/link-local found %v", ip)
 				}
 			} else {
-				glog.V(4).Infof("%v is not an IPv%d address", ip, int(family))
+				glog.V(4).Infof("%v is not a valid IPv4 address", ip)
 			}
 
 		}
@@ -207,9 +125,7 @@ func getMatchingGlobalIP(addrs []net.Addr, family AddressFamily) (net.IP, error)
 	return nil, nil
 }
 
-// getIPFromInterface gets the IPs on an interface and returns a global unicast address, if any. The
-// interface must be up, the IP must in the family requested, and the IP must be a global unicast address.
-func getIPFromInterface(intfName string, forFamily AddressFamily, nw networkInterfacer) (net.IP, error) {
+func getIPFromInterface(intfName string, nw networkInterfacer) (net.IP, error) {
 	intf, err := nw.InterfaceByName(intfName)
 	if err != nil {
 		return nil, err
@@ -220,161 +136,131 @@ func getIPFromInterface(intfName string, forFamily AddressFamily, nw networkInte
 			return nil, err
 		}
 		glog.V(4).Infof("Interface %q has %d addresses :%v.", intfName, len(addrs), addrs)
-		matchingIP, err := getMatchingGlobalIP(addrs, forFamily)
+		finalIP, err := getFinalIP(addrs)
 		if err != nil {
 			return nil, err
 		}
-		if matchingIP != nil {
-			glog.V(4).Infof("Found valid IPv%d address %v for interface %q.", int(forFamily), matchingIP, intfName)
-			return matchingIP, nil
+		if finalIP != nil {
+			glog.V(4).Infof("valid IPv4 address for interface %q found as %v.", intfName, finalIP)
+			return finalIP, nil
 		}
 	}
+
 	return nil, nil
 }
 
-// memberOF tells if the IP is of the desired family. Used for checking interface addresses.
-func memberOf(ip net.IP, family AddressFamily) bool {
-	if ip.To4() != nil {
-		return family == familyIPv4
-	} else {
-		return family == familyIPv6
-	}
+func flagsSet(flags net.Flags, test net.Flags) bool {
+	return flags&test != 0
 }
 
-// chooseIPFromHostInterfaces looks at all system interfaces, trying to find one that is up that
-// has a global unicast address (non-loopback, non-link local, non-point2point), and returns the IP.
-// Searches for IPv4 addresses, and then IPv6 addresses.
-func chooseIPFromHostInterfaces(nw networkInterfacer) (net.IP, error) {
-	intfs, err := nw.Interfaces()
+func flagsClear(flags net.Flags, test net.Flags) bool {
+	return flags&test == 0
+}
+
+func chooseHostInterfaceNativeGo() (net.IP, error) {
+	intfs, err := net.Interfaces()
 	if err != nil {
 		return nil, err
 	}
-	if len(intfs) == 0 {
-		return nil, fmt.Errorf("no interfaces found on host.")
-	}
-	for _, family := range []AddressFamily{familyIPv4, familyIPv6} {
-		glog.V(4).Infof("Looking for system interface with a global IPv%d address", uint(family))
-		for _, intf := range intfs {
-			if !isInterfaceUp(&intf) {
-				glog.V(4).Infof("Skipping: down interface %q", intf.Name)
-				continue
-			}
-			if isLoopbackOrPointToPoint(&intf) {
-				glog.V(4).Infof("Skipping: LB or P2P interface %q", intf.Name)
-				continue
-			}
-			addrs, err := nw.Addrs(&intf)
+	i := 0
+	var ip net.IP
+	for i = range intfs {
+		if flagsSet(intfs[i].Flags, net.FlagUp) && flagsClear(intfs[i].Flags, net.FlagLoopback|net.FlagPointToPoint) {
+			addrs, err := intfs[i].Addrs()
 			if err != nil {
 				return nil, err
 			}
-			if len(addrs) == 0 {
-				glog.V(4).Infof("Skipping: no addresses on interface %q", intf.Name)
-				continue
-			}
-			for _, addr := range addrs {
-				ip, _, err := net.ParseCIDR(addr.String())
-				if err != nil {
-					return nil, fmt.Errorf("Unable to parse CIDR for interface %q: %s", intf.Name, err)
+			if len(addrs) > 0 {
+				for _, addr := range addrs {
+					if addrIP, _, err := net.ParseCIDR(addr.String()); err == nil {
+						if addrIP.To4() != nil {
+							ip = addrIP.To4()
+							if !ip.IsLinkLocalMulticast() && !ip.IsLinkLocalUnicast() {
+								break
+							}
+						}
+					}
 				}
-				if !memberOf(ip, family) {
-					glog.V(4).Infof("Skipping: no address family match for %q on interface %q.", ip, intf.Name)
-					continue
+				if ip != nil {
+					// This interface should suffice.
+					break
 				}
-				// TODO: Decide if should open up to allow IPv6 LLAs in future.
-				if !ip.IsGlobalUnicast() {
-					glog.V(4).Infof("Skipping: non-global address %q on interface %q.", ip, intf.Name)
-					continue
-				}
-				glog.V(4).Infof("Found global unicast address %q on interface %q.", ip, intf.Name)
-				return ip, nil
 			}
 		}
 	}
-	return nil, fmt.Errorf("no acceptable interface with global unicast address found on host")
+	if ip == nil {
+		return nil, fmt.Errorf("no acceptable interface from host")
+	}
+	glog.V(4).Infof("Choosing interface %s (IP %v) as default", intfs[i].Name, ip)
+	return ip, nil
 }
 
-// ChooseHostInterface is a method used fetch an IP for a daemon.
-// If there is no routing info file, it will choose a global IP from the system
-// interfaces. Otherwise, it will use IPv4 and IPv6 route information to return the
-// IP of the interface with a gateway on it (with priority given to IPv4). For a node
-// with no internet connection, it returns error.
+//ChooseHostInterface is a method used fetch an IP for a daemon.
+//It uses data from /proc/net/route file.
+//For a node with no internet connection ,it returns error
+//For a multi n/w interface node it returns the IP of the interface with gateway on it.
 func ChooseHostInterface() (net.IP, error) {
-	var nw networkInterfacer = networkInterface{}
-	if _, err := os.Stat(ipv4RouteFile); os.IsNotExist(err) {
-		return chooseIPFromHostInterfaces(nw)
-	}
-	routes, err := getAllDefaultRoutes()
+	inFile, err := os.Open("/proc/net/route")
 	if err != nil {
+		if os.IsNotExist(err) {
+			return chooseHostInterfaceNativeGo()
+		}
 		return nil, err
 	}
-	return chooseHostInterfaceFromRoute(routes, nw)
+	defer inFile.Close()
+	var nw networkInterfacer = networkInterface{}
+	return chooseHostInterfaceFromRoute(inFile, nw)
 }
 
-// networkInterfacer defines an interface for several net library functions. Production
-// code will forward to net library functions, and unit tests will override the methods
-// for testing purposes.
 type networkInterfacer interface {
 	InterfaceByName(intfName string) (*net.Interface, error)
 	Addrs(intf *net.Interface) ([]net.Addr, error)
-	Interfaces() ([]net.Interface, error)
 }
 
-// networkInterface implements the networkInterfacer interface for production code, just
-// wrapping the underlying net library function calls.
 type networkInterface struct{}
 
 func (_ networkInterface) InterfaceByName(intfName string) (*net.Interface, error) {
-	return net.InterfaceByName(intfName)
-}
-
-func (_ networkInterface) Addrs(intf *net.Interface) ([]net.Addr, error) {
-	return intf.Addrs()
-}
-
-func (_ networkInterface) Interfaces() ([]net.Interface, error) {
-	return net.Interfaces()
-}
-
-// getAllDefaultRoutes obtains IPv4 and IPv6 default routes on the node. If unable
-// to read the IPv4 routing info file, we return an error. If unable to read the IPv6
-// routing info file (which is optional), we'll just use the IPv4 route information.
-// Using all the routing info, if no default routes are found, an error is returned.
-func getAllDefaultRoutes() ([]Route, error) {
-	routes, err := v4File.extract()
+	intf, err := net.InterfaceByName(intfName)
 	if err != nil {
 		return nil, err
 	}
-	v6Routes, _ := v6File.extract()
-	routes = append(routes, v6Routes...)
-	if len(routes) == 0 {
-		return nil, fmt.Errorf("No default routes.")
-	}
-	return routes, nil
+	return intf, nil
 }
 
-// chooseHostInterfaceFromRoute cycles through each default route provided, looking for a
-// global IP address from the interface for the route. Will first look all each IPv4 route for
-// an IPv4 IP, and then will look at each IPv6 route for an IPv6 IP.
-func chooseHostInterfaceFromRoute(routes []Route, nw networkInterfacer) (net.IP, error) {
-	for _, family := range []AddressFamily{familyIPv4, familyIPv6} {
-		glog.V(4).Infof("Looking for default routes with IPv%d addresses", uint(family))
-		for _, route := range routes {
-			if route.Family != family {
-				continue
-			}
-			glog.V(4).Infof("Default route transits interface %q", route.Interface)
-			finalIP, err := getIPFromInterface(route.Interface, family, nw)
+func (_ networkInterface) Addrs(intf *net.Interface) ([]net.Addr, error) {
+	addrs, err := intf.Addrs()
+	if err != nil {
+		return nil, err
+	}
+	return addrs, nil
+}
+
+func chooseHostInterfaceFromRoute(inFile io.Reader, nw networkInterfacer) (net.IP, error) {
+	routes, err := getRoutes(inFile)
+	if err != nil {
+		return nil, err
+	}
+	zero := net.IP{0, 0, 0, 0}
+	var finalIP net.IP
+	for i := range routes {
+		//find interface with gateway
+		if routes[i].Destination.Equal(zero) {
+			glog.V(4).Infof("Default route transits interface %q", routes[i].Interface)
+			finalIP, err := getIPFromInterface(routes[i].Interface, nw)
 			if err != nil {
 				return nil, err
 			}
 			if finalIP != nil {
-				glog.V(4).Infof("Found active IP %v ", finalIP)
+				glog.V(4).Infof("Choosing IP %v ", finalIP)
 				return finalIP, nil
 			}
 		}
 	}
-	glog.V(4).Infof("No active IP found by looking at default routes")
-	return nil, fmt.Errorf("unable to select an IP from default routes.")
+	glog.V(4).Infof("No valid IP found")
+	if finalIP == nil {
+		return nil, fmt.Errorf("Unable to select an IP.")
+	}
+	return nil, nil
 }
 
 // If bind-address is usable, return it directly

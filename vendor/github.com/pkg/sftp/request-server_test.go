@@ -315,6 +315,7 @@ func TestRequestReadlink(t *testing.T) {
 
 func TestRequestReaddir(t *testing.T) {
 	p := clientRequestServerPair(t)
+	MaxFilelist = 22 // make not divisible by our test amount (100)
 	defer p.Close()
 	for i := 0; i < 100; i++ {
 		fname := fmt.Sprintf("/foo_%02d", i)

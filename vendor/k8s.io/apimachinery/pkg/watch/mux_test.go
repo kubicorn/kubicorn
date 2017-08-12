@@ -22,7 +22,6 @@ import (
 	"testing"
 	"time"
 
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/wait"
 	. "k8s.io/apimachinery/pkg/watch"
@@ -34,13 +33,6 @@ type myType struct {
 }
 
 func (obj *myType) GetObjectKind() schema.ObjectKind { return schema.EmptyObjectKind }
-func (obj *myType) DeepCopyObject() runtime.Object {
-	if obj == nil {
-		return nil
-	}
-	clone := *obj
-	return &clone
-}
 
 func TestBroadcaster(t *testing.T) {
 	table := []Event{

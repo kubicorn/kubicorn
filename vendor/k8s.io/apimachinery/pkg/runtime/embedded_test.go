@@ -25,9 +25,41 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/runtime/serializer"
-	runtimetesting "k8s.io/apimachinery/pkg/runtime/testing"
 	"k8s.io/apimachinery/pkg/util/diff"
 )
+
+type EmbeddedTest struct {
+	runtime.TypeMeta
+	ID          string
+	Object      runtime.Object
+	EmptyObject runtime.Object
+}
+
+type EmbeddedTestExternal struct {
+	runtime.TypeMeta `json:",inline"`
+	ID               string               `json:"id,omitempty"`
+	Object           runtime.RawExtension `json:"object,omitempty"`
+	EmptyObject      runtime.RawExtension `json:"emptyObject,omitempty"`
+}
+
+type ObjectTest struct {
+	runtime.TypeMeta
+
+	ID    string
+	Items []runtime.Object
+}
+
+type ObjectTestExternal struct {
+	runtime.TypeMeta `yaml:",inline" json:",inline"`
+
+	ID    string                 `json:"id,omitempty"`
+	Items []runtime.RawExtension `json:"items,omitempty"`
+}
+
+func (obj *ObjectTest) GetObjectKind() schema.ObjectKind           { return &obj.TypeMeta }
+func (obj *ObjectTestExternal) GetObjectKind() schema.ObjectKind   { return &obj.TypeMeta }
+func (obj *EmbeddedTest) GetObjectKind() schema.ObjectKind         { return &obj.TypeMeta }
+func (obj *EmbeddedTestExternal) GetObjectKind() schema.ObjectKind { return &obj.TypeMeta }
 
 func TestDecodeEmptyRawExtensionAsObject(t *testing.T) {
 	internalGV := schema.GroupVersion{Group: "test.group", Version: runtime.APIVersionInternal}
@@ -35,8 +67,8 @@ func TestDecodeEmptyRawExtensionAsObject(t *testing.T) {
 	externalGVK := externalGV.WithKind("ObjectTest")
 
 	s := runtime.NewScheme()
-	s.AddKnownTypes(internalGV, &runtimetesting.ObjectTest{})
-	s.AddKnownTypeWithName(externalGVK, &runtimetesting.ObjectTestExternal{})
+	s.AddKnownTypes(internalGV, &ObjectTest{})
+	s.AddKnownTypeWithName(externalGVK, &ObjectTestExternal{})
 
 	codec := serializer.NewCodecFactory(s).LegacyCodec(externalGV)
 
@@ -44,7 +76,7 @@ func TestDecodeEmptyRawExtensionAsObject(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	test := obj.(*runtimetesting.ObjectTest)
+	test := obj.(*ObjectTest)
 	if unk, ok := test.Items[0].(*runtime.Unknown); !ok || unk.Kind != "" || unk.APIVersion != "" || string(unk.Raw) != "{}" || unk.ContentType != runtime.ContentTypeJSON {
 		t.Fatalf("unexpected object: %#v", test.Items[0])
 	}
@@ -56,7 +88,7 @@ func TestDecodeEmptyRawExtensionAsObject(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	test = obj.(*runtimetesting.ObjectTest)
+	test = obj.(*ObjectTest)
 	if unk, ok := test.Items[0].(*runtime.Unknown); !ok || unk.Kind != "" || unk.APIVersion != "" || string(unk.Raw) != `{"kind":"Other","apiVersion":"v1"}` || unk.ContentType != runtime.ContentTypeJSON {
 		t.Fatalf("unexpected object: %#v", test.Items[0])
 	}
@@ -70,29 +102,29 @@ func TestArrayOfRuntimeObject(t *testing.T) {
 	externalGV := schema.GroupVersion{Group: "test.group", Version: "v1test"}
 
 	s := runtime.NewScheme()
-	s.AddKnownTypes(internalGV, &runtimetesting.EmbeddedTest{})
-	s.AddKnownTypeWithName(externalGV.WithKind("EmbeddedTest"), &runtimetesting.EmbeddedTestExternal{})
-	s.AddKnownTypes(internalGV, &runtimetesting.ObjectTest{})
-	s.AddKnownTypeWithName(externalGV.WithKind("ObjectTest"), &runtimetesting.ObjectTestExternal{})
+	s.AddKnownTypes(internalGV, &EmbeddedTest{})
+	s.AddKnownTypeWithName(externalGV.WithKind("EmbeddedTest"), &EmbeddedTestExternal{})
+	s.AddKnownTypes(internalGV, &ObjectTest{})
+	s.AddKnownTypeWithName(externalGV.WithKind("ObjectTest"), &ObjectTestExternal{})
 
 	codec := serializer.NewCodecFactory(s).LegacyCodec(externalGV)
 
 	innerItems := []runtime.Object{
-		&runtimetesting.EmbeddedTest{ID: "baz"},
+		&EmbeddedTest{ID: "baz"},
 	}
 	items := []runtime.Object{
-		&runtimetesting.EmbeddedTest{ID: "foo"},
-		&runtimetesting.EmbeddedTest{ID: "bar"},
+		&EmbeddedTest{ID: "foo"},
+		&EmbeddedTest{ID: "bar"},
 		// TODO: until YAML is removed, this JSON must be in ascending key order to ensure consistent roundtrip serialization
 		&runtime.Unknown{
 			Raw:         []byte(`{"apiVersion":"unknown.group/unknown","foo":"bar","kind":"OtherTest"}`),
 			ContentType: runtime.ContentTypeJSON,
 		},
-		&runtimetesting.ObjectTest{
+		&ObjectTest{
 			Items: runtime.NewEncodableList(codec, innerItems),
 		},
 	}
-	internal := &runtimetesting.ObjectTest{
+	internal := &ObjectTest{
 		Items: runtime.NewEncodableList(codec, items),
 	}
 	wire, err := runtime.Encode(codec, internal)
@@ -101,13 +133,13 @@ func TestArrayOfRuntimeObject(t *testing.T) {
 	}
 	t.Logf("Wire format is:\n%s\n", string(wire))
 
-	obj := &runtimetesting.ObjectTestExternal{}
+	obj := &ObjectTestExternal{}
 	if err := json.Unmarshal(wire, obj); err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	t.Logf("exact wire is: %s", string(obj.Items[0].Raw))
 
-	items[3] = &runtimetesting.ObjectTest{Items: innerItems}
+	items[3] = &ObjectTest{Items: innerItems}
 	internal.Items = items
 
 	decoded, err := runtime.Decode(codec, wire)
@@ -146,15 +178,15 @@ func TestNestedObject(t *testing.T) {
 	embeddedTestExternalGVK := externalGV.WithKind("EmbeddedTest")
 
 	s := runtime.NewScheme()
-	s.AddKnownTypes(internalGV, &runtimetesting.EmbeddedTest{})
-	s.AddKnownTypeWithName(embeddedTestExternalGVK, &runtimetesting.EmbeddedTestExternal{})
+	s.AddKnownTypes(internalGV, &EmbeddedTest{})
+	s.AddKnownTypeWithName(embeddedTestExternalGVK, &EmbeddedTestExternal{})
 
 	codec := serializer.NewCodecFactory(s).LegacyCodec(externalGV)
 
-	inner := &runtimetesting.EmbeddedTest{
+	inner := &EmbeddedTest{
 		ID: "inner",
 	}
-	outer := &runtimetesting.EmbeddedTest{
+	outer := &EmbeddedTest{
 		ID:     "outer",
 		Object: runtime.NewEncodable(codec, inner),
 	}
@@ -178,18 +210,18 @@ func TestNestedObject(t *testing.T) {
 		t.Errorf("Expected unequal %#v %#v", e, a)
 	}
 
-	obj, err := runtime.Decode(codec, decoded.(*runtimetesting.EmbeddedTest).Object.(*runtime.Unknown).Raw)
+	obj, err := runtime.Decode(codec, decoded.(*EmbeddedTest).Object.(*runtime.Unknown).Raw)
 	if err != nil {
 		t.Fatal(err)
 	}
-	decoded.(*runtimetesting.EmbeddedTest).Object = obj
+	decoded.(*EmbeddedTest).Object = obj
 	if e, a := outer, decoded; !reflect.DeepEqual(e, a) {
 		t.Errorf("Expected equal %#v %#v", e, a)
 	}
 
 	// test JSON decoding of the external object, which should preserve
 	// raw bytes
-	var externalViaJSON runtimetesting.EmbeddedTestExternal
+	var externalViaJSON EmbeddedTestExternal
 	err = json.Unmarshal(wire, &externalViaJSON)
 	if err != nil {
 		t.Fatalf("Unexpected decode error %v", err)
@@ -205,7 +237,7 @@ func TestNestedObject(t *testing.T) {
 	// Generic Unmarshalling of JSON cannot load the nested objects because there is
 	// no default schema set.  Consumers wishing to get direct JSON decoding must use
 	// the external representation
-	var decodedViaJSON runtimetesting.EmbeddedTest
+	var decodedViaJSON EmbeddedTest
 	err = json.Unmarshal(wire, &decodedViaJSON)
 	if err == nil {
 		t.Fatal("Expeceted decode error")
@@ -225,12 +257,12 @@ func TestDeepCopyOfRuntimeObject(t *testing.T) {
 	embeddedTestExternalGVK := externalGV.WithKind("EmbeddedTest")
 
 	s := runtime.NewScheme()
-	s.AddKnownTypes(internalGV, &runtimetesting.EmbeddedTest{})
-	s.AddKnownTypeWithName(embeddedTestExternalGVK, &runtimetesting.EmbeddedTestExternal{})
+	s.AddKnownTypes(internalGV, &EmbeddedTest{})
+	s.AddKnownTypeWithName(embeddedTestExternalGVK, &EmbeddedTestExternal{})
 
-	original := &runtimetesting.EmbeddedTest{
+	original := &EmbeddedTest{
 		ID: "outer",
-		Object: &runtimetesting.EmbeddedTest{
+		Object: &EmbeddedTest{
 			ID: "inner",
 		},
 	}

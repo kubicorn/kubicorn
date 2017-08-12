@@ -21,7 +21,7 @@ type Handlers struct {
 	FileGet  FileReader
 	FilePut  FileWriter
 	FileCmd  FileCmder
-	FileInfo FileInfoer
+	FileList FileLister
 }
 
 // RequestServer abstracts the sftp protocol with an http request-like protocol

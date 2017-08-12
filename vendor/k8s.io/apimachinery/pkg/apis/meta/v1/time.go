@@ -37,11 +37,11 @@ type Time struct {
 	time.Time `protobuf:"-"`
 }
 
-// DeepCopyInto creates a deep-copy of the Time value.  The underlying time.Time
+// DeepCopy returns a deep-copy of the Time value.  The underlying time.Time
 // type is effectively immutable in the time API, so it is safe to
 // copy-by-assign, despite the presence of (unexported) Pointer fields.
-func (t *Time) DeepCopyInto(out *Time) {
-	*out = *t
+func (t Time) DeepCopy() Time {
+	return t
 }
 
 // String returns the representation of the time.
