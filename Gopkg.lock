@@ -44,6 +44,12 @@
   version = "v2.6.2"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/dsnet/compress"
+  packages = [".","bzip2","bzip2/internal/sais","internal","internal/errors","internal/prefix"]
+  revision = "0ae8e136a5df9e3caf6c0f69983608b07438411b"
+
+[[projects]]
   name = "github.com/emicklei/go-restful"
   packages = [".","log"]
   revision = "68c9750c36bb8cb433f1b88c807b4b30df4acc40"
@@ -236,10 +242,22 @@
   version = "v0.0.2"
 
 [[projects]]
+  name = "github.com/mholt/archiver"
+  packages = ["."]
+  revision = "cdc68dd1f170b8dfc1a0d2231b5bb0967ed67006"
+  version = "v2.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   revision = "d0303fe809921458f417bcf828397a65db30a7e4"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/nwaples/rardecode"
+  packages = ["."]
+  revision = "f22b7ef81a0afac9ce1447d37e5ab8e99fbd2f73"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -282,6 +300,12 @@
   name = "github.com/ugorji/go"
   packages = ["codec"]
   revision = "5efa3251c7f7d05e5d9704a69a984ec9f1386a40"
+
+[[projects]]
+  name = "github.com/ulikunitz/xz"
+  packages = [".","internal/hash","internal/xlog","lzma"]
+  revision = "0c6b41e72360850ca4f98dc341fd999726ea007f"
+  version = "v0.5.4"
 
 [[projects]]
   branch = "master"
@@ -352,6 +376,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d53b76d19a64a780fa190af23222c8a505a756444f05a464346628d62b3a8c14"
+  inputs-digest = "9865e0313508158e13577c178455ad2ab46c917b6c094496c2b81489f8b99250"
   solver-name = "gps-cdcl"
   solver-version = 1
