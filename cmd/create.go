@@ -22,7 +22,7 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/namer"
+	"github.com/kris-nova/kubicorn/cutil/namer"
 	"github.com/kris-nova/kubicorn/profiles"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
@@ -37,7 +37,7 @@ type CreateOptions struct {
 var co = &CreateOptions{}
 
 var createCmd = &cobra.Command{
-	Use:   "create <NAME> [-p|--profile PROFILENAME]",
+	Use:   "create [NAME] [-p|--profile PROFILENAME]",
 	Short: "Create a Kubicorn API model from a profile",
 	Long: `Use this command to create a Kubicorn API model in a defined state store.
 
@@ -46,7 +46,7 @@ Once the API model has been created, a user can optionally change the model to t
 After a model is defined and configured properly, the user can then apply the model.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
-			co.Name = strEnvDef("KUBICORN_NAME", "")
+			co.Name = strEnvDef("KUBICORN_NAME", namer.RandomName())
 		} else if len(args) > 1 {
 			logger.Critical("Too many arguments.")
 			os.Exit(1)
@@ -86,13 +86,8 @@ var alias = map[string]profileFunc{
 
 func RunCreate(options *CreateOptions) error {
 
-	// Ensure we have a name
-	name := options.Name
-	if name == "" {
-		name = namer.RandomName()
-	}
-
 	// Create our cluster resource
+	name := options.Name
 	var cluster *cluster.Cluster
 	if _, ok := alias[options.Profile]; ok {
 		cluster = alias[options.Profile](name)
