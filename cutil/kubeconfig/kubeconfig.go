@@ -60,19 +60,21 @@ func GetConfig(existing *cluster.Cluster) error {
 	//fmt.Println(remotePath)
 	//fmt.Println(localPath)
 
-	pemBytes, err := ioutil.ReadFile(privKeyPath)
-	if err != nil {
-		return err
-	}
-	signer, err := getSigner(pemBytes)
-	if err != nil {
-		return err
-	}
-	sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 	agent := sshAgent()
 	if agent != nil {
 		sshConfig.Auth = append(sshConfig.Auth, agent)
+	} else {
+		pemBytes, err := ioutil.ReadFile(privKeyPath)
+		if err != nil {
+			return err
+		}
+		signer, err := getSigner(pemBytes)
+		if err != nil {
+			return err
+		}
+		sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 	}
+
 	sshConfig.SetDefaults()
 	conn, err := ssh.Dial("tcp", address, sshConfig)
 	if err != nil {
