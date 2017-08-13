@@ -19,8 +19,8 @@ type Snapshot struct {
 }
 
 const (
-	InfrastructureRepresentationName = "infra.k8s"
-	ApplicationRepresentationName    = "apps.k8s"
+	InfrastructureRepresentationName = "infra.yaml"
+	ApplicationRepresentationName    = "apps.yaml"
 )
 
 func NewSnapshot(actualCluster *cluster.Cluster, appData []byte, absolutePath string) *Snapshot {
@@ -41,7 +41,7 @@ func (s *Snapshot) Bytes() []byte {
 
 func (s *Snapshot) WriteCompressedFile() error {
 	s.EnsureSnapshotName()
-	dir, err := ioutil.TempDir("", "kubicorn")
+	dir, err := ioutil.TempDir("", s.infra.Name)
 	if err != nil {
 		return err
 	}
