@@ -29,8 +29,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type CreateOptions struct {
+	Options
+	Profile string
+}
+
+var co = &CreateOptions{}
+
 var createCmd = &cobra.Command{
-	Use:   "create [-n|--name NAME] [-p|--profile PROFILENAME]",
+	Use:   "create <NAME> [-p|--profile PROFILENAME]",
 	Short: "Create a Kubicorn API model from a profile",
 	Long: `Use this command to create a Kubicorn API model in a defined state store.
 
@@ -38,6 +45,12 @@ This command will create a cluster API model as a YAML manifest in a state store
 Once the API model has been created, a user can optionally change the model to their liking.
 After a model is defined and configured properly, the user can then apply the model.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) != 1 {
+			co.Name = strEnvDef("KUBICORN_NAME", "")
+		} else {
+			co.Name = args[0]
+		}
+
 		err := RunCreate(co)
 		if err != nil {
 			logger.Critical(err.Error())
@@ -47,20 +60,12 @@ After a model is defined and configured properly, the user can then apply the mo
 	},
 }
 
-type CreateOptions struct {
-	Options
-	Profile string
-}
-
-var co = &CreateOptions{}
-
 func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	createCmd.Flags().StringVarP(&co.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 
-	flagApplyAnnotations(createCmd, "name", "__kubicorn_parse_list")
+	//flagApplyAnnotations(createCmd, "name", "__kubicorn_parse_list")
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 
 	RootCmd.AddCommand(createCmd)

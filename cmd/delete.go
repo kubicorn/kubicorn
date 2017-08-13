@@ -28,9 +28,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type DeleteOptions struct {
+	Options
+	Purge bool
+}
+
+var do = &DeleteOptions{}
+
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
-	Use:   "delete [-n|--name NAME]",
+	Use:   "delete <NAME>",
 	Short: "Delete a Kubernetes cluster",
 	Long: `Use this command to delete cloud resources.
 
@@ -40,6 +47,12 @@ After the delete is complete, the state store will be left in tact and could pot
 
 To delete the resource AND the API model in the state store, use --purge.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) != 1 {
+			do.Name = strEnvDef("KUBICORN_NAME", "")
+		} else {
+			do.Name = args[0]
+		}
+
 		err := RunDelete(do)
 		if err != nil {
 			logger.Critical(err.Error())
@@ -49,20 +62,12 @@ To delete the resource AND the API model in the state store, use --purge.`,
 	},
 }
 
-type DeleteOptions struct {
-	Options
-	Purge bool
-}
-
-var do = &DeleteOptions{}
-
 func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	deleteCmd.Flags().StringVarP(&do.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "Cluster name to delete")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 
-	flagApplyAnnotations(deleteCmd, "name", "__kubicorn_parse_list")
+	//flagApplyAnnotations(deleteCmd, "name", "__kubicorn_parse_list")
 
 	RootCmd.AddCommand(deleteCmd)
 }
