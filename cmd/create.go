@@ -45,8 +45,11 @@ This command will create a cluster API model as a YAML manifest in a state store
 Once the API model has been created, a user can optionally change the model to their liking.
 After a model is defined and configured properly, the user can then apply the model.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
+		if len(args) == 0 {
 			co.Name = strEnvDef("KUBICORN_NAME", "")
+		} else if len(args) > 1 {
+			logger.Critical("Too many arguments.")
+			os.Exit(1)
 		} else {
 			co.Name = args[0]
 		}

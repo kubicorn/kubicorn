@@ -47,8 +47,11 @@ After the delete is complete, the state store will be left in tact and could pot
 
 To delete the resource AND the API model in the state store, use --purge.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
+		if len(args) == 0 {
 			do.Name = strEnvDef("KUBICORN_NAME", "")
+		} else if len(args) > 1 {
+			logger.Critical("Too many arguments.")
+			os.Exit(1)
 		} else {
 			do.Name = args[0]
 		}

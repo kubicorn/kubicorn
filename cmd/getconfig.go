@@ -41,8 +41,11 @@ var getConfigCmd = &cobra.Command{
 
 This command will attempt to find a cluster, and append a local kubeconfig file with a kubeconfig `,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
+		if len(args) == 0 {
 			cro.Name = strEnvDef("KUBICORN_NAME", "")
+		} else if len(args) > 1 {
+			logger.Critical("Too many arguments.")
+			os.Exit(1)
 		} else {
 			cro.Name = args[0]
 		}

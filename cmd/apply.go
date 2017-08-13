@@ -44,8 +44,11 @@ var applyCmd = &cobra.Command{
 This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
 The apply will run once, and ultimately time out if something goes wrong.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
+		if len(args) == 0 {
 			ao.Name = strEnvDef("KUBICORN_NAME", "")
+		} else if len(args) > 1 {
+			logger.Critical("Too many arguments.")
+			os.Exit(1)
 		} else {
 			ao.Name = args[0]
 		}
