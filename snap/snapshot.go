@@ -73,7 +73,7 @@ func (s *Snapshot) EnsureSnapshotName() {
 			logger.Critical("Unable to get current working directory: %v", err)
 			return
 		}
-		timestamp := time.Now().Format(time.RFC3339)
-		s.absolutePath = fmt.Sprintf("%s/%s-%s.k8s", wd, s.infra.Name, timestamp)
+		timestamp := time.Now().Format("20060102150405")
+		s.absolutePath = fmt.Sprintf("%s/%s-%s.tar.k8s", wd, s.infra.Name, timestamp)
 	}
 }
