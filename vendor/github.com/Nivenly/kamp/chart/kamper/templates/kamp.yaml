@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: {{ .Values.kamp.name }}
+  name: {{ .Values.kamp.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  containers:
+  - image: {{ .Values.kamp.image }}
+    imagePullPolicy: IfNotPresent
+    name: {{ .Values.kamp.name }}
+    resources: {}
+    stdin: true
+    stdinOnce: true
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+  - image: {{ .Values.container.image }}
+    imagePullPolicy: IfNotPresent
+    name: {{ .Values.container.name }}
+    resources: {}
+    stdin: true
+    stdinOnce: true
+    tty: true
+  volumes:
+  - name: docker-sock
+    hostPath:
+      path: /var/run/docker.sock
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+
+
+
+
