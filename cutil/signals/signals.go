@@ -12,14 +12,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package main
+package signals
 
 import (
-	"github.com/kris-nova/kubicorn/cmd"
-	"github.com/kris-nova/kubicorn/cutil/signals"
+	"os/signal"
+	"os"
 )
 
-func main() {
-	signals.NewSignalHandler()
-	cmd.Execute()
+var State os.Signal
+
+func NewSignalHandler() {
+	signals := make(chan os.Signal)
+	signal.Notify(signals, os.Interrupt, os.Kill)
+
+	go handle(signals)
+}
+
+func handle(signals <-chan os.Signal) {
+	for {
+			select {
+				case s := <-signals:
+					switch {
+						case s == os.Interrupt:
+							if State == nil {
+								State = os.Interrupt
+								continue
+							}
+							os.Exit(1)
+							break
+						case s == os.Kill:
+							State = os.Kill
+							os.Exit(2)
+							break
+					}
+			}
+		}
 }
