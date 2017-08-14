@@ -455,22 +455,22 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	"bootstrap/README.md": bootstrapReadmeMd,
-	"bootstrap/amazon_k8s_ubuntu_16.04_master.sh": bootstrapAmazon_k8s_ubuntu_1604_masterSh,
-	"bootstrap/amazon_k8s_ubuntu_16.04_node.sh": bootstrapAmazon_k8s_ubuntu_1604_nodeSh,
-	"bootstrap/digitalocean_k8s_centos_7_master.sh": bootstrapDigitalocean_k8s_centos_7_masterSh,
-	"bootstrap/digitalocean_k8s_centos_7_node.sh": bootstrapDigitalocean_k8s_centos_7_nodeSh,
-	"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh": bootstrapDigitalocean_k8s_ubuntu_1604_masterSh,
-	"bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh": bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh,
+	"bootstrap/README.md":                                 bootstrapReadmeMd,
+	"bootstrap/amazon_k8s_ubuntu_16.04_master.sh":         bootstrapAmazon_k8s_ubuntu_1604_masterSh,
+	"bootstrap/amazon_k8s_ubuntu_16.04_node.sh":           bootstrapAmazon_k8s_ubuntu_1604_nodeSh,
+	"bootstrap/digitalocean_k8s_centos_7_master.sh":       bootstrapDigitalocean_k8s_centos_7_masterSh,
+	"bootstrap/digitalocean_k8s_centos_7_node.sh":         bootstrapDigitalocean_k8s_centos_7_nodeSh,
+	"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh":   bootstrapDigitalocean_k8s_ubuntu_1604_masterSh,
+	"bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh":     bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh,
 	"bootstrap/google_compute_k8s_ubuntu_16.04_master.sh": bootstrapGoogle_compute_k8s_ubuntu_1604_masterSh,
-	"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh": bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh,
-	"bootstrap/inject.go": bootstrapInjectGo,
-	"bootstrap/vpn/meshbirdMaster.sh": bootstrapVpnMeshbirdmasterSh,
-	"bootstrap/vpn/meshbirdNode.sh": bootstrapVpnMeshbirdnodeSh,
-	"bootstrap/vpn/openvpnMaster-centos.sh": bootstrapVpnOpenvpnmasterCentosSh,
-	"bootstrap/vpn/openvpnMaster.sh": bootstrapVpnOpenvpnmasterSh,
-	"bootstrap/vpn/openvpnNode-centos.sh": bootstrapVpnOpenvpnnodeCentosSh,
-	"bootstrap/vpn/openvpnNode.sh": bootstrapVpnOpenvpnnodeSh,
+	"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh":   bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh,
+	"bootstrap/inject.go":                                 bootstrapInjectGo,
+	"bootstrap/vpn/meshbirdMaster.sh":                     bootstrapVpnMeshbirdmasterSh,
+	"bootstrap/vpn/meshbirdNode.sh":                       bootstrapVpnMeshbirdnodeSh,
+	"bootstrap/vpn/openvpnMaster-centos.sh":               bootstrapVpnOpenvpnmasterCentosSh,
+	"bootstrap/vpn/openvpnMaster.sh":                      bootstrapVpnOpenvpnmasterSh,
+	"bootstrap/vpn/openvpnNode-centos.sh":                 bootstrapVpnOpenvpnnodeCentosSh,
+	"bootstrap/vpn/openvpnNode.sh":                        bootstrapVpnOpenvpnnodeSh,
 }
 
 // AssetDir returns the file names below a certain
@@ -512,25 +512,26 @@ type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
 }
+
 var _bintree = &bintree{nil, map[string]*bintree{
 	"bootstrap": &bintree{nil, map[string]*bintree{
-		"README.md": &bintree{bootstrapReadmeMd, map[string]*bintree{}},
-		"amazon_k8s_ubuntu_16.04_master.sh": &bintree{bootstrapAmazon_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"amazon_k8s_ubuntu_16.04_node.sh": &bintree{bootstrapAmazon_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
-		"digitalocean_k8s_centos_7_master.sh": &bintree{bootstrapDigitalocean_k8s_centos_7_masterSh, map[string]*bintree{}},
-		"digitalocean_k8s_centos_7_node.sh": &bintree{bootstrapDigitalocean_k8s_centos_7_nodeSh, map[string]*bintree{}},
-		"digitalocean_k8s_ubuntu_16.04_master.sh": &bintree{bootstrapDigitalocean_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"digitalocean_k8s_ubuntu_16.04_node.sh": &bintree{bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"README.md":                                 &bintree{bootstrapReadmeMd, map[string]*bintree{}},
+		"amazon_k8s_ubuntu_16.04_master.sh":         &bintree{bootstrapAmazon_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
+		"amazon_k8s_ubuntu_16.04_node.sh":           &bintree{bootstrapAmazon_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"digitalocean_k8s_centos_7_master.sh":       &bintree{bootstrapDigitalocean_k8s_centos_7_masterSh, map[string]*bintree{}},
+		"digitalocean_k8s_centos_7_node.sh":         &bintree{bootstrapDigitalocean_k8s_centos_7_nodeSh, map[string]*bintree{}},
+		"digitalocean_k8s_ubuntu_16.04_master.sh":   &bintree{bootstrapDigitalocean_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
+		"digitalocean_k8s_ubuntu_16.04_node.sh":     &bintree{bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
 		"google_compute_k8s_ubuntu_16.04_master.sh": &bintree{bootstrapGoogle_compute_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"google_compute_k8s_ubuntu_16.04_node.sh": &bintree{bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
-		"inject.go": &bintree{bootstrapInjectGo, map[string]*bintree{}},
+		"google_compute_k8s_ubuntu_16.04_node.sh":   &bintree{bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"inject.go":                                 &bintree{bootstrapInjectGo, map[string]*bintree{}},
 		"vpn": &bintree{nil, map[string]*bintree{
-			"meshbirdMaster.sh": &bintree{bootstrapVpnMeshbirdmasterSh, map[string]*bintree{}},
-			"meshbirdNode.sh": &bintree{bootstrapVpnMeshbirdnodeSh, map[string]*bintree{}},
+			"meshbirdMaster.sh":       &bintree{bootstrapVpnMeshbirdmasterSh, map[string]*bintree{}},
+			"meshbirdNode.sh":         &bintree{bootstrapVpnMeshbirdnodeSh, map[string]*bintree{}},
 			"openvpnMaster-centos.sh": &bintree{bootstrapVpnOpenvpnmasterCentosSh, map[string]*bintree{}},
-			"openvpnMaster.sh": &bintree{bootstrapVpnOpenvpnmasterSh, map[string]*bintree{}},
-			"openvpnNode-centos.sh": &bintree{bootstrapVpnOpenvpnnodeCentosSh, map[string]*bintree{}},
-			"openvpnNode.sh": &bintree{bootstrapVpnOpenvpnnodeSh, map[string]*bintree{}},
+			"openvpnMaster.sh":        &bintree{bootstrapVpnOpenvpnmasterSh, map[string]*bintree{}},
+			"openvpnNode-centos.sh":   &bintree{bootstrapVpnOpenvpnnodeCentosSh, map[string]*bintree{}},
+			"openvpnNode.sh":          &bintree{bootstrapVpnOpenvpnnodeSh, map[string]*bintree{}},
 		}},
 	}},
 }}
@@ -581,4 +582,3 @@ func _filePath(dir, name string) string {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
-
