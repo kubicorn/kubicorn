@@ -49,19 +49,22 @@ func (s *SecureCopier) ReadBytes(remotePath string) ([]byte, error) {
 		User:            s.RemoteUser,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
-	pemBytes, err := ioutil.ReadFile(s.PrivateKeyPath)
-	if err != nil {
-		return nil, err
-	}
-	signer, err := getSigner(pemBytes)
-	if err != nil {
-		return nil, err
-	}
-	sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
+	
 	agent := sshAgent()
 	if agent != nil {
 		sshConfig.Auth = append(sshConfig.Auth, agent)
+	} else {
+		pemBytes, err := ioutil.ReadFile(s.PrivateKeyPath)
+		if err != nil {
+			return nil, err
+		}
+		signer, err := getSigner(pemBytes)
+		if err != nil {
+			return nil, err
+		}
+		sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 	}
+
 	sshConfig.SetDefaults()
 	conn, err := ssh.Dial("tcp", fmt.Sprintf("%s:%s", s.RemoteAddress, s.RemotePort), sshConfig)
 	if err != nil {
