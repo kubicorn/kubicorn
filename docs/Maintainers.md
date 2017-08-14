@@ -32,6 +32,6 @@ Kubicorn is a small team currently, things are evolving at a very fast pace. We 
 
 ### Current Maintainers:
 - [Kris Nova](https://github.com/kris-nova)
-- [Marco Mudrinić](https://github.com/xmudrii)
+- [Marko Mudrinić](https://github.com/xmudrii)
 - [Prateek Gogia](https://github.com/prateekgogia)
 - [Robert Bailey](https://github.com/roberthbailey)
