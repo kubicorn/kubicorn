@@ -109,9 +109,9 @@ update-headers: ## Update the headers in the repository. Required for all new fi
 dependencies:
 	GODEP_CMD=$(shell command -v dep 2> /dev/null)
 ifndef GODEP_CMD
-	$(go get -u github.com/golang/dep/cmd/dep)
+	go get -u github.com/golang/dep/cmd/dep
 endif
-    dep ensure
+	dep ensure
 
 .PHONY: apimachinery
 apimachinery:
