@@ -2,3 +2,4 @@ _state*
 .idea*
 .DS_Store
 bin/*
+vendor/*
