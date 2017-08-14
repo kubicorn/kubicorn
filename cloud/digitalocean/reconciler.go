@@ -115,7 +115,7 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 			os.Exit(1)
 		}
 
-		go handleCtrlC(r)
+		go handleCtrlC()
 
 		resource := model[i]
 		expectedResource, err := resource.Expected(expectedCluster)
@@ -209,7 +209,7 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 	return new
 }
 
-func handleCtrlC(r *Reconciler) {
+func handleCtrlC() {
 	sig := signals.GetSignalState()
 	if sig != 0 {
 		sigCaught = true
