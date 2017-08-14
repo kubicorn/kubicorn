@@ -15,17 +15,29 @@
 package signals
 
 import (
+	"syscall"
 	"os/signal"
 	"os"
 )
 
-var State os.Signal
+const (
+	signalAbort = 1 << iota
+	signalTerminate
+)
+
+var signalReceived int
 
 func NewSignalHandler() {
+	signalReceived = 0
+
 	signals := make(chan os.Signal)
 	signal.Notify(signals, os.Interrupt, os.Kill)
 
 	go handle(signals)
+}
+
+func GetSignalState() int {
+	return signalReceived
 }
 
 func handle(signals <-chan os.Signal) {
@@ -34,15 +46,21 @@ func handle(signals <-chan os.Signal) {
 				case s := <-signals:
 					switch {
 						case s == os.Interrupt:
-							if State == nil {
-								State = os.Interrupt
+							if signalReceived == 0 {
+								signalReceived = signalAbort
 								continue
 							}
 							os.Exit(1)
 							break
 						case s == os.Kill:
-							State = os.Kill
+							signalReceived = signalTerminate
 							os.Exit(2)
+							break
+						case s == syscall.SIGQUIT:
+							signalReceived = signalAbort
+							break
+						case s == syscall.SIGTERM:
+							signalReceived = signalAbort
 							break
 					}
 			}
