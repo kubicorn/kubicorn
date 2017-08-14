@@ -19,7 +19,7 @@ In the following we'll be using an existing profile called `aws`, which is—sur
 Now execute the following command:
 
 ```
-$ kubicorn create --name myfirstk8s --profile aws
+$ kubicorn create myfirstk8s --profile aws
 ```
 
 Verify that `kubicorn create` did a good job by executing:
@@ -58,7 +58,7 @@ This actually creates resources in AWS. Up to now we've only been working locall
 So, execute:
 
 ```
-$ kubicorn apply --name myfirstk8s
+$ kubicorn apply myfirstk8s
 ```
 
 Now `kubicorn` will reconcile your intended state against the actual state in the cloud, thus creating a Kubernetes cluster.
@@ -73,7 +73,7 @@ You can also `ssh` into your instances using the example command found in the ou
 To delete your cluster run:
 
 ```
-$ kubicorn delete --name myfirstk8s
+$ kubicorn delete myfirstk8s
 ```
 
 Congratulations, you're an official `kubicorn` user now and might want to dive deeper,
