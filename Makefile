@@ -90,7 +90,7 @@ test: ## Run the INTEGRATION TESTS. This will create cloud resources and potenti
 	go test -timeout 20m -v $(PKGS)
 
 .PHONY: ci
-ci: ## Run the CI TESTS. This will never cost money, and will never communicate with a cloud API.
+ci: godep ## Run the CI TESTS. This will never cost money, and will never communicate with a cloud API.
 	go test -timeout 20m -v $(CI_PKGS)
 
 .PHONY: check-code
@@ -109,7 +109,7 @@ update-headers: ## Update the headers in the repository. Required for all new fi
 godep:
 	GODEP_CMD=$(shell command -v dep 2> /dev/null)
 ifndef GODEP_CMD
-	go get -u github.com/golang/dep/cmd/dep
+	go get github.com/golang/dep/cmd/dep
 endif
 	dep ensure
 
