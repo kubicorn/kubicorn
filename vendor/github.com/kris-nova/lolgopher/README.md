@@ -1,4 +1,7 @@
 # lolgopher
+
+<p align="center"><img src="img/logo.png" width="420"></p>
+
 Rainbow Writer implementation for Golang
 
 Based on https://github.com/busyloop/lolcat.

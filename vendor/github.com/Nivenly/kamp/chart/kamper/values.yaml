@@ -1,0 +1,10 @@
+namespace: "default"
+sshPort: 22
+
+kamp:
+  image: "ubuntu"
+  name: "kamp"
+
+container:
+  image: "ubuntu"
+  name: "user"

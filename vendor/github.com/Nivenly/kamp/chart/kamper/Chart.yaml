@@ -1,0 +1,16 @@
+name: kamper
+version: 0.0.1
+appVersion: 0.0.1
+description: Will deploy an arbitrary container and configure kubernetes for SSH access
+keywords:
+- kamp
+- kubernetes
+- deploy
+- container
+- develop
+home: https://github.com/Nivenly/kamp
+sources:
+- https://github.com/Nivenly/kamp
+maintainers:
+- name: Kris Nova
+  email: kris@nivenly.com

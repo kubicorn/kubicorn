@@ -39,7 +39,7 @@ func (t *testHandler) Filecmd(r Request) error {
 	return nil
 }
 
-func (t *testHandler) Fileinfo(r Request) ([]os.FileInfo, error) {
+func (t *testHandler) Filelist(r Request) (ListerAt, error) {
 	if t.err != nil {
 		return nil, t.err
 	}
@@ -51,7 +51,7 @@ func (t *testHandler) Fileinfo(r Request) ([]os.FileInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	return []os.FileInfo{fi}, nil
+	return listerat([]os.FileInfo{fi}), nil
 }
 
 // make sure len(fakefile) == len(filecontents)
@@ -65,7 +65,7 @@ func testRequest(method string) Request {
 		Method:    method,
 		Attrs:     []byte("foo"),
 		Target:    "foo",
-		packets:   make(chan packet_data, sftpServerWorkerCount),
+		packets:   make(chan packet_data, SftpServerWorkerCount),
 		state:     &state{},
 		stateLock: &sync.RWMutex{},
 	}
@@ -98,7 +98,7 @@ func newTestHandlers() Handlers {
 		FileGet:  handler,
 		FilePut:  handler,
 		FileCmd:  handler,
-		FileInfo: handler,
+		FileList: handler,
 	}
 }
 

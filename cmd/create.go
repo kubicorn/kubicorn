@@ -18,7 +18,6 @@ import (
 	//"github.com/spf13/pflag"
 	"fmt"
 	"os"
-	"os/user"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -123,27 +122,4 @@ func RunCreate(options *CreateOptions) error {
 
 	logger.Always("The state [%s/%s/cluster.yaml] has been created. You can edit the file, then run `kubicorn apply -n %s`", options.StateStorePath, name, name)
 	return nil
-}
-
-func expandPath(path string) string {
-	if path == "." {
-		wd, err := os.Getwd()
-		if err != nil {
-			logger.Critical("Unable to get current working directory: %v", err)
-			return ""
-		}
-		path = wd
-	}
-	if path == "~" {
-		homeVar := os.Getenv("HOME")
-		if homeVar == "" {
-			homeUser, err := user.Current()
-			if err != nil {
-				logger.Critical("Unable to use user.Current() for user. Maybe a cross compile issue: %v", err)
-				return ""
-			}
-			path = homeUser.HomeDir
-		}
-	}
-	return path
 }

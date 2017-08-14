@@ -23,8 +23,16 @@ type FileCmder interface {
 	Filecmd(Request) error
 }
 
-// FileInfoer should return file listing info and errors (readdir, stat)
-// note stat requests would return a list of 1
-type FileInfoer interface {
-	Fileinfo(Request) ([]os.FileInfo, error)
+// FileLister should return file info interface and errors (readdir, stat)
+type FileLister interface {
+	Filelist(Request) (ListerAt, error)
+}
+
+// ListerAt does for file lists what io.ReaderAt does for files.
+// ListerAt should return the number of entries copied and an io.EOF
+// error if at end of list. This is testable by comparing how many you
+// copied to how many could be copied (eg. n < len(ls) below).
+// The copy() builtin is best for the copying.
+type ListerAt interface {
+	ListAt([]os.FileInfo, int64) (int, error)
 }

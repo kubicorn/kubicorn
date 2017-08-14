@@ -1,0 +1,18 @@
+package: github.com/Nivenly/kamp
+import:
+- package: github.com/fatih/color
+  version: ^1.5.0
+- package: github.com/spf13/cobra
+- package: gopkg.in/src-d/go-git.v4
+  version: ^4.0.0-rc9
+- package: k8s.io/client-go
+  version: ^3.0.0-beta.0
+  subpackages:
+  - kubernetes
+  - pkg/api/v1
+  - tools/clientcmd
+- package: k8s.io/kubernetes
+  version: ^1.8.0-alpha.1
+  subpackages:
+  - pkg/kubectl/cmd
+  - pkg/kubectl/cmd/util
