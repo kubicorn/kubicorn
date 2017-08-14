@@ -49,7 +49,7 @@ func (s *SecureCopier) ReadBytes(remotePath string) ([]byte, error) {
 		User:            s.RemoteUser,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
-	
+
 	agent := sshAgent()
 	if agent != nil {
 		sshConfig.Auth = append(sshConfig.Auth, agent)
