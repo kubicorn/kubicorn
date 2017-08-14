@@ -16,8 +16,9 @@ package retry
 
 import (
 	"os"
-	"github.com/kris-nova/kubicorn/cutil/signals"
 	"time"
+
+	"github.com/kris-nova/kubicorn/cutil/signals"
 )
 
 func Retry(f func(), retries int, timeout time.Duration) {
@@ -33,10 +34,10 @@ loop:
 			done <- true
 		}()
 		select {
-			case <-done:
-				break loop
-			case <-time.After(timeout):
-				break loop
+		case <-done:
+			break loop
+		case <-time.After(timeout):
+			break loop
 		}
 	}
 }

@@ -15,9 +15,9 @@
 package signals
 
 import (
-	"syscall"
-	"os/signal"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 const (
@@ -42,27 +42,27 @@ func GetSignalState() int {
 
 func handle(signals <-chan os.Signal) {
 	for {
-			select {
-				case s := <-signals:
-					switch {
-						case s == os.Interrupt:
-							if signalReceived == 0 {
-								signalReceived = signalAbort
-								continue
-							}
-							os.Exit(1)
-							break
-						case s == os.Kill:
-							signalReceived = signalTerminate
-							os.Exit(2)
-							break
-						case s == syscall.SIGQUIT:
-							signalReceived = signalAbort
-							break
-						case s == syscall.SIGTERM:
-							signalReceived = signalAbort
-							break
-					}
+		select {
+		case s := <-signals:
+			switch {
+			case s == os.Interrupt:
+				if signalReceived == 0 {
+					signalReceived = signalAbort
+					continue
+				}
+				os.Exit(1)
+				break
+			case s == os.Kill:
+				signalReceived = signalTerminate
+				os.Exit(2)
+				break
+			case s == syscall.SIGQUIT:
+				signalReceived = signalAbort
+				break
+			case s == syscall.SIGTERM:
+				signalReceived = signalAbort
+				break
 			}
 		}
+	}
 }

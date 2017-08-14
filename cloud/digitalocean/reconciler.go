@@ -15,10 +15,11 @@
 package digitalocean
 
 import (
-	"github.com/kris-nova/kubicorn/cutil/signals"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/kris-nova/kubicorn/cutil/signals"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
