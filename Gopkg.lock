@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "cloud.google.com/go"
+  packages = ["compute/metadata"]
+  revision = "44bcd0b2078ba5e7fedbeb36808d1ed893534750"
+  version = "v0.11.0"
+
+[[projects]]
   name = "github.com/PuerkitoBio/purell"
   packages = ["."]
   revision = "0bcb03f4b4d0a9428594752bd2a3b9aa0a9d4bd4"
@@ -142,8 +148,8 @@
 [[projects]]
   name = "github.com/kris-nova/klone"
   packages = ["pkg/local"]
-  revision = "a9d1a9905c22559b040697cd0a22b89217d56c9a"
-  version = "v1.2.0"
+  revision = "2217bf3479abb92275417e26b948209df4e402e9"
+  version = "v1.1.1"
 
 [[projects]]
   branch = "master"
@@ -220,7 +226,7 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/oauth2"
-  packages = [".","internal"]
+  packages = [".","google","internal","jws","jwt"]
   revision = "96fca6c793ec32f068f97942ae3c7c073810dfc1"
 
 [[projects]]
@@ -236,8 +242,14 @@
   revision = "3bd178b88a8180be2df394a1fbb81313916f0e7b"
 
 [[projects]]
+  branch = "master"
+  name = "google.golang.org/api"
+  packages = ["compute/v1","gensupport","googleapi","googleapi/internal/uritemplates"]
+  revision = "98825bb0065da4054e5da6db34f5fc598e50bc24"
+
+[[projects]]
   name = "google.golang.org/appengine"
-  packages = ["internal","internal/base","internal/datastore","internal/log","internal/remote_api","internal/urlfetch","urlfetch"]
+  packages = [".","internal","internal/app_identity","internal/base","internal/datastore","internal/log","internal/modules","internal/remote_api","internal/urlfetch","urlfetch"]
   revision = "150dc57a1b433e64154302bdc40b6bb8aefa313a"
   version = "v1.0.0"
 
@@ -262,6 +274,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bf1643f0ffcf816d6be2478f1431bacb99c2a5c0b24ccb0b0b86ee61467c3249"
+  inputs-digest = "07fe5da2e2d1d92ef9ea57f6ed20d51622084073709d22b89bfd0933cf218252"
   solver-name = "gps-cdcl"
   solver-version = 1

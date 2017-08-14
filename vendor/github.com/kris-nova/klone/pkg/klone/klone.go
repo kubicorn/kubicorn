@@ -25,8 +25,8 @@
 package klone
 
 import (
-	"fmt"
 	"github.com/kris-nova/klone/pkg/local"
+	"fmt"
 )
 
 type Style int
