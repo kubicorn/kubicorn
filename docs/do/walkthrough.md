@@ -20,7 +20,7 @@ In the following we'll be using an existing profile called `do`, which is a prof
 Now execute the following command:
 
 ```
-$ kubicorn create --name myfirstk8s --profile do
+$ kubicorn create myfirstk8s --profile do
 ```
 
 Verify that `kubicorn create` did a good job by executing:
@@ -59,7 +59,7 @@ This actually creates resources in DigitalOcean. Up to now we've only been worki
 So, execute:
 
 ```
-$ kubicorn apply --name myfirstk8s
+$ kubicorn apply myfirstk8s
 ```
 
 Now `kubicorn` will reconcile your intended state against the actual state in the cloud, thus creating a Kubernetes cluster.
@@ -72,7 +72,7 @@ You can also `ssh` into your instances using the example command found in the ou
 To delete your cluster run:
 
 ```
-$ kubicorn delete --name myfirstk8s
+$ kubicorn delete myfirstk8s
 ```
 
 Congratulations, you're an official `kubicorn` user now and might want to dive deeper,

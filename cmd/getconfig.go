@@ -27,14 +27,29 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type GetConfigOptions struct {
+	Options
+}
+
+var cro = &GetConfigOptions{}
+
 // getConfigCmd represents the apply command
 var getConfigCmd = &cobra.Command{
-	Use:   "getconfig [-n|--name NAME]",
+	Use:   "getconfig <NAME>",
 	Short: "Manage Kubernetes configuration",
 	Long: `Use this command to pull a kubeconfig file from a cluster so you can use kubectl.
 
 This command will attempt to find a cluster, and append a local kubeconfig file with a kubeconfig `,
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) == 0 {
+			cro.Name = strEnvDef("KUBICORN_NAME", "")
+		} else if len(args) > 1 {
+			logger.Critical("Too many arguments.")
+			os.Exit(1)
+		} else {
+			cro.Name = args[0]
+		}
+
 		err := RunGetConfig(cro)
 		if err != nil {
 			logger.Critical(err.Error())
@@ -44,18 +59,11 @@ This command will attempt to find a cluster, and append a local kubeconfig file 
 	},
 }
 
-type GetConfigOptions struct {
-	Options
-}
-
-var cro = &GetConfigOptions{}
-
 func init() {
 	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	getConfigCmd.Flags().StringVarP(&cro.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 
-	flagApplyAnnotations(getConfigCmd, "name", "__kubicorn_parse_list")
+	//flagApplyAnnotations(getConfigCmd, "name", "__kubicorn_parse_list")
 
 	RootCmd.AddCommand(getConfigCmd)
 }

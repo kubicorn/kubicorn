@@ -80,7 +80,7 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 func (r *KeyPair) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("keypair.Expected")
 	if r.CachedExpected != nil {
-		logger.Debug("Using keypair subnet [expected]")
+		logger.Debug("Using keypair [expected]")
 		return r.CachedExpected, nil
 	}
 	expected := &KeyPair{

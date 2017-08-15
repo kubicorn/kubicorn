@@ -29,15 +29,30 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type ApplyOptions struct {
+	Options
+}
+
+var ao = &ApplyOptions{}
+
 // applyCmd represents the apply command
 var applyCmd = &cobra.Command{
-	Use:   "apply [-n|--name NAME]",
+	Use:   "apply <NAME>",
 	Short: "Apply a cluster resource to a cloud",
 	Long: `Use this command to apply an API model in a cloud.
 
 This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
 The apply will run once, and ultimately time out if something goes wrong.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) == 0 {
+			ao.Name = strEnvDef("KUBICORN_NAME", "")
+		} else if len(args) > 1 {
+			logger.Critical("Too many arguments.")
+			os.Exit(1)
+		} else {
+			ao.Name = args[0]
+		}
+
 		err := RunApply(ao)
 		if err != nil {
 			logger.Critical(err.Error())
@@ -47,18 +62,11 @@ The apply will run once, and ultimately time out if something goes wrong.`,
 	},
 }
 
-type ApplyOptions struct {
-	Options
-}
-
-var ao = &ApplyOptions{}
-
 func init() {
 	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	applyCmd.Flags().StringVarP(&ao.Name, "name", "n", strEnvDef("KUBICORN_NAME", ""), "An optional name to use. If empty, will generate a random name.")
 
-	flagApplyAnnotations(applyCmd, "name", "__kubicorn_parse_list")
+	//flagApplyAnnotations(applyCmd, "name", "__kubicorn_parse_list")
 
 	RootCmd.AddCommand(applyCmd)
 }
