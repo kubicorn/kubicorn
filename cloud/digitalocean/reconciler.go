@@ -116,7 +116,9 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 			os.Exit(1)
 		}
 
-		go handleCtrlC()
+		h := signals.NewSignalHandler(10 * time.Minute)
+		h.Register()
+		go handleCtrlC(*h)
 
 		resource := model[i]
 		expectedResource, err := resource.Expected(expectedCluster)
@@ -210,8 +212,8 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 	return new
 }
 
-func handleCtrlC() {
-	sig := signals.GetSignalState()
+func handleCtrlC(h signals.Handler) {
+	sig := h.GetState()
 	if sig != 0 {
 		sigCaught = true
 		logger.Critical("Detected signal. Please be patient while kubicorn cleanly exits. Maybe get a cup of tea?")

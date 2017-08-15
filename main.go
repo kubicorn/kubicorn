@@ -14,12 +14,8 @@
 
 package main
 
-import (
-	"github.com/kris-nova/kubicorn/cmd"
-	"github.com/kris-nova/kubicorn/cutil/signals"
-)
+import "github.com/kris-nova/kubicorn/cmd"
 
 func main() {
-	signals.NewSignalHandler()
 	cmd.Execute()
 }

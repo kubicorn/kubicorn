@@ -18,6 +18,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 const (
@@ -25,44 +26,59 @@ const (
 	signalTerminate
 )
 
-var signalReceived int
+type Signal interface {
+	GetState() <-chan int
+	Register()
+}
 
-func NewSignalHandler() {
-	signalReceived = 0
+type Handler struct {
+	Timeout time.Duration
 
+	signals        chan os.Signal
+	signalReceived int
+}
+
+func NewSignalHandler(timeout time.Duration) *Handler {
 	signals := make(chan os.Signal)
 	signal.Notify(signals, os.Interrupt, os.Kill)
 
-	go handle(signals)
+	return &Handler{
+		Timeout:        timeout,
+		signals:        signals,
+		signalReceived: 0,
+	}
 }
 
-func GetSignalState() int {
-	return signalReceived
+func (h *Handler) GetState() int {
+	return h.signalReceived
 }
 
-func handle(signals <-chan os.Signal) {
+func (h *Handler) Register() {
 	for {
 		select {
-		case s := <-signals:
+		case s := <-h.signals:
 			switch {
 			case s == os.Interrupt:
-				if signalReceived == 0 {
-					signalReceived = signalAbort
+				if h.signalReceived == 0 {
+					h.signalReceived = signalAbort
 					continue
 				}
 				os.Exit(1)
 				break
 			case s == os.Kill:
-				signalReceived = signalTerminate
+				h.signalReceived = signalTerminate
 				os.Exit(2)
 				break
 			case s == syscall.SIGQUIT:
-				signalReceived = signalAbort
+				h.signalReceived = signalAbort
 				break
 			case s == syscall.SIGTERM:
-				signalReceived = signalAbort
+				h.signalReceived = signalAbort
 				break
 			}
+		case <-time.After(h.Timeout):
+			os.Exit(3)
+			break
 		}
 	}
 }
