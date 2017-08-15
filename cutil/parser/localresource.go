@@ -22,8 +22,8 @@ import (
 	"strings"
 )
 
-// readFromFS reads file from a local path and returns as []byte
-func readFromFS(sourcePath string) ([]byte, error) {
+// readFromFS reads file from a local path and returns as string
+func readFromFS(sourcePath string) (string, error) {
 
 	// If sourcePath starts with ~ we search for $HOME
 	// and preppend it to the absolutePath overwriting the first character
@@ -31,14 +31,14 @@ func readFromFS(sourcePath string) ([]byte, error) {
 	if strings.HasPrefix(sourcePath, "~") {
 		homeDir := os.Getenv("HOME")
 		if homeDir == "" {
-			return []byte(""), fmt.Errorf("Could not find $HOME")
+			return "", fmt.Errorf("Could not find $HOME")
 		}
 		sourcePath = filepath.Join(homeDir, sourcePath[1:])
 	}
 
 	bytes, err := ioutil.ReadFile(sourcePath)
 	if err != nil {
-		return []byte(""), err
+		return "", err
 	}
-	return bytes, nil
+	return string(bytes), nil
 }

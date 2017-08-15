@@ -64,32 +64,32 @@ func TestReadFromResource(t *testing.T) {
 	tests := []struct {
 		name     string
 		resource string
-		want     []byte
+		want     string
 		wantErr  bool
 		isEqual  bool
 	}{
 		//http valids
-		{name: "https has file", resource: "https" + testURL, want: []byte("test\n"), wantErr: false, isEqual: true},
-		{name: "https has file with SB scheme", resource: "HTTps" + testURL, want: []byte("test\n"), wantErr: false, isEqual: true},
-		{name: "http has file", resource: "http" + testURL, want: []byte("test\n"), wantErr: false, isEqual: true},
+		{name: "https has file", resource: "https" + testURL, want: ("test\n"), wantErr: false, isEqual: true},
+		{name: "https has file with SB scheme", resource: "HTTps" + testURL, want: ("test\n"), wantErr: false, isEqual: true},
+		{name: "http has file", resource: "http" + testURL, want: ("test\n"), wantErr: false, isEqual: true},
 		//http invalids
-		{name: "http url is empty", resource: "", want: []byte("test\n"), wantErr: true, isEqual: false},
-		{name: "http host is unknow", resource: "http://fdfdsjhfk88sfdas3989438.com/file", want: []byte("test\n"), wantErr: true, isEqual: false},
-		{name: "http file not found", resource: "https://github.com/mariomazo/test-files/some404", want: []byte("test\n"), wantErr: true, isEqual: false},
+		{name: "http url is empty", resource: "", want: ("test\n"), wantErr: true, isEqual: false},
+		{name: "http host is unknow", resource: "http://fdfdsjhfk88sfdas3989438.com/file", want: ("test\n"), wantErr: true, isEqual: false},
+		{name: "http file not found", resource: "https://github.com/mariomazo/test-files/some404", want: ("test\n"), wantErr: true, isEqual: false},
 
 		//local valids
-		{name: "path relative has file", resource: tmpfile.Name(), want: []byte("testing"), wantErr: false, isEqual: true},
-		{name: "path full has file", resource: tmpfile2.Name(), want: []byte("testing"), wantErr: false, isEqual: true},
-		{name: "path relative dot has file", resource: "./" + tmpfile.Name(), want: []byte("testing"), wantErr: false, isEqual: true},
+		{name: "path relative has file", resource: tmpfile.Name(), want: ("testing"), wantErr: false, isEqual: true},
+		{name: "path full has file", resource: tmpfile2.Name(), want: ("testing"), wantErr: false, isEqual: true},
+		{name: "path relative dot has file", resource: "./" + tmpfile.Name(), want: ("testing"), wantErr: false, isEqual: true},
 
 		//local invalids
-		{name: "file not in path", resource: tmpfile.Name() + "fake", want: []byte("testing"), wantErr: true, isEqual: false},
-		{name: "path is invaid", resource: "././tomeDir/testfile", want: []byte("test"), wantErr: true, isEqual: false},
-		{name: "path is empty", resource: "", want: []byte("testing"), wantErr: true, isEqual: false},
+		{name: "file not in path", resource: tmpfile.Name() + "fake", want: ("testing"), wantErr: true, isEqual: false},
+		{name: "path is invaid", resource: "././tomeDir/testfile", want: ("test"), wantErr: true, isEqual: false},
+		{name: "path is empty", resource: "", want: ("testing"), wantErr: true, isEqual: false},
 
 		//extras
-		{name: "protocol not known", resource: "s3://raw.githubusercontent.com/mariomazo/test-files/master/test", want: []byte("test\n"), wantErr: true, isEqual: false},
-		{name: "file not found", resource: "/fjdshlkfjdhs9879879ee", want: []byte("test\n"), wantErr: true, isEqual: false},
+		{name: "protocol not known", resource: "s3://raw.githubusercontent.com/mariomazo/test-files/master/test", want: ("test\n"), wantErr: true, isEqual: false},
+		{name: "file not found", resource: "/fjdshlkfjdhs9879879ee", want: ("test\n"), wantErr: true, isEqual: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
