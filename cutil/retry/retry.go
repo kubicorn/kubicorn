@@ -27,9 +27,9 @@ type Retry interface {
 
 type Worker struct {
 	Function func()
-	Retries int
-	Timeout time.Duration
-	Handler signals.Handler
+	Retries  int
+	Timeout  time.Duration
+	Handler  signals.Handler
 }
 
 func (w *Worker) Work() {
