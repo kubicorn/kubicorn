@@ -86,7 +86,7 @@ func CentosAmazonCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s.node", name),
 				MaxCount: 1,
 				MinCount: 1,
-				Image:    "ami-0c2aba6c ",
+				Image:    "ami-0c2aba6c",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
 					"amazon_k8s_centos_7_node.sh",
