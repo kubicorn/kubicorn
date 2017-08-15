@@ -112,7 +112,7 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 
 	h := signals.NewSignalHandler(10 * time.Minute)
 	go h.Register()
-	go handleCtrlC(*h)
+	handleCtrlC(h)
 
 	for i := 0; i < len(model); i++ {
 		if sigCaught {
@@ -212,12 +212,14 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 	return new
 }
 
-func handleCtrlC(h signals.Handler) {
-	for {
-		sig := h.GetState()
-		if sig != 0 {
-			sigCaught = true
-			logger.Critical("Detected signal. Please be patient while kubicorn cleanly exits. Maybe get a cup of tea?")
+func handleCtrlC(h *signals.Handler) {
+	go func() {
+		for {
+			if h.GetState() != 0 {
+				sigCaught = true
+				logger.Critical("Detected signal. Please be patient while kubicorn cleanly exits. Maybe get a cup of tea?")
+				break
+			}
 		}
-	}
+	}()
 }

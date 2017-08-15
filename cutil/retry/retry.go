@@ -38,7 +38,7 @@ func (w *Worker) Work() {
 loop:
 	for i := 0; i < w.Retries; i++ {
 		if w.Handler.GetState() != 0 {
-			os.Exit(1)
+			os.Exit(3)
 		}
 		go func() {
 			w.Function()

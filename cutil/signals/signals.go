@@ -63,21 +63,23 @@ func (h *Handler) Register() {
 					h.signalReceived = signalAbort
 					continue
 				}
-				os.Exit(1)
+				h.signalReceived = signalTerminate
+				os.Exit(130)
 				break
 			case s == os.Kill:
 				h.signalReceived = signalTerminate
-				os.Exit(2)
+				os.Exit(3)
 				break
 			case s == syscall.SIGQUIT:
 				h.signalReceived = signalAbort
 				break
 			case s == syscall.SIGTERM:
-				h.signalReceived = signalAbort
+				h.signalReceived = signalTerminate
+				os.Exit(3)
 				break
 			}
 		case <-time.After(h.Timeout):
-			os.Exit(3)
+			os.Exit(4)
 			break
 		}
 	}
