@@ -27,7 +27,7 @@ const (
 )
 
 type Signal interface {
-	GetState() <-chan int
+	GetState() int
 	Register()
 }
 

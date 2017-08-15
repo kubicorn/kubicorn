@@ -110,15 +110,15 @@ var createdResources = make(map[int]cloud.Resource)
 func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	newCluster := newClusterDefaults(r.Known)
 
+	h := signals.NewSignalHandler(10 * time.Minute)
+	go h.Register()
+	go handleCtrlC(*h)
+
 	for i := 0; i < len(model); i++ {
 		if sigCaught {
 			cleanUp(newCluster, i)
 			os.Exit(1)
 		}
-
-		h := signals.NewSignalHandler(10 * time.Minute)
-		h.Register()
-		go handleCtrlC(*h)
 
 		resource := model[i]
 		expectedResource, err := resource.Expected(expectedCluster)
@@ -213,9 +213,11 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 }
 
 func handleCtrlC(h signals.Handler) {
-	sig := h.GetState()
-	if sig != 0 {
-		sigCaught = true
-		logger.Critical("Detected signal. Please be patient while kubicorn cleanly exits. Maybe get a cup of tea?")
+	for {
+		sig := h.GetState()
+		if sig != 0 {
+			sigCaught = true
+			logger.Critical("Detected signal. Please be patient while kubicorn cleanly exits. Maybe get a cup of tea?")
+		}
 	}
 }

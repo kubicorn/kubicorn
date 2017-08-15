@@ -21,22 +21,33 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/signals"
 )
 
-func Retry(f func(), retries int, timeout time.Duration) {
+type Retry interface {
+	Work()
+}
+
+type Worker struct {
+	Function func()
+	Retries int
+	Timeout time.Duration
+	Handler signals.Handler
+}
+
+func (w *Worker) Work() {
 	done := make(chan bool, 1)
 
 loop:
-	for i := 0; i < retries; i++ {
-		if signals.GetSignalState() != 0 {
+	for i := 0; i < w.Retries; i++ {
+		if w.Handler.GetState() != 0 {
 			os.Exit(1)
 		}
 		go func() {
-			f()
+			w.Function()
 			done <- true
 		}()
 		select {
 		case <-done:
 			break loop
-		case <-time.After(timeout):
+		case <-time.After(w.Timeout):
 			break loop
 		}
 	}
