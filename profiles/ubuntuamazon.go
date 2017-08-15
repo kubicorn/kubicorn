@@ -21,8 +21,12 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
+<<<<<<< HEAD:profiles/simpleamazon.go
 // NewSimpleAmazonCluster creates a simple Ubuntu Amazon cluster
 func NewSimpleAmazonCluster(name string) *cluster.Cluster {
+=======
+func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
+>>>>>>> Thanks @kris__nova for keeping profiles clean:profiles/ubuntuamazon.go
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudAmazon,

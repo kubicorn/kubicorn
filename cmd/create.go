@@ -27,6 +27,7 @@ import (
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
+	"math"
 )
 
 type CreateOptions struct {
@@ -70,11 +71,13 @@ func init() {
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 
+	RootCmd.SetUsageTemplate(usageTemplate)
 	RootCmd.AddCommand(createCmd)
 }
 
 type profileFunc func(name string) *cluster.Cluster
 
+<<<<<<< HEAD
 var alias = map[string]profileFunc{
 	"amazon":       profiles.NewSimpleAmazonCluster,
 	"aws":          profiles.NewSimpleAmazonCluster,
@@ -83,6 +86,46 @@ var alias = map[string]profileFunc{
 	"do-centos":    profiles.CentosDigitalOceanCluster,
 	"aws-centos":   profiles.CentosAmazonCluster,
 	"google":       profiles.NewSimpleGoogleComputeCluster,
+=======
+type profileMap struct {
+	profileFunc profileFunc
+	description string
+}
+
+var profileMapIndexed = map[string]profileMap{
+	"amazon": {
+		profileFunc: profiles.NewUbuntuAmazonCluster,
+		description: "Ubuntu on Amazon",
+	},
+	"aws": {
+		profileFunc: profiles.NewUbuntuAmazonCluster,
+		description: "Ubuntu on Amazon",
+	},
+	"do": {
+		profileFunc: profiles.NewUbuntuDigitalOceanCluster,
+		description: "Ubuntu on DigitalOcean",
+	},
+	"digitalocean": {
+		profileFunc: profiles.NewUbuntuDigitalOceanCluster,
+		description: "Ubuntu on DigitalOcean",
+	},
+	"do-ubuntu": {
+		profileFunc: profiles.NewUbuntuDigitalOceanCluster,
+		description: "Ubuntu on DigitalOcean",
+	},
+	"aws-ubuntu": {
+		profileFunc: profiles.NewUbuntuAmazonCluster,
+		description: "Ubuntu on Amazon",
+	},
+	"do-centos": {
+		profileFunc: profiles.NewCentosDigitalOceanCluster,
+		description: "CentOS on DigitalOcean",
+	},
+	"aws-centos": {
+		profileFunc: profiles.NewCentosAmazonCluster,
+		description: "CentOS on Amazon",
+	},
+>>>>>>> Thanks @kris__nova for keeping profiles clean
 }
 
 // RunCreate is the starting point when a user runs the create command.
@@ -91,8 +134,8 @@ func RunCreate(options *CreateOptions) error {
 	// Create our cluster resource
 	name := options.Name
 	var cluster *cluster.Cluster
-	if _, ok := alias[options.Profile]; ok {
-		cluster = alias[options.Profile](name)
+	if _, ok := profileMapIndexed[options.Profile]; ok {
+		cluster = profileMapIndexed[options.Profile].profileFunc(name)
 	} else {
 		return fmt.Errorf("Invalid profile [%s]", options.Profile)
 	}
@@ -149,3 +192,48 @@ func expandPath(path string) string {
 	}
 	return path
 }
+
+var (
+	p = func() string {
+		str := ""
+		spaces := ""
+		maxLen := 0
+		for shorthand := range profileMapIndexed {
+			l := len(shorthand)
+			if l > maxLen {
+				maxLen = l
+			}
+		}
+		for shorthand, pmap := range profileMapIndexed {
+			spaces = ""
+			k := math.Abs(float64(maxLen) - float64(len(shorthand)) + 3)
+			for i := 0; i < int(k); i++ {
+				spaces = fmt.Sprintf("%s%s", spaces, " ")
+			}
+			str = fmt.Sprintf("%s   %s%s %s\n", str, shorthand, spaces, pmap.description)
+		}
+		return str
+	}()
+	usageTemplate = fmt.Sprintf(`Usage:{{if .Runnable}}
+  {{if .HasAvailableFlags}}{{appendIfNotPresent .UseLine "[flags]"}}{{else}}{{.UseLine}}{{end}}{{end}}{{if .HasAvailableSubCommands}}
+  {{ .CommandPath}} [command]{{end}}
+
+Profiles:
+%s{{if gt .Aliases 0}}
+Aliases:
+  {{.NameAndAliases}}
+{{end}}{{if .HasExample}}
+Examples:
+{{ .Example }}{{end}}{{ if .HasAvailableSubCommands}}
+Available Commands:{{range .Commands}}{{if .IsAvailableCommand}}
+  {{rpad .Name .NamePadding }} {{.Short}}{{end}}{{end}}{{end}}{{ if .HasAvailableLocalFlags}}
+Flags:
+{{.LocalFlags.FlagUsages | trimRightSpace}}{{end}}{{ if .HasAvailableInheritedFlags}}
+
+Global Flags:
+{{.InheritedFlags.FlagUsages | trimRightSpace}}{{end}}{{if .HasHelpSubCommands}}
+Additional help topics:{{range .Commands}}{{if .IsHelpCommand}}
+  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}{{end}}{{end}}{{end}}{{ if .HasAvailableSubCommands }}
+Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
+`, p)
+)
