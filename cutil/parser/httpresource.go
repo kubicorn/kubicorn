@@ -24,20 +24,20 @@ import (
 // readFromHTTP reads file from a http url
 // it's up the caller to make sure sourcePath has been tested against
 // url.ParseRequestURI()
-func readFromHTTP(targetURL *url.URL) ([]byte, error) {
+func readFromHTTP(targetURL *url.URL) (string, error) {
 	var client http.Client
 	resp, err := client.Get(targetURL.String())
 	if err != nil {
-		return []byte(""), err
+		return "", err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
 		bytes, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
-			return []byte(""), err
+			return "", err
 		}
-		return bytes, nil
+		return string(bytes), nil
 	}
-	return []byte(""), fmt.Errorf("could not fetch data from %s", targetURL.String())
+	return "", fmt.Errorf("could not fetch data from %s", targetURL.String())
 }
