@@ -16,6 +16,7 @@ package resources
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go/service/ec2"
@@ -134,7 +135,12 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 }
 func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("keypair.Delete")
-	force := false
+	var force bool
+	if strings.ToLower(os.Getenv("KUBICORN_FORCE_DELETE_KEY")) == "true" {
+		force = true
+	} else {
+		force = false
+	}
 	if force {
 		deleteResource := actual.(*KeyPair)
 		if deleteResource.CloudID == "" {
