@@ -95,7 +95,7 @@ func (r *Instance) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 func (r *Instance) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("instance.Expected")
 	if r.CachedExpected != nil {
-		logger.Debug("Using droplet subnet [expected]")
+		logger.Debug("Using instance subnet [expected]")
 		return r.CachedExpected, nil
 	}
 	expected := &Instance{
@@ -203,7 +203,7 @@ func (r *Instance) Apply(actual, expected cloud.Resource, applyCluster *cluster.
 		sshPublicKeyValue := fmt.Sprintf("%s:%s", applyCluster.SSH.User, string(applyCluster.SSH.PublicKeyData))
 		instance := &compute.Instance{
 			Name:        fmt.Sprintf("%s-%d", expected.(*Instance).Name, j),
-			MachineType: prefix + "/zones/" + expected.(*Instance).Location + "/machineTypes/n1-standard-1",
+			MachineType: prefix + "/zones/" + expected.(*Instance).Location + "/machineTypes/" + expected.(*Instance).Size,
 			Disks: []*compute.AttachedDisk{
 				{
 					AutoDelete: true,

@@ -33,10 +33,9 @@ apt-get install -y \
 systemctl enable docker
 systemctl start docker
 
-PRIVATEIP=$(ip addr show dev ens4 | awk '/inet / {print $2}' | cut -d"/" -f1)
+PRIVATEIP=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip"`
 echo $PRIVATEIP > /tmp/.ip
-PUBLICIP=$(curl v4.ifconfig.co)
-
+PUBLICIP=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip"`
 
 kubeadm reset
 kubeadm init --apiserver-bind-port ${PORT} --token ${TOKEN}  --apiserver-advertise-address ${PUBLICIP} --apiserver-cert-extra-sans ${PUBLICIP} ${PRIVATEIP}

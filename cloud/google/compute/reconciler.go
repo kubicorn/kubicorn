@@ -33,7 +33,8 @@ var sigCaught = false
 
 // Todo add description.
 type Reconciler struct {
-	Known *cluster.Cluster
+	Known            *cluster.Cluster
+	CreatedResources map[int]cloud.Resource
 }
 
 // NewReconciler creates a new Reconciler using the expected cluster.
@@ -52,6 +53,7 @@ func (r *Reconciler) Init() error {
 		return err
 	}
 
+	r.CreatedResources = make(map[int]cloud.Resource)
 	resources.Sdk = sdk
 	model = ClusterModel(r.Known)
 	return nil
@@ -91,14 +93,14 @@ func (r *Reconciler) GetExpected() (*cluster.Cluster, error) {
 	return expectedCluster, nil
 }
 
-func cleanUp(cluster *cluster.Cluster, i int) error {
+func  (r *Reconciler) cleanUp(cluster *cluster.Cluster, i int) error {
 	logger.Warning("--------------------------------------")
 	logger.Warning("Attempting to delete created resources!")
 	logger.Warning("--------------------------------------")
 	for j := i - 1; j >= 0; j-- {
 		var err error
 		resource := model[j]
-		createdResource := createdResources[j]
+		createdResource := r.CreatedResources[j]
 		_, err = resource.Delete(createdResource, cluster)
 		if err != nil {
 			j, err = destroyI(err, j)
@@ -111,15 +113,13 @@ func cleanUp(cluster *cluster.Cluster, i int) error {
 	return nil
 }
 
-var createdResources = make(map[int]cloud.Resource)
-
 // Reconcile is used to call all function to create a cluster on the cloud provider
 func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	newCluster := newClusterDefaults(r.Known)
 
 	for i := 0; i < len(model); i++ {
 		if sigCaught {
-			cleanUp(newCluster, i)
+			r.cleanUp(newCluster, i)
 			os.Exit(1)
 		}
 
@@ -140,18 +140,18 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 		appliedResource, err := resource.Apply(actualResource, expectedResource, newCluster)
 		if err != nil {
 			logger.Critical("Error during apply! Attempting cleaning: %v", err)
-			err = cleanUp(newCluster, i)
+			err = r.cleanUp(newCluster, i)
 			if err != nil {
 				logger.Critical("Failure during cleanup! Abandoned resources!")
 				return nil, err
 			}
-			return nil, nil
+			return nil, err
 		}
 		newCluster, err = resource.Render(appliedResource, newCluster)
 		if err != nil {
 			return nil, err
 		}
-		createdResources[i] = appliedResource
+		r.CreatedResources[i] = appliedResource
 	}
 
 	return newCluster, nil
@@ -216,7 +216,6 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 		SSH:           base.SSH,
 		Values:        base.Values,
 		KubernetesAPI: base.KubernetesAPI,
-		//ServerPools:   base.ServerPools,
 	}
 	return newCluster
 }

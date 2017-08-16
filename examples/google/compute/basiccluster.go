@@ -82,7 +82,7 @@ func getCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
 				Image:    "ubuntu-1604-xenial-v20170811",
-				Size:     "1gb",
+				Size:     "n1-standard-1",
 				BootstrapScripts: []string{
 					"google_compute_k8s_ubuntu_16.04_master.sh",
 				},
@@ -92,7 +92,7 @@ func getCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-node", name),
 				MaxCount: 2,
 				Image:    "ubuntu-1604-xenial-v20170811",
-				Size:     "1gb",
+				Size:     "n1-standard-1",
 				BootstrapScripts: []string{
 					"google_compute_k8s_ubuntu_16.04_node.sh",
 				},
