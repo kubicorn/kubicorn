@@ -70,8 +70,6 @@ func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 
-	//flagApplyAnnotations(deleteCmd, "name", "__kubicorn_parse_list")
-
 	RootCmd.AddCommand(deleteCmd)
 }
 

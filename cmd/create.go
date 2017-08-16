@@ -68,7 +68,6 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 
-	//flagApplyAnnotations(createCmd, "name", "__kubicorn_parse_list")
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 
 	RootCmd.AddCommand(createCmd)

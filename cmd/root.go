@@ -39,6 +39,16 @@ __kubicorn_parse_profiles()
         COMPREPLY=( $( compgen -W "${kubicorn_out[*]}" -- "$cur" ) )
     fi
 }
+__custom_func() {
+    case ${last_command} in
+        kubicorn_apply | kubicorn_create | kubicorn_delete | kubicorn_getconfig)
+            __kubicorn_parse_list
+            return
+            ;;
+        *)
+            ;;
+    esac
+}
 `
 )
 
