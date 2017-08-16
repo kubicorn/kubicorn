@@ -21,6 +21,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
+// NewSimpleDigitalOceanCluster creates a basic Ubuntu DigitalOcean cluster.
 func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,

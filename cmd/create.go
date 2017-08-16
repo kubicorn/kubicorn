@@ -82,8 +82,10 @@ var alias = map[string]profileFunc{
 	"digitalocean": profiles.NewSimpleDigitalOceanCluster,
 	"do-centos":    profiles.CentosDigitalOceanCluster,
 	"aws-centos":   profiles.CentosAmazonCluster,
+	"google":       profiles.NewSimpleGoogleComputeCluster,
 }
 
+// RunCreate is the starting point when a user runs the create command.
 func RunCreate(options *CreateOptions) error {
 
 	// Create our cluster resource

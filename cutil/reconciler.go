@@ -21,14 +21,18 @@ import (
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/amazon"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean"
+	"github.com/kris-nova/kubicorn/cloud/google/compute"
 )
 
+// GetReconciler gets the correct Reconciler for the cloud provider currenty used.
 func GetReconciler(c *cluster.Cluster) (cloud.Reconciler, error) {
 	switch c.Cloud {
 	case cluster.CloudAmazon:
 		return amazon.NewReconciler(c), nil
 	case cluster.CloudDigitalOcean:
 		return digitalocean.NewReconciler(c), nil
+	case cluster.CloudGoogle:
+		return compute.NewReconciler(c), nil
 	default:
 		return nil, fmt.Errorf("Invalid cloud type: %s", c.Cloud)
 	}

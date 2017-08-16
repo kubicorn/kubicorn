@@ -21,6 +21,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
+// NewSimpleAmazonCluster creates a simple Ubuntu Amazon cluster
 func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
