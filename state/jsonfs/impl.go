@@ -15,6 +15,7 @@
 package jsonfs
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -22,7 +23,6 @@ import (
 	"path"
 	"strings"
 
-	"github.com/ghodss/yaml"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
@@ -93,7 +93,7 @@ func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
 	if c == nil {
 		return fmt.Errorf("Nil cluster spec")
 	}
-	bytes, err := yaml.Marshal(c)
+	bytes, err := json.Marshal(c)
 	if err != nil {
 		return err
 	}
@@ -116,7 +116,7 @@ func (fs *JSONFileSystemStore) GetCluster() (*cluster.Cluster, error) {
 	if err != nil {
 		return cluster, err
 	}
-	err = yaml.Unmarshal(configBytes, cluster)
+	err = json.Unmarshal(configBytes, cluster)
 	if err != nil {
 		return cluster, err
 	}
