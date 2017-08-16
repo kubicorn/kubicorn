@@ -30,6 +30,7 @@ import (
 )
 
 var sigCaught = false
+var sigHandler *signals.Handler
 
 type Reconciler struct {
 	Known *cluster.Cluster
@@ -44,6 +45,9 @@ func NewReconciler(expected *cluster.Cluster) cloud.Reconciler {
 var model map[int]cloud.Resource
 
 func (r *Reconciler) Init() error {
+	sigHandler := signals.NewSignalHandler(10 * time.Minute)
+	go sigHandler.Register()
+
 	sdk, err := godoSdk.NewSdk()
 	if err != nil {
 		return err
@@ -110,15 +114,12 @@ var createdResources = make(map[int]cloud.Resource)
 func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	newCluster := newClusterDefaults(r.Known)
 
-	h := signals.NewSignalHandler(10 * time.Minute)
-	go h.Register()
-	handleCtrlC(h)
-
 	for i := 0; i < len(model); i++ {
 		if sigCaught {
 			cleanUp(newCluster, i)
 			os.Exit(1)
 		}
+		handleSigInt(sigHandler)
 
 		resource := model[i]
 		expectedResource, err := resource.Expected(expectedCluster)
@@ -212,7 +213,7 @@ func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 	return new
 }
 
-func handleCtrlC(h *signals.Handler) {
+func handleSigInt(h *signals.Handler) {
 	go func() {
 		for {
 			if h.GetState() != 0 {
