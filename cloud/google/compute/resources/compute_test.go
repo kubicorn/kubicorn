@@ -15,8 +15,8 @@
 package resources
 
 import (
-	"testing"
 	"github.com/kris-nova/kubicorn/apis/cluster"
+	"testing"
 )
 
 func TestExpectedHappy(t *testing.T) {
@@ -26,9 +26,9 @@ func TestExpectedHappy(t *testing.T) {
 		},
 		ServerPool: &cluster.ServerPool{
 			Identifier: "ClusterPool1",
-			Size: "5",
-			Image: "server-os-image",
-			MaxCount: 5,
+			Size:       "5",
+			Image:      "server-os-image",
+			MaxCount:   5,
 			BootstrapScripts: []string{
 				"script1.sh",
 			},

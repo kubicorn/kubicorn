@@ -93,7 +93,7 @@ func (r *Reconciler) GetExpected() (*cluster.Cluster, error) {
 	return expectedCluster, nil
 }
 
-func  (r *Reconciler) cleanUp(cluster *cluster.Cluster, i int) error {
+func (r *Reconciler) cleanUp(cluster *cluster.Cluster, i int) error {
 	logger.Warning("--------------------------------------")
 	logger.Warning("Attempting to delete created resources!")
 	logger.Warning("--------------------------------------")
