@@ -17,6 +17,7 @@ package resources
 import (
 	"fmt"
 	"strings"
+	"os"
 
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
