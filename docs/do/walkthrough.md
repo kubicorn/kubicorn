@@ -3,19 +3,15 @@
 In the following, we're going to show you how to use `kubicorn` to ramp up a Kubernetes cluster in DigitalOcean, use it and tear it down again.
 The cluster will be running over DigitalOcean private networking on an encrypted VPN mesh.
 
-As a prerequisite, you need to have `kubicorn` installed. Since we don't have binary releases yet, we assume you've got Go installed and simply do:
-
-#### Installing
-
-```
-$ go get github.com/kris-nova/kubicorn
-```
-
-The first thing you will do now is to define the cluster resources.
-For this, you need to select a certain profile. Of course, once you're more familiar with `kubicorn`, you can go ahead and extend existing profiles or create new ones.
-In the following we'll be using an existing profile called `do`, which is a profile for a cluster in DigitalOcean.
+As a prerequisite, you need to have `kubicorn` installed. Since we don't have binary releases yet.
+To build kubicorn from source see [these](https://github.com/kris-nova/kubicorn/blob/master/docs/BUILD.md) instructions.
 
 #### Creating
+
+The first thing you will do now is to define the cluster resources.
+For this, you need to select a certain profile.
+Of course, once you're more familiar with `kubicorn`, you can go ahead and extend existing profiles or create new ones.
+In the following we'll be using an existing profile called `aws`, which is—surprise, surprise—a profile for a cluster in AWS.
 
 Now execute the following command:
 

@@ -21,6 +21,7 @@ If you have this you should be able to run the following command:
 
 ```bash
 $ go get github.com/kris-nova/kubicorn
+$ go get -u github.com/golang/dep/cmd/dep
 ```
 
 You will also need a the `libncurses5-dev` package.
@@ -34,6 +35,7 @@ Now you can run `make` from the src directory of kubicorn:
 
 ```bash
 $ cd $GOPATH/src/github.com/kris-nova/kubicorn/
+$ dep ensure
 $ make
 ```
 The kubicorn binary will get built and placed under `$GOPATH/src/github.com/kris-nova/kubicorn/bin`. You can also run `make all` to also get the binary under `$GOPATH/bin`. 

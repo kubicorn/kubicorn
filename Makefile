@@ -10,11 +10,11 @@ GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
 
-default: authorsfile bindata compile ## Parse Bootstrap scripts and create kubicorn executable in the ./bin directory and the AUTHORS file.
+default: godep authorsfile bindata compile ## Parse Bootstrap scripts and create kubicorn executable in the ./bin directory and the AUTHORS file.
 
 all: default install
 
-compile: ## Create the kubicorn executable in the ./bin directory.
+compile: godep ## Create the kubicorn executable in the ./bin directory.
 	go build -o bin/kubicorn -ldflags "-X github.com/kris-nova/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kris-nova/kubicorn/cmd.Version=${VERSION}" main.go
 
 install: ## Create the kubicorn executable in $GOPATH/bin directory.
@@ -90,7 +90,7 @@ test: ## Run the INTEGRATION TESTS. This will create cloud resources and potenti
 	go test -timeout 20m -v $(PKGS)
 
 .PHONY: ci
-ci: ## Run the CI TESTS. This will never cost money, and will never communicate with a cloud API.
+ci: godep ## Run the CI TESTS. This will never cost money, and will never communicate with a cloud API.
 	go test -timeout 20m -v $(CI_PKGS)
 
 .PHONY: check-code
@@ -105,6 +105,13 @@ check-headers: ## Check if the headers are valid. This is ran in CI.
 
 update-headers: ## Update the headers in the repository. Required for all new files.
 	./scripts/headers.sh
+
+godep:
+	GODEP_CMD=$(shell command -v dep 2> /dev/null)
+ifndef GODEP_CMD
+	go get github.com/golang/dep/cmd/dep
+endif
+	dep ensure
 
 .PHONY: apimachinery
 apimachinery:
