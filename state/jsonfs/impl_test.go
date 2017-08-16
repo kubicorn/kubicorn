@@ -66,7 +66,7 @@ func TestJsonFileSystem(t *testing.T) {
 	if err := json.Unmarshal(bytes, unmarshalled); err != nil {
 		t.Fatalf("Error unmarshalling json: %v", err)
 	}
-	if !reflect.DeepEqual(unmarshalled, read) {
+	if !reflect.DeepEqual(unmarshalled, c) {
 		t.Fatalf("Cluster read directly from json file doesn't equal cluster inputted: %v", unmarshalled)
 	}
 	if err = fs.Destroy(); err != nil {
