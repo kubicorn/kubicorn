@@ -171,7 +171,7 @@ func (f *Firewall) Apply(actual, expected cloud.Resource, applyCluster *cluster.
 	return f, nil
 }
 
-// Delete removes the firewall 
+// Delete removes the firewall
 func (f *Firewall) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("firewall.Delete")
 	deleteResource, ok := actual.(*Firewall)
