@@ -134,7 +134,11 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 }
 func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
 	logger.Debug("keypair.Delete")
-	force := false
+	if os.Getenv("KUBICORN_FORCE_DELETE_KEY") != "" {
+		force := true
+	} else {
+		force := false
+	}
 	if force {
 		deleteResource := actual.(*KeyPair)
 		if deleteResource.CloudID == "" {
