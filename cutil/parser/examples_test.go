@@ -21,7 +21,7 @@ func ExampleReadFromResource() {
 		fmt.Println(err)
 		return
 	}
-	fmt.Printf("%v", string(file))
+	fmt.Printf("%s", file)
 	//Output:
 	// test
 }
