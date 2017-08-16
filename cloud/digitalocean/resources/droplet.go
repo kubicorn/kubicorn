@@ -231,8 +231,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 
 	newResource := &Droplet{
 		Shared: Shared{
-			Name: r.ServerPool.Name,
-			//CloudID: id,
+			Name:    r.ServerPool.Name,
+			CloudID: strconv.Itoa(droplet.ID),
 		},
 		Image:            droplet.Image.Slug,
 		Size:             droplet.Size.Slug,

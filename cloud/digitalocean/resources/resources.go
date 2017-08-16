@@ -23,9 +23,23 @@ var Sdk *godoSdk.Sdk
 
 type Shared struct {
 	CloudID        string
-	Name           string
+	Name           string `json:"name,omitempty"`
 	TagResource    cloud.Resource
 	Tags           []string
 	CachedActual   cloud.Resource
 	CachedExpected cloud.Resource
+}
+
+func (s Shared) getCachedActual() cloud.Resource {
+	if s.CachedActual != nil {
+		return s.CachedActual
+	}
+	return nil
+}
+
+func (s Shared) getCachedExpected() cloud.Resource {
+	if s.CachedExpected != nil {
+		return s.CachedExpected
+	}
+	return nil
 }

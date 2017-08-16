@@ -20,6 +20,7 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/resources"
 )
 
+// ClusterModel maps cluster info to DigitalOcean Resources.
 func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 	r := make(map[int]cloud.Resource)
 	i := 0
@@ -41,6 +42,43 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 			ServerPool: serverPool,
 		}
 		i++
+	}
+
+	for _, serverPool := range known.ServerPools {
+		for _, firewall := range serverPool.Firewalls {
+			// ---- [Firewall] ----
+			f := &resources.Firewall{
+				Shared: resources.Shared{
+					Name:    serverPool.Name,
+					CloudID: firewall.Identifier,
+				},
+				Tags:       []string{serverPool.Name},
+				ServerPool: serverPool,
+			}
+
+			for _, rule := range firewall.IngressRules {
+				InboundRule := resources.InboundRule{
+					Protocol:  rule.IngressProtocol,
+					PortRange: rule.IngressToPort,
+					Source: &resources.Sources{
+						Addresses: []string{rule.IngressSource},
+					},
+				}
+				f.InboundRules = append(f.InboundRules, InboundRule)
+			}
+			for _, rule := range firewall.EgressRules {
+				OutboundRule := resources.OutboundRule{
+					Protocol:  rule.EgressProtocol,
+					PortRange: rule.EgressToPort,
+					Destinations: &resources.Destinations{
+						Addresses: []string{rule.EgressDestination},
+					},
+				}
+				f.OutboundRules = append(f.OutboundRules, OutboundRule)
+			}
+			r[i] = f
+			i++
+		}
 	}
 	return r
 }
