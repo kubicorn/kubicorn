@@ -114,7 +114,7 @@ func RunDelete(options *DeleteOptions) error {
 		return err
 	}
 
-	err = task.RunAnnotated(deleteClusterTask, fmt.Sprintf("\nDestroying resources for cluster [%s]:\n", options.Name), ".")
+	err = task.RunAnnotated(deleteClusterTask, fmt.Sprintf("\nDestroying resources for cluster [%s]:\n", options.Name), "")
 	if err != nil {
 		return fmt.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
 	}

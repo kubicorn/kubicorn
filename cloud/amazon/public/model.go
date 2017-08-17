@@ -70,66 +70,66 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	}
 	i++
 	//
-	//for _, serverPool := range known.ServerPools {
-	//	name := serverPool.Name
-	//
-	//	// ---- [Security Groups] ----
-	//	for _, firewall := range serverPool.Firewalls {
-	//		r[i] = &resources.SecurityGroup{
-	//			Shared: resources.Shared{
-	//				Name:        firewall.Name,
-	//				Tags:        make(map[string]string),
-	//			},
-	//			Firewall:   firewall,
-	//			ServerPool: serverPool,
-	//		}
-	//		i++
-	//	}
-	//
-	//	// ---- [Subnets] ----
-	//	for _, subnet := range serverPool.Subnets {
-	//		r[i] = &resources.Subnet{
-	//			Shared: resources.Shared{
-	//				Name:        subnet.Name,
-	//				Tags:        make(map[string]string),
-	//			},
-	//			ServerPool:    serverPool,
-	//			ClusterSubnet: subnet,
-	//		}
-	//		i++
-	//
-	//		// ---- [Route Table] ----
-	//		r[i] = &resources.RouteTable{
-	//			Shared: resources.Shared{
-	//				Name:        subnet.Name,
-	//				Tags:        make(map[string]string),
-	//			},
-	//			ClusterSubnet: subnet,
-	//			ServerPool:    serverPool,
-	//		}
-	//		i++
-	//	}
-	//
-	//	// ---- [Launch Configuration] ----
-	//	r[i] = &resources.Lc{
-	//		Shared: resources.Shared{
-	//			Name:        name,
-	//			Tags:        make(map[string]string),
-	//		},
-	//		ServerPool: serverPool,
-	//	}
-	//	i++
-	//
-	//	// ---- [Autoscale Group] ----
-	//	r[i] = &resources.Asg{
-	//		Shared: resources.Shared{
-	//			Name:        name,
-	//			Tags:        make(map[string]string),
-	//		},
-	//		ServerPool: serverPool,
-	//	}
-	//	i++
-	//}
+	for _, serverPool := range known.ServerPools {
+		//name := serverPool.Name
+
+		// ---- [Security Groups] ----
+		for _, firewall := range serverPool.Firewalls {
+			r[i] = &resources.SecurityGroup{
+				Shared: resources.Shared{
+					Name: firewall.Name,
+					Tags: make(map[string]string),
+				},
+				Firewall:   firewall,
+				ServerPool: serverPool,
+			}
+			i++
+		}
+
+		//	// ---- [Subnets] ----
+		//	for _, subnet := range serverPool.Subnets {
+		//		r[i] = &resources.Subnet{
+		//			Shared: resources.Shared{
+		//				Name:        subnet.Name,
+		//				Tags:        make(map[string]string),
+		//			},
+		//			ServerPool:    serverPool,
+		//			ClusterSubnet: subnet,
+		//		}
+		//		i++
+		//
+		//		// ---- [Route Table] ----
+		//		r[i] = &resources.RouteTable{
+		//			Shared: resources.Shared{
+		//				Name:        subnet.Name,
+		//				Tags:        make(map[string]string),
+		//			},
+		//			ClusterSubnet: subnet,
+		//			ServerPool:    serverPool,
+		//		}
+		//		i++
+		//	}
+		//
+		//	// ---- [Launch Configuration] ----
+		//	r[i] = &resources.Lc{
+		//		Shared: resources.Shared{
+		//			Name:        name,
+		//			Tags:        make(map[string]string),
+		//		},
+		//		ServerPool: serverPool,
+		//	}
+		//	i++
+		//
+		//	// ---- [Autoscale Group] ----
+		//	r[i] = &resources.Asg{
+		//		Shared: resources.Shared{
+		//			Name:        name,
+		//			Tags:        make(map[string]string),
+		//		},
+		//		ServerPool: serverPool,
+		//}
+		// 	i++
+	}
 
 	m.cachedResources = r
 	return m.cachedResources
