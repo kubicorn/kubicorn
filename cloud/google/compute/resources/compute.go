@@ -278,31 +278,11 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 	}
 	expectedCluster.KubernetesAPI.Endpoint = masterIPPublic
 
-	// Update cluster
-	found := false
-	for i := 0; i < len(expectedCluster.ServerPools); i++ {
-		if expectedCluster.ServerPools[i].Name == expectedResource.(*Instance).Name {
-			expectedCluster.ServerPools[i].Image = expectedResource.(*Instance).Image
-			expectedCluster.ServerPools[i].Size = expectedResource.(*Instance).Size
-			expectedCluster.ServerPools[i].MaxCount = actual.(*Instance).Count
-			expectedCluster.ServerPools[i].Labels = actual.(*Instance).Labels
-			expectedCluster.Location = actual.(*Instance).Location
-			expectedCluster.ServerPools[i].BootstrapScripts = actual.(*Instance).BootstrapScripts
-			found = true
-		}
+	renderedCluster, err := r.render(newResource, expectedCluster)
+	if err != nil {
+		return nil, nil, err
 	}
-	if !found {
-		serverPool := &cluster.ServerPool{}
-		serverPool.Type = r.ServerPool.Type
-		serverPool.Image = actual.(*Instance).Image
-		serverPool.Size = actual.(*Instance).Size
-		serverPool.Name = actual.(*Instance).Name
-		serverPool.MaxCount = actual.(*Instance).Count
-		serverPool.BootstrapScripts = actual.(*Instance).BootstrapScripts
-		known.ServerPools = append(known.ServerPools, serverPool)
-	}
-
-	return expectedCluster, newResource, nil
+	return renderedCluster, newResource, nil
 }
 
 // Delete is used to delete the instances on the cloud provider
@@ -330,34 +310,35 @@ func (r *Instance) Delete(actual cloud.Resource, known *cluster.Cluster) (*clust
 
 	// Kubernetes API
 	known.KubernetesAPI.Endpoint = ""
+	renderedCluster, err := r.render(actual, known)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, actual, nil
+}
 
-	// Update cluster
+func (r *Instance) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	found := false
-	for i := 0; i < len(known.ServerPools); i++ {
-		if known.ServerPools[i].Name == actual.(*Instance).Name {
-			known.ServerPools[i].Image = actual.(*Instance).Image
-			known.ServerPools[i].Size = actual.(*Instance).Size
-			known.ServerPools[i].MaxCount = actual.(*Instance).Count
-			known.ServerPools[i].Labels = actual.(*Instance).Labels
-			known.Location = actual.(*Instance).Location
-			known.ServerPools[i].BootstrapScripts = actual.(*Instance).BootstrapScripts
+	for i := 0; i < len(renderCluster.ServerPools); i++ {
+		if renderCluster.ServerPools[i].Name == renderResource.(*Instance).Name {
+			renderCluster.ServerPools[i].Image = renderResource.(*Instance).Image
+			renderCluster.ServerPools[i].Size = renderResource.(*Instance).Size
+			renderCluster.ServerPools[i].MaxCount = renderResource.(*Instance).Count
+			renderCluster.ServerPools[i].Labels = renderResource.(*Instance).Labels
+			renderCluster.Location = renderResource.(*Instance).Location
+			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Instance).BootstrapScripts
 			found = true
 		}
 	}
 	if !found {
 		serverPool := &cluster.ServerPool{}
 		serverPool.Type = r.ServerPool.Type
-		serverPool.Image = actual.(*Instance).Image
-		serverPool.Size = actual.(*Instance).Size
-		serverPool.Name = actual.(*Instance).Name
-		serverPool.MaxCount = actual.(*Instance).Count
-		serverPool.BootstrapScripts = actual.(*Instance).BootstrapScripts
-		known.ServerPools = append(known.ServerPools, serverPool)
+		serverPool.Image = renderResource.(*Instance).Image
+		serverPool.Size = renderResource.(*Instance).Size
+		serverPool.Name = renderResource.(*Instance).Name
+		serverPool.MaxCount = renderResource.(*Instance).Count
+		serverPool.BootstrapScripts = renderResource.(*Instance).BootstrapScripts
+		renderCluster.ServerPools = append(renderCluster.ServerPools, serverPool)
 	}
-
-	return known, actual, nil
-}
-
-func (r *Instance) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
-	
+	return renderCluster, nil
 }
