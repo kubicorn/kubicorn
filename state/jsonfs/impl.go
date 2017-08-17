@@ -21,24 +21,17 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
-	"path/filepath"
 )
 
 type JSONFileSystemStoreOptions struct {
-	AbsolutePath string
-	ClusterName  string
-}
-
-func NewJSONFileSystemStoreOptions(clusterName string) *JSONFileSystemStoreOptions {
-	return &JSONFileSystemStoreOptions{
-		AbsolutePath: state.ClusterJsonPath,
-		ClusterName:  clusterName,
-	}
+	BasePath    string
+	ClusterName string
 }
 
 // JSONFileSystemStore exists to save the cluster at runtime to the file defined
@@ -48,6 +41,7 @@ func NewJSONFileSystemStoreOptions(clusterName string) *JSONFileSystemStoreOptio
 type JSONFileSystemStore struct {
 	options      *JSONFileSystemStoreOptions
 	ClusterName  string
+	BasePath     string
 	AbsolutePath string
 }
 
@@ -55,7 +49,8 @@ func NewJSONFileSystemStore(o *JSONFileSystemStoreOptions) *JSONFileSystemStore 
 	return &JSONFileSystemStore{
 		options:      o,
 		ClusterName:  o.ClusterName,
-		AbsolutePath: o.AbsolutePath,
+		BasePath:     o.BasePath,
+		AbsolutePath: filepath.Join(o.BasePath, o.ClusterName),
 	}
 }
 

@@ -20,16 +20,18 @@ import (
 	"github.com/kris-nova/kubicorn/profiles"
 	"github.com/kris-nova/kubicorn/state"
 	"io/ioutil"
+	"path/filepath"
 	"reflect"
 	"testing"
 )
 
 func TestJsonFileSystem(t *testing.T) {
 	testFilePath := ".test/"
-	c := profiles.NewSimpleAmazonCluster("jsonfs-test")
+	clusterName := "jsonfs-test"
+	c := profiles.NewSimpleAmazonCluster(clusterName)
 	o := &JSONFileSystemStoreOptions{
-		AbsolutePath: testFilePath,
-		ClusterName:  c.Name,
+		BasePath:    testFilePath,
+		ClusterName: c.Name,
 	}
 	fs := NewJSONFileSystemStore(o)
 	if err := fs.Destroy(); err != nil {
@@ -59,7 +61,7 @@ func TestJsonFileSystem(t *testing.T) {
 		t.Fatalf("Cluster in doesn't equal cluster out")
 	}
 	unmarshalled := &cluster.Cluster{}
-	bytes, err := ioutil.ReadFile(testFilePath + state.ClusterJsonFile)
+	bytes, err := ioutil.ReadFile(filepath.Join(testFilePath, clusterName, state.ClusterJsonFile))
 	if err != nil {
 		t.Fatalf("Error reading json file: %v", err)
 	}

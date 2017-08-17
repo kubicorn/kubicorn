@@ -16,6 +16,5 @@ package state
 
 const (
 	ClusterJsonFile = "cluster.json"
-	ClusterJsonPath = "/etc/kubicorn/"
 	ClusterYamlFile = "cluster.yaml"
 )
