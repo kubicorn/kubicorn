@@ -84,6 +84,14 @@ type profileMap struct {
 }
 
 var profileMapIndexed = map[string]profileMap{
+	"azure": {
+		profileFunc: profiles.NewUbuntuAzureCluster,
+		description: "Ubuntu on Azure",
+	},
+	"azure-ubuntu": {
+		profileFunc: profiles.NewUbuntuAzureCluster,
+		description: "Ubuntu on Azure",
+	},
 	"amazon": {
 		profileFunc: profiles.NewUbuntuAmazonCluster,
 		description: "Ubuntu on Amazon",
