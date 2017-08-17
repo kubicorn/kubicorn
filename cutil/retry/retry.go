@@ -48,7 +48,7 @@ func NewRetrier(retries, sleepSeconds int, retryable Retryable) *Retrier {
 // RunRetry runs a retryable function.
 func (r *Retrier) RunRetry() error {
 	// Start signal handler.
-	sigHandler := signals.NewSignalHandler(600)
+	sigHandler := signals.NewSignalHandler(10)
 	go sigHandler.Register()
 
 	finish := make(chan bool, 1)
@@ -56,7 +56,7 @@ func (r *Retrier) RunRetry() error {
 		select {
 		case <-finish:
 			return
-		case <-time.After(600 * time.Second):
+		case <-time.After(10 * time.Second):
 			return
 		default:
 			for {
