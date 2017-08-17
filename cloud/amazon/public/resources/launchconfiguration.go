@@ -213,7 +213,7 @@ func (r *Lc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).Identifier)
+	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).Name)
 
 	// Kubernetes API
 	// Todo (@kris-nova) this obviously isn't immutable

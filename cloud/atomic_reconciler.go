@@ -162,7 +162,7 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 			}
 			continue
 		}
-		destroyedCluster, _, err = resource.Delete(actualResource, destroyedCluster)
+		newCluster, _, err := resource.Delete(actualResource, destroyedCluster)
 		if err != nil {
 			i, err = destroyI(err, i)
 			if err != nil {
@@ -170,7 +170,9 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 			}
 			continue
 		}
+		destroyedCluster = newCluster
 	}
+
 	return destroyedCluster, nil
 }
 
