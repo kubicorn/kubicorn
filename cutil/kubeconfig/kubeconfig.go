@@ -61,7 +61,7 @@ func GetConfig(existing *cluster.Cluster) error {
 	//fmt.Println(localPath)
 
 	agent := sshAgent()
-	if agent != nil {
+	if agent != nil && os.Getenv("KUBICORN_FORCE_DISABLE_SSH_AGENT") == "" {
 		sshConfig.Auth = append(sshConfig.Auth, agent)
 	} else {
 		pemBytes, err := ioutil.ReadFile(privKeyPath)

@@ -71,7 +71,7 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	i++
 	//
 	for _, serverPool := range known.ServerPools {
-		//name := serverPool.Name
+		name := serverPool.Name
 
 		// ---- [Security Groups] ----
 		for _, firewall := range serverPool.Firewalls {
@@ -98,38 +98,38 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			}
 			i++
 
-
-				// ---- [Route Table] ----
-				r[i] = &resources.RouteTable{
-					Shared: resources.Shared{
-						Name:        subnet.Name,
-						Tags:        make(map[string]string),
-					},
-					ClusterSubnet: subnet,
-					ServerPool:    serverPool,
-				}
-				i++
+			// ---- [Route Table] ----
+			r[i] = &resources.RouteTable{
+				Shared: resources.Shared{
+					Name: subnet.Name,
+					Tags: make(map[string]string),
+				},
+				ClusterSubnet: subnet,
+				ServerPool:    serverPool,
 			}
-		//
-		//	// ---- [Launch Configuration] ----
-		//	r[i] = &resources.Lc{
-		//		Shared: resources.Shared{
-		//			Name:        name,
-		//			Tags:        make(map[string]string),
-		//		},
-		//		ServerPool: serverPool,
-		//	}
-		//	i++
-		//
-		//	// ---- [Autoscale Group] ----
-		//	r[i] = &resources.Asg{
-		//		Shared: resources.Shared{
-		//			Name:        name,
-		//			Tags:        make(map[string]string),
-		//		},
-		//		ServerPool: serverPool,
+			i++
+		}
+
+		// ---- [Launch Configuration] ----
+		r[i] = &resources.Lc{
+			Shared: resources.Shared{
+				Name: name,
+				Tags: make(map[string]string),
+			},
+			ServerPool: serverPool,
+		}
+		i++
+
+		// ---- [Autoscale Group] ----
+		r[i] = &resources.Asg{
+			Shared: resources.Shared{
+				Name: name,
+				Tags: make(map[string]string),
+			},
+			ServerPool: serverPool,
+		}
+		i++
 	}
-	// 	i++
 
 	m.cachedResources = r
 	return m.cachedResources
