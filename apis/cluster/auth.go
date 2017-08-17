@@ -23,7 +23,7 @@ type SSH struct {
 	metav1.ObjectMeta    `json:"metadata,omitempty"`
 	Name                 string `json:"name,omitempty"`
 	User                 string `json:"user,omitempty"`
-	Identifier           string `json: "identifier",omitempty"`
+	Identifier           string `json:"identifier,omitempty"`
 	PublicKeyPath        string `json:"publicKeyPath,omitempty"`
 	PublicKeyData        []byte `json:"publicKeyData,omitempty"`
 	PublicKeyFingerprint string `json:"publicKeyFingerprint,omitempty"`

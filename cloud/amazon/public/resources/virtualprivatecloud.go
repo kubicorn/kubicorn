@@ -21,6 +21,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
@@ -31,20 +32,20 @@ type Vpc struct {
 	CIDR string
 }
 
-func (r *Vpc) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *Vpc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Actual")
-	if r.CachedActual != nil {
-		logger.Debug("Using cached VPC [actual]")
-		return known, r.CachedActual, nil
-	}
-	actual := &Vpc{
+
+	// New Resource
+	newResource := &Vpc{
 		Shared: Shared{
 			Tags: make(map[string]string),
 		},
 	}
-	if known.Network.Identifier != "" {
+
+	// Query for resource if we have an Identifier
+	if immutable.Network.Identifier != "" {
 		input := &ec2.DescribeVpcsInput{
-			VpcIds: []*string{&known.Network.Identifier},
+			VpcIds: []*string{&immutable.Network.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeVpcs(input)
 		if err != nil {
@@ -52,42 +53,40 @@ func (r *Vpc) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, 
 		}
 		lvpc := len(output.Vpcs)
 		if lvpc != 1 {
-			return nil, nil, fmt.Errorf("Found [%d] VPCs for ID [%s]", lvpc, known.Network.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] VPCs for ID [%s]", lvpc, immutable.Network.Identifier)
 		}
-		actual.CloudID = *output.Vpcs[0].VpcId
-		actual.CIDR = *output.Vpcs[0].CidrBlock
+		newResource.Identifier = *output.Vpcs[0].VpcId
+		newResource.CIDR = *output.Vpcs[0].CidrBlock
 		for _, tag := range output.Vpcs[0].Tags {
 			key := *tag.Key
 			val := *tag.Value
-			actual.Tags[key] = val
+			newResource.Tags[key] = val
 		}
+	} else {
+		newResource.CIDR = immutable.Network.CIDR
+		newResource.Name = immutable.Network.Name
 	}
-	actual.CIDR = known.Network.CIDR
-	actual.Name = known.Network.Name
-	r.CachedActual = actual
-	return known, actual, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
-func (r *Vpc) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *Vpc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Expected")
-	if r.CachedExpected != nil {
-		logger.Debug("Using cached VPC [expected]")
-		return known, r.CachedExpected, nil
-	}
-	expected := &Vpc{
+	newResource := &Vpc{
 		Shared: Shared{
 			Tags: map[string]string{
 				"Name":              r.Name,
-				"KubernetesCluster": known.Name,
+				"KubernetesCluster": immutable.Name,
 			},
-			CloudID: known.Network.Identifier,
-			Name:    r.Name,
+			Identifier: immutable.Network.Identifier,
+			Name:       r.Name,
 		},
-		CIDR: known.Network.CIDR,
+		CIDR: immutable.Network.CIDR,
 	}
-	r.CachedExpected = expected
-	return known, expected, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
-func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+
+func (r *Vpc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Apply")
 	applyResource := expected.(*Vpc)
 	isEqual, err := compare.IsEqual(actual.(*Vpc), expected.(*Vpc))
@@ -95,9 +94,10 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		return nil, nil, err
 	}
 	if isEqual {
-		return applyCluster, applyResource, nil
+		return immutable, applyResource, nil
 	}
-	newResource := &Vpc{}
+
+	// Look up VPC
 	input := &ec2.CreateVpcInput{
 		CidrBlock: &applyResource.CIDR,
 	}
@@ -106,6 +106,7 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		return nil, nil, fmt.Errorf("Unable to create new VPC: %v", err)
 	}
 
+	// Modify VPC
 	minput1 := &ec2.ModifyVpcAttributeInput{
 		EnableDnsHostnames: &ec2.AttributeBooleanValue{
 			Value: B(true),
@@ -117,6 +118,7 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		return nil, nil, err
 	}
 
+	// Modify VPC
 	minput2 := &ec2.ModifyVpcAttributeInput{
 		EnableDnsSupport: &ec2.AttributeBooleanValue{
 			Value: B(true),
@@ -129,58 +131,63 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 
 	logger.Info("Created VPC [%s]", *output.Vpc.VpcId)
-	newResource.CIDR = *output.Vpc.CidrBlock
-	newResource.CloudID = *output.Vpc.VpcId
+
+	newResource := &Vpc{
+		Shared: Shared{
+			Identifier: *output.Vpc.VpcId,
+			Name:       applyResource.Name,
+		},
+		CIDR: *output.Vpc.CidrBlock,
+	}
+
+	// Tag newly created VPC
 	err = newResource.tag(applyResource.Tags)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to tag new VPC: %v", err)
 	}
-	newResource.Name = applyResource.Name
 
-	renderedCluster, err := r.render(newResource, applyCluster)
-	if err != nil {
-		return nil, nil, err
-	}
-	return renderedCluster, newResource, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
-func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *Vpc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Delete")
 	deleteResource := actual.(*Vpc)
-	if deleteResource.CloudID == "" {
+	if deleteResource.Identifier == "" {
 		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
 	input := &ec2.DeleteVpcInput{
-		VpcId: &actual.(*Vpc).CloudID,
+		VpcId: &actual.(*Vpc).Identifier,
 	}
 	_, err := Sdk.Ec2.DeleteVpc(input)
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted VPC [%s]", actual.(*Vpc).CloudID)
+	logger.Info("Deleted VPC [%s]", actual.(*Vpc).Identifier)
 
-	newResource := &Vpc{}
-	newResource.Name = actual.(*Vpc).Name
-	newResource.Tags = actual.(*Vpc).Tags
-	newResource.CIDR = actual.(*Vpc).CIDR
-	renderedCluster, err := r.render(newResource, known)
-	if err != nil {
-		return nil, nil, err
+	newResource := &Vpc{
+		Shared: Shared{
+			Name: deleteResource.Name,
+			Tags: deleteResource.Tags,
+		},
+		CIDR: deleteResource.CIDR,
 	}
-	return renderedCluster, newResource, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *Vpc) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *Vpc) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("vpc.Render")
-	renderCluster.Network.CIDR = renderResource.(*Vpc).CIDR
-	renderCluster.Network.Identifier = renderResource.(*Vpc).CloudID
-	renderCluster.Network.Name = renderResource.(*Vpc).Name
-	return renderCluster, nil
+	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster.Network.CIDR = newResource.(*Vpc).CIDR
+	newCluster.Network.Identifier = newResource.(*Vpc).Identifier
+	newCluster.Network.Name = newResource.(*Vpc).Name
+	return newCluster
 }
 
 func (r *Vpc) tag(tags map[string]string) error {
 	logger.Debug("vpc.Tag")
 	tagInput := &ec2.CreateTagsInput{
-		Resources: []*string{&r.CloudID},
+		Resources: []*string{&r.Identifier},
 	}
 	for key, val := range tags {
 		logger.Debug("Registering Vpc tag [%s] %s", key, val)

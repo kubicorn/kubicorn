@@ -49,9 +49,7 @@ func GetReconciler(known *cluster.Cluster) (reconciler cloud.Reconciler, err err
 		dr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, droplet.NewDigitalOceanDropletModel(known)), nil
 	case cluster.CloudAmazon:
-		fmt.Println("-----")
 		sdk, err := awsSdkGo.NewSdk(known.Location)
-		fmt.Println(sdk)
 		if err != nil {
 			return nil, err
 		}

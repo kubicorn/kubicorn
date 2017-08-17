@@ -23,6 +23,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
@@ -36,92 +37,82 @@ type KeyPair struct {
 	User                 string
 }
 
-func (r *KeyPair) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *KeyPair) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Actual")
-	if r.CachedActual != nil {
-		logger.Debug("Using cached keypair [actual]")
-		return known, r.CachedActual, nil
-	}
-	actual := &KeyPair{
+	newResource := &KeyPair{
 		Shared: Shared{
-			Name:        r.Name,
-			Tags:        make(map[string]string),
-			TagResource: r.TagResource,
+			Name: r.Name,
+			Tags: make(map[string]string),
 		},
+		User:                 immutable.SSH.User,
+		PublicKeyPath:        immutable.SSH.PublicKeyPath,
+		PublicKeyData:        string(immutable.SSH.PublicKeyData),
+		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
 	}
 
-	if known.SSH.Identifier != "" {
+	if immutable.SSH.Identifier != "" {
 		input := &ec2.DescribeKeyPairsInput{
-			KeyNames: []*string{&known.SSH.Identifier},
+			KeyNames: []*string{&immutable.SSH.Identifier},
 		}
 		output, err := Sdk.Ec2.DescribeKeyPairs(input)
 		if err == nil {
 			lsn := len(output.KeyPairs)
 			if lsn != 1 {
-				return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
+				return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, immutable.SSH.Identifier)
 			}
 			keypair := output.KeyPairs[0]
-			actual.CloudID = *keypair.KeyName
-			actual.PublicKeyFingerprint = *keypair.KeyFingerprint
+			newResource.Identifier = *keypair.KeyName
+			newResource.PublicKeyFingerprint = *keypair.KeyFingerprint
 		}
 		lsn := len(output.KeyPairs)
 		if lsn != 1 {
-			return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, immutable.SSH.Identifier)
 		}
 		keypair := output.KeyPairs[0]
-		actual.CloudID = *keypair.KeyName
-		actual.PublicKeyFingerprint = *keypair.KeyFingerprint
+		newResource.Identifier = *keypair.KeyName
+		newResource.PublicKeyFingerprint = *keypair.KeyFingerprint
 	}
-	actual.PublicKeyPath = known.SSH.PublicKeyPath
-	actual.PublicKeyData = string(known.SSH.PublicKeyData)
-	actual.PublicKeyFingerprint = known.SSH.PublicKeyFingerprint
-	actual.User = known.SSH.User
-	r.CachedActual = actual
-	return known, actual, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 
 }
 
-func (r *KeyPair) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *KeyPair) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Expected")
-	if r.CachedExpected != nil {
-		logger.Debug("Using keypair [expected]")
-		return known, r.CachedExpected, nil
-	}
-	expected := &KeyPair{
+	newResource := &KeyPair{
 		Shared: Shared{
 			Tags: map[string]string{
 				"Name":              r.Name,
-				"KubernetesCluster": known.Name,
+				"KubernetesCluster": immutable.Name,
 			},
-			CloudID:     known.SSH.Identifier,
-			Name:        r.Name,
-			TagResource: r.TagResource,
+			Identifier: immutable.SSH.Identifier,
+			Name:       r.Name,
 		},
-		PublicKeyPath: known.SSH.PublicKeyPath,
-		PublicKeyData: string(known.SSH.PublicKeyData),
-		User:          known.SSH.User,
+		PublicKeyPath: immutable.SSH.PublicKeyPath,
+		PublicKeyData: string(immutable.SSH.PublicKeyData),
+		User:          immutable.SSH.User,
 	}
-	r.CachedExpected = expected
-
-	return known, expected, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *KeyPair) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Apply")
-	applyResource := expected.(*KeyPair)
+	keypair := expected.(*KeyPair)
 	isEqual, err := compare.IsEqual(actual.(*KeyPair), expected.(*KeyPair))
 	if err != nil {
 		return nil, nil, err
 	}
 	if isEqual {
-		return applyCluster, applyResource, nil
+		return immutable, keypair, nil
 	}
+
+	// Query for keypair
 	input := &ec2.ImportKeyPairInput{
 		KeyName:           &expected.(*KeyPair).Name,
 		PublicKeyMaterial: []byte(expected.(*KeyPair).PublicKeyData),
 	}
 	newResource := &KeyPair{}
-	fmt.Println(Sdk.Ec2)
 	output, err := Sdk.Ec2.ImportKeyPair(input)
 	if err != nil {
 		if !strings.Contains(err.Error(), "InvalidKeyPair.Duplicate") {
@@ -132,30 +123,21 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		logger.Info("Created KeyPair [%s]", *output.KeyName)
 		newResource.PublicKeyFingerprint = *output.KeyFingerprint
 	}
-	newResource.CloudID = expected.(*KeyPair).Name
-	newResource.PublicKeyData = expected.(*KeyPair).PublicKeyData
-	newResource.PublicKeyPath = expected.(*KeyPair).PublicKeyPath
-	newResource.User = expected.(*KeyPair).User
-	newResource.Name = expected.(*KeyPair).Name
+	newResource.Identifier = keypair.Name
+	newResource.PublicKeyData = keypair.PublicKeyData
+	newResource.PublicKeyPath = keypair.PublicKeyPath
+	newResource.User = keypair.User
+	newResource.Name = keypair.Name
 
-	renderedCluster, err := r.render(actual, applyCluster)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return renderedCluster, newResource, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
-func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+
+func (r *KeyPair) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Delete")
-	var force bool
 	if strings.ToLower(os.Getenv("KUBICORN_FORCE_DELETE_KEY")) == "true" {
-		force = true
-	} else {
-		force = false
-	}
-	if force {
 		deleteResource := actual.(*KeyPair)
-		if deleteResource.CloudID == "" {
+		if deleteResource.Identifier == "" {
 			return nil, nil, fmt.Errorf("Unable to delete keypair resource without ID [%s]", deleteResource.Name)
 		}
 		input := &ec2.DeleteKeyPairInput{
@@ -165,7 +147,7 @@ func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluste
 		if err != nil {
 			return nil, nil, err
 		}
-		logger.Info("Deleted keypair [%s]", actual.(*KeyPair).CloudID)
+		logger.Info("Deleted keypair [%s]", actual.(*KeyPair).Identifier)
 	}
 	newResource := &KeyPair{}
 	newResource.Tags = actual.(*KeyPair).Tags
@@ -173,21 +155,18 @@ func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluste
 	newResource.PublicKeyPath = actual.(*KeyPair).PublicKeyPath
 	newResource.User = actual.(*KeyPair).User
 
-	renderedCluster, err := r.render(actual, known)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return renderedCluster, newResource, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *KeyPair) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *KeyPair) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("keypair.Render")
-	renderCluster.SSH.Name = renderResource.(*KeyPair).Name
-	renderCluster.SSH.Identifier = renderResource.(*KeyPair).Name
-	renderCluster.SSH.PublicKeyData = []byte(renderResource.(*KeyPair).PublicKeyData)
-	renderCluster.SSH.PublicKeyFingerprint = renderResource.(*KeyPair).PublicKeyFingerprint
-	renderCluster.SSH.PublicKeyPath = renderResource.(*KeyPair).PublicKeyPath
-	renderCluster.SSH.User = renderResource.(*KeyPair).User
-	return renderCluster, nil
+	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster.SSH.Name = newResource.(*KeyPair).Name
+	newCluster.SSH.Identifier = newResource.(*KeyPair).Name
+	newCluster.SSH.PublicKeyData = []byte(newResource.(*KeyPair).PublicKeyData)
+	newCluster.SSH.PublicKeyFingerprint = newResource.(*KeyPair).PublicKeyFingerprint
+	newCluster.SSH.PublicKeyPath = newResource.(*KeyPair).PublicKeyPath
+	newCluster.SSH.User = newResource.(*KeyPair).User
+	return newCluster
 }

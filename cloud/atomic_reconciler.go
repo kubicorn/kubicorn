@@ -22,6 +22,7 @@ import (
 	"time"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/hang"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
@@ -41,7 +42,7 @@ func NewAtomicReconciler(known *cluster.Cluster, model Model) Reconciler {
 }
 
 func (r *AtomicReconciler) Actual(known *cluster.Cluster) (actualCluster *cluster.Cluster, err error) {
-	actualCluster = newClusterDefaults(r.known)
+	actualCluster = defaults.NewClusterDefaults(r.known)
 	for i := 0; i < len(r.model.Resources()); i++ {
 		resource := r.model.Resources()[i]
 		actualCluster, _, err = resource.Actual(r.known)
@@ -53,7 +54,7 @@ func (r *AtomicReconciler) Actual(known *cluster.Cluster) (actualCluster *cluste
 }
 
 func (r *AtomicReconciler) Expected(known *cluster.Cluster) (expectedCluster *cluster.Cluster, err error) {
-	expectedCluster = newClusterDefaults(r.known)
+	expectedCluster = defaults.NewClusterDefaults(r.known)
 	for i := 0; i < len(r.model.Resources()); i++ {
 		resource := r.model.Resources()[i]
 		expectedCluster, _, err = resource.Expected(r.known)
@@ -86,7 +87,7 @@ func (r *AtomicReconciler) cleanUp(failedCluster *cluster.Cluster, i int) (err e
 var createdResources = make(map[int]Resource)
 
 func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconciledCluster *cluster.Cluster, err error) {
-	reconciledCluster = newClusterDefaults(r.known)
+	reconciledCluster = defaults.NewClusterDefaults(r.known)
 	for i := 0; i < len(r.model.Resources()); i++ {
 		if sigCaught {
 			err := r.cleanUp(reconciledCluster, i)
@@ -102,16 +103,17 @@ func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconci
 		go handleCtrlC(c)
 
 		resource := r.model.Resources()[i]
-		_, expectedResource, err := resource.Expected(r.known)
-		if err != nil {
-			return nil, err
-		}
 		_, actualResource, err := resource.Actual(r.known)
 		if err != nil {
 			return nil, err
 		}
+		_, expectedResource, err := resource.Expected(r.known)
+		if err != nil {
+			return nil, err
+		}
 		var appliedResource Resource
-		reconciledCluster, appliedResource, err = resource.Apply(actualResource, expectedResource, reconciledCluster)
+
+		newCluster, appliedResource, err := resource.Apply(actualResource, expectedResource, reconciledCluster)
 		if err != nil {
 			logger.Critical("Error during apply of atomic reconciler, attempting clawback: %v", err)
 			err = r.cleanUp(reconciledCluster, i)
@@ -121,6 +123,7 @@ func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconci
 			}
 			return nil, nil
 		}
+		reconciledCluster = newCluster
 		createdResources[i] = appliedResource
 	}
 	return reconciledCluster, nil
@@ -148,6 +151,7 @@ func destroyI(err error, i int) (int, error) {
 }
 
 func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err error) {
+	destroyedCluster = defaults.NewClusterDefaults(r.known)
 	for i := len(r.model.Resources()) - 1; i >= 0; i-- {
 		resource := r.model.Resources()[i]
 		_, actualResource, err := resource.Actual(r.known)
@@ -168,19 +172,6 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 		}
 	}
 	return destroyedCluster, nil
-}
-
-func newClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
-	new := &cluster.Cluster{
-		Name:          base.Name,
-		Cloud:         base.Cloud,
-		Location:      base.Location,
-		Network:       &cluster.Network{},
-		SSH:           &cluster.SSH{},
-		Values:        base.Values,
-		KubernetesAPI: base.KubernetesAPI,
-	}
-	return new
 }
 
 func handleCtrlC(c chan os.Signal) {
