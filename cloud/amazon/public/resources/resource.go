@@ -17,17 +17,13 @@ package resources
 import (
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
 )
 
 type Shared struct {
-	CloudID        string
-	Name           string
-	TagResource    cloud.Resource
-	Tags           map[string]string
-	CachedActual   cloud.Resource
-	CachedExpected cloud.Resource
+	Identifier string
+	Name       string
+	Tags       map[string]string
 }
 
 func S(format string, a ...interface{}) *string {
@@ -45,3 +41,7 @@ func B(b bool) *bool {
 }
 
 var Sdk *awsSdkGo.Sdk
+
+func init() {
+
+}
