@@ -15,18 +15,15 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
-	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/profiles"
 )
 
 func main() {
 	logger.Level = 4
-	cluster := getCluster("mycluster")
+	cluster := profiles.NewUbuntuAmazonCluster("myCluster")
 	cluster, err := initapi.InitCluster(cluster)
 	if err != nil {
 		panic(err.Error())
@@ -35,16 +32,11 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-
-	err = reconciler.Init()
+	expected, err := reconciler.Expected(cluster)
 	if err != nil {
 		panic(err.Error())
 	}
-	expected, err := reconciler.GetExpected()
-	if err != nil {
-		panic(err.Error())
-	}
-	actual, err := reconciler.GetActual()
+	actual, err := reconciler.Actual(cluster)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -56,100 +48,5 @@ func main() {
 	_, err = reconciler.Destroy()
 	if err != nil {
 		panic(err.Error())
-	}
-}
-
-func getCluster(name string) *cluster.Cluster {
-	return &cluster.Cluster{
-		Name:     name,
-		Cloud:    cluster.CloudAmazon,
-		Location: "us-west-2",
-		SSH: &cluster.SSH{
-			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "ubuntu",
-		},
-		KubernetesAPI: &cluster.KubernetesAPI{
-			Port: "443",
-		},
-		Network: &cluster.Network{
-			Type: cluster.NetworkTypePublic,
-			CIDR: "10.0.0.0/16",
-		},
-		Values: &cluster.Values{
-			ItemMap: map[string]string{
-				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
-			},
-		},
-		ServerPools: []*cluster.ServerPool{
-			{
-				Type:     cluster.ServerPoolTypeMaster,
-				Name:     fmt.Sprintf("%s.master", name),
-				MaxCount: 1,
-				MinCount: 1,
-				Image:    "ami-835b4efa",
-				Size:     "t2.medium",
-				BootstrapScripts: []string{
-					"amazon_k8s_ubuntu_16.04_master.sh",
-				},
-				Subnets: []*cluster.Subnet{
-					{
-						Name:     fmt.Sprintf("%s.master", name),
-						CIDR:     "10.0.0.0/24",
-						Location: "us-west-2a",
-					},
-				},
-
-				Firewalls: []*cluster.Firewall{
-					{
-						Name: fmt.Sprintf("%s.master-external", name),
-						IngressRules: []*cluster.IngressRule{
-							{
-								IngressFromPort: "22",
-								IngressToPort:   "22",
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "tcp",
-							},
-							{
-								IngressFromPort: "443",
-								IngressToPort:   "443",
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "tcp",
-							},
-						},
-					},
-				},
-			},
-			{
-				Type:     cluster.ServerPoolTypeNode,
-				Name:     fmt.Sprintf("%s.node", name),
-				MaxCount: 1,
-				MinCount: 1,
-				Image:    "ami-835b4efa",
-				Size:     "t2.medium",
-				BootstrapScripts: []string{
-					"amazon_k8s_ubuntu_16.04_node.sh",
-				},
-				Subnets: []*cluster.Subnet{
-					{
-						Name:     fmt.Sprintf("%s.node", name),
-						CIDR:     "10.0.100.0/24",
-						Location: "us-west-2b",
-					},
-				},
-				Firewalls: []*cluster.Firewall{
-					{
-						Name: fmt.Sprintf("%s.node-external", name),
-						IngressRules: []*cluster.IngressRule{
-							{
-								IngressFromPort: "22",
-								IngressToPort:   "22",
-								IngressSource:   "0.0.0.0/0",
-								IngressProtocol: "tcp",
-							},
-						},
-					},
-				},
-			},
-		},
 	}
 }

@@ -20,7 +20,7 @@ import (
 )
 
 func TestSdkHappy(t *testing.T) {
-	os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "../../../../test/resources/google_application_credentials_example.json")
+	os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "../../../test/resources/google_application_credentials_example.json")
 	_, err := NewSdk()
 	if err != nil {
 		t.Fatalf("Unable to get Google compute SDK: %v", err)

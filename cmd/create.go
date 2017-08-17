@@ -95,6 +95,10 @@ var profileMapIndexed = map[string]profileMap{
 		profileFunc: profiles.NewUbuntuDigitalOceanCluster,
 		description: "Ubuntu on DigitalOcean",
 	},
+	"google": {
+		profileFunc: profiles.NewUbuntuGoogleComputeCluster,
+		description: "Ubuntu on Google Compute",
+	},
 	"digitalocean": {
 		profileFunc: profiles.NewUbuntuDigitalOceanCluster,
 		description: "Ubuntu on DigitalOcean",

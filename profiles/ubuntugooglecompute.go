@@ -22,7 +22,7 @@ import (
 )
 
 // NewSimpleGoogleComputeCluster creates a basic Ubuntu Google Compute cluster.
-func NewSimpleGoogleComputeCluster(name string) *cluster.Cluster {
+func NewUbuntuGoogleComputeCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudGoogle,
