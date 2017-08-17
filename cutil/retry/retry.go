@@ -16,8 +16,8 @@
 package retry
 
 import (
-	"os"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/kris-nova/kubicorn/cutil/logger"
