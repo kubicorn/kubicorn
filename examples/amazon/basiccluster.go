@@ -102,16 +102,16 @@ func getCluster(name string) *cluster.Cluster {
 				Firewalls: []*cluster.Firewall{
 					{
 						Name: fmt.Sprintf("%s.master-external", name),
-						Rules: []*cluster.Rule{
+						IngressRules: []*cluster.IngressRule{
 							{
-								IngressFromPort: 22,
-								IngressToPort:   22,
+								IngressFromPort: "22",
+								IngressToPort:   "22",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
 							},
 							{
-								IngressFromPort: 443,
-								IngressToPort:   443,
+								IngressFromPort: "443",
+								IngressToPort:   "443",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
 							},
@@ -139,10 +139,10 @@ func getCluster(name string) *cluster.Cluster {
 				Firewalls: []*cluster.Firewall{
 					{
 						Name: fmt.Sprintf("%s.node-external", name),
-						Rules: []*cluster.Rule{
+						IngressRules: []*cluster.IngressRule{
 							{
-								IngressFromPort: 22,
-								IngressToPort:   22,
+								IngressFromPort: "22",
+								IngressToPort:   "22",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
 							},

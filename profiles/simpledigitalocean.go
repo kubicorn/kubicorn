@@ -21,7 +21,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
-// NewSimpleDigitalOceanCluster creates a basic Ubuntu DigitalOcean cluster.
+// NewSimpleDigitalOceanCluster creates a basic Digitalocean cluster profile, to bootstrap Kubernetes.
 func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
@@ -50,6 +50,40 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 					"vpn/openvpnMaster.sh",
 					"digitalocean_k8s_ubuntu_16.04_master.sh",
 				},
+				Firewalls: []*cluster.Firewall{
+					{
+						Name: fmt.Sprintf("%s-master", name),
+						IngressRules: []*cluster.IngressRule{
+							{
+								IngressToPort:   "22",
+								IngressSource:   "0.0.0.0/0",
+								IngressProtocol: "tcp",
+							},
+							{
+								IngressToPort:   "443",
+								IngressSource:   "0.0.0.0/0",
+								IngressProtocol: "tcp",
+							},
+							{
+								IngressToPort:   "1194",
+								IngressSource:   "0.0.0.0/0",
+								IngressProtocol: "udp",
+							},
+						},
+						EgressRules: []*cluster.EgressRule{
+							{
+								EgressToPort:      "all", // By default all egress from VM
+								EgressDestination: "0.0.0.0/0",
+								EgressProtocol:    "tcp",
+							},
+							{
+								EgressToPort:      "all", // By default all egress from VM
+								EgressDestination: "0.0.0.0/0",
+								EgressProtocol:    "udp",
+							},
+						},
+					},
+				},
 			},
 			{
 				Type:     cluster.ServerPoolTypeNode,
@@ -60,6 +94,35 @@ func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
 				BootstrapScripts: []string{
 					"vpn/openvpnNode.sh",
 					"digitalocean_k8s_ubuntu_16.04_node.sh",
+				},
+				Firewalls: []*cluster.Firewall{
+					{
+						Name: fmt.Sprintf("%s-node", name),
+						IngressRules: []*cluster.IngressRule{
+							{
+								IngressToPort:   "22",
+								IngressSource:   "0.0.0.0/0",
+								IngressProtocol: "tcp",
+							},
+							{
+								IngressToPort:   "1194",
+								IngressSource:   "0.0.0.0/0",
+								IngressProtocol: "udp",
+							},
+						},
+						EgressRules: []*cluster.EgressRule{
+							{
+								EgressToPort:      "all", // By default all egress from VM
+								EgressDestination: "0.0.0.0/0",
+								EgressProtocol:    "tcp",
+							},
+							{
+								EgressToPort:      "all", // By default all egress from VM
+								EgressDestination: "0.0.0.0/0",
+								EgressProtocol:    "udp",
+							},
+						},
+					},
 				},
 			},
 		},

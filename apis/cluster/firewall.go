@@ -18,20 +18,36 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// Firewall contains the configuration a user expects to be applied.
 type Firewall struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Identifier        string
-	Rules             []*Rule
+	IngressRules      []*IngressRule
+	EgressRules       []*EgressRule
 	Name              string
 }
 
-type Rule struct {
+// Shared object infor among rules.
+type Shared struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Identifier        string `json:"identifier,omitempty"`
-	IngressFromPort   int    `json:"ingressFromPort,omitempty"`
-	IngressToPort     int    `json:"ingressToPort,omitempty"`
-	IngressSource     string `json:"ingressSource,omitempty"`
-	IngressProtocol   string `json:"ingressProtocol,omitempty"`
+}
+
+// IngressRule parameters for the firewall
+type IngressRule struct {
+	Shared
+	IngressFromPort string `json:"ingressFromPort,omitempty"`
+	IngressToPort   string `json:"ingressToPort,omitempty"` //this thing should be a string.
+	IngressSource   string `json:"ingressSource,omitempty"`
+	IngressProtocol string `json:"ingressProtocol,omitempty"`
+}
+
+// EgressRule parameters for the firewall
+type EgressRule struct {
+	Shared
+	EgressToPort      string `json:"engressToPort,omitempty"` //this thing should be a string.
+	EgressDestination string `json:"engressDestination,omitempty"`
+	EgressProtocol    string `json:"engressProtocol,omitempty"`
 }

@@ -16,6 +16,7 @@ package resources
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -106,11 +107,19 @@ func (r *SecurityGroup) Expected(known *cluster.Cluster) (cloud.Resource, error)
 			TagResource: r.TagResource,
 		},
 	}
-	for _, rule := range r.Firewall.Rules {
+	for _, rule := range r.Firewall.IngressRules {
+		inPort, err := strToInt(rule.IngressToPort)
+		if err != nil {
+			return nil, err
+		}
+		outPort, err := strToInt(rule.IngressFromPort)
+		if err != nil {
+			return nil, err
+		}
 		expected.Rules = append(expected.Rules, &Rule{
 			IngressSource:   rule.IngressSource,
-			IngressToPort:   rule.IngressToPort,
-			IngressFromPort: rule.IngressFromPort,
+			IngressToPort:   inPort,
+			IngressFromPort: outPort,
 			IngressProtocol: rule.IngressProtocol,
 		})
 	}
@@ -143,6 +152,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 	newResource.CloudID = *output.GroupId
 	newResource.Name = expected.(*SecurityGroup).Name
 	for _, expectedRule := range expected.(*SecurityGroup).Rules {
+
 		input := &ec2.AuthorizeSecurityGroupIngressInput{
 			GroupId:    &newResource.CloudID,
 			ToPort:     I64(expectedRule.IngressToPort),
@@ -202,10 +212,10 @@ func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *clu
 				found = true
 				renderCluster.ServerPools[i].Firewalls[j].Identifier = renderResource.(*SecurityGroup).CloudID
 				for _, renderRule := range renderResource.(*SecurityGroup).Rules {
-					renderCluster.ServerPools[i].Firewalls[j].Rules = append(renderCluster.ServerPools[i].Firewalls[j].Rules, &cluster.Rule{
+					renderCluster.ServerPools[i].Firewalls[j].IngressRules = append(renderCluster.ServerPools[i].Firewalls[j].IngressRules, &cluster.IngressRule{
 						IngressSource:   renderRule.IngressSource,
-						IngressFromPort: renderRule.IngressFromPort,
-						IngressToPort:   renderRule.IngressToPort,
+						IngressFromPort: strconv.Itoa(renderRule.IngressFromPort),
+						IngressToPort:   strconv.Itoa(renderRule.IngressToPort),
 						IngressProtocol: renderRule.IngressProtocol,
 					})
 				}
@@ -217,19 +227,19 @@ func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *clu
 		for i := 0; i < len(renderCluster.ServerPools); i++ {
 			if renderCluster.ServerPools[i].Name == r.ServerPool.Name {
 				found = true
-				var rules []*cluster.Rule
+				var rules []*cluster.IngressRule
 				for _, renderRule := range renderResource.(*SecurityGroup).Rules {
-					rules = append(rules, &cluster.Rule{
+					rules = append(rules, &cluster.IngressRule{
 						IngressSource:   renderRule.IngressSource,
-						IngressFromPort: renderRule.IngressFromPort,
-						IngressToPort:   renderRule.IngressToPort,
+						IngressFromPort: strconv.Itoa(renderRule.IngressFromPort),
+						IngressToPort:   strconv.Itoa(renderRule.IngressToPort),
 						IngressProtocol: renderRule.IngressProtocol,
 					})
 				}
 				renderCluster.ServerPools[i].Firewalls = append(renderCluster.ServerPools[i].Firewalls, &cluster.Firewall{
-					Name:       renderResource.(*SecurityGroup).Name,
-					Identifier: renderResource.(*SecurityGroup).CloudID,
-					Rules:      rules,
+					Name:         renderResource.(*SecurityGroup).Name,
+					Identifier:   renderResource.(*SecurityGroup).CloudID,
+					IngressRules: rules,
 				})
 
 			}
@@ -237,20 +247,20 @@ func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *clu
 	}
 
 	if !found {
-		var rules []*cluster.Rule
+		var rules []*cluster.IngressRule
 		for _, renderRule := range renderResource.(*SecurityGroup).Rules {
-			rules = append(rules, &cluster.Rule{
+			rules = append(rules, &cluster.IngressRule{
 				IngressSource:   renderRule.IngressSource,
-				IngressFromPort: renderRule.IngressFromPort,
-				IngressToPort:   renderRule.IngressToPort,
+				IngressFromPort: strconv.Itoa(renderRule.IngressFromPort),
+				IngressToPort:   strconv.Itoa(renderRule.IngressToPort),
 				IngressProtocol: renderRule.IngressProtocol,
 			})
 		}
 		firewalls := []*cluster.Firewall{
 			{
-				Name:       renderResource.(*SecurityGroup).Name,
-				Identifier: renderResource.(*SecurityGroup).CloudID,
-				Rules:      rules,
+				Name:         renderResource.(*SecurityGroup).Name,
+				Identifier:   renderResource.(*SecurityGroup).CloudID,
+				IngressRules: rules,
 			},
 		}
 		renderCluster.ServerPools = append(renderCluster.ServerPools, &cluster.ServerPool{
@@ -266,4 +276,12 @@ func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *clu
 func (r *SecurityGroup) Tag(tags map[string]string) error {
 	// Todo tag on another resource
 	return nil
+}
+
+func strToInt(s string) (int, error) {
+	i, err := strconv.Atoi(s)
+	if err != nil {
+		return 0, fmt.Errorf("failed to convert string to int err: ", err)
+	}
+	return i, nil
 }
