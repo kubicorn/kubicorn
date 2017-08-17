@@ -20,12 +20,25 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/google/compute/resources"
 )
 
-// ClusterModel Creates and adds Google compute instances to server pools.
-func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
+type Model struct {
+	known           *cluster.Cluster
+	cachedResources map[int]cloud.Resource
+}
+
+func NewGoogleComputeModel(known *cluster.Cluster) cloud.Model {
+	return &Model{
+		known: known,
+	}
+}
+
+func (m *Model) Resources() map[int]cloud.Resource {
+	if len(m.cachedResources) > 0 {
+		return m.cachedResources
+	}
 	r := make(map[int]cloud.Resource)
 	i := 0
 
-	for _, serverPool := range known.ServerPools {
+	for _, serverPool := range m.known.ServerPools {
 		// ---- [Engine] ----
 		r[i] = &resources.Instance{
 			Shared: resources.Shared{
@@ -35,6 +48,6 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 		}
 		i++
 	}
-
-	return r
+	m.cachedResources = r
+	return m.cachedResources
 }

@@ -12,15 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package amazon
+package public
 
 import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/amazon/resources"
+	"github.com/kris-nova/kubicorn/cloud/amazon/public/resources"
 )
 
-func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
+type Model struct {
+	known           *cluster.Cluster
+	cachedResources map[int]cloud.Resource
+}
+
+func NewAmazonPublicModel(known *cluster.Cluster) cloud.Model {
+	return &Model{
+		known: known,
+	}
+}
+
+func (m *Model) Resources() map[int]cloud.Resource {
+	if len(m.cachedResources) > 0 {
+		return m.cachedResources
+	}
+	known := m.known
+
 	r := make(map[int]cloud.Resource)
 	i := 0
 
@@ -118,5 +134,6 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 		i++
 	}
 
-	return r
+	m.cachedResources = r
+	return m.cachedResources
 }

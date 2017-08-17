@@ -30,6 +30,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/script"
 )
 
+var _ cloud.Resource = &Lc{}
+
 type Lc struct {
 	Shared
 	InstanceType     string
@@ -43,11 +45,11 @@ const (
 	MasterIPSleepSecondsPerAttempt = 3
 )
 
-func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Lc) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("lc.Actual")
 	if r.CachedActual != nil {
 		logger.Debug("Using cached LC [actual]")
-		return r.CachedActual, nil
+		return known, r.CachedActual, nil
 	}
 	actual := &Lc{
 		Shared: Shared{
@@ -63,11 +65,11 @@ func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		lcOutput, err := Sdk.ASG.DescribeLaunchConfigurations(lcInput)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		llc := len(lcOutput.LaunchConfigurations)
 		if llc != 1 {
-			return nil, fmt.Errorf("Found [%d] Launch Configurations for ID [%s]", llc, r.ServerPool.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] Launch Configurations for ID [%s]", llc, r.ServerPool.Identifier)
 		}
 		lc := lcOutput.LaunchConfigurations[0]
 		actual.Image = *lc.ImageId
@@ -79,14 +81,14 @@ func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 	}
 	actual.BootstrapScripts = r.ServerPool.BootstrapScripts
 	r.CachedActual = actual
-	return actual, nil
+	return known, actual, nil
 }
 
-func (r *Lc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Lc) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("asg.Expected")
 	if r.CachedExpected != nil {
 		logger.Debug("Using cached ASG [expected]")
-		return r.CachedExpected, nil
+		return known, r.CachedExpected, nil
 	}
 	expected := &Lc{
 		Shared: Shared{
@@ -103,18 +105,18 @@ func (r *Lc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
 	r.CachedExpected = expected
-	return expected, nil
+	return known, expected, nil
 }
 
-func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("lc.Apply")
 	applyResource := expected.(*Lc)
 	isEqual, err := compare.IsEqual(actual.(*Lc), expected.(*Lc))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return applyCluster, applyResource, nil
 	}
 	var sgs []*string
 	found := false
@@ -127,7 +129,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 		}
 	}
 	if !found {
-		return nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
+		return nil, nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
 	}
 
 	// --- Hack in here for master IP
@@ -153,7 +155,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 			}
 			output, err := Sdk.Ec2.DescribeInstances(input)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 			lr := len(output.Reservations)
 			if lr == 0 {
@@ -179,21 +181,21 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 			time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 		}
 		if !found {
-			return nil, fmt.Errorf("Unable to find Master IP")
+			return nil, nil, fmt.Errorf("Unable to find Master IP")
 		}
 	}
 
 	newResource := &Lc{}
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	//fmt.Println(string(userData))
 	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesAPI.Port
 	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	//fmt.Println(string(userData))
 	b64data := base64.StdEncoding.EncodeToString(userData)
@@ -208,7 +210,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	}
 	_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Created Launch Configuration [%s]", r.Name)
 	newResource.Image = expected.(*Lc).Image
@@ -216,21 +218,27 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	newResource.Name = expected.(*Lc).Name
 	newResource.CloudID = expected.(*Lc).Name
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
-	return newResource, nil
+
+	renderedCluster, err := r.render(applyCluster, newResource)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return renderedCluster, newResource, nil
 }
 
-func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("lc.Delete")
 	deleteResource := actual.(*Lc)
 	if deleteResource.Name == "" {
-		return nil, fmt.Errorf("Unable to delete Launch Configuration resource without Name [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete Launch Configuration resource without Name [%s]", deleteResource.Name)
 	}
 	input := &autoscaling.DeleteLaunchConfigurationInput{
 		LaunchConfigurationName: &actual.(*Lc).Name,
 	}
 	_, err := Sdk.ASG.DeleteLaunchConfiguration(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).CloudID)
 
@@ -243,10 +251,16 @@ func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resour
 	newResource.Image = actual.(*Lc).Image
 	newResource.InstanceType = actual.(*Lc).InstanceType
 	newResource.BootstrapScripts = actual.(*Lc).BootstrapScripts
-	return newResource, nil
+
+	renderedCluster, err := r.render(known, newResource)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return renderedCluster, newResource, nil
 }
 
-func (r *Lc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *Lc) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("lc.Render")
 	serverPool := &cluster.ServerPool{}
 	serverPool.Image = renderResource.(*Lc).Image
@@ -266,9 +280,4 @@ func (r *Lc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluste
 	}
 
 	return renderCluster, nil
-}
-
-func (r *Lc) Tag(tags map[string]string) error {
-	// Todo tag on another resource
-	return nil
 }

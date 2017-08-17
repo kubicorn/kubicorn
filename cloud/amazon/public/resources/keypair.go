@@ -26,6 +26,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
+var _ cloud.Resource = &KeyPair{}
+
 type KeyPair struct {
 	Shared
 	PublicKeyData        string
@@ -34,11 +36,11 @@ type KeyPair struct {
 	User                 string
 }
 
-func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *KeyPair) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Actual")
 	if r.CachedActual != nil {
 		logger.Debug("Using cached keypair [actual]")
-		return r.CachedActual, nil
+		return known, r.CachedActual, nil
 	}
 	actual := &KeyPair{
 		Shared: Shared{
@@ -56,7 +58,7 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		if err == nil {
 			lsn := len(output.KeyPairs)
 			if lsn != 1 {
-				return nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
+				return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
 			}
 			keypair := output.KeyPairs[0]
 			actual.CloudID = *keypair.KeyName
@@ -64,7 +66,7 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		lsn := len(output.KeyPairs)
 		if lsn != 1 {
-			return nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, known.SSH.Identifier)
 		}
 		keypair := output.KeyPairs[0]
 		actual.CloudID = *keypair.KeyName
@@ -75,14 +77,15 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 	actual.PublicKeyFingerprint = known.SSH.PublicKeyFingerprint
 	actual.User = known.SSH.User
 	r.CachedActual = actual
-	return actual, nil
+	return known, actual, nil
+
 }
 
-func (r *KeyPair) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *KeyPair) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Expected")
 	if r.CachedExpected != nil {
 		logger.Debug("Using keypair [expected]")
-		return r.CachedExpected, nil
+		return known, r.CachedExpected, nil
 	}
 	expected := &KeyPair{
 		Shared: Shared{
@@ -99,17 +102,20 @@ func (r *KeyPair) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		User:          known.SSH.User,
 	}
 	r.CachedExpected = expected
-	return expected, nil
+
+	return known, expected, nil
 }
-func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+
+
+func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Apply")
 	applyResource := expected.(*KeyPair)
 	isEqual, err := compare.IsEqual(actual.(*KeyPair), expected.(*KeyPair))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return applyCluster, applyResource, nil
 	}
 	input := &ec2.ImportKeyPairInput{
 		KeyName:           &expected.(*KeyPair).Name,
@@ -119,7 +125,7 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	output, err := Sdk.Ec2.ImportKeyPair(input)
 	if err != nil {
 		if !strings.Contains(err.Error(), "InvalidKeyPair.Duplicate") {
-			return nil, err
+			return nil, nil, err
 		}
 		logger.Info("Using existing KeyPair [%s]", expected.(*KeyPair).Name)
 	} else {
@@ -131,9 +137,15 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 	newResource.PublicKeyPath = expected.(*KeyPair).PublicKeyPath
 	newResource.User = expected.(*KeyPair).User
 	newResource.Name = expected.(*KeyPair).Name
-	return newResource, nil
+
+	renderedCluster, err := r.render(actual, applyCluster)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return renderedCluster, newResource, nil
 }
-func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Delete")
 	var force bool
 	if strings.ToLower(os.Getenv("KUBICORN_FORCE_DELETE_KEY")) == "true" {
@@ -144,14 +156,14 @@ func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 	if force {
 		deleteResource := actual.(*KeyPair)
 		if deleteResource.CloudID == "" {
-			return nil, fmt.Errorf("Unable to delete keypair resource without ID [%s]", deleteResource.Name)
+			return nil, nil, fmt.Errorf("Unable to delete keypair resource without ID [%s]", deleteResource.Name)
 		}
 		input := &ec2.DeleteKeyPairInput{
 			KeyName: &actual.(*KeyPair).Name,
 		}
 		_, err := Sdk.Ec2.DeleteKeyPair(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		logger.Info("Deleted keypair [%s]", actual.(*KeyPair).CloudID)
 	}
@@ -160,10 +172,16 @@ func (r *KeyPair) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 	newResource.Name = actual.(*KeyPair).Name
 	newResource.PublicKeyPath = actual.(*KeyPair).PublicKeyPath
 	newResource.User = actual.(*KeyPair).User
-	return newResource, nil
+
+	renderedCluster, err := r.render(actual, known)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return renderedCluster, newResource, nil
 }
 
-func (r *KeyPair) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *KeyPair) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("keypair.Render")
 	renderCluster.SSH.Name = renderResource.(*KeyPair).Name
 	renderCluster.SSH.Identifier = renderResource.(*KeyPair).Name
@@ -172,9 +190,4 @@ func (r *KeyPair) Render(renderResource cloud.Resource, renderCluster *cluster.C
 	renderCluster.SSH.PublicKeyPath = renderResource.(*KeyPair).PublicKeyPath
 	renderCluster.SSH.User = renderResource.(*KeyPair).User
 	return renderCluster, nil
-}
-
-func (r *KeyPair) Tag(tags map[string]string) error {
-	// Todo tag on another resource
-	return nil
 }

@@ -24,15 +24,17 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
+var _ cloud.Resource = &InternetGateway{}
+
 type InternetGateway struct {
 	Shared
 }
 
-func (r *InternetGateway) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *InternetGateway) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("internetgateway.Actual")
 	if r.CachedActual != nil {
 		logger.Debug("Using cached internetgateway [actual]")
-		return r.CachedActual, nil
+		return known, r.CachedActual, nil
 	}
 	actual := &InternetGateway{
 		Shared: Shared{
@@ -52,11 +54,11 @@ func (r *InternetGateway) Actual(known *cluster.Cluster) (cloud.Resource, error)
 		}
 		output, err := Sdk.Ec2.DescribeInternetGateways(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		lsn := len(output.InternetGateways)
 		if lsn != 1 {
-			return nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, known.Network.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, known.Network.Identifier)
 		}
 		ig := output.InternetGateways[0]
 		for _, tag := range ig.Tags {
@@ -67,14 +69,14 @@ func (r *InternetGateway) Actual(known *cluster.Cluster) (cloud.Resource, error)
 		actual.CloudID = r.Name
 	}
 	r.CachedActual = actual
-	return actual, nil
+	return known, actual, nil
 }
 
-func (r *InternetGateway) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *InternetGateway) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("internetgateway.Expected")
 	if r.CachedExpected != nil {
 		logger.Debug("Using internetgateway subnet [expected]")
-		return r.CachedExpected, nil
+		return known, r.CachedExpected, nil
 	}
 	expected := &InternetGateway{
 		Shared: Shared{
@@ -89,22 +91,22 @@ func (r *InternetGateway) Expected(known *cluster.Cluster) (cloud.Resource, erro
 		},
 	}
 	r.CachedExpected = expected
-	return expected, nil
+	return known, expected, nil
 }
-func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("internetgateway.Apply")
 	applyResource := expected.(*InternetGateway)
 	isEqual, err := compare.IsEqual(actual.(*InternetGateway), expected.(*InternetGateway))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return applyCluster, applyResource, nil
 	}
 	input := &ec2.CreateInternetGatewayInput{}
 	output, err := Sdk.Ec2.CreateInternetGateway(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Created Internet Gateway [%s]", *output.InternetGateway.InternetGatewayId)
 	ig := output.InternetGateway
@@ -116,7 +118,7 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *c
 	}
 	_, err = Sdk.Ec2.AttachInternetGateway(atchinput)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Attaching Internet Gateway [%s] to VPC [%s]", *ig.InternetGatewayId, applyCluster.Network.Identifier)
 	newResource := &InternetGateway{
@@ -130,18 +132,24 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, applyCluster *c
 		newResource.Tags[key] = value
 	}
 	expected.(*InternetGateway).CloudID = *output.InternetGateway.InternetGatewayId
-	err = expected.Tag(expected.(*InternetGateway).Tags)
+	err = expected.(*InternetGateway).tag(expected.(*InternetGateway).Tags)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return newResource, nil
+
+	renderedCluster, err := r.render(newResource, applyCluster)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return renderedCluster, newResource, nil
 }
 
-func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("internetgateway.Delete")
 	deleteResource := actual.(*InternetGateway)
 	if deleteResource.CloudID == "" {
-		return nil, fmt.Errorf("Unable to delete internetgateway resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete internetgateway resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DescribeInternetGatewaysInput{
@@ -154,14 +162,14 @@ func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) 
 	}
 	output, err := Sdk.Ec2.DescribeInternetGateways(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	lsn := len(output.InternetGateways)
 	if lsn == 0 {
-		return nil, nil
+		return nil, nil, nil
 	}
 	if lsn != 1 {
-		return nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, r.Name)
+		return nil, nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, r.Name)
 	}
 	ig := output.InternetGateways[0]
 
@@ -171,7 +179,7 @@ func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) 
 	}
 	_, err = Sdk.Ec2.DetachInternetGateway(detinput)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	delinput := &ec2.DeleteInternetGatewayInput{
@@ -179,21 +187,28 @@ func (r *InternetGateway) Delete(actual cloud.Resource, known *cluster.Cluster) 
 	}
 	_, err = Sdk.Ec2.DeleteInternetGateway(delinput)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Deleted internetgateway [%s]", actual.(*InternetGateway).CloudID)
 	newResource := &InternetGateway{}
 	newResource.Name = actual.(*InternetGateway).Name
 	newResource.Tags = actual.(*InternetGateway).Tags
-	return newResource, nil
+
+	renderedCluster, err := r.render(newResource, known)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return renderedCluster, newResource, nil
+
 }
 
-func (r *InternetGateway) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *InternetGateway) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("internetgateway.Render")
 	return renderCluster, nil
 }
 
-func (r *InternetGateway) Tag(tags map[string]string) error {
+func (r *InternetGateway) tag(tags map[string]string) error {
 	logger.Debug("internetgateway.Tag")
 	tagInput := &ec2.CreateTagsInput{
 		Resources: []*string{&r.CloudID},

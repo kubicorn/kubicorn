@@ -25,6 +25,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
+var _ cloud.Resource = &SecurityGroup{}
+
 type Rule struct {
 	IngressFromPort int
 	IngressToPort   int
@@ -39,14 +41,14 @@ type SecurityGroup struct {
 }
 
 const (
-	KubicornAutoCreatedGroup = "A FABULOUS security group created by Kubicorn for cluster [%s]"
+	KubicornAutoCreatedGroup = "A fabulous security group created by Kubicorn for cluster [%s]"
 )
 
-func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *SecurityGroup) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Actual")
 	if r.CachedActual != nil {
 		logger.Debug("Using cached securitygroup [actual]")
-		return r.CachedActual, nil
+		return known, r.CachedActual, nil
 	}
 	actual := &SecurityGroup{
 		Shared: Shared{
@@ -62,11 +64,11 @@ func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		output, err := Sdk.Ec2.DescribeSecurityGroups(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		lsn := len(output.SecurityGroups)
 		if lsn != 1 {
-			return nil, fmt.Errorf("Found [%d] Security Groups for ID [%s]", lsn, r.Firewall.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] Security Groups for ID [%s]", lsn, r.Firewall.Identifier)
 		}
 		sg := output.SecurityGroups[0]
 		for _, rule := range sg.IpPermissions {
@@ -87,14 +89,14 @@ func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 	}
 
 	r.CachedActual = actual
-	return actual, nil
+	return known, actual, nil
 }
 
-func (r *SecurityGroup) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *SecurityGroup) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Expected")
 	if r.CachedExpected != nil {
 		logger.Debug("Using cached Security Group [expected]")
-		return r.CachedExpected, nil
+		return nil, r.CachedExpected, nil
 	}
 	expected := &SecurityGroup{
 		Shared: Shared{
@@ -110,11 +112,11 @@ func (r *SecurityGroup) Expected(known *cluster.Cluster) (cloud.Resource, error)
 	for _, rule := range r.Firewall.IngressRules {
 		inPort, err := strToInt(rule.IngressToPort)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		outPort, err := strToInt(rule.IngressFromPort)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		expected.Rules = append(expected.Rules, &Rule{
 			IngressSource:   rule.IngressSource,
@@ -124,17 +126,17 @@ func (r *SecurityGroup) Expected(known *cluster.Cluster) (cloud.Resource, error)
 		})
 	}
 	r.CachedExpected = expected
-	return expected, nil
+	return known, expected, nil
 }
-func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Apply")
 	applyResource := expected.(*SecurityGroup)
 	isEqual, err := compare.IsEqual(actual.(*SecurityGroup), expected.(*SecurityGroup))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return applyCluster, applyResource, nil
 	}
 
 	input := &ec2.CreateSecurityGroupInput{
@@ -144,7 +146,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 	}
 	output, err := Sdk.Ec2.CreateSecurityGroup(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Created Security Group [%s]", *output.GroupId)
 
@@ -162,7 +164,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 		}
 		_, err := Sdk.Ec2.AuthorizeSecurityGroupIngress(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		newResource.Rules = append(newResource.Rules, &Rule{
 			IngressSource:   expectedRule.IngressSource,
@@ -170,14 +172,21 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 			IngressFromPort: expectedRule.IngressFromPort,
 			IngressProtocol: expectedRule.IngressProtocol,
 		})
+
+		renderedCluster, err := r.render(newResource, applyCluster)
+		if err != nil {
+			return nil, nil, err
+		}
+		return renderedCluster, newResource, nil
+
 	}
-	return newResource, nil
+	return applyCluster, newResource, nil
 }
-func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Delete")
 	deleteResource := actual.(*SecurityGroup)
 	if deleteResource.CloudID == "" {
-		return nil, fmt.Errorf("Unable to delete Security Group resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete Security Group resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DeleteSecurityGroupInput{
@@ -185,25 +194,23 @@ func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) (c
 	}
 	_, err := Sdk.Ec2.DeleteSecurityGroup(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Deleted Security Group [%s]", actual.(*SecurityGroup).CloudID)
 
 	newResource := &SecurityGroup{}
 	newResource.Tags = actual.(*SecurityGroup).Tags
 	newResource.Name = actual.(*SecurityGroup).Name
-	//for _, renderRule := range actual.(*SecurityGroup).Rules {
-	//	newResource.Rules = append(newResource.Rules, &Rule{
-	//		IngressSource:   renderRule.IngressSource,
-	//		IngressFromPort: renderRule.IngressFromPort,
-	//		IngressToPort:   renderRule.IngressToPort,
-	//		IngressProtocol: renderRule.IngressProtocol,
-	//	})
-	//}
-	return newResource, nil
+
+	renderedCluster, err := r.render(newResource, known)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, newResource, nil
+
 }
 
-func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *SecurityGroup) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("securitygroup.Render")
 	found := false
 	for i := 0; i < len(renderCluster.ServerPools); i++ {
@@ -271,11 +278,6 @@ func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *clu
 	}
 
 	return renderCluster, nil
-}
-
-func (r *SecurityGroup) Tag(tags map[string]string) error {
-	// Todo tag on another resource
-	return nil
 }
 
 func strToInt(s string) (int, error) {

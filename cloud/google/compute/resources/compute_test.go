@@ -43,7 +43,7 @@ func TestExpectedHappy(t *testing.T) {
 		Location: "Location-us",
 	}
 
-	resource, err := instance.Expected(knownCluster)
+	_, resource, err := instance.Expected(knownCluster)
 	if err != nil {
 		t.Fatalf("Error while creating resource %v", err)
 	}

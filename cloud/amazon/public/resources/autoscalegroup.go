@@ -24,6 +24,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
+var _ cloud.Resource = &Asg{}
+
 type Asg struct {
 	Shared
 	MinCount     int
@@ -33,11 +35,11 @@ type Asg struct {
 	ServerPool   *cluster.ServerPool
 }
 
-func (r *Asg) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Asg) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("asg.Actual")
 	if r.CachedActual != nil {
 		logger.Debug("Using cached ASG [actual]")
-		return r.CachedActual, nil
+		return known, r.CachedActual, nil
 	}
 	actual := &Asg{
 		Shared: Shared{
@@ -54,11 +56,11 @@ func (r *Asg) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		output, err := Sdk.ASG.DescribeAutoScalingGroups(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		lasg := len(output.AutoScalingGroups)
 		if lasg != 1 {
-			return nil, fmt.Errorf("Found [%d] ASGs for ID [%s]", lasg, r.ServerPool.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] ASGs for ID [%s]", lasg, r.ServerPool.Identifier)
 		}
 		asg := output.AutoScalingGroups[0]
 		for _, tag := range asg.Tags {
@@ -75,13 +77,13 @@ func (r *Asg) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.MinCount = r.ServerPool.MinCount
 	}
 	r.CachedActual = actual
-	return actual, nil
+	return known, actual, nil
 }
-func (r *Asg) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Asg) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("asg.Expected")
 	if r.CachedExpected != nil {
 		logger.Debug("Using cached ASG [expected]")
-		return r.CachedExpected, nil
+		return known, r.CachedExpected, nil
 	}
 	expected := &Asg{
 		Shared: Shared{
@@ -98,17 +100,17 @@ func (r *Asg) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		MinCount:   r.ServerPool.MinCount,
 	}
 	r.CachedExpected = expected
-	return expected, nil
+	return known, expected, nil
 }
-func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("asg.Apply")
 	applyResource := expected.(*Asg)
 	isEqual, err := compare.IsEqual(actual.(*Asg), expected.(*Asg))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return applyCluster, applyResource, nil
 	}
 	subnetID := ""
 	for _, sp := range applyCluster.ServerPools {
@@ -121,7 +123,7 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		}
 	}
 	if subnetID == "" {
-		return nil, fmt.Errorf("Unable to find subnet id")
+		return nil, nil, fmt.Errorf("Unable to find subnet id")
 	}
 
 	newResource := &Asg{}
@@ -134,7 +136,7 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	_, err = Sdk.ASG.CreateAutoScalingGroup(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Created Asg [%s]", r.Name)
 
@@ -143,17 +145,23 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	newResource.MaxCount = r.MaxCount
 	newResource.MinCount = r.MinCount
 
-	err = newResource.Tag(applyResource.Tags)
+	err = newResource.tag(applyResource.Tags)
 	if err != nil {
-		return nil, fmt.Errorf("Unable to tag new VPC: %v", err)
+		return nil, nil, fmt.Errorf("Unable to tag new VPC: %v", err)
 	}
-	return newResource, nil
+
+	renderedCluster, err := r.render(newResource, applyCluster)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return renderedCluster, newResource, nil
 }
-func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("asg.Delete")
 	deleteResource := actual.(*Asg)
 	if deleteResource.CloudID == "" {
-		return nil, fmt.Errorf("Unable to delete ASG resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete ASG resource without ID [%s]", deleteResource.Name)
 	}
 	// Delete ASG API
 
@@ -163,7 +171,7 @@ func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resou
 	}
 	_, err := Sdk.ASG.DeleteAutoScalingGroup(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Deleted ASG [%s]", actual.(*Asg).CloudID)
 	newResource := &Asg{}
@@ -171,10 +179,17 @@ func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resou
 	newResource.Tags = actual.(*Asg).Tags
 	newResource.MaxCount = actual.(*Asg).MaxCount
 	newResource.MinCount = actual.(*Asg).MinCount
-	return newResource, nil
+
+
+	renderedCluster, err := r.render(newResource, known)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return renderedCluster, newResource, nil
 }
 
-func (r *Asg) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *Asg) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("asg.Render")
 	serverPool := &cluster.ServerPool{}
 	serverPool.MaxCount = renderResource.(*Asg).MaxCount
@@ -199,7 +214,7 @@ func (r *Asg) Render(renderResource cloud.Resource, renderCluster *cluster.Clust
 	return renderCluster, nil
 }
 
-func (r *Asg) Tag(tags map[string]string) error {
+func (r *Asg) tag(tags map[string]string) error {
 	logger.Debug("asg.Tag")
 	tagInput := &autoscaling.CreateOrUpdateTagsInput{}
 	for key, val := range tags {

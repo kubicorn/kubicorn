@@ -24,6 +24,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
+var _ cloud.Resource = &Subnet{}
+
 type Subnet struct {
 	Shared
 	ClusterSubnet *cluster.Subnet
@@ -33,11 +35,11 @@ type Subnet struct {
 	Zone          string
 }
 
-func (r *Subnet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Subnet) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("subnet.Actual")
 	if r.CachedActual != nil {
 		logger.Debug("Using cached subnet [actual]")
-		return r.CachedActual, nil
+		return known, r.CachedActual, nil
 	}
 	actual := &Subnet{
 		Shared: Shared{
@@ -53,11 +55,11 @@ func (r *Subnet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		output, err := Sdk.Ec2.DescribeSubnets(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		lsn := len(output.Subnets)
 		if lsn != 1 {
-			return nil, fmt.Errorf("Found [%d] Subnets for ID [%s]", lsn, r.ClusterSubnet.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] Subnets for ID [%s]", lsn, r.ClusterSubnet.Identifier)
 		}
 		subnet := output.Subnets[0]
 		actual.CIDR = *subnet.CidrBlock
@@ -72,14 +74,14 @@ func (r *Subnet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 
 	}
 	r.CachedActual = actual
-	return actual, nil
+	return known, actual, nil
 }
 
-func (r *Subnet) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Subnet) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("subnet.Expected")
 	if r.CachedExpected != nil {
 		logger.Debug("Using cached subnet [expected]")
-		return r.CachedExpected, nil
+		return known, r.CachedExpected, nil
 	}
 	expected := &Subnet{
 		Shared: Shared{
@@ -96,17 +98,17 @@ func (r *Subnet) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		Zone:  r.ClusterSubnet.Zone,
 	}
 	r.CachedExpected = expected
-	return expected, nil
+	return known, expected, nil
 }
-func (r *Subnet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+func (r *Subnet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("subnet.Apply")
 	applyResource := expected.(*Subnet)
 	isEqual, err := compare.IsEqual(actual.(*Subnet), expected.(*Subnet))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return applyCluster, applyResource, nil
 	}
 	input := &ec2.CreateSubnetInput{
 		CidrBlock:        &expected.(*Subnet).CIDR,
@@ -115,7 +117,7 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cl
 	}
 	output, err := Sdk.Ec2.CreateSubnet(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Created Subnet [%s]", *output.Subnet.SubnetId)
 	newResource := &Subnet{}
