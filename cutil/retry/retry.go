@@ -51,12 +51,18 @@ func (r *Retrier) RunRetry() error {
 	sigHandler := signals.NewSignalHandler(600)
 	go sigHandler.Register()
 
+	finish := make(chan bool, 1)
 	go func() {
-		for {
-			if sigHandler.GetState() != 0 {
-				logger.Critical("detected signal. retry failed.")
-				os.Exit(1)
-			}
+		select {
+			case <-finish:
+				return
+			default:
+				for {
+					if sigHandler.GetState() != 0 {
+						logger.Critical("detected signal. retry failed.")
+						os.Exit(1)
+					}
+				}
 		}
 	}()
 
@@ -67,8 +73,10 @@ func (r *Retrier) RunRetry() error {
 			time.Sleep(time.Duration(r.sleepSeconds) * time.Second)
 			continue
 		}
+		finish <- true
 		return nil
 	}
 
+	finish <- true
 	return fmt.Errorf("unable to succeed at retry after %d attempts at %d seconds", r.retries, r.sleepSeconds)
 }
