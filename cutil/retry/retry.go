@@ -56,6 +56,8 @@ func (r *Retrier) RunRetry() error {
 		select {
 			case <-finish:
 				return
+			case <-time.After(600 * time.Second):
+				return
 			default:
 				for {
 					if sigHandler.GetState() != 0 {

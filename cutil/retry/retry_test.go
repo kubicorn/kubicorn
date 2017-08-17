@@ -15,7 +15,6 @@
 package retry
 
 import (
-	//"time"
 	"fmt"
 	"testing"
 )
@@ -47,5 +46,13 @@ func TestRetrySad(t *testing.T) {
 	tss := testStructSad{}
 
 	r := NewRetrier(3, 1, tss)
-	r.RunRetry()
+	err := r.RunRetry()
+	if err == nil {
+		t.Errorf("expected error, got nil")
+	}
+
+	want := fmt.Errorf("unable to succeed at retry after 3 attempts at 1 seconds")
+	if err.Error() != want.Error() {
+		t.Errorf("unexpected error\n\tgot: %#v\n\twant: %#v", err, want)
+	}
 }
