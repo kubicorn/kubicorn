@@ -86,29 +86,30 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			i++
 		}
 
-		//	// ---- [Subnets] ----
-		//	for _, subnet := range serverPool.Subnets {
-		//		r[i] = &resources.Subnet{
-		//			Shared: resources.Shared{
-		//				Name:        subnet.Name,
-		//				Tags:        make(map[string]string),
-		//			},
-		//			ServerPool:    serverPool,
-		//			ClusterSubnet: subnet,
-		//		}
-		//		i++
-		//
-		//		// ---- [Route Table] ----
-		//		r[i] = &resources.RouteTable{
-		//			Shared: resources.Shared{
-		//				Name:        subnet.Name,
-		//				Tags:        make(map[string]string),
-		//			},
-		//			ClusterSubnet: subnet,
-		//			ServerPool:    serverPool,
-		//		}
-		//		i++
-		//	}
+		// ---- [Subnets] ----
+		for _, subnet := range serverPool.Subnets {
+			r[i] = &resources.Subnet{
+				Shared: resources.Shared{
+					Name: subnet.Name,
+					Tags: make(map[string]string),
+				},
+				ServerPool:    serverPool,
+				ClusterSubnet: subnet,
+			}
+			i++
+
+
+				// ---- [Route Table] ----
+				r[i] = &resources.RouteTable{
+					Shared: resources.Shared{
+						Name:        subnet.Name,
+						Tags:        make(map[string]string),
+					},
+					ClusterSubnet: subnet,
+					ServerPool:    serverPool,
+				}
+				i++
+			}
 		//
 		//	// ---- [Launch Configuration] ----
 		//	r[i] = &resources.Lc{
@@ -127,9 +128,8 @@ func (m *Model) Resources() map[int]cloud.Resource {
 		//			Tags:        make(map[string]string),
 		//		},
 		//		ServerPool: serverPool,
-		//}
-		// 	i++
 	}
+	// 	i++
 
 	m.cachedResources = r
 	return m.cachedResources
