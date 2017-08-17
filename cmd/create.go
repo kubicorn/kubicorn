@@ -77,16 +77,6 @@ func init() {
 
 type profileFunc func(name string) *cluster.Cluster
 
-<<<<<<< HEAD
-var alias = map[string]profileFunc{
-	"amazon":       profiles.NewSimpleAmazonCluster,
-	"aws":          profiles.NewSimpleAmazonCluster,
-	"do":           profiles.NewSimpleDigitalOceanCluster,
-	"digitalocean": profiles.NewSimpleDigitalOceanCluster,
-	"do-centos":    profiles.CentosDigitalOceanCluster,
-	"aws-centos":   profiles.CentosAmazonCluster,
-	"google":       profiles.NewSimpleGoogleComputeCluster,
-=======
 type profileMap struct {
 	profileFunc profileFunc
 	description string
@@ -125,7 +115,6 @@ var profileMapIndexed = map[string]profileMap{
 		profileFunc: profiles.NewCentosAmazonCluster,
 		description: "CentOS on Amazon",
 	},
->>>>>>> Thanks @kris__nova for keeping profiles clean
 }
 
 // RunCreate is the starting point when a user runs the create command.

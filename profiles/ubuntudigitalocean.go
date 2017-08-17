@@ -21,12 +21,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
-<<<<<<< HEAD:profiles/simpledigitalocean.go
-// NewSimpleDigitalOceanCluster creates a basic Digitalocean cluster profile, to bootstrap Kubernetes.
-func NewSimpleDigitalOceanCluster(name string) *cluster.Cluster {
-=======
+// NewUbuntuDigitalOceanCluster creates a basic Digitalocean cluster profile, to bootstrap Kubernetes.
 func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
->>>>>>> Thanks @kris__nova for keeping profiles clean:profiles/ubuntudigitalocean.go
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudDigitalOcean,
