@@ -219,7 +219,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluste
 	newResource.CloudID = expected.(*Lc).Name
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
 
-	renderedCluster, err := r.render(applyCluster, newResource)
+	renderedCluster, err := r.render(newResource, applyCluster)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -252,7 +252,7 @@ func (r *Lc) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Clu
 	newResource.InstanceType = actual.(*Lc).InstanceType
 	newResource.BootstrapScripts = actual.(*Lc).BootstrapScripts
 
-	renderedCluster, err := r.render(known, newResource)
+	renderedCluster, err := r.render(newResource, known)
 	if err != nil {
 		return nil, nil, err
 	}

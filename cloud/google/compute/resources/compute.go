@@ -69,7 +69,7 @@ func (r *Instance) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 	if err != nil && project != nil {
 		instances, err := Sdk.Service.Instances.List(known.Name, known.Location).Do()
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 
 		count := len(instances.Items)
@@ -178,15 +178,15 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 			break
 		}
 		if !found {
-			return nil, fmt.Errorf("Unable to find Master IP after defined wait")
+			return nil, nil, fmt.Errorf("Unable to find Master IP after defined wait")
 		}
 	}
 
 	expectedCluster.Values.ItemMap["INJECTEDPORT"] = expectedCluster.KubernetesAPI.Port
-	scripts, err = bootstrap.Inject(scripts, applyCluster.Values.ItemMap)
+	scripts, err = bootstrap.Inject(scripts, expectedCluster.Values.ItemMap)
 	finalScripts := string(scripts)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	tags := []string{}
@@ -290,7 +290,7 @@ func (r *Instance) Delete(actual cloud.Resource, known *cluster.Cluster) (*clust
 	logger.Debug("instance.Delete")
 	deleteResource := actual.(*Instance)
 	if deleteResource.Name == "" {
-		return nil, fmt.Errorf("Unable to delete instance resource without Name [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete instance resource without Name [%s]", deleteResource.Name)
 	}
 
 	instances, err := Sdk.Service.Instances.List(known.Name, known.Location).Do()
