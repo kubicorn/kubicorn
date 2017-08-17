@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 package resources
 
 import (
@@ -22,8 +21,8 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
-	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 var _ cloud.Resource = &Subnet{}
@@ -41,8 +40,8 @@ func (r *Subnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 	logger.Debug("subnet.Actual")
 	newResource := &Subnet{
 		Shared: Shared{
-			Name:        r.Name,
-			Tags:        make(map[string]string),
+			Name: r.Name,
+			Tags: make(map[string]string),
 		},
 	}
 
@@ -68,7 +67,7 @@ func (r *Subnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 			val := *tag.Value
 			newResource.Tags[key] = val
 		}
-	}else {
+	} else {
 		newResource.CIDR = r.ClusterSubnet.CIDR
 	}
 
@@ -84,8 +83,8 @@ func (r *Subnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 				"Name":              r.Name,
 				"KubernetesCluster": immutable.Name,
 			},
-			Identifier:     r.ClusterSubnet.Identifier,
-			Name:        r.Name,
+			Identifier: r.ClusterSubnet.Identifier,
+			Name:       r.Name,
 		},
 		CIDR:  r.ClusterSubnet.CIDR,
 		VpcID: immutable.Network.Identifier,
@@ -151,7 +150,7 @@ func (r *Subnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clu
 	return newCluster, newResource, nil
 }
 
-func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) (*cluster.Cluster) {
+func (r *Subnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("subnet.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
 	subnet := &cluster.Subnet{}

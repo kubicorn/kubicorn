@@ -15,9 +15,10 @@
 package compute
 
 import (
+	"testing"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud/google/compute/resources"
-	"testing"
 )
 
 func TestClusterModelHappy(t *testing.T) {

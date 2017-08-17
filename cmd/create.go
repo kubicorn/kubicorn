@@ -20,6 +20,8 @@ import (
 	"os"
 	"os/user"
 
+	"math"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/namer"
@@ -27,7 +29,6 @@ import (
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
-	"math"
 )
 
 type CreateOptions struct {

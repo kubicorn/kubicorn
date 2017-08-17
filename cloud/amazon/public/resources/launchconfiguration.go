@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-
 package resources
 
 import (
@@ -28,9 +26,9 @@ import (
 	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/script"
-	"github.com/kris-nova/kubicorn/cutil/defaults"
 )
 
 var _ cloud.Resource = &Lc{}
@@ -52,8 +50,8 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 	logger.Debug("lc.Actual")
 	newResource := &Lc{
 		Shared: Shared{
-			Name:        r.Name,
-			Tags:        make(map[string]string),
+			Name: r.Name,
+			Tags: make(map[string]string),
 		},
 	}
 
@@ -90,8 +88,8 @@ func (r *Lc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 				"Name":              r.Name,
 				"KubernetesCluster": immutable.Name,
 			},
-			Identifier:     immutable.Network.Identifier,
-			Name:        r.Name,
+			Identifier: immutable.Network.Identifier,
+			Name:       r.Name,
 		},
 		InstanceType:     r.ServerPool.Size,
 		Image:            r.ServerPool.Image,
@@ -244,7 +242,7 @@ func (r *Lc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster
 	return newCluster, newResource, nil
 }
 
-func (r *Lc) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) (*cluster.Cluster) {
+func (r *Lc) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("lc.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
 	serverPool := &cluster.ServerPool{}
