@@ -244,39 +244,11 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, expectedCluster *cluste
 	}
 
 	expectedCluster.KubernetesAPI.Endpoint = masterIPPublic
-
-	newResource := &Droplet{}
-	newResource.Name = actual.(*Droplet).Name
-	newResource.Tags = actual.(*Droplet).Tags
-	newResource.Image = actual.(*Droplet).Image
-	newResource.Size = actual.(*Droplet).Size
-	newResource.Count = actual.(*Droplet).Count
-	newResource.Region = actual.(*Droplet).Region
-	newResource.BootstrapScripts = actual.(*Droplet).BootstrapScripts
-
-	serverPool := &cluster.ServerPool{}
-	serverPool.Type = r.ServerPool.Type
-	serverPool.Image = actual.(*Droplet).Image
-	serverPool.Size = actual.(*Droplet).Size
-	serverPool.Name = actual.(*Droplet).Name
-	serverPool.MaxCount = actual.(*Droplet).Count
-	serverPool.BootstrapScripts = actual.(*Droplet).BootstrapScripts
-	found := false
-	for i := 0; i < len(expectedCluster.ServerPools); i++ {
-		if expectedCluster.ServerPools[i].Name == actual.(*Droplet).Name {
-			expectedCluster.ServerPools[i].Image = actual.(*Droplet).Image
-			expectedCluster.ServerPools[i].Size = actual.(*Droplet).Size
-			expectedCluster.ServerPools[i].MaxCount = actual.(*Droplet).Count
-			expectedCluster.ServerPools[i].BootstrapScripts = actual.(*Droplet).BootstrapScripts
-			found = true
-		}
+	renderedCluster, err := r.render(newResource, expectedCluster)
+	if err != nil {
+		return nil, nil, err
 	}
-	if !found {
-		expectedCluster.ServerPools = append(expectedCluster.ServerPools, serverPool)
-	}
-	expectedCluster.Location = actual.(*Droplet).Region
-
-	return expectedCluster, newResource, nil
+	return renderedCluster, newResource, nil
 }
 func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("droplet.Delete")
@@ -331,27 +303,36 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluste
 	newResource.Region = actual.(*Droplet).Region
 	newResource.BootstrapScripts = actual.(*Droplet).BootstrapScripts
 
+	renderedCluster, err := r.render(newResource, known)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, newResource, nil
+
+	return known, newResource, nil
+}
+
+func (r *Droplet) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	serverPool := &cluster.ServerPool{}
 	serverPool.Type = r.ServerPool.Type
-	serverPool.Image = actual.(*Droplet).Image
-	serverPool.Size = actual.(*Droplet).Size
-	serverPool.Name = actual.(*Droplet).Name
-	serverPool.MaxCount = actual.(*Droplet).Count
-	serverPool.BootstrapScripts = actual.(*Droplet).BootstrapScripts
+	serverPool.Image = renderResource.(*Droplet).Image
+	serverPool.Size = renderResource.(*Droplet).Size
+	serverPool.Name = renderResource.(*Droplet).Name
+	serverPool.MaxCount = renderResource.(*Droplet).Count
+	serverPool.BootstrapScripts = renderResource.(*Droplet).BootstrapScripts
 	found := false
-	for i := 0; i < len(known.ServerPools); i++ {
-		if known.ServerPools[i].Name == actual.(*Droplet).Name {
-			known.ServerPools[i].Image = actual.(*Droplet).Image
-			known.ServerPools[i].Size = actual.(*Droplet).Size
-			known.ServerPools[i].MaxCount = actual.(*Droplet).Count
-			known.ServerPools[i].BootstrapScripts = actual.(*Droplet).BootstrapScripts
+	for i := 0; i < len(renderCluster.ServerPools); i++ {
+		if renderCluster.ServerPools[i].Name == renderResource.(*Droplet).Name {
+			renderCluster.ServerPools[i].Image = renderResource.(*Droplet).Image
+			renderCluster.ServerPools[i].Size = renderResource.(*Droplet).Size
+			renderCluster.ServerPools[i].MaxCount = renderResource.(*Droplet).Count
+			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Droplet).BootstrapScripts
 			found = true
 		}
 	}
 	if !found {
-		known.ServerPools = append(known.ServerPools, serverPool)
+		renderCluster.ServerPools = append(renderCluster.ServerPools, serverPool)
 	}
-	known.Location = actual.(*Droplet).Region
-
-	return known, newResource, nil
+	renderCluster.Location = renderResource.(*Droplet).Region
+	return renderCluster, nil
 }

@@ -19,11 +19,9 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/amazon"
-	"github.com/kris-nova/kubicorn/cloud/digitalocean"
+	"github.com/kris-nova/kubicorn/cloud/amazon/public"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/droplet"
 	"github.com/kris-nova/kubicorn/cloud/google/compute"
-	"github.com/kris-nova/kubicorn/cloud/amazon/public"
 )
 
 // GetReconciler gets the correct Reconciler for the cloud provider currenty used.

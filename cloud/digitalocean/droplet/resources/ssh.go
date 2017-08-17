@@ -132,15 +132,11 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		PublicKeyPath:        expected.(*SSH).PublicKeyPath,
 		User:                 expected.(*SSH).User,
 	}
-
-	logger.Debug("ssh.Render")
-	applyCluster.SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
-	applyCluster.SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
-	applyCluster.SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
-	applyCluster.SSH.Identifier = newResource.(*SSH).CloudID
-	applyCluster.SSH.User = newResource.(*SSH).User
-
-	return applyCluster, newResource, nil
+	renderedCluster, err := r.render(newResource, applyCluster)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, newResource, nil
 }
 func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("ssh.Delete")
@@ -167,14 +163,19 @@ func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cl
 	newResource.Tags = actual.(*SSH).Tags
 	newResource.User = actual.(*SSH).User
 	newResource.PublicKeyPath = actual.(*SSH).PublicKeyPath
+	renderedCluster, err := r.render(newResource, known)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, newResource, nil
+}
 
-
+func (r *SSH) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("ssh.Render")
-	known.SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
-	known.SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
-	known.SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
-	known.SSH.Identifier = newResource.(*SSH).CloudID
-	known.SSH.User = newResource.(*SSH).User
-
-	return known, newResource, nil
+	renderCluster.SSH.PublicKeyData = []byte(renderResource.(*SSH).PublicKeyData)
+	renderCluster.SSH.PublicKeyFingerprint = renderResource.(*SSH).PublicKeyFingerprint
+	renderCluster.SSH.PublicKeyPath = renderResource.(*SSH).PublicKeyPath
+	renderCluster.SSH.Identifier = renderResource.(*SSH).CloudID
+	renderCluster.SSH.User = renderResource.(*SSH).User
+	return renderCluster, nil
 }

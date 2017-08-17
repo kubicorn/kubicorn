@@ -126,13 +126,20 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cl
 	newResource.Zone = *output.Subnet.AvailabilityZone
 	newResource.Name = applyResource.Name
 	newResource.CloudID = *output.Subnet.SubnetId
-	return newResource, nil
+
+	renderedCluster, err := r.render(newResource, applyCluster)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, newResource, nil
+
+
 }
-func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("subnet.Delete")
 	deleteResource := actual.(*Subnet)
 	if deleteResource.CloudID == "" {
-		return nil, fmt.Errorf("Unable to delete subnet resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete subnet resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DeleteSubnetInput{
@@ -140,7 +147,7 @@ func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Re
 	}
 	_, err := Sdk.Ec2.DeleteSubnet(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Deleted subnet [%s]", actual.(*Subnet).CloudID)
 
@@ -149,10 +156,14 @@ func (r *Subnet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Re
 	newResource.Tags = actual.(*Subnet).Tags
 	newResource.CIDR = actual.(*Subnet).CIDR
 	newResource.Zone = actual.(*Subnet).Zone
-	return newResource, nil
+	renderedCluster, err := r.render(newResource, known)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, newResource, nil
 }
 
-func (r *Subnet) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *Subnet) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("subnet.Render")
 	subnet := &cluster.Subnet{}
 	subnet.CIDR = renderResource.(*Subnet).CIDR
@@ -193,9 +204,4 @@ func (r *Subnet) Render(renderResource cloud.Resource, renderCluster *cluster.Cl
 		})
 	}
 	return renderCluster, nil
-}
-
-func (r *Subnet) Tag(tags map[string]string) error {
-	// Todo tag on another resource
-	return nil
 }

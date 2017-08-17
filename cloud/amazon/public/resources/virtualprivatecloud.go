@@ -24,16 +24,18 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
+var _ cloud.Resource = &Vpc{}
+
 type Vpc struct {
 	Shared
 	CIDR string
 }
 
-func (r *Vpc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Vpc) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Actual")
 	if r.CachedActual != nil {
 		logger.Debug("Using cached VPC [actual]")
-		return r.CachedActual, nil
+		return known, r.CachedActual, nil
 	}
 	actual := &Vpc{
 		Shared: Shared{
@@ -46,11 +48,11 @@ func (r *Vpc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		output, err := Sdk.Ec2.DescribeVpcs(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		lvpc := len(output.Vpcs)
 		if lvpc != 1 {
-			return nil, fmt.Errorf("Found [%d] VPCs for ID [%s]", lvpc, known.Network.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] VPCs for ID [%s]", lvpc, known.Network.Identifier)
 		}
 		actual.CloudID = *output.Vpcs[0].VpcId
 		actual.CIDR = *output.Vpcs[0].CidrBlock
@@ -63,13 +65,13 @@ func (r *Vpc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 	actual.CIDR = known.Network.CIDR
 	actual.Name = known.Network.Name
 	r.CachedActual = actual
-	return actual, nil
+	return known, actual, nil
 }
-func (r *Vpc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Vpc) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Expected")
 	if r.CachedExpected != nil {
 		logger.Debug("Using cached VPC [expected]")
-		return r.CachedExpected, nil
+		return known, r.CachedExpected, nil
 	}
 	expected := &Vpc{
 		Shared: Shared{
@@ -83,17 +85,17 @@ func (r *Vpc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 		CIDR: known.Network.CIDR,
 	}
 	r.CachedExpected = expected
-	return expected, nil
+	return known, expected, nil
 }
-func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Apply")
 	applyResource := expected.(*Vpc)
 	isEqual, err := compare.IsEqual(actual.(*Vpc), expected.(*Vpc))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return applyCluster, applyResource, nil
 	}
 	newResource := &Vpc{}
 	input := &ec2.CreateVpcInput{
@@ -101,7 +103,7 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	output, err := Sdk.Ec2.CreateVpc(input)
 	if err != nil {
-		return nil, fmt.Errorf("Unable to create new VPC: %v", err)
+		return nil, nil, fmt.Errorf("Unable to create new VPC: %v", err)
 	}
 
 	minput1 := &ec2.ModifyVpcAttributeInput{
@@ -112,7 +114,7 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	_, err = Sdk.Ec2.ModifyVpcAttribute(minput1)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	minput2 := &ec2.ModifyVpcAttributeInput{
@@ -123,31 +125,36 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	_, err = Sdk.Ec2.ModifyVpcAttribute(minput2)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	logger.Info("Created VPC [%s]", *output.Vpc.VpcId)
 	newResource.CIDR = *output.Vpc.CidrBlock
 	newResource.CloudID = *output.Vpc.VpcId
-	err = newResource.Tag(applyResource.Tags)
+	err = newResource.tag(applyResource.Tags)
 	if err != nil {
-		return nil, fmt.Errorf("Unable to tag new VPC: %v", err)
+		return nil, nil, fmt.Errorf("Unable to tag new VPC: %v", err)
 	}
 	newResource.Name = applyResource.Name
-	return newResource, nil
+
+	renderedCluster, err := r.render(newResource, applyCluster)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, newResource, nil
 }
-func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vpc.Delete")
 	deleteResource := actual.(*Vpc)
 	if deleteResource.CloudID == "" {
-		return nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
 	input := &ec2.DeleteVpcInput{
 		VpcId: &actual.(*Vpc).CloudID,
 	}
 	_, err := Sdk.Ec2.DeleteVpc(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Deleted VPC [%s]", actual.(*Vpc).CloudID)
 
@@ -155,10 +162,14 @@ func (r *Vpc) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resou
 	newResource.Name = actual.(*Vpc).Name
 	newResource.Tags = actual.(*Vpc).Tags
 	newResource.CIDR = actual.(*Vpc).CIDR
-	return newResource, nil
+	renderedCluster, err := r.render(newResource, known)
+	if err != nil {
+		return nil, nil, err
+	}
+	return renderedCluster, newResource, nil
 }
 
-func (r *Vpc) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *Vpc) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	logger.Debug("vpc.Render")
 	renderCluster.Network.CIDR = renderResource.(*Vpc).CIDR
 	renderCluster.Network.Identifier = renderResource.(*Vpc).CloudID
@@ -166,7 +177,7 @@ func (r *Vpc) Render(renderResource cloud.Resource, renderCluster *cluster.Clust
 	return renderCluster, nil
 }
 
-func (r *Vpc) Tag(tags map[string]string) error {
+func (r *Vpc) tag(tags map[string]string) error {
 	logger.Debug("vpc.Tag")
 	tagInput := &ec2.CreateTagsInput{
 		Resources: []*string{&r.CloudID},
