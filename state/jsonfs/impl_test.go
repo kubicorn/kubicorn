@@ -28,7 +28,7 @@ import (
 func TestJsonFileSystem(t *testing.T) {
 	testFilePath := ".test/"
 	clusterName := "jsonfs-test"
-	c := profiles.NewSimpleAmazonCluster(clusterName)
+	c := profiles.NewUbuntuAmazonCluster(clusterName)
 	o := &JSONFileSystemStoreOptions{
 		BasePath:    testFilePath,
 		ClusterName: c.Name,
