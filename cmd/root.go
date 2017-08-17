@@ -74,9 +74,10 @@ var RootCmd = &cobra.Command{
 }
 
 type Options struct {
-	StateStore     string
-	StateStorePath string
-	Name           string
+	StateStore         string
+	StateStorePath     string
+	JSONStateStorePath string
+	Name               string
 }
 
 func Execute() {

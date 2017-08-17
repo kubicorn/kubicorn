@@ -26,6 +26,7 @@ import (
 	"github.com/kris-nova/kubicorn/profiles"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
 	"math"
 )
@@ -67,6 +68,7 @@ After a model is defined and configured properly, the user can then apply the mo
 func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	createCmd.Flags().StringVarP(&co.JSONStateStorePath, "json-state-store-path", "J", strEnvDef("KUBICORN_JSON_STATE_STORE_PATH", "./_state"), "The JSON state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
@@ -132,6 +134,7 @@ func RunCreate(options *CreateOptions) error {
 	// Expand state store path
 	// Todo (@kris-nova) please pull this into a filepath package or something
 	options.StateStorePath = expandPath(options.StateStorePath)
+	options.JSONStateStorePath = expandPath(options.JSONStateStorePath)
 
 	// Register state store
 	var stateStore state.ClusterStorer
@@ -144,6 +147,11 @@ func RunCreate(options *CreateOptions) error {
 		})
 	}
 
+	jsonStateStore := jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
+		BasePath:    options.JSONStateStorePath,
+		ClusterName: name,
+	})
+
 	// Check if state store exists
 	if stateStore.Exists() {
 		return fmt.Errorf("State store [%s] exists, will not overwrite", name)
@@ -153,6 +161,11 @@ func RunCreate(options *CreateOptions) error {
 	err := stateStore.Commit(cluster)
 	if err != nil {
 		return fmt.Errorf("Unable to init state store: %v", err)
+	}
+
+	err = jsonStateStore.Commit(cluster)
+	if err != nil {
+		return fmt.Errorf("Unable to commit json state store: %v", err)
 	}
 
 	logger.Always("The state [%s/%s/cluster.yaml] has been created. You can edit the file, then run `kubicorn apply %s`", options.StateStorePath, name, name)
