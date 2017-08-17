@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package signals exposes signal handler.
 package signals
 
 import (
@@ -22,37 +23,46 @@ import (
 )
 
 const (
+	// signalAbort is used to gracefully exit program.
 	signalAbort = 1 << iota
+	// signalTerminate is used to terminate program.
 	signalTerminate
 )
 
+// Signal is an interface that implements signal handling.
 type Signal interface {
 	GetState() int
 	Register()
 }
 
+// Handler defines signal handler properties.
 type Handler struct {
-	Timeout time.Duration
-
-	signals        chan os.Signal
+	// timeoutSeconds defines when handler will timeout in seconds.
+	timeoutSeconds int
+	// signals stores signals recieved from the system.
+	signals chan os.Signal
+	// signalReceived is used to store signal handler state.
 	signalReceived int
 }
 
-func NewSignalHandler(timeout time.Duration) *Handler {
+// NewSignalHandler creates a new Handler using given properties.
+func NewSignalHandler(timeoutSeconds int) *Handler {
 	signals := make(chan os.Signal)
 	signal.Notify(signals, os.Interrupt, os.Kill)
 
 	return &Handler{
-		Timeout:        timeout,
+		timeoutSeconds: timeoutSeconds,
 		signals:        signals,
 		signalReceived: 0,
 	}
 }
 
+// GetState returns has signal been recieved.
 func (h *Handler) GetState() int {
 	return h.signalReceived
 }
 
+// Register starts handling signals.
 func (h *Handler) Register() {
 	for {
 		select {
@@ -78,7 +88,7 @@ func (h *Handler) Register() {
 				os.Exit(3)
 				break
 			}
-		case <-time.After(h.Timeout):
+		case <-time.After(time.Duration(h.timeoutSeconds) * time.Second):
 			os.Exit(4)
 			break
 		}

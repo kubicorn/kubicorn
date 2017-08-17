@@ -45,7 +45,7 @@ func NewReconciler(expected *cluster.Cluster) cloud.Reconciler {
 var model map[int]cloud.Resource
 
 func (r *Reconciler) Init() error {
-	sigHandler := signals.NewSignalHandler(10 * time.Minute)
+	sigHandler := signals.NewSignalHandler(600)
 	go sigHandler.Register()
 
 	sdk, err := godoSdk.NewSdk()

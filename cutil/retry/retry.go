@@ -12,43 +12,63 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Package retry exposes retryable runner.
 package retry
 
 import (
 	"os"
+	"fmt"
 	"time"
 
+	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/signals"
 )
 
-type Retry interface {
-	Work()
+// Retryable is an interface that implements retrier.
+type Retryable interface {
+	Try() error
 }
 
-type Worker struct {
-	Function func()
-	Retries  int
-	Timeout  time.Duration
-	Handler  signals.Handler
+// Retrier defines retryer properties.
+type Retrier struct {
+	retries      int
+	sleepSeconds int
+	retryable    Retryable
 }
 
-func (w *Worker) Work() {
-	done := make(chan bool, 1)
-
-loop:
-	for i := 0; i < w.Retries; i++ {
-		if w.Handler.GetState() != 0 {
-			os.Exit(3)
-		}
-		go func() {
-			w.Function()
-			done <- true
-		}()
-		select {
-		case <-done:
-			break loop
-		case <-time.After(w.Timeout):
-			break loop
-		}
+// NewRetrier creates a new Retrier using given properties.
+func NewRetrier(retries, sleepSeconds int, retryable Retryable) *Retrier {
+	return &Retrier{
+		retries:      retries,
+		sleepSeconds: sleepSeconds,
+		retryable:    retryable,
 	}
+}
+
+// RunRetry runs a retryable function.
+func (r *Retrier) RunRetry() error {
+	// Start signal handler.
+	sigHandler := signals.NewSignalHandler(600)
+	go sigHandler.Register()
+
+	go func() {
+		for {
+			if sigHandler.GetState() != 0 {
+				logger.Critical("detected signal. retry failed.")
+				os.Exit(1)
+			}
+		}
+	}()
+
+	for i := 0; i < r.retries; i++ {
+		err := r.retryable.Try()
+		if err != nil {
+			logger.Info("Retryable error: %v", err)
+			time.Sleep(time.Duration(r.sleepSeconds) * time.Second)
+			continue
+		}
+		return nil
+	}
+
+	return fmt.Errorf("unable to succeed at retry after %d attempts at %d seconds", r.retries, r.sleepSeconds)
 }
