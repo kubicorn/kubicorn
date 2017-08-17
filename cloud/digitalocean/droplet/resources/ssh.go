@@ -23,6 +23,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
@@ -36,18 +37,14 @@ type SSH struct {
 	PublicKeyPath        string
 }
 
-func (r *SSH) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("ssh.Actual")
-	if r.CachedActual != nil {
-		logger.Debug("Using cached ssh [actual]")
-		return nil, r.CachedActual, nil
-	}
-	actual := &SSH{
+	newResource := &SSH{
 		Shared: Shared{
 			Name:    r.Name,
-			CloudID: known.SSH.Identifier,
+			CloudID: immutable.SSH.Identifier,
 		},
-		User: known.SSH.User,
+		User: immutable.SSH.User,
 	}
 
 	if r.CloudID != "" {
@@ -61,38 +58,53 @@ func (r *SSH) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, 
 			return nil, nil, err
 		}
 		strid := strconv.Itoa(ssh.ID)
-		actual.Name = ssh.Name
-		actual.CloudID = strid
-		actual.PublicKeyData = ssh.PublicKey
-		actual.PublicKeyFingerprint = ssh.Fingerprint
+		newResource.Name = ssh.Name
+		newResource.CloudID = strid
+		newResource.PublicKeyData = ssh.PublicKey
+		newResource.PublicKeyFingerprint = ssh.Fingerprint
+	} else {
+		found := false
+		keys, _, err := Sdk.Client.Keys.List(context.TODO(), &godo.ListOptions{})
+		if err != nil {
+			return nil, nil, err
+		}
+		for _, key := range keys {
+			if key.Name == immutable.Name {
+				found = true
+				newResource.Name = key.Name
+				newResource.CloudID = strconv.Itoa(key.ID)
+				newResource.PublicKeyData = key.PublicKey
+				newResource.PublicKeyFingerprint = key.Fingerprint
+			}
+		}
+		if !found {
+			newResource.PublicKeyPath = immutable.SSH.PublicKeyPath
+			newResource.User = immutable.SSH.User
+			newResource.CloudID = immutable.SSH.Identifier
+		}
 	}
-	actual.PublicKeyPath = known.SSH.PublicKeyPath
-	actual.User = known.SSH.User
-	r.CachedActual = actual
-	return known, actual, nil
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *SSH) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *SSH) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("ssh.Expected")
-	if r.CachedExpected != nil {
-		logger.Debug("Using cached ssh [expected]")
-		return known, r.CachedExpected, nil
-	}
-	expected := &SSH{
+	newResource := &SSH{
 		Shared: Shared{
 			Name:    r.Name,
-			CloudID: known.SSH.Identifier,
+			CloudID: immutable.SSH.Identifier,
 		},
-		PublicKeyFingerprint: known.SSH.PublicKeyFingerprint,
-		PublicKeyData:        string(known.SSH.PublicKeyData),
-		PublicKeyPath:        known.SSH.PublicKeyPath,
-		User:                 known.SSH.User,
+		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
+		PublicKeyData:        string(immutable.SSH.PublicKeyData),
+		PublicKeyPath:        immutable.SSH.PublicKeyPath,
+		User:                 immutable.SSH.User,
 	}
-	r.CachedExpected = expected
-	return known, expected, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *SSH) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("droplet.Apply")
 	applyResource := expected.(*SSH)
 	isEqual, err := compare.IsEqual(actual.(*SSH), expected.(*SSH))
@@ -100,7 +112,7 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		return nil, nil, err
 	}
 	if isEqual {
-		return applyCluster, applyResource, nil
+		return immutable, applyResource, nil
 	}
 	request := &godo.KeyCreateRequest{
 		Name:      expected.(*SSH).Name,
@@ -132,13 +144,10 @@ func (r *SSH) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 		PublicKeyPath:        expected.(*SSH).PublicKeyPath,
 		User:                 expected.(*SSH).User,
 	}
-	renderedCluster, err := r.render(newResource, applyCluster)
-	if err != nil {
-		return nil, nil, err
-	}
-	return renderedCluster, newResource, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
-func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *SSH) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("ssh.Delete")
 	force := false
 	if force {
@@ -146,7 +155,7 @@ func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cl
 		if deleteResource.CloudID == "" {
 			return nil, nil, fmt.Errorf("Unable to delete ssh resource without Id [%s]", deleteResource.Name)
 		}
-		id, err := strconv.Atoi(known.SSH.Identifier)
+		id, err := strconv.Atoi(immutable.SSH.Identifier)
 		if err != nil {
 			return nil, nil, err
 		}
@@ -163,19 +172,18 @@ func (r *SSH) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cl
 	newResource.Tags = actual.(*SSH).Tags
 	newResource.User = actual.(*SSH).User
 	newResource.PublicKeyPath = actual.(*SSH).PublicKeyPath
-	renderedCluster, err := r.render(newResource, known)
-	if err != nil {
-		return nil, nil, err
-	}
-	return renderedCluster, newResource, nil
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *SSH) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *SSH) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("ssh.Render")
-	renderCluster.SSH.PublicKeyData = []byte(renderResource.(*SSH).PublicKeyData)
-	renderCluster.SSH.PublicKeyFingerprint = renderResource.(*SSH).PublicKeyFingerprint
-	renderCluster.SSH.PublicKeyPath = renderResource.(*SSH).PublicKeyPath
-	renderCluster.SSH.Identifier = renderResource.(*SSH).CloudID
-	renderCluster.SSH.User = renderResource.(*SSH).User
-	return renderCluster, nil
+	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster.SSH.PublicKeyData = []byte(newResource.(*SSH).PublicKeyData)
+	newCluster.SSH.PublicKeyFingerprint = newResource.(*SSH).PublicKeyFingerprint
+	newCluster.SSH.PublicKeyPath = newResource.(*SSH).PublicKeyPath
+	newCluster.SSH.Identifier = newResource.(*SSH).CloudID
+	newCluster.SSH.User = newResource.(*SSH).User
+	return newCluster
 }

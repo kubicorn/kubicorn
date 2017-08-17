@@ -23,6 +23,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
@@ -73,88 +74,73 @@ type Destinations struct {
 }
 
 // Actual calls DO firewall Api and returns the actual state of firewall in the cloud.
-func (f *Firewall) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Info("Firewall Actual [%s]", f.Name)
-	if cached := f.getCachedActual(); cached != nil {
-		logger.Debug("Using cached firewall [actual]")
-		return known, cached, nil
-	}
+func (r *Firewall) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("firewall.Actual")
 
-	actualFirewall := defaultFirewallStruct()
+	newResource := defaultFirewallStruct()
 	// Digital Firewalls.Get requires firewall ID, which we will not always have.thats why using List.
 	firewalls, _, err := Sdk.Client.Firewalls.List(context.TODO(), &godo.ListOptions{})
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to get firwalls info")
 	}
 	for _, firewall := range firewalls {
-		if firewall.Name == f.Name { // In digitalOcean Firwall names are unique.
+		if firewall.Name == r.Name { // In digitalOcean Firwall names are unique.
 			// gotcha get all details from this firewall and populate actual.
 			firewallBytes, err := json.Marshal(firewall)
 			if err != nil {
 				return nil, nil, fmt.Errorf("failed to marshal DO firewall details err: %v", err)
 			}
-			if err := json.Unmarshal(firewallBytes, actualFirewall); err != nil {
+			if err := json.Unmarshal(firewallBytes, newResource); err != nil {
 				return nil, nil, fmt.Errorf("failed to unmarhal DO firewall details err: %v", err)
 			}
 			// hack: DO api doesn't take "0" as portRange, but returns "0" for port range in firewall.List.
-			for i := 0; i < len(actualFirewall.OutboundRules); i++ {
-				if actualFirewall.OutboundRules[i].PortRange == "0" {
-					actualFirewall.OutboundRules[i].PortRange = "all"
+			for i := 0; i < len(newResource.OutboundRules); i++ {
+				if newResource.OutboundRules[i].PortRange == "0" {
+					newResource.OutboundRules[i].PortRange = "all"
 				}
 			}
-			logger.Info("Actual firewall returned is %+v", actualFirewall)
-			return known, actualFirewall, nil
 		}
 	}
-	return known, &Firewall{}, nil
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
 // Expected returns the Firewall structure of what is Expected.
-func (f *Firewall) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-
-	logger.Info("Firewall Expected [%s]", f.Name)
-	if cached := f.getCachedExpected(); cached != nil {
-		logger.Debug("Using Expected cached firewall [%s]", f.Name)
-		return known, cached, nil
-	}
-	expected := &Firewall{
+func (r *Firewall) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("firewall.Expected")
+	newResource := &Firewall{
 		Shared: Shared{
-			Name:    f.Name,
-			CloudID: f.ServerPool.Identifier,
+			Name:    r.Name,
+			CloudID: r.ServerPool.Identifier,
 		},
-
-		InboundRules:  f.InboundRules,
-		OutboundRules: f.OutboundRules,
-		DropletIDs:    f.DropletIDs,
-		Tags:          f.Tags,
-		FirewallID:    f.FirewallID,
-		Status:        f.Status,
-		Created:       f.Created,
+		InboundRules:  r.InboundRules,
+		OutboundRules: r.OutboundRules,
+		DropletIDs:    r.DropletIDs,
+		Tags:          r.Tags,
+		FirewallID:    r.FirewallID,
+		Status:        r.Status,
+		Created:       r.Created,
 	}
-	f.CachedExpected = expected
-	logger.Info("Expected firewall returned is %+v", expected)
-	return known, expected, nil
+
+	//logger.Info("Expected firewall returned is %+v", immutable)
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 
 }
 
 // Apply will compare the actual and expected firewall config, if needed it will create the firewall.
-func (f *Firewall) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("Firewall.Apply")
-	expectedResource, ok := expected.(*Firewall)
-	if !ok {
-		return nil, nil, fmt.Errorf("Failed to type convert expected Firewall type ")
-	}
-	actualResource, ok := actual.(*Firewall)
-	if !ok {
-		return nil, nil, fmt.Errorf("Failed to type convert actual Firewall type ")
-	}
+func (r *Firewall) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("firewall.Apply")
+	expectedResource := expected.(*Firewall)
+	actualResource := actual.(*Firewall)
 
 	isEqual, err := compare.IsEqual(actualResource, expectedResource)
 	if err != nil {
 		return nil, nil, err
 	}
 	if isEqual {
-		return nil, expected, nil
+		return immutable, expected, nil
 	}
 
 	firewallRequest := godo.FirewallRequest{
@@ -169,42 +155,47 @@ func (f *Firewall) Apply(actual, expected cloud.Resource, applyCluster *cluster.
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to create the firewall err: %v", err)
 	}
-	f.FirewallID = firewall.ID
-
-	applyCluster, err = f.render(applyCluster, f)
-	if err != nil {
-		return nil, nil, err
+	logger.Info("Created Firewall [%s]", firewall.ID)
+	newResource := &Firewall{
+		Shared: Shared{
+			CloudID: firewall.ID,
+			Name:    r.Name,
+			Tags:    r.Tags,
+		},
+		DropletIDs:    r.DropletIDs,
+		FirewallID:    firewall.ID,
+		InboundRules:  r.InboundRules,
+		OutboundRules: r.OutboundRules,
+		Created:       r.Created,
 	}
 
-	return applyCluster, f, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (f *Firewall) render(renderCluster *cluster.Cluster, renderResource cloud.Resource) (*cluster.Cluster, error) {
-	logger.Debug("Firewall.Render")
+func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
+	logger.Debug("firewall.Render")
+	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
 
 	found := false
-	for i := 0; i < len(renderCluster.ServerPools); i++ {
-		for j := 0; j < len(renderCluster.ServerPools[i].Firewalls); j++ {
-			firewall, ok := renderResource.(*Firewall)
-
-			if !ok {
-				return nil, fmt.Errorf("failed type convert renderResource Firewall type")
-			}
-			if renderCluster.ServerPools[i].Firewalls[j].Name == firewall.Name {
+	for i := 0; i < len(newCluster.ServerPools); i++ {
+		for j := 0; j < len(newCluster.ServerPools[i].Firewalls); j++ {
+			firewall := newResource.(*Firewall)
+			if newCluster.ServerPools[i].Firewalls[j].Name == firewall.Name {
 				found = true
-				renderCluster.ServerPools[i].Firewalls[j].Name = firewall.Name
-				renderCluster.ServerPools[i].Firewalls[j].Identifier = firewall.CloudID
-				renderCluster.ServerPools[i].Firewalls[j].IngressRules = make([]*cluster.IngressRule, len(firewall.InboundRules))
+				newCluster.ServerPools[i].Firewalls[j].Name = firewall.Name
+				newCluster.ServerPools[i].Firewalls[j].Identifier = firewall.CloudID
+				newCluster.ServerPools[i].Firewalls[j].IngressRules = make([]*cluster.IngressRule, len(firewall.InboundRules))
 				for k, renderRule := range firewall.InboundRules {
-					renderCluster.ServerPools[i].Firewalls[j].IngressRules[k] = &cluster.IngressRule{
+					newCluster.ServerPools[i].Firewalls[j].IngressRules[k] = &cluster.IngressRule{
 						IngressProtocol: renderRule.Protocol,
 						IngressToPort:   renderRule.PortRange,
 						IngressSource:   renderRule.Source.Addresses[0],
 					}
 				}
-				renderCluster.ServerPools[i].Firewalls[j].EgressRules = make([]*cluster.EgressRule, len(firewall.OutboundRules))
+				newCluster.ServerPools[i].Firewalls[j].EgressRules = make([]*cluster.EgressRule, len(firewall.OutboundRules))
 				for k, renderRule := range firewall.OutboundRules {
-					renderCluster.ServerPools[i].Firewalls[j].EgressRules[k] = &cluster.EgressRule{
+					newCluster.ServerPools[i].Firewalls[j].EgressRules[k] = &cluster.EgressRule{
 						EgressProtocol:    renderRule.Protocol,
 						EgressToPort:      renderRule.PortRange,
 						EgressDestination: renderRule.Destinations.Addresses[0],
@@ -215,15 +206,12 @@ func (f *Firewall) render(renderCluster *cluster.Cluster, renderResource cloud.R
 	}
 
 	if !found {
-		for i := 0; i < len(renderCluster.ServerPools); i++ {
-			if renderCluster.ServerPools[i].Name == f.ServerPool.Name {
+		for i := 0; i < len(newCluster.ServerPools); i++ {
+			if newCluster.ServerPools[i].Name == r.ServerPool.Name {
 				found = true
 				var inRules []*cluster.IngressRule
 				var egRules []*cluster.EgressRule
-				firewall, ok := renderResource.(*Firewall)
-				if !ok {
-					return nil, fmt.Errorf("failed type convert renderResource Firewall type")
-				}
+				firewall := newResource.(*Firewall)
 				for _, renderRule := range firewall.InboundRules {
 					inRules = append(inRules, &cluster.IngressRule{
 						IngressProtocol: renderRule.Protocol,
@@ -238,7 +226,7 @@ func (f *Firewall) render(renderCluster *cluster.Cluster, renderResource cloud.R
 						EgressDestination: renderRule.Destinations.Addresses[0],
 					})
 				}
-				renderCluster.ServerPools[i].Firewalls = append(renderCluster.ServerPools[i].Firewalls, &cluster.Firewall{
+				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls, &cluster.Firewall{
 					Name:         firewall.Name,
 					Identifier:   firewall.CloudID,
 					IngressRules: inRules,
@@ -250,10 +238,7 @@ func (f *Firewall) render(renderCluster *cluster.Cluster, renderResource cloud.R
 	if !found {
 		var inRules []*cluster.IngressRule
 		var egRules []*cluster.EgressRule
-		firewall, ok := renderResource.(*Firewall)
-		if !ok {
-			return nil, fmt.Errorf("failed type convert renderResource Firewall type")
-		}
+		firewall := newResource.(*Firewall)
 		for _, renderRule := range firewall.InboundRules {
 			inRules = append(inRules, &cluster.IngressRule{
 				IngressProtocol: renderRule.Protocol,
@@ -276,37 +261,56 @@ func (f *Firewall) render(renderCluster *cluster.Cluster, renderResource cloud.R
 				EgressRules:  egRules,
 			},
 		}
-		renderCluster.ServerPools = append(renderCluster.ServerPools, &cluster.ServerPool{
-			Name:       f.ServerPool.Name,
-			Identifier: f.ServerPool.Identifier,
+		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
+			Name:       r.ServerPool.Name,
+			Identifier: r.ServerPool.Identifier,
 			Firewalls:  firewalls,
 		})
 	}
 
-	return renderCluster, nil
+	// Todo (@kris-nova) Figure out what is setting empty firewalls and fix the original bug
+	for i := 0; i < len(newCluster.ServerPools); i++ {
+		for j := 0; j < len(newCluster.ServerPools[i].Firewalls); j++ {
+			firewall := newResource.(*Firewall)
+			if firewall.Name == "" {
+				logger.Debug("Found empty firewill, will not save!")
+				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls[:j], newCluster.ServerPools[i].Firewalls[j+1:]...)
+			}
+		}
+	}
+
+	return newCluster
 }
 
 // Delete removes the firewall
-func (f *Firewall) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+func (r *Firewall) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("firewall.Delete")
 	deleteResource, ok := actual.(*Firewall)
 	if !ok {
 		return nil, nil, fmt.Errorf("failed to type convert actual Firewall type ")
 	}
 	if deleteResource.Name == "" {
-		return nil, nil, fmt.Errorf("Unable to delete droplet resource without Name [%s]", deleteResource.Name)
+		return immutable, nil, nil
+		return nil, nil, fmt.Errorf("Unable to delete firewall resource without Name [%s]", deleteResource.Name)
 	}
 	if _, err := Sdk.Client.Firewalls.Delete(context.TODO(), deleteResource.FirewallID); err != nil {
 		return nil, nil, fmt.Errorf("failed to delete firewall [%s] err: %v", deleteResource.Name, err)
 	}
-	var err error
-	known, err = f.render(known, actual)
-	if err != nil {
-		return nil, nil, err
-	}
-	return known, actual, nil
-}
+	logger.Info("Deleted firewall [%s]", deleteResource.FirewallID)
 
+	newResource := &Firewall{
+		Shared: Shared{
+			Name: r.Name,
+			Tags: r.Tags,
+		},
+		InboundRules:  r.InboundRules,
+		OutboundRules: r.OutboundRules,
+		Created:       r.Created,
+	}
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
+}
 
 func defaultFirewallStruct() *Firewall {
 	return &Firewall{
