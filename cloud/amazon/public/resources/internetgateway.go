@@ -53,16 +53,15 @@ func (r *InternetGateway) Actual(immutable *cluster.Cluster) (*cluster.Cluster, 
 			return nil, nil, err
 		}
 		lsn := len(output.InternetGateways)
-		if lsn != 1 {
-			return nil, nil, fmt.Errorf("Found [%d] Internet Gateways for ID [%s]", lsn, immutable.Network.Identifier)
+		if lsn != 0 {
+			ig := output.InternetGateways[0]
+			for _, tag := range ig.Tags {
+				key := *tag.Key
+				val := *tag.Value
+				newResource.Tags[key] = val
+			}
+			newResource.Identifier = *ig.InternetGatewayId
 		}
-		ig := output.InternetGateways[0]
-		for _, tag := range ig.Tags {
-			key := *tag.Key
-			val := *tag.Value
-			newResource.Tags[key] = val
-		}
-		newResource.Identifier = r.Name
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -119,7 +118,7 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, immutable *clus
 			Tags: make(map[string]string),
 		},
 	}
-	newResource.Identifier = expected.(*InternetGateway).Name
+	newResource.Identifier = *ig.InternetGatewayId
 	newResource.Name = expected.(*InternetGateway).Name
 	for key, value := range expected.(*InternetGateway).Tags {
 		newResource.Tags[key] = value
