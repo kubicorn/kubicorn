@@ -22,8 +22,11 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 )
+
+var _ cloud.Resource = &SecurityGroup{}
 
 type Rule struct {
 	IngressFromPort int
@@ -39,20 +42,15 @@ type SecurityGroup struct {
 }
 
 const (
-	KubicornAutoCreatedGroup = "A FABULOUS security group created by Kubicorn for cluster [%s]"
+	KubicornAutoCreatedGroup = "A fabulous security group created by Kubicorn for cluster [%s]"
 )
 
-func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *SecurityGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Actual")
-	if r.CachedActual != nil {
-		logger.Debug("Using cached securitygroup [actual]")
-		return r.CachedActual, nil
-	}
-	actual := &SecurityGroup{
+	newResource := &SecurityGroup{
 		Shared: Shared{
-			Name:        r.Name,
-			Tags:        make(map[string]string),
-			TagResource: r.TagResource,
+			Name: r.Name,
+			Tags: make(map[string]string),
 		},
 	}
 
@@ -62,15 +60,15 @@ func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		}
 		output, err := Sdk.Ec2.DescribeSecurityGroups(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		lsn := len(output.SecurityGroups)
 		if lsn != 1 {
-			return nil, fmt.Errorf("Found [%d] Security Groups for ID [%s]", lsn, r.Firewall.Identifier)
+			return nil, nil, fmt.Errorf("Found [%d] Security Groups for ID [%s]", lsn, r.Firewall.Identifier)
 		}
 		sg := output.SecurityGroups[0]
 		for _, rule := range sg.IpPermissions {
-			actual.Rules = append(actual.Rules, &Rule{
+			newResource.Rules = append(newResource.Rules, &Rule{
 				IngressFromPort: int(*rule.FromPort),
 				IngressToPort:   int(*rule.ToPort),
 				IngressSource:   *rule.IpRanges[0].CidrIp,
@@ -80,81 +78,94 @@ func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		for _, tag := range sg.Tags {
 			key := *tag.Key
 			val := *tag.Value
-			actual.Tags[key] = val
+			newResource.Tags[key] = val
 		}
-		actual.CloudID = *sg.GroupId
-		actual.Name = *sg.GroupName
+		newResource.Identifier = *sg.GroupId
+		newResource.Name = *sg.GroupName
+	} else {
+		for _, rule := range r.Firewall.IngressRules {
+			inPort, err := strToInt(rule.IngressToPort)
+			if err != nil {
+				return nil, nil, err
+			}
+			outPort, err := strToInt(rule.IngressFromPort)
+			if err != nil {
+				return nil, nil, err
+			}
+			newResource.Rules = append(newResource.Rules, &Rule{
+				IngressSource:   rule.IngressSource,
+				IngressToPort:   inPort,
+				IngressFromPort: outPort,
+				IngressProtocol: rule.IngressProtocol,
+			})
+		}
 	}
 
-	r.CachedActual = actual
-	return actual, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *SecurityGroup) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *SecurityGroup) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Expected")
-	if r.CachedExpected != nil {
-		logger.Debug("Using cached Security Group [expected]")
-		return r.CachedExpected, nil
-	}
-	expected := &SecurityGroup{
+	newResource := &SecurityGroup{
 		Shared: Shared{
 			Tags: map[string]string{
 				"Name":              r.Name,
-				"KubernetesCluster": known.Name,
+				"KubernetesCluster": immutable.Name,
 			},
-			CloudID:     r.Firewall.Identifier,
-			Name:        r.Firewall.Name,
-			TagResource: r.TagResource,
+			Identifier: r.Firewall.Identifier,
+			Name:       r.Firewall.Name,
 		},
 	}
+
 	for _, rule := range r.Firewall.IngressRules {
 		inPort, err := strToInt(rule.IngressToPort)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		outPort, err := strToInt(rule.IngressFromPort)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
-		expected.Rules = append(expected.Rules, &Rule{
+		newResource.Rules = append(newResource.Rules, &Rule{
 			IngressSource:   rule.IngressSource,
 			IngressToPort:   inPort,
 			IngressFromPort: outPort,
 			IngressProtocol: rule.IngressProtocol,
 		})
 	}
-	r.CachedExpected = expected
-	return expected, nil
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
-func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Apply")
 	applyResource := expected.(*SecurityGroup)
 	isEqual, err := compare.IsEqual(actual.(*SecurityGroup), expected.(*SecurityGroup))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return immutable, applyResource, nil
 	}
 
 	input := &ec2.CreateSecurityGroupInput{
 		GroupName:   &expected.(*SecurityGroup).Name,
-		VpcId:       &applyCluster.Network.Identifier,
-		Description: S(fmt.Sprintf(KubicornAutoCreatedGroup, applyCluster.Name)),
+		VpcId:       &immutable.Network.Identifier,
+		Description: S(fmt.Sprintf(KubicornAutoCreatedGroup, immutable.Name)),
 	}
 	output, err := Sdk.Ec2.CreateSecurityGroup(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	logger.Info("Created Security Group [%s]", *output.GroupId)
 
 	newResource := &SecurityGroup{}
-	newResource.CloudID = *output.GroupId
+	newResource.Identifier = *output.GroupId
 	newResource.Name = expected.(*SecurityGroup).Name
 	for _, expectedRule := range expected.(*SecurityGroup).Rules {
-
 		input := &ec2.AuthorizeSecurityGroupIngressInput{
-			GroupId:    &newResource.CloudID,
+			GroupId:    &newResource.Identifier,
 			ToPort:     I64(expectedRule.IngressToPort),
 			FromPort:   I64(expectedRule.IngressFromPort),
 			CidrIp:     &expectedRule.IngressSource,
@@ -162,73 +173,74 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, applyCluster *clu
 		}
 		_, err := Sdk.Ec2.AuthorizeSecurityGroupIngress(input)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
+		logger.Info("Created security rule (%s) [ingress] %d %s", expected.(*SecurityGroup).Name, expectedRule.IngressToPort, expectedRule.IngressSource)
 		newResource.Rules = append(newResource.Rules, &Rule{
 			IngressSource:   expectedRule.IngressSource,
 			IngressToPort:   expectedRule.IngressToPort,
 			IngressFromPort: expectedRule.IngressFromPort,
 			IngressProtocol: expectedRule.IngressProtocol,
 		})
+
 	}
-	return newResource, nil
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
-func (r *SecurityGroup) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *SecurityGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("securitygroup.Delete")
 	deleteResource := actual.(*SecurityGroup)
-	if deleteResource.CloudID == "" {
-		return nil, fmt.Errorf("Unable to delete Security Group resource without ID [%s]", deleteResource.Name)
+	if deleteResource.Identifier == "" {
+		return nil, nil, fmt.Errorf("Unable to delete Security Group resource without ID [%s]", deleteResource.Name)
 	}
 
 	input := &ec2.DeleteSecurityGroupInput{
-		GroupId: &actual.(*SecurityGroup).CloudID,
+		GroupId: &actual.(*SecurityGroup).Identifier,
 	}
 	_, err := Sdk.Ec2.DeleteSecurityGroup(input)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	logger.Info("Deleted Security Group [%s]", actual.(*SecurityGroup).CloudID)
+	logger.Info("Deleted Security Group [%s]", actual.(*SecurityGroup).Identifier)
 
 	newResource := &SecurityGroup{}
 	newResource.Tags = actual.(*SecurityGroup).Tags
 	newResource.Name = actual.(*SecurityGroup).Name
-	//for _, renderRule := range actual.(*SecurityGroup).Rules {
-	//	newResource.Rules = append(newResource.Rules, &Rule{
-	//		IngressSource:   renderRule.IngressSource,
-	//		IngressFromPort: renderRule.IngressFromPort,
-	//		IngressToPort:   renderRule.IngressToPort,
-	//		IngressProtocol: renderRule.IngressProtocol,
-	//	})
-	//}
-	return newResource, nil
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
+
 }
 
-func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("securitygroup.Render")
+	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
 	found := false
-	for i := 0; i < len(renderCluster.ServerPools); i++ {
-		for j := 0; j < len(renderCluster.ServerPools[i].Firewalls); j++ {
-			if renderCluster.ServerPools[i].Firewalls[j].Name == renderResource.(*SecurityGroup).Name {
+	for i := 0; i < len(newCluster.ServerPools); i++ {
+		for j := 0; j < len(newCluster.ServerPools[i].Firewalls); j++ {
+			if newCluster.ServerPools[i].Firewalls[j].Name == newResource.(*SecurityGroup).Name {
 				found = true
-				renderCluster.ServerPools[i].Firewalls[j].Identifier = renderResource.(*SecurityGroup).CloudID
-				for _, renderRule := range renderResource.(*SecurityGroup).Rules {
-					renderCluster.ServerPools[i].Firewalls[j].IngressRules = append(renderCluster.ServerPools[i].Firewalls[j].IngressRules, &cluster.IngressRule{
+				newCluster.ServerPools[i].Firewalls[j].Identifier = newResource.(*SecurityGroup).Identifier
+				var ingressRules []*cluster.IngressRule
+				for _, renderRule := range newResource.(*SecurityGroup).Rules {
+					ingressRules = append(ingressRules, &cluster.IngressRule{
 						IngressSource:   renderRule.IngressSource,
 						IngressFromPort: strconv.Itoa(renderRule.IngressFromPort),
 						IngressToPort:   strconv.Itoa(renderRule.IngressToPort),
 						IngressProtocol: renderRule.IngressProtocol,
 					})
 				}
+				newCluster.ServerPools[i].Firewalls[j].IngressRules = ingressRules
 			}
 		}
 	}
 
 	if !found {
-		for i := 0; i < len(renderCluster.ServerPools); i++ {
-			if renderCluster.ServerPools[i].Name == r.ServerPool.Name {
+		for i := 0; i < len(newCluster.ServerPools); i++ {
+			if newCluster.ServerPools[i].Name == r.ServerPool.Name {
 				found = true
 				var rules []*cluster.IngressRule
-				for _, renderRule := range renderResource.(*SecurityGroup).Rules {
+				for _, renderRule := range newResource.(*SecurityGroup).Rules {
 					rules = append(rules, &cluster.IngressRule{
 						IngressSource:   renderRule.IngressSource,
 						IngressFromPort: strconv.Itoa(renderRule.IngressFromPort),
@@ -236,9 +248,9 @@ func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *clu
 						IngressProtocol: renderRule.IngressProtocol,
 					})
 				}
-				renderCluster.ServerPools[i].Firewalls = append(renderCluster.ServerPools[i].Firewalls, &cluster.Firewall{
-					Name:         renderResource.(*SecurityGroup).Name,
-					Identifier:   renderResource.(*SecurityGroup).CloudID,
+				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls, &cluster.Firewall{
+					Name:         newResource.(*SecurityGroup).Name,
+					Identifier:   newResource.(*SecurityGroup).Identifier,
 					IngressRules: rules,
 				})
 
@@ -248,7 +260,7 @@ func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *clu
 
 	if !found {
 		var rules []*cluster.IngressRule
-		for _, renderRule := range renderResource.(*SecurityGroup).Rules {
+		for _, renderRule := range newResource.(*SecurityGroup).Rules {
 			rules = append(rules, &cluster.IngressRule{
 				IngressSource:   renderRule.IngressSource,
 				IngressFromPort: strconv.Itoa(renderRule.IngressFromPort),
@@ -258,24 +270,19 @@ func (r *SecurityGroup) Render(renderResource cloud.Resource, renderCluster *clu
 		}
 		firewalls := []*cluster.Firewall{
 			{
-				Name:         renderResource.(*SecurityGroup).Name,
-				Identifier:   renderResource.(*SecurityGroup).CloudID,
+				Name:         newResource.(*SecurityGroup).Name,
+				Identifier:   newResource.(*SecurityGroup).Identifier,
 				IngressRules: rules,
 			},
 		}
-		renderCluster.ServerPools = append(renderCluster.ServerPools, &cluster.ServerPool{
+		newCluster.ServerPools = append(newCluster.ServerPools, &cluster.ServerPool{
 			Name:       r.ServerPool.Name,
 			Identifier: r.ServerPool.Identifier,
 			Firewalls:  firewalls,
 		})
 	}
 
-	return renderCluster, nil
-}
-
-func (r *SecurityGroup) Tag(tags map[string]string) error {
-	// Todo tag on another resource
-	return nil
+	return newCluster
 }
 
 func strToInt(s string) (int, error) {

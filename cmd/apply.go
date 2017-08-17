@@ -107,16 +107,13 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to get reconciler: %v", err)
 	}
 
-	if err := reconciler.Init(); err != nil {
-		return fmt.Errorf("Unable to init reconciler: %v", err)
-	}
 	logger.Info("Query existing resources")
-	actual, err := reconciler.GetActual()
+	actual, err := reconciler.Actual(cluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get actual cluster: %v", err)
 	}
 	logger.Info("Resolving expected resources")
-	expected, err := reconciler.GetExpected()
+	expected, err := reconciler.Expected(cluster)
 	if err != nil {
 		return fmt.Errorf("Unable to get expected cluster: %v", err)
 	}

@@ -15,18 +15,15 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
-	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/profiles"
 )
 
 func main() {
 	logger.Level = 4
-	cluster := getCluster("intense-crow-158609")
+	cluster := profiles.NewUbuntuGoogleComputeCluster("myCluster")
 	cluster, err := initapi.InitCluster(cluster)
 	if err != nil {
 		panic(err.Error())
@@ -35,16 +32,11 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-
-	err = reconciler.Init()
+	expected, err := reconciler.Expected(cluster)
 	if err != nil {
 		panic(err.Error())
 	}
-	expected, err := reconciler.GetExpected()
-	if err != nil {
-		panic(err.Error())
-	}
-	actual, err := reconciler.GetActual()
+	actual, err := reconciler.Actual(cluster)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -56,47 +48,5 @@ func main() {
 	_, err = reconciler.Destroy()
 	if err != nil {
 		panic(err.Error())
-	}
-}
-
-func getCluster(name string) *cluster.Cluster {
-	return &cluster.Cluster{
-		Name:     name,
-		Cloud:    cluster.CloudGoogle,
-		Location: "us-central1-a",
-		SSH: &cluster.SSH{
-			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "ubuntu",
-		},
-		KubernetesAPI: &cluster.KubernetesAPI{
-			Port: "443",
-		},
-		Values: &cluster.Values{
-			ItemMap: map[string]string{
-				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
-			},
-		},
-		ServerPools: []*cluster.ServerPool{
-			{
-				Type:     cluster.ServerPoolTypeMaster,
-				Name:     fmt.Sprintf("%s-master", name),
-				MaxCount: 1,
-				Image:    "ubuntu-1604-xenial-v20170811",
-				Size:     "n1-standard-1",
-				BootstrapScripts: []string{
-					"google_compute_k8s_ubuntu_16.04_master.sh",
-				},
-			},
-			{
-				Type:     cluster.ServerPoolTypeNode,
-				Name:     fmt.Sprintf("%s-node", name),
-				MaxCount: 2,
-				Image:    "ubuntu-1604-xenial-v20170811",
-				Size:     "n1-standard-1",
-				BootstrapScripts: []string{
-					"google_compute_k8s_ubuntu_16.04_node.sh",
-				},
-			},
-		},
 	}
 }

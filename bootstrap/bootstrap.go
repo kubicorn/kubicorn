@@ -209,25 +209,26 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() ([]byte, error){
-	"bootstrap/README.md": bootstrap_readme_md,
-	"bootstrap/amazon_k8s_centos_7_master.sh": bootstrap_amazon_k8s_centos_7_master_sh,
-	"bootstrap/amazon_k8s_centos_7_node.sh": bootstrap_amazon_k8s_centos_7_node_sh,
-	"bootstrap/amazon_k8s_ubuntu_16.04_master.sh": bootstrap_amazon_k8s_ubuntu_16_04_master_sh,
-	"bootstrap/amazon_k8s_ubuntu_16.04_node.sh": bootstrap_amazon_k8s_ubuntu_16_04_node_sh,
-	"bootstrap/digitalocean_k8s_centos_7_master.sh": bootstrap_digitalocean_k8s_centos_7_master_sh,
-	"bootstrap/digitalocean_k8s_centos_7_node.sh": bootstrap_digitalocean_k8s_centos_7_node_sh,
-	"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh": bootstrap_digitalocean_k8s_ubuntu_16_04_master_sh,
-	"bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh": bootstrap_digitalocean_k8s_ubuntu_16_04_node_sh,
+	"bootstrap/README.md":                                 bootstrap_readme_md,
+	"bootstrap/amazon_k8s_centos_7_master.sh":             bootstrap_amazon_k8s_centos_7_master_sh,
+	"bootstrap/amazon_k8s_centos_7_node.sh":               bootstrap_amazon_k8s_centos_7_node_sh,
+	"bootstrap/amazon_k8s_ubuntu_16.04_master.sh":         bootstrap_amazon_k8s_ubuntu_16_04_master_sh,
+	"bootstrap/amazon_k8s_ubuntu_16.04_node.sh":           bootstrap_amazon_k8s_ubuntu_16_04_node_sh,
+	"bootstrap/digitalocean_k8s_centos_7_master.sh":       bootstrap_digitalocean_k8s_centos_7_master_sh,
+	"bootstrap/digitalocean_k8s_centos_7_node.sh":         bootstrap_digitalocean_k8s_centos_7_node_sh,
+	"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh":   bootstrap_digitalocean_k8s_ubuntu_16_04_master_sh,
+	"bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh":     bootstrap_digitalocean_k8s_ubuntu_16_04_node_sh,
 	"bootstrap/google_compute_k8s_ubuntu_16.04_master.sh": bootstrap_google_compute_k8s_ubuntu_16_04_master_sh,
-	"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh": bootstrap_google_compute_k8s_ubuntu_16_04_node_sh,
-	"bootstrap/inject.go": bootstrap_inject_go,
-	"bootstrap/vpn/meshbirdMaster.sh": bootstrap_vpn_meshbirdmaster_sh,
-	"bootstrap/vpn/meshbirdNode.sh": bootstrap_vpn_meshbirdnode_sh,
-	"bootstrap/vpn/openvpnMaster-centos.sh": bootstrap_vpn_openvpnmaster_centos_sh,
-	"bootstrap/vpn/openvpnMaster.sh": bootstrap_vpn_openvpnmaster_sh,
-	"bootstrap/vpn/openvpnNode-centos.sh": bootstrap_vpn_openvpnnode_centos_sh,
-	"bootstrap/vpn/openvpnNode.sh": bootstrap_vpn_openvpnnode_sh,
+	"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh":   bootstrap_google_compute_k8s_ubuntu_16_04_node_sh,
+	"bootstrap/inject.go":                                 bootstrap_inject_go,
+	"bootstrap/vpn/meshbirdMaster.sh":                     bootstrap_vpn_meshbirdmaster_sh,
+	"bootstrap/vpn/meshbirdNode.sh":                       bootstrap_vpn_meshbirdnode_sh,
+	"bootstrap/vpn/openvpnMaster-centos.sh":               bootstrap_vpn_openvpnmaster_centos_sh,
+	"bootstrap/vpn/openvpnMaster.sh":                      bootstrap_vpn_openvpnmaster_sh,
+	"bootstrap/vpn/openvpnNode-centos.sh":                 bootstrap_vpn_openvpnnode_centos_sh,
+	"bootstrap/vpn/openvpnNode.sh":                        bootstrap_vpn_openvpnnode_sh,
 }
+
 // AssetDir returns the file names below a certain
 // directory embedded in the file by go-bindata.
 // For example if you run go-bindata on data/... and data contains the
@@ -264,48 +265,31 @@ func AssetDir(name string) ([]string, error) {
 }
 
 type _bintree_t struct {
-	Func func() ([]byte, error)
+	Func     func() ([]byte, error)
 	Children map[string]*_bintree_t
 }
+
 var _bintree = &_bintree_t{nil, map[string]*_bintree_t{
 	"bootstrap": &_bintree_t{nil, map[string]*_bintree_t{
-		"README.md": &_bintree_t{bootstrap_readme_md, map[string]*_bintree_t{
-		}},
-		"amazon_k8s_centos_7_master.sh": &_bintree_t{bootstrap_amazon_k8s_centos_7_master_sh, map[string]*_bintree_t{
-		}},
-		"amazon_k8s_centos_7_node.sh": &_bintree_t{bootstrap_amazon_k8s_centos_7_node_sh, map[string]*_bintree_t{
-		}},
-		"amazon_k8s_ubuntu_16.04_master.sh": &_bintree_t{bootstrap_amazon_k8s_ubuntu_16_04_master_sh, map[string]*_bintree_t{
-		}},
-		"amazon_k8s_ubuntu_16.04_node.sh": &_bintree_t{bootstrap_amazon_k8s_ubuntu_16_04_node_sh, map[string]*_bintree_t{
-		}},
-		"digitalocean_k8s_centos_7_master.sh": &_bintree_t{bootstrap_digitalocean_k8s_centos_7_master_sh, map[string]*_bintree_t{
-		}},
-		"digitalocean_k8s_centos_7_node.sh": &_bintree_t{bootstrap_digitalocean_k8s_centos_7_node_sh, map[string]*_bintree_t{
-		}},
-		"digitalocean_k8s_ubuntu_16.04_master.sh": &_bintree_t{bootstrap_digitalocean_k8s_ubuntu_16_04_master_sh, map[string]*_bintree_t{
-		}},
-		"digitalocean_k8s_ubuntu_16.04_node.sh": &_bintree_t{bootstrap_digitalocean_k8s_ubuntu_16_04_node_sh, map[string]*_bintree_t{
-		}},
-		"google_compute_k8s_ubuntu_16.04_master.sh": &_bintree_t{bootstrap_google_compute_k8s_ubuntu_16_04_master_sh, map[string]*_bintree_t{
-		}},
-		"google_compute_k8s_ubuntu_16.04_node.sh": &_bintree_t{bootstrap_google_compute_k8s_ubuntu_16_04_node_sh, map[string]*_bintree_t{
-		}},
-		"inject.go": &_bintree_t{bootstrap_inject_go, map[string]*_bintree_t{
-		}},
+		"README.md":                                 &_bintree_t{bootstrap_readme_md, map[string]*_bintree_t{}},
+		"amazon_k8s_centos_7_master.sh":             &_bintree_t{bootstrap_amazon_k8s_centos_7_master_sh, map[string]*_bintree_t{}},
+		"amazon_k8s_centos_7_node.sh":               &_bintree_t{bootstrap_amazon_k8s_centos_7_node_sh, map[string]*_bintree_t{}},
+		"amazon_k8s_ubuntu_16.04_master.sh":         &_bintree_t{bootstrap_amazon_k8s_ubuntu_16_04_master_sh, map[string]*_bintree_t{}},
+		"amazon_k8s_ubuntu_16.04_node.sh":           &_bintree_t{bootstrap_amazon_k8s_ubuntu_16_04_node_sh, map[string]*_bintree_t{}},
+		"digitalocean_k8s_centos_7_master.sh":       &_bintree_t{bootstrap_digitalocean_k8s_centos_7_master_sh, map[string]*_bintree_t{}},
+		"digitalocean_k8s_centos_7_node.sh":         &_bintree_t{bootstrap_digitalocean_k8s_centos_7_node_sh, map[string]*_bintree_t{}},
+		"digitalocean_k8s_ubuntu_16.04_master.sh":   &_bintree_t{bootstrap_digitalocean_k8s_ubuntu_16_04_master_sh, map[string]*_bintree_t{}},
+		"digitalocean_k8s_ubuntu_16.04_node.sh":     &_bintree_t{bootstrap_digitalocean_k8s_ubuntu_16_04_node_sh, map[string]*_bintree_t{}},
+		"google_compute_k8s_ubuntu_16.04_master.sh": &_bintree_t{bootstrap_google_compute_k8s_ubuntu_16_04_master_sh, map[string]*_bintree_t{}},
+		"google_compute_k8s_ubuntu_16.04_node.sh":   &_bintree_t{bootstrap_google_compute_k8s_ubuntu_16_04_node_sh, map[string]*_bintree_t{}},
+		"inject.go":                                 &_bintree_t{bootstrap_inject_go, map[string]*_bintree_t{}},
 		"vpn": &_bintree_t{nil, map[string]*_bintree_t{
-			"meshbirdMaster.sh": &_bintree_t{bootstrap_vpn_meshbirdmaster_sh, map[string]*_bintree_t{
-			}},
-			"meshbirdNode.sh": &_bintree_t{bootstrap_vpn_meshbirdnode_sh, map[string]*_bintree_t{
-			}},
-			"openvpnMaster-centos.sh": &_bintree_t{bootstrap_vpn_openvpnmaster_centos_sh, map[string]*_bintree_t{
-			}},
-			"openvpnMaster.sh": &_bintree_t{bootstrap_vpn_openvpnmaster_sh, map[string]*_bintree_t{
-			}},
-			"openvpnNode-centos.sh": &_bintree_t{bootstrap_vpn_openvpnnode_centos_sh, map[string]*_bintree_t{
-			}},
-			"openvpnNode.sh": &_bintree_t{bootstrap_vpn_openvpnnode_sh, map[string]*_bintree_t{
-			}},
+			"meshbirdMaster.sh":       &_bintree_t{bootstrap_vpn_meshbirdmaster_sh, map[string]*_bintree_t{}},
+			"meshbirdNode.sh":         &_bintree_t{bootstrap_vpn_meshbirdnode_sh, map[string]*_bintree_t{}},
+			"openvpnMaster-centos.sh": &_bintree_t{bootstrap_vpn_openvpnmaster_centos_sh, map[string]*_bintree_t{}},
+			"openvpnMaster.sh":        &_bintree_t{bootstrap_vpn_openvpnmaster_sh, map[string]*_bintree_t{}},
+			"openvpnNode-centos.sh":   &_bintree_t{bootstrap_vpn_openvpnnode_centos_sh, map[string]*_bintree_t{}},
+			"openvpnNode.sh":          &_bintree_t{bootstrap_vpn_openvpnnode_sh, map[string]*_bintree_t{}},
 		}},
 	}},
 }}

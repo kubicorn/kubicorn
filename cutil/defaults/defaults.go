@@ -12,19 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cluster
+package defaults
 
-import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-)
+import "github.com/kris-nova/kubicorn/apis/cluster"
 
-type SSH struct {
-	metav1.TypeMeta      `json:",inline"`
-	metav1.ObjectMeta    `json:"metadata,omitempty"`
-	Name                 string `json:"name,omitempty"`
-	User                 string `json:"user,omitempty"`
-	Identifier           string `json:"identifier,omitempty"`
-	PublicKeyPath        string `json:"publicKeyPath,omitempty"`
-	PublicKeyData        []byte `json:"publicKeyData,omitempty"`
-	PublicKeyFingerprint string `json:"publicKeyFingerprint,omitempty"`
+func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
+	new := &cluster.Cluster{
+		Name:          base.Name,
+		Cloud:         base.Cloud,
+		Location:      base.Location,
+		Network:       base.Network,
+		SSH:           base.SSH,
+		Values:        base.Values,
+		KubernetesAPI: base.KubernetesAPI,
+		ServerPools:   base.ServerPools,
+	}
+	return new
 }

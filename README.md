@@ -104,4 +104,5 @@ Take a snap, save a snap, deploy a snap.
 | **DigitalOcean Walkthrough**         | A walkthrough guide on install Kubernetes 1.7 in D.O.       | [walkthrough](docs/do/walkthrough.md)                                           |
 | **Google Cloud engine  Walkthrough** | A walkthrough guide on install Kubernetes 1.7 in GCE        | [walkthrough](docs/google/walkthrough.md)                                       |
 | **AWS Video**                        | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)         |
+| **DigitalOcean Video**                        | A step by step video of using Kubicorn in DigitalOcean               | [video](https://youtu.be/XpxgSZ3dspE)         |
 | **Tech N Talk Deep Dive**            | A technical deep dive courtesy of RedHat                    | [youtube](https://youtu.be/2DmUG0RgS70?list=PLaR6Rq6Z4IqfwXtKT7KeARRvxdvyLqG72) |

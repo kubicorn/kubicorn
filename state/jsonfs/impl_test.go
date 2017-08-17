@@ -16,13 +16,14 @@ package jsonfs
 
 import (
 	"encoding/json"
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles"
-	"github.com/kris-nova/kubicorn/state"
 	"io/ioutil"
 	"path/filepath"
 	"reflect"
 	"testing"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/profiles"
+	"github.com/kris-nova/kubicorn/state"
 )
 
 func TestJsonFileSystem(t *testing.T) {

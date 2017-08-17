@@ -108,18 +108,13 @@ func RunDelete(options *DeleteOptions) error {
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
 	}
-
-	if err = reconciler.Init(); err != nil {
-		return fmt.Errorf("Unable to init reconciler: %v", err)
-	}
-
 	var deleteCluster *cluster.Cluster
 	var deleteClusterTask = func() error {
 		deleteCluster, err = reconciler.Destroy()
 		return err
 	}
 
-	err = task.RunAnnotated(deleteClusterTask, fmt.Sprintf("\nDestroying resources for cluster [%s]:\n", options.Name), ".")
+	err = task.RunAnnotated(deleteClusterTask, fmt.Sprintf("\nDestroying resources for cluster [%s]:\n", options.Name), "")
 	if err != nil {
 		return fmt.Errorf("Unable to destroy resources for cluster [%s]: %v", options.Name, err)
 	}
