@@ -26,6 +26,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
+	"path/filepath"
 )
 
 type JSONFileSystemStoreOptions struct {
@@ -66,8 +67,11 @@ func (fs *JSONFileSystemStore) Exists() bool {
 }
 
 func (fs *JSONFileSystemStore) write(relativePath string, data []byte) error {
-	fqn := fmt.Sprintf("%s/%s", fs.AbsolutePath, relativePath)
-	os.MkdirAll(path.Dir(fqn), 0700)
+	fqn := filepath.Join(fs.AbsolutePath, relativePath)
+	err := os.MkdirAll(path.Dir(fqn), 0700)
+	if err != nil {
+		return err
+	}
 	fo, err := os.Create(fqn)
 	if err != nil {
 		return err
@@ -81,7 +85,7 @@ func (fs *JSONFileSystemStore) write(relativePath string, data []byte) error {
 }
 
 func (fs *JSONFileSystemStore) read(relativePath string) ([]byte, error) {
-	fqn := fmt.Sprintf("%s/%s", fs.AbsolutePath, relativePath)
+	fqn := filepath.Join(fs.AbsolutePath, relativePath)
 	bytes, err := ioutil.ReadFile(fqn)
 	if err != nil {
 		return []byte(""), err
@@ -97,8 +101,7 @@ func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
-	fs.write(state.ClusterJsonFile, bytes)
-	return nil
+	return fs.write(state.ClusterJsonFile, bytes)
 }
 
 func (fs *JSONFileSystemStore) Rename(existingRelativePath, newRelativePath string) error {
