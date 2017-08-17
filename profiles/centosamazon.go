@@ -21,7 +21,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
-func CentosAmazonCluster(name string) *cluster.Cluster {
+func NewCentosAmazonCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudAmazon,

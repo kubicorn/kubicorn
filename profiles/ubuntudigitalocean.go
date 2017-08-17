@@ -21,22 +21,18 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
-// NewSimpleAmazonCluster creates a simple Ubuntu Amazon cluster
-func NewSimpleAmazonCluster(name string) *cluster.Cluster {
+// NewUbuntuDigitalOceanCluster creates a basic Digitalocean cluster profile, to bootstrap Kubernetes.
+func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
-		Cloud:    cluster.CloudAmazon,
-		Location: "us-west-2",
+		Cloud:    cluster.CloudDigitalOcean,
+		Location: "sfo2",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "ubuntu",
+			User:          "root",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
-		},
-		Network: &cluster.Network{
-			Type: cluster.NetworkTypePublic,
-			CIDR: "10.0.0.0/16",
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
@@ -46,37 +42,44 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 		ServerPools: []*cluster.ServerPool{
 			{
 				Type:     cluster.ServerPoolTypeMaster,
-				Name:     fmt.Sprintf("%s.master", name),
+				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
-				MinCount: 1,
-				Image:    "ami-835b4efa",
-				Size:     "t2.medium",
+				Image:    "ubuntu-16-04-x64",
+				Size:     "1gb",
 				BootstrapScripts: []string{
-					"amazon_k8s_ubuntu_16.04_master.sh",
+					"vpn/openvpnMaster.sh",
+					"digitalocean_k8s_ubuntu_16.04_master.sh",
 				},
-				Subnets: []*cluster.Subnet{
-					{
-						Name:     fmt.Sprintf("%s.master", name),
-						CIDR:     "10.0.0.0/24",
-						Location: "us-west-2a",
-					},
-				},
-
 				Firewalls: []*cluster.Firewall{
 					{
-						Name: fmt.Sprintf("%s.master-external", name),
+						Name: fmt.Sprintf("%s-master", name),
 						IngressRules: []*cluster.IngressRule{
 							{
-								IngressFromPort: "22",
 								IngressToPort:   "22",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
 							},
 							{
-								IngressFromPort: "443",
 								IngressToPort:   "443",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
+							},
+							{
+								IngressToPort:   "1194",
+								IngressSource:   "0.0.0.0/0",
+								IngressProtocol: "udp",
+							},
+						},
+						EgressRules: []*cluster.EgressRule{
+							{
+								EgressToPort:      "all", // By default all egress from VM
+								EgressDestination: "0.0.0.0/0",
+								EgressProtocol:    "tcp",
+							},
+							{
+								EgressToPort:      "all", // By default all egress from VM
+								EgressDestination: "0.0.0.0/0",
+								EgressProtocol:    "udp",
 							},
 						},
 					},
@@ -84,30 +87,39 @@ func NewSimpleAmazonCluster(name string) *cluster.Cluster {
 			},
 			{
 				Type:     cluster.ServerPoolTypeNode,
-				Name:     fmt.Sprintf("%s.node", name),
+				Name:     fmt.Sprintf("%s-node", name),
 				MaxCount: 1,
-				MinCount: 1,
-				Image:    "ami-835b4efa",
-				Size:     "t2.medium",
+				Image:    "ubuntu-16-04-x64",
+				Size:     "1gb",
 				BootstrapScripts: []string{
-					"amazon_k8s_ubuntu_16.04_node.sh",
-				},
-				Subnets: []*cluster.Subnet{
-					{
-						Name:     fmt.Sprintf("%s.node", name),
-						CIDR:     "10.0.100.0/24",
-						Location: "us-west-2b",
-					},
+					"vpn/openvpnNode.sh",
+					"digitalocean_k8s_ubuntu_16.04_node.sh",
 				},
 				Firewalls: []*cluster.Firewall{
 					{
-						Name: fmt.Sprintf("%s.node-external", name),
+						Name: fmt.Sprintf("%s-node", name),
 						IngressRules: []*cluster.IngressRule{
 							{
-								IngressFromPort: "22",
 								IngressToPort:   "22",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
+							},
+							{
+								IngressToPort:   "1194",
+								IngressSource:   "0.0.0.0/0",
+								IngressProtocol: "udp",
+							},
+						},
+						EgressRules: []*cluster.EgressRule{
+							{
+								EgressToPort:      "all", // By default all egress from VM
+								EgressDestination: "0.0.0.0/0",
+								EgressProtocol:    "tcp",
+							},
+							{
+								EgressToPort:      "all", // By default all egress from VM
+								EgressDestination: "0.0.0.0/0",
+								EgressProtocol:    "udp",
 							},
 						},
 					},

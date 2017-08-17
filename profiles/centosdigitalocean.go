@@ -21,8 +21,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
-// CentosDigitalOceanCluster creates a basic CentOS DigitalOcean cluster.
-func CentosDigitalOceanCluster(name string) *cluster.Cluster {
+// NewCentosDigitalOceanCluster creates a basic CentOS DigitalOcean cluster.
+func NewCentosDigitalOceanCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudDigitalOcean,
