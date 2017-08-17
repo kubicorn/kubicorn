@@ -19,22 +19,44 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/amazon"
-	"github.com/kris-nova/kubicorn/cloud/digitalocean"
+	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
+	"github.com/kris-nova/kubicorn/cloud/amazon/public"
+	ar "github.com/kris-nova/kubicorn/cloud/amazon/public/resources"
+	"github.com/kris-nova/kubicorn/cloud/digitalocean/droplet"
+	dr "github.com/kris-nova/kubicorn/cloud/digitalocean/droplet/resources"
+	"github.com/kris-nova/kubicorn/cloud/digitalocean/godoSdk"
 	"github.com/kris-nova/kubicorn/cloud/google/compute"
+	gr "github.com/kris-nova/kubicorn/cloud/google/compute/resources"
+	"github.com/kris-nova/kubicorn/cloud/google/googleSDK"
 )
 
 // GetReconciler gets the correct Reconciler for the cloud provider currenty used.
-func GetReconciler(c *cluster.Cluster) (cloud.Reconciler, error) {
-	switch c.Cloud {
-	case cluster.CloudAmazon:
-		return amazon.NewReconciler(c), nil
-	case cluster.CloudDigitalOcean:
-		return digitalocean.NewReconciler(c), nil
+func GetReconciler(known *cluster.Cluster) (reconciler cloud.Reconciler, err error) {
+
+	switch known.Cloud {
 	case cluster.CloudGoogle:
-		return compute.NewReconciler(c), nil
+		sdk, err := googleSDK.NewSdk()
+		if err != nil {
+			return nil, err
+		}
+		gr.Sdk = sdk
+		return cloud.NewAtomicReconciler(known, compute.NewGoogleComputeModel(known)), nil
+	case cluster.CloudDigitalOcean:
+		sdk, err := godoSdk.NewSdk()
+		if err != nil {
+			return nil, err
+		}
+		dr.Sdk = sdk
+		return cloud.NewAtomicReconciler(known, droplet.NewDigitalOceanDropletModel(known)), nil
+	case cluster.CloudAmazon:
+		sdk, err := awsSdkGo.NewSdk(known.Location)
+		if err != nil {
+			return nil, err
+		}
+		ar.Sdk = sdk
+		return cloud.NewAtomicReconciler(known, public.NewAmazonPublicModel(known)), nil
 	default:
-		return nil, fmt.Errorf("Invalid cloud type: %s", c.Cloud)
+		return nil, fmt.Errorf("Invalid cloud type: %s", known.Cloud)
 	}
 
 }

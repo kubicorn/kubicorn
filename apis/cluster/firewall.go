@@ -22,10 +22,10 @@ import (
 type Firewall struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Identifier        string
-	IngressRules      []*IngressRule
-	EgressRules       []*EgressRule
-	Name              string
+	Identifier        string         `json:"identifier,omitempty"`
+	IngressRules      []*IngressRule `json:"ingressRules,omitempty"`
+	EgressRules       []*EgressRule  `json:"egressRules,omitempty"`
+	Name              string         `json:"name,omitempty"`
 }
 
 // Shared object infor among rules.

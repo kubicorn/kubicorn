@@ -15,31 +15,13 @@
 package resources
 
 import (
-	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/godoSdk"
 )
 
 var Sdk *godoSdk.Sdk
 
 type Shared struct {
-	CloudID        string
-	Name           string `json:"name,omitempty"`
-	TagResource    cloud.Resource
-	Tags           []string
-	CachedActual   cloud.Resource
-	CachedExpected cloud.Resource
-}
-
-func (s Shared) getCachedActual() cloud.Resource {
-	if s.CachedActual != nil {
-		return s.CachedActual
-	}
-	return nil
-}
-
-func (s Shared) getCachedExpected() cloud.Resource {
-	if s.CachedExpected != nil {
-		return s.CachedExpected
-	}
-	return nil
+	CloudID string
+	Name    string `json:"name,omitempty"`
+	Tags    []string
 }

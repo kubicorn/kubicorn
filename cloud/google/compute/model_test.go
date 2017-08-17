@@ -15,13 +15,14 @@
 package compute
 
 import (
+	"testing"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud/google/compute/resources"
-	"testing"
 )
 
 func TestClusterModelHappy(t *testing.T) {
-	result := ClusterModel(&cluster.Cluster{
+	result := NewGoogleComputeModel(&cluster.Cluster{
 		ServerPools: []*cluster.ServerPool{
 			{
 				Name: "ServerPool1",
@@ -32,15 +33,15 @@ func TestClusterModelHappy(t *testing.T) {
 		},
 	})
 
-	if len(result) != 2 {
+	if len(result.Resources()) != 2 {
 		t.Fatalf("Amount of serverpools is incorrect")
 	}
 
-	if result[0].(*resources.Instance).Name != "ServerPool1" {
+	if result.Resources()[0].(*resources.Instance).Name != "ServerPool1" {
 		t.Fatalf("Serverpool first name is incorrect")
 	}
 
-	if result[1].(*resources.Instance).Name != "ServerPool2" {
+	if result.Resources()[1].(*resources.Instance).Name != "ServerPool2" {
 		t.Fatalf("Serverpool first name is incorrect")
 	}
 }

@@ -12,36 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package resources
+package googleSDK
 
 import (
-	"fmt"
-
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
+	"os"
+	"testing"
 )
 
-type Shared struct {
-	CloudID        string
-	Name           string
-	TagResource    cloud.Resource
-	Tags           map[string]string
-	CachedActual   cloud.Resource
-	CachedExpected cloud.Resource
+func TestSdkHappy(t *testing.T) {
+	os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "../../../test/resources/google_application_credentials_example.json")
+	_, err := NewSdk()
+	if err != nil {
+		t.Fatalf("Unable to get Google compute SDK: %v", err)
+	}
 }
 
-func S(format string, a ...interface{}) *string {
-	str := fmt.Sprintf(format, a...)
-	return &str
+func TestSdkSad(t *testing.T) {
+	os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "")
+	_, err := NewSdk()
+	if err == nil {
+		t.Fatalf("Able to get Google compute SDK with empty variables")
+	}
 }
-
-func I64(i int) *int64 {
-	i64 := int64(i)
-	return &i64
-}
-
-func B(b bool) *bool {
-	return &b
-}
-
-var Sdk *awsSdkGo.Sdk

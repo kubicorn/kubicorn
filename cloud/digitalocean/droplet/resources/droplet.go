@@ -27,10 +27,13 @@ import (
 	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/scp"
 	"github.com/kris-nova/kubicorn/cutil/script"
 )
+
+var _ cloud.Resource = &Droplet{}
 
 type Droplet struct {
 	Shared
@@ -50,13 +53,9 @@ const (
 	DeleteSleepSecondsPerAttempt   = 3
 )
 
-func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Droplet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("droplet.Actual")
-	if r.CachedActual != nil {
-		logger.Debug("Using cached droplet [actual]")
-		return r.CachedActual, nil
-	}
-	actual := &Droplet{
+	newResource := &Droplet{
 		Shared: Shared{
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
@@ -65,64 +64,65 @@ func (r *Droplet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 
 	droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	ld := len(droplets)
 	if ld > 0 {
-		actual.Count = len(droplets)
+		newResource.Count = len(droplets)
 
 		// Todo (@kris-nova) once we start to test these implementations we really need to work on the droplet logic. Right now we just pick the first one..
 		droplet := droplets[0]
 		id := strconv.Itoa(droplet.ID)
-		actual.Name = droplet.Name
-		actual.CloudID = id
-		actual.Size = droplet.Size.Slug
-		actual.Image = droplet.Image.Slug
-		actual.Region = droplet.Region.Slug
+		newResource.Name = droplet.Name
+		newResource.CloudID = id
+		newResource.Size = droplet.Size.Slug
+		newResource.Image = droplet.Image.Slug
+		newResource.Region = droplet.Region.Slug
 	}
-	actual.BootstrapScripts = r.ServerPool.BootstrapScripts
-	actual.SSHFingerprint = known.SSH.PublicKeyFingerprint
-	actual.Name = r.Name
-	r.CachedActual = actual
-	return actual, nil
+	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
+	newResource.SSHFingerprint = immutable.SSH.PublicKeyFingerprint
+	newResource.Name = r.ServerPool.Name
+	newResource.Count = r.ServerPool.MaxCount
+	newResource.Image = r.ServerPool.Image
+	newResource.Size = r.ServerPool.Size
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *Droplet) Expected(known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Droplet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("droplet.Expected")
-	if r.CachedExpected != nil {
-		logger.Debug("Using droplet subnet [expected]")
-		return r.CachedExpected, nil
-	}
-	expected := &Droplet{
+	newResource := &Droplet{
 		Shared: Shared{
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
 		},
 		Size:             r.ServerPool.Size,
-		Region:           known.Location,
+		Region:           immutable.Location,
 		Image:            r.ServerPool.Image,
 		Count:            r.ServerPool.MaxCount,
-		SSHFingerprint:   known.SSH.PublicKeyFingerprint,
+		SSHFingerprint:   immutable.SSH.PublicKeyFingerprint,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
-	r.CachedExpected = expected
-	return expected, nil
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (cloud.Resource, error) {
+func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("droplet.Apply")
 	applyResource := expected.(*Droplet)
 	isEqual, err := compare.IsEqual(actual.(*Droplet), expected.(*Droplet))
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if isEqual {
-		return applyResource, nil
+		return immutable, applyResource, nil
 	}
 
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	//masterIpPrivate := ""
@@ -131,13 +131,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		found := false
 		for i := 0; i < MasterIPAttempts; i++ {
 			masterTag := ""
-			for _, serverPool := range applyCluster.ServerPools {
+			for _, serverPool := range immutable.ServerPools {
 				if serverPool.Type == cluster.ServerPoolTypeMaster {
 					masterTag = serverPool.Name
 				}
 			}
 			if masterTag == "" {
-				return nil, fmt.Errorf("Unable to find master tag for master IP")
+				return nil, nil, fmt.Errorf("Unable to find master tag for master IP")
 			}
 			droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), masterTag, &godo.ListOptions{})
 			if err != nil {
@@ -152,7 +152,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 				continue
 			}
 			if ld > 1 {
-				return nil, fmt.Errorf("Found [%d] droplets for tag [%s]", ld, masterTag)
+				return nil, nil, fmt.Errorf("Found [%d] droplets for tag [%s]", ld, masterTag)
 			}
 			droplet := droplets[0]
 			//masterIpPrivate, err = droplet.PrivateIPv4()
@@ -161,13 +161,13 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			//}
 			masterIPPublic, err = droplet.PublicIPv4()
 			if err != nil {
-				return nil, fmt.Errorf("Unable to detect public IP: %v", err)
+				return nil, nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
 
 			logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
-			pubPath := local.Expand(applyCluster.SSH.PublicKeyPath)
+			pubPath := local.Expand(immutable.SSH.PublicKeyPath)
 			privPath := strings.Replace(pubPath, ".pub", "", 1)
-			scp := scp.NewSecureCopier(applyCluster.SSH.User, masterIPPublic, "22", privPath)
+			scp := scp.NewSecureCopier(immutable.SSH.User, masterIPPublic, "22", privPath)
 			masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
 			if err != nil {
 				logger.Debug("Hanging for VPN IP.. /tmp/.ip (%v)", err)
@@ -183,24 +183,25 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 			}
 			openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
 			found = true
-			applyCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, applyCluster.KubernetesAPI.Port)
-			applyCluster.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
+			// Todo (@kris-nova) this is obviously not immutable
+			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, immutable.KubernetesAPI.Port)
+			immutable.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
 			break
 		}
 		if !found {
-			return nil, fmt.Errorf("Unable to find Master IP after defined wait")
+			return nil, nil, fmt.Errorf("Unable to find Master IP after defined wait")
 		}
 	}
 
-	applyCluster.Values.ItemMap["INJECTEDPORT"] = applyCluster.KubernetesAPI.Port
-	userData, err = bootstrap.Inject(userData, applyCluster.Values.ItemMap)
+	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+	userData, err = bootstrap.Inject(userData, immutable.Values.ItemMap)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	sshID, err := strconv.Atoi(applyCluster.SSH.Identifier)
+	sshID, err := strconv.Atoi(immutable.SSH.Identifier)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	var droplet *godo.Droplet
@@ -224,7 +225,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		}
 		droplet, _, err = Sdk.Client.Droplets.Create(context.TODO(), createRequest)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		logger.Info("Created Droplet [%d]", droplet.ID)
 	}
@@ -240,19 +241,23 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		Count:            expected.(*Droplet).Count,
 		BootstrapScripts: expected.(*Droplet).BootstrapScripts,
 	}
-	applyCluster.KubernetesAPI.Endpoint = masterIPPublic
-	return newResource, nil
+
+	// todo (@kris-nova) this is obviously not immutable
+	immutable.KubernetesAPI.Endpoint = masterIPPublic
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
-func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.Resource, error) {
+func (r *Droplet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("droplet.Delete")
 	deleteResource := actual.(*Droplet)
 	if deleteResource.Name == "" {
-		return nil, fmt.Errorf("Unable to delete droplet resource without Name [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete droplet resource without Name [%s]", deleteResource.Name)
 	}
 
 	droplets, _, err := Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if len(droplets) != actual.(*Droplet).Count {
 		for i := 0; i < DeleteAttempts; i++ {
@@ -260,7 +265,7 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 			time.Sleep(5 * time.Second)
 			droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 			if len(droplets) == actual.(*Droplet).Count {
 				break
@@ -279,13 +284,14 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 		}
 		_, err = Sdk.Client.Droplets.Delete(context.TODO(), droplet.ID)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 		logger.Info("Deleted Droplet [%d]", droplet.ID)
 	}
 
 	// Kubernetes API
-	known.KubernetesAPI.Endpoint = ""
+	// todo (@kris-nova) this is obviously not immutable
+	immutable.KubernetesAPI.Endpoint = ""
 
 	newResource := &Droplet{}
 	newResource.Name = actual.(*Droplet).Name
@@ -295,36 +301,34 @@ func (r *Droplet) Delete(actual cloud.Resource, known *cluster.Cluster) (cloud.R
 	newResource.Count = actual.(*Droplet).Count
 	newResource.Region = actual.(*Droplet).Region
 	newResource.BootstrapScripts = actual.(*Droplet).BootstrapScripts
-	return newResource, nil
+
+	newCluster := r.immutableRender(newResource, immutable)
+	return newCluster, newResource, nil
 }
 
-func (r *Droplet) Render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+func (r *Droplet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("droplet.Render")
-
+	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
 	serverPool := &cluster.ServerPool{}
 	serverPool.Type = r.ServerPool.Type
-	serverPool.Image = renderResource.(*Droplet).Image
-	serverPool.Size = renderResource.(*Droplet).Size
-	serverPool.Name = renderResource.(*Droplet).Name
-	serverPool.MaxCount = renderResource.(*Droplet).Count
-	serverPool.BootstrapScripts = renderResource.(*Droplet).BootstrapScripts
+	serverPool.Image = newResource.(*Droplet).Image
+	serverPool.Size = newResource.(*Droplet).Size
+	serverPool.Name = newResource.(*Droplet).Name
+	serverPool.MaxCount = newResource.(*Droplet).Count
+	serverPool.BootstrapScripts = newResource.(*Droplet).BootstrapScripts
 	found := false
-	for i := 0; i < len(renderCluster.ServerPools); i++ {
-		if renderCluster.ServerPools[i].Name == renderResource.(*Droplet).Name {
-			renderCluster.ServerPools[i].Image = renderResource.(*Droplet).Image
-			renderCluster.ServerPools[i].Size = renderResource.(*Droplet).Size
-			renderCluster.ServerPools[i].MaxCount = renderResource.(*Droplet).Count
-			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Droplet).BootstrapScripts
+	for i := 0; i < len(newCluster.ServerPools); i++ {
+		if newCluster.ServerPools[i].Name == newResource.(*Droplet).Name {
+			newCluster.ServerPools[i].Image = newResource.(*Droplet).Image
+			newCluster.ServerPools[i].Size = newResource.(*Droplet).Size
+			newCluster.ServerPools[i].MaxCount = newResource.(*Droplet).Count
+			newCluster.ServerPools[i].BootstrapScripts = newResource.(*Droplet).BootstrapScripts
 			found = true
 		}
 	}
 	if !found {
-		renderCluster.ServerPools = append(renderCluster.ServerPools, serverPool)
+		newCluster.ServerPools = append(newCluster.ServerPools, serverPool)
 	}
-	renderCluster.Location = renderResource.(*Droplet).Region
-	return renderCluster, nil
-}
-
-func (r *Droplet) Tag(tags map[string]string) error {
-	return nil
+	newCluster.Location = newResource.(*Droplet).Region
+	return newCluster
 }

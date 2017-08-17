@@ -15,8 +15,9 @@
 package resources
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"testing"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
 )
 
 func TestExpectedHappy(t *testing.T) {
@@ -43,7 +44,7 @@ func TestExpectedHappy(t *testing.T) {
 		Location: "Location-us",
 	}
 
-	resource, err := instance.Expected(knownCluster)
+	_, resource, err := instance.Expected(knownCluster)
 	if err != nil {
 		t.Fatalf("Error while creating resource %v", err)
 	}

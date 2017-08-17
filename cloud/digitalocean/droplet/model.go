@@ -12,28 +12,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package digitalocean
+package droplet
 
 import (
+	"fmt"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/digitalocean/resources"
+	"github.com/kris-nova/kubicorn/cloud/digitalocean/droplet/resources"
 )
 
+type Model struct {
+	known           *cluster.Cluster
+	cachedResources map[int]cloud.Resource
+}
+
+func NewDigitalOceanDropletModel(known *cluster.Cluster) cloud.Model {
+	return &Model{
+		known: known,
+	}
+}
+
 // ClusterModel maps cluster info to DigitalOcean Resources.
-func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
+func (m *Model) Resources() map[int]cloud.Resource {
+	if len(m.cachedResources) > 0 {
+		return m.cachedResources
+	}
 	r := make(map[int]cloud.Resource)
 	i := 0
 
 	// ---- [SSH Key] ----
 	r[i] = &resources.SSH{
 		Shared: resources.Shared{
-			Name: known.Name,
+			Name: m.known.Name,
 		},
 	}
 	i++
 
-	for _, serverPool := range known.ServerPools {
+	for _, serverPool := range m.known.ServerPools {
 		// ---- [Droplet] ----
 		r[i] = &resources.Droplet{
 			Shared: resources.Shared{
@@ -44,7 +60,8 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 		i++
 	}
 
-	for _, serverPool := range known.ServerPools {
+	for _, serverPool := range m.known.ServerPools {
+		fmt.Printf("Len firewalls for %s: %d\n", serverPool.Name, len(serverPool.Firewalls))
 		for _, firewall := range serverPool.Firewalls {
 			// ---- [Firewall] ----
 			f := &resources.Firewall{
@@ -80,5 +97,7 @@ func ClusterModel(known *cluster.Cluster) map[int]cloud.Resource {
 			i++
 		}
 	}
-	return r
+
+	m.cachedResources = r
+	return m.cachedResources
 }
