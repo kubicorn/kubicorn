@@ -106,7 +106,6 @@ func (r *KeyPair) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Reso
 	return known, expected, nil
 }
 
-
 func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("keypair.Apply")
 	applyResource := expected.(*KeyPair)
@@ -122,6 +121,7 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, applyCluster *cluster.C
 		PublicKeyMaterial: []byte(expected.(*KeyPair).PublicKeyData),
 	}
 	newResource := &KeyPair{}
+	fmt.Println(Sdk.Ec2)
 	output, err := Sdk.Ec2.ImportKeyPair(input)
 	if err != nil {
 		if !strings.Contains(err.Error(), "InvalidKeyPair.Duplicate") {

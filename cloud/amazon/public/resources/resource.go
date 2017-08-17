@@ -45,3 +45,7 @@ func B(b bool) *bool {
 }
 
 var Sdk *awsSdkGo.Sdk
+
+func init() {
+
+}

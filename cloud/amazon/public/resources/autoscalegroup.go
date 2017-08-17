@@ -180,7 +180,6 @@ func (r *Asg) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cl
 	newResource.MaxCount = actual.(*Asg).MaxCount
 	newResource.MinCount = actual.(*Asg).MinCount
 
-
 	renderedCluster, err := r.render(newResource, known)
 	if err != nil {
 		return nil, nil, err

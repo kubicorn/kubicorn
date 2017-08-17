@@ -32,9 +32,11 @@ func NewAmazonPublicModel(known *cluster.Cluster) cloud.Model {
 }
 
 func (m *Model) Resources() map[int]cloud.Resource {
+
 	if len(m.cachedResources) > 0 {
 		return m.cachedResources
 	}
+
 	known := m.known
 
 	r := make(map[int]cloud.Resource)

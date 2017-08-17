@@ -36,11 +36,8 @@ type AtomicReconciler struct {
 func NewAtomicReconciler(known *cluster.Cluster, model Model) Reconciler {
 	return &AtomicReconciler{
 		known: known,
+		model: model,
 	}
-}
-
-func (r *AtomicReconciler) SetModel(model Model) {
-	r.model = model
 }
 
 func (r *AtomicReconciler) Actual(known *cluster.Cluster) (actualCluster *cluster.Cluster, err error) {
