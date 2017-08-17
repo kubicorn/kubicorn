@@ -69,10 +69,13 @@ func (r *KeyPair) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		keypair := output.KeyPairs[0]
 		actual.CloudID = *keypair.KeyName
 		actual.PublicKeyFingerprint = *keypair.KeyFingerprint
+		actual.Tags = map[string]string{
+			"Name":              r.Name,
+			"KubernetesCluster": known.Name,
+		}
 	}
 	actual.PublicKeyPath = known.SSH.PublicKeyPath
 	actual.PublicKeyData = string(known.SSH.PublicKeyData)
-	actual.PublicKeyFingerprint = known.SSH.PublicKeyFingerprint
 	actual.User = known.SSH.User
 	r.CachedActual = actual
 	return actual, nil
@@ -94,9 +97,10 @@ func (r *KeyPair) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 			Name:        r.Name,
 			TagResource: r.TagResource,
 		},
-		PublicKeyPath: known.SSH.PublicKeyPath,
-		PublicKeyData: string(known.SSH.PublicKeyData),
-		User:          known.SSH.User,
+		PublicKeyPath:        known.SSH.PublicKeyPath,
+		PublicKeyData:        string(known.SSH.PublicKeyData),
+		User:                 known.SSH.User,
+		PublicKeyFingerprint: known.SSH.PublicKeyFingerprint,
 	}
 	r.CachedExpected = expected
 	return expected, nil

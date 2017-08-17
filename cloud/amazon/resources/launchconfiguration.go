@@ -73,6 +73,10 @@ func (r *Lc) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.Image = *lc.ImageId
 		actual.InstanceType = *lc.InstanceType
 		actual.CloudID = *lc.LaunchConfigurationName
+		actual.Tags = map[string]string{
+			"Name":              r.Name,
+			"KubernetesCluster": known.Name,
+		}
 	} else {
 		actual.Image = r.ServerPool.Image
 		actual.InstanceType = r.ServerPool.Size
@@ -94,7 +98,7 @@ func (r *Lc) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 				"Name":              r.Name,
 				"KubernetesCluster": known.Name,
 			},
-			CloudID:     known.Network.Identifier,
+			CloudID:     r.Name,
 			Name:        r.Name,
 			TagResource: r.TagResource,
 		},

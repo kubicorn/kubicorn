@@ -64,6 +64,10 @@ func (r *Subnet) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 		actual.CloudID = *subnet.SubnetId
 		actual.VpcID = *subnet.VpcId
 		actual.Zone = *subnet.AvailabilityZone
+		actual.Tags = map[string]string{
+			"Name":              r.Name,
+			"KubernetesCluster": known.Name,
+		}
 		for _, tag := range subnet.Tags {
 			key := *tag.Key
 			val := *tag.Value
