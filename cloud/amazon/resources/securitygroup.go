@@ -77,6 +77,10 @@ func (r *SecurityGroup) Actual(known *cluster.Cluster) (cloud.Resource, error) {
 				IngressProtocol: *rule.IpProtocol,
 			})
 		}
+		actual.Tags = map[string]string{
+			"Name":              r.Name,
+			"KubernetesCluster": known.Name,
+		}
 		for _, tag := range sg.Tags {
 			key := *tag.Key
 			val := *tag.Value

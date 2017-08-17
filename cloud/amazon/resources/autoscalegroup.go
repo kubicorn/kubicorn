@@ -17,6 +17,7 @@ package resources
 import (
 	"fmt"
 
+	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -89,7 +90,7 @@ func (r *Asg) Expected(known *cluster.Cluster) (cloud.Resource, error) {
 				"Name":              r.Name,
 				"KubernetesCluster": known.Name,
 			},
-			CloudID:     known.Network.Identifier,
+			CloudID:     r.Name,
 			Name:        r.Name,
 			TagResource: r.TagResource,
 		},
@@ -134,8 +135,33 @@ func (r *Asg) Apply(actual, expected cloud.Resource, applyCluster *cluster.Clust
 	}
 	_, err = Sdk.ASG.CreateAutoScalingGroup(input)
 	if err != nil {
-		return nil, err
+		if awserr, ok := err.(awserr.Error); ok {
+			switch awserr.Code() {
+			case autoscaling.ErrCodeAlreadyExistsFault:
+				{
+					input := &autoscaling.UpdateAutoScalingGroupInput{
+						AutoScalingGroupName:    &r.Name,
+						MinSize:                 I64(expected.(*Asg).MinCount),
+						MaxSize:                 I64(expected.(*Asg).MaxCount),
+						LaunchConfigurationName: &r.Name,
+						VPCZoneIdentifier:       &subnetID,
+					}
+					resp, err := Sdk.ASG.UpdateAutoScalingGroup(input)
+					if err != nil {
+						logger.Debug("Error updating ASG: %v", err)
+					}
+					logger.Debug("ASG Update succeeded: %s", resp)
+				}
+			case autoscaling.ErrCodeResourceContentionFault:
+				{
+					logger.Debug("Pending ASG update - retry later")
+				}
+			default:
+				logger.Debug("Unknown error during ASG update, v%", err)
+			}
+		}
 	}
+
 	logger.Info("Created Asg [%s]", r.Name)
 
 	newResource.Name = r.Name
