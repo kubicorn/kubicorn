@@ -12,53 +12,61 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package fs
+package jsonfs
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
-	"github.com/ghodss/yaml"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 )
 
-type FileSystemStoreOptions struct {
-	ClusterName string
+type JSONFileSystemStoreOptions struct {
 	BasePath    string
+	ClusterName string
 }
 
-type FileSystemStore struct {
-	options      *FileSystemStoreOptions
+// JSONFileSystemStore exists to save the cluster at runtime to the file defined
+// in the state.ClusterJsonFile constant. We perform this operation so that
+// various bash scripts can get the cluster state at runtime without having to
+// inject key/value pairs into the script or anything like that.
+type JSONFileSystemStore struct {
+	options      *JSONFileSystemStoreOptions
 	ClusterName  string
 	BasePath     string
 	AbsolutePath string
 }
 
-func NewFileSystemStore(o *FileSystemStoreOptions) *FileSystemStore {
-	return &FileSystemStore{
+func NewJSONFileSystemStore(o *JSONFileSystemStoreOptions) *JSONFileSystemStore {
+	return &JSONFileSystemStore{
 		options:      o,
 		ClusterName:  o.ClusterName,
 		BasePath:     o.BasePath,
-		AbsolutePath: fmt.Sprintf("%s/%s", o.BasePath, o.ClusterName),
+		AbsolutePath: filepath.Join(o.BasePath, o.ClusterName),
 	}
 }
 
-func (fs *FileSystemStore) Exists() bool {
+func (fs *JSONFileSystemStore) Exists() bool {
 	if _, err := os.Stat(fs.AbsolutePath); os.IsNotExist(err) {
 		return false
 	}
 	return true
 }
 
-func (fs *FileSystemStore) write(relativePath string, data []byte) error {
-	fqn := fmt.Sprintf("%s/%s", fs.AbsolutePath, relativePath)
-	os.MkdirAll(path.Dir(fqn), 0700)
+func (fs *JSONFileSystemStore) write(relativePath string, data []byte) error {
+	fqn := filepath.Join(fs.AbsolutePath, relativePath)
+	err := os.MkdirAll(path.Dir(fqn), 0700)
+	if err != nil {
+		return err
+	}
 	fo, err := os.Create(fqn)
 	if err != nil {
 		return err
@@ -71,8 +79,8 @@ func (fs *FileSystemStore) write(relativePath string, data []byte) error {
 	return nil
 }
 
-func (fs *FileSystemStore) read(relativePath string) ([]byte, error) {
-	fqn := fmt.Sprintf("%s/%s", fs.AbsolutePath, relativePath)
+func (fs *JSONFileSystemStore) read(relativePath string) ([]byte, error) {
+	fqn := filepath.Join(fs.AbsolutePath, relativePath)
 	bytes, err := ioutil.ReadFile(fqn)
 	if err != nil {
 		return []byte(""), err
@@ -80,45 +88,44 @@ func (fs *FileSystemStore) read(relativePath string) ([]byte, error) {
 	return bytes, nil
 }
 
-func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
+func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
 	if c == nil {
 		return fmt.Errorf("Nil cluster spec")
 	}
-	bytes, err := yaml.Marshal(c)
+	bytes, err := json.Marshal(c)
 	if err != nil {
 		return err
 	}
-	fs.write(state.ClusterYamlFile, bytes)
-	return nil
+	return fs.write(state.ClusterJsonFile, bytes)
 }
 
-func (fs *FileSystemStore) Rename(existingRelativePath, newRelativePath string) error {
+func (fs *JSONFileSystemStore) Rename(existingRelativePath, newRelativePath string) error {
 	return os.Rename(existingRelativePath, newRelativePath)
 }
 
-func (fs *FileSystemStore) Destroy() error {
+func (fs *JSONFileSystemStore) Destroy() error {
 	logger.Warning("Removing path [%s]", fs.AbsolutePath)
 	return os.RemoveAll(fs.AbsolutePath)
 }
 
-func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
+func (fs *JSONFileSystemStore) GetCluster() (*cluster.Cluster, error) {
 	cluster := &cluster.Cluster{}
-	configBytes, err := fs.read(state.ClusterYamlFile)
+	configBytes, err := fs.read(state.ClusterJsonFile)
 	if err != nil {
 		return cluster, err
 	}
-	err = yaml.Unmarshal(configBytes, cluster)
+	err = json.Unmarshal(configBytes, cluster)
 	if err != nil {
 		return cluster, err
 	}
 	return cluster, nil
 }
 
-func (fs *FileSystemStore) List() ([]string, error) {
+func (fs *JSONFileSystemStore) List() ([]string, error) {
 
 	var stateList []string
 
-	files, err := ioutil.ReadDir(fs.options.BasePath)
+	files, err := ioutil.ReadDir(fs.AbsolutePath)
 	if err != nil {
 		return stateList, err
 	}
