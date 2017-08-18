@@ -15,9 +15,7 @@
 package resources
 
 import (
-	"fmt"
-
-	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
+	"github.com/kris-nova/kubicorn/cloud/azure/azureSDK"
 )
 
 type Shared struct {
@@ -25,3 +23,5 @@ type Shared struct {
 	Name       string
 	Tags       map[string]string
 }
+
+var Sdk *azureSDK.Sdk
