@@ -1,4 +1,4 @@
-# Setting up Kubernetes 1.7 in DigitalOcean with TLS secured private VPN mesh
+# Setting up Kubernetes in DigitalOcean with TLS secured private VPN mesh
 
 In the following, we're going to show you how to use `kubicorn` to ramp up a Kubernetes cluster in DigitalOcean, use it and tear it down again.
 The cluster will be running over DigitalOcean private networking on an encrypted VPN mesh.

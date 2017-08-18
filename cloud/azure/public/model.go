@@ -28,6 +28,15 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	r := make(map[int]cloud.Resource)
 	i := 0
 
+	// ---- [Resource Group] ----
+	r[i] = &resources.ResourceGroup{
+		Shared: resources.Shared{
+			Name: known.Name,
+			Tags: make(map[string]string),
+		},
+	}
+	i++
+
 	// ---- [Vnet] ----
 	r[i] = &resources.Vnet{
 		Shared: resources.Shared{
