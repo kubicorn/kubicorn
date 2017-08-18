@@ -318,6 +318,7 @@ func (r *Instance) Delete(actual cloud.Resource, known *cluster.Cluster) (*clust
 }
 
 func (r *Instance) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
+	logger.Debug("instance.Render")
 	found := false
 	for i := 0; i < len(renderCluster.ServerPools); i++ {
 		if renderCluster.ServerPools[i].Name == renderResource.(*Instance).Name {
@@ -325,7 +326,6 @@ func (r *Instance) render(renderResource cloud.Resource, renderCluster *cluster.
 			renderCluster.ServerPools[i].Size = renderResource.(*Instance).Size
 			renderCluster.ServerPools[i].MaxCount = renderResource.(*Instance).Count
 			renderCluster.ServerPools[i].Labels = renderResource.(*Instance).Labels
-			renderCluster.Location = renderResource.(*Instance).Location
 			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Instance).BootstrapScripts
 			found = true
 		}
