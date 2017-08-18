@@ -74,7 +74,7 @@ func (h *Handler) Register() {
 					continue
 				}
 				h.signalReceived = signalTerminate
-				os.Exit(130)
+				os.Exit(130)				
 				break
 			case s == os.Kill:
 				h.signalReceived = signalTerminate

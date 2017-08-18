@@ -16,10 +16,10 @@ package cloud
 
 import (
 	"os"
-	"os/signal"
 	"strings"
-	"syscall"
 	"time"
+
+	"github.com/kris-nova/kubicorn/cutil/signals"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
@@ -28,10 +28,11 @@ import (
 )
 
 var sigCaught = false
+var sigHandler *signals.Handler
 
 type AtomicReconciler struct {
 	known *cluster.Cluster
-	model Model
+	model Model	
 }
 
 func NewAtomicReconciler(known *cluster.Cluster, model Model) Reconciler {
@@ -87,6 +88,11 @@ func (r *AtomicReconciler) cleanUp(failedCluster *cluster.Cluster, i int) (err e
 var createdResources = make(map[int]Resource)
 
 func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconciledCluster *cluster.Cluster, err error) {
+	
+	sigHandler = signals.NewSignalHandler(600)
+	go sigHandler.Register()		
+	handleSigInt(sigHandler)
+	
 	reconciledCluster = defaults.NewClusterDefaults(r.known)
 	for i := 0; i < len(r.model.Resources()); i++ {
 		if sigCaught {
@@ -96,11 +102,6 @@ func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconci
 			}
 			os.Exit(1)
 		}
-
-		c := make(chan os.Signal, 1)
-		signal.Notify(c, os.Interrupt)
-
-		go handleCtrlC(c)
 
 		resource := r.model.Resources()[i]
 		_, actualResource, err := resource.Actual(r.known)
@@ -176,10 +177,14 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 	return destroyedCluster, nil
 }
 
-func handleCtrlC(c chan os.Signal) {
-	sig := <-c
-	if sig == syscall.SIGINT {
-		sigCaught = true
-		logger.Critical("Detected SIGINT. Please be patient while kubicorn cleanly exits.")
-	}
+func handleSigInt(h *signals.Handler) {
+	go func() {		
+		for {
+			if h.GetState() != 0 {
+				sigCaught = true
+				logger.Critical("Detected signal. Please be patient while kubicorn cleanly exits. Maybe get a cup of tea?")
+				break
+			}
+		}
+	}()
 }
