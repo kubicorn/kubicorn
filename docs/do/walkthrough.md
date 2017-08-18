@@ -44,7 +44,9 @@ Next, export the environment variable `DIGITALOCEAN_ACCESS_TOKEN` so that `kubic
 $ export DIGITALOCEAN_ACCESS_TOKEN=*****************************************
 ```
 
-Also, make sure that the public SSH key for your DigitalOcean account is called `id_rsa.pub`, which is the default in above profile:
+#### SSH
+
+SSH keys must be created ahead of time and present in Digital Ocean. Please follow [these](https://www.digitalocean.com/community/tutorials/how-to-use-ssh-keys-with-digitalocean-droplets) instructions for creating a local SSH key and making it available for droplets. When creating your SSH key, *make sure to name it the same as the clsuter name*. For this example you would create create a key called `myfirstk8s`. The path to your `myfirstk8s` public key is modifiable in the `_state/myfirstk8s/cluster.yaml` file. For this example we are using `~/.ssh/id_rsa.pub` as the path.
 
 ```
 $ ls -al ~/.ssh/id_rsa.pub
