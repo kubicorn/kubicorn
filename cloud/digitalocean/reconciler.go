@@ -47,6 +47,7 @@ var model map[int]cloud.Resource
 func (r *Reconciler) Init() error {
 	sigHandler := signals.NewSignalHandler(600)
 	go sigHandler.Register()
+	handleSigInt(sigHandler)
 
 	sdk, err := godoSdk.NewSdk()
 	if err != nil {
@@ -119,7 +120,6 @@ func (r *Reconciler) Reconcile(actualCluster, expectedCluster *cluster.Cluster) 
 			cleanUp(newCluster, i)
 			os.Exit(1)
 		}
-		handleSigInt(sigHandler)
 
 		resource := model[i]
 		expectedResource, err := resource.Expected(expectedCluster)
