@@ -32,22 +32,40 @@ type ResourceGroup struct {
 	Location string
 }
 
+// Actual returns the actual resource group in Azure if it exists.
 func (r *ResourceGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("resourcegroup.Actual")
-
 	newResource := &ResourceGroup{
-		Shared: Shared{},
+		Shared: Shared{
+			Name:       r.Name,
+			Tags:       r.Tags,
+			Identifier: immutable.GroupIdentifier,
+		},
+		Location: r.Location,
+	}
+
+	if r.Identifier != "" {
+		group, err := Sdk.ResourceGroup.Get(immutable.Name)
+		if err != nil {
+			return nil, nil, err
+		}
+		newResource.Location = *group.Location
+		newResource.Name = *group.Name
+		newResource.Identifier = *group.ID
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
 
+// Expected will return the expected resource group as it would be defined in Azure
 func (r *ResourceGroup) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("resourcegroup.Expected")
 	newResource := &ResourceGroup{
 		Shared: Shared{
-			Name: immutable.Name,
+			Name:       immutable.Name,
+			Tags:       r.Tags,
+			Identifier: immutable.GroupIdentifier,
 		},
 		Location: immutable.Location,
 	}
@@ -91,8 +109,20 @@ func (r *ResourceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
 
+	autorestChan, errorChan := Sdk.ResourceGroup.Delete(immutable.ClusterName, make(chan struct{}))
+	select {
+	case <-autorestChan:
+		logger.Info("Successfully deleted resource group [%s]", deleteResource.Identifier)
+	case err := <-errorChan:
+		return nil, nil, err
+	}
+
 	newResource := &ResourceGroup{
-		Shared: Shared{},
+		Shared: Shared{
+			Name: immutable.Name,
+			Tags: r.Tags,
+		},
+		Location: immutable.Location,
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -101,6 +131,10 @@ func (r *ResourceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 
 func (r *ResourceGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("resourcegroup.Render")
+	resourceGroup := newResource.(*ResourceGroup)
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster.GroupIdentifier = resourceGroup.Identifier
+	newCluster.Location = resourceGroup.Location
+	newCluster.Name = resourceGroup.Name
 	return newCluster
 }
