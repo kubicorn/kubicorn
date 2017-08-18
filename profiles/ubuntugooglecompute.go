@@ -25,6 +25,7 @@ import (
 func NewUbuntuGoogleComputeCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
+		CloudId:  "example-id",
 		Cloud:    cluster.CloudGoogle,
 		Location: "us-central1-a",
 		SSH: &cluster.SSH{

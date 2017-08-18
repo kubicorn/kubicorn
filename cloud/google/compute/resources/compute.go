@@ -25,6 +25,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/script"
 	compute "google.golang.org/api/compute/v1"
+	"strings"
 )
 
 var _ cloud.Resource = &Instance{}
@@ -60,14 +61,14 @@ func (r *Instance) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
 			Labels: map[string]string{
-				"group": r.Name,
+				"group": strings.ToLower(r.Name),
 			},
 		},
 	}
 
-	project, err := Sdk.Service.Projects.Get(known.Name).Do()
+	project, err := Sdk.Service.Projects.Get(known.CloudId).Do()
 	if err != nil && project != nil {
-		instances, err := Sdk.Service.Instances.List(known.Name, known.Location).Do()
+		instances, err := Sdk.Service.Instances.List(known.CloudId, known.Location).Do()
 		if err != nil {
 			return nil, nil, err
 		}
@@ -105,7 +106,7 @@ func (r *Instance) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Res
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
 			Labels: map[string]string{
-				"group": r.Name,
+				"group": strings.ToLower(r.Name),
 			},
 		},
 		Size:             r.ServerPool.Size,
@@ -151,7 +152,7 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 				return nil, nil, fmt.Errorf("Unable to find master tag.")
 			}
 
-			instance, err := Sdk.Service.Instances.Get(expectedCluster.Name, expectedResource.(*Instance).Location, masterTag).Do()
+			instance, err := Sdk.Service.Instances.Get(expectedCluster.CloudId, expectedResource.(*Instance).Location, strings.ToLower(masterTag)).Do()
 			if err != nil {
 				logger.Debug("Hanging for master IP.. (%v)", err)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
@@ -198,13 +199,13 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 		tags = append(tags, "http-server")
 	}
 
-	prefix := "https://www.googleapis.com/compute/v1/projects/" + expectedCluster.Name
+	prefix := "https://www.googleapis.com/compute/v1/projects/" + expectedCluster.CloudId
 	imageURL := "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/" + expectedResource.(*Instance).Image
 
 	for j := 0; j < expectedResource.(*Instance).Count; j++ {
 		sshPublicKeyValue := fmt.Sprintf("%s:%s", expectedCluster.SSH.User, string(expectedCluster.SSH.PublicKeyData))
 		instance := &compute.Instance{
-			Name:        fmt.Sprintf("%s-%d", expectedResource.(*Instance).Name, j),
+			Name:        fmt.Sprintf("%s-%d", strings.ToLower(expectedResource.(*Instance).Name), j),
 			MachineType: prefix + "/zones/" + expectedResource.(*Instance).Location + "/machineTypes/" + expectedResource.(*Instance).Size,
 			Disks: []*compute.AttachedDisk{
 				{
@@ -212,7 +213,7 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 					Boot:       true,
 					Type:       "PERSISTENT",
 					InitializeParams: &compute.AttachedDiskInitializeParams{
-						DiskName:    fmt.Sprintf("disk-%s-%d", expectedResource.(*Instance).Name, j),
+						DiskName:    fmt.Sprintf("disk-%s-%d", strings.ToLower(expectedResource.(*Instance).Name), j),
 						SourceImage: imageURL,
 					},
 				},
@@ -254,11 +255,11 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 				Items: tags,
 			},
 			Labels: map[string]string{
-				"group": expectedResource.(*Instance).Name,
+				"group": strings.ToLower(expectedResource.(*Instance).Name),
 			},
 		}
 
-		_, err := Sdk.Service.Instances.Insert(expectedCluster.Name, expectedResource.(*Instance).Location, instance).Do()
+		_, err := Sdk.Service.Instances.Insert(expectedCluster.CloudId, expectedResource.(*Instance).Location, instance).Do()
 		if err != nil {
 			return nil, nil, err
 		}
@@ -293,14 +294,14 @@ func (r *Instance) Delete(actual cloud.Resource, known *cluster.Cluster) (*clust
 		return nil, nil, fmt.Errorf("Unable to delete instance resource without Name [%s]", deleteResource.Name)
 	}
 
-	instances, err := Sdk.Service.Instances.List(known.Name, known.Location).Do()
+	instances, err := Sdk.Service.Instances.List(known.CloudId, known.Location).Do()
 	if err != nil {
 		return nil, nil, err
 	}
 
 	for _, instance := range instances.Items {
 		if instance.Labels["group"] == actual.(*Instance).Labels["group"] {
-			_, err = Sdk.Service.Instances.Delete(known.Name, known.Location, instance.Name).Do()
+			_, err = Sdk.Service.Instances.Delete(known.CloudId, known.Location, instance.Name).Do()
 			if err != nil {
 				return nil, nil, err
 			}

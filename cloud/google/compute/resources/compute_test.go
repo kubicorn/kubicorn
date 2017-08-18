@@ -37,7 +37,8 @@ func TestExpectedHappy(t *testing.T) {
 	}
 
 	knownCluster := &cluster.Cluster{
-		Name: "ClusterName",
+		Name:    "ClusterName",
+		CloudId: "test-123",
 		SSH: &cluster.SSH{
 			PublicKeyFingerprint: "fingerprint",
 		},
