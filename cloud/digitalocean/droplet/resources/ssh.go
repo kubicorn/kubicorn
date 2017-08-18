@@ -69,7 +69,7 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 			return nil, nil, err
 		}
 		for _, key := range keys {
-			if key.Name == immutable.Name {
+			if key.Fingerprint == immutable.SSH.PublicKeyFingerprint {
 				found = true
 				newResource.Name = key.Name
 				newResource.CloudID = strconv.Itoa(key.ID)
