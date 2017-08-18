@@ -62,14 +62,14 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 		newResource.CloudID = strid
 		newResource.PublicKeyData = ssh.PublicKey
 		newResource.PublicKeyFingerprint = ssh.Fingerprint
-	} else {		
+	} else {
 		found := false
 		keys, _, err := Sdk.Client.Keys.List(context.TODO(), &godo.ListOptions{})
 		if err != nil {
 			return nil, nil, err
 		}
-		for _, key := range keys {			
-			if key.Fingerprint == immutable.SSH.PublicKeyFingerprint {				
+		for _, key := range keys {
+			if key.Fingerprint == immutable.SSH.PublicKeyFingerprint {
 				found = true
 				newResource.Name = key.Name
 				newResource.CloudID = strconv.Itoa(key.ID)
