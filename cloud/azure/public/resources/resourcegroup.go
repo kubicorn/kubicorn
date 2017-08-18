@@ -17,12 +17,12 @@ package resources
 import (
 	"fmt"
 
+	"github.com/Azure/azure-sdk-for-go/arm/resources/resources"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/Azure/azure-sdk-for-go/arm/resources/resources"
 )
 
 var _ cloud.Resource = &ResourceGroup{}
@@ -66,14 +66,13 @@ func (r *ResourceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		return immutable, applyResource, nil
 	}
 
-
 	group, err := Sdk.ResourceGroup.CreateOrUpdate(immutable.Name, resources.Group{
 		Location: &immutable.Location,
 	})
 	if err != nil {
 		return nil, nil, err
 	}
-
+	logger.Info("Created resource group [%s]", *group.Name)
 
 	newResource := &ResourceGroup{
 		Shared: Shared{

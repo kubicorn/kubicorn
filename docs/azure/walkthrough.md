@@ -102,7 +102,7 @@ $ ls -al ~/.ssh/id_rsa.pub
 #### Applying
 
 With the access set up, we can now apply the resources we defined in the first step. 
-This actually creates resources in DigitalOcean. Up to now we've only been working locally.
+This actually creates resources in Azure! Up to now we've only been working locally.
 
 So, execute:
 
