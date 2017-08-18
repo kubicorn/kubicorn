@@ -23,6 +23,7 @@ import (
 	awspub "github.com/kris-nova/kubicorn/cloud/amazon/public"
 	ar "github.com/kris-nova/kubicorn/cloud/amazon/public/resources"
 	"github.com/kris-nova/kubicorn/cloud/azure/azureSDK"
+	azpub "github.com/kris-nova/kubicorn/cloud/azure/public"
 	azr "github.com/kris-nova/kubicorn/cloud/azure/public/resources"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/droplet"
 	dr "github.com/kris-nova/kubicorn/cloud/digitalocean/droplet/resources"
@@ -30,7 +31,6 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/google/compute"
 	gr "github.com/kris-nova/kubicorn/cloud/google/compute/resources"
 	"github.com/kris-nova/kubicorn/cloud/google/googleSDK"
-	azpub "github.com/kris-nova/kubicorn/cloud/azure/public"
 )
 
 // GetReconciler gets the correct Reconciler for the cloud provider currenty used.
