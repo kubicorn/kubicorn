@@ -183,6 +183,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 			}
 			openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
 			found = true
+
 			// Todo (@kris-nova) this is obviously not immutable
 			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, immutable.KubernetesAPI.Port)
 			immutable.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped

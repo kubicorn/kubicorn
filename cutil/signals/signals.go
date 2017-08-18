@@ -18,8 +18,11 @@ package signals
 import (
 	"os"
 	"os/signal"
+	"runtime/debug"
 	"syscall"
 	"time"
+
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 const (
@@ -37,6 +40,9 @@ type Signal interface {
 
 // Handler defines signal handler properties.
 type Handler struct {
+
+	// todo (@xmudrii) Can we move these to package level vars instead of in the Handler{}
+
 	// timeoutSeconds defines when handler will timeout in seconds.
 	timeoutSeconds int
 	// signals stores signals recieved from the system.
@@ -49,7 +55,6 @@ type Handler struct {
 func NewSignalHandler(timeoutSeconds int) *Handler {
 	signals := make(chan os.Signal)
 	signal.Notify(signals, os.Interrupt, os.Kill)
-
 	return &Handler{
 		timeoutSeconds: timeoutSeconds,
 		signals:        signals,
@@ -64,33 +69,34 @@ func (h *Handler) GetState() int {
 
 // Register starts handling signals.
 func (h *Handler) Register() {
-	for {
-		select {
-		case s := <-h.signals:
-			switch {
-			case s == os.Interrupt:
-				if h.signalReceived == 0 {
+	go func() {
+		for {
+			select {
+			case s := <-h.signals:
+				switch {
+				case s == os.Interrupt:
+					if h.signalReceived == 0 {
+						h.signalReceived = 1
+						logger.Debug("SIGINT Received")
+						continue
+					}
+					h.signalReceived = signalTerminate
+					debug.PrintStack()
+					os.Exit(130)
+					break
+				case s == syscall.SIGQUIT:
 					h.signalReceived = signalAbort
-					continue
+					break
+				case s == syscall.SIGTERM:
+					h.signalReceived = signalTerminate
+					os.Exit(3)
+					break
 				}
-				h.signalReceived = signalTerminate
-				os.Exit(130)				
-				break
-			case s == os.Kill:
-				h.signalReceived = signalTerminate
-				os.Exit(3)
-				break
-			case s == syscall.SIGQUIT:
-				h.signalReceived = signalAbort
-				break
-			case s == syscall.SIGTERM:
-				h.signalReceived = signalTerminate
-				os.Exit(3)
+			case <-time.After(time.Duration(h.timeoutSeconds) * time.Second):
+				os.Exit(4)
 				break
 			}
-		case <-time.After(time.Duration(h.timeoutSeconds) * time.Second):
-			os.Exit(4)
-			break
 		}
-	}
+
+	}()
 }

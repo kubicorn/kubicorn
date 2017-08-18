@@ -20,6 +20,7 @@ import (
 	"net"
 	"os"
 	"syscall"
+	"time"
 
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/pkg/sftp"
@@ -48,6 +49,7 @@ func (s *SecureCopier) ReadBytes(remotePath string) ([]byte, error) {
 	sshConfig := &ssh.ClientConfig{
 		User:            s.RemoteUser,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+		Timeout:         time.Duration(3 * time.Second),
 	}
 
 	agent := sshAgent()
