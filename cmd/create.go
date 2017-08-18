@@ -129,14 +129,17 @@ func RunCreate(options *CreateOptions) error {
 
 	// Create our cluster resource
 	name := options.Name
-	var cluster *cluster.Cluster
+	var newCluster *cluster.Cluster
 	if _, ok := profileMapIndexed[options.Profile]; ok {
-		cluster = profileMapIndexed[options.Profile].profileFunc(name)
+		newCluster = profileMapIndexed[options.Profile].profileFunc(name)
 	} else {
 		return fmt.Errorf("Invalid profile [%s]", options.Profile)
 	}
 
-	cluster.CloudId = options.CloudId
+	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
+		return fmt.Errorf("--cloudid is required for google cloud.")
+	}
+	newCluster.CloudId = options.CloudId
 	// Expand state store path
 	// Todo (@kris-nova) please pull this into a filepath package or something
 	options.StateStorePath = expandPath(options.StateStorePath)
@@ -158,7 +161,7 @@ func RunCreate(options *CreateOptions) error {
 	}
 
 	// Init new state store with the cluster resource
-	err := stateStore.Commit(cluster)
+	err := stateStore.Commit(newCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to init state store: %v", err)
 	}
