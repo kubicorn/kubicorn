@@ -39,7 +39,7 @@ type CreateOptions struct {
 var co = &CreateOptions{}
 
 var createCmd = &cobra.Command{
-	Use:   "create [NAME] [-p|--profile PROFILENAME] [-ci|--cloudid CLOUDID]",
+	Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
 	Short: "Create a Kubicorn API model from a profile",
 	Long: `Use this command to create a Kubicorn API model in a defined state store.
 
@@ -137,7 +137,7 @@ func RunCreate(options *CreateOptions) error {
 	}
 
 	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
-		return fmt.Errorf("--cloudid is required for google cloud.")
+		return fmt.Errorf("CloudID is required for google cloud.")
 	}
 	newCluster.CloudId = options.CloudId
 	// Expand state store path
