@@ -173,7 +173,7 @@
   branch = "master"
   name = "github.com/kris-nova/lolgopher"
   packages = ["."]
-  revision = "49e783e2935d48b5a613654d06a11ebddb6c4b79"
+  revision = "3c01d2e17dcc957c58398ab94130f256015cfb70"
 
 [[projects]]
   branch = "master"
@@ -292,6 +292,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "19a2b04a1933647455ec919744823fa61795516727ab9c0a3104b7dc750a2d43"
+  inputs-digest = "d1dd0f900307feb5b8fef921099122291fff34121c81c8f4221b82e811dfdc78"
   solver-name = "gps-cdcl"
   solver-version = 1
