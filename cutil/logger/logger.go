@@ -15,12 +15,13 @@
 package logger
 
 import (
-	lol "github.com/kris-nova/lolgopher"
 	"fmt"
 	"io"
 	"os"
 	"strings"
 	"time"
+
+	lol "github.com/kris-nova/lolgopher"
 
 	"github.com/fatih/color"
 )
@@ -36,11 +37,11 @@ const (
 )
 
 var (
-	Level    = 2
-	Color    = true
-	Fabulous = false
+	Level          = 2
+	Color          = true
+	Fabulous       = false
 	FabulousWriter = &lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256}
-	TestMode = false
+	TestMode       = false
 )
 
 func Log(format string, a ...interface{}) {
