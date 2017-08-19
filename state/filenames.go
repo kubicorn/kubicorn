@@ -15,6 +15,6 @@
 package state
 
 const (
-	ClusterJsonFile = "cluster.json"
+	ClusterJSONFile = "cluster.json"
 	ClusterYamlFile = "cluster.yaml"
 )

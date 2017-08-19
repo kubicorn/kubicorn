@@ -26,7 +26,7 @@ var (
 	DefaultTicker = time.NewTicker(200 * time.Millisecond)
 )
 
-// annotates a task with a description and a sequence of symbols indicating task activity until it terminates
+// RunAnnotated annotates a task with a description and a sequence of symbols indicating task activity until it terminates
 func RunAnnotated(task Task, description string, symbol string, options ...interface{}) error {
 	doneCh := make(chan bool)
 	errCh := make(chan error)
