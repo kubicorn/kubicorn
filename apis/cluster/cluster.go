@@ -30,6 +30,7 @@ type Cluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Name              string         `json:"name,omitempty"`
+	CloudId           string         `json:"cloudId,omitempty"`
 	ServerPools       []*ServerPool  `json:"serverPools,omitempty"`
 	Cloud             string         `json:"cloud,omitempty"`
 	Location          string         `json:"location,omitempty"`
