@@ -37,7 +37,9 @@ var editCmd = &cobra.Command{
 	Short: "Edit a cluster state",
 	Long:  `Use this command to edit a state.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) > 1 {
+		if len(args) == 0 {
+			ao.Name = strEnvDef("KUBICORN_NAME", "")
+		} else if len(args) > 1 {
 			logger.Critical("Too many arguments.")
 			os.Exit(1)
 		} else {
