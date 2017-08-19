@@ -79,13 +79,17 @@ func (fs *JSONFileSystemStore) write(relativePath string, data []byte) error {
 	return nil
 }
 
-func (fs *JSONFileSystemStore) read(relativePath string) ([]byte, error) {
+func (fs *JSONFileSystemStore) Read(relativePath string) ([]byte, error) {
 	fqn := filepath.Join(fs.AbsolutePath, relativePath)
 	bytes, err := ioutil.ReadFile(fqn)
 	if err != nil {
 		return []byte(""), err
 	}
 	return bytes, nil
+}
+
+func (fs *JSONFileSystemStore) ReadStore() ([]byte, error) {
+	return fs.Read(state.ClusterJsonFile)
 }
 
 func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
@@ -109,12 +113,17 @@ func (fs *JSONFileSystemStore) Destroy() error {
 }
 
 func (fs *JSONFileSystemStore) GetCluster() (*cluster.Cluster, error) {
-	cluster := &cluster.Cluster{}
-	configBytes, err := fs.read(state.ClusterJsonFile)
+	configBytes, err := fs.Read(state.ClusterJsonFile)
 	if err != nil {
-		return cluster, err
+		return nil, err
 	}
-	err = json.Unmarshal(configBytes, cluster)
+
+	return fs.BytesToCluster(configBytes)
+}
+
+func (fs *JSONFileSystemStore) BytesToCluster(bytes []byte) (*cluster.Cluster, error) {
+	cluster := &cluster.Cluster{}
+	err := json.Unmarshal(bytes, cluster)
 	if err != nil {
 		return cluster, err
 	}
