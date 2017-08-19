@@ -37,6 +37,7 @@ type Cluster struct {
 	Network           *Network       `json:"network,omitempty"`
 	Values            *Values        `json:"values,omitempty"`
 	KubernetesAPI     *KubernetesAPI `json:"kubernetesAPI,omitempty"`
+	GroupIdentifier   string         `json:"groupIdentifier,omitempty"`
 }
 
 func NewCluster(name string) *Cluster {

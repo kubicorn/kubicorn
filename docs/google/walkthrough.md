@@ -1,4 +1,4 @@
-# Setting up Kubernetes 1.7 in Google with TLS secured private VPN mesh
+# Setting up Kubernetes in Google with TLS secured private VPN mesh
 
 In the following, we're going to show you how to use `kubicorn` to ramp up a Kubernetes cluster in Google cloud, use it and tear it down again.
 The cluster will be running over Google private networking on an encrypted VPN mesh.
