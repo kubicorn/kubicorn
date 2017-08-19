@@ -8,6 +8,18 @@
   version = "v0.11.0"
 
 [[projects]]
+  name = "github.com/Azure/azure-sdk-for-go"
+  packages = ["arm/examples/helpers","arm/network","arm/resources/resources"]
+  revision = "57db66900881e9fd21fd041a9d013514700ecab3"
+  version = "v10.3.0-beta"
+
+[[projects]]
+  name = "github.com/Azure/go-autorest"
+  packages = ["autorest","autorest/adal","autorest/azure","autorest/date","autorest/to","autorest/validation"]
+  revision = "77a52603f06947221c672f10275abc9bf2c7d557"
+  version = "v8.3.0"
+
+[[projects]]
   name = "github.com/PuerkitoBio/purell"
   packages = ["."]
   revision = "0bcb03f4b4d0a9428594752bd2a3b9aa0a9d4bd4"
@@ -24,6 +36,12 @@
   packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/shareddefaults","private/protocol","private/protocol/ec2query","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/restxml","private/protocol/xml/xmlutil","service/autoscaling","service/ec2","service/s3","service/sts"]
   revision = "b33b08175d12b795daa7726c5577b39d06a2551c"
   version = "v1.10.20"
+
+[[projects]]
+  name = "github.com/dgrijalva/jwt-go"
+  packages = ["."]
+  revision = "d2709f9f1f31ebcda9651b03077758c1f3a0018c"
+  version = "v3.0.0"
 
 [[projects]]
   name = "github.com/digitalocean/godo"
@@ -274,6 +292,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "07fe5da2e2d1d92ef9ea57f6ed20d51622084073709d22b89bfd0933cf218252"
+  inputs-digest = "19a2b04a1933647455ec919744823fa61795516727ab9c0a3104b7dc750a2d43"
   solver-name = "gps-cdcl"
   solver-version = 1
