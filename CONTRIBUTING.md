@@ -18,7 +18,7 @@ Everyone is welcome.
 ### Formatting Go Code
 
 To get your pull request merged, Golang files must be formatted using the `go fmt` tool.
-Please use the `gofmt` make target to format all Golang files..
+Please use the `gofmt` make target to format all Golang files.
 
 ### Linting
 
@@ -58,7 +58,7 @@ No exceptions.
 
 ### Happy/Sad Tests
 
-We strive for using concept of the Happy/Sad tests. Happy test must pass only in case when the given request is correct and response for the request is valid. Sad test must pass only in case when the given request is malformed and appropriate error is returned while parsing it.  
+We strive for using the concept of the Happy/Sad tests. Happy test must pass only in case when the given request is correct and response for the request is valid. Sad test must pass only in case when the given request is malformed and appropriate error is returned while parsing it.  
 
 You can take a look at the following [example of Happy/Sad tests](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/godoSdk/sdk_test.go).
 
