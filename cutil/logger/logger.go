@@ -15,6 +15,7 @@
 package logger
 
 import (
+	lol "github.com/kris-nova/lolgopher"
 	"fmt"
 	"io"
 	"os"
@@ -38,6 +39,7 @@ var (
 	Level    = 2
 	Color    = true
 	Fabulous = false
+	FabulousWriter = &lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256}
 	TestMode = false
 )
 
