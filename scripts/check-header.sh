@@ -37,7 +37,7 @@ for FILE in $FILES; do
         if [ "$FILE" == "./bootstrap/bootstrap.go" ]; then
             continue
         fi
-        HEADER=$(head -n 13 $FILE)
+        HEADER=$(head -n 13 "$FILE")
         if [ "$HEADER" != "$EXPECTED" ]; then
                 echo "incorrect license header: $FILE"
 		STATUS=1

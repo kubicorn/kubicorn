@@ -1,6 +1,6 @@
 #!/bin/bash
 VERBOSE=FALSE
-VERBOSE_DOCKER_RUN=""
+VERBOSE_DOCKER_RUN=()
 VERBOSE_DOCKER_BUILD="-q"
 REMOVE_IMAGE=FALSE
 SHOW_HELP=FALSE
@@ -17,7 +17,7 @@ while test $# -gt 0; do
             ;;
         -v|--verbose)
             VERBOSE=TRUE
-            VERBOSE_DOCKER_RUN="-e 'VERBOSE=1'"
+            VERBOSE_DOCKER_RUN=(-e "VERBOSE=1")
             VERBOSE_DOCKER_BUILD=""
             shift
             ;;
@@ -26,7 +26,7 @@ while test $# -gt 0; do
             shift
             ;;
         --make*)
-            MAKE_COMMAND="make "`echo $1 | sed -e 's/^[^=]*=//g'`
+            MAKE_COMMAND="make "$(echo "$1" | sed -e 's/^[^=]*=//g') 
             shift
             ;;
     esac
@@ -60,6 +60,6 @@ docker build -t gobuilder-kubicorn "${DIR}" ${VERBOSE_DOCKER_BUILD}
 if ${VERBOSE} ; then
     echo Running make script
 fi
-docker run --rm -v "/${DIR}/.."://go/src/github.com/kris-nova/kubicorn -v "/${GOPATH}/bin"://go/bin -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn ${MAKE_COMMAND} ${VERBOSE_DOCKER_RUN}
+docker run --rm -v "/${DIR}/.."://go/src/github.com/kris-nova/kubicorn -v "/${GOPATH}/bin"://go/bin -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn "${MAKE_COMMAND}" "${VERBOSE_DOCKER_RUN[@]}"
 
 read -p "Done. Press enter to continue"
