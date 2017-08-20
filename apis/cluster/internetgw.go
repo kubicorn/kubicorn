@@ -12,11 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// +build windows
+package cluster
 
-package logger
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
-import "os"
-
-// disable lolgopher for windows
-var FabulousWriter = os.Stdout
+type InternetGW struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+	Name              string `json:"name,omitempty"`
+	Identifier        string `json:"identifier,omitempty"`
+}

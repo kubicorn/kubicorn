@@ -35,8 +35,9 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 			Port: "443",
 		},
 		Network: &cluster.Network{
-			Type: cluster.NetworkTypePublic,
-			CIDR: "10.0.0.0/16",
+			Type:       cluster.NetworkTypePublic,
+			CIDR:       "10.0.0.0/16",
+			InternetGW: &cluster.InternetGW{},
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{

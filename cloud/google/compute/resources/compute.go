@@ -18,6 +18,8 @@ import (
 	"fmt"
 	"time"
 
+	"strings"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -25,7 +27,6 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/script"
 	compute "google.golang.org/api/compute/v1"
-	"strings"
 )
 
 var _ cloud.Resource = &Instance{}
@@ -149,7 +150,7 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 				}
 			}
 			if masterTag == "" {
-				return nil, nil, fmt.Errorf("Unable to find master tag.")
+				return nil, nil, fmt.Errorf("Unable to find master tag")
 			}
 
 			instance, err := Sdk.Service.Instances.Get(expectedCluster.CloudId, expectedResource.(*Instance).Location, strings.ToLower(masterTag)).Do()
