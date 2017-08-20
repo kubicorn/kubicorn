@@ -89,7 +89,7 @@ func (fs *JSONFileSystemStore) Read(relativePath string) ([]byte, error) {
 }
 
 func (fs *JSONFileSystemStore) ReadStore() ([]byte, error) {
-	return fs.Read(state.ClusterJsonFile)
+	return fs.Read(state.ClusterJSONFile)
 }
 
 func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
