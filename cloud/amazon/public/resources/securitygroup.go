@@ -75,6 +75,10 @@ func (r *SecurityGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cl
 				IngressProtocol: *rule.IpProtocol,
 			})
 		}
+		newResource.Tags = map[string]string{
+			"Name":              r.Name,
+			"KubernetesCluster": immutable.Name,
+		}
 		for _, tag := range sg.Tags {
 			key := *tag.Key
 			val := *tag.Value

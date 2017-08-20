@@ -38,6 +38,7 @@ func (r *Vpc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 	// New Resource
 	newResource := &Vpc{
 		Shared: Shared{
+			Name: r.Name,
 			Tags: make(map[string]string),
 		},
 	}

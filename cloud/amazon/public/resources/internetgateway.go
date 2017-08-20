@@ -39,7 +39,7 @@ func (r *InternetGateway) Actual(immutable *cluster.Cluster) (*cluster.Cluster, 
 			Tags: make(map[string]string),
 		},
 	}
-	if immutable.Network.Identifier != "" {
+	if immutable.Network.InternetGW.Identifier != "" {
 		input := &ec2.DescribeInternetGatewaysInput{
 			Filters: []*ec2.Filter{
 				{
@@ -63,13 +63,12 @@ func (r *InternetGateway) Actual(immutable *cluster.Cluster) (*cluster.Cluster, 
 			newResource.Identifier = *ig.InternetGatewayId
 		}
 	}
-
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
 
 func (r *InternetGateway) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("internetgateway.Expected")
+	logger.Debug("internetgateway.Expected %v", r.Identifier)
 	newResource := &InternetGateway{
 		Shared: Shared{
 			Tags: map[string]string{
@@ -77,7 +76,7 @@ func (r *InternetGateway) Expected(immutable *cluster.Cluster) (*cluster.Cluster
 				"KubernetesCluster":              immutable.Name,
 				"kubicorn-internet-gateway-name": r.Name,
 			},
-			Identifier: r.Name,
+			Identifier: immutable.Network.InternetGW.Identifier,
 			Name:       r.Name,
 		},
 	}
@@ -189,6 +188,7 @@ func (r *InternetGateway) Delete(actual cloud.Resource, immutable *cluster.Clust
 func (r *InternetGateway) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("internetgateway.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	newCluster.Network.InternetGW.Identifier = newResource.(*InternetGateway).Identifier
 	return newCluster
 }
 

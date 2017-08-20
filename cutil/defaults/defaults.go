@@ -19,6 +19,7 @@ import "github.com/kris-nova/kubicorn/apis/cluster"
 func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 	new := &cluster.Cluster{
 		Name:          base.Name,
+		CloudId:       base.CloudId,
 		Cloud:         base.Cloud,
 		Location:      base.Location,
 		Network:       base.Network,

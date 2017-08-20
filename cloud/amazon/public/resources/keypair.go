@@ -64,13 +64,10 @@ func (r *KeyPair) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Re
 			newResource.Identifier = *keypair.KeyName
 			newResource.PublicKeyFingerprint = *keypair.KeyFingerprint
 		}
-		lsn := len(output.KeyPairs)
-		if lsn != 1 {
-			return nil, nil, fmt.Errorf("Found [%d] Keypairs for ID [%s]", lsn, immutable.SSH.Identifier)
+		newResource.Tags = map[string]string{
+			"Name":              r.Name,
+			"KubernetesCluster": immutable.Name,
 		}
-		keypair := output.KeyPairs[0]
-		newResource.Identifier = *keypair.KeyName
-		newResource.PublicKeyFingerprint = *keypair.KeyFingerprint
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -88,9 +85,10 @@ func (r *KeyPair) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.
 			Identifier: immutable.SSH.Identifier,
 			Name:       r.Name,
 		},
-		PublicKeyPath: immutable.SSH.PublicKeyPath,
-		PublicKeyData: string(immutable.SSH.PublicKeyData),
-		User:          immutable.SSH.User,
+		PublicKeyPath:        immutable.SSH.PublicKeyPath,
+		PublicKeyData:        string(immutable.SSH.PublicKeyData),
+		User:                 immutable.SSH.User,
+		PublicKeyFingerprint: immutable.SSH.PublicKeyFingerprint,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil

@@ -124,7 +124,7 @@ endif
 
 	GOLINT_CMD=$(shell command -v golint 2> /dev/null)
 ifndef GOLINT_CMD
-	$(go get github.com/golang/lint/golint)
+	go get github.com/golang/lint/golint
 endif
 
 .PHONY: help
