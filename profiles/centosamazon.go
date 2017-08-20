@@ -39,7 +39,10 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
-				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
+				"INJECTEDTOKEN":         kubeadm.GetRandomToken(),
+				"INJECTEDCLOUDPROVIDER": cluster.CloudAmazon,
+				"INJECTEDARCH":          "amd64",
+				"INJECTEDOS":            "centos",
 			},
 		},
 		ServerPools: []*cluster.ServerPool{
@@ -51,7 +54,7 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 				Image:    "ami-0c2aba6c",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
-					"amazon_k8s_centos_7_master.sh",
+					"k8s_bootstrap.sh",
 				},
 				Subnets: []*cluster.Subnet{
 					{
@@ -89,7 +92,7 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 				Image:    "ami-0c2aba6c",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
-					"amazon_k8s_centos_7_node.sh",
+					"k8s_bootstrap.sh",
 				},
 				Subnets: []*cluster.Subnet{
 					{

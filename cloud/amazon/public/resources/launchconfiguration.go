@@ -183,6 +183,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	}
 
 	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+	immutable.Values.ItemMap["NODETYPE"] = r.ServerPool.Type
 	userData, err = bootstrap.Inject(userData, immutable.Values.ItemMap)
 	if err != nil {
 		return nil, nil, err

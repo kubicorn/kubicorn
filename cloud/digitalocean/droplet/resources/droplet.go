@@ -195,6 +195,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 	}
 
 	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+	immutable.Values.ItemMap["INJECTEDNODETYPE"] = r.ServerPool.Type
 	userData, err = bootstrap.Inject(userData, immutable.Values.ItemMap)
 	if err != nil {
 		return nil, nil, err

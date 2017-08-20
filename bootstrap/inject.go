@@ -14,11 +14,15 @@
 
 package bootstrap
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 func Inject(data []byte, values map[string]string) ([]byte, error) {
 	strData := string(data)
 	for k, v := range values {
+		fmt.Printf("Replacing key %v value %v\n", k, v)
 		strData = strings.Replace(strData, k, v, 1)
 	}
 	return []byte(strData), nil

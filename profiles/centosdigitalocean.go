@@ -37,6 +37,9 @@ func NewCentosDigitalOceanCluster(name string) *cluster.Cluster {
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
 				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
+				"CLOUDPROVIDER": cluster.CloudDigitalOcean,
+				"ARCH":          "amd64",
+				"OS":            "centos",
 			},
 		},
 		ServerPools: []*cluster.ServerPool{
@@ -48,7 +51,7 @@ func NewCentosDigitalOceanCluster(name string) *cluster.Cluster {
 				Size:     "1gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnMaster-centos.sh",
-					"digitalocean_k8s_centos_7_master.sh",
+					"k8s_bootstrap.sh",
 				},
 			},
 			{
@@ -59,7 +62,7 @@ func NewCentosDigitalOceanCluster(name string) *cluster.Cluster {
 				Size:     "1gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnNode-centos.sh",
-					"digitalocean_k8s_centos_7_node.sh",
+					"k8s_bootstrap.sh",
 				},
 			},
 		},

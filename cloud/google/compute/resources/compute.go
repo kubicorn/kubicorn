@@ -184,6 +184,7 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 	}
 
 	expectedCluster.Values.ItemMap["INJECTEDPORT"] = expectedCluster.KubernetesAPI.Port
+	expectedCluster.Values.ItemMap["NODETYPE"] = r.ServerPool.Type
 	scripts, err = bootstrap.Inject(scripts, expectedCluster.Values.ItemMap)
 	finalScripts := string(scripts)
 	if err != nil {
