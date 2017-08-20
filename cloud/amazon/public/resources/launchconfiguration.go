@@ -54,7 +54,6 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 			Tags: make(map[string]string),
 		},
 	}
-
 	if r.ServerPool.Identifier != "" {
 		lcInput := &autoscaling.DescribeLaunchConfigurationsInput{
 			LaunchConfigurationNames: []*string{&r.ServerPool.Identifier},
@@ -70,6 +69,10 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 		lc := lcOutput.LaunchConfigurations[0]
 		newResource.Image = *lc.ImageId
 		newResource.Identifier = *lc.LaunchConfigurationName
+		newResource.Tags = map[string]string{
+			"Name":              r.Name,
+			"KubernetesCluster": immutable.Name,
+		}
 	} else {
 		newResource.Image = r.ServerPool.Image
 		newResource.InstanceType = r.ServerPool.Size
@@ -88,7 +91,7 @@ func (r *Lc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 				"Name":              r.Name,
 				"KubernetesCluster": immutable.Name,
 			},
-			Identifier: immutable.Network.Identifier,
+			Identifier: r.ServerPool.Identifier,
 			Name:       r.Name,
 		},
 		InstanceType:     r.ServerPool.Size,
