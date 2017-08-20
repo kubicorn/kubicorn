@@ -62,6 +62,10 @@ func (r *Subnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 		newResource.Identifier = *subnet.SubnetId
 		newResource.VpcID = *subnet.VpcId
 		newResource.Zone = *subnet.AvailabilityZone
+		newResource.Tags = map[string]string{
+			"Name":              r.Name,
+			"KubernetesCluster": immutable.Name,
+		}
 		for _, tag := range subnet.Tags {
 			key := *tag.Key
 			val := *tag.Value

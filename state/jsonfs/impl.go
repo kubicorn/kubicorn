@@ -35,7 +35,7 @@ type JSONFileSystemStoreOptions struct {
 }
 
 // JSONFileSystemStore exists to save the cluster at runtime to the file defined
-// in the state.ClusterJsonFile constant. We perform this operation so that
+// in the state.ClusterJSONFile constant. We perform this operation so that
 // various bash scripts can get the cluster state at runtime without having to
 // inject key/value pairs into the script or anything like that.
 type JSONFileSystemStore struct {
@@ -96,7 +96,7 @@ func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
-	return fs.write(state.ClusterJsonFile, bytes)
+	return fs.write(state.ClusterJSONFile, bytes)
 }
 
 func (fs *JSONFileSystemStore) Rename(existingRelativePath, newRelativePath string) error {
@@ -110,7 +110,7 @@ func (fs *JSONFileSystemStore) Destroy() error {
 
 func (fs *JSONFileSystemStore) GetCluster() (*cluster.Cluster, error) {
 	cluster := &cluster.Cluster{}
-	configBytes, err := fs.read(state.ClusterJsonFile)
+	configBytes, err := fs.read(state.ClusterJSONFile)
 	if err != nil {
 		return cluster, err
 	}

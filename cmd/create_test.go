@@ -15,20 +15,20 @@
 package cmd
 
 import (
-	"testing"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
+	"testing"
 )
 
 func TestRunCreate(t *testing.T) {
 	clusterName := "test-create"
 	statePath := "./_state"
 	state := fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
-		BasePath: statePath,
+		BasePath:    statePath,
 		ClusterName: clusterName,
 	})
 	jsonState := jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
-		BasePath: statePath,
+		BasePath:    statePath,
 		ClusterName: clusterName,
 	})
 	if err := state.Destroy(); err != nil {
@@ -38,13 +38,13 @@ func TestRunCreate(t *testing.T) {
 		t.Fatalf("Error cleaning up any existing json state: %v", err)
 	}
 
-	options := &CreateOptions {
+	options := &CreateOptions{
 		Profile: "aws",
-		Options: Options {
+		Options: Options{
 			JSONStateStorePath: statePath,
-			Name: clusterName,
-			StateStore: "fs",
-			StateStorePath: statePath,
+			Name:               clusterName,
+			StateStore:         "fs",
+			StateStorePath:     statePath,
 		},
 	}
 	err := RunCreate(options)

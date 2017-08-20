@@ -7,9 +7,21 @@
   packages = [".","fonts"]
   revision = "8c0e79dc5ff70fb2919f0d662f44fd72ccdf9be2"
 
+[[projects]]
+  name = "github.com/mattn/go-isatty"
+  packages = ["."]
+  revision = "fc9e8d8ef48496124e79ae0df75490096eccf6fe"
+  version = "v0.0.2"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  revision = "e42485b6e20ae7d2304ec72e535b103ed350cc02"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c89e9d143443fcb1a836b9bb0d607ecf0e5e782e069fe6b7393b2bd7808478de"
+  inputs-digest = "3c70c6286fae7c0e3d6ceb4eb8b93710fc0416b813adcd0fdb2d4dc62222d8ac"
   solver-name = "gps-cdcl"
   solver-version = 1

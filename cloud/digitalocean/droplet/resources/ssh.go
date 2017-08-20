@@ -69,7 +69,7 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 			return nil, nil, err
 		}
 		for _, key := range keys {
-			if key.Name == immutable.Name {
+			if key.Fingerprint == immutable.SSH.PublicKeyFingerprint {
 				found = true
 				newResource.Name = key.Name
 				newResource.CloudID = strconv.Itoa(key.ID)
@@ -79,6 +79,8 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 		}
 		if !found {
 			newResource.PublicKeyPath = immutable.SSH.PublicKeyPath
+			newResource.PublicKeyFingerprint = immutable.SSH.PublicKeyFingerprint
+			newResource.PublicKeyData = string(immutable.SSH.PublicKeyData)
 			newResource.User = immutable.SSH.User
 			newResource.CloudID = immutable.SSH.Identifier
 		}
@@ -111,7 +113,7 @@ func (r *SSH) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 	if err != nil {
 		return nil, nil, err
 	}
-	if isEqual {
+	if isEqual && actual.(*SSH).Shared.CloudID != "" {
 		return immutable, applyResource, nil
 	}
 	request := &godo.KeyCreateRequest{

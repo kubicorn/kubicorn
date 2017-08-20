@@ -15,6 +15,35 @@ Be ready to face this.
 Feel free to open a pull request for anything, about anything.
 Everyone is welcome.
 
+### Formatting Go Code
+
+To get your pull request merged, Golang files must be formatted using the `go fmt` tool.
+Please use the `gofmt` make target to format all Golang files.
+
+### Linting
+
+Go code must pass [`lint`](https://github.com/golang/lint) checks. You can run lint on all Golang files using the `lint` make target. Currently, lint checks are not enforced by CI tests but it could change in the future.
+
+### Licensing Header
+
+The CI build will fail if non-vendored Golang files are missing the required licensing header.
+Please use the `check-headers` make target or run scripts/check-header.sh to validate.
+
+The `update-headers` make target or scripts/headers.sh will add the necessary headers.
+
+### Vendorning
+
+`kubicorn` project uses [`dep`](https://github.com/golang/dep) to manage its dependencies. Before using it, you need to setup it by following the [Setup guide](https://github.com/golang/dep#setup).
+
+To add new dependency, you need to use:
+```
+dep ensure import-path
+```
+If you want to update existing dependency, you need to use:
+```
+dep ensure -update import-path
+```
+
 ### Deadlines
 
 I will do my best to keep the pull request backlog clean and tidy.
@@ -27,12 +56,11 @@ As the tool continues to mature we will implement a testing harness.
 Once the harness is in place, tests will be required for all bug fixes and features.
 No exceptions.
 
-### Licensing Header
+### Happy/Sad Tests
 
-The CI build will fail if non-vendored Golang files are missing the required licensing header.
-Please use the `check-headers` make target or run scripts/check-header.sh to validate.
+We strive for using the concept of the Happy/Sad tests. Happy test must pass only in case when the given request is correct and response for the request is valid. Sad test must pass only in case when the given request is malformed and appropriate error is returned while parsing it.  
 
-The `update-headers` make target or scripts/headers.sh will add the necessary headers.
+You can take a look at the following [example of Happy/Sad tests](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/godoSdk/sdk_test.go).
 
 # Twitter
 
