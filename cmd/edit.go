@@ -16,6 +16,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
@@ -58,7 +59,7 @@ var editCmd = &cobra.Command{
 func init() {
 	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", strEnvDef("KUBICORN_DEFAULT_EDITOR", "vi"), "The editor used to edit the state store")
+	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", strEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
 
 	RootCmd.AddCommand(editCmd)
 }
@@ -113,7 +114,7 @@ func RunEdit(options *EditOptions) error {
 		os.Remove(fpath)
 		return err
 	} else {
-		logger.Info("Successfull edit")
+		logger.Info("Cluster edited")
 	}
 
 	data, err := ioutil.ReadFile(fpath)
@@ -128,6 +129,12 @@ func RunEdit(options *EditOptions) error {
 		return err
 	}
 
+	cluster, err = initapi.InitCluster(cluster)
+	if err != nil {
+		os.Remove(fpath)
+		return err
+	}
+
 	// Init new state store with the cluster resource
 	err = stateStore.Commit(cluster)
 	if err != nil {
@@ -136,5 +143,6 @@ func RunEdit(options *EditOptions) error {
 	}
 	os.Remove(fpath)
 
+	logger.Always("The state [%s/%s/cluster.yaml] has been updated.", options.StateStorePath, name)
 	return nil
 }
