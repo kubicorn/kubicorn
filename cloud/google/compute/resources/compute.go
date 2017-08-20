@@ -149,7 +149,7 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 				}
 			}
 			if masterTag == "" {
-				return nil, nil, fmt.Errorf("Unable to find master tag.")
+				return nil, nil, fmt.Errorf("Unable to find master tag")
 			}
 
 			instance, err := Sdk.Service.Instances.Get(expectedCluster.CloudId, expectedResource.(*Instance).Location, strings.ToLower(masterTag)).Do()
