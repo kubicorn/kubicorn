@@ -29,7 +29,6 @@ import (
 func TestStateFileSystem(t *testing.T) {
 	testFilePath := ".test"
 	clusterName := "fstest"
-	//fsFilePath := filepath.Join(testFilePath, clusterName)
 
 	c := profiles.NewUbuntuAmazonCluster(clusterName)
 	o := &FileSystemStoreOptions{
@@ -67,13 +66,13 @@ func TestStateFileSystem(t *testing.T) {
 	unmarshalled := &cluster.Cluster{}
 	bytes, err := ioutil.ReadFile(filepath.Join(testFilePath, clusterName, state.ClusterYamlFile))
 	if err != nil {
-		t.Fatalf("Error reading json file: %v", err)
+		t.Fatalf("Error reading yaml file: %v", err)
 	}
 	if err := yaml.Unmarshal(bytes, unmarshalled); err != nil {
-		t.Fatalf("Error unmarshalling json: %v", err)
+		t.Fatalf("Error unmarshalling yaml: %v", err)
 	}
 	if !reflect.DeepEqual(unmarshalled, c) {
-		t.Fatalf("Cluster read directly from json file doesn't equal cluster inputted: %v", unmarshalled)
+		t.Fatalf("Cluster read directly from yaml file doesn't equal cluster inputted: %v", unmarshalled)
 	}
 	if err = fs.Destroy(); err != nil {
 		t.Fatalf("Error cleaning up state: %v", err)
