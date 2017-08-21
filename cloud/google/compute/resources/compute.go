@@ -26,7 +26,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/script"
-	compute "google.golang.org/api/compute/v1"
+	"google.golang.org/api/compute/v1"
 )
 
 var _ cloud.Resource = &Instance{}
@@ -84,7 +84,6 @@ func (r *Instance) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 			actual.Size = instance.Kind
 			actual.Image = r.Image
 			actual.Location = instance.Zone
-			actual.Labels = instance.Labels
 		}
 	}
 
@@ -106,9 +105,6 @@ func (r *Instance) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Res
 		Shared: Shared{
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
-			Labels: map[string]string{
-				"group": strings.ToLower(r.Name),
-			},
 		},
 		Size:             r.ServerPool.Size,
 		Location:         known.Location,
@@ -146,19 +142,26 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 			masterTag := ""
 			for _, serverPool := range expectedCluster.ServerPools {
 				if serverPool.Type == cluster.ServerPoolTypeMaster {
-					masterTag = serverPool.Name + "-0"
+					masterTag = serverPool.Name
 				}
 			}
 			if masterTag == "" {
 				return nil, nil, fmt.Errorf("Unable to find master tag")
 			}
 
-			instance, err := Sdk.Service.Instances.Get(expectedCluster.CloudId, expectedResource.(*Instance).Location, strings.ToLower(masterTag)).Do()
+			instanceGroupManager, err := Sdk.Service.InstanceGroupManagers.ListManagedInstances(expectedCluster.CloudId, expectedResource.(*Instance).Location, strings.ToLower(masterTag)).Do()
 			if err != nil {
+				return nil, nil, err
+			}
+
+			if err != nil || len(instanceGroupManager.ManagedInstances) == 0 {
 				logger.Debug("Hanging for master IP.. (%v)", err)
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
+
+			parts := strings.Split(instanceGroupManager.ManagedInstances[0].Instance, "/")
+			instance, err := Sdk.Service.Instances.Get(expectedCluster.CloudId, expectedResource.(*Instance).Location, parts[len(parts)-1]).Do()
 
 			for _, networkInterface := range instance.NetworkInterfaces {
 				if networkInterface.Name == "nic0" {
@@ -203,68 +206,93 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 	prefix := "https://www.googleapis.com/compute/v1/projects/" + expectedCluster.CloudId
 	imageURL := "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/" + expectedResource.(*Instance).Image
 
-	for j := 0; j < expectedResource.(*Instance).Count; j++ {
+	templateInstance, err := Sdk.Service.InstanceTemplates.Get(expectedCluster.CloudId, strings.ToLower(expectedResource.(*Instance).Name)).Do()
+	if err != nil {
 		sshPublicKeyValue := fmt.Sprintf("%s:%s", expectedCluster.SSH.User, string(expectedCluster.SSH.PublicKeyData))
-		instance := &compute.Instance{
-			Name:        fmt.Sprintf("%s-%d", strings.ToLower(expectedResource.(*Instance).Name), j),
-			MachineType: prefix + "/zones/" + expectedResource.(*Instance).Location + "/machineTypes/" + expectedResource.(*Instance).Size,
-			Disks: []*compute.AttachedDisk{
-				{
-					AutoDelete: true,
-					Boot:       true,
-					Type:       "PERSISTENT",
-					InitializeParams: &compute.AttachedDiskInitializeParams{
-						DiskName:    fmt.Sprintf("disk-%s-%d", strings.ToLower(expectedResource.(*Instance).Name), j),
-						SourceImage: imageURL,
-					},
-				},
-			},
-			NetworkInterfaces: []*compute.NetworkInterface{
-				&compute.NetworkInterface{
-					AccessConfigs: []*compute.AccessConfig{
-						&compute.AccessConfig{
-							Type: "ONE_TO_ONE_NAT",
-							Name: "External NAT",
+
+		templateInstance = &compute.InstanceTemplate{
+			Name: strings.ToLower(expectedResource.(*Instance).Name),
+			Properties: &compute.InstanceProperties{
+				MachineType: expectedResource.(*Instance).Size,
+				Disks: []*compute.AttachedDisk{
+					{
+						AutoDelete: true,
+						Boot:       true,
+						Type:       "PERSISTENT",
+						InitializeParams: &compute.AttachedDiskInitializeParams{
+							SourceImage: imageURL,
 						},
 					},
-					Network: prefix + "/global/networks/default",
 				},
-			},
-			ServiceAccounts: []*compute.ServiceAccount{
-				{
-					Email: "default",
-					Scopes: []string{
-						compute.DevstorageFullControlScope,
-						compute.ComputeScope,
-					},
-				},
-			},
-			Metadata: &compute.Metadata{
-				Kind: "compute#metadata",
-				Items: []*compute.MetadataItems{
+				NetworkInterfaces: []*compute.NetworkInterface{
 					{
-						Key:   "ssh-keys",
-						Value: &sshPublicKeyValue,
-					},
-					{
-						Key:   "startup-script",
-						Value: &finalScripts,
+						AccessConfigs: []*compute.AccessConfig{
+							{
+								Type: "ONE_TO_ONE_NAT",
+								Name: "External NAT",
+							},
+						},
+						Network: prefix + "/global/networks/default",
 					},
 				},
-			},
-			Tags: &compute.Tags{
-				Items: tags,
-			},
-			Labels: map[string]string{
-				"group": strings.ToLower(expectedResource.(*Instance).Name),
+				ServiceAccounts: []*compute.ServiceAccount{
+					{
+						Email: "default",
+						Scopes: []string{
+							compute.DevstorageFullControlScope,
+							compute.ComputeScope,
+						},
+					},
+				},
+				Metadata: &compute.Metadata{
+					Kind: "compute#metadata",
+					Items: []*compute.MetadataItems{
+						{
+							Key:   "ssh-keys",
+							Value: &sshPublicKeyValue,
+						},
+						{
+							Key:   "startup-script",
+							Value: &finalScripts,
+						},
+					},
+				},
+				Tags: &compute.Tags{
+					Items: tags,
+				},
+				Labels: map[string]string{
+					"group": strings.ToLower(expectedResource.(*Instance).Name),
+				},
 			},
 		}
 
-		_, err := Sdk.Service.Instances.Insert(expectedCluster.CloudId, expectedResource.(*Instance).Location, instance).Do()
+		_, err = Sdk.Service.InstanceTemplates.Insert(expectedCluster.CloudId, templateInstance).Do()
 		if err != nil {
 			return nil, nil, err
 		}
-		logger.Info("Created instance [%s]", instance.Name)
+	}
+
+	_, err = Sdk.Service.InstanceGroupManagers.Get(expectedCluster.CloudId, expectedResource.(*Instance).Location, strings.ToLower(expectedResource.(*Instance).Name)).Do()
+	if err != nil {
+		instanceGroupManager := &compute.InstanceGroupManager{
+			Name:             templateInstance.Name,
+			BaseInstanceName: templateInstance.Name,
+			InstanceTemplate: prefix + "/global/instanceTemplates/" + templateInstance.Name,
+			TargetSize:       int64(expectedResource.(*Instance).Count),
+		}
+
+		for i := 0; i < MasterIPAttempts; i++ {
+			logger.Debug("Creating instance group manager")
+			_, err = Sdk.Service.InstanceGroupManagers.Insert(expectedCluster.CloudId, expectedResource.(*Instance).Location, instanceGroupManager).Do()
+			if err == nil {
+				break
+			}
+
+			logger.Debug("Waiting for instance template to be ready.")
+			time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
+		}
+
+		logger.Info("Created instance group manager [%s]", templateInstance.Name)
 	}
 
 	newResource := &Instance{
@@ -295,18 +323,29 @@ func (r *Instance) Delete(actual cloud.Resource, known *cluster.Cluster) (*clust
 		return nil, nil, fmt.Errorf("Unable to delete instance resource without Name [%s]", deleteResource.Name)
 	}
 
-	instances, err := Sdk.Service.Instances.List(known.CloudId, known.Location).Do()
+	instanceGroupManagers, err := Sdk.Service.InstanceGroupManagers.List(known.CloudId, known.Location).Do()
 	if err != nil {
 		return nil, nil, err
 	}
 
-	for _, instance := range instances.Items {
-		if instance.Labels["group"] == actual.(*Instance).Labels["group"] {
-			_, err = Sdk.Service.Instances.Delete(known.CloudId, known.Location, instance.Name).Do()
+	for _, instance := range instanceGroupManagers.Items {
+		if instance.BaseInstanceName == strings.ToLower(actual.(*Instance).Name) {
+			_, err = Sdk.Service.InstanceGroupManagers.Delete(known.CloudId, known.Location, instance.Name).Do()
 			if err != nil {
 				return nil, nil, err
 			}
-			logger.Info("Deleted Instance [%s]", instance.Name)
+			logger.Info("Deleted Instance manager [%s]", instance.Name)
+		}
+	}
+
+	instanceTemplates, err := Sdk.Service.InstanceTemplates.List(known.CloudId).Do()
+	for _, instanceTemplate := range instanceTemplates.Items {
+		if instanceTemplate.Name == strings.ToLower(actual.(*Instance).Name) {
+			_, err = Sdk.Service.InstanceTemplates.Delete(known.CloudId, instanceTemplate.Name).Do()
+			if err != nil {
+				return nil, nil, err
+			}
+			logger.Info("Deleted instance template [%s]", instanceTemplate.Name)
 		}
 	}
 
@@ -327,7 +366,6 @@ func (r *Instance) render(renderResource cloud.Resource, renderCluster *cluster.
 			renderCluster.ServerPools[i].Image = renderResource.(*Instance).Image
 			renderCluster.ServerPools[i].Size = renderResource.(*Instance).Size
 			renderCluster.ServerPools[i].MaxCount = renderResource.(*Instance).Count
-			renderCluster.ServerPools[i].Labels = renderResource.(*Instance).Labels
 			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Instance).BootstrapScripts
 			found = true
 		}
