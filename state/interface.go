@@ -18,6 +18,8 @@ import "github.com/kris-nova/kubicorn/apis/cluster"
 
 type ClusterStorer interface {
 	Exists() bool
+	ReadStore() ([]byte, error)
+	BytesToCluster(bytes []byte) (*cluster.Cluster, error)
 	Commit(cluster *cluster.Cluster) error
 	Destroy() error
 	GetCluster() (*cluster.Cluster, error)
