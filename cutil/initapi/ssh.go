@@ -19,13 +19,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
-	"syscall"
 
-	"github.com/gravitational/trace"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"golang.org/x/crypto/ssh"
-	"golang.org/x/crypto/ssh/terminal"
 )
 
 func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
@@ -35,11 +32,7 @@ func sshLoader(initCluster *cluster.Cluster) (*cluster.Cluster, error) {
 			return nil, err
 		}
 		initCluster.SSH.PublicKeyData = bytes
-		privateBytes, err := ioutil.ReadFile(strings.Replace(local.Expand(initCluster.SSH.PublicKeyPath), ".pub", "", 1))
-		if err != nil {
-			return nil, err
-		}
-		fp, err := PrivateKeyFingerprint(privateBytes)
+		fp, err := publicKeyFingerprint(bytes)
 		if err != nil {
 			return nil, err
 		}
@@ -58,39 +51,11 @@ func fingerprint(key ssh.PublicKey) string {
 	return strings.Join(parts, ":")
 }
 
-func AuthorizedKeyFingerprint(publicKey []byte) (string, error) {
-	key, _, _, _, err := ssh.ParseAuthorizedKey(publicKey)
+func publicKeyFingerprint(in []byte) (string, error) {
+	pk, _, _, _, err := ssh.ParseAuthorizedKey(in)
 	if err != nil {
 		return "", err
 	}
 
-	return fingerprint(key), nil
-}
-
-func PrivateKeyFingerprint(keyBytes []byte) (string, error) {
-	signer, err := GetSigner(keyBytes)
-	if err != nil {
-		return "", trace.Wrap(err)
-	}
-	return fingerprint(signer.PublicKey()), nil
-}
-
-func GetSigner(pemBytes []byte) (ssh.Signer, error) {
-	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
-	if err != nil {
-		fmt.Print("SSH Key Passphrase [none]: ")
-		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
-		fmt.Println("")
-		if err != nil {
-			return nil, err
-		}
-		signerwithpassphrase, err := ssh.ParsePrivateKeyWithPassphrase(pemBytes, passPhrase)
-		if err != nil {
-			return nil, err
-		}
-
-		return signerwithpassphrase, err
-	}
-
-	return signerwithoutpassphrase, err
+	return fingerprint(pk), nil
 }
