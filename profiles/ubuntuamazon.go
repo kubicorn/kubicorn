@@ -43,6 +43,9 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
 				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
+				"CLOUDPROVIDER": cluster.CloudAmazon,
+				"ARCH":          "amd64",
+				"OS":            "ubuntu",
 			},
 		},
 		ServerPools: []*cluster.ServerPool{
@@ -54,7 +57,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 				Image:    "ami-835b4efa",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
-					"amazon_k8s_ubuntu_16.04_master.sh",
+					"k8s_bootstrap.sh",
 				},
 				Subnets: []*cluster.Subnet{
 					{
@@ -92,7 +95,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 				Image:    "ami-835b4efa",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
-					"amazon_k8s_ubuntu_16.04_node.sh",
+					"k8s_bootstrap.sh",
 				},
 				Subnets: []*cluster.Subnet{
 					{

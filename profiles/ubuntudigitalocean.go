@@ -36,7 +36,10 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
-				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
+				"INJECTEDTOKEN":         kubeadm.GetRandomToken(),
+				"INJECTEDCLOUDPROVIDER": cluster.CloudDigitalOcean,
+				"INJECTEDARCH":          "amd64",
+				"INJECTEDOS":            "ubuntu",
 			},
 		},
 		ServerPools: []*cluster.ServerPool{
@@ -48,7 +51,7 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 				Size:     "1gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnMaster.sh",
-					"digitalocean_k8s_ubuntu_16.04_master.sh",
+					"k8s_bootstrap.sh",
 				},
 				Firewalls: []*cluster.Firewall{
 					{
@@ -93,7 +96,7 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 				Size:     "1gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnNode.sh",
-					"digitalocean_k8s_ubuntu_16.04_node.sh",
+					"k8s_bootstrap.sh",
 				},
 				Firewalls: []*cluster.Firewall{
 					{
