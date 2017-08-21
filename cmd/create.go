@@ -165,7 +165,7 @@ func RunCreate(options *CreateOptions) error {
 
 	// Check if state store exists
 	if stateStore.Exists() {
-		return fmt.Errorf("State store [%s] exists, will not overwrite", name)
+		return fmt.Errorf("State store [%s] exists, will not overwrite. Delete existing profile [%s] and retry", name, options.StateStorePath+"/"+name)
 	}
 
 	// Init new state store with the cluster resource
