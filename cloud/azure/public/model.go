@@ -60,5 +60,20 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	}
 	i++
 
+	for _, serverPool := range known.ServerPools {
+		name := serverPool.Name
+
+		// ---- [VM Scale Set] ----
+		r[i] = &resources.VMScaleSet{
+			Shared: resources.Shared{
+				Name: known.Name,
+				Tags: make(map[string]string),
+			},
+			ServerPool: serverPool,
+		}
+		i++
+
+	}
+
 	return r
 }

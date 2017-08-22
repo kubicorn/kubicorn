@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Azure/azure-sdk-for-go/arm/compute"
 	"github.com/Azure/azure-sdk-for-go/arm/examples/helpers"
 	"github.com/Azure/azure-sdk-for-go/arm/network"
 	"github.com/Azure/azure-sdk-for-go/arm/resources/resources"
@@ -30,6 +31,7 @@ type Sdk struct {
 	ServicePrincipal *ServicePrincipal
 	Network          *network.ManagementClient
 	Vnet             *network.VirtualNetworksClient
+	Compute          *compute.VirtualMachineScaleSetsClient
 	ResourceGroup    *resources.GroupsClient
 }
 
@@ -102,6 +104,12 @@ func NewSdk() (*Sdk, error) {
 	vnetClient := network.NewVirtualNetworksClient(sdk.ServicePrincipal.SubscriptionID)
 	vnetClient.Authorizer = autorest.NewBearerAuthorizer(sdk.ServicePrincipal.AuthenticatedToken)
 	sdk.Vnet = &vnetClient
+
+	//------------------------
+	// Compute
+	computeClient := compute.NewVirtualMachineScaleSetsClient(sdk.ServicePrincipal.SubscriptionID)
+	computeClient.Authorizer = autorest.NewBearerAuthorizer(sdk.ServicePrincipal.AuthenticatedToken)
+	sdk.Compute = &computeClient
 
 	return sdk, nil
 }
