@@ -17,6 +17,7 @@ package resources
 import (
 	"fmt"
 
+	"github.com/Azure/azure-sdk-for-go/arm/compute"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
@@ -80,11 +81,23 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	if isEqual {
 		return immutable, applyResource, nil
 	}
-
-	newResource := &VMScaleSet{
-		Shared: Shared{},
+	parameters := compute.VirtualMachineScaleSet{}
+	vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
+	vmss := <-vmssch
+	err = <-errch
+	if err != nil {
+		return nil, nil, err
 	}
 
+	newResource := &VMScaleSet{
+		Shared: Shared{
+			Name:       r.Name,
+			Tags:       r.Tags,
+			Identifier: r.ServerPool.Identifier,
+		},
+	}
+	// Todo (@kris-nova) set params here
+	fmt.Println(vmss)
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -94,7 +107,7 @@ func (r *VMScaleSet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 	if deleteResource.Identifier == "" {
 		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
-
+	Sdk.Compute.Delete(immutable.Name, deleteResource.Name)
 	newResource := &VMScaleSet{
 		Shared: Shared{},
 	}
