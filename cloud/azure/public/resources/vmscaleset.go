@@ -81,12 +81,27 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	if isEqual {
 		return immutable, applyResource, nil
 	}
-	parameters := compute.VirtualMachineScaleSet{}
-	vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
-	vmss := <-vmssch
-	err = <-errch
-	if err != nil {
-		return nil, nil, err
+
+	if r.ServerPool.Type == cluster.ServerPoolTypeMaster {
+		// -------------------------------------------------------------------------------------
+		// MASTER
+		// -------------------------------------------------------------------------------------
+
+		parameters := compute.VirtualMachineScaleSet{
+			Location: &immutable.Location,
+			VirtualMachineScaleSetProperties: &compute.VirtualMachineScaleSetProperties{
+				VirtualMachineProfile: &compute.VirtualMachineScaleSetVMProfile{
+					StorageProfile: &compute.VirtualMachineScaleSetStorageProfile{},
+				},
+			},
+		}
+		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
+		vmss := <-vmssch
+		err = <-errch
+		if err != nil {
+			return nil, nil, err
+		}
+		fmt.Println(vmss)
 	}
 
 	newResource := &VMScaleSet{
@@ -96,8 +111,6 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 			Identifier: r.ServerPool.Identifier,
 		},
 	}
-	// Todo (@kris-nova) set params here
-	fmt.Println(vmss)
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -107,9 +120,17 @@ func (r *VMScaleSet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 	if deleteResource.Identifier == "" {
 		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
-	Sdk.Compute.Delete(immutable.Name, deleteResource.Name)
+	_, errch := Sdk.Compute.Delete(immutable.Name, deleteResource.Name, make(chan struct{}))
+	err := <-errch
+	if err != nil {
+		return nil, nil, err
+	}
 	newResource := &VMScaleSet{
-		Shared: Shared{},
+		Shared: Shared{
+			Name:       r.Name,
+			Tags:       r.Tags,
+			Identifier: "",
+		},
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)

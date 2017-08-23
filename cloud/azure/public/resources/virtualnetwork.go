@@ -17,6 +17,8 @@ package resources
 import (
 	"fmt"
 
+	"github.com/kris-nova/kubicorn/cutil/retry"
+
 	"github.com/Azure/azure-sdk-for-go/arm/network"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -89,25 +91,54 @@ func (r *Vnet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster
 			},
 		},
 	}
-	vnetch, errch := Sdk.Vnet.CreateOrUpdate(immutable.Name, immutable.Name, parameters, make(chan struct{}))
-
-	vnet := <-vnetch
+	_, errch := Sdk.Vnet.CreateOrUpdate(immutable.Name, immutable.Name, parameters, make(chan struct{}))
 	err = <-errch
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Created or found Vnet [%s]", *vnet.ID)
+
+	l := &lookUpVnetRetrier{
+		name: immutable.Name,
+	}
+	retrier := retry.NewRetrier(10, 1, l)
+	err = retrier.RunRetry()
+	if err != nil {
+		return nil, nil, err
+	}
+	parsedVnet := retrier.Retryable().(*lookUpVnetRetrier).vnet
+	logger.Info("Created or found vnet [%s]", *parsedVnet.ID)
+
 	newResource := &Vnet{
 		Shared: Shared{
 			Name:       r.Name,
 			Tags:       r.Tags,
-			Identifier: *vnet.ID,
+			Identifier: *parsedVnet.ID,
 		},
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
+
+type lookUpVnetRetrier struct {
+	name string
+	vnet network.VirtualNetwork
+}
+
+func (l *lookUpVnetRetrier) Try() error {
+	vnet, err := Sdk.Vnet.Get(l.name, l.name, "")
+	if err != nil {
+		// fmt.Println(err)
+		return err
+	}
+	if vnet.ID == nil || *vnet.ID == "" {
+		// fmt.Println("empty id")
+		return fmt.Errorf("Empty id")
+	}
+	l.vnet = vnet
+	return nil
+}
+
 func (r *Vnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vnet.Delete")
 	deleteResource := actual.(*Vnet)

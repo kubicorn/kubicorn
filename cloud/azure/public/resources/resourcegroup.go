@@ -91,10 +91,11 @@ func (r *ResourceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		return nil, nil, err
 	}
 	logger.Info("Created or found resource group [%s]", *group.Name)
-
+	fmt.Println(group)
 	newResource := &ResourceGroup{
 		Shared: Shared{
-			Name: *group.Name,
+			Identifier: *group.ID,
+			Name:       *group.Name,
 		},
 		Location: *group.Location,
 	}
@@ -106,7 +107,7 @@ func (r *ResourceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 	logger.Debug("resourcegroup.Delete")
 	deleteResource := actual.(*ResourceGroup)
 	if deleteResource.Identifier == "" {
-		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete Resource Group without ID [%s]", deleteResource.Name)
 	}
 
 	autorestChan, errorChan := Sdk.ResourceGroup.Delete(immutable.ClusterName, make(chan struct{}))
