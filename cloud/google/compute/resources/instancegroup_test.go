@@ -57,8 +57,6 @@ func TestExpectedHappy(t *testing.T) {
 	}{
 		{"Shared.cloudId", resource.(*InstanceGroup).Shared.CloudID, "ClusterPool1"},
 		{"Size", resource.(*InstanceGroup).Size, "5"},
-		{"Label Amount", len(resource.(*InstanceGroup).Labels), 1},
-		{"Label group", resource.(*InstanceGroup).Labels["group"], "sharedname"},
 		{"Location", resource.(*InstanceGroup).Location, "Location-us"},
 		{"Image", resource.(*InstanceGroup).Image, "server-os-image"},
 		{"Count", resource.(*InstanceGroup).Count, 5},
