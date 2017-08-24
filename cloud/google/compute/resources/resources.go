@@ -27,7 +27,6 @@ type Shared struct {
 	CloudID        string
 	Name           string
 	LabelResource  cloud.Resource
-	Labels         map[string]string
 	CachedActual   cloud.Resource
 	CachedExpected cloud.Resource
 }

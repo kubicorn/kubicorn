@@ -62,9 +62,6 @@ func (r *InstanceGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cl
 		Shared: Shared{
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
-			Labels: map[string]string{
-				"group": strings.ToLower(r.Name),
-			},
 		},
 	}
 
@@ -265,9 +262,6 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 				},
 				Tags: &compute.Tags{
 					Items: tags,
-				},
-				Labels: map[string]string{
-					"group": strings.ToLower(expected.(*InstanceGroup).Name),
 				},
 			},
 		}
