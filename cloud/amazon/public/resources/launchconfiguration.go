@@ -17,9 +17,11 @@ package resources
 import (
 	"encoding/base64"
 	"fmt"
+	"strconv"
 	"strings"
 	"time"
 
+	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -37,6 +39,7 @@ type Lc struct {
 	Shared
 	InstanceType     string
 	Image            string
+	SpotPrice        string
 	ServerPool       *cluster.ServerPool
 	BootstrapScripts []string
 }
@@ -68,6 +71,7 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 		}
 		lc := lcOutput.LaunchConfigurations[0]
 		newResource.Image = *lc.ImageId
+		newResource.SpotPrice = *lc.SpotPrice
 		newResource.Identifier = *lc.LaunchConfigurationName
 		newResource.Tags = map[string]string{
 			"Name":              r.Name,
@@ -76,6 +80,9 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 	} else {
 		newResource.Image = r.ServerPool.Image
 		newResource.InstanceType = r.ServerPool.Size
+		if r.ServerPool.Type == cluster.ServerPoolTypeNode {
+			newResource.SpotPrice = r.ServerPool.SpotPrice
+		}
 	}
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
 
@@ -97,6 +104,9 @@ func (r *Lc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 		InstanceType:     r.ServerPool.Size,
 		Image:            r.ServerPool.Image,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
+	}
+	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
+		newResource.SpotPrice = r.ServerPool.SpotPrice
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -200,8 +210,27 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		SecurityGroups:           sgs,
 		UserData:                 &b64data,
 	}
+
+	spotPrice, err := strconv.ParseFloat(*&expected.(*Lc).SpotPrice, 64)
+	if *&expected.(*Lc).InstanceType != cluster.ServerPoolTypeMaster && err == nil && spotPrice > 0 {
+		lcInput.SpotPrice = &expected.(*Lc).SpotPrice
+	}
 	_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
 	if err != nil {
+		if awserr, ok := err.(awserr.Error); ok {
+			switch awserr.Code() {
+			case autoscaling.ErrCodeAlreadyExistsFault:
+				logger.Debug(autoscaling.ErrCodeAlreadyExistsFault, awserr.Error())
+			case autoscaling.ErrCodeLimitExceededFault:
+				logger.Debug(autoscaling.ErrCodeLimitExceededFault, awserr.Error())
+			case autoscaling.ErrCodeResourceContentionFault:
+				logger.Debug(autoscaling.ErrCodeResourceContentionFault, awserr.Error())
+			default:
+				logger.Debug(awserr.Error())
+			}
+		} else {
+			logger.Debug(err.Error())
+		}
 		return nil, nil, err
 	}
 	logger.Info("Created Launch Configuration [%s]", r.Name)
