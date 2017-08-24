@@ -24,15 +24,16 @@ import (
 	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
+	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/script"
 	"google.golang.org/api/compute/v1"
 )
 
-var _ cloud.Resource = &Instance{}
+var _ cloud.Resource = &InstanceGroup{}
 
-// Instance is a representation of the server to be created on the cloud provider.
-type Instance struct {
+// InstanceGroup is a representation of the server to be created on the cloud provider.
+type InstanceGroup struct {
 	Shared
 	Location         string
 	Size             string
@@ -51,13 +52,13 @@ const (
 )
 
 // Actual is used to build a cluster based on instances on the cloud provider.
-func (r *Instance) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("instance.Actual")
+func (r *InstanceGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("instanceGroup.Actual")
 	if r.CachedActual != nil {
 		logger.Debug("Using cached instance [actual]")
-		return known, r.CachedActual, nil
+		return immutable, r.CachedActual, nil
 	}
-	actual := &Instance{
+	newResource := &InstanceGroup{
 		Shared: Shared{
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
@@ -67,66 +68,66 @@ func (r *Instance) Actual(known *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 		},
 	}
 
-	project, err := Sdk.Service.Projects.Get(known.CloudId).Do()
+	project, err := Sdk.Service.Projects.Get(immutable.CloudId).Do()
 	if err != nil && project != nil {
-		instances, err := Sdk.Service.Instances.List(known.CloudId, known.Location).Do()
+		instances, err := Sdk.Service.Instances.List(immutable.CloudId, immutable.Location).Do()
 		if err != nil {
 			return nil, nil, err
 		}
 
 		count := len(instances.Items)
 		if count > 0 {
-			actual.Count = count
+			newResource.Count = count
 
 			instance := instances.Items[0]
-			actual.Name = instance.Name
-			actual.CloudID = string(instance.Id)
-			actual.Size = instance.Kind
-			actual.Image = r.Image
-			actual.Location = instance.Zone
+			newResource.Name = instance.Name
+			newResource.CloudID = string(instance.Id)
+			newResource.Size = instance.Kind
+			newResource.Image = r.Image
+			newResource.Location = instance.Zone
 		}
 	}
 
-	actual.BootstrapScripts = r.ServerPool.BootstrapScripts
-	actual.SSHFingerprint = known.SSH.PublicKeyFingerprint
-	actual.Name = r.Name
-	r.CachedActual = actual
-	return known, actual, nil
+	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
+	newResource.SSHFingerprint = immutable.SSH.PublicKeyFingerprint
+	newResource.Name = r.Name
+	r.CachedActual = newResource
+	return immutable, newResource, nil
 }
 
 // Expected is used to build a cluster expected to be on the cloud provider.
-func (r *Instance) Expected(known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("instance.Expected")
+func (r *InstanceGroup) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("instanceGroup.Expected")
 	if r.CachedExpected != nil {
 		logger.Debug("Using instance subnet [expected]")
-		return known, r.CachedExpected, nil
+		return immutable, r.CachedExpected, nil
 	}
-	expected := &Instance{
+	expected := &InstanceGroup{
 		Shared: Shared{
 			Name:    r.Name,
 			CloudID: r.ServerPool.Identifier,
 		},
 		Size:             r.ServerPool.Size,
-		Location:         known.Location,
+		Location:         immutable.Location,
 		Image:            r.ServerPool.Image,
 		Count:            r.ServerPool.MaxCount,
-		SSHFingerprint:   known.SSH.PublicKeyFingerprint,
+		SSHFingerprint:   immutable.SSH.PublicKeyFingerprint,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
 	r.CachedExpected = expected
-	return known, expected, nil
+	return immutable, expected, nil
 }
 
 // Apply is used to create the expected resources on the cloud provider.
-func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expectedCluster *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("instance.Apply")
-	applyResource := expectedResource.(*Instance)
-	isEqual, err := compare.IsEqual(actualResource.(*Instance), expectedResource.(*Instance))
+func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("instanceGroup.Apply")
+	applyResource := expected.(*InstanceGroup)
+	isEqual, err := compare.IsEqual(actual.(*InstanceGroup), expected.(*InstanceGroup))
 	if err != nil {
 		return nil, nil, err
 	}
 	if isEqual {
-		return expectedCluster, applyResource, nil
+		return immutable, applyResource, nil
 	}
 
 	scripts, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
@@ -140,7 +141,7 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 		found := false
 		for i := 0; i < MasterIPAttempts; i++ {
 			masterTag := ""
-			for _, serverPool := range expectedCluster.ServerPools {
+			for _, serverPool := range immutable.ServerPools {
 				if serverPool.Type == cluster.ServerPoolTypeMaster {
 					masterTag = serverPool.Name
 				}
@@ -149,7 +150,7 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 				return nil, nil, fmt.Errorf("Unable to find master tag")
 			}
 
-			instanceGroupManager, err := Sdk.Service.InstanceGroupManagers.ListManagedInstances(expectedCluster.CloudId, expectedResource.(*Instance).Location, strings.ToLower(masterTag)).Do()
+			instanceGroupManager, err := Sdk.Service.InstanceGroupManagers.ListManagedInstances(immutable.CloudId, expected.(*InstanceGroup).Location, strings.ToLower(masterTag)).Do()
 			if err != nil {
 				return nil, nil, err
 			}
@@ -161,7 +162,12 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 			}
 
 			parts := strings.Split(instanceGroupManager.ManagedInstances[0].Instance, "/")
-			instance, err := Sdk.Service.Instances.Get(expectedCluster.CloudId, expectedResource.(*Instance).Location, parts[len(parts)-1]).Do()
+			instance, err := Sdk.Service.Instances.Get(immutable.CloudId, expected.(*InstanceGroup).Location, parts[len(parts)-1]).Do()
+			if err != nil {
+				logger.Debug("Hanging for master IP.. (%v)", err)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
+				continue
+			}
 
 			for _, networkInterface := range instance.NetworkInterfaces {
 				if networkInterface.Name == "nic0" {
@@ -179,7 +185,7 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 			}
 
 			found = true
-			expectedCluster.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPPrivate, expectedCluster.KubernetesAPI.Port)
+			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPPrivate, immutable.KubernetesAPI.Port)
 			break
 		}
 		if !found {
@@ -187,33 +193,33 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 		}
 	}
 
-	expectedCluster.Values.ItemMap["INJECTEDPORT"] = expectedCluster.KubernetesAPI.Port
-	scripts, err = bootstrap.Inject(scripts, expectedCluster.Values.ItemMap)
+	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+	scripts, err = bootstrap.Inject(scripts, immutable.Values.ItemMap)
 	finalScripts := string(scripts)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	tags := []string{}
-	if expectedCluster.KubernetesAPI.Port == "443" {
+	if immutable.KubernetesAPI.Port == "443" {
 		tags = append(tags, "https-server")
 	}
 
-	if expectedCluster.KubernetesAPI.Port == "80" {
+	if immutable.KubernetesAPI.Port == "80" {
 		tags = append(tags, "http-server")
 	}
 
-	prefix := "https://www.googleapis.com/compute/v1/projects/" + expectedCluster.CloudId
-	imageURL := "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/" + expectedResource.(*Instance).Image
+	prefix := "https://www.googleapis.com/compute/v1/projects/" + immutable.CloudId
+	imageURL := "https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/" + expected.(*InstanceGroup).Image
 
-	templateInstance, err := Sdk.Service.InstanceTemplates.Get(expectedCluster.CloudId, strings.ToLower(expectedResource.(*Instance).Name)).Do()
+	templateInstance, err := Sdk.Service.InstanceTemplates.Get(immutable.CloudId, strings.ToLower(expected.(*InstanceGroup).Name)).Do()
 	if err != nil {
-		sshPublicKeyValue := fmt.Sprintf("%s:%s", expectedCluster.SSH.User, string(expectedCluster.SSH.PublicKeyData))
+		sshPublicKeyValue := fmt.Sprintf("%s:%s", immutable.SSH.User, string(immutable.SSH.PublicKeyData))
 
 		templateInstance = &compute.InstanceTemplate{
-			Name: strings.ToLower(expectedResource.(*Instance).Name),
+			Name: strings.ToLower(expected.(*InstanceGroup).Name),
 			Properties: &compute.InstanceProperties{
-				MachineType: expectedResource.(*Instance).Size,
+				MachineType: expected.(*InstanceGroup).Size,
 				Disks: []*compute.AttachedDisk{
 					{
 						AutoDelete: true,
@@ -261,29 +267,29 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 					Items: tags,
 				},
 				Labels: map[string]string{
-					"group": strings.ToLower(expectedResource.(*Instance).Name),
+					"group": strings.ToLower(expected.(*InstanceGroup).Name),
 				},
 			},
 		}
 
-		_, err = Sdk.Service.InstanceTemplates.Insert(expectedCluster.CloudId, templateInstance).Do()
+		_, err = Sdk.Service.InstanceTemplates.Insert(immutable.CloudId, templateInstance).Do()
 		if err != nil {
 			return nil, nil, err
 		}
 	}
 
-	_, err = Sdk.Service.InstanceGroupManagers.Get(expectedCluster.CloudId, expectedResource.(*Instance).Location, strings.ToLower(expectedResource.(*Instance).Name)).Do()
+	_, err = Sdk.Service.InstanceGroupManagers.Get(immutable.CloudId, expected.(*InstanceGroup).Location, strings.ToLower(expected.(*InstanceGroup).Name)).Do()
 	if err != nil {
 		instanceGroupManager := &compute.InstanceGroupManager{
 			Name:             templateInstance.Name,
 			BaseInstanceName: templateInstance.Name,
 			InstanceTemplate: prefix + "/global/instanceTemplates/" + templateInstance.Name,
-			TargetSize:       int64(expectedResource.(*Instance).Count),
+			TargetSize:       int64(expected.(*InstanceGroup).Count),
 		}
 
 		for i := 0; i < MasterIPAttempts; i++ {
 			logger.Debug("Creating instance group manager")
-			_, err = Sdk.Service.InstanceGroupManagers.Insert(expectedCluster.CloudId, expectedResource.(*Instance).Location, instanceGroupManager).Do()
+			_, err = Sdk.Service.InstanceGroupManagers.Insert(immutable.CloudId, expected.(*InstanceGroup).Location, instanceGroupManager).Do()
 			if err == nil {
 				break
 			}
@@ -295,20 +301,20 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 		logger.Info("Created instance group manager [%s]", templateInstance.Name)
 	}
 
-	newResource := &Instance{
+	newResource := &InstanceGroup{
 		Shared: Shared{
 			Name: r.ServerPool.Name,
 			//CloudID: id,
 		},
-		Image:            expectedResource.(*Instance).Image,
-		Size:             expectedResource.(*Instance).Size,
-		Location:         expectedResource.(*Instance).Location,
-		Count:            expectedResource.(*Instance).Count,
-		BootstrapScripts: expectedResource.(*Instance).BootstrapScripts,
+		Image:            expected.(*InstanceGroup).Image,
+		Size:             expected.(*InstanceGroup).Size,
+		Location:         expected.(*InstanceGroup).Location,
+		Count:            expected.(*InstanceGroup).Count,
+		BootstrapScripts: expected.(*InstanceGroup).BootstrapScripts,
 	}
-	expectedCluster.KubernetesAPI.Endpoint = masterIPPublic
+	immutable.KubernetesAPI.Endpoint = masterIPPublic
 
-	renderedCluster, err := r.render(newResource, expectedCluster)
+	renderedCluster, err := r.immutableRender(newResource, immutable)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -316,69 +322,31 @@ func (r *Instance) Apply(actualResource, expectedResource cloud.Resource, expect
 }
 
 // Delete is used to delete the instances on the cloud provider
-func (r *Instance) Delete(actual cloud.Resource, known *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
-	logger.Debug("instance.Delete")
-	deleteResource := actual.(*Instance)
+func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
+	logger.Debug("instanceGroup.Delete")
+	deleteResource := actual.(*InstanceGroup)
 	if deleteResource.Name == "" {
 		return nil, nil, fmt.Errorf("Unable to delete instance resource without Name [%s]", deleteResource.Name)
 	}
 
-	instanceGroupManagers, err := Sdk.Service.InstanceGroupManagers.List(known.CloudId, known.Location).Do()
+	_, err := Sdk.Service.InstanceGroupManagers.Delete(immutable.CloudId, immutable.Location, strings.ToLower(r.ServerPool.Name)).Do()
 	if err != nil {
 		return nil, nil, err
 	}
-
-	for _, instance := range instanceGroupManagers.Items {
-		if instance.BaseInstanceName == strings.ToLower(actual.(*Instance).Name) {
-			_, err = Sdk.Service.InstanceGroupManagers.Delete(known.CloudId, known.Location, instance.Name).Do()
-			if err != nil {
-				return nil, nil, err
-			}
-			logger.Info("Deleted Instance manager [%s]", instance.Name)
-		}
-	}
-
-	instanceTemplates, err := Sdk.Service.InstanceTemplates.List(known.CloudId).Do()
-	for _, instanceTemplate := range instanceTemplates.Items {
-		if instanceTemplate.Name == strings.ToLower(actual.(*Instance).Name) {
-			_, err = Sdk.Service.InstanceTemplates.Delete(known.CloudId, instanceTemplate.Name).Do()
-			if err != nil {
-				return nil, nil, err
-			}
-			logger.Info("Deleted instance template [%s]", instanceTemplate.Name)
-		}
-	}
+	logger.Info("Deleted InstanceGroup manager [%s]", r.ServerPool.Name)
 
 	// Kubernetes API
-	known.KubernetesAPI.Endpoint = ""
-	renderedCluster, err := r.render(actual, known)
+	immutable.KubernetesAPI.Endpoint = ""
+	renderedCluster, err := r.immutableRender(actual, immutable)
 	if err != nil {
 		return nil, nil, err
 	}
 	return renderedCluster, actual, nil
 }
 
-func (r *Instance) render(renderResource cloud.Resource, renderCluster *cluster.Cluster) (*cluster.Cluster, error) {
-	logger.Debug("instance.Render")
-	found := false
-	for i := 0; i < len(renderCluster.ServerPools); i++ {
-		if renderCluster.ServerPools[i].Name == renderResource.(*Instance).Name {
-			renderCluster.ServerPools[i].Image = renderResource.(*Instance).Image
-			renderCluster.ServerPools[i].Size = renderResource.(*Instance).Size
-			renderCluster.ServerPools[i].MaxCount = renderResource.(*Instance).Count
-			renderCluster.ServerPools[i].BootstrapScripts = renderResource.(*Instance).BootstrapScripts
-			found = true
-		}
-	}
-	if !found {
-		serverPool := &cluster.ServerPool{}
-		serverPool.Type = r.ServerPool.Type
-		serverPool.Image = renderResource.(*Instance).Image
-		serverPool.Size = renderResource.(*Instance).Size
-		serverPool.Name = renderResource.(*Instance).Name
-		serverPool.MaxCount = renderResource.(*Instance).Count
-		serverPool.BootstrapScripts = renderResource.(*Instance).BootstrapScripts
-		renderCluster.ServerPools = append(renderCluster.ServerPools, serverPool)
-	}
-	return renderCluster, nil
+func (r *InstanceGroup) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) (*cluster.Cluster, error) {
+	logger.Debug("instanceGroup.Render")
+	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+
+	return newCluster, nil
 }

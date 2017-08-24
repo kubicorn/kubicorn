@@ -21,7 +21,7 @@ import (
 )
 
 func TestExpectedHappy(t *testing.T) {
-	instance := Instance{
+	instance := InstanceGroup{
 		Shared: Shared{
 			Name: "SharedName",
 		},
@@ -55,15 +55,15 @@ func TestExpectedHappy(t *testing.T) {
 		actual   interface{}
 		expected interface{}
 	}{
-		{"Shared.cloudId", resource.(*Instance).Shared.CloudID, "ClusterPool1"},
-		{"Size", resource.(*Instance).Size, "5"},
-		{"Label Amount", len(resource.(*Instance).Labels), 1},
-		{"Label group", resource.(*Instance).Labels["group"], "sharedname"},
-		{"Location", resource.(*Instance).Location, "Location-us"},
-		{"Image", resource.(*Instance).Image, "server-os-image"},
-		{"Count", resource.(*Instance).Count, 5},
-		{"SSHFingerprint", resource.(*Instance).SSHFingerprint, "fingerprint"},
-		{"Bootstrapscript", resource.(*Instance).BootstrapScripts[0], "script1.sh"},
+		{"Shared.cloudId", resource.(*InstanceGroup).Shared.CloudID, "ClusterPool1"},
+		{"Size", resource.(*InstanceGroup).Size, "5"},
+		{"Label Amount", len(resource.(*InstanceGroup).Labels), 1},
+		{"Label group", resource.(*InstanceGroup).Labels["group"], "sharedname"},
+		{"Location", resource.(*InstanceGroup).Location, "Location-us"},
+		{"Image", resource.(*InstanceGroup).Image, "server-os-image"},
+		{"Count", resource.(*InstanceGroup).Count, 5},
+		{"SSHFingerprint", resource.(*InstanceGroup).SSHFingerprint, "fingerprint"},
+		{"Bootstrapscript", resource.(*InstanceGroup).BootstrapScripts[0], "script1.sh"},
 		{"Cache", resource, instance.CachedExpected},
 	}
 

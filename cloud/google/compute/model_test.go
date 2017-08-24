@@ -37,11 +37,11 @@ func TestClusterModelHappy(t *testing.T) {
 		t.Fatalf("Amount of serverpools is incorrect")
 	}
 
-	if result.Resources()[0].(*resources.Instance).Name != "ServerPool1" {
+	if result.Resources()[0].(*resources.InstanceGroup).Name != "ServerPool1" {
 		t.Fatalf("Serverpool first name is incorrect")
 	}
 
-	if result.Resources()[1].(*resources.Instance).Name != "ServerPool2" {
+	if result.Resources()[1].(*resources.InstanceGroup).Name != "ServerPool2" {
 		t.Fatalf("Serverpool first name is incorrect")
 	}
 }
