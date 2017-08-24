@@ -19,6 +19,7 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
+	"github.com/kris-nova/kubicorn/cutil/uuid"
 )
 
 // NewUbuntuAmazonCluster creates a simple Ubuntu Amazon cluster
@@ -35,8 +36,9 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 			Port: "443",
 		},
 		Network: &cluster.Network{
-			Type: cluster.NetworkTypePublic,
-			CIDR: "10.0.0.0/16",
+			Type:       cluster.NetworkTypePublic,
+			CIDR:       "10.0.0.0/16",
+			InternetGW: &cluster.InternetGW{},
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
@@ -64,7 +66,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 
 				Firewalls: []*cluster.Firewall{
 					{
-						Name: fmt.Sprintf("%s.master-external", name),
+						Name: fmt.Sprintf("%s.master-external-%s", name, uuid.TimeOrderedUUID()),
 						IngressRules: []*cluster.IngressRule{
 							{
 								IngressFromPort: "22",
@@ -101,7 +103,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 				},
 				Firewalls: []*cluster.Firewall{
 					{
-						Name: fmt.Sprintf("%s.node-external", name),
+						Name: fmt.Sprintf("%s.node-external-%s", name, uuid.TimeOrderedUUID()),
 						IngressRules: []*cluster.IngressRule{
 							{
 								IngressFromPort: "22",

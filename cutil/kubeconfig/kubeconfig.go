@@ -61,7 +61,7 @@ func GetConfig(existing *cluster.Cluster) error {
 	//fmt.Println(localPath)
 
 	agent := sshAgent()
-	if agent != nil {
+	if agent != nil && os.Getenv("KUBICORN_FORCE_DISABLE_SSH_AGENT") == "" {
 		sshConfig.Auth = append(sshConfig.Auth, agent)
 	} else {
 		pemBytes, err := ioutil.ReadFile(privKeyPath)
@@ -128,12 +128,9 @@ func RetryGetConfig(existing *cluster.Cluster) error {
 	for i := 0; i <= RetryAttempts; i++ {
 		err := GetConfig(existing)
 		if err != nil {
-			if strings.Contains(err.Error(), "file does not exist") || strings.Contains(err.Error(), "getsockopt: connection refused") || strings.Contains(err.Error(), "unable to authenticate") || strings.Contains(err.Error(), "target machine actively refused") || strings.Contains(err.Error(), "did not properly respond after a period of time") {
-				logger.Debug("Waiting for Kubernetes to come up.. [%v]", err)
-				time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
-				continue
-			}
-			return err
+			logger.Debug("Waiting for Kubernetes to come up.. [%v]", err)
+			time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
+			continue
 		}
 		return nil
 	}

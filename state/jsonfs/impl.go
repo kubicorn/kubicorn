@@ -35,7 +35,7 @@ type JSONFileSystemStoreOptions struct {
 }
 
 // JSONFileSystemStore exists to save the cluster at runtime to the file defined
-// in the state.ClusterJsonFile constant. We perform this operation so that
+// in the state.ClusterJSONFile constant. We perform this operation so that
 // various bash scripts can get the cluster state at runtime without having to
 // inject key/value pairs into the script or anything like that.
 type JSONFileSystemStore struct {
@@ -79,13 +79,17 @@ func (fs *JSONFileSystemStore) write(relativePath string, data []byte) error {
 	return nil
 }
 
-func (fs *JSONFileSystemStore) read(relativePath string) ([]byte, error) {
+func (fs *JSONFileSystemStore) Read(relativePath string) ([]byte, error) {
 	fqn := filepath.Join(fs.AbsolutePath, relativePath)
 	bytes, err := ioutil.ReadFile(fqn)
 	if err != nil {
 		return []byte(""), err
 	}
 	return bytes, nil
+}
+
+func (fs *JSONFileSystemStore) ReadStore() ([]byte, error) {
+	return fs.Read(state.ClusterJSONFile)
 }
 
 func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
@@ -96,7 +100,7 @@ func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
-	return fs.write(state.ClusterJsonFile, bytes)
+	return fs.write(state.ClusterJSONFile, bytes)
 }
 
 func (fs *JSONFileSystemStore) Rename(existingRelativePath, newRelativePath string) error {
@@ -109,12 +113,17 @@ func (fs *JSONFileSystemStore) Destroy() error {
 }
 
 func (fs *JSONFileSystemStore) GetCluster() (*cluster.Cluster, error) {
-	cluster := &cluster.Cluster{}
-	configBytes, err := fs.read(state.ClusterJsonFile)
+	configBytes, err := fs.Read(state.ClusterJSONFile)
 	if err != nil {
-		return cluster, err
+		return nil, err
 	}
-	err = json.Unmarshal(configBytes, cluster)
+
+	return fs.BytesToCluster(configBytes)
+}
+
+func (fs *JSONFileSystemStore) BytesToCluster(bytes []byte) (*cluster.Cluster, error) {
+	cluster := &cluster.Cluster{}
+	err := json.Unmarshal(bytes, cluster)
 	if err != nil {
 		return cluster, err
 	}

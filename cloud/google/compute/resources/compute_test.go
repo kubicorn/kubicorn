@@ -15,8 +15,9 @@
 package resources
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"testing"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
 )
 
 func TestExpectedHappy(t *testing.T) {
@@ -36,14 +37,15 @@ func TestExpectedHappy(t *testing.T) {
 	}
 
 	knownCluster := &cluster.Cluster{
-		Name: "ClusterName",
+		Name:    "ClusterName",
+		CloudId: "test-123",
 		SSH: &cluster.SSH{
 			PublicKeyFingerprint: "fingerprint",
 		},
 		Location: "Location-us",
 	}
 
-	resource, err := instance.Expected(knownCluster)
+	_, resource, err := instance.Expected(knownCluster)
 	if err != nil {
 		t.Fatalf("Error while creating resource %v", err)
 	}
@@ -56,7 +58,7 @@ func TestExpectedHappy(t *testing.T) {
 		{"Shared.cloudId", resource.(*Instance).Shared.CloudID, "ClusterPool1"},
 		{"Size", resource.(*Instance).Size, "5"},
 		{"Label Amount", len(resource.(*Instance).Labels), 1},
-		{"Label group", resource.(*Instance).Labels["group"], "SharedName"},
+		{"Label group", resource.(*Instance).Labels["group"], "sharedname"},
 		{"Location", resource.(*Instance).Location, "Location-us"},
 		{"Image", resource.(*Instance).Image, "server-os-image"},
 		{"Count", resource.(*Instance).Count, 5},

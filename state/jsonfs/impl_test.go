@@ -16,13 +16,14 @@ package jsonfs
 
 import (
 	"encoding/json"
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles"
-	"github.com/kris-nova/kubicorn/state"
 	"io/ioutil"
 	"path/filepath"
 	"reflect"
 	"testing"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/profiles"
+	"github.com/kris-nova/kubicorn/state"
 )
 
 func TestJsonFileSystem(t *testing.T) {
@@ -50,8 +51,8 @@ func TestJsonFileSystem(t *testing.T) {
 	if len(files) < 1 {
 		t.Fatalf("Expected at least one cluster, got: %v", len(files))
 	}
-	if files[0] != state.ClusterJsonFile {
-		t.Fatalf("Expected file name to be %v, got %v", state.ClusterJsonFile, files[0])
+	if files[0] != state.ClusterJSONFile {
+		t.Fatalf("Expected file name to be %v, got %v", state.ClusterJSONFile, files[0])
 	}
 	read, err := fs.GetCluster()
 	if err != nil {
@@ -61,7 +62,7 @@ func TestJsonFileSystem(t *testing.T) {
 		t.Fatalf("Cluster in doesn't equal cluster out")
 	}
 	unmarshalled := &cluster.Cluster{}
-	bytes, err := ioutil.ReadFile(filepath.Join(testFilePath, clusterName, state.ClusterJsonFile))
+	bytes, err := ioutil.ReadFile(filepath.Join(testFilePath, clusterName, state.ClusterJSONFile))
 	if err != nil {
 		t.Fatalf("Error reading json file: %v", err)
 	}

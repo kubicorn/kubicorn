@@ -11,7 +11,7 @@ If you are writing docs for global concepts, keep them in the top level director
 
 ###### Keep tables formatted
 
-If you are making a table in markdown: YES, I expect you to format them nicely. Keep our shit clean please.
+If you are making a table in markdown: YES, we expect you to format them nicely. Keep our shit clean please.
 
 ###### Complete sentences
 
