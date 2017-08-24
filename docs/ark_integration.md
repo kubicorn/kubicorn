@@ -17,7 +17,7 @@ Kubicorn at this point can install ARK and Kubicorn components in the cluster, w
 
 **Scenario 2** - For clusters created using Kubicorn, Kubicorn already has all the info to access recreate the cluster. If someone at any point wants to backup the Kubernetes configuration and applications, they can use 
 
-                `kubicorn backup -p <profile name> -b <backupLocation(optional)> `
+                `kubicorn backup <profileName> -b <backupLocation(optional)> `
 
 Kubicorn now same as earlier will install ARK and Kubicorn components (optional) in the cluster, which can perform the backup. 
 
@@ -37,7 +37,7 @@ Kubicorn and Ark backups created should stay in different files / tars (may be) 
 
 No existing Ark running in the Cluster where backup needs to be restored. It’s also possible the cluster is not created by Kubicorn. User can do this -
 
-                `Kubicorn apply -f <kubeconfig> -b <backupLocation>`
+                `kubicorn apply -f <kubeconfig> -b <backupLocation>`
 
 Kubicorn can create Ark components and request to restore the backup. In case, cluster is created using Kubicorn, only -b flag shoulld be required.
 
@@ -45,6 +45,6 @@ Kubicorn can create Ark components and request to restore the backup. In case, c
 **Scenario 2** - Restore the complete infrastructure, config and applications to any Cloud.
 In this case user can do something like this - 
             
-                `Kubicorn apply -p <profileName> -b <backupLocation>`
+                `kubicorn apply <profileName> -b <backupLocation>`
 
 Kubicorn will create infrastructure, deploy Ark and request Ark server to restore the back
