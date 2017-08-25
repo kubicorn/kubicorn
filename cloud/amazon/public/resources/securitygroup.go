@@ -68,12 +68,21 @@ func (r *SecurityGroup) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cl
 		}
 		sg := output.SecurityGroups[0]
 		for _, rule := range sg.IpPermissions {
-			newResource.Rules = append(newResource.Rules, &Rule{
-				IngressFromPort: int(*rule.FromPort),
-				IngressToPort:   int(*rule.ToPort),
+			new_rule := &Rule{
 				IngressSource:   *rule.IpRanges[0].CidrIp,
 				IngressProtocol: *rule.IpProtocol,
-			})
+			}
+			if rule.FromPort != nil {
+				new_rule.IngressFromPort = int(*rule.FromPort)
+			} else {
+				new_rule.IngressFromPort = 0
+			}
+			if rule.ToPort != nil {
+				new_rule.IngressToPort = int(*rule.ToPort)
+			} else {
+				new_rule.IngressToPort = 65535
+			}
+			newResource.Rules = append(newResource.Rules, new_rule)
 		}
 		newResource.Tags = map[string]string{
 			"Name":              r.Name,
