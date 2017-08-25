@@ -51,7 +51,7 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 				MaxCount: 1,
 				MinCount: 1,
 				Image:    "ami-0c2aba6c",
-				Size:     "t2.medium",
+				Size:     "t2.xlarge",
 				BootstrapScripts: []string{
 					"amazon_k8s_centos_7_master.sh",
 				},

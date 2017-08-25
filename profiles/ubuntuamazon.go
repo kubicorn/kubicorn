@@ -52,7 +52,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 				MaxCount: 1,
 				MinCount: 1,
 				Image:    "ami-835b4efa",
-				Size:     "t2.medium",
+				Size:     "t2.xlarge",
 				BootstrapScripts: []string{
 					"amazon_k8s_ubuntu_16.04_master.sh",
 				},
