@@ -15,7 +15,7 @@ If you are writing documentation for a cloud, please treat it as such.
 
 Cloud docs have a `doctype: [cloud]` property, and talk about specific clouds. The property can be `aws`, `azure`, `do`, or `google`.
 
-If you are writing docs for global concepts, keep them in the top level directory, and never mention a cloud. In this case you should use `doctype: general`.
+If you are writing docs for global concepts, never mention a cloud. In this case you should use `doctype: general`.
 
 All documentation files should include the following header:
 
