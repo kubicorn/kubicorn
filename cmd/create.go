@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 	"os/user"
-
+	"strings"
 	"math"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -29,6 +29,7 @@ import (
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
+	"github.com/yuroyoro/swalker"
 )
 
 type CreateOptions struct {
@@ -70,6 +71,7 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 	createCmd.Flags().StringVarP(&co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
+	createCmd.Flags().StringVarP(&co.Override, "override", "o", strEnvDef("KUBICORN_OVERRIDE", ""), "override cluster setting")
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
@@ -144,10 +146,22 @@ func RunCreate(options *CreateOptions) error {
 		return fmt.Errorf("Invalid profile [%s]", options.Profile)
 	}
 
+	if options.Override != "" {
+		overrides := strings.Split(options.Override, ",")
+		for _, override := range overrides {
+			parts := strings.SplitN(override, "=", 2)
+			err := swalker.Write(parts[0], newCluster, parts[1])
+			if err != nil {
+				println(err)
+			}
+		}
+	}
+
 	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
 		return fmt.Errorf("CloudID is required for google cloud.")
 	}
 	newCluster.CloudId = options.CloudId
+
 	// Expand state store path
 	// Todo (@kris-nova) please pull this into a filepath package or something
 	options.StateStorePath = expandPath(options.StateStorePath)
