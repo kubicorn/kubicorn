@@ -19,7 +19,7 @@ set -o nounset
 set -o pipefail
 
 # gofmt
-bad_files=$(echo $PKGS | xargs $GOFMT -l)
+bad_files=$(echo "$PKGS" | xargs "$GOFMT" -l)
 if [[ -n "${bad_files}" ]]; then
   echo "✖ gofmt needs to be run on the following files: "
   echo "${bad_files}"
@@ -30,7 +30,7 @@ fi
 exit 0
 
 # golint
-bad_files=$(echo $PKGS | xargs $GOLINT)
+bad_files=$(echo "$PKGS" | xargs "$GOLINT")
 if [[ -n "${bad_files}" ]]; then
   echo "✖ lint issues: "
   echo "${bad_files}"

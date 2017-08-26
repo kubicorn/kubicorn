@@ -33,10 +33,11 @@ EOF
 FILES=$(find . -name "*.go" -not -path "./vendor/*")
 for FILE in $FILES; do
 	if [ "$FILE" == "./bootstrap/bootstrap.go" ]; then
-            continue
-        fi
-        CONTENT=$(head -n 13 $FILE)
-        if [ "$CONTENT" != "$EXPECTED" ]; then
-		echo -e "$EXPECTED\n\n$(cat $FILE)" > $FILE
-        fi
+    continue
+  fi
+  CONTENT=$(head -n 13 "$FILE")
+  if [ "$CONTENT" != "$EXPECTED" ]; then
+		OLD_EXPECTED=$(cat "$FILE")
+		echo -e "$EXPECTED\n\n$OLD_EXPECTED" > "$FILE"
+  fi
 done

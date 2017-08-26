@@ -3,8 +3,17 @@ language: go
 go:
   - 1.8.3
 
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - shellcheck
+
 jobs:
   include:
+    - stage: lint shell scripts
+      script: find . -path ./vendor -prune -o -name '*.sh' -print0 | xargs -n1 -0 shellcheck -s bash -e SC2001
     - stage: Check headers
       script: make check-headers
     - stage: Check go files
