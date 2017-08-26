@@ -5,9 +5,9 @@ date: 2017-08-25
 doctype: general
 ---
 
-### Rules
+## Rules
 
-###### Know what you are writing
+### Know what you are writing
 
 You either are writing cloud specific docs or you aren't.
 
@@ -28,11 +28,11 @@ doctype: [general/aws/azure/do/google]
 ---
 ```
 
-###### Keep tables formatted
+### Keep tables formatted
 
 If you are making a table in markdown: YES, we expect you to format them nicely. Keep our shit clean please.
 
-###### Complete sentences
+### Complete sentences
 
 A complete sentence expresses a complete thought.
 
@@ -42,12 +42,12 @@ Always use proper grammar.
 
 Each sentence goes on a new line.
 
-###### Write inclusively
+### Write inclusively
 
 Always use "we" when referring to the project, and always refer to the user as "the user".
 
 
-###### Must and Might
+### Must and Might
 
 Use the word MUST to explain something a user has to accomplish in your documentation.
 
