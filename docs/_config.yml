@@ -17,7 +17,7 @@ title: kubicorn
 email: your-email@example.com
 description: > # this means to ignore newlines until "baseurl:"
   Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.
-baseurl: "/kubicorn" # the subpath of your site, e.g. /blog
+baseurl: "/" # the subpath of your site, e.g. /blog
 url: "http://ellenkorbes.com" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
