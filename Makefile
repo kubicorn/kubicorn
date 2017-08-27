@@ -75,6 +75,13 @@ shell: ## Exec into a container with the kubicorn source mounted inside
 lint: install-tools ## check for style mistakes all Go files using golint
 	golint $(PKGS)
 
+bashlint:
+	if which shellcheck > /dev/null; then \
+	find . -path ./vendor -prune -o -name '*.sh' -print0 | xargs -n1 -0 shellcheck -s bash -e SC2001; \
+	else \
+	 echo shellcheck not installed. try something like: apt-get install shellcheck; \
+	fi
+
 # versioning
 bump-major:
 	./scripts/bump-version.sh major
@@ -94,7 +101,7 @@ ci: ## Run the CI TESTS. This will never cost money, and will never communicate 
 	go test -timeout 20m -v $(CI_PKGS)
 
 .PHONY: check-code
-check-code: install-tools ## Run code checks	
+check-code: install-tools ## Run code checks
 	PKGS="${FMT_PKGS}" GOFMT="gofmt" GOLINT="golint" ./scripts/ci-checks.sh
 
 vet: ## apply go vet to all the Go files
