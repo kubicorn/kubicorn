@@ -40,7 +40,7 @@ func (m *Model) Resources() map[int]cloud.Resource {
 
 	for _, serverPool := range m.known.ServerPools {
 		// ---- [Engine] ----
-		r[i] = &resources.Instance{
+		r[i] = &resources.InstanceGroup{
 			Shared: resources.Shared{
 				Name: serverPool.Name,
 			},
