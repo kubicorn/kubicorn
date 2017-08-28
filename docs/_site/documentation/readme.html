@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
     crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/main.css">
-    <link rel="canonical" href="http://ellenkorbes.com/documentation/readme.html">
+    <link rel="canonical" href="http://localhost:4000/documentation/readme.html">
     <link rel="alternate" type="application/rss+xml" title="kubicorn" href="/feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Fira+Mono" rel="stylesheet">
@@ -108,8 +108,8 @@
       </ul>
       <a class="nav-link px-1" href="https://twitter.com/kubicornk8s"><i aria-hidden="true" class="fa fa-twitter"></i></a>&nbsp;&nbsp;
       <a class="nav-link px-1" href="https://github.com/kris-nova/kubicorn/"><i aria-hidden="true" class="fa fa-github"></i></a>&nbsp;&nbsp;
-      <!-- <a class="nav-link px-1" href=""><i aria-hidden="true" class="fa fa-slack"></i></a>&nbsp;&nbsp;
-      <a class="nav-link px-1" href=""><i aria-hidden="true" class="fa fa-stack-overflow"></i></a>&nbsp;&nbsp;
+       <a class="nav-link px-1" href="https://invite.slack.golangbridge.org/"><i aria-hidden="true" class="fa fa-slack"></i></a>&nbsp;&nbsp;
+      <!--<a class="nav-link px-1" href=""><i aria-hidden="true" class="fa fa-stack-overflow"></i></a>&nbsp;&nbsp;
       <a class="nav-link px-1" href=""><i aria-hidden="true" class="fa fa-envelope"></i></a>&nbsp;&nbsp; -->
       
     </div>
@@ -246,37 +246,56 @@
 
             <p class="figure-caption text-left"><i>
             
-            August 17, 2017</i></p>
+            August 25, 2017</i></p>
     
-            <h3 id="rules">Rules</h3>
+            <h2 id="rules">Rules</h2>
 
-<h6 id="know-what-you-are-writing">Know what you are writing</h6>
+<h3 id="know-what-you-are-writing">Know what you are writing</h3>
 
-<p>You either are writing cloud specific docs or you aren’t.
-If you are writing documentation for a cloud, please treat it as such.
-Cloud docs go in their directory, and talk about specific clouds.
-If you are writing docs for global concepts, keep them in the top level directory, and never mention a cloud.</p>
+<p>You either are writing cloud specific docs or you aren’t.</p>
 
-<h6 id="keep-tables-formatted">Keep tables formatted</h6>
+<p>If you are writing documentation for a cloud, please treat it as such.</p>
+
+<p>Cloud docs have a <code class="highlighter-rouge">doctype: [cloud]</code> property, and talk about specific clouds. The property can be <code class="highlighter-rouge">aws</code>, <code class="highlighter-rouge">azure</code>, <code class="highlighter-rouge">do</code>, or <code class="highlighter-rouge">google</code>.</p>
+
+<p>If you are writing docs for global concepts, never mention a cloud. In this case you should use <code class="highlighter-rouge">doctype: general</code>.</p>
+
+<p>All documentation files should include the following header:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>---
+layout: documentation
+title: [The title of your document]
+date: YYYY-MM-DD
+doctype: [general/aws/azure/do/google]
+---
+</code></pre>
+</div>
+
+<h3 id="keep-tables-formatted">Keep tables formatted</h3>
 
 <p>If you are making a table in markdown: YES, we expect you to format them nicely. Keep our shit clean please.</p>
 
-<h6 id="complete-sentences">Complete sentences</h6>
+<h3 id="complete-sentences">Complete sentences</h3>
 
-<p>A complete sentence expresses a complete thought.
-Always write complete sentences.
-Always use proper grammar.
-Each sentence goes on a new line.</p>
+<p>A complete sentence expresses a complete thought.</p>
 
-<h6 id="write-inclusively">Write inclusively</h6>
+<p>Always write complete sentences.</p>
+
+<p>Always use proper grammar.</p>
+
+<p>Each sentence goes on a new line.</p>
+
+<h3 id="write-inclusively">Write inclusively</h3>
 
 <p>Always use “we” when referring to the project, and always refer to the user as “the user”.</p>
 
-<h6 id="must-and-might">Must and Might</h6>
+<h3 id="must-and-might">Must and Might</h3>
 
-<p>Use the word MUST to explain something a user has to accomplish in your documentation.
-Use the word MIGHT to explain something a user optionally can chose to accomplish in your documentation.
-Never use the word MAY.</p>
+<p>Use the word MUST to explain something a user has to accomplish in your documentation.</p>
+
+<p>Use the word MIGHT to explain something a user optionally can chose to accomplish in your documentation.</p>
+
+<p>Never use the word MAY.</p>
 
             
     
@@ -324,23 +343,31 @@ d88P"                   888
 888    "Y88P"   "Y88P"   "Y888 "Y8888  888     
 -->
 <div class="row light-bg py-3 px-3 mb-0 social-media-footer">
-    <div class="col-4">
-      <p>So what do we put here?</p>
-    </div>
-    <div class="col-4">
-    </div>
-    <div class="col-4 text-center">
-        <h3 class="mb-3 mt-3">Join us!</h3>
-        <a class=" px-1" href="https://twitter.com/kubicornk8s"><i aria-hidden="true" class="fa fa-twitter"></i></a>&nbsp;&nbsp;
-        <a class=" px-1" href="https://github.com/kris-nova/kubicorn/"><i aria-hidden="true" class="fa fa-github"></i></a>&nbsp;&nbsp;
-        <!-- <a class=" px-1" href=""><i aria-hidden="true" class="fa fa-slack"></i></a>&nbsp;&nbsp;
-        <a class=" px-1" href=""><i aria-hidden="true" class="fa fa-stack-overflow"></i></a>&nbsp;&nbsp;
-        <a class=" px-1" href=""><i aria-hidden="true" class="fa fa-envelope"></i></a>&nbsp;&nbsp;   -->
-
-        <p class="mt-5">© 2017 The Kubicorn Authors</p>
-
+  <div class="col-4 text-center d-flex align-items-start justify-content-center">
+    <div>
+      <h3 class="mb-3 mt-3">Community</h3>
+      <p><a href="https://github.com/kris-nova/kubicorn/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
+      <p><a href="https://github.com/kris-nova/kubicorn/blob/master/CONTRIBUTING.md">Contributing Guidelines</a></p>
+      <p><a href="https://github.com/kris-nova/kubicorn/blob/master/AUTHORS">Authors</a></p>
     </div>
   </div>
+  <div class="col-4 text-center d-flex align-items-start justify-content-center">
+    <div>
+      <h3 class="mb-3 mt-3">Join us!</h3>
+      <a class=" px-1" href="https://twitter.com/kubicornk8s"><i aria-hidden="true" class="fa fa-twitter"></i></a>&nbsp;&nbsp;
+      <a class=" px-1" href="https://github.com/kris-nova/kubicorn/"><i aria-hidden="true" class="fa fa-github"></i></a>&nbsp;&nbsp;
+      <a class=" px-1" href="https://invite.slack.golangbridge.org/"><i aria-hidden="true" class="fa fa-slack"></i></a>&nbsp;&nbsp;
+      <!-- <a class=" px-1" href=""><i aria-hidden="true" class="fa fa-stack-overflow"></i></a>&nbsp;&nbsp;
+      <a class=" px-1" href=""><i aria-hidden="true" class="fa fa-envelope"></i></a>&nbsp;&nbsp;   -->
+    </div>
+  </div>
+  <div class="col-4 text-center d-flex align-items-start justify-content-center">
+    <div>
+      <h3 class="mb-3 mt-3"><code>kubicorn</code></h3>
+      <p class="small">© 2017 The Kubicorn Authors</p>
+    </div>
+  </div>
+</div>
 
   <!-- 
                           d8b          888             

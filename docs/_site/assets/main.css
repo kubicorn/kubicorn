@@ -102,7 +102,7 @@ ol.carousel-indicators li.active {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0; }
 
-.social-media-footer a {
+.social-media-footer .fa {
   font-size: 2rem; }
 
 .social-media-footer a:link .fa,
