@@ -2,7 +2,7 @@
 
 Here is the content of the official `kubicorn` website: [kubicorn.io](http://kubicorn.io).
 
-All documentation for the project is hosted in the [docs section](kubicorn.io/documentation/readme.html) of [kubicorn.io](http://kubicorn.io).
+All documentation for the project is hosted in the [docs section](http://kubicorn.io/documentation/readme.html) of [kubicorn.io](http://kubicorn.io).
 
 # Adding a new page
 
