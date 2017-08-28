@@ -17,7 +17,7 @@ package cmd
 import (
 	"fmt"
 	"os"
-
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
@@ -29,6 +29,9 @@ var listCmd = &cobra.Command{
 	Short: "List available states",
 	Long:  `List the states available in the _state directory`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		err := RunList(lo)
 		if err != nil {
 			logger.Critical(err.Error())

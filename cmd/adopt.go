@@ -16,8 +16,9 @@ package cmd
 
 import (
 	"fmt"
-
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
+	"os"
 )
 
 // adoptCmd represents the adopt command
@@ -29,6 +30,9 @@ var adoptCmd = &cobra.Command{
 This command will query cloud resources and attempt to build a representation of the cluster in the Kubicorn API model.
 Once the cluster has been adopted, a user can manage and scale their Kubernetes cluster with Kubicorn.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		fmt.Println("adopt called")
 	},
 }

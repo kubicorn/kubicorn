@@ -18,7 +18,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
-
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -41,6 +41,9 @@ var getConfigCmd = &cobra.Command{
 
 This command will attempt to find a cluster, and append a local kubeconfig file with a kubeconfig `,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		if len(args) == 0 {
 			cro.Name = strEnvDef("KUBICORN_NAME", "")
 		} else if len(args) > 1 {

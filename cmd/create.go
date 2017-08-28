@@ -21,7 +21,7 @@ import (
 	"os/user"
 
 	"math"
-
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/namer"
@@ -47,6 +47,9 @@ This command will create a cluster API model as a YAML manifest in a state store
 Once the API model has been created, a user can optionally change the model to their liking.
 After a model is defined and configured properly, the user can then apply the model.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		if len(args) == 0 {
 			co.Name = strEnvDef("KUBICORN_NAME", namer.RandomName())
 		} else if len(args) > 1 {
@@ -74,7 +77,7 @@ func init() {
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
 
-	RootCmd.SetUsageTemplate(usageTemplate)
+	createCmd.SetUsageTemplate(usageTemplate)
 	RootCmd.AddCommand(createCmd)
 }
 

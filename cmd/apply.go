@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
-
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
@@ -44,6 +44,9 @@ var applyCmd = &cobra.Command{
 This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
 The apply will run once, and ultimately time out if something goes wrong.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		if len(args) == 0 {
 			ao.Name = strEnvDef("KUBICORN_NAME", "")
 		} else if len(args) > 1 {

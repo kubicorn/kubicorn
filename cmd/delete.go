@@ -17,7 +17,7 @@ package cmd
 import (
 	"fmt"
 	"os"
-
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -47,6 +47,9 @@ After the delete is complete, the state store will be left in tact and could pot
 
 To delete the resource AND the API model in the state store, use --purge.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		if len(args) == 0 {
 			do.Name = strEnvDef("KUBICORN_NAME", "")
 		} else if len(args) > 1 {
