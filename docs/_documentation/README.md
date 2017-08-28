@@ -1,3 +1,10 @@
+---
+layout: documentation
+title: Kubicorn Documentation
+date: 2017-08-28
+doctype: general
+---
+
 # kubicorn.io
 
 Here is the content of the official `kubicorn` website: [kubicorn.io](http://kubicorn.io).
