@@ -16,9 +16,10 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+
 	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 // imageCmd represents the image command

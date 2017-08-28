@@ -23,8 +23,9 @@ import (
 	"path/filepath"
 	"runtime"
 	"time"
-	lol "github.com/kris-nova/lolgopher"
+
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 )
 

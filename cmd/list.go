@@ -17,10 +17,11 @@ package cmd
 import (
 	"fmt"
 	"os"
-	lol "github.com/kris-nova/lolgopher"
+
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 )
 

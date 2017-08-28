@@ -17,13 +17,14 @@ package cmd
 import (
 	"fmt"
 	"os"
-	lol "github.com/kris-nova/lolgopher"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/task"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
