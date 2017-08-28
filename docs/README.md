@@ -13,9 +13,9 @@ All new docs must contain the header:
 ```
 ---
 layout: documentation
-title: Building Kubicorn
-date: 2017-08-19
-doctype: general
+title: [The title of your document]
+date: YYYY-MM-DD
+doctype: [general/aws/azure/do/google]
 ---
 ```
 
