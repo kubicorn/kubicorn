@@ -1,32 +1,29 @@
-# Kubicorn Documentation
+# kubicorn.io
 
-### Rules
+Here is the content of the official `kubicorn` website: [kubicorn.io](http://kubicorn.io).
 
-###### Know what you are writing
+All documentation for the project is hosted in the [docs section](http://kubicorn.io/documentation/readme.html) of [kubicorn.io](http://kubicorn.io).
 
-You either are writing cloud specific docs or you aren't.
-If you are writing documentation for a cloud, please treat it as such.
-Cloud docs go in their directory, and talk about specific clouds.
-If you are writing docs for global concepts, keep them in the top level directory, and never mention a cloud.
+# Adding a new page
 
-###### Keep tables formatted
+To create a new page on the website, create a new `.md` markdown file in `/docs/_documentation`.
 
-If you are making a table in markdown: YES, we expect you to format them nicely. Keep our shit clean please.
+All new docs must contain the header:
 
-###### Complete sentences
+```
+---
+layout: documentation
+title: [The title of your document]
+date: YYYY-MM-DD
+doctype: [general/aws/azure/do/google]
+---
+```
 
-A complete sentence expresses a complete thought.
-Always write complete sentences.
-Always use proper grammar.
-Each sentence goes on a new line.
+Where `doctype` is the larger category for the documentation (valid categories are `general`, `aws`, `azure`, `do`, and `google`). All docs should be written in valid `.md` markdown.
 
-###### Write inclusively
+Do not include a title top level header on the document, e.g. `# Title`. The title is pulled from `title: value` on the section above. You can start your file with a level two header, e.g. `## Second level header`, or go straight to normal text.
 
-Always use "we" when referring to the project, and always refer to the user as "the user".
+# Editing existing documentation
 
+Simply update the associated `.md` markdown file. All documentation should be in complete sentences.
 
-###### Must and Might
-
-Use the word MUST to explain something a user has to accomplish in your documentation.
-Use the word MIGHT to explain something a user optionally can chose to accomplish in your documentation.
-Never use the word MAY.

@@ -34,6 +34,7 @@ type ServerPool struct {
 	Name              string      `json:"name,omitempty"`
 	Image             string      `json:"image,omitempty"`
 	Size              string      `json:"size,omitempty"`
+	SpotPrice         string      `json:"spotPrice,omitempty"`
 	BootstrapScripts  []string    `json:"bootstrapScripts,omitempty"`
 	Subnets           []*Subnet   `json:"subnets,omitempty"`
 	Firewalls         []*Firewall `json:"firewalls,omitempty"`
