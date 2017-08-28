@@ -83,16 +83,18 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	}
 
 	if r.ServerPool.Type == cluster.ServerPoolTypeMaster {
-		// -------------------------------------------------------------------------------------
-		// MASTER
-		// -------------------------------------------------------------------------------------
 
+		// -------------------------------------------------------------------------------------
+		// -------------------------------------------------------------------------------------
 		parameters := compute.VirtualMachineScaleSet{
 			Location: &immutable.Location,
 			VirtualMachineScaleSetProperties: &compute.VirtualMachineScaleSetProperties{
 				VirtualMachineProfile: &compute.VirtualMachineScaleSetVMProfile{
 					StorageProfile: &compute.VirtualMachineScaleSetStorageProfile{},
 				},
+			},
+			Sku: &compute.Sku{
+				Name: s("Standard_DS3")
 			},
 		}
 		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))

@@ -25,3 +25,7 @@ type Shared struct {
 }
 
 var Sdk *azureSDK.Sdk
+
+func s(st string) *string {
+	return &st
+}

@@ -48,7 +48,8 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 				Name:             fmt.Sprintf("%s-master", name),
 				MaxCount:         1,
 				Image:            "UbuntuServer",
-				Size:             "Standard_DS3_v2 ",
+				ImageVersion:     "16.04.0-LTS",
+				Size:             "Standard_DS4_v2 ",
 				BootstrapScripts: []string{},
 				Firewalls: []*cluster.Firewall{
 					{
@@ -90,7 +91,8 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 				Name:             fmt.Sprintf("%s-node", name),
 				MaxCount:         1,
 				Image:            "UbuntuServer",
-				Size:             "Standard_DS3_v2 ",
+				ImageVersion:     "16.04.0-LTS",
+				Size:             "Standard_DS4_v2 ",
 				BootstrapScripts: []string{},
 				Firewalls: []*cluster.Firewall{
 					{
