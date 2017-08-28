@@ -31,7 +31,8 @@ var _ cloud.Resource = &Vnet{}
 
 type Vnet struct {
 	Shared
-	CIDR string
+	CIDR     string
+	SubnetID string
 }
 
 func (r *Vnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
@@ -108,12 +109,19 @@ func (r *Vnet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster
 	parsedVnet := retrier.Retryable().(*lookUpVnetRetrier).vnet
 	logger.Info("Created or found vnet [%s]", *parsedVnet.ID)
 
+	lenSubnets := len(*parsedVnet.Subnets)
+	if lenSubnets != 1 {
+		return nil, nil, fmt.Errorf("Invalid length of subnets [%d]", lenSubnets)
+	}
+	subnets := *parsedVnet.Subnets
+	subnet := subnets[0]
 	newResource := &Vnet{
 		Shared: Shared{
 			Name:       r.Name,
 			Tags:       r.Tags,
 			Identifier: *parsedVnet.ID,
 		},
+		SubnetID: *subnet.ID,
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -170,5 +178,6 @@ func (r *Vnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cl
 	logger.Debug("vnet.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
 	newCluster.Network.Identifier = newResource.(*Vnet).Identifier
+	newCluster.Network.SubnetIdentifier = newResource.(*Vnet).SubnetID
 	return newCluster
 }

@@ -29,3 +29,7 @@ var Sdk *azureSDK.Sdk
 func s(st string) *string {
 	return &st
 }
+
+func i64(in int64) *int64 {
+	return &in
+}

@@ -91,7 +91,6 @@ func (r *ResourceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		return nil, nil, err
 	}
 	logger.Info("Created or found resource group [%s]", *group.Name)
-	fmt.Println(group)
 	newResource := &ResourceGroup{
 		Shared: Shared{
 			Identifier: *group.ID,
