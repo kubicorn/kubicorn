@@ -123,6 +123,8 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				Capacity: i64(int64(r.ServerPool.MaxCount)),
 			},
 		}
+
+
 		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
 		vmss := <-vmssch
 		err = <-errch
