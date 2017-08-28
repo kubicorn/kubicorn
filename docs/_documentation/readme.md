@@ -28,6 +28,8 @@ doctype: [general/aws/azure/do/google]
 ---
 ```
 
+Do not include top level headers on the document, e.g. `# Title`. The title is pulled from `title: ??` on the header above. On the file you can start with level two, e.g. `## Second level header` or go straight to normal text.
+
 ### Keep tables formatted
 
 If you are making a table in markdown: YES, we expect you to format them nicely. Keep our shit clean please.
