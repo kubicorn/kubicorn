@@ -91,11 +91,11 @@ func TestValidateServerPoolMaxCountGreaterThan1Sad(t *testing.T) {
 
 func TestValidateSpotPriceOnlyForAwsClusterHappy(t *testing.T) {
 	c := &cluster.Cluster{
-		Name: "c",
+		Name:  "c",
 		Cloud: "amazon",
 		ServerPools: []*cluster.ServerPool{
 			{
-				Name:     "p",
+				Name:      "p",
 				SpotPrice: "1",
 			},
 		},
@@ -110,16 +110,16 @@ func TestValidateSpotPriceOnlyForAwsClusterHappy(t *testing.T) {
 
 func TestValidateSpotPriceOnlyForAwsClusterSad(t *testing.T) {
 	c := &cluster.Cluster{
-		Name: "c",
+		Name:  "c",
 		Cloud: "azure",
 		ServerPools: []*cluster.ServerPool{
 			{
-				Name:     "p",
+				Name:      "p",
 				SpotPrice: "1",
 			},
 		},
 	}
-	expected := "spot price provided for server pool p can only be used with AWS"
+	expected := "Spot price provided for server pool p can only be used with AWS"
 	err := validateSpotPriceOnlyForAwsCluster(c)
 	if err == nil {
 		t.Fatalf("expected an error")
