@@ -25,6 +25,7 @@ import (
 	"time"
 
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 )
 
@@ -35,6 +36,9 @@ var versionCmd = &cobra.Command{
 
 This command will return the version of the Kubicorn binary.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		err := RunVersion(vo)
 		if err != nil {
 			logger.Critical(err.Error())

@@ -24,6 +24,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 )
 
@@ -39,6 +40,9 @@ var editCmd = &cobra.Command{
 	Short: "Edit a cluster state",
 	Long:  `Use this command to edit a state.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		if len(args) == 0 {
 			ao.Name = strEnvDef("KUBICORN_NAME", "")
 		} else if len(args) > 1 {

@@ -16,7 +16,9 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
+	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 )
 
@@ -29,6 +31,9 @@ var imageCmd = &cobra.Command{
 This command will take an idempotent image of a Kubernetes cluster called a snapshot.
 The snapshot can be used to create a copy of your Kubernetes cluster.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+		}
 		// TODO: Work your own magic here
 		fmt.Println("image called")
 	},
