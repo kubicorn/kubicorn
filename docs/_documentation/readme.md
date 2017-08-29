@@ -1,17 +1,17 @@
 ---
 layout: documentation
 title: Kubicorn Documentation
-date: 2017-08-28
+date: 2017-08-29
 doctype: general
 ---
 
-# kubicorn.io
+## kubicorn.io
 
 Here is the content of the official `kubicorn` website: [kubicorn.io](http://kubicorn.io).
 
 All documentation for the project is hosted in the [docs section](http://kubicorn.io/documentation/readme.html) of [kubicorn.io](http://kubicorn.io).
 
-# Adding a new page
+## Adding a new page
 
 To create a new page on the website, create a new `.md` markdown file in `/docs/_documentation`.
 
@@ -30,7 +30,7 @@ Where `doctype` is the larger category for the documentation (valid categories a
 
 Do not include a title top level header on the document, e.g. `# Title`. The title is pulled from `title: value` on the section above. You can start your file with a level two header, e.g. `## Second level header`, or go straight to normal text.
 
-# Editing existing documentation
+## Editing existing documentation
 
 Simply update the associated `.md` markdown file. All documentation should be in complete sentences.
 
