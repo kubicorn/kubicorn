@@ -32,7 +32,7 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 			User:          "root",
 		},
 		Network: &cluster.Network{
-			CIDR: "10.0.0.0/12",
+			CIDR: "10.0.0.0/16",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
@@ -85,6 +85,11 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 						},
 					},
 				},
+				Subnets: []*cluster.Subnet{
+					{
+						CIDR: "10.0.1.0/24",
+					},
+				},
 			},
 			{
 				Type:             cluster.ServerPoolTypeNode,
@@ -121,6 +126,11 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 								EgressProtocol:    "udp",
 							},
 						},
+					},
+				},
+				Subnets: []*cluster.Subnet{
+					{
+						CIDR: "10.0.100.0/24",
 					},
 				},
 			},

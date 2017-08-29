@@ -85,6 +85,22 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	if r.ServerPool.Type == cluster.ServerPoolTypeMaster {
 
 		// -------------------------------------------------------------------------------------
+		var ipConfigsToAdd []compute.VirtualMachineScaleSetIPConfiguration
+		for _, serverPool := range immutable.ServerPools {
+			if serverPool.Type == cluster.ServerPoolTypeMaster {
+				for _, subnet := range serverPool.Subnets {
+					newIpConfig := compute.VirtualMachineScaleSetIPConfiguration{
+						VirtualMachineScaleSetIPConfigurationProperties: &compute.VirtualMachineScaleSetIPConfigurationProperties{
+							Subnet: &compute.APIEntityReference{
+								ID: s(subnet.Identifier),
+							},
+						},
+					}
+					ipConfigsToAdd = append(ipConfigsToAdd, newIpConfig)
+				}
+			}
+		}
+
 		parameters := compute.VirtualMachineScaleSet{
 			Location: &immutable.Location,
 			VirtualMachineScaleSetProperties: &compute.VirtualMachineScaleSetProperties{
@@ -99,15 +115,7 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 						NetworkInterfaceConfigurations: &[]compute.VirtualMachineScaleSetNetworkConfiguration{
 							{
 								VirtualMachineScaleSetNetworkConfigurationProperties: &compute.VirtualMachineScaleSetNetworkConfigurationProperties{
-									IPConfigurations: &[]compute.VirtualMachineScaleSetIPConfiguration{
-										{
-											VirtualMachineScaleSetIPConfigurationProperties: &compute.VirtualMachineScaleSetIPConfigurationProperties{
-												Subnet: &compute.APIEntityReference{
-													ID: s(immutable.Network.SubnetIdentifier),
-												},
-											},
-										},
-									},
+									IPConfigurations: &ipConfigsToAdd,
 								},
 							},
 						},
@@ -123,7 +131,6 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				Capacity: i64(int64(r.ServerPool.MaxCount)),
 			},
 		}
-
 
 		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
 		vmss := <-vmssch

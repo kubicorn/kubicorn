@@ -31,8 +31,8 @@ var _ cloud.Resource = &Vnet{}
 
 type Vnet struct {
 	Shared
-	CIDR     string
-	SubnetID string
+	CIDR      string
+	SubnetMap map[string]string
 }
 
 func (r *Vnet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
@@ -67,7 +67,8 @@ func (r *Vnet) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Res
 			Tags:       r.Tags,
 			Identifier: immutable.Network.Identifier,
 		},
-		CIDR: immutable.Network.CIDR,
+		SubnetMap: make(map[string]string),
+		CIDR:      immutable.Network.CIDR,
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -92,6 +93,22 @@ func (r *Vnet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster
 			},
 		},
 	}
+
+	// ------------------------ Subnets ------------------------
+	var subnetsToAdd []network.Subnet
+	for _, serverPool := range immutable.ServerPools {
+		for _, subnet := range serverPool.Subnets {
+			newParamsSubnet := network.Subnet{
+				SubnetPropertiesFormat: &network.SubnetPropertiesFormat{
+					AddressPrefix: s(subnet.CIDR),
+				},
+				Name: s(serverPool.Name),
+			}
+			subnetsToAdd = append(subnetsToAdd, newParamsSubnet)
+		}
+	}
+	parameters.Subnets = &subnetsToAdd
+
 	_, errch := Sdk.Vnet.CreateOrUpdate(immutable.Name, immutable.Name, parameters, make(chan struct{}))
 	err = <-errch
 	if err != nil {
@@ -109,19 +126,25 @@ func (r *Vnet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster
 	parsedVnet := retrier.Retryable().(*lookUpVnetRetrier).vnet
 	logger.Info("Created or found vnet [%s]", *parsedVnet.ID)
 
-	lenSubnets := len(*parsedVnet.Subnets)
-	if lenSubnets != 1 {
-		return nil, nil, fmt.Errorf("Invalid length of subnets [%d]", lenSubnets)
-	}
-	subnets := *parsedVnet.Subnets
-	subnet := subnets[0]
 	newResource := &Vnet{
 		Shared: Shared{
 			Name:       r.Name,
 			Tags:       r.Tags,
 			Identifier: *parsedVnet.ID,
 		},
-		SubnetID: *subnet.ID,
+		SubnetMap: make(map[string]string),
+		CIDR:      immutable.Network.CIDR,
+	}
+
+	subnets := *parsedVnet.Subnets
+	// Set subnet identifiers
+	for _, subnet := range subnets {
+		lookedUpName := *subnet.Name
+		for _, serverPool := range immutable.ServerPools {
+			if lookedUpName == serverPool.Name {
+				newResource.SubnetMap[lookedUpName] = *subnet.ID
+			}
+		}
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -157,7 +180,7 @@ func (r *Vnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clust
 	respch, errch := Sdk.Vnet.Delete(immutable.Name, immutable.Name, make(chan struct{}))
 	select {
 	case <-respch:
-	//
+		logger.Info("Deleted Vnet: %s", immutable.Network.Identifier)
 	case err := <-errch:
 		return nil, nil, err
 	}
@@ -178,6 +201,16 @@ func (r *Vnet) immutableRender(newResource cloud.Resource, inaccurateCluster *cl
 	logger.Debug("vnet.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
 	newCluster.Network.Identifier = newResource.(*Vnet).Identifier
-	newCluster.Network.SubnetIdentifier = newResource.(*Vnet).SubnetID
+
+	for _, serverPool := range newCluster.ServerPools {
+		for _, subnet := range serverPool.Subnets {
+			for subnetName, subnetId := range newResource.(*Vnet).SubnetMap {
+				if subnetName == serverPool.Name {
+					subnet.Identifier = subnetId
+				}
+			}
+		}
+	}
+
 	return newCluster
 }
