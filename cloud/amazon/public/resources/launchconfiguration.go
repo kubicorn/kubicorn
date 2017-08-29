@@ -71,7 +71,9 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 		}
 		lc := lcOutput.LaunchConfigurations[0]
 		newResource.Image = *lc.ImageId
-		newResource.SpotPrice = *lc.SpotPrice
+		if lc.SpotPrice != nil {
+			newResource.SpotPrice = *lc.SpotPrice
+		}
 		newResource.Identifier = *lc.LaunchConfigurationName
 		newResource.Tags = map[string]string{
 			"Name":              r.Name,
