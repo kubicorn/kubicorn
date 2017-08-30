@@ -9,7 +9,8 @@ service:
 sudo: required
 
 before_install:
-  - test/ssh_test.sh
+  - docker build -t eg_sshd test
+  - docker run --rm -p 6666:22 -d --name test_sshd eg_sshd
 
 jobs:
   include:
