@@ -34,6 +34,7 @@ type Sdk struct {
 	Compute          *compute.VirtualMachineScaleSetsClient
 	ResourceGroup    *resources.GroupsClient
 	LoadBalancer     *network.LoadBalancersClient
+	PublicIP         *network.PublicIPAddressesClient
 }
 
 type ServicePrincipal struct {
@@ -117,6 +118,12 @@ func NewSdk() (*Sdk, error) {
 	loadBalancerClient := network.NewLoadBalancersClient(sdk.ServicePrincipal.SubscriptionID)
 	loadBalancerClient.Authorizer = autorest.NewBearerAuthorizer(sdk.ServicePrincipal.AuthenticatedToken)
 	sdk.LoadBalancer = &loadBalancerClient
+
+	//------------------------
+	// PublicIP
+	publicIPClient := network.NewPublicIPAddressesClient(sdk.ServicePrincipal.SubscriptionID)
+	publicIPClient.Authorizer = autorest.NewBearerAuthorizer(sdk.ServicePrincipal.AuthenticatedToken)
+	sdk.PublicIP = &publicIPClient
 
 	return sdk, nil
 }

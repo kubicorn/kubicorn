@@ -33,6 +33,9 @@ func s(st string) *string {
 func i64(in int64) *int64 {
 	return &in
 }
+func i32(in int32) *int32 {
+	return &in
+}
 
 func b(bo bool) *bool {
 	return &bo

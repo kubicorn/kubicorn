@@ -52,8 +52,20 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 				BootstrapScripts: []string{"azure_k8s_ubuntu_16.04_master.sh"},
 				Subnets: []*cluster.Subnet{
 					{
-						CIDR:         "10.0.1.0/24",
-						LoadBalancer: &cluster.LoadBalancer{},
+						Name: fmt.Sprintf("%s-master-0", name),
+						CIDR: "10.0.1.0/24",
+						LoadBalancer: &cluster.LoadBalancer{
+							InboundRules: []*cluster.InboundRule{
+								{
+									ListenPort: 22,
+									TargetPort: 22,
+								},
+								{
+									ListenPort: 443,
+									TargetPort: 443,
+								},
+							},
+						},
 					},
 				},
 			},
@@ -66,8 +78,16 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 				BootstrapScripts: []string{"azure_k8s_ubuntu_16.04_node.sh"},
 				Subnets: []*cluster.Subnet{
 					{
-						CIDR:         "10.0.100.0/24",
-						LoadBalancer: &cluster.LoadBalancer{},
+						Name: fmt.Sprintf("%s-node-0", name),
+						CIDR: "10.0.100.0/24",
+						LoadBalancer: &cluster.LoadBalancer{
+							InboundRules: []*cluster.InboundRule{
+								{
+									ListenPort: 22,
+									TargetPort: 22,
+								},
+							},
+						},
 					},
 				},
 			},

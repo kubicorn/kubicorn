@@ -19,8 +19,18 @@ import (
 )
 
 type LoadBalancer struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-	BackendIDs        []string `json:"backendIDs,omitempty"`
-	NATIDs            []string `json:"natIDs,omitempty"`
+	metav1.TypeMeta    `json:",inline"`
+	metav1.ObjectMeta  `json:"metadata,omitempty"`
+	Identifier         string          `json:"identifier,omitempty"`
+	BackendIDs         []string        `json:"backendIDs,omitempty"`
+	NATIDs             []string        `json:"natIDs,omitempty"`
+	PublicIPIdentifier string          `json:"publicIPIdentifier,omitempty"`
+	PublicIPAddress    string          `json:"publicIPAddress,omitempty"`
+	InboundRules       []*InboundRule `json:"inboundRules,omitempty"`
+}
+
+type InboundRule struct {
+	ListenPort int    `json:"listenPort,omitempty"`
+	TargetPort int    `json:"targetPort,omitempty"`
+	Protocol   string `json:"protocol,omitempty"`
 }
