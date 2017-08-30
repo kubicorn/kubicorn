@@ -20,5 +20,5 @@ AWS_ACCESS_KEY_ID | string | The AWS access key to use with AWS profiles
 AWS_SECRET_ACCESS_KEY | string | The AWS secret to use with AWS profiles
 --- | --- | ---
 DIGITALOCEAN_ACCESS_TOKEN | string | The DigitalOcean access token used to authenticate with the API
---- | ---| ---
+--- | --- | ---
 GOOGLE_APPLICATION_CREDENTIALS | string | The location of the Google service account key file
