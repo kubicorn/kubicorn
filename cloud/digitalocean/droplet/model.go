@@ -15,8 +15,6 @@
 package droplet
 
 import (
-	"fmt"
-
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/droplet/resources"
@@ -61,7 +59,6 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	}
 
 	for _, serverPool := range m.known.ServerPools {
-		fmt.Printf("Len firewalls for %s: %d\n", serverPool.Name, len(serverPool.Firewalls))
 		for _, firewall := range serverPool.Firewalls {
 			// ---- [Firewall] ----
 			f := &resources.Firewall{

@@ -8,10 +8,6 @@ jobs:
     working_directory: /go/src/github.com/kris-nova/kubicorn
 
     steps:
-      - run:
-          name: Install requirements
-          command: sudo apt-get update; sudo apt-get install libncurses5-dev
-
       - checkout
       - run:
           name: Check headers

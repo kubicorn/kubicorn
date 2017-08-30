@@ -32,7 +32,7 @@ systemctl enable docker
 systemctl start docker
 
 PUBLICIP=$(ec2metadata --public-ipv4 | cut -d " " -f 2)
-PRIVATEIP=$(ip addr show dev eth0 | awk '/inet / {print $2}' | cut -d"/" -f1)
+PRIVATEIP=$(ec2metadata --local-ipv4 | cut -d " " -f 2)
 
 kubeadm reset
 kubeadm init --apiserver-bind-port ${PORT} --token ${TOKEN}  --apiserver-advertise-address ${PUBLICIP} --apiserver-cert-extra-sans ${PUBLICIP} ${PRIVATEIP}

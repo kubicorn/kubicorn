@@ -19,6 +19,7 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
+	"github.com/kris-nova/kubicorn/cutil/uuid"
 )
 
 func NewCentosAmazonCluster(name string) *cluster.Cluster {
@@ -34,8 +35,9 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 			Port: "443",
 		},
 		Network: &cluster.Network{
-			Type: cluster.NetworkTypePublic,
-			CIDR: "10.0.0.0/16",
+			Type:       cluster.NetworkTypePublic,
+			CIDR:       "10.0.0.0/16",
+			InternetGW: &cluster.InternetGW{},
 		},
 		Values: &cluster.Values{
 			ItemMap: map[string]string{
@@ -49,7 +51,7 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 				MaxCount: 1,
 				MinCount: 1,
 				Image:    "ami-0c2aba6c",
-				Size:     "t2.medium",
+				Size:     "t2.xlarge",
 				BootstrapScripts: []string{
 					"amazon_k8s_centos_7_master.sh",
 				},
@@ -63,7 +65,7 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 
 				Firewalls: []*cluster.Firewall{
 					{
-						Name: fmt.Sprintf("%s.master-external", name),
+						Name: fmt.Sprintf("%s.master-external-%s", name, uuid.TimeOrderedUUID()),
 						IngressRules: []*cluster.IngressRule{
 							{
 								IngressFromPort: "22",
@@ -76,6 +78,12 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 								IngressToPort:   "443",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
+							},
+							{
+								IngressFromPort: "0",
+								IngressToPort:   "65535",
+								IngressSource:   "10.0.100.0/24",
+								IngressProtocol: "-1",
 							},
 						},
 					},
@@ -100,13 +108,19 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 				},
 				Firewalls: []*cluster.Firewall{
 					{
-						Name: fmt.Sprintf("%s.node-external", name),
+						Name: fmt.Sprintf("%s.node-external-%s", name, uuid.TimeOrderedUUID()),
 						IngressRules: []*cluster.IngressRule{
 							{
 								IngressFromPort: "22",
 								IngressToPort:   "22",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "tcp",
+							},
+							{
+								IngressFromPort: "0",
+								IngressToPort:   "65535",
+								IngressSource:   "10.0.100.0/24",
+								IngressProtocol: "-1",
 							},
 						},
 					},

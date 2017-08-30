@@ -71,13 +71,17 @@ func (fs *FileSystemStore) write(relativePath string, data []byte) error {
 	return nil
 }
 
-func (fs *FileSystemStore) read(relativePath string) ([]byte, error) {
+func (fs *FileSystemStore) Read(relativePath string) ([]byte, error) {
 	fqn := fmt.Sprintf("%s/%s", fs.AbsolutePath, relativePath)
 	bytes, err := ioutil.ReadFile(fqn)
 	if err != nil {
 		return []byte(""), err
 	}
 	return bytes, nil
+}
+
+func (fs *FileSystemStore) ReadStore() ([]byte, error) {
+	return fs.Read(state.ClusterYamlFile)
 }
 
 func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
@@ -102,12 +106,17 @@ func (fs *FileSystemStore) Destroy() error {
 }
 
 func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
-	cluster := &cluster.Cluster{}
-	configBytes, err := fs.read(state.ClusterYamlFile)
+	configBytes, err := fs.Read(state.ClusterYamlFile)
 	if err != nil {
-		return cluster, err
+		return nil, err
 	}
-	err = yaml.Unmarshal(configBytes, cluster)
+
+	return fs.BytesToCluster(configBytes)
+}
+
+func (fs *FileSystemStore) BytesToCluster(bytes []byte) (*cluster.Cluster, error) {
+	cluster := &cluster.Cluster{}
+	err := yaml.Unmarshal(bytes, cluster)
 	if err != nil {
 		return cluster, err
 	}

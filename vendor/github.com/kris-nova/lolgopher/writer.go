@@ -5,6 +5,8 @@ import (
 	"io"
 	"os"
 	"strings"
+
+	"github.com/mattn/go-isatty"
 )
 
 const (
@@ -26,6 +28,8 @@ type Writer struct {
 	lineIdx   int
 	origin    int
 }
+
+var noColor = os.Getenv("TERM") == "dumb" || (!isatty.IsTerminal(os.Stdout.Fd()) && !isatty.IsCygwinTerminal(os.Stdout.Fd()))
 
 // writeRaw will write a lol'd s to the underlying writer.  It does no line
 // detection.
@@ -102,7 +106,7 @@ func (w *Writer) Write(p []byte) (int, error) {
 // NewLolWriter will return a new io.Writer with a default ColorMode of 256
 func NewLolWriter() io.Writer {
 	colorMode := ColorMode256
-	if !hasColors() {
+	if noColor {
 		colorMode = ColorMode0
 	}
 	return &Writer{
@@ -114,7 +118,7 @@ func NewLolWriter() io.Writer {
 // NewTruecolorLolWriter will return a new io.Writer with a default ColorMode of truecolor
 func NewTruecolorLolWriter() io.Writer {
 	colorMode := ColorModeTrueColor
-	if !hasColors() {
+	if noColor {
 		colorMode = ColorMode0
 	}
 	return &Writer{

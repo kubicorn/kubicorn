@@ -39,7 +39,7 @@ type CreateOptions struct {
 var co = &CreateOptions{}
 
 var createCmd = &cobra.Command{
-	Use:   "create [NAME] [-p|--profile PROFILENAME]",
+	Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
 	Short: "Create a Kubicorn API model from a profile",
 	Long: `Use this command to create a Kubicorn API model in a defined state store.
 
@@ -69,8 +69,10 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
+	createCmd.Flags().StringVarP(&co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
+	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
 
 	RootCmd.SetUsageTemplate(usageTemplate)
 	RootCmd.AddCommand(createCmd)
@@ -84,6 +86,14 @@ type profileMap struct {
 }
 
 var profileMapIndexed = map[string]profileMap{
+	"azure": {
+		profileFunc: profiles.NewUbuntuAzureCluster,
+		description: "Ubuntu on Azure",
+	},
+	"azure-ubuntu": {
+		profileFunc: profiles.NewUbuntuAzureCluster,
+		description: "Ubuntu on Azure",
+	},
 	"amazon": {
 		profileFunc: profiles.NewUbuntuAmazonCluster,
 		description: "Ubuntu on Amazon",
@@ -127,13 +137,17 @@ func RunCreate(options *CreateOptions) error {
 
 	// Create our cluster resource
 	name := options.Name
-	var cluster *cluster.Cluster
+	var newCluster *cluster.Cluster
 	if _, ok := profileMapIndexed[options.Profile]; ok {
-		cluster = profileMapIndexed[options.Profile].profileFunc(name)
+		newCluster = profileMapIndexed[options.Profile].profileFunc(name)
 	} else {
 		return fmt.Errorf("Invalid profile [%s]", options.Profile)
 	}
 
+	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
+		return fmt.Errorf("CloudID is required for google cloud.")
+	}
+	newCluster.CloudId = options.CloudId
 	// Expand state store path
 	// Todo (@kris-nova) please pull this into a filepath package or something
 	options.StateStorePath = expandPath(options.StateStorePath)
@@ -151,11 +165,11 @@ func RunCreate(options *CreateOptions) error {
 
 	// Check if state store exists
 	if stateStore.Exists() {
-		return fmt.Errorf("State store [%s] exists, will not overwrite", name)
+		return fmt.Errorf("State store [%s] exists, will not overwrite. Delete existing profile [%s] and retry", name, options.StateStorePath+"/"+name)
 	}
 
 	// Init new state store with the cluster resource
-	err := stateStore.Commit(cluster)
+	err := stateStore.Commit(newCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to init state store: %v", err)
 	}
