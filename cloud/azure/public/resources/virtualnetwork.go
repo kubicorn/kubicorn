@@ -143,6 +143,7 @@ func (r *Vnet) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster
 		for _, serverPool := range immutable.ServerPools {
 			if lookedUpName == serverPool.Name {
 				newResource.SubnetMap[lookedUpName] = *subnet.ID
+				logger.Info("Created subnet: %s", *subnet.ID)
 			}
 		}
 	}
@@ -184,6 +185,7 @@ func (r *Vnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clust
 	case err := <-errch:
 		return nil, nil, err
 	}
+	logger.Info("Deleted Vnet [%s]", immutable.Network.Identifier)
 
 	newResource := &Vnet{
 		Shared: Shared{

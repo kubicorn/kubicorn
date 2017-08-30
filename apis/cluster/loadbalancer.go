@@ -18,13 +18,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-type Subnet struct {
+type LoadBalancer struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Identifier        string `json:"identifier,omitempty"`
-	CIDR              string `json:"cidr,omitempty"`
-	Location          string `json:"location,omitempty"`
-	Zone              string `json:"zone,omitempty"`
-	Name              string `json:"name,omitempty"`
-	LoadBalancer      *LoadBalancer `json:"loadBalancer,omitempty"`
+	BackendIDs        []string `json:"backendIDs,omitempty"`
+	NATIDs            []string `json:"natIDs,omitempty"`
 }

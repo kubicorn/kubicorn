@@ -20,6 +20,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/arm/compute"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
+	"github.com/kris-nova/kubicorn/cutil/azuremaps"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -85,30 +86,48 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	if r.ServerPool.Type == cluster.ServerPoolTypeMaster {
 
 		// -------------------------------------------------------------------------------------
+		// IP Configs
 		var ipConfigsToAdd []compute.VirtualMachineScaleSetIPConfiguration
 		for _, serverPool := range immutable.ServerPools {
 			if serverPool.Type == cluster.ServerPoolTypeMaster {
 				for _, subnet := range serverPool.Subnets {
+					var backEndPools []compute.SubResource
+					for _, id := range subnet.LoadBalancer.BackendIDs {
+						backEndPools = append(backEndPools, compute.SubResource{ID: &id})
+					}
+					var inboundNatPools []compute.SubResource
+					for _, id := range subnet.LoadBalancer.NATIDs {
+						inboundNatPools = append(inboundNatPools, compute.SubResource{ID: &id})
+					}
+
 					newIpConfig := compute.VirtualMachineScaleSetIPConfiguration{
 						VirtualMachineScaleSetIPConfigurationProperties: &compute.VirtualMachineScaleSetIPConfigurationProperties{
 							Subnet: &compute.APIEntityReference{
 								ID: s(subnet.Identifier),
 							},
+							LoadBalancerBackendAddressPools: &backEndPools,
+							LoadBalancerInboundNatPools:     &inboundNatPools,
 						},
+						Name: &serverPool.Name,
 					}
 					ipConfigsToAdd = append(ipConfigsToAdd, newIpConfig)
 				}
 			}
 		}
-
+		imageRef, err := azuremaps.GetImageReferenceFromImage(r.ServerPool.Image)
+		if err != nil {
+			return nil, nil, err
+		}
 		parameters := compute.VirtualMachineScaleSet{
 			Location: &immutable.Location,
 			VirtualMachineScaleSetProperties: &compute.VirtualMachineScaleSetProperties{
 				VirtualMachineProfile: &compute.VirtualMachineScaleSetVMProfile{
 					StorageProfile: &compute.VirtualMachineScaleSetStorageProfile{
 						OsDisk: &compute.VirtualMachineScaleSetOSDisk{
-							OsType: compute.Linux,
+							OsType:       compute.Linux,
+							CreateOption: compute.FromImage,
 						},
+						ImageReference: imageRef,
 					},
 					OsProfile: &compute.VirtualMachineScaleSetOSProfile{},
 					NetworkProfile: &compute.VirtualMachineScaleSetNetworkProfile{
@@ -116,6 +135,7 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 							{
 								VirtualMachineScaleSetNetworkConfigurationProperties: &compute.VirtualMachineScaleSetNetworkConfigurationProperties{
 									IPConfigurations: &ipConfigsToAdd,
+									Primary:          b(true),
 								},
 							},
 						},
@@ -126,8 +146,8 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				},
 			},
 			Sku: &compute.Sku{
-				Name:     s("Standard_D2"),
-				Tier:     s("Standard"),
+				Name:     s(r.ServerPool.Size),
+				Tier:     s(azuremaps.GetTierFromSize(r.ServerPool.Size)),
 				Capacity: i64(int64(r.ServerPool.MaxCount)),
 			},
 		}

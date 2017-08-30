@@ -33,6 +33,7 @@ type Sdk struct {
 	Vnet             *network.VirtualNetworksClient
 	Compute          *compute.VirtualMachineScaleSetsClient
 	ResourceGroup    *resources.GroupsClient
+	LoadBalancer     *network.LoadBalancersClient
 }
 
 type ServicePrincipal struct {
@@ -110,6 +111,12 @@ func NewSdk() (*Sdk, error) {
 	computeClient := compute.NewVirtualMachineScaleSetsClient(sdk.ServicePrincipal.SubscriptionID)
 	computeClient.Authorizer = autorest.NewBearerAuthorizer(sdk.ServicePrincipal.AuthenticatedToken)
 	sdk.Compute = &computeClient
+
+	//------------------------
+	// LoadBalancer
+	loadBalancerClient := network.NewLoadBalancersClient(sdk.ServicePrincipal.SubscriptionID)
+	loadBalancerClient.Authorizer = autorest.NewBearerAuthorizer(sdk.ServicePrincipal.AuthenticatedToken)
+	sdk.LoadBalancer = &loadBalancerClient
 
 	return sdk, nil
 }

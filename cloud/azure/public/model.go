@@ -62,6 +62,21 @@ func (m *Model) Resources() map[int]cloud.Resource {
 
 	for _, serverPool := range known.ServerPools {
 
+
+		for _, subnet := range serverPool.Subnets {
+			// ---- [Load Balancer] ----
+			r[i] = &resources.LoadBalancer{
+				Shared: resources.Shared{
+					Name: serverPool.Name,
+					Tags: make(map[string]string),
+				},
+				ServerPool: serverPool,
+				Subnet: subnet,
+			}
+			i++
+		}
+
+
 		// ---- [VM Scale Set] ----
 		r[i] = &resources.VMScaleSet{
 			Shared: resources.Shared{
