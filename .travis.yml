@@ -6,6 +6,8 @@ go:
 service:
   - docker
 
+sudo: required
+
 before_install:
   - test/ssh_test.sh
 
