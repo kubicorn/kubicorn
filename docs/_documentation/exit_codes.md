@@ -7,6 +7,7 @@ doctype: general
 
 This file documents exit codes which `kubicorn` will return on errors.
 
+{:.table}
 | Exit code | Meaning |
 |---|---|
 | 1 | General error |

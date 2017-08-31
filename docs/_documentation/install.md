@@ -2,7 +2,7 @@
 layout: documentation
 title: Installing Kubicorn
 date: 2017-08-08
-doctype: general
+doctype: developing
 ---
 
 **Note**: You can always run `make help` to learn more about the `Makefile`.

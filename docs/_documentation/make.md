@@ -2,7 +2,7 @@
 layout: documentation
 title: Using `Makefile`
 date: 2017-08-08
-doctype: general
+doctype: developing
 ---
 
 Run `make help` for command line usage.

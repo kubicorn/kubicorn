@@ -2,7 +2,7 @@
 layout: documentation
 title: Building Kubicorn
 date: 2017-08-19
-doctype: general
+doctype: developing
 ---
 
 ## Make
