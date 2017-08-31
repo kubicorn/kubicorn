@@ -35,3 +35,12 @@ func validateServerPoolMaxCountGreaterThan1(initCluster *cluster.Cluster) error 
 	}
 	return nil
 }
+
+func validateSpotPriceOnlyForAwsCluster(initCluster *cluster.Cluster) error {
+	for _, p := range initCluster.ServerPools {
+		if p.SpotPrice != "" && initCluster.Cloud != cluster.CloudAmazon {
+			return fmt.Errorf("Spot price provided for server pool %v can only be used with AWS", p.Name)
+		}
+	}
+	return nil
+}

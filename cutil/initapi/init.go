@@ -30,6 +30,7 @@ type validationFunc func(initCluster *cluster.Cluster) error
 var validations = []validationFunc{
 	validateAtLeastOneServerPool,
 	validateServerPoolMaxCountGreaterThan1,
+	validateSpotPriceOnlyForAwsCluster,
 }
 
 func InitCluster(initCluster *cluster.Cluster) (*cluster.Cluster, error) {

@@ -100,9 +100,10 @@ Take a snap, save a snap, deploy a snap.
 | **Install**                           | Install guide for Kubicorn CLI                              | [install](docs/docs_old/INSTALL.md)                                                      |
 | **Environmental Variables**           | Master list of supported environmental variables            | [envvars](docs/docs_old/envar.md)                                                        |
 | **Kops vs Kubicorn**                  | Blog about kubicorn with comparison table                   | [nivenly.com/kubicorn](https://nivenly.com/kubicorn)                            |
-| **AWS Walkthrough**                   | A walkthrough guide on installing Kubernetes 1.7 on AWS     | [walkthrough](docs/docs_old/aws/walkthrough.md)                                          |
-| **DigitalOcean Walkthrough**          | A walkthrough guide on installing Kubernetes 1.7 on D.O.    | [walkthrough](docs/docs_old/do/walkthrough.md)                                           |
-| **Google Compute Engine Walkthrough** | A walkthrough guide on installing Kubernetes 1.7 on GCE     | [walkthrough](docs/docs_old/google/walkthrough.md)                                       |
+| **Azure Walkthrough**                 | A walkthrough guide on installing Kubernetes on Azure    | [walkthrough](docs/docs_old/azure/walkthrough.md)      
+| **AWS Walkthrough**                   | A walkthrough guide on installing Kubernetes on AWS     | [walkthrough](docs/docs_old/aws/walkthrough.md)                                          |
+| **DigitalOcean Walkthrough**          | A walkthrough guide on installing Kubernetes on D.O.    | [walkthrough](docs/docs_old/do/walkthrough.md)                                           |
+| **Google Compute Engine Walkthrough** | A walkthrough guide on installing Kubernetes on GCE     | [walkthrough](docs/docs_old/google/walkthrough.md)                                       |
 | **AWS Video**                         | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)         |
 | **DigitalOcean Video**                | A step by step video of using Kubicorn in DigitalOcean      | [video](https://youtu.be/XpxgSZ3dspE)         |
 | **Tech N Talk Deep Dive**             | A technical deep dive courtesy of RedHat                    | [youtube](https://youtu.be/2DmUG0RgS70?list=PLaR6Rq6Z4IqfwXtKT7KeARRvxdvyLqG72) |

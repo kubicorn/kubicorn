@@ -88,3 +88,45 @@ func TestValidateServerPoolMaxCountGreaterThan1Sad(t *testing.T) {
 			"got:       %v\n", expected, err.Error())
 	}
 }
+
+func TestValidateSpotPriceOnlyForAwsClusterHappy(t *testing.T) {
+	c := &cluster.Cluster{
+		Name:  "c",
+		Cloud: "amazon",
+		ServerPools: []*cluster.ServerPool{
+			{
+				Name:      "p",
+				SpotPrice: "1",
+			},
+		},
+	}
+	err := validateSpotPriceOnlyForAwsCluster(c)
+	if err != nil {
+		t.Fatalf("error message incorrect\n"+
+			"should be: nil\n"+
+			"got:       %v\n", err)
+	}
+}
+
+func TestValidateSpotPriceOnlyForAwsClusterSad(t *testing.T) {
+	c := &cluster.Cluster{
+		Name:  "c",
+		Cloud: "azure",
+		ServerPools: []*cluster.ServerPool{
+			{
+				Name:      "p",
+				SpotPrice: "1",
+			},
+		},
+	}
+	expected := "Spot price provided for server pool p can only be used with AWS"
+	err := validateSpotPriceOnlyForAwsCluster(c)
+	if err == nil {
+		t.Fatalf("expected an error")
+	}
+	if err.Error() != expected {
+		t.Fatalf("error message incorrect\n"+
+			"should be: %v\n"+
+			"got:       %v\n", expected, err.Error())
+	}
+}
