@@ -47,11 +47,11 @@ var lo = &ListOptions{}
 var noHeaders bool
 
 func init() {
-	listCmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	listCmd.Flags().StringVarP(&lo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	listCmd.Flags().BoolVarP(&noHeaders, "no-headers", "n", false, "Show the list containing names only")
-	RootCmd.AddCommand(listCmd)
+	addFlagString(listCmd, &lo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	addFlagString(listCmd, &lo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	addFlagBool(listCmd, &noHeaders, "no-headers", "n", false, "Show the list containing names only")
 
+	RootCmd.AddCommand(listCmd)
 }
 
 func RunList(options *ListOptions) error {

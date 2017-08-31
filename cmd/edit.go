@@ -58,9 +58,9 @@ var editCmd = &cobra.Command{
 }
 
 func init() {
-	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", strEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
+	addFlagString(editCmd, &eo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	addFlagString(editCmd, &eo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	addFlagString(editCmd, &eo.Editor, "editor", "e", strEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
 
 	RootCmd.AddCommand(editCmd)
 }

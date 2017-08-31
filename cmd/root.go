@@ -18,9 +18,14 @@ import (
 	"fmt"
 	"os"
 
+	"io"
+
+	"github.com/kris-nova/kubicorn/cutil/local"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -52,7 +57,7 @@ __custom_func() {
 `
 )
 
-var cfgFile string
+var cfgFile = local.Expand("~/.kubicorn")
 
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
@@ -88,27 +93,75 @@ func Execute() {
 }
 
 func init() {
-	//flags here
-	RootCmd.PersistentFlags().IntVarP(&logger.Level, "verbose", "v", 3, "Log level")
-	RootCmd.PersistentFlags().BoolVarP(&logger.Color, "color", "C", true, "Toggle colorized logs")
-	RootCmd.PersistentFlags().BoolVarP(&logger.Fabulous, "fab", "f", false, "Toggle colorized logs")
+	cobra.OnInitialize(initViper)
 
-	// register env vars
+	//flags here
+	addPersistentFlagInt(RootCmd, &logger.Level, "verbose", "v", 3, "Log level")
+	addPersistentFlagBool(RootCmd, &logger.Color, "color", "C", true, "Toggle colorized logs")
+	addPersistentFlagBool(RootCmd, &logger.Fabulous, "fab", "f", false, "Toggle colorized logs")
+
 	registerEnvironmentalVariables()
 }
 
-func registerEnvironmentalVariables() {
+// initViper initializes viper to handle configuration.
+func initViper() {
+	viper.SetConfigType("yaml")
+	viper.SetConfigFile(cfgFile)
 
+	viper.SetEnvPrefix("KUBICORN")
+	viper.AutomaticEnv()
+
+	if _, err := os.Stat(cfgFile); err != nil {
+		logger.Debug("unable to find kubicorn configuration")
+		err := writeConfig()
+		if err != nil {
+			logger.Critical("unable to create kubicorn configuration")
+		}
+	}
+	if err := viper.ReadInConfig(); err != nil {
+		logger.Critical("unable to read kubicorn configuration")
+		os.Exit(1)
+	}
 }
 
-func flagApplyAnnotations(cmd *cobra.Command, flag, completion string) {
-	if cmd.Flag(flag) != nil {
-		if cmd.Flag(flag).Annotations == nil {
-			cmd.Flag(flag).Annotations = map[string][]string{}
-		}
-		cmd.Flag(flag).Annotations[cobra.BashCompCustom] = append(
-			cmd.Flag(flag).Annotations[cobra.BashCompCustom],
-			completion,
-		)
+// configFileWriter creates the configuration file and returns writer.
+func configFileWriter() (io.WriteCloser, error) {
+	f, err := os.Create(cfgFile)
+	if err != nil {
+		return nil, err
 	}
+
+	if err := os.Chmod(cfgFile, 0644); err != nil {
+		return nil, err
+	}
+
+	return f, nil
+}
+
+// writeConfig writes defaults to the configuration file.
+func writeConfig() error {
+	f, err := configFileWriter()
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	c, err := yaml.Marshal(viper.AllSettings())
+	if err != nil {
+		return fmt.Errorf("unable to export configuration")
+	}
+
+	_, err = f.Write(c)
+	if err != nil {
+		return fmt.Errorf("unable to write configuration")
+	}
+
+	return nil
+}
+
+// registerEnvironmentalVariables bind environmental variables to appropriate flags.
+func registerEnvironmentalVariables() {
+	viper.BindEnv("state-store", "STATE_STORE")
+	viper.BindEnv("state-store-path", "STATE_STORE_PATH")
+	viper.BindEnv("profile", "PROFILE")
 }
