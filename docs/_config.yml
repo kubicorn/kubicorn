@@ -42,6 +42,7 @@ collections:
   documentation:
     output: true
     layout: documentation
-#    permalink: /:collection/:name
+  friends:
+    output: false
 
 twitter_username: kubicornk8s
