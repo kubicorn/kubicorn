@@ -281,161 +281,40 @@ d88P"          Y8P                        888
 888    888     888 Y8b.     888  888 Y88b 888      X88 
 888    888     888  "Y8888  888  888  "Y88888  88888P' 
 -->
-{% comment %}
 <a name="friends" class="anchor">
-  <h1 class="my-5 text-center">Friends of Kubicorn</h1>
+  <h1 class="my-5 text-center">Friends of <code>kubicorn</code></h1>
 </a>
-
 <div id="accordion" role="tablist" aria-multiselectable="true">
 
-
-
+  {% assign friends = site.friends | sort: 'title' %}
+  {% for friend in friends %}
+    {% assign filename = friend.path | split: '/' %}
+    {% assign filename2 = filename.last | split: '.' %}
+    {% assign filename3 = filename2.first %}
   <div class="card">
-    <div class="card-header" role="tab" id="headingOne">
+    <div class="card-header" role="tab" id="heading{{ filename3 }}">
       <h5 class="mb-0">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Corporation Inc.
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ filename3 }}" aria-expanded="true" aria-controls="collapse{{ filename3 }}">
+          {{ friend.title }}
         </a>
       </h5>
     </div>
-    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapse{{ filename3 }}" class="collapse {% if forloop.index == 1 %}{{ "show" }}{% endif %}" role="tabpanel" aria-labelledby="heading{{ filename3 }}">
       <div class="card-block">
         <div class="row">
           <div class="col-4 col-lg-2">
-            <img src="https://placebear.com/g/200/200" class="img-fluid" alt="Responsive image">
+            <img src="{{ friend.logo | relative_url }}" class="img-fluid" alt="{{ friend.title }}">
           </div>
           <div class="col align-self-center">
-            <h5>The Corp-o'-matic 9000 Project</h5>
-            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-              aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-              tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            </p>
-            <a href="">
-              <p>Click here for more.</p>
-            </a>
+              <h5>{{ friend.title }}</h5>
+              {{ friend.content }}
           </div>
         </div>
       </div>
     </div>
   </div>
+  {% endfor %}
 
-  <div class="card">
-    <div class="card-header" role="tab" id="headingTwo">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          tech n3rds .io
-        </a>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="card-block">
-        <div class="row">
-          <div class="col-4 col-lg-2">
-            <img src="https://placebear.com/g/200/200" class="img-fluid" alt="Responsive image">
-          </div>
-          <div class="col align-self-center">
-            <h5>The Corp-o'-matic 9000 Project</h5>
-            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-              aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-              tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            </p>
-            <a href="">
-              <p>Click here for more.</p>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" role="tab" id="headingThree">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Winamp – It really whips the llama's ass
-        </a>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-      <div class="card-block">
-        <div class="row">
-          <div class="col-4 col-lg-2">
-            <img src="https://placebear.com/g/200/200" class="img-fluid" alt="Responsive image">
-          </div>
-          <div class="col align-self-center">
-            <h5>The Corp-o'-matic 9000 Project</h5>
-            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-              aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-              tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            </p>
-            <a href="">
-              <p>Click here for more.</p>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" role="tab" id="headingFour">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-            Umbrella Corporation
-          </a>
-      </h5>
-    </div>
-    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-      <div class="card-block">
-        <div class="row">
-          <div class="col-4 col-lg-2">
-            <img src="https://placebear.com/g/200/200" class="img-fluid" alt="Responsive image">
-          </div>
-          <div class="col align-self-center">
-            <h5>The Corp-o'-matic 9000 Project</h5>
-            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-              aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-              tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            </p>
-            <a href="">
-              <p>Click here for more.</p>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header" role="tab" id="headingFive">
-      <h5 class="mb-0">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-              The Empire
-            </a>
-      </h5>
-    </div>
-    <div id="collapseFive" class="collapse" role="tabpanel" aria-labelledby="headingFive">
-      <div class="card-block">
-        <div class="row">
-          <div class="col-4 col-lg-2">
-            <img src="https://seeklogo.com/images/G/Galactic_Empire-logo-7A19A28ABA-seeklogo.com.png" class="img-fluid" alt="Responsive image">
-          </div>
-          <div class="col align-self-center">
-            <h5>The Corp-o'-matic 9000 Project</h5>
-            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia
-              aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-              tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            </p>
-            <a href="">
-              <p>Click here for more.</p>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-{% endcomment %}
 <!-- 
      888                   .d8888b.                    
      888                  d88P  Y88b                   
