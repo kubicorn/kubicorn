@@ -131,10 +131,10 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 				BackendPort:          i32(int32(rule.TargetPort)),
 				EnableFloatingIP:     b(false),
 				Protocol:             network.TransportProtocolTCP,
-				IdleTimeoutInMinutes: i32(3),
-				FrontendIPConfiguration: &network.SubResource{
-					ID: s(fid),
-				},
+				IdleTimeoutInMinutes: i32(4),
+				//FrontendIPConfiguration: &network.SubResource{
+				//	ID: s(fid),
+				//},
 			},
 		}
 		inboundRules = append(inboundRules, iRule)
@@ -174,10 +174,12 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 					Name: s(fmt.Sprintf("backend-%s", r.Subnet.Name)),
 				},
 			},
-			InboundNatPools: &inboundPools,
+			InboundNatPools:    &inboundPools,
+			Probes:             &[]network.Probe{},
+			LoadBalancingRules: &[]network.LoadBalancingRule{},
 		},
 	}
-	lbch, errch := Sdk.LoadBalancer.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
+	lbch, errch := Sdk.LoadBalancer.CreateOrUpdate(immutable.Name, r.Subnet.Name, parameters, make(chan struct{}))
 	lb := <-lbch
 	err = <-errch
 	if err != nil {

@@ -91,6 +91,8 @@ func (r *PublicIP) Apply(actual, expected cloud.Resource, immutable *cluster.Clu
 			DNSSettings: &network.PublicIPAddressDNSSettings{
 				DomainNameLabel: s(r.Subnet.Name),
 			},
+			PublicIPAddressVersion: network.IPv4,
+			IdleTimeoutInMinutes:   i32(4),
 		},
 	}
 	ipch, errch := Sdk.PublicIP.CreateOrUpdate(immutable.Name, r.Subnet.Name, parameters, make(chan struct{}))
