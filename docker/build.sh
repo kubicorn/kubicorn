@@ -47,19 +47,19 @@ if ${SHOW_HELP} ; then
     exit 0;
 fi
 
-if ${REMOVE_IMAGE} ; then
-    echo removing old container if exists
-    docker image rm gobuilder-kubicorn
-fi
+#if ${REMOVE_IMAGE} ; then
+#    echo removing old container if exists
+#    docker image rm gobuilder-kubicorn
+#fi
 
 if ${VERBOSE} ; then
     echo Building container
 fi
-docker build -t gobuilder-kubicorn "${DIR}" ${VERBOSE_DOCKER_BUILD}
+#docker build -t gobuilder-kubicorn "${DIR}" ${VERBOSE_DOCKER_BUILD}
 
 if ${VERBOSE} ; then
     echo Running make script
 fi
-docker run --rm -v "/${DIR}/.."://go/src/github.com/kris-nova/kubicorn -v "/${GOPATH}/bin"://go/bin -w //go/src/github.com/kris-nova/kubicorn gobuilder-kubicorn ${MAKE_COMMAND} ${VERBOSE_DOCKER_RUN}
+docker run --rm -v "/${DIR}/.."://go/src/github.com/kris-nova/kubicorn -v "/${GOPATH}/bin"://go/bin -w //go/src/github.com/kris-nova/kubicorn golang:1.8 ${MAKE_COMMAND} ${VERBOSE_DOCKER_RUN}
 
 read -p "Done. Press enter to continue"
