@@ -66,9 +66,9 @@ To delete the resource AND the API model in the state store, use --purge.`,
 }
 
 func init() {
-	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
+	addFlagString(deleteCmd, &do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	addFlagString(deleteCmd, &do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	addFlagBool(deleteCmd, &do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 
 	RootCmd.AddCommand(deleteCmd)
 }

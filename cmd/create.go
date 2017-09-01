@@ -66,10 +66,10 @@ After a model is defined and configured properly, the user can then apply the mo
 }
 
 func init() {
-	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
-	createCmd.Flags().StringVarP(&co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
+	addFlagString(createCmd, &co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	addFlagString(createCmd, &co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	addFlagString(createCmd, &co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
+	addFlagString(createCmd, &co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
