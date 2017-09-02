@@ -17,10 +17,10 @@ package cmd
 import (
 	//"github.com/spf13/pflag"
 	"fmt"
+	"math"
 	"os"
 	"os/user"
 	"strings"
-	"math"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -71,7 +71,7 @@ func init() {
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 	createCmd.Flags().StringVarP(&co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
-	createCmd.Flags().StringVarP(&co.Override, "override", "o", strEnvDef("KUBICORN_OVERRIDE", ""), "override cluster setting")
+	createCmd.Flags().StringVarP(&co.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
@@ -146,10 +146,10 @@ func RunCreate(options *CreateOptions) error {
 		return fmt.Errorf("Invalid profile [%s]", options.Profile)
 	}
 
-	if options.Override != "" {
-		overrides := strings.Split(options.Override, ",")
-		for _, override := range overrides {
-			parts := strings.SplitN(override, "=", 2)
+	if options.Set != "" {
+		sets := strings.Split(options.Set, ",")
+		for _, set := range sets {
+			parts := strings.SplitN(set, "=", 2)
 			err := swalker.Write(parts[0], newCluster, parts[1])
 			if err != nil {
 				println(err)

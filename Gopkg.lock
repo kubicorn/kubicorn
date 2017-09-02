@@ -128,12 +128,6 @@
   revision = "24818f796faf91cd76ec7bddd72458fbced7a6c1"
 
 [[projects]]
-  name = "github.com/gravitational/trace"
-  packages = ["."]
-  revision = "640274f75816ce3975e730e844290c14936f6288"
-  version = "1.0.0"
-
-[[projects]]
   name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
@@ -144,12 +138,6 @@
   packages = ["."]
   revision = "3433f3ea46d9f8019119e7dd41274e112a2359a9"
   version = "0.2.2"
-
-[[projects]]
-  name = "github.com/jonboulle/clockwork"
-  packages = ["."]
-  revision = "2eee05ed794112d45db504eb05aa693efd2b8b09"
-  version = "v0.1.0"
 
 [[projects]]
   branch = "master"
@@ -206,12 +194,6 @@
   revision = "22f089b9c4056cf774ebd695b687d469f2ad4650"
 
 [[projects]]
-  name = "github.com/sirupsen/logrus"
-  packages = ["."]
-  revision = "a3f95b5c423586578a4e099b11a46c2479628cac"
-  version = "1.0.2"
-
-[[projects]]
   branch = "master"
   name = "github.com/spf13/cobra"
   packages = ["."]
@@ -228,6 +210,12 @@
   name = "github.com/tent/http-link-go"
   packages = ["."]
   revision = "ac974c61c2f990f4115b119354b5e0b47550e888"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/yuroyoro/swalker"
+  packages = ["."]
+  revision = "0a5950e9162f1160fb745014f926b8790ec098f6"
 
 [[projects]]
   branch = "master"
@@ -292,6 +280,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d1dd0f900307feb5b8fef921099122291fff34121c81c8f4221b82e811dfdc78"
+  inputs-digest = "2dc2f791f8fd5c3ec673f3b80677d038794b49a18486f2d918665c494fb03fe9"
   solver-name = "gps-cdcl"
   solver-version = 1
