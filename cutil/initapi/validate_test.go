@@ -95,8 +95,10 @@ func TestValidateSpotPriceOnlyForAwsClusterHappy(t *testing.T) {
 		Cloud: "amazon",
 		ServerPools: []*cluster.ServerPool{
 			{
-				Name:      "p",
-				SpotPrice: "1",
+				Name: "p",
+				AwsConfiguration: &cluster.AwsConfiguration{
+					SpotPrice: "1",
+				},
 			},
 		},
 	}
@@ -114,8 +116,10 @@ func TestValidateSpotPriceOnlyForAwsClusterSad(t *testing.T) {
 		Cloud: "azure",
 		ServerPools: []*cluster.ServerPool{
 			{
-				Name:      "p",
-				SpotPrice: "1",
+				Name: "p",
+				AwsConfiguration: &cluster.AwsConfiguration{
+					SpotPrice: "1",
+				},
 			},
 		},
 	}

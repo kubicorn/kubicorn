@@ -83,7 +83,7 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 		newResource.Image = r.ServerPool.Image
 		newResource.InstanceType = r.ServerPool.Size
 		if r.ServerPool.Type == cluster.ServerPoolTypeNode {
-			newResource.SpotPrice = r.ServerPool.SpotPrice
+			newResource.SpotPrice = r.ServerPool.AwsConfiguration.SpotPrice
 		}
 	}
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
@@ -108,7 +108,7 @@ func (r *Lc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
 	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
-		newResource.SpotPrice = r.ServerPool.SpotPrice
+		newResource.SpotPrice = r.ServerPool.AwsConfiguration.SpotPrice
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
