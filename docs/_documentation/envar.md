@@ -12,6 +12,7 @@ KUBICORN_STATE_STORE | string | The state store type to use for the cluster
 KUBICORN_STATE_STORE_PATH | string | The state store path to use
 KUBICORN_NAME | string | The name of the cluster to use
 KUBICORN_PROFILE | string | The profile name to create new clusters APIs with
+KUBICORN_SET | string | Set custom property for the cluster
 KUBICORN_TRUECOLOR | bool | Always run kubicorn with lolgopher truecolor
 KUBICORN_FORCE_DELETE_KEY | bool | Force delete key for AWS
 KUBICORN_FORCE_DISABLE_SSH_AGENT | bool | Force SCP and SSH to never use SSH agent

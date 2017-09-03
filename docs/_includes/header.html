@@ -27,16 +27,13 @@
 
       {% assign default_paths = site.pages | map: "path" %}
       {% assign page_paths = site.header_pages | default: default_paths %}
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
-    <a class="navbar-brand" href="{{ "/" | relative_url }}"><code>{{ site.title | escape }}</code></a>
+    <a class="navbar-brand" href="{{ "/" | relative_url }}"><code>kubicorn</code></a>
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> -->
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
@@ -58,11 +55,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ "/#different" | relative_url }}">Differential</a>
         </li>
-                {% comment %}
         <li class="nav-item">
             <a class="nav-link" href="{{ "/#friends" | relative_url }}">Friends</a>
           </li>
-                {% endcomment %}
         <li class="nav-item">
             <a class="nav-link" href="{{ "/#installing" | relative_url }}">Installing</a>
           </li>
@@ -70,6 +65,9 @@
               <a class="nav-link" href="{{ "/documentation/readme.html" | relative_url }}">Documentation</a>
             </li>
       </ul>
+
+     
+
       <a class="nav-link px-1" href="https://twitter.com/kubicornk8s"><i aria-hidden="true" class="fa fa-twitter"></i></a>&nbsp;&nbsp;
       <a class="nav-link px-1" href="https://github.com/kris-nova/kubicorn/"><i aria-hidden="true" class="fa fa-github"></i></a>&nbsp;&nbsp;
        <a class="nav-link px-1" href="https://invite.slack.golangbridge.org/"><i aria-hidden="true" class="fa fa-slack"></i></a>&nbsp;&nbsp;

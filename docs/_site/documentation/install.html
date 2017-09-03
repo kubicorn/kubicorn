@@ -12,7 +12,7 @@
     crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/main.css">
     <link rel="canonical" href="http://localhost:4000/documentation/install.html">
-    <link rel="alternate" type="application/rss+xml" title="kubicorn" href="/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="kubicorn - Building Simple Kubernetes Infrastructure" href="/feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Fira+Mono" rel="stylesheet">
   
@@ -96,9 +96,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/#different">Differential</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/#friends">Friends</a>
-          </li>
+                
         <li class="nav-item">
             <a class="nav-link" href="/#installing">Installing</a>
           </li>
@@ -117,6 +115,7 @@
 
   <div class="container">
 
+
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
         
@@ -133,7 +132,7 @@
 -->
 
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4 mb-5">
         <h5 class="mb-3">Documentation</h5>
         
 
@@ -184,40 +183,40 @@
         </div>
 
         <div class="sidebar mb-2 mt-4">
-                <h6 class="mb-3">AWS</h6>
-                               
-                <a href="/documentation/aws-walkthrough.html">
-                    <p class="mb-2">Setting up Kubernetes in AWS</p>
-                </a>
+            <h6 class="mb-3">AWS</h6>
+                           
+            <a href="/documentation/aws-walkthrough.html">
+                <p class="mb-2">Setting up Kubernetes in AWS</p>
+            </a>
+                         
+        </div>
+
+        <div class="sidebar mb-2 mt-4">
+            <h6 class="mb-3">Azure</h6>
                              
+            <a href="/documentation/azure-walkthrough.html">
+                <p class="mb-2">Setting up Kubernetes in Azure</p>
+            </a>
+                       
+        </div>
+
+        <div class="sidebar mb-2 mt-4">
+                <h6 class="mb-3">Digital Ocean</h6>
+                                   
+                <a href="/documentation/do-walkthrough.html">
+                    <p class="mb-2">Setting up Kubernetes in DigitalOcean with TLS secured private VPN mesh</p>
+                </a>
+                         
             </div>
 
-            <div class="sidebar mb-2 mt-4">
-                    <h6 class="mb-3">Azure</h6>
+        <div class="sidebar mb-2 mt-4">
+                <h6 class="mb-3">Google</h6>
                                      
-                    <a href="/documentation/azure-walkthrough.html">
-                        <p class="mb-2">Setting up Kubernetes in Azure</p>
-                    </a>
-                               
-                </div>
-
-                <div class="sidebar mb-2 mt-4">
-                        <h6 class="mb-3">Digital Ocean</h6>
-                                           
-                        <a href="/documentation/do-walkthrough.html">
-                            <p class="mb-2">Setting up Kubernetes in DigitalOcean with TLS secured private VPN mesh</p>
-                        </a>
-                                 
-                    </div>
-
-                    <div class="sidebar mb-2 mt-4">
-                            <h6 class="mb-3">Google</h6>
-                                                 
-                            <a href="/documentation/google-walkthrough.html">
-                                <p class="mb-2">Setting up Kubernetes in Google with TLS secured private VPN mesh</p>
-                            </a>
-                                   
-                        </div>
+                <a href="/documentation/google-walkthrough.html">
+                    <p class="mb-2">Setting up Kubernetes in Google with TLS secured private VPN mesh</p>
+                </a>
+                       
+            </div>
 
     </div>
     <!-- 
@@ -233,22 +232,19 @@
     888                               
     888                               
      -->
-    
-        <div class="col-sm-8">
-            <!-- <figure class="figure">
+    <div class="col-sm-8">
+        <!-- <figure class="figure">
                 <img src="https://placebear.com/g/1200/720" class="img-fluid" alt="Responsive image">
-    
+
                 <figcaption class="figure-caption text-left"><small><i>Image copyright 2007 ® Fancy Photographer</i></small></figcaption>
             </figure> -->
-            <h1>Installing Kubicorn</h1>
+        <h1>Installing Kubicorn</h1>
 
-
-
-            <p class="figure-caption text-left"><i>
+        <p class="figure-caption text-left"><i>
             
             August 8, 2017</i></p>
-    
-            <p><strong>Note</strong>: You can always run <code class="highlighter-rouge">make help</code> to learn more about the <code class="highlighter-rouge">Makefile</code>.</p>
+
+        <p><strong>Note</strong>: You can always run <code class="highlighter-rouge">make help</code> to learn more about the <code class="highlighter-rouge">Makefile</code>.</p>
 
 <h2 id="quickstart">Quickstart</h2>
 
@@ -286,36 +282,33 @@ kubicorn is:</p>
 </code></pre>
 </div>
 
-            
-    
-            <div class="social-media mt-4">
-                <h6 class="text-center">Share it:</h6>
+
+        <div class="social-media mt-4 mb-5">
+            <h6 class="text-center">Share it:</h6>
             <p class="text-center" style="font-size: 2rem;">
-    <a href=""><i aria-hidden="true" class="fa fa-google-plus-square"></i></a> 
-    <a href=""><i aria-hidden="true" class="fa fa-facebook-square"></i></a> 
-    <a href=""><i aria-hidden="true" class="fa fa-twitter-square"></i></a> 
-    <a href=""><i aria-hidden="true" class="fa fa-instagram"></i></a> 
-    <a href=""><i aria-hidden="true" class="fa fa-linkedin-square"></i></a> 
-    <a href=""><i aria-hidden="true" class="fa fa-share-square-o"></i></a>
-    </p>
-    </div>
-    
-            <div class="row author-section mb-5">
-                <div class="col-4 col-lg-2">
-                      <img src="https://placebear.com/g/200/200" class="img-fluid" alt="Responsive image">
-                      </div>
-                    <div class="col align-self-center">
-            <a href=""><h6>Author J. Writer</h6></a>
-            <p><small>Dr. Writer is the bearer of many writings about bears, beers, and the second ammendment. As of late he's also been writing about kittins, the jerk.</small></p>
-    
-           </div></div>
-    
-    
-    
-    
-    
+                <a href="https://twitter.com/intent/tweet?text=Installing Kubicorn&url=http://localhost:4000/documentation/install.html&via=kubicornk8s&related=kubicornk8s" rel="nofollow" target="_blank" title="Share on Twitter"><i aria-hidden="true" class="fa fa-twitter-square"></i></a>
+                <a href="https://facebook.com/sharer/sharer.php?u=http://localhost:4000/documentation/install.html" rel="nofollow" target="_blank" title="Share on Facebook"><i aria-hidden="true" class="fa fa-facebook-square"></i></a>
+                <a href="https://plus.google.com/share?url=http://localhost:4000/documentation/install.html" rel="nofollow" target="_blank" title="Share on Google+"><i aria-hidden="true" class="fa fa-google-plus-square"></i></a>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/documentation/install.html&title=Installing Kubicorn" rel="nofollow" target="_blank" title="Share on LinkedIn"><i aria-hidden="true" class="fa fa-linkedin-square"></i></a>
+                <a href="http://www.reddit.com/submit?url=http://localhost:4000/documentation/install.html&title=Installing Kubicorn" rel="nofollow" target="_blank" title="Share on Reddit"><i aria-hidden="true" class="fa fa-reddit-square"></i></a>
+            </p>
         </div>
+
+        <!-- <div class="row author-section mb-5">
+            <div class="col-4 col-lg-2">
+                <img src="https://placebear.com/g/200/200" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="col align-self-center">
+                <a href="">
+                    <h6>Author J. Writer</h6>
+                </a>
+                <p><small>Dr. Writer is the bearer of many writings about bears, beers, and the second ammendment. As of late he's also been writing about kittins, the jerk.</small></p>
+
+            </div>
+        </div> -->
+
     </div>
+</div>
     
 
       </div>
@@ -332,7 +325,7 @@ d88P"                   888
 888    "Y88P"   "Y88P"   "Y888 "Y8888  888     
 -->
 <div class="row light-bg py-3 px-3 mb-0 social-media-footer">
-  <div class="col-4 text-center d-flex align-items-start justify-content-center">
+  <div class="col-md-4 text-center d-flex align-items-start justify-content-center">
     <div>
       <h3 class="mb-3 mt-3">Community</h3>
       <p><a href="https://github.com/kris-nova/kubicorn/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
@@ -340,7 +333,7 @@ d88P"                   888
       <p><a href="https://github.com/kris-nova/kubicorn/blob/master/AUTHORS">Authors</a></p>
     </div>
   </div>
-  <div class="col-4 text-center d-flex align-items-start justify-content-center">
+  <div class="col-md-4 text-center d-flex align-items-start justify-content-center">
     <div>
       <h3 class="mb-3 mt-3">Join us!</h3>
       <a class=" px-1" href="https://twitter.com/kubicornk8s"><i aria-hidden="true" class="fa fa-twitter"></i></a>&nbsp;&nbsp;
@@ -350,7 +343,7 @@ d88P"                   888
       <a class=" px-1" href=""><i aria-hidden="true" class="fa fa-envelope"></i></a>&nbsp;&nbsp;   -->
     </div>
   </div>
-  <div class="col-4 text-center d-flex align-items-start justify-content-center">
+  <div class="col-md-4 text-center d-flex align-items-start justify-content-center">
     <div>
       <h3 class="mb-3 mt-3"><code>kubicorn</code></h3>
       <p class="small">© 2017 The Kubicorn Authors</p>

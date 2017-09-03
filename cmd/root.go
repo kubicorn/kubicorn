@@ -78,6 +78,7 @@ type Options struct {
 	StateStorePath string
 	Name           string
 	CloudId        string
+	Set            string
 }
 
 func Execute() {

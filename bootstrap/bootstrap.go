@@ -160,7 +160,7 @@ func bootstrapAmazon_k8s_ubuntu_1604_masterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/amazon_k8s_ubuntu_16.04_master.sh", size: 1757, mode: os.FileMode(493), modTime: time.Unix(1504041220, 0)}
+	info := bindataFileInfo{name: "bootstrap/amazon_k8s_ubuntu_16.04_master.sh", size: 1757, mode: os.FileMode(493), modTime: time.Unix(1504123577, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
