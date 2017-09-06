@@ -34,7 +34,7 @@ type StorageAccount struct {
 func (r *StorageAccount) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("storageAccount.Actual")
 
-	newResource := &LoadBalancer{
+	newResource := &StorageAccount{
 		Shared: Shared{
 			Tags: r.Tags,
 		},
@@ -55,7 +55,7 @@ func (r *StorageAccount) Actual(immutable *cluster.Cluster) (*cluster.Cluster, c
 
 func (r *StorageAccount) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("storageAccount.Expected")
-	newResource := &LoadBalancer{
+	newResource := &StorageAccount{
 		Shared: Shared{
 			Tags:       r.Tags,
 			Identifier: immutable.StorageIdentifier,
@@ -77,7 +77,13 @@ func (r *StorageAccount) Apply(actual, expected cloud.Resource, immutable *clust
 		return immutable, applyResource, nil
 	}
 
-	parameters := &storage.Account{}
+	parameters := storage.AccountCreateParameters{
+		Sku: &storage.Sku{
+			Name: storage.StandardGRS,
+			Tier: storage.Standard,
+		},
+		Location: &immutable.Location,
+	}
 	accountch, errch := Sdk.StorageAccount.Create(immutable.Name, immutable.Name, parameters, make(chan struct{}))
 	account := <-accountch
 	err = <-errch
@@ -87,9 +93,9 @@ func (r *StorageAccount) Apply(actual, expected cloud.Resource, immutable *clust
 	logger.Info("Created storage account [%s]", immutable.Name)
 	newResource := &StorageAccount{
 		Shared: Shared{
-			Tags: r.Tags,
+			Tags:       r.Tags,
 			Identifier: *account.ID,
-			Name: *account.Name,
+			Name:       *account.Name,
 		},
 	}
 
@@ -103,7 +109,7 @@ func (r *StorageAccount) Delete(actual cloud.Resource, immutable *cluster.Cluste
 		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
 
-	_, err  := Sdk.StorageAccount.Delete(immutable.Name, immutable.Name)
+	_, err := Sdk.StorageAccount.Delete(immutable.Name, immutable.Name)
 	if err != nil {
 		return nil, nil, err
 	}
