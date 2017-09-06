@@ -22,6 +22,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/arm/examples/helpers"
 	"github.com/Azure/azure-sdk-for-go/arm/network"
 	"github.com/Azure/azure-sdk-for-go/arm/resources/resources"
+	"github.com/Azure/azure-sdk-for-go/arm/storage"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/adal"
 	"github.com/Azure/go-autorest/autorest/azure"
@@ -35,6 +36,7 @@ type Sdk struct {
 	ResourceGroup    *resources.GroupsClient
 	LoadBalancer     *network.LoadBalancersClient
 	PublicIP         *network.PublicIPAddressesClient
+	StorageAccount   *storage.AccountsClient
 }
 
 type ServicePrincipal struct {
@@ -124,6 +126,12 @@ func NewSdk() (*Sdk, error) {
 	publicIPClient := network.NewPublicIPAddressesClient(sdk.ServicePrincipal.SubscriptionID)
 	publicIPClient.Authorizer = autorest.NewBearerAuthorizer(sdk.ServicePrincipal.AuthenticatedToken)
 	sdk.PublicIP = &publicIPClient
+
+	//------------------------
+	// Storage
+	storageAccountClient := storage.NewAccountsClient(sdk.ServicePrincipal.SubscriptionID)
+	storageAccountClient.Authorizer = autorest.NewBearerAuthorizer(sdk.ServicePrincipal.AuthenticatedToken)
+	sdk.StorageAccount = &storageAccountClient
 
 	return sdk, nil
 }

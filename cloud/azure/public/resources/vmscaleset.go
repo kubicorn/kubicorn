@@ -150,6 +150,13 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				Tier:     s(azuremaps.GetTierFromSize(r.ServerPool.Size)),
 				Capacity: i64(int64(r.ServerPool.MaxCount)),
 			},
+			Type: s(""),
+			Plan: &compute.Plan{
+				Name:          s(""),
+				Product:       s(""),
+				PromotionCode: s(""),
+				Publisher:     s(""),
+			},
 		}
 
 		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
@@ -189,7 +196,6 @@ func (r *VMScaleSet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 			Identifier: "",
 		},
 	}
-
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }

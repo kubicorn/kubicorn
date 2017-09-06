@@ -51,6 +51,15 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	}
 	i++
 
+	// ---- [Storage Account] ----
+	r[i] = &resources.StorageAccount{
+		Shared: resources.Shared{
+			Name: known.Name,
+			Tags: make(map[string]string),
+		},
+	}
+	i++
+
 	// ---- [Vnet] ----
 	r[i] = &resources.Vnet{
 		Shared: resources.Shared{
