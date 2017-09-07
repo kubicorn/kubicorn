@@ -20,16 +20,24 @@ import (
 )
 
 func TestSdkHappy(t *testing.T) {
-	os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "../../../test/resources/google_application_credentials_example.json")
-	_, err := NewSdk()
+	err := os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "../../../test/resources/google_application_credentials_example.json")
+	if err != nil {
+		t.Fatalf("Unable to set env var: %v", err)
+	}
+
+	_, err = NewSdk()
 	if err != nil {
 		t.Fatalf("Unable to get Google compute SDK: %v", err)
 	}
 }
 
 func TestSdkSad(t *testing.T) {
-	os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "")
-	_, err := NewSdk()
+	err := os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "")
+	if err != nil {
+		t.Fatalf("Unable to set env var: %v", err)
+	}
+
+	_, err = NewSdk()
 	if err == nil {
 		t.Fatalf("Able to get Google compute SDK with empty variables")
 	}
