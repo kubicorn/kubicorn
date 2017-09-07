@@ -14,14 +14,22 @@
 
 package script
 
-import "testing"
+import (
+	"encoding/json"
+	"os"
+	"strings"
+	"testing"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/profiles"
+)
 
 func TestBuildBootstrapScriptHappy(t *testing.T) {
 	scripts := []string{
 		"vpn/meshbirdMaster.sh",
 		"digitalocean_k8s_ubuntu_16.04_master.sh",
 	}
-	_, err := BuildBootstrapScript(scripts)
+	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
 	if err != nil {
 		t.Fatalf("Unable to get scripts: %v", err)
 	}
@@ -32,8 +40,41 @@ func TestBuildBootstrapScriptSad(t *testing.T) {
 		"vpn/meshbirdMaster.s",
 		"digitalocean_k8s_ubuntu_16.04_master.s",
 	}
-	_, err := BuildBootstrapScript(scripts)
+	_, err := BuildBootstrapScript(scripts, &cluster.Cluster{})
 	if err == nil {
 		t.Fatalf("Merging non existing scripts: %v", err)
+	}
+}
+
+func TestBuildBootstrapSetupScript(t *testing.T) {
+	location := "./test.json"
+	expectedStart := `
+#!/usr/bin/env bash
+set -e
+cd ~
+
+sudo sh -c 'cat <<EOF > ./test.json`
+	expectedEnd := "\nEOF'\n"
+
+	c := profiles.NewCentosAmazonCluster("bootstrap-setup-script-test")
+	os.Remove(location)
+	os.Remove("test.sh")
+	script, err := buildBootstrapSetupScript(c, location)
+	if err != nil {
+		t.Fatalf("Error building bootstrap setup script: %v", err)
+	}
+	stringScript := string(script)
+	jsonCluster, err := json.Marshal(c)
+	if err != nil {
+		t.Fatalf("Error marshaling cluster to json: %v", err)
+	}
+	if !strings.HasPrefix(stringScript, expectedStart) {
+		t.Fatalf("Expected start of script is wrong!\n\nActual:\n%v\n\nExpected:\n%v", stringScript, expectedStart)
+	}
+	if !strings.HasSuffix(stringScript, expectedEnd) {
+		t.Fatalf("Expected end of script is wrong!\n\nActual:\n%v\n\nExpected:\n%v", stringScript, expectedEnd)
+	}
+	if !strings.Contains(stringScript, string(jsonCluster)) {
+		t.Fatal("Json cluster isn't in script!")
 	}
 }
