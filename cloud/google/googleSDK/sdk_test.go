@@ -32,7 +32,7 @@ func TestSdkHappy(t *testing.T) {
 }
 
 func TestSdkSad(t *testing.T) {
-	err := os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "")
+	err := os.Unsetenv("GOOGLE_APPLICATION_CREDENTIALS")
 	if err != nil {
 		t.Fatalf("Unable to set env var: %v", err)
 	}
