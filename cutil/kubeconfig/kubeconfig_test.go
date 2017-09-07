@@ -16,8 +16,11 @@ package kubeconfig
 
 import (
 	"fmt"
+	"github.com/kris-nova/kubicorn/apis/cluster"
 	"io/ioutil"
 	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -48,4 +51,34 @@ func TestSdkHappy(t *testing.T) {
 	if localPath != expectedLocalPath {
 		t.Fatalf("kubectl config path incorrect, got: %s, expected: %s", localPath, expectedLocalPath)
 	}
+}
+
+func TestGetConfigHappy(t *testing.T) {
+	dir, err := os.Getwd()
+	dir, err = filepath.Abs(dir + "/../../test")
+	testCluster := &cluster.Cluster{
+		SSH: &cluster.SSH{
+			User:          "root",
+			PublicKeyPath: dir + "/credentials/id_rsa.pub",
+			Port:          "6666",
+		},
+		KubernetesAPI: &cluster.KubernetesAPI{
+			Endpoint: "localhost",
+		},
+	}
+	os.Setenv("KUBICORN_TEST_HOME_DIRECTORY", dir+"/tmp")
+
+	err = GetConfig(testCluster)
+
+	result, err := ioutil.ReadFile(dir + "/tmp/.kube/config")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if strings.TrimSpace(string(result)) != "kubicorn test data" {
+		os.RemoveAll(dir + "/tmp/.kube")
+		t.Fatalf("File content is incorrect \"%v\"", strings.TrimSpace(string(result)))
+	}
+
+	os.RemoveAll(dir + "/tmp/.kube")
 }
