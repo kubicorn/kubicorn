@@ -36,7 +36,11 @@ func GetConfig(existing *cluster.Cluster) error {
 	user := existing.SSH.User
 	pubKeyPath := local.Expand(existing.SSH.PublicKeyPath)
 	privKeyPath := strings.Replace(pubKeyPath, ".pub", "", 1)
-	address := fmt.Sprintf("%s:%s", existing.KubernetesAPI.Endpoint, "22")
+	if existing.SSH.Port == "" {
+		existing.SSH.Port = "22"
+	}
+
+	address := fmt.Sprintf("%s:%s", existing.KubernetesAPI.Endpoint, existing.SSH.Port)
 	localDir := fmt.Sprintf("%s/.kube", local.Home())
 	localPath, err := getKubeConfigPath(localDir)
 	if err != nil {
@@ -52,13 +56,6 @@ func GetConfig(existing *cluster.Cluster) error {
 	} else {
 		remotePath = fmt.Sprintf("/home/%s/.kube/config", user)
 	}
-
-	//fmt.Println(pubKeyPath)
-	//fmt.Println(privKeyPath)
-	//fmt.Println(address)
-	//fmt.Println(user)
-	//fmt.Println(remotePath)
-	//fmt.Println(localPath)
 
 	agent := sshAgent()
 	if agent != nil && os.Getenv("KUBICORN_FORCE_DISABLE_SSH_AGENT") == "" {

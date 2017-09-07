@@ -40,7 +40,7 @@ func TestMain(m *testing.M) {
 	//	}
 	//}()
 	test.InitRsaTravis()
-	testCluster = profiles.NewSimpleDigitalOceanCluster("ubuntu-test")
+	testCluster = profiles.NewUbuntuDigitalOceanCluster("ubuntu-test")
 	testCluster, err = test.Create(testCluster)
 	if err != nil {
 		fmt.Printf("Unable to create DigitalOcean test cluster: %v\n", err)
