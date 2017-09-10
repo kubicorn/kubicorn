@@ -72,7 +72,7 @@ sudo sh -c 'cat <<EOF > ./test.json`
 		t.Fatalf("Expected end of script is wrong!\n\nActual:\n%v\n\nExpected:\n%v", stringScript, expectedEnd)
 	}
 	if !strings.Contains(stringScript, expectedJsonSetup) {
-		t.Fatalf("Expected script to have mkdir followed by writing to file!\n\nActual:\n%v\n\nExpected:\n%v", stringScript,expectedJsonSetup)
+		t.Fatalf("Expected script to have mkdir followed by writing to file!\n\nActual:\n%v\n\nExpected:\n%v", stringScript, expectedJsonSetup)
 	}
 	if !strings.Contains(stringScript, string(jsonCluster)) {
 		t.Fatal("Json cluster isn't in script!")

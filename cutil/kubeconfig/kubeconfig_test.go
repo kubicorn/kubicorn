@@ -16,12 +16,13 @@ package kubeconfig
 
 import (
 	"fmt"
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
 )
 
 func TestMain(m *testing.M) {
