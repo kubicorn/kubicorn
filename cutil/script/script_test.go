@@ -47,19 +47,16 @@ func TestBuildBootstrapScriptSad(t *testing.T) {
 }
 
 func TestBuildBootstrapSetupScript(t *testing.T) {
-	location := "./test.json"
-	expectedStart := `
-#!/usr/bin/env bash
-set -e
-cd ~
-
+	dir := "."
+	fileName := "test.json"
+	expectedJsonSetup := `mkdir -p .
 sudo sh -c 'cat <<EOF > ./test.json`
 	expectedEnd := "\nEOF'\n"
 
 	c := profiles.NewCentosAmazonCluster("bootstrap-setup-script-test")
-	os.Remove(location)
+	os.Remove(dir + "/" + fileName)
 	os.Remove("test.sh")
-	script, err := buildBootstrapSetupScript(c, location)
+	script, err := buildBootstrapSetupScript(c, dir, fileName)
 	if err != nil {
 		t.Fatalf("Error building bootstrap setup script: %v", err)
 	}
@@ -68,11 +65,14 @@ sudo sh -c 'cat <<EOF > ./test.json`
 	if err != nil {
 		t.Fatalf("Error marshaling cluster to json: %v", err)
 	}
-	if !strings.HasPrefix(stringScript, expectedStart) {
-		t.Fatalf("Expected start of script is wrong!\n\nActual:\n%v\n\nExpected:\n%v", stringScript, expectedStart)
+	if shebang := "#!/usr/bin/env bash"; !strings.HasPrefix(stringScript, shebang) {
+		t.Fatalf("Expected start of script is wrong!\n\nActual:\n%v\n\nExpected:\n%v", stringScript, shebang)
 	}
 	if !strings.HasSuffix(stringScript, expectedEnd) {
 		t.Fatalf("Expected end of script is wrong!\n\nActual:\n%v\n\nExpected:\n%v", stringScript, expectedEnd)
+	}
+	if !strings.Contains(stringScript, expectedJsonSetup) {
+		t.Fatalf("Expected script to have mkdir followed by writing to file!\n\nActual:\n%v\n\nExpected:\n%v", stringScript,expectedJsonSetup)
 	}
 	if !strings.Contains(stringScript, string(jsonCluster)) {
 		t.Fatal("Json cluster isn't in script!")

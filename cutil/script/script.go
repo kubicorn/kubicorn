@@ -23,12 +23,18 @@ import (
 	"github.com/kris-nova/kubicorn/bootstrap"
 )
 
-const clusterAsJSONLocation = "/etc/kubicorn/cluster.json"
+const bootstrapInitScript = "bootstrap_init.sh"
+const kubicornDir = "/etc/kubicorn"
+const clusterAsJSONFileName = "cluster.json"
 
 func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) ([]byte, error) {
-	userData, err := buildBootstrapSetupScript(cluster, clusterAsJSONLocation)
-	if err != nil {
-		return nil, err
+	userData := []byte{}
+	if cluster.Cloud == "amazon" {
+		scriptData, err := buildBootstrapSetupScript(cluster, kubicornDir, clusterAsJSONFileName)
+		if err != nil {
+			return nil, err
+		}
+		userData = append(userData, scriptData...)
 	}
 
 	for _, bootstrapScript := range bootstrapScripts {
@@ -42,20 +48,20 @@ func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) (
 	return userData, nil
 }
 
-func buildBootstrapSetupScript(cluster *cluster.Cluster, location string) ([]byte, error) {
-	script := []byte(`
-#!/usr/bin/env bash
-set -e
-cd ~
-
-sudo sh -c 'cat <<EOF > ` + location + "\n")
+func buildBootstrapSetupScript(cluster *cluster.Cluster, dir, file string) ([]byte, error) {
+	userData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapInitScript))
+	if err != nil {
+		return nil, err
+	}
+	script := []byte("mkdir -p " + dir + "\nsudo sh -c 'cat <<EOF > " + dir + "/" + file + "\n")
 
 	clusterJSON, err := json.Marshal(cluster)
 	if err != nil {
 		return nil, err
 	}
 
-	script = append(script, clusterJSON...)
-	script = append(script, []byte("\nEOF'\n")...)
-	return script, nil
+	userData = append(userData, script...)
+	userData = append(userData, clusterJSON...)
+	userData = append(userData, []byte("\nEOF'\n")...)
+	return userData, nil
 }
