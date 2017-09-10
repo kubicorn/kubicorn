@@ -27,3 +27,12 @@ Do not include a title top level header on the document, e.g. `# Title`. The tit
 
 Simply update the associated `.md` markdown file. All documentation should be in complete sentences.
 
+# Testing changes
+
+If you have Jekyll stack installed you can run site locally to test changes. To install Jekyll, follow the [Setting up your GitHub Pages site locally with Jekyll](https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/) tutorial.  
+Start site by running the following command from the `/docs` directory:
+```
+bundle exec jekyll serve
+```
+Site will be available at `localhost:4000`.
+
