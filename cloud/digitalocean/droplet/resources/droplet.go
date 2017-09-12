@@ -120,7 +120,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		return immutable, applyResource, nil
 	}
 
-	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
 	if err != nil {
 		return nil, nil, err
 	}
