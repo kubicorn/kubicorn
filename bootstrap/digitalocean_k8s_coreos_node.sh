@@ -13,18 +13,10 @@ TOKEN="INJECTEDTOKEN"
 MASTER="INJECTEDMASTER"
 # ------------------------------------------------------------------------------------------------------------------------
 
-sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo touch /etc/apt/sources.list.d/kubernetes.list
-sudo sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
+K8S_VERSION=v1.7.0
 
-sudo apt-get update -y
-sudo apt-get install -y \
-    socat \
-    ebtables \
-    docker.io \
-    apt-transport-https \
-    kubelet \
-    kubeadm=1.7.0-00
+curl -sSL https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl > /opt/bin/kubectl
+curl -sSL https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubeadm > /opt/bin/kubeadm
 
 sudo systemctl enable docker
 sudo systemctl start docker

@@ -15,27 +15,19 @@ PORT="INJECTEDPORT"
 #
 # ------------------------------------------------------------------------------------------------------------------------
 
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-touch /etc/apt/sources.list.d/kubernetes.list
-sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
+K8S_VERSION=v1.7.0
 
-apt-get update -y
-apt-get install -y \
-    socat \
-    ebtables \
-    docker.io \
-    apt-transport-https \
-    kubelet \
-    kubeadm=1.7.0-00 \
-    cloud-utils
-
+mkdir -p /opt/cni /opt/bin
+curl -sSL https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl > /opt/bin/kubectl
+curl -sSL https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubeadm > /opt/bin/kubeadm
+chmod +x /opt/bin/kubectl /opt/bin/kubeadm
 
 systemctl enable docker
 systemctl start docker
 
-PRIVATEIP=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip"`
+PUBLICIP=$(curl ifconfig.me)
+PRIVATEIP=$(ip addr show dev eth0 | awk '/inet / {print $2}' | cut -d"/" -f1)
 echo $PRIVATEIP > /tmp/.ip
-PUBLICIP=`curl --retry 5 -sfH "Metadata-Flavor: Google" "http://metadata/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip"`
 
 kubeadm reset
 kubeadm init --apiserver-bind-port ${PORT} --token ${TOKEN}  --apiserver-advertise-address ${PUBLICIP} --apiserver-cert-extra-sans ${PUBLICIP} ${PRIVATEIP}

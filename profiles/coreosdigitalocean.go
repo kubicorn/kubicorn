@@ -29,7 +29,7 @@ func NewCoreOSDigitalOceanCluster(name string) *cluster.Cluster {
 		Location: "sfo2",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "root",
+			User:          "core",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
