@@ -18,6 +18,7 @@ import (
 	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/arm/storage"
+	storageContainer "github.com/Azure/azure-sdk-for-go/storage"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
@@ -83,7 +84,9 @@ func (r *StorageAccount) Apply(actual, expected cloud.Resource, immutable *clust
 			Tier: storage.Standard,
 		},
 		Location: &immutable.Location,
+		AccountPropertiesCreateParameters: &storage.AccountPropertiesCreateParameters{},
 	}
+
 	accountch, errch := Sdk.StorageAccount.Create(immutable.Name, immutable.Name, parameters, make(chan struct{}))
 	account := <-accountch
 	err = <-errch
@@ -91,11 +94,41 @@ func (r *StorageAccount) Apply(actual, expected cloud.Resource, immutable *clust
 		return nil, nil, err
 	}
 	logger.Info("Created storage account [%s]", immutable.Name)
+	blobEndpoint := account.PrimaryEndpoints.Blob
+	logger.Info("Found primary blob endpoint: %s", *blobEndpoint)
+	keysResult, err := Sdk.StorageAccount.ListKeys(immutable.Name, *account.Name)
+	if err != nil {
+		return nil, nil, err
+	}
+	if len(*keysResult.Keys) < 1 {
+		return nil, nil, fmt.Errorf("Missing keys for storage account: %s", *account.Name)
+	}
+	keys := *keysResult.Keys
+	key := keys[0]
+
+	containerClient, err := storageContainer.NewBasicClient(*account.Name, *key.Value)
+	if err != nil {
+		return nil, nil, err
+	}
+	cblob := containerClient.GetBlobService()
+	datContainer := cblob.GetContainerReference(applyResource.Name)
+	options := &storageContainer.CreateContainerOptions{
+		Access: storageContainer.ContainerAccessTypeContainer,
+	}
+	created, err := datContainer.CreateIfNotExists(options)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	if created {
+		logger.Info("Created storage container [%s]", applyResource.Name)
+	}
+
 	newResource := &StorageAccount{
 		Shared: Shared{
 			Tags:       r.Tags,
 			Identifier: *account.ID,
-			Name:       *account.Name,
+			Name:       applyResource.Name,
 		},
 	}
 

@@ -118,18 +118,37 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		if err != nil {
 			return nil, nil, err
 		}
+		nicName := fmt.Sprintf("%s-nic", immutable.Name)
+		vhdcontainername := fmt.Sprintf("https://%s.blob.core.windows.net/%s", immutable.Name, immutable.Name)
 		parameters := compute.VirtualMachineScaleSet{
 			Location: &immutable.Location,
 			VirtualMachineScaleSetProperties: &compute.VirtualMachineScaleSetProperties{
 				VirtualMachineProfile: &compute.VirtualMachineScaleSetVMProfile{
+
+					// StorageProfile
 					StorageProfile: &compute.VirtualMachineScaleSetStorageProfile{
 						OsDisk: &compute.VirtualMachineScaleSetOSDisk{
 							OsType:       compute.Linux,
 							CreateOption: compute.FromImage,
+							VhdContainers: &[]string{
+								vhdcontainername,
+							},
+							Name: s(applyResource.Name),
 						},
 						ImageReference: imageRef,
 					},
-					OsProfile: &compute.VirtualMachineScaleSetOSProfile{},
+
+					// OsProfile
+					OsProfile: &compute.VirtualMachineScaleSetOSProfile{
+						AdminUsername:      s("kris"),
+						AdminPassword:      s("Charlie1!"),
+						ComputerNamePrefix: s("kris"),
+						LinuxConfiguration: &compute.LinuxConfiguration{
+							DisablePasswordAuthentication: b(false),
+						},
+					},
+
+					// NetworkProfile
 					NetworkProfile: &compute.VirtualMachineScaleSetNetworkProfile{
 						NetworkInterfaceConfigurations: &[]compute.VirtualMachineScaleSetNetworkConfiguration{
 							{
@@ -137,6 +156,7 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 									IPConfigurations: &ipConfigsToAdd,
 									Primary:          b(true),
 								},
+								Name: &nicName,
 							},
 						},
 					},
@@ -146,16 +166,9 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				},
 			},
 			Sku: &compute.Sku{
-				Name:     s(r.ServerPool.Size),
+				Name:     s("Standard_A1"),
 				Tier:     s(azuremaps.GetTierFromSize(r.ServerPool.Size)),
 				Capacity: i64(int64(r.ServerPool.MaxCount)),
-			},
-			Type: s(""),
-			Plan: &compute.Plan{
-				Name:          s(""),
-				Product:       s(""),
-				PromotionCode: s(""),
-				Publisher:     s(""),
 			},
 		}
 

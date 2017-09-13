@@ -17,6 +17,8 @@ package resources
 import (
 	"fmt"
 
+	//"bytes"
+	//"encoding/json"
 	"github.com/Azure/azure-sdk-for-go/arm/network"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -124,22 +126,25 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 	fid := strings.Replace(pipid, fmt.Sprintf("publicIPAddresses/%s", r.Subnet.Name), fmt.Sprintf("loadBalancers/%s/frontendIPConfigurations/LoadBalancerFrontEnd", r.Subnet.Name), 1)
 	var inboundRules []network.InboundNatRule
 	var inboundPools []network.InboundNatPool
+	i := 0
 	for _, rule := range r.Subnet.LoadBalancer.InboundRules {
 		iRule := network.InboundNatRule{
+			Name: s(fmt.Sprintf("InboundRule.%d", i)),
 			InboundNatRulePropertiesFormat: &network.InboundNatRulePropertiesFormat{
 				FrontendPort:         i32(int32(rule.ListenPort)),
 				BackendPort:          i32(int32(rule.TargetPort)),
 				EnableFloatingIP:     b(false),
 				Protocol:             network.TransportProtocolTCP,
 				IdleTimeoutInMinutes: i32(4),
-				//FrontendIPConfiguration: &network.SubResource{
-				//	ID: s(fid),
-				//},
+				FrontendIPConfiguration: &network.SubResource{
+					ID: s(fid),
+				},
 			},
 		}
 		inboundRules = append(inboundRules, iRule)
 
 		iPool := network.InboundNatPool{
+			Name: s(fmt.Sprintf("InboundNatPool.%d", i)),
 			InboundNatPoolPropertiesFormat: &network.InboundNatPoolPropertiesFormat{
 				FrontendPortRangeStart: i32(int32(rule.ListenPort)),
 				FrontendPortRangeEnd:   i32(int32(rule.ListenPort + 31)),
@@ -151,6 +156,7 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 			},
 		}
 		inboundPools = append(inboundPools, iPool)
+		i++
 	}
 
 	parameters := network.LoadBalancer{
@@ -158,8 +164,10 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 		Location: &immutable.Location,
 		LoadBalancerPropertiesFormat: &network.LoadBalancerPropertiesFormat{
 			InboundNatRules: &inboundRules,
+			//InboundNatPools: &inboundPools,
 			FrontendIPConfigurations: &[]network.FrontendIPConfiguration{
 				{
+					Name: s("LoadBalancerFrontEnd"),
 					FrontendIPConfigurationPropertiesFormat: &network.FrontendIPConfigurationPropertiesFormat{
 						PublicIPAddress: &network.PublicIPAddress{
 							ID: &pipid,
@@ -174,11 +182,17 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 					Name: s(fmt.Sprintf("backend-%s", r.Subnet.Name)),
 				},
 			},
-			InboundNatPools:    &inboundPools,
-			Probes:             &[]network.Probe{},
-			LoadBalancingRules: &[]network.LoadBalancingRule{},
+			//Probes:             &[]network.Probe{},
+			//LoadBalancingRules: &[]network.LoadBalancingRule{},
 		},
 	}
+
+	//// ----- Debug request
+	//byteslice, _ := json.Marshal(parameters)
+	//var out bytes.Buffer
+	//json.Indent(&out, byteslice, "", "  ")
+	//fmt.Println(string(out.Bytes()))
+
 	lbch, errch := Sdk.LoadBalancer.CreateOrUpdate(immutable.Name, r.Subnet.Name, parameters, make(chan struct{}))
 	lb := <-lbch
 	err = <-errch
@@ -186,6 +200,7 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 		return nil, nil, err
 	}
 	logger.Info("Created or updated load balancer [%s]", *lb.ID)
+
 	var backEndPools []string
 	for _, b := range *lb.BackendAddressPools {
 		backEndPools = append(backEndPools, *b.ID)
