@@ -29,7 +29,7 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 		Location: "eastus",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "root",
+			User:          "kubicorn",
 		},
 		Network: &cluster.Network{
 			CIDR: "10.0.0.0/16",

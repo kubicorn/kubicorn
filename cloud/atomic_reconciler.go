@@ -19,12 +19,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kris-nova/kubicorn/cutil/signals"
-
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/hang"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/cutil/signals"
 )
 
 var sigCaught = false
@@ -97,6 +96,7 @@ func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconci
 			if err != nil {
 				logger.Critical("Error during cleanup: %v", err)
 			}
+			logger.Info("Exit from reconciler.")
 			os.Exit(1)
 		}
 		resource := r.model.Resources()[i]
@@ -175,7 +175,7 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 }
 
 func init() {
-	sigHandler = signals.NewSignalHandler(600)
+	sigHandler = signals.NewSignalHandler(600, false)
 	sigHandler.Register()
 }
 

@@ -37,7 +37,8 @@ func (r *StorageAccount) Actual(immutable *cluster.Cluster) (*cluster.Cluster, c
 
 	newResource := &StorageAccount{
 		Shared: Shared{
-			Tags: r.Tags,
+			Tags:       r.Tags,
+			Identifier: immutable.StorageIdentifier,
 		},
 	}
 
@@ -88,10 +89,15 @@ func (r *StorageAccount) Apply(actual, expected cloud.Resource, immutable *clust
 	}
 
 	accountch, errch := Sdk.StorageAccount.Create(immutable.Name, immutable.Name, parameters, make(chan struct{}))
-	account := <-accountch
-	err = <-errch
-	if err != nil {
-		return nil, nil, err
+
+	var account storage.Account
+	select {
+	case account = <-accountch:
+		break
+	case err = <-errch:
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 	logger.Info("Created storage account [%s]", immutable.Name)
 	blobEndpoint := account.PrimaryEndpoints.Blob
@@ -139,7 +145,7 @@ func (r *StorageAccount) Delete(actual cloud.Resource, immutable *cluster.Cluste
 	logger.Debug("storageAccount.Delete")
 	deleteResource := actual.(*StorageAccount)
 	if deleteResource.Identifier == "" {
-		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
+		return nil, nil, fmt.Errorf("Unable to delete storage resource without ID [%s]", deleteResource.Name)
 	}
 
 	_, err := Sdk.StorageAccount.Delete(immutable.Name, immutable.Name)

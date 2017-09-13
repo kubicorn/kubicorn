@@ -24,6 +24,9 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	//"github.com/kris-nova/kubicorn/cutil/retry"
+	"github.com/kris-nova/kubicorn/cutil/retry"
+	"time"
 )
 
 var _ cloud.Resource = &VMScaleSet{}
@@ -44,14 +47,22 @@ func (r *VMScaleSet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 			Identifier: r.ServerPool.Identifier,
 		},
 	}
+	logger.Debug(r.ServerPool.Name)
 
 	if r.ServerPool.Identifier != "" {
-		vss, err := Sdk.Compute.Get(immutable.Name, r.ServerPool.Name)
+		vsss, err := Sdk.Compute.List(immutable.Name)
 		if err != nil {
 			return nil, nil, err
 		}
-		newResource.Identifier = *vss.ID
-		// Todo (@kris-nova) set Image here
+		for _, vss := range *vsss.Value {
+			if r.ServerPool.Identifier == *vss.ID {
+				logger.Debug("Looked up VM scale set [%s]", *vss.ID)
+				newResource.Identifier = *vss.ID
+				newResource.Image = *vss.Sku.Name
+				// todo (@kris-nova) we need to define WAY more here
+			}
+		}
+
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
@@ -123,6 +134,7 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		parameters := compute.VirtualMachineScaleSet{
 			Location: &immutable.Location,
 			VirtualMachineScaleSetProperties: &compute.VirtualMachineScaleSetProperties{
+				Overprovision: b(true),
 				VirtualMachineProfile: &compute.VirtualMachineScaleSetVMProfile{
 
 					// StorageProfile
@@ -140,11 +152,18 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 
 					// OsProfile
 					OsProfile: &compute.VirtualMachineScaleSetOSProfile{
-						AdminUsername:      s("kris"),
-						AdminPassword:      s("Charlie1!"),
-						ComputerNamePrefix: s("kris"),
+						AdminUsername:      s(immutable.SSH.User),
+						ComputerNamePrefix: s(r.ServerPool.Name),
 						LinuxConfiguration: &compute.LinuxConfiguration{
-							DisablePasswordAuthentication: b(false),
+							DisablePasswordAuthentication: b(true),
+							SSH: &compute.SSHConfiguration{
+								PublicKeys: &[]compute.SSHPublicKey{
+									{
+										KeyData: s(string(immutable.SSH.PublicKeyData)),
+										Path:    s(fmt.Sprintf("/home/%s/.ssh/authorized_keys", immutable.SSH.User)),
+									},
+								},
+							},
 						},
 					},
 
@@ -166,35 +185,83 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				},
 			},
 			Sku: &compute.Sku{
-				Name:     s("Standard_A1"),
+				Name:     s(r.ServerPool.Size),
 				Tier:     s(azuremaps.GetTierFromSize(r.ServerPool.Size)),
 				Capacity: i64(int64(r.ServerPool.MaxCount)),
 			},
 		}
-
 		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
-		vmss := <-vmssch
-		err = <-errch
+		select {
+		case <-vmssch:
+			break
+		case err = <-errch:
+			if err != nil {
+				return nil, nil, err
+			}
+		case <-time.After(time.Second * 10):
+			logger.Debug("Bypassing hanging for VM scale set after 10 seconds")
+			break
+		}
+
+		l := &lookUpVmSsRetrier{
+			resourceGroup: immutable.Name,
+			vmssname:      applyResource.Name,
+		}
+		retrier := retry.NewRetrier(10, 1, l)
+		err = retrier.RunRetry()
 		if err != nil {
 			return nil, nil, err
 		}
-		fmt.Println(vmss)
+		parsedVmss := retrier.Retryable().(*lookUpVmSsRetrier).vmss
+		logger.Info("Created or found vm scale set [%s]", *parsedVmss.ID)
+		newResource := &VMScaleSet{
+			Shared: Shared{
+				Name:       r.Name,
+				Tags:       r.Tags,
+				Identifier: *parsedVmss.ID,
+			},
+		}
+		newCluster := r.immutableRender(newResource, immutable)
+		return newCluster, newResource, nil
 	}
 
+	// slave
 	newResource := &VMScaleSet{
 		Shared: Shared{
 			Name:       r.Name,
 			Tags:       r.Tags,
-			Identifier: r.ServerPool.Identifier,
+			Identifier: "",
 		},
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
+
+type lookUpVmSsRetrier struct {
+	resourceGroup string
+	vmssname      string
+	vmss          compute.VirtualMachineScaleSet
+}
+
+func (l *lookUpVmSsRetrier) Try() error {
+	vmss, err := Sdk.Compute.Get(l.resourceGroup, l.vmssname)
+	if err != nil {
+		// fmt.Println(err)
+		return err
+	}
+	if vmss.ID == nil || *vmss.ID == "" {
+		// fmt.Println("empty id")
+		return fmt.Errorf("Empty id")
+	}
+	l.vmss = vmss
+	return nil
+}
+
 func (r *VMScaleSet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resource, error) {
 	logger.Debug("vmscaleset.Delete")
 	deleteResource := actual.(*VMScaleSet)
 	if deleteResource.Identifier == "" {
+		return immutable, actual, nil
 		return nil, nil, fmt.Errorf("Unable to delete VPC resource without ID [%s]", deleteResource.Name)
 	}
 	_, errch := Sdk.Compute.Delete(immutable.Name, deleteResource.Name, make(chan struct{}))
@@ -216,5 +283,10 @@ func (r *VMScaleSet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (
 func (r *VMScaleSet) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("vmscaleset.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
+	for _, serverPool := range newCluster.ServerPools {
+		if serverPool.Name == newResource.(*VMScaleSet).Name {
+			serverPool.Identifier = newResource.(*VMScaleSet).Identifier
+		}
+	}
 	return newCluster
 }
