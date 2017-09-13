@@ -29,7 +29,7 @@ const clusterAsJSONFileName = "cluster.json"
 
 func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) ([]byte, error) {
 	userData := []byte{}
-	if cluster.Cloud == "amazon" {
+	if cluster.Cloud == "amazon" || cluster.Cloud == "digitalocean" {
 		scriptData, err := buildBootstrapSetupScript(cluster, kubicornDir, clusterAsJSONFileName)
 		if err != nil {
 			return nil, err
@@ -53,7 +53,7 @@ func buildBootstrapSetupScript(cluster *cluster.Cluster, dir, file string) ([]by
 	if err != nil {
 		return nil, err
 	}
-	script := []byte("mkdir -p " + dir + "\nsudo sh -c 'cat <<EOF > " + dir + "/" + file + "\n")
+	script := []byte("mkdir -p " + dir + "\ncat <<\"EOF\" > " + dir + "/" + file + "\n")
 
 	clusterJSON, err := json.Marshal(cluster)
 	if err != nil {
@@ -62,6 +62,6 @@ func buildBootstrapSetupScript(cluster *cluster.Cluster, dir, file string) ([]by
 
 	userData = append(userData, script...)
 	userData = append(userData, clusterJSON...)
-	userData = append(userData, []byte("\nEOF'\n")...)
+	userData = append(userData, []byte("\nEOF\n")...)
 	return userData, nil
 }
