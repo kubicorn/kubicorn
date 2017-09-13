@@ -9,7 +9,7 @@
 
 [[projects]]
   name = "github.com/Azure/azure-sdk-for-go"
-  packages = ["arm/examples/helpers","arm/network","arm/resources/resources"]
+  packages = ["arm/compute","arm/examples/helpers","arm/network","arm/resources/resources","arm/storage","storage"]
   revision = "57db66900881e9fd21fd041a9d013514700ecab3"
   version = "v10.3.0-beta"
 
@@ -200,6 +200,15 @@
   revision = "22f089b9c4056cf774ebd695b687d469f2ad4650"
 
 [[projects]]
+<<<<<<< HEAD
+=======
+  name = "github.com/satori/uuid"
+  packages = ["."]
+  revision = "879c5887cd475cd7864858769793b2ceb0d44feb"
+  version = "v1.1.0"
+
+[[projects]]
+>>>>>>> dep ensure
   branch = "master"
   name = "github.com/pkg/term"
   packages = ["termios"]
