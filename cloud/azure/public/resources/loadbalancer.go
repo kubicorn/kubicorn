@@ -19,6 +19,8 @@ import (
 
 	//"bytes"
 	//"encoding/json"
+	"bytes"
+	"encoding/json"
 	"github.com/Azure/azure-sdk-for-go/arm/network"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -58,7 +60,7 @@ func (r *LoadBalancer) Actual(immutable *cluster.Cluster) (*cluster.Cluster, clo
 		lb, err := Sdk.LoadBalancer.Get(immutable.Name, r.Subnet.Name, "")
 		if err != nil {
 			logger.Debug("Error looking up load balancer [%s]: %v", r.ServerPool.Name, err)
-		} else {
+		} else if lb.Name != nil {
 			newResource.Name = *lb.Name
 			for _, b := range *lb.BackendAddressPools {
 				newResource.BackendPoolIDs = append(newResource.BackendPoolIDs, *b.ID)
@@ -163,8 +165,8 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 		Name:     s(r.Subnet.Name),
 		Location: &immutable.Location,
 		LoadBalancerPropertiesFormat: &network.LoadBalancerPropertiesFormat{
-			InboundNatRules: &inboundRules,
-			//InboundNatPools: &inboundPools,
+			InboundNatPools: &inboundPools,
+			//	InboundNatRules: &inboundRules,
 			FrontendIPConfigurations: &[]network.FrontendIPConfiguration{
 				{
 					Name: s("LoadBalancerFrontEnd"),
@@ -187,11 +189,11 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 		},
 	}
 
-	//// ----- Debug request
-	//byteslice, _ := json.Marshal(parameters)
-	//var out bytes.Buffer
-	//json.Indent(&out, byteslice, "", "  ")
-	//fmt.Println(string(out.Bytes()))
+	// ----- Debug request
+	byteslice, _ := json.Marshal(parameters)
+	var out bytes.Buffer
+	json.Indent(&out, byteslice, "", "  ")
+	fmt.Println(string(out.Bytes()))
 
 	lbch, errch := Sdk.LoadBalancer.CreateOrUpdate(immutable.Name, r.Subnet.Name, parameters, make(chan struct{}))
 	lb := <-lbch
@@ -206,7 +208,8 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 		backEndPools = append(backEndPools, *b.ID)
 	}
 	var inboundNatPools []string
-	for _, b := range *lb.BackendAddressPools {
+	for _, b := range *lb.InboundNatPools {
+		logger.Debug(*b.ID)
 		inboundNatPools = append(inboundNatPools, *b.ID)
 	}
 
@@ -265,12 +268,15 @@ func (r *LoadBalancer) Delete(actual cloud.Resource, immutable *cluster.Cluster)
 func (r *LoadBalancer) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("loadbalancer.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	for _, serverPool := range newCluster.ServerPools {
-		for _, subnet := range serverPool.Subnets {
-			if subnet.LoadBalancer.Name == newResource.(*LoadBalancer).Name {
+	for i := 0; i < len(newCluster.ServerPools); i++ {
+		serverPool := newCluster.ServerPools[i]
+		for j := 0; j < len(serverPool.Subnets); j++ {
+			subnet := serverPool.Subnets[j]
+			if subnet.Name == newResource.(*LoadBalancer).Name {
 				subnet.LoadBalancer.BackendIDs = newResource.(*LoadBalancer).BackendPoolIDs
 				subnet.LoadBalancer.NATIDs = newResource.(*LoadBalancer).NatPoolIDs
 				subnet.LoadBalancer.Identifier = newResource.(*LoadBalancer).Identifier
+				newCluster.ServerPools[i].Subnets[j] = subnet
 			}
 		}
 	}

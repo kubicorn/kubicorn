@@ -25,8 +25,10 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	//"github.com/kris-nova/kubicorn/cutil/retry"
+	"bytes"
+	"encoding/json"
 	"github.com/kris-nova/kubicorn/cutil/retry"
-	"time"
+	//"time"
 )
 
 var _ cloud.Resource = &VMScaleSet{}
@@ -47,7 +49,6 @@ func (r *VMScaleSet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud
 			Identifier: r.ServerPool.Identifier,
 		},
 	}
-	logger.Debug(r.ServerPool.Name)
 
 	if r.ServerPool.Identifier != "" {
 		vsss, err := Sdk.Compute.List(immutable.Name)
@@ -103,11 +104,15 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 			if serverPool.Type == cluster.ServerPoolTypeMaster {
 				for _, subnet := range serverPool.Subnets {
 					var backEndPools []compute.SubResource
+
 					for _, id := range subnet.LoadBalancer.BackendIDs {
+						//fmt.Printf("Backend: %s\n", id)
 						backEndPools = append(backEndPools, compute.SubResource{ID: &id})
 					}
+					fmt.Printf("%+v\n", subnet.LoadBalancer.NATIDs)
 					var inboundNatPools []compute.SubResource
 					for _, id := range subnet.LoadBalancer.NATIDs {
+						fmt.Printf("Inbound: %s\n", id)
 						inboundNatPools = append(inboundNatPools, compute.SubResource{ID: &id})
 					}
 
@@ -125,6 +130,13 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				}
 			}
 		}
+
+		//// ----- Debug request
+		byteslice, _ := json.Marshal(ipConfigsToAdd)
+		var out bytes.Buffer
+		json.Indent(&out, byteslice, "", "  ")
+		fmt.Println(string(out.Bytes()))
+
 		imageRef, err := azuremaps.GetImageReferenceFromImage(r.ServerPool.Image)
 		if err != nil {
 			return nil, nil, err
@@ -191,23 +203,18 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 			},
 		}
 		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
-		select {
-		case <-vmssch:
-			break
-		case err = <-errch:
-			if err != nil {
-				return nil, nil, err
-			}
-		case <-time.After(time.Second * 10):
-			logger.Debug("Bypassing hanging for VM scale set after 10 seconds")
-			break
+
+		<-vmssch
+		err = <-errch
+		if err != nil {
+			return nil, nil, err
 		}
 
 		l := &lookUpVmSsRetrier{
 			resourceGroup: immutable.Name,
 			vmssname:      applyResource.Name,
 		}
-		retrier := retry.NewRetrier(10, 1, l)
+		retrier := retry.NewRetrier(20, 5, l)
 		err = retrier.RunRetry()
 		if err != nil {
 			return nil, nil, err

@@ -48,7 +48,7 @@ func (r *PublicIP) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 		ip, err := Sdk.PublicIP.Get(immutable.Name, r.Subnet.Name, "")
 		if err != nil {
 			logger.Debug("Error looking up public ip: %v", err)
-		} else {
+		} else if ip.ID != nil {
 			newResource.IpAddress = *ip.IPAddress
 			newResource.Identifier = *ip.ID
 			newResource.Name = *ip.Name
@@ -176,8 +176,10 @@ func (r *PublicIP) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*c
 func (r *PublicIP) immutableRender(newResource cloud.Resource, inaccurateCluster *cluster.Cluster) *cluster.Cluster {
 	logger.Debug("publicip.Render")
 	newCluster := defaults.NewClusterDefaults(inaccurateCluster)
-	for _, serverPool := range newCluster.ServerPools {
-		for _, subnet := range serverPool.Subnets {
+	for i := 0; i < len(newCluster.ServerPools); i++ {
+		serverPool := newCluster.ServerPools[i]
+		for j := 0; j < len(serverPool.Subnets); j++ {
+			subnet := serverPool.Subnets[j]
 			if subnet.Name == newResource.(*PublicIP).Name {
 				subnet.LoadBalancer.PublicIPAddress = newResource.(*PublicIP).IpAddress
 				subnet.LoadBalancer.PublicIPIdentifier = newResource.(*PublicIP).Identifier
