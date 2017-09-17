@@ -16,20 +16,16 @@ package namer
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
+	"kubicorn/cutil/rand"
 )
 
 func RandomName() string {
 	adjl := len(adjectives)
 	nounl := len(nouns)
-	return fmt.Sprintf("%s-%s", adjectives[ran(1, adjl)], nouns[ran(1, nounl)])
+	adj := adjectives[rand.GenerateRandomInt(0, adjl)]
+	noun := nouns[rand.GenerateRandomInt(0, nounl)]
 
-}
-
-func ran(min, max int) int {
-	rand.Seed(time.Now().Unix())
-	return rand.Intn(max-min) + min
+	return fmt.Sprintf("%s-%s", adj, noun)
 }
 
 var adjectives = []string{
