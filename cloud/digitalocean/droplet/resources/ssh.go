@@ -75,6 +75,7 @@ func (r *SSH) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resour
 				newResource.CloudID = strconv.Itoa(key.ID)
 				newResource.PublicKeyData = key.PublicKey
 				newResource.PublicKeyFingerprint = key.Fingerprint
+				newResource.PublicKeyPath = immutable.SSH.PublicKeyPath
 			}
 		}
 		if !found {
