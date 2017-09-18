@@ -26,7 +26,7 @@ systemctl enable docker
 systemctl start docker
 
 PUBLICIP=$(curl ifconfig.me)
-PRIVATEIP=$(ip addr show dev eth0 | awk '/inet / {print $2}' | cut -d"/" -f1)
+PRIVATEIP=$(ip addr show dev eth0 | awk '/inet / {print $2}' | awk 'FNR == 2 {print}' | cut -d"/" -f1)
 echo $PRIVATEIP > /tmp/.ip
 
 kubeadm reset
