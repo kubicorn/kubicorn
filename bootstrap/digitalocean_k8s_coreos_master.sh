@@ -38,6 +38,6 @@ kubectl apply \
   --kubeconfig /etc/kubernetes/admin.conf
 
 # Root
-mkdir -p /home/ubuntu/.kube
-cp /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
-chown -R ubuntu:ubuntu /home/ubuntu/.kube
+mkdir -p /home/core/.kube
+cp /etc/kubernetes/admin.conf /home/core/.kube/config
+chown -R ubuntu:ubuntu /home/core/.kube

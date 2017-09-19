@@ -27,6 +27,7 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 		Name:     name,
 		Cloud:    cluster.CloudDigitalOcean,
 		Location: "sfo2",
+		VPN: true,
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "root",

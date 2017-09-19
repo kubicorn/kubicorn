@@ -28,6 +28,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 		Name:     name,
 		Cloud:    cluster.CloudAmazon,
 		Location: "us-west-2",
+		VPN:      false,
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "ubuntu",

@@ -28,6 +28,7 @@ func NewUbuntuGoogleComputeCluster(name string) *cluster.Cluster {
 		CloudId:  "example-id",
 		Cloud:    cluster.CloudGoogle,
 		Location: "us-central1-a",
+		VPN: false,
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "ubuntu",

@@ -174,19 +174,22 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 				continue
 			}
-			masterVpnIPStr := strings.Replace(string(masterVpnIP), "\n", "", -1)
-			openvpnConfig, err := scp.ReadBytes("/tmp/clients.conf")
-			if err != nil {
-				logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
-				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
-				continue
+
+			if immutable.VPN {
+				masterVpnIPStr := strings.Replace(string(masterVpnIP), "\n", "", -1)
+				openvpnConfig, err := scp.ReadBytes("/tmp/clients.conf")
+				if err != nil {
+					logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
+					time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
+					continue
+				}
+				openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
+				// Todo (@kris-nova) this is obviously not immutable
+				immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, immutable.KubernetesAPI.Port)
+				immutable.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
 			}
-			openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
 			found = true
 
-			// Todo (@kris-nova) this is obviously not immutable
-			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, immutable.KubernetesAPI.Port)
-			immutable.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
 			break
 		}
 		if !found {
