@@ -45,7 +45,7 @@ func NewCentosDigitalOceanCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
 				Image:    "centos-7-x64",
-				Size:     "1gb",
+				Size:     "2gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnMaster-centos.sh",
 					"digitalocean_k8s_centos_7_master.sh",

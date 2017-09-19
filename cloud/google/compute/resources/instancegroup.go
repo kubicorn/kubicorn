@@ -127,7 +127,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		return immutable, applyResource, nil
 	}
 
-	scripts, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
+	scripts, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
 	if err != nil {
 		return nil, nil, err
 	}
