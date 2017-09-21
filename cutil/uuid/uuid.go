@@ -16,7 +16,7 @@ package uuid
 
 import (
 	"fmt"
-	"kubicorn/cutil/rand"
+	"github.com/kris-nova/kubicorn/cutil/rand"
 	"time"
 )
 
