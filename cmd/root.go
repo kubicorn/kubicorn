@@ -19,7 +19,6 @@ import (
 	"os"
 
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 )
 
@@ -66,7 +65,7 @@ var RootCmd = &cobra.Command{
 			cmd.SetOutput(logger.FabulousWriter)
 		}
 		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
-			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+			cmd.SetOutput(logger.FabulousTrueWriter)
 		}
 		cmd.Help()
 	},
