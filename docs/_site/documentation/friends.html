@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
     crossorigin="anonymous"> -->
-    <title>Building Kubicorn</title>
-    <meta name="description" content="Make">
+    <title>Friends of `kubicorn`</title>
+    <meta name="description" content="Here’s how the Friends of kubicorn section works:">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
     crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/main.css">
-    <link rel="canonical" href="http://localhost:4000/documentation/build.html">
+    <link rel="canonical" href="http://localhost:4000/documentation/friends.html">
     <link rel="alternate" type="application/rss+xml" title="kubicorn - Building Simple Kubernetes Infrastructure" href="/feed.xml">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Fira+Mono" rel="stylesheet">
@@ -263,81 +263,33 @@
 
                 <figcaption class="figure-caption text-left"><small><i>Image copyright 2007 ® Fancy Photographer</i></small></figcaption>
             </figure> -->
-        <h1>Building Kubicorn</h1>
+        <h1>Friends of `kubicorn`</h1>
 
         <p class="figure-caption text-left"><i>
             
-            August 19, 2017</i></p>
+            August 8, 2017</i></p>
 
-        <h2 id="make">Make</h2>
+        <p>Here’s how the <code class="highlighter-rouge">Friends of kubicorn</code> section works:</p>
 
-<p>Run <code class="highlighter-rouge">make help</code> for command line usage.</p>
+<ol>
+  <li>For every entry there should be a separate file in the <code class="highlighter-rouge">/docs/_friends/</code> directory.</li>
+  <li>Every file must have a YAML header in the format below.</li>
+  <li>The expected content is markdown, below the header.</li>
+  <li>All logo files should have a <em>square</em> aspect ratio, and be saved in <code class="highlighter-rouge">/docs/img/</code>.</li>
+</ol>
 
-<p>First off you will need to have a working Golang-1.8 development environment. To get this you can follow <a href="https://golang.org/doc/install">this</a> tutorial.
-Make sure you can use the <code class="highlighter-rouge">go</code> command and that your <code class="highlighter-rouge">GOPATH</code> environment variable is set.
-As a alternative you can have a look at the <a href="#docker">Docker build script</a>, you wont need <code class="highlighter-rouge">go</code> locally for this, but you will need <code class="highlighter-rouge">docker</code>.</p>
+<p>E.g.</p>
 
-<h3 id="environment">Environment</h3>
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="nn">---</span>
+<span class="s">title</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">Name of company/product/service</span><span class="pi">]</span>
+<span class="s">logo</span><span class="pi">:</span> <span class="s">/img/[yourlogo].png</span>
+<span class="nn">---</span>
 
-<p>Set <code class="highlighter-rouge">GOPATH</code> in your bash profile:</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">export </span><span class="nv">GOPATH</span><span class="o">=</span>/Users/&lt;your user&gt;/go
-<span class="gp">$ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$GOPATH</span>/bin:<span class="nv">$PATH</span>
-</code></pre>
-</div>
-<p>You can add these two lines to <code class="highlighter-rouge">~/.bash_profile</code> to make sure these variables are always.</p>
+<span class="p">[</span><span class="nv">Company/product/service</span><span class="p">]</span> is our friend.
 
-<p>If you have this you should be able to run the following command:</p>
+It supplies us an infinite supply of snacks and rad stickers!!
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>go get github.com/kris-nova/kubicorn
-</code></pre>
-</div>
-
-<h3 id="building">Building</h3>
-<p>Now you can run <code class="highlighter-rouge">make</code> from the src directory of kubicorn:</p>
-
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/kris-nova/kubicorn/
-<span class="gp">$ </span>make
-</code></pre>
-</div>
-<p>The kubicorn binary will get built and placed under <code class="highlighter-rouge">$GOPATH/src/github.com/kris-nova/kubicorn/bin</code>. You can also run <code class="highlighter-rouge">make all</code> to also get the binary under <code class="highlighter-rouge">$GOPATH/bin</code>.</p>
-
-<p>Now you can run kubicorn to check if everything is working:</p>
-
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubicorn
-</code></pre>
-</div>
-
-<h3 id="other-branches-or-your-fork">Other branches or your fork</h3>
-<p>If you want to build a different git branch just switch inside the Kubicorn project:</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/kris-nova/kubicorn/
-<span class="gp">$ </span>git checkout digitalocean2
-<span class="gp">$ </span>make
-</code></pre>
-</div>
-
-<p>You can also fork the Kubicorn repository and make your own changes, check <a href="https://help.github.com/articles/fork-a-repo/">this</a> link out on how to do this.
-If you have your own fork you want to build you can just do a <code class="highlighter-rouge">go get</code> to your own repository instead of the main repository:</p>
-
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>go get github.com/YOU_GITHUB_ACCOUNT/kubicorn
-<span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/YOU_GITHUB_ACCOUNT/kubicorn/
-<span class="gp">$ </span>make
-</code></pre>
-</div>
-
-<p>Keep in mind that other branches might have different dependencies that will need to present in you <code class="highlighter-rouge">GOPATH</code> directory.</p>
-
-<h2 id="docker">Docker</h2>
-
-<p>As a simple alternative there is a script located in the Docker folder name “build.sh”. 
-This can be used to build Kubicorn without the need to setup a golang environment on your local machine.
-You will need to have Docker installed on your development environment.
-This script should work on any platform that support Docker.
-Have a look at the <a href="https://docs.docker.com/engine/installation/.">official Docker documentation</a> on how to install Docker for your platform of choice.</p>
-
-<p>To use this script just make a git checkout of the Kubicorn repository and run the build.sh:</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone https://github.com/kris-nova/kubicorn.git
-<span class="gp">$ </span><span class="nb">cd </span>kubicorn/docker
-<span class="gp">$ </span>./build.sh 
+Buy their stuff!
 </code></pre>
 </div>
 
@@ -345,11 +297,11 @@ Have a look at the <a href="https://docs.docker.com/engine/installation/.">offic
         <div class="social-media mt-4 mb-5">
             <h6 class="text-center">Share it:</h6>
             <p class="text-center" style="font-size: 2rem;">
-                <a href="https://twitter.com/intent/tweet?text=Building Kubicorn&url=http://localhost:4000/documentation/build.html&via=kubicornk8s&related=kubicornk8s" rel="nofollow" target="_blank" title="Share on Twitter"><i aria-hidden="true" class="fa fa-twitter-square"></i></a>
-                <a href="https://facebook.com/sharer/sharer.php?u=http://localhost:4000/documentation/build.html" rel="nofollow" target="_blank" title="Share on Facebook"><i aria-hidden="true" class="fa fa-facebook-square"></i></a>
-                <a href="https://plus.google.com/share?url=http://localhost:4000/documentation/build.html" rel="nofollow" target="_blank" title="Share on Google+"><i aria-hidden="true" class="fa fa-google-plus-square"></i></a>
-                <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/documentation/build.html&title=Building Kubicorn" rel="nofollow" target="_blank" title="Share on LinkedIn"><i aria-hidden="true" class="fa fa-linkedin-square"></i></a>
-                <a href="http://www.reddit.com/submit?url=http://localhost:4000/documentation/build.html&title=Building Kubicorn" rel="nofollow" target="_blank" title="Share on Reddit"><i aria-hidden="true" class="fa fa-reddit-square"></i></a>
+                <a href="https://twitter.com/intent/tweet?text=Friends of `kubicorn`&url=http://localhost:4000/documentation/friends.html&via=kubicornk8s&related=kubicornk8s" rel="nofollow" target="_blank" title="Share on Twitter"><i aria-hidden="true" class="fa fa-twitter-square"></i></a>
+                <a href="https://facebook.com/sharer/sharer.php?u=http://localhost:4000/documentation/friends.html" rel="nofollow" target="_blank" title="Share on Facebook"><i aria-hidden="true" class="fa fa-facebook-square"></i></a>
+                <a href="https://plus.google.com/share?url=http://localhost:4000/documentation/friends.html" rel="nofollow" target="_blank" title="Share on Google+"><i aria-hidden="true" class="fa fa-google-plus-square"></i></a>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/documentation/friends.html&title=Friends of `kubicorn`" rel="nofollow" target="_blank" title="Share on LinkedIn"><i aria-hidden="true" class="fa fa-linkedin-square"></i></a>
+                <a href="http://www.reddit.com/submit?url=http://localhost:4000/documentation/friends.html&title=Friends of `kubicorn`" rel="nofollow" target="_blank" title="Share on Reddit"><i aria-hidden="true" class="fa fa-reddit-square"></i></a>
             </p>
         </div>
 
