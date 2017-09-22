@@ -49,6 +49,8 @@ type Handler struct {
 	signals chan os.Signal
 	// signalReceived is used to store signal handler state.
 	signalReceived int
+	// Timer to handle timeout correctly
+	timer *time.Timer
 }
 
 // NewSignalHandler creates a new Handler using given properties.
@@ -67,9 +69,16 @@ func (h *Handler) GetState() int {
 	return h.signalReceived
 }
 
+func (h *Handler) Reset() {
+	if !h.timer.Stop() {
+		<-h.timer.C
+	}
+}
+
 // Register starts handling signals.
 func (h *Handler) Register() {
 	go func() {
+		h.timer = time.NewTimer(time.Duration(h.timeoutSeconds) * time.Second)
 		for {
 			select {
 			case s := <-h.signals:
@@ -92,7 +101,7 @@ func (h *Handler) Register() {
 					os.Exit(3)
 					break
 				}
-			case <-time.After(time.Duration(h.timeoutSeconds) * time.Second):
+			case <-h.timer.C:
 				os.Exit(4)
 				break
 			}
