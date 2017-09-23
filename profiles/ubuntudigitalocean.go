@@ -47,7 +47,7 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 				Image:    "ubuntu-16-04-x64",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					//"vpn/openvpnMaster.sh",
+					"vpn/openvpnMaster.sh",
 					"digitalocean_k8s_ubuntu_16.04_master.sh",
 				},
 				Firewalls: []*cluster.Firewall{
