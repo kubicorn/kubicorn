@@ -39,7 +39,7 @@ We're now in a position to have the cluster resources defined, locally, based on
 Next we will apply the so defined resources using the `apply` command, but before we do that we'll set up the access to AWS.
 You might want to create a new [IAM user](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) for this with the following permissions:
 
-![AWS IAM permissions required for kubicorn](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-iam-user-perm-screen-shot.png){:class="img-fluid"}
+![AWS IAM permissions required for `kubicorn`](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-iam-user-perm-screen-shot.png){:class="img-fluid"}
 
 Next, export the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` so that `kubicorn` can pick it up in the next step:
 
@@ -71,7 +71,7 @@ A `kubectl` configuration file (kubeconfig) will be created or appended for the 
 You can now `kubectl get nodes` and verify that Kubernetes 1.7.0 is now running.
 You can also `ssh` into your instances using the example command found in the output from `kubicorn`
 
-![AWS IAM permissions required for kubicorn](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-example-apply.png){:class="img-fluid"}
+![AWS IAM permissions required for `kubicorn`](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-example-apply.png){:class="img-fluid"}
 
 #### Deleting
 

@@ -293,29 +293,29 @@ As a alternative you can have a look at the <a href="#docker">Docker build scrip
 </div>
 
 <h3 id="building">Building</h3>
-<p>Now you can run <code class="highlighter-rouge">make</code> from the src directory of kubicorn:</p>
+<p>Now you can run <code class="highlighter-rouge">make</code> from the src directory of <code class="highlighter-rouge">kubicorn</code>:</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/kris-nova/kubicorn/
 <span class="gp">$ </span>make
 </code></pre>
 </div>
-<p>The kubicorn binary will get built and placed under <code class="highlighter-rouge">$GOPATH/src/github.com/kris-nova/kubicorn/bin</code>. You can also run <code class="highlighter-rouge">make all</code> to also get the binary under <code class="highlighter-rouge">$GOPATH/bin</code>.</p>
+<p>The <code class="highlighter-rouge">kubicorn</code> binary will get built and placed under <code class="highlighter-rouge">$GOPATH/src/github.com/kris-nova/kubicorn/bin</code>. You can also run <code class="highlighter-rouge">make all</code> to also get the binary under <code class="highlighter-rouge">$GOPATH/bin</code>.</p>
 
-<p>Now you can run kubicorn to check if everything is working:</p>
+<p>Now you can run <code class="highlighter-rouge">kubicorn</code> to check if everything is working:</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubicorn
 </code></pre>
 </div>
 
 <h3 id="other-branches-or-your-fork">Other branches or your fork</h3>
-<p>If you want to build a different git branch just switch inside the Kubicorn project:</p>
+<p>If you want to build a different git branch just switch inside the <code class="highlighter-rouge">kubicorn</code> project:</p>
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">cd</span> <span class="nv">$GOPATH</span>/src/github.com/kris-nova/kubicorn/
 <span class="gp">$ </span>git checkout digitalocean2
 <span class="gp">$ </span>make
 </code></pre>
 </div>
 
-<p>You can also fork the Kubicorn repository and make your own changes, check <a href="https://help.github.com/articles/fork-a-repo/">this</a> link out on how to do this.
+<p>You can also fork the <code class="highlighter-rouge">kubicorn</code> repository and make your own changes, check <a href="https://help.github.com/articles/fork-a-repo/">this</a> link out on how to do this.
 If you have your own fork you want to build you can just do a <code class="highlighter-rouge">go get</code> to your own repository instead of the main repository:</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>go get github.com/YOU_GITHUB_ACCOUNT/kubicorn
@@ -334,7 +334,7 @@ You will need to have Docker installed on your development environment.
 This script should work on any platform that support Docker.
 Have a look at the <a href="https://docs.docker.com/engine/installation/.">official Docker documentation</a> on how to install Docker for your platform of choice.</p>
 
-<p>To use this script just make a git checkout of the Kubicorn repository and run the build.sh:</p>
+<p>To use this script just make a git checkout of the <code class="highlighter-rouge">kubicorn</code> repository and run the build.sh:</p>
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone https://github.com/kris-nova/kubicorn.git
 <span class="gp">$ </span><span class="nb">cd </span>kubicorn/docker
 <span class="gp">$ </span>./build.sh 
