@@ -29,29 +29,29 @@ $ go get github.com/kris-nova/kubicorn
 ```
 
 ### Building
-Now you can run `make` from the src directory of kubicorn:
+Now you can run `make` from the src directory of `kubicorn`:
 
 ```bash
 $ cd $GOPATH/src/github.com/kris-nova/kubicorn/
 $ make
 ```
-The kubicorn binary will get built and placed under `$GOPATH/src/github.com/kris-nova/kubicorn/bin`. You can also run `make all` to also get the binary under `$GOPATH/bin`. 
+The `kubicorn` binary will get built and placed under `$GOPATH/src/github.com/kris-nova/kubicorn/bin`. You can also run `make all` to also get the binary under `$GOPATH/bin`. 
 
-Now you can run kubicorn to check if everything is working:
+Now you can run `kubicorn` to check if everything is working:
 
 ```bash
 $ kubicorn
 ```
 
 ### Other branches or your fork
-If you want to build a different git branch just switch inside the Kubicorn project:
+If you want to build a different git branch just switch inside the `kubicorn` project:
 ```bash
 $ cd $GOPATH/src/github.com/kris-nova/kubicorn/
 $ git checkout digitalocean2
 $ make
 ```
 
-You can also fork the Kubicorn repository and make your own changes, check [this](https://help.github.com/articles/fork-a-repo/) link out on how to do this.
+You can also fork the `kubicorn` repository and make your own changes, check [this](https://help.github.com/articles/fork-a-repo/) link out on how to do this.
 If you have your own fork you want to build you can just do a `go get` to your own repository instead of the main repository:
 
 ```bash
@@ -70,7 +70,7 @@ You will need to have Docker installed on your development environment.
 This script should work on any platform that support Docker.
 Have a look at the [official Docker documentation](https://docs.docker.com/engine/installation/.) on how to install Docker for your platform of choice.
 
-To use this script just make a git checkout of the Kubicorn repository and run the build.sh:
+To use this script just make a git checkout of the `kubicorn` repository and run the build.sh:
 ```bash
 $ git clone https://github.com/kris-nova/kubicorn.git
 $ cd kubicorn/docker
