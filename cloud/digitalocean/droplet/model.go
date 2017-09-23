@@ -74,11 +74,11 @@ func (m *Model) Resources() map[int]cloud.Resource {
 
 			for _, rule := range firewall.IngressRules {
 				var src *resources.Sources
-				if _, _, err := net.ParseCIDR("192.0.2.1/0"); err == nil {
+				if _, _, err := net.ParseCIDR(rule.IngressSource); err == nil {
 					src = &resources.Sources{
 						Addresses: []string{rule.IngressSource},
 					}
-				} else if ip := net.ParseIP("192.168.0.0"); ip == nil {
+				} else if ip := net.ParseIP(rule.IngressSource); ip != nil {
 					src = &resources.Sources{
 						Addresses: []string{rule.IngressSource},
 					}
@@ -97,11 +97,11 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			}
 			for _, rule := range firewall.EgressRules {
 				var dest *resources.Destinations
-				if _, _, err := net.ParseCIDR("192.0.2.1/0"); err == nil {
+				if _, _, err := net.ParseCIDR(rule.EgressDestination); err == nil {
 					dest = &resources.Destinations{
 						Addresses: []string{rule.EgressDestination},
 					}
-				} else if ip := net.ParseIP("192.168.0.0"); ip == nil {
+				} else if ip := net.ParseIP(rule.EgressDestination); ip != nil {
 					dest = &resources.Destinations{
 						Addresses: []string{rule.EgressDestination},
 					}

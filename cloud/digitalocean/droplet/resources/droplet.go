@@ -157,7 +157,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 			droplet := droplets[0]
 			//masterIpPrivate, err = droplet.PrivateIPv4()
 			//if err != nil {
-			//	return nil, fmt.Errorf("Unable to detect private IP: %v", err)
+			//	return nil, nil, fmt.Errorf("Unable to detect private IP: %v", err)
 			//}
 			masterIPPublic, err = droplet.PublicIPv4()
 			if err != nil {

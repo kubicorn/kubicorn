@@ -99,6 +99,11 @@ func (r *Firewall) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 					newResource.OutboundRules[i].PortRange = "all"
 				}
 			}
+			for i := 0; i < len(newResource.InboundRules); i++ {
+				if newResource.InboundRules[i].PortRange == "0" {
+					newResource.InboundRules[i].PortRange = "all"
+				}
+			}
 		}
 	}
 
@@ -349,14 +354,14 @@ func convertOutRuleType(rules []OutboundRule) []godo.OutboundRule {
 }
 
 func convertInRuleDest(src InboundRule) string {
-	if src.Source.Tags[0] != "" {
+	if len(src.Source.Tags) > 0 && src.Source.Tags[0] != "" {
 		return src.Source.Tags[0]
 	}
 	return src.Source.Addresses[0]
 }
 
 func convertOutRuleDest(dest OutboundRule) string {
-	if dest.Destinations.Tags[0] != "" {
+	if len(dest.Destinations.Tags) > 0 && dest.Destinations.Tags[0] != "" {
 		return dest.Destinations.Tags[0]
 	}
 	return dest.Destinations.Addresses[0]
