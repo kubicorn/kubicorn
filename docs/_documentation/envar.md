@@ -2,7 +2,7 @@
 layout: documentation
 title: Global Environmental Variables list
 date: 2017-08-17
-doctype: general
+doctype: operating
 ---
 
 {:.table}

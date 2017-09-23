@@ -2,7 +2,7 @@
 layout: documentation
 title: Backwards compatibility promise
 date: 2017-08-10
-doctype: general
+doctype: developing
 ---
 
 This document is a work in progress. 

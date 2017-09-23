@@ -2,7 +2,7 @@
 layout: documentation
 title: Who is a Maintainer?
 date: 2017-08-14
-doctype: general
+doctype: community
 ---
 
 > From Wikipedia - Maintainer is usually one or more people who build source code into a binary package for distribution, commit patches, or organize code in a source repository

@@ -1,11 +1,4 @@
----
-layout: documentation
-title: Kubicorn Documentation
-date: 2017-08-29
-doctype: general
----
-
-## kubicorn.io
+# kubicorn.io
 
 Here is the content of the official `kubicorn` website: [kubicorn.io](http://kubicorn.io).
 
@@ -34,3 +27,4 @@ Do not include a title top level header on the document, e.g. `# Title`. The tit
 
 Simply update the associated `.md` markdown file. All documentation should be in complete sentences.
 
+##
