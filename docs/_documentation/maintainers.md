@@ -8,12 +8,12 @@ doctype: general
 > From Wikipedia - Maintainer is usually one or more people who build source code into a binary package for distribution, commit patches, or organize code in a source repository
 
 
-Kubicorn is a small team currently, things are evolving at a very fast pace. We need more people, who can really help grow the community and help get the project production ready. If you are new to opensource, just introduce yourself to the community and get started. For Kubicorn it can be any person who is willing to take these responsibilities.
+`kubicorn` is a small team currently, things are evolving at a very fast pace. We need more people, who can really help grow the community and help get the project production ready. If you are new to opensource, just introduce yourself to the community and get started. For `kubicorn` it can be any person who is willing to take these responsibilities.
 
 
 ## Easy to say, hard to do, lets break down tasks for a maintainer:
  
- - Strive towards getting Kubicorn to be production ready.
+ - Strive towards getting `kubicorn` to be production ready.
  - Work with community to:
     - keep the code base stable
     - code reviews

@@ -46,7 +46,7 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
 				Image:    "ubuntu-16-04-x64",
-				Size:     "1gb",
+				Size:     "2gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnMaster.sh",
 					"digitalocean_k8s_ubuntu_16.04_master.sh",
@@ -70,6 +70,11 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "udp",
 							},
+							{
+								IngressToPort:   "all",
+								IngressSource:   fmt.Sprintf("%s-node", name),
+								IngressProtocol: "tcp",
+							},
 						},
 						EgressRules: []*cluster.EgressRule{
 							{
@@ -89,9 +94,9 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 			{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
-				MaxCount: 1,
+				MaxCount: 2,
 				Image:    "ubuntu-16-04-x64",
-				Size:     "1gb",
+				Size:     "2gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnNode.sh",
 					"digitalocean_k8s_ubuntu_16.04_node.sh",
@@ -109,6 +114,11 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 								IngressToPort:   "1194",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "udp",
+							},
+							{
+								IngressToPort:   "all",
+								IngressSource:   fmt.Sprintf("%s-master", name),
+								IngressProtocol: "tcp",
 							},
 						},
 						EgressRules: []*cluster.EgressRule{

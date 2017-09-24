@@ -161,7 +161,7 @@
   branch = "master"
   name = "github.com/kris-nova/lolgopher"
   packages = ["."]
-  revision = "3c01d2e17dcc957c58398ab94130f256015cfb70"
+  revision = "14bbba5e911d8e26eda5a2254405941b2c38607d"
 
 [[projects]]
   branch = "master"

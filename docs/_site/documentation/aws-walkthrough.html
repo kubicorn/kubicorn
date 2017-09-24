@@ -16,6 +16,23 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Fira+Mono" rel="stylesheet">
   
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/assets/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
 </head>
 
   <body>
@@ -39,16 +56,13 @@
 
       
       
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
     <a class="navbar-brand" href="/"><code>kubicorn</code></a>
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> -->
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
@@ -62,6 +76,8 @@
             <a class="dropdown-item" href="/documentation/build.html">Building Kubicorn</a>
             
             <a class="dropdown-item" href="/documentation/exit_codes.html">Exit Codes</a>
+            
+            <a class="dropdown-item" href="/documentation/friends.html">Friends of `kubicorn`</a>
             
             <a class="dropdown-item" href="/documentation/envar.html">Global Environmental Variables list</a>
             
@@ -96,7 +112,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/#different">Differential</a>
         </li>
-                
+        <li class="nav-item">
+            <a class="nav-link" href="/#friends">Friends</a>
+          </li>
         <li class="nav-item">
             <a class="nav-link" href="/#installing">Installing</a>
           </li>
@@ -104,6 +122,9 @@
               <a class="nav-link" href="/documentation/readme.html">Documentation</a>
             </li>
       </ul>
+
+     
+
       <a class="nav-link px-1" href="https://twitter.com/kubicornk8s"><i aria-hidden="true" class="fa fa-twitter"></i></a>&nbsp;&nbsp;
       <a class="nav-link px-1" href="https://github.com/kris-nova/kubicorn/"><i aria-hidden="true" class="fa fa-github"></i></a>&nbsp;&nbsp;
        <a class="nav-link px-1" href="https://invite.slack.golangbridge.org/"><i aria-hidden="true" class="fa fa-slack"></i></a>&nbsp;&nbsp;
@@ -152,6 +173,10 @@
                 <p class="mb-2">Exit Codes</p>
             </a>
               
+            <a href="/documentation/friends.html">
+                <p class="mb-2">Friends of `kubicorn`</p>
+            </a>
+              
             <a href="/documentation/envar.html">
                 <p class="mb-2">Global Environmental Variables list</p>
             </a>
@@ -184,7 +209,7 @@
 
         <div class="sidebar mb-2 mt-4">
             <h6 class="mb-3">AWS</h6>
-                           
+                             
             <a href="/documentation/aws-walkthrough.html">
                 <p class="mb-2">Setting up Kubernetes in AWS</p>
             </a>
@@ -193,7 +218,7 @@
 
         <div class="sidebar mb-2 mt-4">
             <h6 class="mb-3">Azure</h6>
-                             
+                               
             <a href="/documentation/azure-walkthrough.html">
                 <p class="mb-2">Setting up Kubernetes in Azure</p>
             </a>
@@ -202,7 +227,7 @@
 
         <div class="sidebar mb-2 mt-4">
                 <h6 class="mb-3">Digital Ocean</h6>
-                                   
+                                     
                 <a href="/documentation/do-walkthrough.html">
                     <p class="mb-2">Setting up Kubernetes in DigitalOcean with TLS secured private VPN mesh</p>
                 </a>
@@ -211,7 +236,7 @@
 
         <div class="sidebar mb-2 mt-4">
                 <h6 class="mb-3">Google</h6>
-                                     
+                                       
                 <a href="/documentation/google-walkthrough.html">
                     <p class="mb-2">Setting up Kubernetes in Google with TLS secured private VPN mesh</p>
                 </a>
@@ -278,7 +303,7 @@ In the following we’ll be using an existing profile called <code class="highli
 Next we will apply the so defined resources using the <code class="highlighter-rouge">apply</code> command, but before we do that we’ll set up the access to AWS.
 You might want to create a new <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html">IAM user</a> for this with the following permissions:</p>
 
-<p><img src="https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-iam-user-perm-screen-shot.png" alt="AWS IAM permissions required for kubicorn" class="img-fluid" /></p>
+<p><img src="https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-iam-user-perm-screen-shot.png" alt="AWS IAM permissions required for `kubicorn`" class="img-fluid" /></p>
 
 <p>Next, export the two environment variables <code class="highlighter-rouge">AWS_ACCESS_KEY_ID</code> and <code class="highlighter-rouge">AWS_SECRET_ACCESS_KEY</code> so that <code class="highlighter-rouge">kubicorn</code> can pick it up in the next step:</p>
 
@@ -310,7 +335,7 @@ A <code class="highlighter-rouge">kubectl</code> configuration file (kubeconfig)
 You can now <code class="highlighter-rouge">kubectl get nodes</code> and verify that Kubernetes 1.7.0 is now running.
 You can also <code class="highlighter-rouge">ssh</code> into your instances using the example command found in the output from <code class="highlighter-rouge">kubicorn</code></p>
 
-<p><img src="https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-example-apply.png" alt="AWS IAM permissions required for kubicorn" class="img-fluid" /></p>
+<p><img src="https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-example-apply.png" alt="AWS IAM permissions required for `kubicorn`" class="img-fluid" /></p>
 
 <h4 id="deleting">Deleting</h4>
 
@@ -418,6 +443,11 @@ d88P"                   888
   crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
   crossorigin="anonymous"></script>
+  <script>
+      $('.nav-item').click(function(){
+        $('.navbar-collapse').collapse('hide');
+      });
+    </script>
 
   </body>
 

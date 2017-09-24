@@ -110,7 +110,7 @@ func NewLolWriter() io.Writer {
 		colorMode = ColorMode0
 	}
 	return &Writer{
-		Output:    os.Stdout,
+		Output:    stdout,
 		ColorMode: colorMode,
 	}
 }
@@ -122,7 +122,7 @@ func NewTruecolorLolWriter() io.Writer {
 		colorMode = ColorMode0
 	}
 	return &Writer{
-		Output:    os.Stdout,
+		Output:    stdout,
 		ColorMode: colorMode,
 	}
 }

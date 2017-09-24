@@ -10,7 +10,7 @@ doctype: general
 ## Quickstart
 
 If you have a working Golang environment the fastest way to install and run
-kubicorn is:
+`kubicorn` is:
 
 ```bash
 $ go get github.com/kris-nova/kubicorn

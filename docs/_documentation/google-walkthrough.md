@@ -23,8 +23,8 @@ In the following we'll be using an existing profile called `do`, which is a prof
 #### Creating
 
 You will need to create a project in you google cloud account.
-This project will get a projectid, something like kubicorn-132742.
-When using Google Cloud Compute Egnine the Kubicorn name and the project ID need to be the same value.
+This project will get a projectid, something like `kubicorn-132742`.
+When using Google Cloud Compute Egnine the `kubicorn` name and the project ID need to be the same value.
 Now execute the following command:
 
 ```

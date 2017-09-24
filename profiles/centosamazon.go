@@ -120,7 +120,7 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 							{
 								IngressFromPort: "0",
 								IngressToPort:   "65535",
-								IngressSource:   "10.0.100.0/24",
+								IngressSource:   "10.0.0.0/24",
 								IngressProtocol: "-1",
 							},
 						},

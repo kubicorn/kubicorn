@@ -50,8 +50,8 @@ func TestBuildBootstrapSetupScript(t *testing.T) {
 	dir := "."
 	fileName := "test.json"
 	expectedJsonSetup := `mkdir -p .
-sudo sh -c 'cat <<EOF > ./test.json`
-	expectedEnd := "\nEOF'\n"
+cat <<"EOF" > ./test.json`
+	expectedEnd := "\nEOF\n"
 
 	c := profiles.NewCentosAmazonCluster("bootstrap-setup-script-test")
 	os.Remove(dir + "/" + fileName)
