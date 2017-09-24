@@ -123,6 +123,7 @@ func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconci
 		reconciledCluster = newCluster
 		createdResources[i] = appliedResource
 	}
+	teardown()
 	return reconciledCluster, nil
 }
 
@@ -169,11 +170,16 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 		}
 		destroyedCluster = newCluster
 	}
-
+	teardown()
 	return destroyedCluster, nil
 }
 
 func init() {
 	sigHandler = signals.NewSignalHandler(600)
 	sigHandler.Register()
+}
+
+func teardown() {
+	logger.Debug("Resetting TimeOut counter.")
+	sigHandler.Reset()
 }
