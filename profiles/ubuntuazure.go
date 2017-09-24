@@ -60,10 +60,6 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 									ListenPort: 22,
 									TargetPort: 22,
 								},
-								{
-									ListenPort: 443,
-									TargetPort: 443,
-								},
 							},
 						},
 					},

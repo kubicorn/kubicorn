@@ -25,8 +25,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	//"github.com/kris-nova/kubicorn/cutil/retry"
-	"bytes"
-	"encoding/json"
+	//"bytes"
+	//"encoding/json"
 	"github.com/kris-nova/kubicorn/cutil/retry"
 	//"time"
 )
@@ -106,14 +106,12 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 					var backEndPools []compute.SubResource
 
 					for _, id := range subnet.LoadBalancer.BackendIDs {
-						//fmt.Printf("Backend: %s\n", id)
 						backEndPools = append(backEndPools, compute.SubResource{ID: &id})
 					}
-					fmt.Printf("%+v\n", subnet.LoadBalancer.NATIDs)
 					var inboundNatPools []compute.SubResource
 					for _, id := range subnet.LoadBalancer.NATIDs {
-						fmt.Printf("Inbound: %s\n", id)
-						inboundNatPools = append(inboundNatPools, compute.SubResource{ID: &id})
+						myId := id
+						inboundNatPools = append(inboundNatPools, compute.SubResource{ID: &myId})
 					}
 
 					newIpConfig := compute.VirtualMachineScaleSetIPConfiguration{
@@ -132,10 +130,10 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		}
 
 		//// ----- Debug request
-		byteslice, _ := json.Marshal(ipConfigsToAdd)
-		var out bytes.Buffer
-		json.Indent(&out, byteslice, "", "  ")
-		fmt.Println(string(out.Bytes()))
+		//byteslice, _ := json.Marshal(ipConfigsToAdd)
+		//var out bytes.Buffer
+		//json.Indent(&out, byteslice, "", "  ")
+		//fmt.Println(string(out.Bytes()))
 
 		imageRef, err := azuremaps.GetImageReferenceFromImage(r.ServerPool.Image)
 		if err != nil {

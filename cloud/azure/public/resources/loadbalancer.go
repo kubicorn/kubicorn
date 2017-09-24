@@ -17,10 +17,6 @@ package resources
 import (
 	"fmt"
 
-	//"bytes"
-	//"encoding/json"
-	"bytes"
-	"encoding/json"
 	"github.com/Azure/azure-sdk-for-go/arm/network"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -126,25 +122,11 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 		return nil, nil, fmt.Errorf("Unable to look up IP ID for associated public IP")
 	}
 	fid := strings.Replace(pipid, fmt.Sprintf("publicIPAddresses/%s", r.Subnet.Name), fmt.Sprintf("loadBalancers/%s/frontendIPConfigurations/LoadBalancerFrontEnd", r.Subnet.Name), 1)
-	var inboundRules []network.InboundNatRule
 	var inboundPools []network.InboundNatPool
 	i := 0
 	for _, rule := range r.Subnet.LoadBalancer.InboundRules {
-		iRule := network.InboundNatRule{
-			Name: s(fmt.Sprintf("InboundRule.%d", i)),
-			InboundNatRulePropertiesFormat: &network.InboundNatRulePropertiesFormat{
-				FrontendPort:         i32(int32(rule.ListenPort)),
-				BackendPort:          i32(int32(rule.TargetPort)),
-				EnableFloatingIP:     b(false),
-				Protocol:             network.TransportProtocolTCP,
-				IdleTimeoutInMinutes: i32(4),
-				FrontendIPConfiguration: &network.SubResource{
-					ID: s(fid),
-				},
-			},
-		}
-		inboundRules = append(inboundRules, iRule)
 
+		logger.Debug("Frontend port: [%d]", rule.ListenPort)
 		iPool := network.InboundNatPool{
 			Name: s(fmt.Sprintf("InboundNatPool.%d", i)),
 			InboundNatPoolPropertiesFormat: &network.InboundNatPoolPropertiesFormat{
@@ -166,7 +148,6 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 		Location: &immutable.Location,
 		LoadBalancerPropertiesFormat: &network.LoadBalancerPropertiesFormat{
 			InboundNatPools: &inboundPools,
-			//	InboundNatRules: &inboundRules,
 			FrontendIPConfigurations: &[]network.FrontendIPConfiguration{
 				{
 					Name: s("LoadBalancerFrontEnd"),
@@ -184,16 +165,14 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 					Name: s(fmt.Sprintf("backend-%s", r.Subnet.Name)),
 				},
 			},
-			//Probes:             &[]network.Probe{},
-			//LoadBalancingRules: &[]network.LoadBalancingRule{},
 		},
 	}
 
 	// ----- Debug request
-	byteslice, _ := json.Marshal(parameters)
-	var out bytes.Buffer
-	json.Indent(&out, byteslice, "", "  ")
-	fmt.Println(string(out.Bytes()))
+	//byteslice, _ := json.Marshal(parameters)
+	//var out bytes.Buffer
+	//json.Indent(&out, byteslice, "", "  ")
+	//fmt.Println(string(out.Bytes()))
 
 	lbch, errch := Sdk.LoadBalancer.CreateOrUpdate(immutable.Name, r.Subnet.Name, parameters, make(chan struct{}))
 	lb := <-lbch
