@@ -40,7 +40,7 @@ func TestMain(m *testing.M) {
 	//	}
 	//}()
 	test.InitRsaTravis()
-	testCluster = profiles.NewSimpleAmazonCluster("ubuntu-test")
+	testCluster = profiles.NewUbuntuAmazonCluster("ubuntu-test")
 	testCluster, err = test.Create(testCluster)
 	if err != nil {
 		fmt.Printf("Unable to create Amazon test cluster: %v\n", err)
