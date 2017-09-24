@@ -116,7 +116,7 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 							},
 							{
 								IngressToPort:   "all",
-								IngressSource:   fmt.Sprintf("%s-node", name),
+								IngressSource:   fmt.Sprintf("%s-master", name),
 								IngressProtocol: "tcp",
 							},
 						},
