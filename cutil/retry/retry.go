@@ -53,9 +53,7 @@ func (r *Retrier) Retryable() Retryable {
 // RunRetry runs a retryable function.
 func (r *Retrier) RunRetry() error {
 	// Start signal handler.
-	sigHandler := signals.NewSignalHandler(10, false)
-	go sigHandler.Register()
-
+	sigHandler := signals.GlobalSignalHandler()
 	finish := make(chan bool, 1)
 	go func() {
 		select {

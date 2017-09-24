@@ -175,8 +175,7 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 }
 
 func init() {
-	sigHandler = signals.NewSignalHandler(600, false)
-	sigHandler.Register()
+	sigHandler = signals.GlobalSignalHandler()
 }
 
 func teardown() {

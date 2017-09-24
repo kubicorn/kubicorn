@@ -51,6 +51,8 @@ type Handler struct {
 	signalReceived int
 	// Timer to handle timeout correctly
 	timer *time.Timer
+	// exitOnTimeout will determine if we should exit on a timeout or not
+	exitOnTimeout bool
 }
 
 // NewSignalHandler creates a new Handler using given properties.
@@ -61,6 +63,7 @@ func NewSignalHandler(timeoutSeconds int, exitOnTimeout bool) *Handler {
 		timeoutSeconds: timeoutSeconds,
 		signals:        signals,
 		signalReceived: 0,
+		exitOnTimeout:  exitOnTimeout,
 	}
 }
 
@@ -102,7 +105,12 @@ func (h *Handler) Register() {
 					break
 				}
 			case <-h.timer.C:
-				os.Exit(4)
+				if h.exitOnTimeout {
+					logger.Critical("Timeout for signal handler expired: exit [4]")
+					os.Exit(4)
+				} else {
+					logger.Debug("Bypassing exit with expired timer..")
+				}
 				break
 			}
 		}
