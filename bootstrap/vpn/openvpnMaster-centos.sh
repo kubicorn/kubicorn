@@ -1,22 +1,15 @@
-#!/usr/bin/env bash
-set -e
-cd ~
-
 # ------------------------------------------------------------------------------------------------------------------------
-# These values are injected into the script. We are explicitly not using a templating language to inject the values
-# as to encourage the user to limit their use of templating logic in these files. By design all injected values should
-# be able to be set at runtime, and the shell script real work. If you need conditional logic, write it in bash
-# or make another shell script.
-#
-#
+# We are explicitly not using a templating language to inject the values as to encourage the user to limit their
+# use of templating logic in these files. By design all injected values should be able to be set at runtime,
+# and the shell script real work. If you need conditional logic, write it in bash or make another shell script.
+# ------------------------------------------------------------------------------------------------------------------------
 OPENVPN_KEYCOUNTRY="US"
-OPENVPN_KEYPROVINCE="WA"
-OPENVPN_KEYCITY="Seattle"
+OPENVPN_KEYPROVINCE="CA"
+OPENVPN_KEYCITY="SanFrancisco"
 OPENVPN_KEYORG="Kubicorn"
 OPENVPN_KEYEMAIL="root@localhost"
 OPENVPN_KEYOU="Kubicorn"
 OPENVPN_KEYNAME="server"
-# ------------------------------------------------------------------------------------------------------------------------
 
 PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 

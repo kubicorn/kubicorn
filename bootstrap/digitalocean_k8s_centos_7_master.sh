@@ -1,18 +1,7 @@
-#!/usr/bin/env bash
-set -e
-cd ~
-
 # ------------------------------------------------------------------------------------------------------------------------
-# These values are injected into the script. We are explicitly not using a templating language to inject the values
-# as to encourage the user to limit their use of templating logic in these files. By design all injected values should
-# be able to be set at runtime, and the shell script real work. If you need conditional logic, write it in bash
-# or make another shell script.
-#
-#
-TOKEN="INJECTEDTOKEN"
-PORT="INJECTEDPORT"
-#
-#
+# We are explicitly not using a templating language to inject the values as to encourage the user to limit their
+# use of templating logic in these files. By design all injected values should be able to be set at runtime,
+# and the shell script real work. If you need conditional logic, write it in bash or make another shell script.
 # ------------------------------------------------------------------------------------------------------------------------
 
 sudo rpm --import https://packages.cloud.google.com/yum/doc/yum-key.gpg
@@ -38,7 +27,11 @@ sudo sudo yum install -y \
      ebtables \
      kubelet \
      kubeadm \
-     cloud-utils
+     cloud-utils \
+     epel-release
+
+# jq needs its own special yum install as it depends on epel-release
+sudo yum install -y jq
 
 systemctl enable docker
 systemctl enable kubelet.service
@@ -47,6 +40,9 @@ systemctl start docker
 PUBLICIP=$(curl ifconfig.me)
 PRIVATEIP=$(ip addr show dev tun0 | awk '/inet / {print $2}' | cut -d"/" -f1)
 echo $PRIVATEIP > /tmp/.ip
+
+TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDTOKEN')
+PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDPORT | tonumber')
 
 # Required by kubeadm
 sysctl -w net.bridge.bridge-nf-call-iptables=1
