@@ -31,15 +31,11 @@ func Create(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 		return nil, err
 	}
 
-	err = reconciler.Init()
+	expected, err := reconciler.Expected(testCluster)
 	if err != nil {
 		return nil, err
 	}
-	expected, err := reconciler.GetExpected()
-	if err != nil {
-		return nil, err
-	}
-	actual, err := reconciler.GetActual()
+	actual, err := reconciler.Actual(testCluster)
 	if err != nil {
 		return nil, err
 	}
@@ -56,11 +52,8 @@ func Read(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = reconciler.Init()
-	if err != nil {
-		return nil, err
-	}
-	actual, err := reconciler.GetActual()
+
+	actual, err := reconciler.Actual(testCluster)
 	if err != nil {
 		return nil, err
 	}
@@ -78,15 +71,11 @@ func Update(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 		return nil, err
 	}
 
-	err = reconciler.Init()
+	expected, err := reconciler.Expected(testCluster)
 	if err != nil {
 		return nil, err
 	}
-	expected, err := reconciler.GetExpected()
-	if err != nil {
-		return nil, err
-	}
-	actual, err := reconciler.GetActual()
+	actual, err := reconciler.Actual(testCluster)
 	if err != nil {
 		return nil, err
 	}
@@ -103,10 +92,7 @@ func Delete(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	err = reconciler.Init()
-	if err != nil {
-		return nil, err
-	}
+
 	destroyCluster, err := reconciler.Destroy()
 	if err != nil {
 		return nil, err
