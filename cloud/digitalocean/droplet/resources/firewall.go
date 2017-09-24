@@ -99,6 +99,11 @@ func (r *Firewall) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.R
 					newResource.OutboundRules[i].PortRange = "all"
 				}
 			}
+			for i := 0; i < len(newResource.InboundRules); i++ {
+				if newResource.InboundRules[i].PortRange == "0" {
+					newResource.InboundRules[i].PortRange = "all"
+				}
+			}
 		}
 	}
 
@@ -190,7 +195,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 					newCluster.ServerPools[i].Firewalls[j].IngressRules[k] = &cluster.IngressRule{
 						IngressProtocol: renderRule.Protocol,
 						IngressToPort:   renderRule.PortRange,
-						IngressSource:   renderRule.Source.Addresses[0],
+						IngressSource:   convertInRuleDest(renderRule),
 					}
 				}
 				newCluster.ServerPools[i].Firewalls[j].EgressRules = make([]*cluster.EgressRule, len(firewall.OutboundRules))
@@ -198,7 +203,7 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 					newCluster.ServerPools[i].Firewalls[j].EgressRules[k] = &cluster.EgressRule{
 						EgressProtocol:    renderRule.Protocol,
 						EgressToPort:      renderRule.PortRange,
-						EgressDestination: renderRule.Destinations.Addresses[0],
+						EgressDestination: convertOutRuleDest(renderRule),
 					}
 				}
 			}
@@ -216,14 +221,14 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 					inRules = append(inRules, &cluster.IngressRule{
 						IngressProtocol: renderRule.Protocol,
 						IngressToPort:   renderRule.PortRange,
-						IngressSource:   renderRule.Source.Addresses[0],
+						IngressSource:   convertInRuleDest(renderRule),
 					})
 				}
 				for _, renderRule := range firewall.OutboundRules {
 					egRules = append(egRules, &cluster.EgressRule{
 						EgressProtocol:    renderRule.Protocol,
 						EgressToPort:      renderRule.PortRange,
-						EgressDestination: renderRule.Destinations.Addresses[0],
+						EgressDestination: convertOutRuleDest(renderRule),
 					})
 				}
 				newCluster.ServerPools[i].Firewalls = append(newCluster.ServerPools[i].Firewalls, &cluster.Firewall{
@@ -243,14 +248,14 @@ func (r *Firewall) immutableRender(newResource cloud.Resource, inaccurateCluster
 			inRules = append(inRules, &cluster.IngressRule{
 				IngressProtocol: renderRule.Protocol,
 				IngressToPort:   renderRule.PortRange,
-				IngressSource:   renderRule.Source.Addresses[0],
+				IngressSource:   convertInRuleDest(renderRule),
 			})
 		}
 		for _, renderRule := range firewall.OutboundRules {
 			egRules = append(egRules, &cluster.EgressRule{
 				EgressProtocol:    renderRule.Protocol,
 				EgressToPort:      renderRule.PortRange,
-				EgressDestination: renderRule.Destinations.Addresses[0],
+				EgressDestination: convertOutRuleDest(renderRule),
 			})
 		}
 		firewalls := []*cluster.Firewall{
@@ -346,4 +351,18 @@ func convertOutRuleType(rules []OutboundRule) []godo.OutboundRule {
 		outRule = append(outRule, godoRule)
 	}
 	return outRule
+}
+
+func convertInRuleDest(src InboundRule) string {
+	if len(src.Source.Tags) > 0 && src.Source.Tags[0] != "" {
+		return src.Source.Tags[0]
+	}
+	return src.Source.Addresses[0]
+}
+
+func convertOutRuleDest(dest OutboundRule) string {
+	if len(dest.Destinations.Tags) > 0 && dest.Destinations.Tags[0] != "" {
+		return dest.Destinations.Tags[0]
+	}
+	return dest.Destinations.Addresses[0]
 }

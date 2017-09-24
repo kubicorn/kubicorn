@@ -15,6 +15,8 @@
 package droplet
 
 import (
+	"net"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/droplet/resources"
@@ -71,22 +73,48 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			}
 
 			for _, rule := range firewall.IngressRules {
+				var src *resources.Sources
+				if _, _, err := net.ParseCIDR(rule.IngressSource); err == nil {
+					src = &resources.Sources{
+						Addresses: []string{rule.IngressSource},
+					}
+				} else if ip := net.ParseIP(rule.IngressSource); ip != nil {
+					src = &resources.Sources{
+						Addresses: []string{rule.IngressSource},
+					}
+				} else {
+					src = &resources.Sources{
+						Tags: []string{rule.IngressSource},
+					}
+				}
+
 				InboundRule := resources.InboundRule{
 					Protocol:  rule.IngressProtocol,
 					PortRange: rule.IngressToPort,
-					Source: &resources.Sources{
-						Addresses: []string{rule.IngressSource},
-					},
+					Source:    src,
 				}
 				f.InboundRules = append(f.InboundRules, InboundRule)
 			}
 			for _, rule := range firewall.EgressRules {
-				OutboundRule := resources.OutboundRule{
-					Protocol:  rule.EgressProtocol,
-					PortRange: rule.EgressToPort,
-					Destinations: &resources.Destinations{
+				var dest *resources.Destinations
+				if _, _, err := net.ParseCIDR(rule.EgressDestination); err == nil {
+					dest = &resources.Destinations{
 						Addresses: []string{rule.EgressDestination},
-					},
+					}
+				} else if ip := net.ParseIP(rule.EgressDestination); ip != nil {
+					dest = &resources.Destinations{
+						Addresses: []string{rule.EgressDestination},
+					}
+				} else {
+					dest = &resources.Destinations{
+						Tags: []string{rule.EgressDestination},
+					}
+				}
+
+				OutboundRule := resources.OutboundRule{
+					Protocol:     rule.EgressProtocol,
+					PortRange:    rule.EgressToPort,
+					Destinations: dest,
 				}
 				f.OutboundRules = append(f.OutboundRules, OutboundRule)
 			}

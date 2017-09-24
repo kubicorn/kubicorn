@@ -69,6 +69,11 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "udp",
 							},
+							{
+								IngressToPort:   "all",
+								IngressSource:   fmt.Sprintf("%s-node", name),
+								IngressProtocol: "tcp",
+							},
 						},
 						EgressRules: []*cluster.EgressRule{
 							{
@@ -108,6 +113,11 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 								IngressToPort:   "1194",
 								IngressSource:   "0.0.0.0/0",
 								IngressProtocol: "udp",
+							},
+							{
+								IngressToPort:   "all",
+								IngressSource:   fmt.Sprintf("%s-node", name),
+								IngressProtocol: "tcp",
 							},
 						},
 						EgressRules: []*cluster.EgressRule{
