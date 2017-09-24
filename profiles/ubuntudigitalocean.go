@@ -45,7 +45,7 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
 				Image:    "ubuntu-16-04-x64",
-				Size:     "1gb",
+				Size:     "2gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnMaster.sh",
 					"digitalocean_k8s_ubuntu_16.04_master.sh",
@@ -88,9 +88,9 @@ func NewUbuntuDigitalOceanCluster(name string) *cluster.Cluster {
 			{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
-				MaxCount: 1,
+				MaxCount: 2,
 				Image:    "ubuntu-16-04-x64",
-				Size:     "1gb",
+				Size:     "2gb",
 				BootstrapScripts: []string{
 					"vpn/openvpnNode.sh",
 					"digitalocean_k8s_ubuntu_16.04_node.sh",
