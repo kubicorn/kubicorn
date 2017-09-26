@@ -70,9 +70,7 @@ func (h *Handler) GetState() int {
 }
 
 func (h *Handler) Reset() {
-	if !h.timer.Stop() {
-		<-h.timer.C
-	}
+	h.timer.Stop()
 }
 
 // Register starts handling signals.
