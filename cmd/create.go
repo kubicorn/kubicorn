@@ -132,6 +132,10 @@ var profileMapIndexed = map[string]profileMap{
 		profileFunc: profiles.NewCentosAmazonCluster,
 		description: "CentOS on Amazon",
 	},
+	"do-coreos": {
+		profileFunc: profiles.NewCoreOSDigitalOceanCluster,
+		description: "CoreOS on DigitalOcean",
+	},
 }
 
 // RunCreate is the starting point when a user runs the create command.

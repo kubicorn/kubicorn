@@ -27,6 +27,7 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 		Name:     name,
 		Cloud:    cluster.CloudAzure,
 		Location: "eastus",
+		VPN: false,
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "root",
