@@ -21,6 +21,7 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/bootstrap"
+	"github.com/kris-nova/kubicorn/cutil/parser"
 )
 
 const bootstrapInitScript = "bootstrap_init.sh"
@@ -38,7 +39,7 @@ func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) (
 	}
 
 	for _, bootstrapScript := range bootstrapScripts {
-		scriptData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapScript))
+		scriptData, err := fileresource.ReadFromResource(bootstrapScript)
 		if err != nil {
 			return nil, err
 		}
