@@ -53,7 +53,7 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 				Image:    "ami-0c2aba6c",
 				Size:     "t2.xlarge",
 				BootstrapScripts: []string{
-					"amazon_k8s_centos_7_master.sh",
+					"bootstrap/amazon_k8s_centos_7_master.sh",
 				},
 				Subnets: []*cluster.Subnet{
 					{
@@ -97,7 +97,7 @@ func NewCentosAmazonCluster(name string) *cluster.Cluster {
 				Image:    "ami-0c2aba6c",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
-					"amazon_k8s_centos_7_node.sh",
+					"bootstrap/amazon_k8s_centos_7_node.sh",
 				},
 				Subnets: []*cluster.Subnet{
 					{

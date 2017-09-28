@@ -54,7 +54,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 				Image:    "ami-835b4efa",
 				Size:     "t2.xlarge",
 				BootstrapScripts: []string{
-					"amazon_k8s_ubuntu_16.04_master.sh",
+					"bootstrap/amazon_k8s_ubuntu_16.04_master.sh",
 				},
 				Subnets: []*cluster.Subnet{
 					{
@@ -98,7 +98,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 				Image:    "ami-835b4efa",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
-					"amazon_k8s_ubuntu_16.04_node.sh",
+					"bootstrap/amazon_k8s_ubuntu_16.04_node.sh",
 				},
 				Subnets: []*cluster.Subnet{
 					{

@@ -48,7 +48,7 @@ func NewUbuntuGoogleComputeCluster(name string) *cluster.Cluster {
 				Image:    "ubuntu-1604-xenial-v20170811",
 				Size:     "n1-standard-1",
 				BootstrapScripts: []string{
-					"google_compute_k8s_ubuntu_16.04_master.sh",
+					"bootstrap/google_compute_k8s_ubuntu_16.04_master.sh",
 				},
 			},
 			{
@@ -58,7 +58,7 @@ func NewUbuntuGoogleComputeCluster(name string) *cluster.Cluster {
 				Image:    "ubuntu-1604-xenial-v20170811",
 				Size:     "n1-standard-1",
 				BootstrapScripts: []string{
-					"google_compute_k8s_ubuntu_16.04_node.sh",
+					"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh",
 				},
 			},
 		},

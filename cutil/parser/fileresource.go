@@ -15,6 +15,7 @@
 package fileresource
 
 import (
+	"github.com/kris-nova/kubicorn/bootstrap"
 	"net/url"
 	"strings"
 )
@@ -23,6 +24,13 @@ import (
 // at the moment suppoted resources are http, http, local file system(POSIX)
 func ReadFromResource(r string) (string, error) {
 	switch {
+	case strings.HasPrefix(strings.ToLower(r), "bootstrap/"):
+		scriptData, err := bootstrap.Asset(r)
+		if err != nil {
+			return "", err
+		}
+
+		return string(scriptData), nil
 	case strings.HasPrefix(strings.ToLower(r), "http://") || strings.HasPrefix(strings.ToLower(r), "https://"):
 		url, err := url.ParseRequestURI(r)
 		if err != nil {
