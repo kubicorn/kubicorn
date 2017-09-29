@@ -24,9 +24,10 @@ import (
 // NewUbuntuAzureCluster creates a basic Digitalocean cluster profile, to bootstrap Kubernetes.
 func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
-		Name:     name,
-		Cloud:    cluster.CloudAzure,
-		Location: "eastus",
+		Name:              name,
+		KubernetesVersion: "1.8.0-00",
+		Cloud:             cluster.CloudAzure,
+		Location:          "eastus",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "root",

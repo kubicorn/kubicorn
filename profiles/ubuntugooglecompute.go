@@ -24,10 +24,11 @@ import (
 // NewUbuntuGoogleComputeCluster creates a basic Ubuntu Google Compute cluster.
 func NewUbuntuGoogleComputeCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
-		Name:     name,
-		CloudId:  "example-id",
-		Cloud:    cluster.CloudGoogle,
-		Location: "us-central1-a",
+		Name:              name,
+		KubernetesVersion: "1.8.0-00",
+		CloudId:           "example-id",
+		Cloud:             cluster.CloudGoogle,
+		Location:          "us-central1-a",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "ubuntu",

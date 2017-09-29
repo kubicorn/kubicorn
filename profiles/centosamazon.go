@@ -24,9 +24,10 @@ import (
 
 func NewCentosAmazonCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
-		Name:     name,
-		Cloud:    cluster.CloudAmazon,
-		Location: "us-west-2",
+		Name:              name,
+		KubernetesVersion: "1.8.0-00",
+		Cloud:             cluster.CloudAmazon,
+		Location:          "us-west-2",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "centos",
