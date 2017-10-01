@@ -1,6 +1,6 @@
 ---
 layout: documentation
-title: Setting up Kubernetes in Azure
+title: Project Walkthrough
 date: 2017-10-01
 doctype: general
 ---
