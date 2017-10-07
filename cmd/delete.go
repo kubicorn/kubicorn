@@ -24,6 +24,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/task"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
@@ -92,6 +93,12 @@ func RunDelete(options *DeleteOptions) error {
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
 		})
+	case "jsonfs":
+		logger.Info("Selected [jsonfs] state store")
+		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})		
 	}
 
 	if !stateStore.Exists() {

@@ -14,8 +14,7 @@
 
 package cmd
 
-import (
-	//"github.com/spf13/pflag"
+import (	
 	"fmt"
 	"math"
 	"os"
@@ -28,6 +27,7 @@ import (
 	"github.com/kris-nova/kubicorn/profiles"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
 	"github.com/yuroyoro/swalker"
 )
@@ -175,6 +175,12 @@ func RunCreate(options *CreateOptions) error {
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
 		})
+	case "jsonfs":
+		logger.Info("Selected [jsonfs] state store")
+		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})	
 	}
 
 	// Check if state store exists

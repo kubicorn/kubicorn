@@ -26,6 +26,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
 )
 
@@ -89,6 +90,12 @@ func RunApply(options *ApplyOptions) error {
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
 		})
+	case "jsonfs":
+		logger.Info("Selected [jsonfs] state store")
+		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})		
 	}
 
 	cluster, err := stateStore.GetCluster()
