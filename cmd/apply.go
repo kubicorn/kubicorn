@@ -95,7 +95,7 @@ func RunApply(options *ApplyOptions) error {
 		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
-		})		
+		})
 	}
 
 	cluster, err := stateStore.GetCluster()

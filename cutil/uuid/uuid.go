@@ -16,8 +16,9 @@ package uuid
 
 import (
 	"fmt"
-	"github.com/kris-nova/kubicorn/cutil/rand"
 	"time"
+
+	"github.com/kris-nova/kubicorn/cutil/rand"
 )
 
 // Generates a time ordered UUID. Top 32b are timestamp bottom 96b are random.

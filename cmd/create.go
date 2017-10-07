@@ -14,7 +14,7 @@
 
 package cmd
 
-import (	
+import (
 	"fmt"
 	"math"
 	"os"
@@ -180,7 +180,7 @@ func RunCreate(options *CreateOptions) error {
 		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
-		})	
+		})
 	}
 
 	// Check if state store exists

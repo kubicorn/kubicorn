@@ -98,7 +98,7 @@ func RunDelete(options *DeleteOptions) error {
 		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
-		})		
+		})
 	}
 
 	if !stateStore.Exists() {

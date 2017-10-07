@@ -70,10 +70,10 @@ func RunList(options *ListOptions) error {
 	case "jsonfs":
 		if !noHeaders {
 			logger.Info("Selected [jsonfs] state store")
-		}		
+		}
 		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
-			BasePath:    options.StateStorePath,
-		})		
+			BasePath: options.StateStorePath,
+		})
 	}
 
 	clusters, err := stateStore.List()
