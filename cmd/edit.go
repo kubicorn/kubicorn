@@ -34,35 +34,36 @@ type EditOptions struct {
 
 var eo = &EditOptions{}
 
-var editCmd = &cobra.Command{
-	Use:   "edit <NAME>",
-	Short: "Edit a cluster state",
-	Long:  `Use this command to edit a state.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			ao.Name = strEnvDef("KUBICORN_NAME", "")
-		} else if len(args) > 1 {
-			logger.Critical("Too many arguments.")
-			os.Exit(1)
-		} else {
-			eo.Name = args[0]
-		}
+// EditCmd represents edit command
+func EditCmd() *cobra.Command {
+	var editCmd = &cobra.Command{
+		Use:   "edit <NAME>",
+		Short: "Edit a cluster state",
+		Long:  `Use this command to edit a state.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				ao.Name = strEnvDef("KUBICORN_NAME", "")
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				eo.Name = args[0]
+			}
 
-		err := RunEdit(eo)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
+			err := RunEdit(eo)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
 
-	},
-}
+		},
+	}
 
-func init() {
 	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", strEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
 
-	RootCmd.AddCommand(editCmd)
+	return editCmd
 }
 
 func RunEdit(options *EditOptions) error {

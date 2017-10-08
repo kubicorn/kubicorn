@@ -24,19 +24,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var listCmd = &cobra.Command{
-	Use:   "list",
-	Short: "List available states",
-	Long:  `List the states available in the _state directory`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := RunList(lo)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
-	},
-}
-
 type ListOptions struct {
 	Options
 	Profile string
@@ -46,12 +33,26 @@ var lo = &ListOptions{}
 
 var noHeaders bool
 
-func init() {
-	listCmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	listCmd.Flags().StringVarP(&lo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	listCmd.Flags().BoolVarP(&noHeaders, "no-headers", "n", false, "Show the list containing names only")
-	RootCmd.AddCommand(listCmd)
+// ListCmd represents the list command
+func ListCmd() *cobra.Command {
+	var cmd = &cobra.Command{
+		Use:   "list",
+		Short: "List available states",
+		Long:  `List the states available in the _state directory`,
+		Run: func(cmd *cobra.Command, args []string) {
+			err := RunList(lo)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
+		},
+	}
 
+	cmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	cmd.Flags().StringVarP(&lo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	cmd.Flags().BoolVarP(&noHeaders, "no-headers", "n", false, "Show the list containing names only")
+
+	return cmd
 }
 
 func RunList(options *ListOptions) error {

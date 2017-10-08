@@ -31,25 +31,33 @@ import (
 var commandFlagSuggestions = make(map[string][]prompt.Suggest)
 var commandMap = make(map[string][]prompt.Suggest)
 var promptSuggestions = []prompt.Suggest{}
-var promptCmd = &cobra.Command{
-	Use:   "prompt",
-	Short: "Open a prompt with auto-completion (non-Windows)",
-	Long: `Use this command to use the Kubicron API via a shell prompt.
 
-This command will open a prompt using go-prompt (with auto-completion) to
-allow you to run commands interactively from the shell.
-Currently this doesn't work on Windows systems`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) > 0 {
-			logger.Critical("Too many arguments.")
-			os.Exit(1)
-		}
-		err := RunPrompt()
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
-	},
+// PromptCmd represents the kubicorn interactive prompt.
+func PromptCmd() *cobra.Command {
+	var promptCmd = &cobra.Command{
+		Use:   "prompt",
+		Short: "Open a prompt with auto-completion (non-Windows)",
+		Long: `Use this command to use the Kubicron API via a shell prompt.
+	
+	This command will open a prompt using go-prompt (with auto-completion) to
+	allow you to run commands interactively from the shell.
+	Currently this doesn't work on Windows systems`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) > 0 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			}
+			err := RunPrompt()
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
+		},
+	}
+
+	initializePrompt()
+
+	return promptCmd
 }
 
 func RunPrompt() error {
@@ -157,11 +165,4 @@ func optionCompleter(args []string) []prompt.Suggest {
 	flagSuggestions = commandFlagSuggestions[command]
 
 	return prompt.FilterContains(flagSuggestions, strings.TrimLeft(args[l-1], "-"), true)
-}
-
-func init() {
-	initializePrompt()
-	// Currently go-prompt doesn't work on Windows machines. For windows machines
-	// return an error saying that it's unsupported.
-	RootCmd.AddCommand(promptCmd)
 }

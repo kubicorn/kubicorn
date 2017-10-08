@@ -23,20 +23,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var WindowsPromptCmd = &cobra.Command{
-	Use:   "prompt",
-	Short: "Open a prompt with auto-completion (Windows)",
-	Long: `Use this command to use the Kubicron API via a shell prompt.
-
-This command will open a prompt using go-prompt (with auto-completion) to
-allow you to run commands interactively from the shell.
-Currently this doesn't work on Windows systems.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		logger.Critical("Sorry. kubicorn prompt is not available for Windows machines")
-		os.Exit(1)
-	},
-}
-
-func init() {
-	RootCmd.AddCommand(WindowsPromptCmd)
+// PromptCmd represents the kubicorn interactive prompt.
+func PromptCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "prompt",
+		Short: "Open a prompt with auto-completion (Windows)",
+		Long: `Use this command to use the Kubicron API via a shell prompt.
+	
+	This command will open a prompt using go-prompt (with auto-completion) to
+	allow you to run commands interactively from the shell.
+	Currently this doesn't work on Windows systems.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			logger.Critical("Sorry. kubicorn prompt is not available for Windows machines")
+			os.Exit(1)
+		},
+	}
 }
