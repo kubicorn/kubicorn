@@ -11,13 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+// +build !windows
+
 package cmd
 
 import (
 	"fmt"
 	"os"
 	"os/exec"
-	"runtime"
 	"strings"
 
 	prompt "github.com/c-bata/go-prompt"
@@ -59,7 +61,7 @@ func RunPrompt() error {
 		completer,
 		prompt.OptionTitle("kubicorn: interactive kubicorn client"),
 		prompt.OptionPrefix(">> "),
-		prompt.OptionInputTextColor(prompt.Yellow))
+	)
 
 	p.Run()
 	return nil
@@ -75,11 +77,11 @@ func executor(s string) {
 		return
 	}
 
-	cmd := exec.Command("/bin/sh", "-c", "kubicorn "+s)
-	cmd.Stdin = os.Stdin
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	if err := cmd.Run(); err != nil {
+	commandToExecute := exec.Command("/bin/sh", "-c", "kubicorn "+s)
+	commandToExecute.Stdin = os.Stdin
+	commandToExecute.Stdout = os.Stdout
+	commandToExecute.Stderr = os.Stderr
+	if err := commandToExecute.Run(); err != nil {
 		fmt.Printf("Got error: %s\n", err.Error())
 	}
 	return
@@ -161,7 +163,5 @@ func init() {
 	initializePrompt()
 	// Currently go-prompt doesn't work on Windows machines. For windows machines
 	// return an error saying that it's unsupported.
-	if runtime.GOOS != "windows" {
-		RootCmd.AddCommand(promptCmd)
-	}
+	RootCmd.AddCommand(promptCmd)
 }

@@ -11,11 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+// +build windows
+
 package cmd
 
 import (
 	"os"
-	"runtime"
 
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/spf13/cobra"
@@ -36,7 +38,5 @@ Currently this doesn't work on Windows systems.`,
 }
 
 func init() {
-	if runtime.GOOS == "windows" {
-		RootCmd.AddCommand(WindowsPromptCmd)
-	}
+	RootCmd.AddCommand(WindowsPromptCmd)
 }
