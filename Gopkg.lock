@@ -38,6 +38,12 @@
   version = "v1.10.20"
 
 [[projects]]
+  name = "github.com/c-bata/go-prompt"
+  packages = ["."]
+  revision = "b5d7d9eae33759a6646cb41768966b593eef18f3"
+  version = "v0.1.0"
+
+[[projects]]
   name = "github.com/dgrijalva/jwt-go"
   packages = ["."]
   revision = "d2709f9f1f31ebcda9651b03077758c1f3a0018c"
@@ -195,6 +201,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/pkg/term"
+  packages = ["termios"]
+  revision = "b1f72af2d63057363398bec5873d16a98b453312"
+
+[[projects]]
+  branch = "master"
   name = "github.com/spf13/cobra"
   packages = ["."]
   revision = "b26b538f693051ac6518e65672de3144ce3fbedc"
@@ -280,6 +292,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2dc2f791f8fd5c3ec673f3b80677d038794b49a18486f2d918665c494fb03fe9"
+  inputs-digest = "db0a043f0beb8cda90ececf5c1cc539a559fd4a951e1c9388d9102f17a330fb8"
   solver-name = "gps-cdcl"
   solver-version = 1

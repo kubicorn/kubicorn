@@ -60,3 +60,7 @@
 [[constraint]]
   branch = "master"
   name = "google.golang.org/api"
+
+[[constraint]]
+  name = "github.com/c-bata/go-prompt"
+  version = "0.1.0"
