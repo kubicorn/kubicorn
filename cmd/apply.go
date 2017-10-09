@@ -27,6 +27,7 @@ import (
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/spf13/cobra"
+	"github.com/yuroyoro/swalker"
 )
 
 type ApplyOptions struct {
@@ -96,6 +97,17 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 	logger.Info("Loaded cluster: %s", cluster.Name)
+
+	if options.Set != "" {
+		sets := strings.Split(options.Set, ",")
+		for _, set := range sets {
+			parts := strings.SplitN(set, "=", 2)
+			err := swalker.Write(strings.Title(parts[0]), cluster, parts[1])
+			if err != nil {
+				println(err)
+			}
+		}
+	}
 
 	cluster, err = initapi.InitCluster(cluster)
 	if err != nil {
