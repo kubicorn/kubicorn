@@ -150,6 +150,9 @@ func RunCreate(options *CreateOptions) error {
 		sets := strings.Split(options.Set, ",")
 		for _, set := range sets {
 			parts := strings.SplitN(set, "=", 2)
+			if len(parts) == 1 {
+				continue
+			}
 			err := swalker.Write(strings.Title(parts[0]), newCluster, parts[1])
 			if err != nil {
 				println(err)

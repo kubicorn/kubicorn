@@ -102,9 +102,12 @@ func RunApply(options *ApplyOptions) error {
 		sets := strings.Split(options.Set, ",")
 		for _, set := range sets {
 			parts := strings.SplitN(set, "=", 2)
+			if len(parts) == 1 {
+				continue
+			}
 			err := swalker.Write(strings.Title(parts[0]), cluster, parts[1])
 			if err != nil {
-				println(err)
+				logger.Critical("Error expanding set flag: %#v", err)
 			}
 		}
 	}
