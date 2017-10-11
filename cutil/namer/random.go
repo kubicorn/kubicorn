@@ -16,6 +16,7 @@ package namer
 
 import (
 	"fmt"
+
 	"github.com/kris-nova/kubicorn/cutil/rand"
 )
 
