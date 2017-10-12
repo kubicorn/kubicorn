@@ -15,9 +15,6 @@
 package awsSdkGo
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials/stscreds"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -33,12 +30,6 @@ type Sdk struct {
 }
 
 func NewSdk(region string) (*Sdk, error) {
-	if os.Getenv("AWS_ACCESS_KEY_ID") == "" {
-		return nil, fmt.Errorf("Empty $AWS_ACCESS_KEY_ID")
-	}
-	if os.Getenv("AWS_SECRET_ACCESS_KEY") == "" {
-		return nil, fmt.Errorf("Empty $AWS_SECRET_ACCESS_KEY")
-	}
 	sdk := &Sdk{}
 	session, err := session.NewSessionWithOptions(session.Options{
 		Config: aws.Config{Region: aws.String(region)},
