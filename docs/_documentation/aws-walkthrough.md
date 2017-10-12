@@ -55,8 +55,6 @@ Next, you need to specify your AWS credentials to use - you can select one of th
 
  * EC2 Instance Role Credentials - Use EC2 Instance Role to assign credentials to application running on an EC2 instance. 
 
-export the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` so that `kubicorn` can pick it up in the next step:
-
 Also, make sure that the public SSH key for your AWS account is called `id_rsa.pub`, which is the default in above profile:
 
 ```
