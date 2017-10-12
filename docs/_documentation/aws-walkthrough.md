@@ -41,12 +41,19 @@ You might want to create a new [IAM user](http://docs.aws.amazon.com/IAM/latest/
 
 ![AWS IAM permissions required for `kubicorn`](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-iam-user-perm-screen-shot.png){:class="img-fluid"}
 
-Next, export the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` so that `kubicorn` can pick it up in the next step:
+Next, you need to specify your AWS credentials to use - you can select one of the follwoing options 
 
-```
-$ export AWS_ACCESS_KEY_ID=***************
-$ export AWS_SECRET_ACCESS_KEY=*****************************************
-```
+ * Environment Credentials - export the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` so that `kubicorn` can pick it up in the next step:
+ 
+    ```
+    $ export AWS_ACCESS_KEY_ID=***************
+    $ export AWS_SECRET_ACCESS_KEY=*****************************************
+    ```
+    
+
+ * Shared Credentials file - The `~/.aws/credentials` file stores your credentials based on a profile name 
+
+ * EC2 Instance Role Credentials - Use EC2 Instance Role to assign credentials to application running on an EC2 instance. 
 
 Also, make sure that the public SSH key for your AWS account is called `id_rsa.pub`, which is the default in above profile:
 
