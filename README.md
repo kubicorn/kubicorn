@@ -40,7 +40,7 @@ We believe that the oh-so important layer of infrastructure should be represente
 
 #### Rainbows and Unicorns 
 
-We believe that sharing is important, and encouraging our peers is even more important. Part of conrtibuting to `kubicorn` means respecting, encouraging, and welcoming others to the project. 
+We believe that sharing is important, and encouraging our peers is even more important. Part of contributing to `kubicorn` means respecting, encouraging, and welcoming others to the project. 
 
 # Installing
 
