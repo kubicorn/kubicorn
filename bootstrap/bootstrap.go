@@ -101,7 +101,7 @@ func bootstrapReadmeMd() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/README.md", size: 610, mode: os.FileMode(493), modTime: time.Unix(1502556412, 0)}
+	info := bindataFileInfo{name: "bootstrap/README.md", size: 610, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -121,7 +121,7 @@ func bootstrapAmazon_k8s_centos_7_masterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/amazon_k8s_centos_7_master.sh", size: 2456, mode: os.FileMode(493), modTime: time.Unix(1505848458, 0)}
+	info := bindataFileInfo{name: "bootstrap/amazon_k8s_centos_7_master.sh", size: 2456, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -141,7 +141,7 @@ func bootstrapAmazon_k8s_centos_7_nodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/amazon_k8s_centos_7_node.sh", size: 1917, mode: os.FileMode(493), modTime: time.Unix(1505848458, 0)}
+	info := bindataFileInfo{name: "bootstrap/amazon_k8s_centos_7_node.sh", size: 1917, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -161,7 +161,7 @@ func bootstrapAmazon_k8s_ubuntu_1604_masterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/amazon_k8s_ubuntu_16.04_master.sh", size: 1811, mode: os.FileMode(493), modTime: time.Unix(1505848458, 0)}
+	info := bindataFileInfo{name: "bootstrap/amazon_k8s_ubuntu_16.04_master.sh", size: 1811, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -181,7 +181,7 @@ func bootstrapAmazon_k8s_ubuntu_1604_nodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/amazon_k8s_ubuntu_16.04_node.sh", size: 1239, mode: os.FileMode(493), modTime: time.Unix(1505848458, 0)}
+	info := bindataFileInfo{name: "bootstrap/amazon_k8s_ubuntu_16.04_node.sh", size: 1239, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -201,7 +201,7 @@ func bootstrapBootstrap_initSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/bootstrap_init.sh", size: 386, mode: os.FileMode(493), modTime: time.Unix(1505848458, 0)}
+	info := bindataFileInfo{name: "bootstrap/bootstrap_init.sh", size: 386, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -221,7 +221,7 @@ func bootstrapDigitalocean_k8s_centos_7_masterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_centos_7_master.sh", size: 2275, mode: os.FileMode(493), modTime: time.Unix(1506271769, 0)}
+	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_centos_7_master.sh", size: 2275, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -241,7 +241,7 @@ func bootstrapDigitalocean_k8s_centos_7_nodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_centos_7_node.sh", size: 1769, mode: os.FileMode(493), modTime: time.Unix(1506271769, 0)}
+	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_centos_7_node.sh", size: 1769, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -261,7 +261,7 @@ func bootstrapDigitalocean_k8s_ubuntu_1604_masterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh", size: 1760, mode: os.FileMode(493), modTime: time.Unix(1506271769, 0)}
+	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh", size: 1760, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -281,7 +281,7 @@ func bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh", size: 1290, mode: os.FileMode(493), modTime: time.Unix(1506271769, 0)}
+	info := bindataFileInfo{name: "bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh", size: 1290, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -301,7 +301,7 @@ func bootstrapGoogle_compute_k8s_ubuntu_1604_masterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/google_compute_k8s_ubuntu_16.04_master.sh", size: 1946, mode: os.FileMode(493), modTime: time.Unix(1503262845, 0)}
+	info := bindataFileInfo{name: "bootstrap/google_compute_k8s_ubuntu_16.04_master.sh", size: 1946, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -321,7 +321,7 @@ func bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/google_compute_k8s_ubuntu_16.04_node.sh", size: 1246, mode: os.FileMode(493), modTime: time.Unix(1503262845, 0)}
+	info := bindataFileInfo{name: "bootstrap/google_compute_k8s_ubuntu_16.04_node.sh", size: 1246, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -341,7 +341,7 @@ func bootstrapInjectGo() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/inject.go", size: 840, mode: os.FileMode(493), modTime: time.Unix(1502556412, 0)}
+	info := bindataFileInfo{name: "bootstrap/inject.go", size: 840, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -361,7 +361,7 @@ func bootstrapVpnMeshbirdmasterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/vpn/meshbirdMaster.sh", size: 244, mode: os.FileMode(493), modTime: time.Unix(1502556264, 0)}
+	info := bindataFileInfo{name: "bootstrap/vpn/meshbirdMaster.sh", size: 244, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -381,7 +381,7 @@ func bootstrapVpnMeshbirdnodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/vpn/meshbirdNode.sh", size: 796, mode: os.FileMode(493), modTime: time.Unix(1502556412, 0)}
+	info := bindataFileInfo{name: "bootstrap/vpn/meshbirdNode.sh", size: 796, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -401,7 +401,7 @@ func bootstrapVpnOpenvpnmasterCentosSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/vpn/openvpnMaster-centos.sh", size: 4796, mode: os.FileMode(493), modTime: time.Unix(1506271769, 0)}
+	info := bindataFileInfo{name: "bootstrap/vpn/openvpnMaster-centos.sh", size: 4796, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -421,7 +421,7 @@ func bootstrapVpnOpenvpnmasterSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/vpn/openvpnMaster.sh", size: 4888, mode: os.FileMode(493), modTime: time.Unix(1506271769, 0)}
+	info := bindataFileInfo{name: "bootstrap/vpn/openvpnMaster.sh", size: 4888, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -441,7 +441,7 @@ func bootstrapVpnOpenvpnnodeCentosSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/vpn/openvpnNode-centos.sh", size: 958, mode: os.FileMode(493), modTime: time.Unix(1506271769, 0)}
+	info := bindataFileInfo{name: "bootstrap/vpn/openvpnNode-centos.sh", size: 958, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -461,7 +461,7 @@ func bootstrapVpnOpenvpnnodeSh() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "bootstrap/vpn/openvpnNode.sh", size: 951, mode: os.FileMode(493), modTime: time.Unix(1506271769, 0)}
+	info := bindataFileInfo{name: "bootstrap/vpn/openvpnNode.sh", size: 951, mode: os.FileMode(436), modTime: time.Unix(1507185206, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -518,25 +518,25 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	"bootstrap/README.md":                                 bootstrapReadmeMd,
-	"bootstrap/amazon_k8s_centos_7_master.sh":             bootstrapAmazon_k8s_centos_7_masterSh,
-	"bootstrap/amazon_k8s_centos_7_node.sh":               bootstrapAmazon_k8s_centos_7_nodeSh,
-	"bootstrap/amazon_k8s_ubuntu_16.04_master.sh":         bootstrapAmazon_k8s_ubuntu_1604_masterSh,
-	"bootstrap/amazon_k8s_ubuntu_16.04_node.sh":           bootstrapAmazon_k8s_ubuntu_1604_nodeSh,
-	"bootstrap/bootstrap_init.sh":                         bootstrapBootstrap_initSh,
-	"bootstrap/digitalocean_k8s_centos_7_master.sh":       bootstrapDigitalocean_k8s_centos_7_masterSh,
-	"bootstrap/digitalocean_k8s_centos_7_node.sh":         bootstrapDigitalocean_k8s_centos_7_nodeSh,
-	"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh":   bootstrapDigitalocean_k8s_ubuntu_1604_masterSh,
-	"bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh":     bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh,
+	"bootstrap/README.md": bootstrapReadmeMd,
+	"bootstrap/amazon_k8s_centos_7_master.sh": bootstrapAmazon_k8s_centos_7_masterSh,
+	"bootstrap/amazon_k8s_centos_7_node.sh": bootstrapAmazon_k8s_centos_7_nodeSh,
+	"bootstrap/amazon_k8s_ubuntu_16.04_master.sh": bootstrapAmazon_k8s_ubuntu_1604_masterSh,
+	"bootstrap/amazon_k8s_ubuntu_16.04_node.sh": bootstrapAmazon_k8s_ubuntu_1604_nodeSh,
+	"bootstrap/bootstrap_init.sh": bootstrapBootstrap_initSh,
+	"bootstrap/digitalocean_k8s_centos_7_master.sh": bootstrapDigitalocean_k8s_centos_7_masterSh,
+	"bootstrap/digitalocean_k8s_centos_7_node.sh": bootstrapDigitalocean_k8s_centos_7_nodeSh,
+	"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh": bootstrapDigitalocean_k8s_ubuntu_1604_masterSh,
+	"bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh": bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh,
 	"bootstrap/google_compute_k8s_ubuntu_16.04_master.sh": bootstrapGoogle_compute_k8s_ubuntu_1604_masterSh,
-	"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh":   bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh,
-	"bootstrap/inject.go":                                 bootstrapInjectGo,
-	"bootstrap/vpn/meshbirdMaster.sh":                     bootstrapVpnMeshbirdmasterSh,
-	"bootstrap/vpn/meshbirdNode.sh":                       bootstrapVpnMeshbirdnodeSh,
-	"bootstrap/vpn/openvpnMaster-centos.sh":               bootstrapVpnOpenvpnmasterCentosSh,
-	"bootstrap/vpn/openvpnMaster.sh":                      bootstrapVpnOpenvpnmasterSh,
-	"bootstrap/vpn/openvpnNode-centos.sh":                 bootstrapVpnOpenvpnnodeCentosSh,
-	"bootstrap/vpn/openvpnNode.sh":                        bootstrapVpnOpenvpnnodeSh,
+	"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh": bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh,
+	"bootstrap/inject.go": bootstrapInjectGo,
+	"bootstrap/vpn/meshbirdMaster.sh": bootstrapVpnMeshbirdmasterSh,
+	"bootstrap/vpn/meshbirdNode.sh": bootstrapVpnMeshbirdnodeSh,
+	"bootstrap/vpn/openvpnMaster-centos.sh": bootstrapVpnOpenvpnmasterCentosSh,
+	"bootstrap/vpn/openvpnMaster.sh": bootstrapVpnOpenvpnmasterSh,
+	"bootstrap/vpn/openvpnNode-centos.sh": bootstrapVpnOpenvpnnodeCentosSh,
+	"bootstrap/vpn/openvpnNode.sh": bootstrapVpnOpenvpnnodeSh,
 }
 
 // AssetDir returns the file names below a certain
@@ -578,29 +578,28 @@ type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
 }
-
 var _bintree = &bintree{nil, map[string]*bintree{
 	"bootstrap": &bintree{nil, map[string]*bintree{
-		"README.md":                                 &bintree{bootstrapReadmeMd, map[string]*bintree{}},
-		"amazon_k8s_centos_7_master.sh":             &bintree{bootstrapAmazon_k8s_centos_7_masterSh, map[string]*bintree{}},
-		"amazon_k8s_centos_7_node.sh":               &bintree{bootstrapAmazon_k8s_centos_7_nodeSh, map[string]*bintree{}},
-		"amazon_k8s_ubuntu_16.04_master.sh":         &bintree{bootstrapAmazon_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"amazon_k8s_ubuntu_16.04_node.sh":           &bintree{bootstrapAmazon_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
-		"bootstrap_init.sh":                         &bintree{bootstrapBootstrap_initSh, map[string]*bintree{}},
-		"digitalocean_k8s_centos_7_master.sh":       &bintree{bootstrapDigitalocean_k8s_centos_7_masterSh, map[string]*bintree{}},
-		"digitalocean_k8s_centos_7_node.sh":         &bintree{bootstrapDigitalocean_k8s_centos_7_nodeSh, map[string]*bintree{}},
-		"digitalocean_k8s_ubuntu_16.04_master.sh":   &bintree{bootstrapDigitalocean_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"digitalocean_k8s_ubuntu_16.04_node.sh":     &bintree{bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"README.md": &bintree{bootstrapReadmeMd, map[string]*bintree{}},
+		"amazon_k8s_centos_7_master.sh": &bintree{bootstrapAmazon_k8s_centos_7_masterSh, map[string]*bintree{}},
+		"amazon_k8s_centos_7_node.sh": &bintree{bootstrapAmazon_k8s_centos_7_nodeSh, map[string]*bintree{}},
+		"amazon_k8s_ubuntu_16.04_master.sh": &bintree{bootstrapAmazon_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
+		"amazon_k8s_ubuntu_16.04_node.sh": &bintree{bootstrapAmazon_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"bootstrap_init.sh": &bintree{bootstrapBootstrap_initSh, map[string]*bintree{}},
+		"digitalocean_k8s_centos_7_master.sh": &bintree{bootstrapDigitalocean_k8s_centos_7_masterSh, map[string]*bintree{}},
+		"digitalocean_k8s_centos_7_node.sh": &bintree{bootstrapDigitalocean_k8s_centos_7_nodeSh, map[string]*bintree{}},
+		"digitalocean_k8s_ubuntu_16.04_master.sh": &bintree{bootstrapDigitalocean_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
+		"digitalocean_k8s_ubuntu_16.04_node.sh": &bintree{bootstrapDigitalocean_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
 		"google_compute_k8s_ubuntu_16.04_master.sh": &bintree{bootstrapGoogle_compute_k8s_ubuntu_1604_masterSh, map[string]*bintree{}},
-		"google_compute_k8s_ubuntu_16.04_node.sh":   &bintree{bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
-		"inject.go":                                 &bintree{bootstrapInjectGo, map[string]*bintree{}},
+		"google_compute_k8s_ubuntu_16.04_node.sh": &bintree{bootstrapGoogle_compute_k8s_ubuntu_1604_nodeSh, map[string]*bintree{}},
+		"inject.go": &bintree{bootstrapInjectGo, map[string]*bintree{}},
 		"vpn": &bintree{nil, map[string]*bintree{
-			"meshbirdMaster.sh":       &bintree{bootstrapVpnMeshbirdmasterSh, map[string]*bintree{}},
-			"meshbirdNode.sh":         &bintree{bootstrapVpnMeshbirdnodeSh, map[string]*bintree{}},
+			"meshbirdMaster.sh": &bintree{bootstrapVpnMeshbirdmasterSh, map[string]*bintree{}},
+			"meshbirdNode.sh": &bintree{bootstrapVpnMeshbirdnodeSh, map[string]*bintree{}},
 			"openvpnMaster-centos.sh": &bintree{bootstrapVpnOpenvpnmasterCentosSh, map[string]*bintree{}},
-			"openvpnMaster.sh":        &bintree{bootstrapVpnOpenvpnmasterSh, map[string]*bintree{}},
-			"openvpnNode-centos.sh":   &bintree{bootstrapVpnOpenvpnnodeCentosSh, map[string]*bintree{}},
-			"openvpnNode.sh":          &bintree{bootstrapVpnOpenvpnnodeSh, map[string]*bintree{}},
+			"openvpnMaster.sh": &bintree{bootstrapVpnOpenvpnmasterSh, map[string]*bintree{}},
+			"openvpnNode-centos.sh": &bintree{bootstrapVpnOpenvpnnodeCentosSh, map[string]*bintree{}},
+			"openvpnNode.sh": &bintree{bootstrapVpnOpenvpnnodeSh, map[string]*bintree{}},
 		}},
 	}},
 }}
@@ -651,3 +650,4 @@ func _filePath(dir, name string) string {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
+
