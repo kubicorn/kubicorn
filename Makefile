@@ -16,6 +16,7 @@ all: default install
 
 compile: ## Create the kubicorn executable in the ./bin directory.
 	go build -o bin/kubicorn -ldflags "-X github.com/kris-nova/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kris-nova/kubicorn/cmd.Version=${VERSION}" main.go
+	docker build -t kris-nova/kubicorn:v0.0.003 . #docker image build.
 
 install: ## Create the kubicorn executable in $GOPATH/bin directory.
 	install -m 0755 bin/kubicorn ${GOPATH}/bin/kubicorn
@@ -26,6 +27,7 @@ bindata: ## Generate the bindata for the bootstrap scripts that are built into t
 	go-bindata -pkg bootstrap -o bootstrap/bootstrap.go bootstrap/ bootstrap/vpn
 
 build: authors clean build-linux-amd64 build-darwin-amd64 build-freebsd-amd64 build-windows-amd64
+	docker run --rm -v kris-nova/kubicorn:v0.0.003
 
 authorsfile: ## Update the AUTHORS file from the git logs
 	git log --all --format='%aN <%cE>' | sort -u | egrep -v "noreply|mailchimp|@Kris" > AUTHORS
