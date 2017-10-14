@@ -15,9 +15,10 @@
 package fileresource
 
 import (
-	"github.com/kris-nova/kubicorn/bootstrap"
 	"net/url"
 	"strings"
+
+	"github.com/kris-nova/kubicorn/bootstrap"
 )
 
 // ReadFromResource reads a file from different sources
