@@ -194,6 +194,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		}
 	}
 
+	immutable.Values.ItemMap["INJECTEDKUBERNETESVERSION"] = immutable.KubernetesVersion
 	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
 	scripts, err = bootstrap.Inject(scripts, immutable.Values.ItemMap)
 	finalScripts := string(scripts)

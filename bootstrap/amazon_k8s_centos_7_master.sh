@@ -28,7 +28,7 @@ sudo yum install -y \
      socat \
      ebtables \
      kubelet \
-     kubeadm \
+     kubeadm=.values.itemMap.INJECTEDKUBERNETESVERSION \
      cloud-utils \
      epel-release
 

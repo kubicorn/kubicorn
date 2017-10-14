@@ -188,6 +188,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		}
 	}
 
+	immutable.Values.ItemMap["INJECTEDKUBERNETESVERSION"] = immutable.KubernetesVersion
 	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
 
 	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)

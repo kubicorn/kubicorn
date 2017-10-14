@@ -173,6 +173,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 					if instance.PublicIpAddress != nil {
 						privip = *instance.PrivateIpAddress
 						pubip = *instance.PublicIpAddress
+						immutable.Values.ItemMap["INJECTEDKUBERNETESVERSION"] = immutable.KubernetesVersion
 						immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, immutable.KubernetesAPI.Port)
 						immutable.KubernetesAPI.Endpoint = pubip
 						logger.Info("Found public IP for master: [%s]", pubip)

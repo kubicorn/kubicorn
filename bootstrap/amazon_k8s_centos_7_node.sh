@@ -31,7 +31,7 @@ sudo yum install -y \
      socat \
      ebtables \
      kubelet \
-     kubeadm \
+     kubeadm=.values.itemMap.INJECTEDKUBERNETESVERSION \
      epel-release
 
 # jq needs its own special yum install as it depends on epel-release
