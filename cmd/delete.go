@@ -69,6 +69,7 @@ func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
+	deleteCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
 
 	RootCmd.AddCommand(deleteCmd)
 }
@@ -104,7 +105,13 @@ func RunDelete(options *DeleteOptions) error {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 
-	reconciler, err := cutil.GetReconciler(expectedCluster)
+	runtimeParams := &cutil.RuntimeParameters{}
+
+	if len(ao.AwsProfile) > 0 {
+		runtimeParams.AwsProfile = ao.AwsProfile
+	}
+
+	reconciler, err := cutil.GetReconciler(expectedCluster, runtimeParams)
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
 	}
