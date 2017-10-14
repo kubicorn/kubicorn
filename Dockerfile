@@ -1,30 +1,25 @@
+############################################################
+# Dockerfile to build kubicorn container images
+# Based on golang tip
+############################################################
+
 FROM golang:latest
 
-RUN mkdir -p /go/src/github.com/kris-nova/kubicorn/
+# Create the default data directory
+RUN go get github.com/kris-nova/kubicorn/...
 
 WORKDIR /go/src/github.com/kris-nova/kubicorn/
 
-COPY apis		apis
-COPY cmd		cmd
-COPY Makefile	Makefile
-COPY state		state
-COPY profiles	profiles
-COPY test		test
-COPY bootstrap	bootstrap
-COPY docs		docs
-COPY vendor		vendor
-COPY cloud		cloud
-COPY cutil		cutil
-COPY examples	examples
-COPY scripts	scripts
-COPY Gopkg.lock Gopkg.lock
-COPY Gopkg.toml Gopkg.toml
-COPY main.go		.
+# Runs appropriate make command based on environment
+RUN  CGO_ENABLED=0 GOOS=linux  make docker-build-linux-amd64
+#RUN GOOS=darwin make build-darwin-amd64
+#RUN GOOS=windows make build-windows-amd64
+#RUN GOOS=freebsd make build-freebsd-amd64 
 
-RUN CGO_ENABLED=0 GOOS=linux  make docker-build-linux-amd64
-
+# Multi-stage build docker image
 FROM alpine:latest
 
+# File Author / Maintainer
 MAINTAINER Kris Nova <kris@nivenly.com>
 
 ENV PATH /go/bin:/usr/local/go/bin:$PATH
