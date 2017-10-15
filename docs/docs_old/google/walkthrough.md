@@ -19,11 +19,11 @@ In the following we'll be using an existing profile called `do`, which is a prof
 
 You will need to create a project in you google cloud account.
 This project will get a projectid, something like kubicorn-132742.
-When using Google Cloud Compute Egnine the Kubicorn name and the project ID need to be the same value.
+When using Google Cloud Compute Engine the `kubicorn` name, the `cloudid` argument, and the project ID need to be the same value.
 Now execute the following command:
 
 ```
-$ kubicorn create --name kubicorn-132742 --profile google
+$ kubicorn create --name kubicorn-132742 --profile google --cloudid kubicorn-132742
 ```
 
 Verify that `kubicorn create` did a good job by executing:

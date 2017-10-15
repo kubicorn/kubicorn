@@ -33,8 +33,15 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/google/googleSDK"
 )
 
+// RuntimeParameters contains specific parameters that needs to be passed to each
+// cloud provider to satisfy their specific configurations needs at runtime while
+// using the Reconciler
+type RuntimeParameters struct {
+	AwsProfile string
+}
+
 // GetReconciler gets the correct Reconciler for the cloud provider currenty used.
-func GetReconciler(known *cluster.Cluster) (reconciler cloud.Reconciler, err error) {
+func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters) (reconciler cloud.Reconciler, err error) {
 
 	switch known.Cloud {
 	case cluster.CloudGoogle:
@@ -52,7 +59,7 @@ func GetReconciler(known *cluster.Cluster) (reconciler cloud.Reconciler, err err
 		dr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, droplet.NewDigitalOceanDropletModel(known)), nil
 	case cluster.CloudAmazon:
-		sdk, err := awsSdkGo.NewSdk(known.Location)
+		sdk, err := awsSdkGo.NewSdk(known.Location, runtimeParameters.AwsProfile)
 		if err != nil {
 			return nil, err
 		}
