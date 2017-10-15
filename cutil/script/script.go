@@ -30,13 +30,11 @@ const clusterAsJSONFileName = "cluster.json"
 
 func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) ([]byte, error) {
 	userData := []byte{}
-	if cluster.Cloud == "amazon" || cluster.Cloud == "digitalocean" {
-		scriptData, err := buildBootstrapSetupScript(cluster, kubicornDir, clusterAsJSONFileName)
-		if err != nil {
-			return nil, err
-		}
-		userData = append(userData, scriptData...)
+	scriptData, err := buildBootstrapSetupScript(cluster, kubicornDir, clusterAsJSONFileName)
+	if err != nil {
+		return nil, err
 	}
+	userData = append(userData, scriptData...)
 
 	for _, bootstrapScript := range bootstrapScripts {
 		scriptData, err := fileresource.ReadFromResource(bootstrapScript)
