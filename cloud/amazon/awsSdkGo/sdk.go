@@ -29,13 +29,14 @@ type Sdk struct {
 	ASG *autoscaling.AutoScaling
 }
 
-func NewSdk(region string) (*Sdk, error) {
+func NewSdk(region string, profile string) (*Sdk, error) {
 	sdk := &Sdk{}
 	session, err := session.NewSessionWithOptions(session.Options{
 		Config: aws.Config{Region: aws.String(region)},
 		// Support MFA when authing using assumed roles.
 		SharedConfigState:       session.SharedConfigEnable,
 		AssumeRoleTokenProvider: stscreds.StdinTokenProvider,
+		Profile:                 profile,
 	})
 	if err != nil {
 		return nil, err
