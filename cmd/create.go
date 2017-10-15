@@ -158,7 +158,7 @@ func RunCreate(options *CreateOptions) error {
 	}
 
 	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
-		return fmt.Errorf("CloudID is required for google cloud.")
+		return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
 	}
 	newCluster.CloudId = options.CloudId
 
