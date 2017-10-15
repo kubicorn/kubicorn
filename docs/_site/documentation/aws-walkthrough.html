@@ -87,6 +87,8 @@
             
             <a class="dropdown-item" href="/documentation/readme.html">Kubicorn Documentation</a>
             
+            <a class="dropdown-item" href="/documentation/project-walkthrough.html">Project Walkthrough</a>
+            
             <a class="dropdown-item" href="/documentation/aws-walkthrough.html">Setting up Kubernetes in AWS</a>
             
             <a class="dropdown-item" href="/documentation/azure-walkthrough.html">Setting up Kubernetes in Azure</a>
@@ -192,6 +194,10 @@
             <a href="/documentation/readme.html">
                 <p class="mb-2">Kubicorn Documentation</p>
             </a>
+              
+            <a href="/documentation/project-walkthrough.html">
+                <p class="mb-2">Project Walkthrough</p>
+            </a>
                       
             <a href="/documentation/twitter.html">
                 <p class="mb-2">Twitter</p>
@@ -209,7 +215,7 @@
 
         <div class="sidebar mb-2 mt-4">
             <h6 class="mb-3">AWS</h6>
-                             
+                               
             <a href="/documentation/aws-walkthrough.html">
                 <p class="mb-2">Setting up Kubernetes in AWS</p>
             </a>
@@ -218,7 +224,7 @@
 
         <div class="sidebar mb-2 mt-4">
             <h6 class="mb-3">Azure</h6>
-                               
+                                 
             <a href="/documentation/azure-walkthrough.html">
                 <p class="mb-2">Setting up Kubernetes in Azure</p>
             </a>
@@ -227,7 +233,7 @@
 
         <div class="sidebar mb-2 mt-4">
                 <h6 class="mb-3">Digital Ocean</h6>
-                                     
+                                       
                 <a href="/documentation/do-walkthrough.html">
                     <p class="mb-2">Setting up Kubernetes in DigitalOcean with TLS secured private VPN mesh</p>
                 </a>
@@ -236,7 +242,7 @@
 
         <div class="sidebar mb-2 mt-4">
                 <h6 class="mb-3">Google</h6>
-                                       
+                                         
                 <a href="/documentation/google-walkthrough.html">
                     <p class="mb-2">Setting up Kubernetes in Google with TLS secured private VPN mesh</p>
                 </a>
@@ -305,12 +311,24 @@ You might want to create a new <a href="http://docs.aws.amazon.com/IAM/latest/Us
 
 <p><img src="https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-iam-user-perm-screen-shot.png" alt="AWS IAM permissions required for `kubicorn`" class="img-fluid" /></p>
 
-<p>Next, export the two environment variables <code class="highlighter-rouge">AWS_ACCESS_KEY_ID</code> and <code class="highlighter-rouge">AWS_SECRET_ACCESS_KEY</code> so that <code class="highlighter-rouge">kubicorn</code> can pick it up in the next step:</p>
+<p>Next, you need to specify your AWS credentials to use - you can select one of the follwoing options</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ export AWS_ACCESS_KEY_ID=***************
-$ export AWS_SECRET_ACCESS_KEY=*****************************************
+<ul>
+  <li>
+    <p>Environment Credentials - export the two environment variables <code class="highlighter-rouge">AWS_ACCESS_KEY_ID</code> and <code class="highlighter-rouge">AWS_SECRET_ACCESS_KEY</code> so that <code class="highlighter-rouge">kubicorn</code> can pick it up in the next step:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> $ export AWS_ACCESS_KEY_ID=***************
+ $ export AWS_SECRET_ACCESS_KEY=*****************************************
 </code></pre>
-</div>
+    </div>
+  </li>
+  <li>
+    <p>Shared Credentials file - The <code class="highlighter-rouge">~/.aws/credentials</code> file stores your credentials based on a profile name</p>
+  </li>
+  <li>
+    <p>EC2 Instance Role Credentials - Use EC2 Instance Role to assign credentials to application running on an EC2 instance.</p>
+  </li>
+</ul>
 
 <p>Also, make sure that the public SSH key for your AWS account is called <code class="highlighter-rouge">id_rsa.pub</code>, which is the default in above profile:</p>
 

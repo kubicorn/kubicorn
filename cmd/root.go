@@ -78,6 +78,7 @@ type Options struct {
 	Name           string
 	CloudId        string
 	Set            string
+	AwsProfile     string
 }
 
 func Execute() {

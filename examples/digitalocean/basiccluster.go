@@ -28,7 +28,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	reconciler, err := cutil.GetReconciler(cluster)
+	reconciler, err := cutil.GetReconciler(cluster, nil)
 	if err != nil {
 		panic(err.Error())
 	}
