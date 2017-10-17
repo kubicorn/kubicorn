@@ -81,7 +81,7 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 	} else {
 		newResource.Image = r.ServerPool.Image
 		newResource.InstanceType = r.ServerPool.Size
-		if r.ServerPool.Type == cluster.ServerPoolTypeNode {
+		if r.ServerPool.Type == cluster.ServerPoolTypeNode && r.ServerPool.AwsConfiguration != nil {
 			newResource.SpotPrice = r.ServerPool.AwsConfiguration.SpotPrice
 		}
 	}
