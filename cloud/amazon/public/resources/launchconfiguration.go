@@ -106,7 +106,7 @@ func (r *Lc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 		Image:            r.ServerPool.Image,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
-	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
+	if r.ServerPool.Type == cluster.ServerPoolTypeNode && r.ServerPool.AwsConfiguration != nil {
 		newResource.SpotPrice = r.ServerPool.AwsConfiguration.SpotPrice
 	}
 	newCluster := r.immutableRender(newResource, immutable)
