@@ -33,37 +33,37 @@ type GetConfigOptions struct {
 
 var cro = &GetConfigOptions{}
 
-// getConfigCmd represents the apply command
-var getConfigCmd = &cobra.Command{
-	Use:   "getconfig <NAME>",
-	Short: "Manage Kubernetes configuration",
-	Long: `Use this command to pull a kubeconfig file from a cluster so you can use kubectl.
+// GetConfigCmd represents the apply command
+func GetConfigCmd() *cobra.Command {
+	var getConfigCmd = &cobra.Command{
+		Use:   "getconfig <NAME>",
+		Short: "Manage Kubernetes configuration",
+		Long: `Use this command to pull a kubeconfig file from a cluster so you can use kubectl.
+	
+	This command will attempt to find a cluster, and append a local kubeconfig file with a kubeconfig `,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				cro.Name = strEnvDef("KUBICORN_NAME", "")
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				cro.Name = args[0]
+			}
 
-This command will attempt to find a cluster, and append a local kubeconfig file with a kubeconfig `,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			cro.Name = strEnvDef("KUBICORN_NAME", "")
-		} else if len(args) > 1 {
-			logger.Critical("Too many arguments.")
-			os.Exit(1)
-		} else {
-			cro.Name = args[0]
-		}
+			err := RunGetConfig(cro)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
 
-		err := RunGetConfig(cro)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
+		},
+	}
 
-	},
-}
-
-func init() {
 	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 
-	RootCmd.AddCommand(getConfigCmd)
+	return getConfigCmd
 }
 
 func RunGetConfig(options *GetConfigOptions) error {

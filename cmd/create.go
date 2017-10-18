@@ -39,34 +39,35 @@ type CreateOptions struct {
 
 var co = &CreateOptions{}
 
-var createCmd = &cobra.Command{
-	Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
-	Short: "Create a Kubicorn API model from a profile",
-	Long: `Use this command to create a Kubicorn API model in a defined state store.
+// CreateCmd represents create command
+func CreateCmd() *cobra.Command {
+	var createCmd = &cobra.Command{
+		Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
+		Short: "Create a Kubicorn API model from a profile",
+		Long: `Use this command to create a Kubicorn API model in a defined state store.
+	
+	This command will create a cluster API model as a YAML manifest in a state store.
+	Once the API model has been created, a user can optionally change the model to their liking.
+	After a model is defined and configured properly, the user can then apply the model.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				co.Name = strEnvDef("KUBICORN_NAME", namer.RandomName())
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				co.Name = args[0]
+			}
 
-This command will create a cluster API model as a YAML manifest in a state store.
-Once the API model has been created, a user can optionally change the model to their liking.
-After a model is defined and configured properly, the user can then apply the model.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			co.Name = strEnvDef("KUBICORN_NAME", namer.RandomName())
-		} else if len(args) > 1 {
-			logger.Critical("Too many arguments.")
-			os.Exit(1)
-		} else {
-			co.Name = args[0]
-		}
+			err := RunCreate(co)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
 
-		err := RunCreate(co)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
+		},
+	}
 
-	},
-}
-
-func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
@@ -76,9 +77,14 @@ func init() {
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
 
+	return createCmd
+}
+
+// TODO(xmudrii): revisit this part
+/*func init() {
 	RootCmd.SetUsageTemplate(usageTemplate)
 	RootCmd.AddCommand(createCmd)
-}
+}*/
 
 type profileFunc func(name string) *cluster.Cluster
 

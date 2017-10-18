@@ -36,39 +36,40 @@ type ApplyOptions struct {
 
 var ao = &ApplyOptions{}
 
-// applyCmd represents the apply command
-var applyCmd = &cobra.Command{
-	Use:   "apply <NAME>",
-	Short: "Apply a cluster resource to a cloud",
-	Long: `Use this command to apply an API model in a cloud.
+// ApplyCmd represents the apply command
+func ApplyCmd() *cobra.Command {
+	var applyCmd = &cobra.Command{
+		Use:   "apply <NAME>",
+		Short: "Apply a cluster resource to a cloud",
+		Long: `Use this command to apply an API model in a cloud.
+	
+	This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
+	The apply will run once, and ultimately time out if something goes wrong.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				ao.Name = strEnvDef("KUBICORN_NAME", "")
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				ao.Name = args[0]
+			}
 
-This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
-The apply will run once, and ultimately time out if something goes wrong.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			ao.Name = strEnvDef("KUBICORN_NAME", "")
-		} else if len(args) > 1 {
-			logger.Critical("Too many arguments.")
-			os.Exit(1)
-		} else {
-			ao.Name = args[0]
-		}
+			err := RunApply(ao)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
 
-		err := RunApply(ao)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
+		},
+	}
 
-	},
-}
-
-func init() {
 	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	applyCmd.Flags().StringVarP(&ao.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
 	applyCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
-	RootCmd.AddCommand(applyCmd)
+
+	return applyCmd
 }
 
 func RunApply(options *ApplyOptions) error {

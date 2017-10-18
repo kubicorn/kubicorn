@@ -35,43 +35,43 @@ type DeleteOptions struct {
 
 var do = &DeleteOptions{}
 
-// deleteCmd represents the delete command
-var deleteCmd = &cobra.Command{
-	Use:   "delete <NAME>",
-	Short: "Delete a Kubernetes cluster",
-	Long: `Use this command to delete cloud resources.
+// DeleteCmd represents the delete command
+func DeleteCmd() *cobra.Command {
+	var deleteCmd = &cobra.Command{
+		Use:   "delete <NAME>",
+		Short: "Delete a Kubernetes cluster",
+		Long: `Use this command to delete cloud resources.
+	
+	This command will attempt to build the resource graph based on an API model.
+	Once the graph is built, the delete will attempt to delete the resources from the cloud.
+	After the delete is complete, the state store will be left in tact and could potentially be applied later.
+	
+	To delete the resource AND the API model in the state store, use --purge.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				do.Name = strEnvDef("KUBICORN_NAME", "")
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				do.Name = args[0]
+			}
 
-This command will attempt to build the resource graph based on an API model.
-Once the graph is built, the delete will attempt to delete the resources from the cloud.
-After the delete is complete, the state store will be left in tact and could potentially be applied later.
+			err := RunDelete(do)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
 
-To delete the resource AND the API model in the state store, use --purge.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			do.Name = strEnvDef("KUBICORN_NAME", "")
-		} else if len(args) > 1 {
-			logger.Critical("Too many arguments.")
-			os.Exit(1)
-		} else {
-			do.Name = args[0]
-		}
+		},
+	}
 
-		err := RunDelete(do)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
-
-	},
-}
-
-func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 	deleteCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
 
-	RootCmd.AddCommand(deleteCmd)
+	return deleteCmd
 }
 
 func RunDelete(options *DeleteOptions) error {
