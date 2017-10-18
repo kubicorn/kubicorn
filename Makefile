@@ -10,7 +10,7 @@ GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
 
-default: authorsfile bindata compile ## Parse Bootstrap scripts and create kubicorn executable in the ./bin directory and the AUTHORS file.
+default: authorsfile compile ## Parse Bootstrap scripts and create kubicorn executable in the ./bin directory and the AUTHORS file.
 
 all: default install
 
