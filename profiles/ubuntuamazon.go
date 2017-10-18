@@ -63,7 +63,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 						Location: "us-west-2a",
 					},
 				},
-
+				AwsConfiguration: &cluster.AwsConfiguration{},
 				Firewalls: []*cluster.Firewall{
 					{
 						Name: fmt.Sprintf("%s.master-external-%s", name, uuid.TimeOrderedUUID()),
@@ -107,6 +107,7 @@ func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
 						Location: "us-west-2b",
 					},
 				},
+				AwsConfiguration: &cluster.AwsConfiguration{},
 				Firewalls: []*cluster.Firewall{
 					{
 						Name: fmt.Sprintf("%s.node-external-%s", name, uuid.TimeOrderedUUID()),
