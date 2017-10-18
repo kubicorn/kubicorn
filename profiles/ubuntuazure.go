@@ -31,6 +31,9 @@ func NewUbuntuAzureCluster(name string) *cluster.Cluster {
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
 			User:          "root",
 		},
+		Network: &cluster.Network{
+			CIDR: "10.0.0.0/12",
+		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
 		},

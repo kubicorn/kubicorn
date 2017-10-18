@@ -90,7 +90,7 @@ func (r *ResourceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Created resource group [%s]", *group.Name)
+	logger.Info("Created or found resource group [%s]", *group.Name)
 
 	newResource := &ResourceGroup{
 		Shared: Shared{

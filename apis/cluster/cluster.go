@@ -30,11 +30,11 @@ type Cluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Name              string         `json:"name,omitempty"`
-	CloudId           string         `json:"cloudId,omitempty"`
+	CloudId           string         `json:"cloudID,omitempty"`
 	ServerPools       []*ServerPool  `json:"serverPools,omitempty"`
 	Cloud             string         `json:"cloud,omitempty"`
 	Location          string         `json:"location,omitempty"`
-	SSH               *SSH           `json:"SSH,omitempty"`
+	SSH               *SSH           `json:"ssh,omitempty"`
 	Network           *Network       `json:"network,omitempty"`
 	Values            *Values        `json:"values,omitempty"`
 	KubernetesAPI     *KubernetesAPI `json:"kubernetesAPI,omitempty"`
