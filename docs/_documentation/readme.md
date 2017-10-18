@@ -73,7 +73,7 @@ The website runs on Jekyll, straight from GitHub Pages. It consists of templates
 
 The most common edits are changing the home.html files (our index page), and adding or editing files in the documentation/ folder.
 
-Below are the relevant bits of the website's structure. Other files can be ignored. For a more detailed overview see [the Website Documentation document](http://kubicorn.io/documentation/website-documentation.html).
+Below are the relevant bits of the website's structure. Other files can be ignored. For a more detailed overview see [the Website Documentation document](http://kubicorn.io/documentation/website-documentation.html). Instructions for how to test your changes locally can be found there as well.
 
 ```
 kubicorn/docs/
