@@ -24,6 +24,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/task"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
@@ -67,6 +68,7 @@ To delete the resource AND the API model in the state store, use --purge.`,
 
 func init() {
 	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "git"), "The state store type for git to use in a cluster")
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 	deleteCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
@@ -91,6 +93,12 @@ func RunDelete(options *DeleteOptions) error {
 		logger.Info("Selected [fs] state store")
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
+	case "git":
+		logger.Info("Selected [git] state store")
+		stateStore = git.NewGitStore(&git.GitStoreOptions{
+
 			ClusterName: name,
 		})
 	}

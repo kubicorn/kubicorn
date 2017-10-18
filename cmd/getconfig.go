@@ -24,6 +24,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/spf13/cobra"
 )
 
@@ -61,6 +62,7 @@ This command will attempt to find a cluster, and append a local kubeconfig file 
 
 func init() {
 	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "git"), "The state store type for git to use in a cluster")
 	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 
 	RootCmd.AddCommand(getConfigCmd)
@@ -84,6 +86,11 @@ func RunGetConfig(options *GetConfigOptions) error {
 		logger.Info("Selected [fs] state store")
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
+	case "git":
+		logger.Info("Selected [git] state store")
+		stateStore = git.NewGitStore(&git.GitStoreOptions{
 			ClusterName: name,
 		})
 	}

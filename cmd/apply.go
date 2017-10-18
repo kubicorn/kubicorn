@@ -26,6 +26,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/spf13/cobra"
 )
 
@@ -64,6 +65,7 @@ The apply will run once, and ultimately time out if something goes wrong.`,
 
 func init() {
 	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "git"), "The state store type for git to use in a cluster")
 	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	applyCmd.Flags().StringVarP(&ao.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
 	applyCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
@@ -88,6 +90,11 @@ func RunApply(options *ApplyOptions) error {
 		logger.Info("Selected [fs] state store")
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
+	case "git":
+		logger.Info("Selected [git] state store")
+		stateStore = git.NewGitStore(&git.GitStoreOptions{
 			ClusterName: name,
 		})
 	}

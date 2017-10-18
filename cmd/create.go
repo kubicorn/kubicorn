@@ -28,6 +28,7 @@ import (
 	"github.com/kris-nova/kubicorn/profiles"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/spf13/cobra"
 	"github.com/yuroyoro/swalker"
 )
@@ -68,6 +69,7 @@ After a model is defined and configured properly, the user can then apply the mo
 
 func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvEf("KUBICORN_STATE_STORE", "git"), "The state store type for git to use in a cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 	createCmd.Flags().StringVarP(&co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
@@ -173,6 +175,11 @@ func RunCreate(options *CreateOptions) error {
 		logger.Info("Selected [fs] state store")
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
+	case "git":
+		logger.Info("Selected [git] state store")
+		stateStore = git.NewGitStore(&git.GitStoreOptions{
 			ClusterName: name,
 		})
 	}
