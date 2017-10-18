@@ -30,25 +30,27 @@ import (
 )
 
 type Keyring struct {
-	PublicKeyPath string
-	Agent         sshagent.Agent
+	Agent sshagent.Agent
 }
 
-func NewAgent(pubkey string) *Keyring {
-	keyring := &Keyring{
-		PublicKeyPath: pubkey,
-	}
+func NewAgent() *Keyring {
 	if sysAgent := systemAgent(); sysAgent != nil {
-		keyring.Agent = sysAgent
-	} else {
-		keyring.Agent = newKeyring()
+		return &Keyring{
+			Agent: sysAgent,
+		}
 	}
 
-	return keyring
+	return &Keyring{
+		Agent: newKeyring(),
+	}
 }
 
-func (k *Keyring) CheckKey() error {
-	p, err := ioutil.ReadFile(k.PublicKeyPath)
+func (k *Keyring) GetAgent() ssh.AuthMethod {
+	return ssh.PublicKeysCallback(k.Agent.Signers)
+}
+
+func (k *Keyring) CheckKey(pubkey string) error {
+	p, err := ioutil.ReadFile(pubkey)
 	if err != nil {
 		return err
 	}
@@ -72,8 +74,8 @@ func (k *Keyring) CheckKey() error {
 	return fmt.Errorf("key not found in keyring")
 }
 
-func (k *Keyring) AddKey() (*Keyring, error) {
-	priv, err := ioutil.ReadFile(strings.Replace(k.PublicKeyPath, ".pub", "", -1))
+func (k *Keyring) AddKey(pubkey string) (*Keyring, error) {
+	priv, err := ioutil.ReadFile(strings.Replace(pubkey, ".pub", "", -1))
 	if err != nil {
 		return nil, err
 	}

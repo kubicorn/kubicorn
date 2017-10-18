@@ -15,16 +15,13 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/kris-nova/kubicorn/cmd"
-	"github.com/kris-nova/kubicorn/cutil/agent"
 )
 
 func main() {
-	x := agent.NewAgent("/home/marko/.ssh/server_xmudrii_rsa.pub")
-	fmt.Println(x.CheckKey())
-	x, _ = x.AddKey()
-	fmt.Println(x.CheckKey())
+	/*x := agent.NewAgent()
+	fmt.Println(x.CheckKey("/home/marko/.ssh/server_xmudrii_rsa.pub"))
+	x, _ = x.AddKey("/home/marko/.ssh/server_xmudrii_rsa.pub")
+	fmt.Println(x.CheckKey("/home/marko/.ssh/server_xmudrii_rsa.pub"))*/
 	cmd.Execute()
 }
