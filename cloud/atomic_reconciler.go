@@ -123,7 +123,7 @@ func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconci
 		reconciledCluster = newCluster
 		createdResources[i] = appliedResource
 	}
-	teardown()
+	//teardown()
 	return reconciledCluster, nil
 }
 
@@ -170,7 +170,7 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 		}
 		destroyedCluster = newCluster
 	}
-	teardown()
+	//teardown()
 	return destroyedCluster, nil
 }
 

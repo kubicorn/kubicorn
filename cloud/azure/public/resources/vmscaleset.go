@@ -29,6 +29,7 @@ import (
 	//"encoding/json"
 	"github.com/kris-nova/kubicorn/cutil/retry"
 	//"time"
+	"time"
 )
 
 var _ cloud.Resource = &VMScaleSet{}
@@ -202,28 +203,58 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 		}
 		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
 
-		<-vmssch
-		err = <-errch
-		if err != nil {
-			return nil, nil, err
+		// ---------------
+		// Hack in here to fluff a vm scale set if the ARM API is having bad weather
+		logger.Debug("[vmss hack] Begin hack searching for vmss")
+
+		timer := time.NewTimer(time.Duration(15 * time.Second))
+		defer timer.Stop()
+		var vmss compute.VirtualMachineScaleSet
+		loop := true
+		for loop {
+			select {
+			case vmss = <-vmssch:
+				// vmss
+				logger.Debug("[vmss hack] Received vmss on channel")
+				loop = false
+				break
+			case err = <-errch:
+				if err != nil {
+					logger.Debug("[vmss hack] Error")
+					return nil, nil, err
+				} else {
+					logger.Debug("[vmss hack] Error returned nil")
+				}
+			case <-timer.C:
+				logger.Debug("[vmss hack] [%d] second wait timer exceeded!", 15)
+				loop = false
+				break
+
+				// Todo support sig handling here
+			}
 		}
 
-		l := &lookUpVmSsRetrier{
-			resourceGroup: immutable.Name,
-			vmssname:      applyResource.Name,
+		if vmss.ID == nil {
+
+			l := &lookUpVmSsRetrier{
+				resourceGroup: immutable.Name,
+				vmssname:      applyResource.Name,
+			}
+			retrier := retry.NewRetrier(20, 5, l)
+			err = retrier.RunRetry()
+			if err != nil {
+				return nil, nil, err
+			}
+			vmss = retrier.Retryable().(*lookUpVmSsRetrier).vmss
+
 		}
-		retrier := retry.NewRetrier(20, 5, l)
-		err = retrier.RunRetry()
-		if err != nil {
-			return nil, nil, err
-		}
-		parsedVmss := retrier.Retryable().(*lookUpVmSsRetrier).vmss
-		logger.Info("Created or found vm scale set [%s]", *parsedVmss.ID)
+
+		logger.Info("Created or found vm scale set [%s]", *vmss.ID)
 		newResource := &VMScaleSet{
 			Shared: Shared{
 				Name:       r.Name,
 				Tags:       r.Tags,
-				Identifier: *parsedVmss.ID,
+				Identifier: *vmss.ID,
 			},
 		}
 		newCluster := r.immutableRender(newResource, immutable)
