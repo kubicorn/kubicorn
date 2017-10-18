@@ -67,6 +67,53 @@ At this point, we have fully functional Kubernetes cluster.
 
 Beside creating the cluster, Reconciler also takes care of destroying the cluster, which is done by the `Delete` function. [This is how it looks for DigitalOcean Droplet's](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L247).
 
+## Website
+
+The website runs on Jekyll, straight from GitHub Pages. It consists of templates and markdown files that are automatically built into HTML pages whenever any of the content changes. 
+
+The most common edits are changing the home.html files (our index page), and adding or editing files in the documentation/ folder.
+
+Below are the relevant bits of the website's structure. Other files can be ignored. For a more detailed overview see [this README file](https://github.com/kris-nova/kubicorn/tree/master/docs).
+
+```
+kubicorn/docs/
+│
+├── _documentation/
+│ → All docs to be displayed on in the Documentation section of the website
+│   should go here. They should be markdown, and include the YAML header as
+│   shown in the link above.
+│
+├── _friends/
+│ → Files in this folder feed the *Friends of kubicorn* section of the website.
+│   You should follow the formatting as per the files already present.
+│
+├── _includes/
+│ → This holds the includes for every page of the website: footer, header, and
+│   head sections.
+│
+├── _layouts/
+│   │ → This holds the different templates that make up the website. In
+│   │   practice we're only using two:
+│   │
+│   ├── documentation.html
+│   │ → This is the template used to generate all files in the documentation
+│   │   section.
+│   │
+│   └── home.html
+│     → This is the website's index page. Most of the text in the index page
+│       is hard-coded here. Exceptions are the _friends/ content and the
+│       _documentation/ list, which are generated dynamically.
+│
+├── img/
+│ → All images go here.
+│  
+└── _site/
+  → This folder contains the auto-generated files that the website serves. They
+    are built automatically whenever anything else on the folders above change,
+    and should not be edited manually. Any changes to these files will be
+    discarded. 
+```
+
 ## Where should I start?
 
 If you need more help understanding the reconciling process, take a look at the [examples](https://github.com/kris-nova/kubicorn/tree/master/examples). It should explain you which steps are taken to create a Kubernetes cluster.
