@@ -40,50 +40,48 @@ const license = `# Copyright © 2017 The Kubicorn Authors
 
 `
 
-// completionCmd represents the completion command
-var completionCmd = &cobra.Command{
-	Use:   "completion",
-	Short: "Generate completion code for bash and zsh shells.",
-	Long: `completion is used to output completion code for bash and zsh shells.
-
-Before using completion features, you have to source completion code
-from your .profile. This is done by adding following line to one of above files:
-	source <(kubicorn completion SHELL)
-Valid arguments for SHELL are: "bash" and "zsh".
-Notes:
-1) zsh completions requires zsh 5.2 or newer.
+// CompletionCmd represents the completion command
+func CompletionCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "completion",
+		Short: "Generate completion code for bash and zsh shells.",
+		Long: `completion is used to output completion code for bash and zsh shells.
 	
-2) macOS users have to install bash-completion framework to utilize
-completion features. This can be done using homebrew:
-	brew install bash-completion
-Once installed, you must load bash_completion by adding following
-line to your .profile or .bashrc/.zshrc:
-	source $(brew --prefix)/etc/bash_completion`,
-	RunE: func(cmd *cobra.Command, args []string) error {
-		if logger.Fabulous {
-			cmd.SetOutput(logger.FabulousWriter)
-		}
-		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
-			cmd.SetOutput(logger.FabulousWriter)
-		}
+	Before using completion features, you have to source completion code
+	from your .profile. This is done by adding following line to one of above files:
+		source <(kubicorn completion SHELL)
+	Valid arguments for SHELL are: "bash" and "zsh".
+	Notes:
+	1) zsh completions requires zsh 5.2 or newer.
+		
+	2) macOS users have to install bash-completion framework to utilize
+	completion features. This can be done using homebrew:
+		brew install bash-completion
+	Once installed, you must load bash_completion by adding following
+	line to your .profile or .bashrc/.zshrc:
+		source $(brew --prefix)/etc/bash_completion`,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if logger.Fabulous {
+				cmd.SetOutput(logger.FabulousWriter)
+			}
+			if os.Getenv("KUBICORN_TRUECOLOR") != "" {
+				cmd.SetOutput(logger.FabulousWriter)
+			}
 
-		if len(args) != 1 {
-			return fmt.Errorf("shell argument is not specified")
-		}
-		shell := args[0]
+			if len(args) != 1 {
+				return fmt.Errorf("shell argument is not specified")
+			}
+			shell := args[0]
 
-		if shell == "bash" {
-			return RunBashGeneration()
-		} else if shell == "zsh" {
-			return RunZshGeneration()
-		} else {
-			return fmt.Errorf("invalid shell argument")
-		}
-	},
-}
-
-func init() {
-	RootCmd.AddCommand(completionCmd)
+			if shell == "bash" {
+				return RunBashGeneration()
+			} else if shell == "zsh" {
+				return RunZshGeneration()
+			} else {
+				return fmt.Errorf("invalid shell argument")
+			}
+		},
+	}
 }
 
 func RunBashGeneration() error {

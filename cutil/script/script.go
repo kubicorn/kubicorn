@@ -17,18 +17,50 @@ package script
 import (
 	"fmt"
 
+	"encoding/json"
+
+	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/bootstrap"
+	"github.com/kris-nova/kubicorn/cutil/parser"
 )
 
-func BuildBootstrapScript(bootstrapScripts []string) ([]byte, error) {
-	var userData []byte
+const bootstrapInitScript = "bootstrap_init.sh"
+const kubicornDir = "/etc/kubicorn"
+const clusterAsJSONFileName = "cluster.json"
+
+func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) ([]byte, error) {
+	userData := []byte{}
+	scriptData, err := buildBootstrapSetupScript(cluster, kubicornDir, clusterAsJSONFileName)
+	if err != nil {
+		return nil, err
+	}
+	userData = append(userData, scriptData...)
+
 	for _, bootstrapScript := range bootstrapScripts {
-		scriptData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapScript))
+		scriptData, err := fileresource.ReadFromResource(bootstrapScript)
 		if err != nil {
 			return nil, err
 		}
 		userData = append(userData, scriptData...)
 	}
 
+	return userData, nil
+}
+
+func buildBootstrapSetupScript(cluster *cluster.Cluster, dir, file string) ([]byte, error) {
+	userData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapInitScript))
+	if err != nil {
+		return nil, err
+	}
+	script := []byte("mkdir -p " + dir + "\ncat <<\"EOF\" > " + dir + "/" + file + "\n")
+
+	clusterJSON, err := json.Marshal(cluster)
+	if err != nil {
+		return nil, err
+	}
+
+	userData = append(userData, script...)
+	userData = append(userData, clusterJSON...)
+	userData = append(userData, []byte("\nEOF\n")...)
 	return userData, nil
 }

@@ -45,10 +45,10 @@ func NewCentosDigitalOceanCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
 				Image:    "centos-7-x64",
-				Size:     "1gb",
+				Size:     "2gb",
 				BootstrapScripts: []string{
-					"vpn/openvpnMaster-centos.sh",
-					"digitalocean_k8s_centos_7_master.sh",
+					"bootstrap/vpn/openvpnMaster-centos.sh",
+					"bootstrap/digitalocean_k8s_centos_7_master.sh",
 				},
 			},
 			{
@@ -58,8 +58,8 @@ func NewCentosDigitalOceanCluster(name string) *cluster.Cluster {
 				Image:    "centos-7-x64",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					"vpn/openvpnNode-centos.sh",
-					"digitalocean_k8s_centos_7_node.sh",
+					"bootstrap/vpn/openvpnNode-centos.sh",
+					"bootstrap/digitalocean_k8s_centos_7_node.sh",
 				},
 			},
 		},

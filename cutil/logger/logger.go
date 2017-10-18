@@ -37,11 +37,12 @@ const (
 )
 
 var (
-	Level          = 2
-	Color          = true
-	Fabulous       = false
-	FabulousWriter = &lol.Writer{Output: os.Stdout, ColorMode: lol.ColorMode256}
-	TestMode       = false
+	Level              = 2
+	Color              = true
+	Fabulous           = false
+	FabulousWriter     = lol.NewLolWriter()
+	FabulousTrueWriter = lol.NewTruecolorLolWriter()
+	TestMode           = false
 )
 
 func Log(format string, a ...interface{}) {

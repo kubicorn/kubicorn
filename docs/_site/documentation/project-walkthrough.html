@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+    crossorigin="anonymous"> -->
+    <title>Project Walkthrough</title>
+    <meta name="description" content="Introduction This document explains how kubicorn project works, the project’s structure and information you need to know so you can easily start contributing...">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/main.css">
+    <link rel="canonical" href="http://localhost:4000/documentation/project-walkthrough.html">
+    <link rel="alternate" type="application/rss+xml" title="kubicorn - Building Simple Kubernetes Infrastructure" href="/feed.xml">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Fira+Mono" rel="stylesheet">
+  
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/assets/favicon/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+  <body>
+
+    
+
+<!-- 
+                           888                       
+                           888                       
+                           888                       
+88888b.   8888b.  888  888 88888b.   8888b.  888d888 
+888 "88b     "88b 888  888 888 "88b     "88b 888P"   
+888  888 .d888888 Y88  88P 888  888 .d888888 888     
+888  888 888  888  Y8bd8P  888 d88P 888  888 888     
+888  888 "Y888888   Y88P   88888P"  "Y888888 888
+-->
+
+  <!-- navbar-expand-lg -->
+
+  <nav class="navbar fixed-top navbar-toggleable-md navbar-light">
+
+      
+      
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+    <a class="navbar-brand" href="/"><code>kubicorn</code></a>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Documentation</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              
+              
+            <a class="dropdown-item" href="/documentation/semver.html">Backwards compatibility promise</a>
+            
+            <a class="dropdown-item" href="/documentation/build.html">Building Kubicorn</a>
+            
+            <a class="dropdown-item" href="/documentation/exit_codes.html">Exit Codes</a>
+            
+            <a class="dropdown-item" href="/documentation/friends.html">Friends of `kubicorn`</a>
+            
+            <a class="dropdown-item" href="/documentation/envar.html">Global Environmental Variables list</a>
+            
+            <a class="dropdown-item" href="/documentation/install.html">Installing Kubicorn</a>
+            
+            <a class="dropdown-item" href="/documentation/issue_template.html">Issue Template</a>
+            
+            <a class="dropdown-item" href="/documentation/readme.html">Kubicorn Documentation</a>
+            
+            <a class="dropdown-item" href="/documentation/project-walkthrough.html">Project Walkthrough</a>
+            
+            <a class="dropdown-item" href="/documentation/aws-walkthrough.html">Setting up Kubernetes in AWS</a>
+            
+            <a class="dropdown-item" href="/documentation/azure-walkthrough.html">Setting up Kubernetes in Azure</a>
+            
+            <a class="dropdown-item" href="/documentation/do-walkthrough.html">Setting up Kubernetes in DigitalOcean with TLS secured private VPN mesh</a>
+            
+            <a class="dropdown-item" href="/documentation/google-walkthrough.html">Setting up Kubernetes in Google with TLS secured private VPN mesh</a>
+            
+            <a class="dropdown-item" href="/documentation/twitter.html">Twitter</a>
+            
+            <a class="dropdown-item" href="/documentation/make.html">Using `Makefile`</a>
+            
+            <a class="dropdown-item" href="/documentation/maintainers.html">Who is a Maintainer?</a>
+            
+          </div>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="/#core">Core Values</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#concepts">Concepts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#different">Differential</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/#friends">Friends</a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/#installing">Installing</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/documentation/readme.html">Documentation</a>
+            </li>
+      </ul>
+
+     
+
+      <a class="nav-link px-1" href="https://twitter.com/kubicornk8s"><i aria-hidden="true" class="fa fa-twitter"></i></a>&nbsp;&nbsp;
+      <a class="nav-link px-1" href="https://github.com/kris-nova/kubicorn/"><i aria-hidden="true" class="fa fa-github"></i></a>&nbsp;&nbsp;
+       <a class="nav-link px-1" href="https://invite.slack.golangbridge.org/"><i aria-hidden="true" class="fa fa-slack"></i></a>&nbsp;&nbsp;
+      <!--<a class="nav-link px-1" href=""><i aria-hidden="true" class="fa fa-stack-overflow"></i></a>&nbsp;&nbsp;
+      <a class="nav-link px-1" href=""><i aria-hidden="true" class="fa fa-envelope"></i></a>&nbsp;&nbsp; -->
+      
+    </div>
+  </nav>
+
+  <div class="container">
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        
+
+<!-- 
+         d8b      888          888                       
+         Y8P      888          888                       
+                  888          888                       
+.d8888b  888  .d88888  .d88b.  88888b.   8888b.  888d888 
+88K      888 d88" 888 d8P  Y8b 888 "88b     "88b 888P"   
+"Y8888b. 888 888  888 88888888 888  888 .d888888 888     
+     X88 888 Y88b 888 Y8b.     888 d88P 888  888 888     
+ 88888P' 888  "Y88888  "Y8888  88888P"  "Y888888 888     
+-->
+
+<div class="row">
+    <div class="col-sm-4 mb-5">
+        <h5 class="mb-3">Documentation</h5>
+        
+
+        <div class="sidebar mb-2 mt-4">
+            <h6 class="mb-3">General</h6>
+
+             
+            <a href="/documentation/semver.html">
+                <p class="mb-2">Backwards compatibility promise</p>
+            </a>
+              
+            <a href="/documentation/build.html">
+                <p class="mb-2">Building Kubicorn</p>
+            </a>
+              
+            <a href="/documentation/exit_codes.html">
+                <p class="mb-2">Exit Codes</p>
+            </a>
+              
+            <a href="/documentation/friends.html">
+                <p class="mb-2">Friends of `kubicorn`</p>
+            </a>
+              
+            <a href="/documentation/envar.html">
+                <p class="mb-2">Global Environmental Variables list</p>
+            </a>
+              
+            <a href="/documentation/install.html">
+                <p class="mb-2">Installing Kubicorn</p>
+            </a>
+              
+            <a href="/documentation/issue_template.html">
+                <p class="mb-2">Issue Template</p>
+            </a>
+              
+            <a href="/documentation/readme.html">
+                <p class="mb-2">Kubicorn Documentation</p>
+            </a>
+              
+            <a href="/documentation/project-walkthrough.html">
+                <p class="mb-2">Project Walkthrough</p>
+            </a>
+                      
+            <a href="/documentation/twitter.html">
+                <p class="mb-2">Twitter</p>
+            </a>
+              
+            <a href="/documentation/make.html">
+                <p class="mb-2">Using `Makefile`</p>
+            </a>
+              
+            <a href="/documentation/maintainers.html">
+                <p class="mb-2">Who is a Maintainer?</p>
+            </a>
+             
+        </div>
+
+        <div class="sidebar mb-2 mt-4">
+            <h6 class="mb-3">AWS</h6>
+                               
+            <a href="/documentation/aws-walkthrough.html">
+                <p class="mb-2">Setting up Kubernetes in AWS</p>
+            </a>
+                         
+        </div>
+
+        <div class="sidebar mb-2 mt-4">
+            <h6 class="mb-3">Azure</h6>
+                                 
+            <a href="/documentation/azure-walkthrough.html">
+                <p class="mb-2">Setting up Kubernetes in Azure</p>
+            </a>
+                       
+        </div>
+
+        <div class="sidebar mb-2 mt-4">
+                <h6 class="mb-3">Digital Ocean</h6>
+                                       
+                <a href="/documentation/do-walkthrough.html">
+                    <p class="mb-2">Setting up Kubernetes in DigitalOcean with TLS secured private VPN mesh</p>
+                </a>
+                         
+            </div>
+
+        <div class="sidebar mb-2 mt-4">
+                <h6 class="mb-3">Google</h6>
+                                         
+                <a href="/documentation/google-walkthrough.html">
+                    <p class="mb-2">Setting up Kubernetes in Google with TLS secured private VPN mesh</p>
+                </a>
+                       
+            </div>
+
+    </div>
+    <!-- 
+                               888    
+                               888    
+                               888    
+    88888b.   .d88b.  .d8888b  888888 
+    888 "88b d88""88b 88K      888    
+    888  888 888  888 "Y8888b. 888    
+    888 d88P Y88..88P      X88 Y88b.  
+    88888P"   "Y88P"   88888P'  "Y888 
+    888                               
+    888                               
+    888                               
+     -->
+    <div class="col-sm-8">
+        <!-- <figure class="figure">
+                <img src="https://placebear.com/g/1200/720" class="img-fluid" alt="Responsive image">
+
+                <figcaption class="figure-caption text-left"><small><i>Image copyright 2007 ® Fancy Photographer</i></small></figcaption>
+            </figure> -->
+        <h1>Project Walkthrough</h1>
+
+        <p class="figure-caption text-left"><i>
+            
+            October 1, 2017</i></p>
+
+        <h2 id="introduction">Introduction</h2>
+
+<p>This document explains how <code class="highlighter-rouge">kubicorn</code> project works, the project’s structure and information you need to know so you can easily start contributing.</p>
+
+<h2 id="glossary">Glossary</h2>
+
+<p>This chapter explains the most important concepts.</p>
+
+<ul>
+  <li><a href="https://github.com/kris-nova/kubicorn/tree/master/apis">Cluster API</a> — universal (cloud provider agnostic) representation of a Kubernetes cluster. It defines every part of an cluster, including infrastructure parts such as virtual machines, networking units and firewalls. The matching of universal representation of the cluster to the representation for specific cloud provider is done as the part of Reconciling process.</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/blob/master/state/README.md">State</a> — representation of an specific Kubernetes cluster. It’s used in reconciling process to create the cluster.</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/blob/master/state/README.md">State store</a> — place where state is stored. Currently, we only support states located on the disk and in <a href="https://github.com/kris-nova/kubicorn/tree/master/state/fs">YAML</a> or <a href="https://github.com/kris-nova/kubicorn/tree/master/state/jsonfs">JSON</a> format. We’re looking forward to implementing Git and S3 state stores.</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/tree/master/cloud">Reconciler</a> — the core of the project and place where provision logic is located. It matches cloud provider agnostic Cluster definition to the specific cloud provider definition, which is used to provision cluster. It takes care of provisioning new clusters, destroying the old ones and keeping the consistency between Actual and Expected states.</li>
+  <li>Actual state — the representation of current resources in the cloud.</li>
+  <li>Expected state — the representation of intended resources in the cloud.</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/tree/master/bootstrap">Bootstrap scripts</a> — Bootstrap scripts are provided as the <code class="highlighter-rouge">user data</code> on the cluster creation to install dependencies and create the cluster. They’re provided as Bash scripts, so you can easily create them without Go knowledge. You can also inject values in the reconciling process, per your needs.</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/tree/master/bootstrap/vpn">VPN Boostrap scripts</a> — to improve security of our cluster, we create VPN server on master, and connect every node using it. Some cloud providers, such as DigitalOcean, doesn’t provide real private networking between Droplets, so we want master and nodes can only communicate between themselves, and with the Internet only on selected ports.</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/blob/master/profiles/README.md">Profile</a> — profile is a unique representation of a cluster written in Go. Profiles containts the all information needed to create an cluster, such as: cluster name, cloud provider, VM size, SSH key, network and firewall configurations…</li>
+</ul>
+
+<h2 id="project-structure">Project structure</h2>
+
+<p>Project is contained from the several packages.</p>
+
+<p>The most important package is the <a href="https://github.com/kris-nova/kubicorn/tree/master/cloud"><code class="highlighter-rouge">cloud</code></a> which contains Reconciler interface and Reconciler implementations for each cloud provider. Currently, we have implementations for three cloud providers: <a href="https://github.com/kris-nova/kubicorn/tree/master/cloud/amazon">Amazon</a>, <a href="https://github.com/kris-nova/kubicorn/tree/master/cloud/digitalocean">DigitalOcean</a>, <a href="https://github.com/kris-nova/kubicorn/tree/master/cloud/google">Google</a> and <a href="https://github.com/kris-nova/kubicorn/pull/327">Azure in-development</a>.</p>
+
+<p>The Cluster API is located in the <a href="https://github.com/kris-nova/kubicorn/tree/master/apis"><code class="highlighter-rouge">apis</code></a> package.</p>
+
+<p>The Bootstrap Scripts are located in the <a href="https://github.com/kris-nova/kubicorn/tree/master/bootstrap"><code class="highlighter-rouge">bootstrap</code></a> directory of the project. It also contains <a href="https://github.com/kris-nova/kubicorn/tree/master/bootstrap/vpn"><code class="highlighter-rouge">vpn</code></a> sub-directory with VPN implementations.</p>
+
+<p>Default profiles are located in the <a href="https://github.com/kris-nova/kubicorn/tree/master/profiles"><code class="highlighter-rouge">profiles</code></a> package. Currently, we have Ubuntu profiles available for Amazon, DigitalOcean and GCE, and CentOS profiles available for Amazon and DigitalOcean.</p>
+
+<p>State store definitions are located in the <a href="https://github.com/kris-nova/kubicorn/tree/master/state"><code class="highlighter-rouge">state</code></a> package.</p>
+
+<p>We have two type of tests — CI tests and E2E tests. CI tests are regular Go tests, while E2E tests are run against real cloud infrastucture and it can cost money. E2E tests are available in the <a href="https://github.com/kris-nova/kubicorn/tree/master/test"><code class="highlighter-rouge">test</code></a> package.</p>
+
+<p>The <a href="https://github.com/kris-nova/kubicorn/tree/master/cutil"><code class="highlighter-rouge">cutil</code></a> directory contains many useful, helper packages which are used to do various tasks, such as: <a href="https://github.com/kris-nova/kubicorn/tree/master/cutil/scp">copy the file from the VM</a>, <a href="https://github.com/kris-nova/kubicorn/tree/master/cutil/kubeadm">create <code class="highlighter-rouge">kubeadm</code> token</a>, <a href="https://github.com/kris-nova/kubicorn/tree/master/cutil/logger">logger implementation</a>…</p>
+
+<p>The <a href="https://github.com/kris-nova/kubicorn/tree/master/cmd"><code class="highlighter-rouge">cmd</code></a> package is the CLI implementation for <code class="highlighter-rouge">kubicorn</code>. We use <a href="https://github.com/spf13/cobra"><code class="highlighter-rouge">cobra</code></a> package to create the CLI.</p>
+
+<h2 id="reconciler">Reconciler</h2>
+
+<p>This part of the document will try to summarize what steps are being taken in the reconciling process and how it works.</p>
+
+<p>When you want to create a Kubernetes cluster, you’re providing <a href="https://github.com/kris-nova/kubicorn/tree/master/apis">Cluster API</a> representation of an cluster in form of the <a href="https://github.com/kris-nova/kubicorn/blob/master/profiles/README.md">Profile</a>.</p>
+
+<p>The first task of Reconciler is to convert universal, cloud-provider agnostic representation of an cluster to representation for specific cloud provider. This transition is called <strong>rendering</strong> and is defined in the <code class="highlighter-rouge">model.go</code> file, as well as in the <code class="highlighter-rouge">immutableRender</code> function of the cloud-specific Reconciler. For example, this is how <a href="https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/model.go"><code class="highlighter-rouge">model.go</code></a> and Droplet’s <a href="https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L305"><code class="highlighter-rouge">immutableRender</code></a> looks for DigitalOcean.</p>
+
+<p>Once cluster is rendered, we can easily obtain <strong>Expected state</strong> of the cluster using the <code class="highlighter-rouge">Expected</code> function, which represents what resources we are expecting in the cloud. This is how <a href="https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L92"><code class="highlighter-rouge">Expected</code> function</a> is defined for DigitalOcean Droplet’s.</p>
+
+<p>Next, Reconciler obtains the <strong>Actual state</strong> using the <code class="highlighter-rouge">Actual </code> function, which represents what resources we already have in the cloud. You can take a look at <a href="https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L55">the following function</a>, which is used to obtain Actual state of DigitalOcean Droplets.</p>
+
+<p>The most important task of Reconciler is <strong>applying</strong>, using the <code class="highlighter-rouge">Apply</code> function. Firstly, Reconciler is checking is cluster already existing, by comparing Actual and Expected states, and if yes, it’s stopping there returning already existing one. If it doesn’t exist, we are proceeding on the creation part, which is consisted of:</p>
+
+<ul>
+  <li><a href="https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L182-#L196">Building Bootstrap Scripts and injecting values at the runtime</a>,</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L203-#L227">Creating the appropriate resources for Master node</a>,</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L124-L188">Obtaining needed information for Node creation</a>,</li>
+  <li>Creating Nodes,</li>
+  <li>Downloading the <code class="highlighter-rouge">.kubeconfig</code> file for the cluster from the master node.</li>
+</ul>
+
+<p>At this point, we have fully functional Kubernetes cluster.</p>
+
+<p>Beside creating the cluster, Reconciler also takes care of destroying the cluster, which is done by the <code class="highlighter-rouge">Delete</code> function. <a href="https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L247">This is how it looks for DigitalOcean Droplet’s</a>.</p>
+
+<h2 id="where-should-i-start">Where should I start?</h2>
+
+<p>If you need more help understanding the reconciling process, take a look at the <a href="https://github.com/kris-nova/kubicorn/tree/master/examples">examples</a>. It should explain you which steps are taken to create a Kubernetes cluster.</p>
+
+<p>To be able to better understand how project works, you should read Reconciler part of this document and follow the links to see how code looks like.</p>
+
+<p>Once you get familiar with the process, find the issue you want to work on.</p>
+
+<p>Our <a href="https://github.com/kris-nova/kubicorn/issues">issue tracker</a> has every issue labeled, so you can easily filter and navigate through it.</p>
+
+<p>If you’re new to the project, we recommend taking a look at <a href="https://github.com/kris-nova/kubicorn/labels/Hacktoberfest">Hacktoberfest</a>-tagged issues. You can learn more about <a href="https://hacktoberfest.digitalocean.com/">Hacktoberfest on its official website</a>.</p>
+
+<p>Beside Hacktoberfest label, you can filter by the following labels:</p>
+
+<ul>
+  <li><a href="https://github.com/kris-nova/kubicorn/labels/Help%20%28small%29">Help (small)</a> – containing issues which shouldn’t require a lot of effort to be addressed.</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/labels/Help%20%28medium%29">Help (medium)</a> – issues that could require you medium amount of time to get it addressed.</li>
+  <li><a href="https://github.com/kris-nova/kubicorn/labels/Help%20%28large%29">Help (hard)</a> – issues that require a lot of effort to get addressed.</li>
+</ul>
+
+<p>We also label our issue per Cloud provider, operating system and type of the problem.</p>
+
+<h2 id="contributing-guidelines">Contributing guidelines</h2>
+
+<p>To get your Pull Request merged, you must follow the following <a href="https://github.com/kris-nova/kubicorn/blob/master/CONTRIBUTING.md">Contributing Guidelines</a>.</p>
+
+<p>We will try to summarize it in this document, but you should read the above linked one:</p>
+
+<ul>
+  <li>Your Go code must be formatted using the <code class="highlighter-rouge">go fmt</code> tool. This can be easily done using the <code class="highlighter-rouge">gofmt</code> make target.</li>
+  <li>Your Go files must contain license headers. You can check are headers correct with the <code class="highlighter-rouge">check-headers</code> make target, and you can append them to the files where they’re missing using the <code class="highlighter-rouge">update-headers</code> command.</li>
+  <li>You should write unit tests where this is possible.</li>
+  <li>Tests must pass.</li>
+</ul>
+
+<h2 id="why-we-are-doing-stuff-this-way">Why we are doing stuff this way?</h2>
+
+<p>In this document, we’ll not explain reasoning and decisions involved in this project. If you are interested in the details, you should take a look at the <a href="http://shop.oreilly.com/product/0636920075837.do">Cloud Native Infrastructure</a> book by Justin Garrison and Kris Nova.
+Also, if you have any question, feel free to create an issue or ask us on the <code class="highlighter-rouge">kubicorn</code> channel at the <a href="https://invite.slack.golangbridge.org/">Gophers Slack</a>.</p>
+
+
+        <div class="social-media mt-4 mb-5">
+            <h6 class="text-center">Share it:</h6>
+            <p class="text-center" style="font-size: 2rem;">
+                <a href="https://twitter.com/intent/tweet?text=Project Walkthrough&url=http://localhost:4000/documentation/project-walkthrough.html&via=kubicornk8s&related=kubicornk8s" rel="nofollow" target="_blank" title="Share on Twitter"><i aria-hidden="true" class="fa fa-twitter-square"></i></a>
+                <a href="https://facebook.com/sharer/sharer.php?u=http://localhost:4000/documentation/project-walkthrough.html" rel="nofollow" target="_blank" title="Share on Facebook"><i aria-hidden="true" class="fa fa-facebook-square"></i></a>
+                <a href="https://plus.google.com/share?url=http://localhost:4000/documentation/project-walkthrough.html" rel="nofollow" target="_blank" title="Share on Google+"><i aria-hidden="true" class="fa fa-google-plus-square"></i></a>
+                <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/documentation/project-walkthrough.html&title=Project Walkthrough" rel="nofollow" target="_blank" title="Share on LinkedIn"><i aria-hidden="true" class="fa fa-linkedin-square"></i></a>
+                <a href="http://www.reddit.com/submit?url=http://localhost:4000/documentation/project-walkthrough.html&title=Project Walkthrough" rel="nofollow" target="_blank" title="Share on Reddit"><i aria-hidden="true" class="fa fa-reddit-square"></i></a>
+            </p>
+        </div>
+
+        <!-- <div class="row author-section mb-5">
+            <div class="col-4 col-lg-2">
+                <img src="https://placebear.com/g/200/200" class="img-fluid" alt="Responsive image">
+            </div>
+            <div class="col align-self-center">
+                <a href="">
+                    <h6>Author J. Writer</h6>
+                </a>
+                <p><small>Dr. Writer is the bearer of many writings about bears, beers, and the second ammendment. As of late he's also been writing about kittins, the jerk.</small></p>
+
+            </div>
+        </div> -->
+
+    </div>
+</div>
+    
+
+      </div>
+    </main>
+
+    <!-- 
+ .d888                  888                    
+d88P"                   888                    
+888                     888                    
+888888 .d88b.   .d88b.  888888 .d88b.  888d888 
+888   d88""88b d88""88b 888   d8P  Y8b 888P"   
+888   888  888 888  888 888   88888888 888     
+888   Y88..88P Y88..88P Y88b. Y8b.     888     
+888    "Y88P"   "Y88P"   "Y888 "Y8888  888     
+-->
+<div class="row light-bg py-3 px-3 mb-0 social-media-footer">
+  <div class="col-md-4 text-center d-flex align-items-start justify-content-center">
+    <div>
+      <h3 class="mb-3 mt-3">Community</h3>
+      <p><a href="https://github.com/kris-nova/kubicorn/blob/master/CODE_OF_CONDUCT.md">Code of Conduct</a></p>
+      <p><a href="https://github.com/kris-nova/kubicorn/blob/master/CONTRIBUTING.md">Contributing Guidelines</a></p>
+      <p><a href="https://github.com/kris-nova/kubicorn/blob/master/AUTHORS">Authors</a></p>
+    </div>
+  </div>
+  <div class="col-md-4 text-center d-flex align-items-start justify-content-center">
+    <div>
+      <h3 class="mb-3 mt-3">Join us!</h3>
+      <a class=" px-1" href="https://twitter.com/kubicornk8s"><i aria-hidden="true" class="fa fa-twitter"></i></a>&nbsp;&nbsp;
+      <a class=" px-1" href="https://github.com/kris-nova/kubicorn/"><i aria-hidden="true" class="fa fa-github"></i></a>&nbsp;&nbsp;
+      <a class=" px-1" href="https://invite.slack.golangbridge.org/"><i aria-hidden="true" class="fa fa-slack"></i></a>&nbsp;&nbsp;
+      <!-- <a class=" px-1" href=""><i aria-hidden="true" class="fa fa-stack-overflow"></i></a>&nbsp;&nbsp;
+      <a class=" px-1" href=""><i aria-hidden="true" class="fa fa-envelope"></i></a>&nbsp;&nbsp;   -->
+    </div>
+  </div>
+  <div class="col-md-4 text-center d-flex align-items-start justify-content-center">
+    <div>
+      <h3 class="mb-3 mt-3"><code>kubicorn</code></h3>
+      <p class="small">© 2017 The Kubicorn Authors</p>
+    </div>
+  </div>
+</div>
+
+  <!-- 
+                          d8b          888             
+                          Y8P          888             
+                                       888             
+.d8888b   .d8888b 888d888 888 88888b.  888888 .d8888b  
+88K      d88P"    888P"   888 888 "88b 888    88K      
+"Y8888b. 888      888     888 888  888 888    "Y8888b. 
+     X88 Y88b.    888     888 888 d88P Y88b.       X88 
+ 88888P'  "Y8888P 888     888 88888P"   "Y888  88888P' 
+                              888                      
+                              888                      
+                              888                      
+-->
+</div>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+  crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+  crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+  crossorigin="anonymous"></script>
+  <script>
+      $('.nav-item').click(function(){
+        $('.navbar-collapse').collapse('hide');
+      });
+    </script>
+
+  </body>
+
+</html>

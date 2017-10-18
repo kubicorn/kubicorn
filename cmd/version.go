@@ -28,20 +28,23 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Verify Kubicorn version",
-	Long: `Use this command to check the version of Kubicorn.
+// VersionCmd represents the version command
+func VersionCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "version",
+		Short: "Verify Kubicorn version",
+		Long: `Use this command to check the version of Kubicorn.
+	
+	This command will return the version of the Kubicorn binary.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			err := RunVersion(vo)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
 
-This command will return the version of the Kubicorn binary.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		err := RunVersion(vo)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
-
-	},
+		},
+	}
 }
 
 // VersionOptions contains fields for version output
@@ -55,10 +58,6 @@ type VersionOptions struct {
 }
 
 var vo = &VersionOptions{}
-
-func init() {
-	RootCmd.AddCommand(versionCmd)
-}
 
 // RunVersion populates VersionOptions and prints to stdout
 func RunVersion(vo *VersionOptions) error {

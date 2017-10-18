@@ -19,7 +19,6 @@ import (
 	"os"
 
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	lol "github.com/kris-nova/lolgopher"
 	"github.com/spf13/cobra"
 )
 
@@ -66,7 +65,7 @@ var RootCmd = &cobra.Command{
 			cmd.SetOutput(logger.FabulousWriter)
 		}
 		if os.Getenv("KUBICORN_TRUECOLOR") != "" {
-			cmd.SetOutput(&lol.Writer{Output: os.Stdout, ColorMode: lol.ColorModeTrueColor})
+			cmd.SetOutput(logger.FabulousTrueWriter)
 		}
 		cmd.Help()
 	},
@@ -79,6 +78,7 @@ type Options struct {
 	Name           string
 	CloudId        string
 	Set            string
+	AwsProfile     string
 }
 
 func Execute() {
@@ -94,12 +94,24 @@ func init() {
 	RootCmd.PersistentFlags().BoolVarP(&logger.Color, "color", "C", true, "Toggle colorized logs")
 	RootCmd.PersistentFlags().BoolVarP(&logger.Fabulous, "fab", "f", false, "Toggle colorized logs")
 
-	// register env vars
-	registerEnvironmentalVariables()
+	// add commands
+	addCommands()
 }
 
-func registerEnvironmentalVariables() {
+func addCommands() {
+	RootCmd.AddCommand(AdoptCmd())
+	RootCmd.AddCommand(ApplyCmd())
+	RootCmd.AddCommand(CompletionCmd())
+	RootCmd.AddCommand(CreateCmd())
+	RootCmd.AddCommand(DeleteCmd())
+	RootCmd.AddCommand(EditCmd())
+	RootCmd.AddCommand(GetConfigCmd())
+	RootCmd.AddCommand(ImageCmd())
+	RootCmd.AddCommand(ListCmd())
+	RootCmd.AddCommand(VersionCmd())
 
+	// Add Prompt at the end to initialize all the other commands first.
+	RootCmd.AddCommand(PromptCmd())
 }
 
 func flagApplyAnnotations(cmd *cobra.Command, flag, completion string) {

@@ -15,7 +15,6 @@
 package cmd
 
 import (
-	//"github.com/spf13/pflag"
 	"fmt"
 	"math"
 	"os"
@@ -28,6 +27,7 @@ import (
 	"github.com/kris-nova/kubicorn/profiles"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
 	"github.com/yuroyoro/swalker"
 )
@@ -39,34 +39,35 @@ type CreateOptions struct {
 
 var co = &CreateOptions{}
 
-var createCmd = &cobra.Command{
-	Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
-	Short: "Create a Kubicorn API model from a profile",
-	Long: `Use this command to create a Kubicorn API model in a defined state store.
+// CreateCmd represents create command
+func CreateCmd() *cobra.Command {
+	var createCmd = &cobra.Command{
+		Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
+		Short: "Create a Kubicorn API model from a profile",
+		Long: `Use this command to create a Kubicorn API model in a defined state store.
+	
+	This command will create a cluster API model as a YAML manifest in a state store.
+	Once the API model has been created, a user can optionally change the model to their liking.
+	After a model is defined and configured properly, the user can then apply the model.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				co.Name = strEnvDef("KUBICORN_NAME", namer.RandomName())
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				co.Name = args[0]
+			}
 
-This command will create a cluster API model as a YAML manifest in a state store.
-Once the API model has been created, a user can optionally change the model to their liking.
-After a model is defined and configured properly, the user can then apply the model.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			co.Name = strEnvDef("KUBICORN_NAME", namer.RandomName())
-		} else if len(args) > 1 {
-			logger.Critical("Too many arguments.")
-			os.Exit(1)
-		} else {
-			co.Name = args[0]
-		}
+			err := RunCreate(co)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
 
-		err := RunCreate(co)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
+		},
+	}
 
-	},
-}
-
-func init() {
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
@@ -76,9 +77,14 @@ func init() {
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
 
+	return createCmd
+}
+
+// TODO(xmudrii): revisit this part
+/*func init() {
 	RootCmd.SetUsageTemplate(usageTemplate)
 	RootCmd.AddCommand(createCmd)
-}
+}*/
 
 type profileFunc func(name string) *cluster.Cluster
 
@@ -150,7 +156,10 @@ func RunCreate(options *CreateOptions) error {
 		sets := strings.Split(options.Set, ",")
 		for _, set := range sets {
 			parts := strings.SplitN(set, "=", 2)
-			err := swalker.Write(parts[0], newCluster, parts[1])
+			if len(parts) == 1 {
+				continue
+			}
+			err := swalker.Write(strings.Title(parts[0]), newCluster, parts[1])
 			if err != nil {
 				println(err)
 			}
@@ -158,7 +167,7 @@ func RunCreate(options *CreateOptions) error {
 	}
 
 	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
-		return fmt.Errorf("CloudID is required for google cloud.")
+		return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
 	}
 	newCluster.CloudId = options.CloudId
 
@@ -172,6 +181,12 @@ func RunCreate(options *CreateOptions) error {
 	case "fs":
 		logger.Info("Selected [fs] state store")
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
+	case "jsonfs":
+		logger.Info("Selected [jsonfs] state store")
+		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
 		})

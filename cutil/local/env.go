@@ -23,6 +23,10 @@ import (
 )
 
 func Home() string {
+	if os.Getenv("KUBICORN_TEST_HOME_DIRECTORY") != "" {
+		return os.Getenv("KUBICORN_TEST_HOME_DIRECTORY")
+	}
+
 	home := os.Getenv("HOME")
 	if strings.Contains(home, "root") {
 		return "/root"

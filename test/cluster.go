@@ -26,20 +26,16 @@ func Create(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	reconciler, err := cutil.GetReconciler(testCluster)
+	reconciler, err := cutil.GetReconciler(testCluster, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	err = reconciler.Init()
+	expected, err := reconciler.Expected(testCluster)
 	if err != nil {
 		return nil, err
 	}
-	expected, err := reconciler.GetExpected()
-	if err != nil {
-		return nil, err
-	}
-	actual, err := reconciler.GetActual()
+	actual, err := reconciler.Actual(testCluster)
 	if err != nil {
 		return nil, err
 	}
@@ -52,15 +48,12 @@ func Create(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 
 // Read will read a test cluster
 func Read(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
-	reconciler, err := cutil.GetReconciler(testCluster)
+	reconciler, err := cutil.GetReconciler(testCluster, nil)
 	if err != nil {
 		return nil, err
 	}
-	err = reconciler.Init()
-	if err != nil {
-		return nil, err
-	}
-	actual, err := reconciler.GetActual()
+
+	actual, err := reconciler.Actual(testCluster)
 	if err != nil {
 		return nil, err
 	}
@@ -73,20 +66,16 @@ func Update(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	reconciler, err := cutil.GetReconciler(testCluster)
+	reconciler, err := cutil.GetReconciler(testCluster, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	err = reconciler.Init()
+	expected, err := reconciler.Expected(testCluster)
 	if err != nil {
 		return nil, err
 	}
-	expected, err := reconciler.GetExpected()
-	if err != nil {
-		return nil, err
-	}
-	actual, err := reconciler.GetActual()
+	actual, err := reconciler.Actual(testCluster)
 	if err != nil {
 		return nil, err
 	}
@@ -99,14 +88,11 @@ func Update(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 
 // Delete will delete a test cluster
 func Delete(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
-	reconciler, err := cutil.GetReconciler(testCluster)
+	reconciler, err := cutil.GetReconciler(testCluster, nil)
 	if err != nil {
 		return nil, err
 	}
-	err = reconciler.Init()
-	if err != nil {
-		return nil, err
-	}
+
 	destroyCluster, err := reconciler.Destroy()
 	if err != nil {
 		return nil, err

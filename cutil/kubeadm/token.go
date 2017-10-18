@@ -16,16 +16,12 @@ package kubeadm
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
+
+	"github.com/kris-nova/kubicorn/cutil/rand"
 )
 
 func GetRandomToken() string {
 	return fmt.Sprintf("%s.%s", RandStringRunes(6), RandStringRunes(16))
-}
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
 }
 
 // Hexadecimal
@@ -34,7 +30,7 @@ var letterRunes = []rune("0123456789abcdef")
 func RandStringRunes(n int) string {
 	b := make([]rune, n)
 	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+		b[i] = letterRunes[rand.GenerateRandomInt(0, len(letterRunes))]
 	}
 	return string(b)
 }

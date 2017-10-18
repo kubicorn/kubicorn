@@ -16,21 +16,19 @@ package uuid
 
 import (
 	"fmt"
-	"math/rand"
 	"time"
+
+	"github.com/kris-nova/kubicorn/cutil/rand"
 )
 
 // Generates a time ordered UUID. Top 32b are timestamp bottom 96b are random.
 func TimeOrderedUUID() string {
 	unixTime := uint32(time.Now().UTC().Unix())
-	randomPart1 := rand.Uint32()
-	randomPart2 := rand.Uint32()
-	randomPart3 := rand.Uint32()
 	return fmt.Sprintf("%08x-%04x-%04x-%04x-%04x%08x",
 		unixTime,
-		uint16(randomPart1>>16),
-		uint16(randomPart1&0xffff),
-		uint16(randomPart2>>16),
-		uint16(randomPart2&0xffff),
-		randomPart3)
+		rand.MustGenerateRandomBytes(2),
+		rand.MustGenerateRandomBytes(2),
+		rand.MustGenerateRandomBytes(2),
+		rand.MustGenerateRandomBytes(2),
+		rand.MustGenerateRandomBytes(4))
 }

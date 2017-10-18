@@ -26,7 +26,9 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
+	"github.com/yuroyoro/swalker"
 )
 
 type ApplyOptions struct {
@@ -35,38 +37,40 @@ type ApplyOptions struct {
 
 var ao = &ApplyOptions{}
 
-// applyCmd represents the apply command
-var applyCmd = &cobra.Command{
-	Use:   "apply <NAME>",
-	Short: "Apply a cluster resource to a cloud",
-	Long: `Use this command to apply an API model in a cloud.
+// ApplyCmd represents the apply command
+func ApplyCmd() *cobra.Command {
+	var applyCmd = &cobra.Command{
+		Use:   "apply <NAME>",
+		Short: "Apply a cluster resource to a cloud",
+		Long: `Use this command to apply an API model in a cloud.
+	
+	This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
+	The apply will run once, and ultimately time out if something goes wrong.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				ao.Name = strEnvDef("KUBICORN_NAME", "")
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				ao.Name = args[0]
+			}
 
-This command will attempt to find an API model in a defined state store, and then apply any changes needed directly to a cloud.
-The apply will run once, and ultimately time out if something goes wrong.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			ao.Name = strEnvDef("KUBICORN_NAME", "")
-		} else if len(args) > 1 {
-			logger.Critical("Too many arguments.")
-			os.Exit(1)
-		} else {
-			ao.Name = args[0]
-		}
+			err := RunApply(ao)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
 
-		err := RunApply(ao)
-		if err != nil {
-			logger.Critical(err.Error())
-			os.Exit(1)
-		}
+		},
+	}
 
-	},
-}
-
-func init() {
 	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	applyCmd.Flags().StringVarP(&ao.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
-	RootCmd.AddCommand(applyCmd)
+	applyCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
+
+	return applyCmd
 }
 
 func RunApply(options *ApplyOptions) error {
@@ -89,6 +93,12 @@ func RunApply(options *ApplyOptions) error {
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
 		})
+	case "jsonfs":
+		logger.Info("Selected [jsonfs] state store")
+		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
 	}
 
 	cluster, err := stateStore.GetCluster()
@@ -97,12 +107,32 @@ func RunApply(options *ApplyOptions) error {
 	}
 	logger.Info("Loaded cluster: %s", cluster.Name)
 
+	if options.Set != "" {
+		sets := strings.Split(options.Set, ",")
+		for _, set := range sets {
+			parts := strings.SplitN(set, "=", 2)
+			if len(parts) == 1 {
+				continue
+			}
+			err := swalker.Write(strings.Title(parts[0]), cluster, parts[1])
+			if err != nil {
+				logger.Critical("Error expanding set flag: %#v", err)
+			}
+		}
+	}
+
 	cluster, err = initapi.InitCluster(cluster)
 	if err != nil {
 		return err
 	}
 
-	reconciler, err := cutil.GetReconciler(cluster)
+	runtimeParams := &cutil.RuntimeParameters{}
+
+	if len(ao.AwsProfile) > 0 {
+		runtimeParams.AwsProfile = ao.AwsProfile
+	}
+
+	reconciler, err := cutil.GetReconciler(cluster, runtimeParams)
 	if err != nil {
 		return fmt.Errorf("Unable to get reconciler: %v", err)
 	}

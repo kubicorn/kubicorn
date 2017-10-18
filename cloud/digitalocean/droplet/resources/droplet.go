@@ -24,7 +24,6 @@ import (
 	"github.com/digitalocean/godo"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
@@ -120,11 +119,6 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		return immutable, applyResource, nil
 	}
 
-	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
-	if err != nil {
-		return nil, nil, err
-	}
-
 	//masterIpPrivate := ""
 	masterIPPublic := ""
 	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
@@ -157,7 +151,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 			droplet := droplets[0]
 			//masterIpPrivate, err = droplet.PrivateIPv4()
 			//if err != nil {
-			//	return nil, fmt.Errorf("Unable to detect private IP: %v", err)
+			//	return nil, nil, fmt.Errorf("Unable to detect private IP: %v", err)
 			//}
 			masterIPPublic, err = droplet.PublicIPv4()
 			if err != nil {
@@ -195,7 +189,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 	}
 
 	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
-	userData, err = bootstrap.Inject(userData, immutable.Values.ItemMap)
+
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
 	if err != nil {
 		return nil, nil, err
 	}

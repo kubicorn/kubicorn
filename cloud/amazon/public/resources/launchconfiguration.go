@@ -25,7 +25,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
@@ -82,8 +81,8 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 	} else {
 		newResource.Image = r.ServerPool.Image
 		newResource.InstanceType = r.ServerPool.Size
-		if r.ServerPool.Type == cluster.ServerPoolTypeNode {
-			newResource.SpotPrice = r.ServerPool.SpotPrice
+		if r.ServerPool.Type == cluster.ServerPoolTypeNode && r.ServerPool.AwsConfiguration != nil {
+			newResource.SpotPrice = r.ServerPool.AwsConfiguration.SpotPrice
 		}
 	}
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
@@ -107,8 +106,8 @@ func (r *Lc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 		Image:            r.ServerPool.Image,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
-	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
-		newResource.SpotPrice = r.ServerPool.SpotPrice
+	if r.ServerPool.Type == cluster.ServerPoolTypeNode && r.ServerPool.AwsConfiguration != nil {
+		newResource.SpotPrice = r.ServerPool.AwsConfiguration.SpotPrice
 	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -191,17 +190,14 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		}
 	}
 
+	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
+
 	newResource := &Lc{}
-	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts)
+	userData, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
-	userData, err = bootstrap.Inject(userData, immutable.Values.ItemMap)
-	if err != nil {
-		return nil, nil, err
-	}
 	b64data := base64.StdEncoding.EncodeToString(userData)
 	lcInput := &autoscaling.CreateLaunchConfigurationInput{
 		AssociatePublicIpAddress: B(true),

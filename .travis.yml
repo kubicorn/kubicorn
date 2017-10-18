@@ -1,7 +1,12 @@
 language: go
 
 go:
-  - 1.8.3
+  - 1.x
+
+service:
+  - docker
+
+sudo: required
 
 jobs:
   include:
@@ -13,3 +18,6 @@ jobs:
       script: make compile
     - stage: CI
       script: make ci
+      before_install:
+        - docker build -t eg_sshd test
+        - docker run --rm -p 6666:22 -d --name test_sshd eg_sshd
