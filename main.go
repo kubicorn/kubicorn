@@ -19,9 +19,5 @@ import (
 )
 
 func main() {
-	/*x := agent.NewAgent()
-	fmt.Println(x.CheckKey("/home/marko/.ssh/server_xmudrii_rsa.pub"))
-	x, _ = x.AddKey("/home/marko/.ssh/server_xmudrii_rsa.pub")
-	fmt.Println(x.CheckKey("/home/marko/.ssh/server_xmudrii_rsa.pub"))*/
 	cmd.Execute()
 }
