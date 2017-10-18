@@ -101,17 +101,8 @@ func (h *Handler) Register() {
 					os.Exit(3)
 					break
 				}
-<<<<<<< HEAD
 			case <-h.timer.C:
 				os.Exit(4)
-=======
-			case <-time.After(time.Duration(h.timeoutSeconds) * time.Second):
-				if h.exitOnTimeout {
-					logger.Critical("Timeout of [%d] seconds has elapsed. Force closing kubicorn!", h.timeoutSeconds)
-					os.Exit(4)
-				}
-				logger.Debug("..")
->>>>>>> Working on load balancers
 				break
 			}
 		}
