@@ -33,6 +33,21 @@ type Keyring struct {
 	Agent sshagent.Agent
 }
 
+var retriveSSHKeyPassword = func() ([]byte, error) {
+	if !terminal.IsTerminal(int(os.Stdout.Fd())) {
+		return nil, fmt.Errorf("cannot detect terminal")
+	}
+
+	fmt.Print("SSH Key Passphrase [none]: ")
+	passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("")
+	return passPhrase, nil
+}
+
 func NewAgent() *Keyring {
 	if sysAgent := systemAgent(); sysAgent != nil {
 		return &Keyring{
@@ -112,12 +127,7 @@ func privateKey(pemBytes []byte) (interface{}, error) {
 	priv, err := ssh.ParseRawPrivateKey(pemBytes)
 	if err != nil {
 		logger.Warning(err.Error())
-		fmt.Print("SSH Key Passphrase [none]: ")
-		fmt.Println("")
-		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
-		if err != nil {
-			return nil, err
-		}
+		passPhrase, err := retriveSSHKeyPassword()
 		privwithpassphrase, err := ssh.ParseRawPrivateKeyWithPassphrase(pemBytes, passPhrase)
 		if err != nil {
 			return nil, err
