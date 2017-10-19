@@ -20,19 +20,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// adoptCmd represents the adopt command
-var adoptCmd = &cobra.Command{
-	Use:   "adopt",
-	Short: "Adopt a Kubernetes cluster into a Kubicorn state store",
-	Long: `Use this command to audit and adopt a Kubernetes cluster into a Kubicorn state store.
-
-This command will query cloud resources and attempt to build a representation of the cluster in the Kubicorn API model.
-Once the cluster has been adopted, a user can manage and scale their Kubernetes cluster with Kubicorn.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("adopt called")
-	},
-}
-
-func init() {
-	RootCmd.AddCommand(adoptCmd)
+// AdoptCmd represents the adopt command
+func AdoptCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "adopt",
+		Short: "Adopt a Kubernetes cluster into a Kubicorn state store",
+		Long: `Use this command to audit and adopt a Kubernetes cluster into a Kubicorn state store.
+	
+	This command will query cloud resources and attempt to build a representation of the cluster in the Kubicorn API model.
+	Once the cluster has been adopted, a user can manage and scale their Kubernetes cluster with Kubicorn.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("adopt called")
+		},
+	}
 }

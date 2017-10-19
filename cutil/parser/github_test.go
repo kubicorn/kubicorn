@@ -11,27 +11,22 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-package cmd
+package fileresource
 
 import (
-	"fmt"
-
-	"github.com/spf13/cobra"
+	"testing"
 )
 
-// ImageCmd represents the image command
-func ImageCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "image",
-		Short: "Take an image of a Kubernetes cluster",
-		Long: `Use this command to image a Kubernetes cluster.
-	
-	This command will take an idempotent image of a Kubernetes cluster called a snapshot.
-	The snapshot can be used to create a copy of your Kubernetes cluster.`,
-		Run: func(cmd *cobra.Command, args []string) {
-			// TODO: Work your own magic here
-			fmt.Println("image called")
-		},
+func TestGithubUrl(t *testing.T) {
+
+	testData := map[string]string{
+		"bootstrap/myscript.sh": "https://raw.githubusercontent.com/kris-nova/kubicorn/master/bootstrap/myscript.sh",
+	}
+
+	for input, expectedOutput := range testData {
+		actualOutput := getGitHubUrl(input)
+		if expectedOutput != actualOutput {
+			t.Errorf("Invalid GitHub URL actual [%s] expected [%s]", actualOutput, expectedOutput)
+		}
 	}
 }

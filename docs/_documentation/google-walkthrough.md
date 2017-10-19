@@ -22,13 +22,11 @@ In the following we'll be using an existing profile called `do`, which is a prof
 
 #### Creating
 
-You will need to create a project in you google cloud account.
-This project will get a projectid, something like `kubicorn-132742`.
-When using Google Cloud Compute Engine the `kubicorn` name, the `cloudid` argument, and the project ID need to be the same value.
-Now execute the following command:
+You will need to create a project in you google cloud account. This project will get a projectid, something like kubicorn-132742.
+Now execute the following command to create a cluster with name `myfirstk8s`:
 
 ```
-$ kubicorn create --name kubicorn-132742 --profile google --cloudid kubicorn-132742
+$ kubicorn create myfirstk8s --cloudid kubicorn-132742 --profile google
 ```
 
 Verify that `kubicorn create` did a good job by executing:
@@ -68,7 +66,7 @@ This actually creates resources in Google. Up to now we've only been working loc
 So, execute:
 
 ```
-$ kubicorn apply --name kubicorn-132742
+$ kubicorn apply myfirstk8s
 ```
 
 Now `kubicorn` will reconcile your intended state against the actual state in the cloud, thus creating a Kubernetes cluster.
@@ -81,7 +79,7 @@ You can also `ssh` into your instances using the example command found in the ou
 To delete your cluster run:
 
 ```
-$ kubicorn delete --name kubicorn-132742
+$ kubicorn delete myfirstk8s
 ```
 
 Congratulations, you're an official `kubicorn` user now and might want to dive deeper,

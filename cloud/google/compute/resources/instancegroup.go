@@ -21,7 +21,6 @@ import (
 	"strings"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
@@ -131,11 +130,6 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		return immutable, applyResource, nil
 	}
 
-	scripts, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
-	if err != nil {
-		return nil, nil, err
-	}
-
 	masterIPPrivate := ""
 	masterIPPublic := ""
 	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
@@ -195,7 +189,12 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 	}
 
 	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
-	scripts, err = bootstrap.Inject(scripts, immutable.Values.ItemMap)
+
+	scripts, err := script.BuildBootstrapScript(r.ServerPool.BootstrapScripts, immutable)
+	if err != nil {
+		return nil, nil, err
+	}
+
 	finalScripts := string(scripts)
 	if err != nil {
 		return nil, nil, err

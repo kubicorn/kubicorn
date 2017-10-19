@@ -15,28 +15,36 @@
 package script
 
 import (
-	"fmt"
-
 	"encoding/json"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/bootstrap"
 	"github.com/kris-nova/kubicorn/cutil/parser"
 )
 
-const bootstrapInitScript = "bootstrap_init.sh"
-const kubicornDir = "/etc/kubicorn"
-const clusterAsJSONFileName = "cluster.json"
+const (
+	kubicornDir             = "/etc/kubicorn"
+	bootstrapInitScript     = "bootstrap_init.sh"
+	clusterAsJSONFileName   = "cluster.json"
+	bootstrapInitScriptBase = `#!/usr/bin/env bash
+
+#----------------------------------------------------------
+# Used only to set shebang and other environmenty things
+# and is added to the beginning of other bootstrap scripts,
+# including the generated "write the cluster as json" one
+# to create a single user-data script for cloud providers
+#----------------------------------------------------------
+set -e
+cd ~
+`
+)
 
 func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) ([]byte, error) {
 	userData := []byte{}
-	if cluster.Cloud == "amazon" || cluster.Cloud == "digitalocean" {
-		scriptData, err := buildBootstrapSetupScript(cluster, kubicornDir, clusterAsJSONFileName)
-		if err != nil {
-			return nil, err
-		}
-		userData = append(userData, scriptData...)
+	scriptData, err := buildBootstrapSetupScript(cluster, kubicornDir, clusterAsJSONFileName)
+	if err != nil {
+		return nil, err
 	}
+	userData = append(userData, scriptData...)
 
 	for _, bootstrapScript := range bootstrapScripts {
 		scriptData, err := fileresource.ReadFromResource(bootstrapScript)
@@ -50,10 +58,8 @@ func BuildBootstrapScript(bootstrapScripts []string, cluster *cluster.Cluster) (
 }
 
 func buildBootstrapSetupScript(cluster *cluster.Cluster, dir, file string) ([]byte, error) {
-	userData, err := bootstrap.Asset(fmt.Sprintf("bootstrap/%s", bootstrapInitScript))
-	if err != nil {
-		return nil, err
-	}
+	userData := []byte(bootstrapInitScriptBase)
+
 	script := []byte("mkdir -p " + dir + "\ncat <<\"EOF\" > " + dir + "/" + file + "\n")
 
 	clusterJSON, err := json.Marshal(cluster)
