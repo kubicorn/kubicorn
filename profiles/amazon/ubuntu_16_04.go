@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package profiles
+package amazon
 
 import (
 	"fmt"
@@ -22,8 +22,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/uuid"
 )
 
-// NewUbuntuAmazonCluster creates a simple Ubuntu Amazon cluster
-func NewUbuntuAmazonCluster(name string) *cluster.Cluster {
+// NewUbuntuCluster creates a simple Ubuntu Amazon cluster
+func NewUbuntuCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudAmazon,

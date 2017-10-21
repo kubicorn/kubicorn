@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package profiles
+package amazon
 
 import (
 	"fmt"
@@ -22,7 +22,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/uuid"
 )
 
-func NewCentosAmazonCluster(name string) *cluster.Cluster {
+// NewCentosCluster creates a simple CentOS Amazon cluster
+func NewCentosCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudAmazon,
