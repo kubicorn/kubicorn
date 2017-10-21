@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package profiles
+package azure
 
 import (
 	"fmt"
@@ -21,8 +21,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
-// NewUbuntuAzureCluster creates a basic Digitalocean cluster profile, to bootstrap Kubernetes.
-func NewUbuntuAzureCluster(name string) *cluster.Cluster {
+// NewUbuntuCluster creates a basic Azure cluster profile, to bootstrap Kubernetes.
+func NewUbuntuCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudAzure,
