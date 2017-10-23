@@ -103,6 +103,7 @@ Take a snap, save a snap, deploy a snap.
 | **Azure Walkthrough**                 | A walkthrough guide on installing Kubernetes on Azure    | [walkthrough](docs/docs_old/azure/walkthrough.md)      
 | **AWS Walkthrough**                   | A walkthrough guide on installing Kubernetes on AWS     | [walkthrough](docs/docs_old/aws/walkthrough.md)                                          |
 | **DigitalOcean Walkthrough**          | A walkthrough guide on installing Kubernetes on D.O.    | [walkthrough](docs/docs_old/do/walkthrough.md)                                           |
+| **DigitalOcean Quickstart**          | A quickstart asciicast on installing Kubernetes on D.O.    | [asciinema](https://asciinema.org/a/7JKtK7RSNSjznOYpX1rOprRRq)                                           |
 | **Google Compute Engine Walkthrough** | A walkthrough guide on installing Kubernetes on GCE     | [walkthrough](docs/docs_old/google/walkthrough.md)                                       |
 | **AWS Video**                         | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)         |
 | **DigitalOcean Video**                | A step by step video of using Kubicorn in DigitalOcean      | [video](https://youtu.be/XpxgSZ3dspE)         |
