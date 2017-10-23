@@ -15,6 +15,7 @@
 package state
 
 const (
-	ClusterJSONFile = "cluster.json"
-	ClusterYamlFile = "cluster.yaml"
+	ClusterJSONFile  = "cluster.json"
+	ClusterYamlFile  = "cluster.yaml"
+	ClusterCacheFile = "~/.kubicorn"
 )

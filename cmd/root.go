@@ -73,12 +73,13 @@ var RootCmd = &cobra.Command{
 }
 
 type Options struct {
-	StateStore     string
-	StateStorePath string
-	Name           string
-	CloudId        string
-	Set            string
-	AwsProfile     string
+	StateStore           string
+	StateStorePath       string
+	CachedStateStorePath string
+	Name                 string
+	CloudId              string
+	Set                  string
+	AwsProfile           string
 }
 
 func Execute() {

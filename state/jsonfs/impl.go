@@ -31,6 +31,7 @@ import (
 
 type JSONFileSystemStoreOptions struct {
 	BasePath    string
+	CachePath   string
 	ClusterName string
 }
 
@@ -42,6 +43,7 @@ type JSONFileSystemStore struct {
 	options      *JSONFileSystemStoreOptions
 	ClusterName  string
 	BasePath     string
+	CachePath    string
 	AbsolutePath string
 }
 
@@ -50,6 +52,7 @@ func NewJSONFileSystemStore(o *JSONFileSystemStoreOptions) *JSONFileSystemStore 
 		options:      o,
 		ClusterName:  o.ClusterName,
 		BasePath:     o.BasePath,
+		CachePath:    o.CachePath,
 		AbsolutePath: filepath.Join(o.BasePath, o.ClusterName),
 	}
 }
@@ -90,6 +93,10 @@ func (fs *JSONFileSystemStore) Read(relativePath string) ([]byte, error) {
 
 func (fs *JSONFileSystemStore) ReadStore() ([]byte, error) {
 	return fs.Read(state.ClusterJSONFile)
+}
+
+func (fs *JSONFileSystemStore) ReadCachedStore() ([]byte, error) {
+	return fs.Read(state.ClusterCacheFile)
 }
 
 func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
