@@ -58,9 +58,9 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				},
 				Subnets: []*cluster.Subnet{
 					{
-						Name:     fmt.Sprintf("%s.master", name),
-						CIDR:     "10.0.0.0/24",
-						Location: "us-west-2a",
+						Name: fmt.Sprintf("%s.master", name),
+						CIDR: "10.0.0.0/24",
+						Zone: "us-west-2a",
 					},
 				},
 
@@ -102,9 +102,9 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				},
 				Subnets: []*cluster.Subnet{
 					{
-						Name:     fmt.Sprintf("%s.node", name),
-						CIDR:     "10.0.100.0/24",
-						Location: "us-west-2b",
+						Name: fmt.Sprintf("%s.node", name),
+						CIDR: "10.0.100.0/24",
+						Zone: "us-west-2b",
 					},
 				},
 				Firewalls: []*cluster.Firewall{
