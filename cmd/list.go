@@ -51,7 +51,6 @@ func ListCmd() *cobra.Command {
 	}
 
 	cmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	cmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "git"), "The state store type for git to use in a cluster")
 	cmd.Flags().StringVarP(&lo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	cmd.Flags().BoolVarP(&noHeaders, "no-headers", "n", false, "Show the list containing names only")
 
