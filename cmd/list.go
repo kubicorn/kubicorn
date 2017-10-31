@@ -75,7 +75,7 @@ func RunList(options *ListOptions) error {
 			logger.Info("Selected [git] state store")
 		}
 		stateStore = git.NewGitStore(&git.GitStoreOptions{
-			ClusterName: name,
+			BasePath: options.StateStorePath,
 		})
 	case "jsonfs":
 		if !noHeaders {

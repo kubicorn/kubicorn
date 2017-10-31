@@ -97,6 +97,7 @@ func RunApply(options *ApplyOptions) error {
 	case "git":
 		logger.Info("Selected [git] state store")
 		stateStore = git.NewGitStore(&git.GitStoreOptions{
+			BasePath:    options.StateStorePath,
 			ClusterName: name,
 		})
 	case "jsonfs":
