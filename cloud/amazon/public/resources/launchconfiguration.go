@@ -39,7 +39,6 @@ type Lc struct {
 	InstanceType     string
 	Image            string
 	SpotPrice        string
-	InstanceProfile  string
 	ServerPool       *cluster.ServerPool
 	BootstrapScripts []string
 }
@@ -75,9 +74,6 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 			newResource.SpotPrice = *lc.SpotPrice
 		}
 		newResource.Identifier = *lc.LaunchConfigurationName
-		if lc.IamInstanceProfile != nil {
-			newResource.InstanceProfile = *lc.IamInstanceProfile
-		}
 		newResource.Tags = map[string]string{
 			"Name":              r.Name,
 			"KubernetesCluster": immutable.Name,
@@ -85,7 +81,7 @@ func (r *Lc) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resourc
 	} else {
 		newResource.Image = r.ServerPool.Image
 		newResource.InstanceType = r.ServerPool.Size
-		if r.ServerPool.Type == cluster.ServerPoolTypeNode {
+		if r.ServerPool.Type == cluster.ServerPoolTypeNode && r.ServerPool.AwsConfiguration != nil {
 			newResource.SpotPrice = r.ServerPool.AwsConfiguration.SpotPrice
 		}
 	}
@@ -110,10 +106,7 @@ func (r *Lc) Expected(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Resou
 		Image:            r.ServerPool.Image,
 		BootstrapScripts: r.ServerPool.BootstrapScripts,
 	}
-	if r.ServerPool.InstanceProfile != nil {
-		newResource.InstanceProfile = r.ServerPool.InstanceProfile.Name
-	}
-	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
+	if r.ServerPool.Type == cluster.ServerPoolTypeNode && r.ServerPool.AwsConfiguration != nil {
 		newResource.SpotPrice = r.ServerPool.AwsConfiguration.SpotPrice
 	}
 	newCluster := r.immutableRender(newResource, immutable)
@@ -130,8 +123,6 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	if isEqual {
 		return immutable, applyResource, nil
 	}
-	logger.Debug("Actual: %#v", actual)
-	logger.Debug("Expectd: %#v", expected)
 	var sgs []*string
 	found := false
 	for _, serverPool := range immutable.ServerPools {
@@ -217,39 +208,26 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		SecurityGroups:           sgs,
 		UserData:                 &b64data,
 	}
-	if expected.(*Lc).InstanceProfile != "" {
-		lcInput.IamInstanceProfile = &expected.(*Lc).InstanceProfile
-	}
+
 	spotPrice, err := strconv.ParseFloat(*&expected.(*Lc).SpotPrice, 64)
 	if *&expected.(*Lc).InstanceType != cluster.ServerPoolTypeMaster && err == nil && spotPrice > 0 {
 		lcInput.SpotPrice = &expected.(*Lc).SpotPrice
 	}
-	//Make it repeatable due to InstanceProfile
-	for i := 0; i < 10; i++ {
-		_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
-		if err != nil {
-			if awserr, ok := err.(awserr.Error); ok {
-				switch awserr.Code() {
-				case autoscaling.ErrCodeAlreadyExistsFault:
-					logger.Debug(autoscaling.ErrCodeAlreadyExistsFault, awserr.Error())
-				case autoscaling.ErrCodeLimitExceededFault:
-					logger.Debug(autoscaling.ErrCodeLimitExceededFault, awserr.Error())
-				case autoscaling.ErrCodeResourceContentionFault:
-					logger.Debug(autoscaling.ErrCodeResourceContentionFault, awserr.Error())
-				default:
-					logger.Debug(awserr.Error())
-				}
-			} else {
-				logger.Debug(err.Error())
+	_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
+	if err != nil {
+		if awserr, ok := err.(awserr.Error); ok {
+			switch awserr.Code() {
+			case autoscaling.ErrCodeAlreadyExistsFault:
+				logger.Debug(autoscaling.ErrCodeAlreadyExistsFault, awserr.Error())
+			case autoscaling.ErrCodeLimitExceededFault:
+				logger.Debug(autoscaling.ErrCodeLimitExceededFault, awserr.Error())
+			case autoscaling.ErrCodeResourceContentionFault:
+				logger.Debug(autoscaling.ErrCodeResourceContentionFault, awserr.Error())
+			default:
+				logger.Debug(awserr.Error())
 			}
-			if strings.Contains(err.Error(), "Invalid IamInstanceProfile") {
-				logger.Debug("InstanceProfile missing waiting...")
-				time.Sleep(time.Duration(i) * time.Second)
-				continue
-			}
-
 		} else {
-			break
+			logger.Debug(err.Error())
 		}
 		return nil, nil, err
 	}
@@ -259,7 +237,6 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	newResource.Name = expected.(*Lc).Name
 	newResource.Identifier = expected.(*Lc).Name
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
-	newResource.InstanceProfile = expected.(*Lc).InstanceProfile
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
@@ -290,7 +267,6 @@ func (r *Lc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster
 	newResource.Image = actual.(*Lc).Image
 	newResource.InstanceType = actual.(*Lc).InstanceType
 	newResource.BootstrapScripts = actual.(*Lc).BootstrapScripts
-	newResource.InstanceProfile = actual.(*Lc).InstanceProfile
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
