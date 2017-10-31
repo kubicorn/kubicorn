@@ -21,22 +21,23 @@ import (
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/aws/aws-sdk-go/service/iam"
 )
 
 type Sdk struct {
 	Ec2 *ec2.EC2
 	S3  *s3.S3
 	ASG *autoscaling.AutoScaling
+	IAM *iam.IAM
 }
 
-func NewSdk(region string, profile string) (*Sdk, error) {
+func NewSdk(region string) (*Sdk, error) {
 	sdk := &Sdk{}
 	session, err := session.NewSessionWithOptions(session.Options{
 		Config: aws.Config{Region: aws.String(region)},
 		// Support MFA when authing using assumed roles.
 		SharedConfigState:       session.SharedConfigEnable,
 		AssumeRoleTokenProvider: stscreds.StdinTokenProvider,
-		Profile:                 profile,
 	})
 	if err != nil {
 		return nil, err
@@ -44,5 +45,6 @@ func NewSdk(region string, profile string) (*Sdk, error) {
 	sdk.Ec2 = ec2.New(session)
 	sdk.ASG = autoscaling.New(session)
 	sdk.S3 = s3.New(session)
+	sdk.IAM = iam.New(session)
 	return sdk, nil
 }
