@@ -19,14 +19,20 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
+
+	"gopkg.in/src-d/go-git.v4"
+	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"gopkg.in/src-d/go-git.v4/plumbing/transport"
 )
 
 type JSONGitStoreOptions struct {
@@ -34,11 +40,10 @@ type JSONGitStoreOptions struct {
 	ClusterName string
 }
 
-// JSONGitStore exists to save the cluster at runtime to the file defined
-// in the state.ClusterJSONFile constant. We perform this operation so that
-// various bash scripts can get the cluster state at runtime without having to
-// inject key/value pairs into the script or anything like that.
+// JSONGitStore exists to save the cluster state as a git change.
 type JSONGitStore struct {
+	commit       *git.CommitOptions
+	push         *git.PushOptions
 	options      *JSONGitStoreOptions
 	ClusterName  string
 	BasePath     string
@@ -47,6 +52,20 @@ type JSONGitStore struct {
 
 func NewJSONGitStore(o *JSONGitStoreOptions) *JSONGitStore {
 	return &JSONGitStore{
+		commit: &git.CommitOptions{
+			Author: &object.Signature{
+				Name:  "John Doe",
+				Email: "john@doe.org",
+				When:  time.Now(),
+			},
+		},
+		push: &git.PushOptions{
+			RemoteName: "",
+			Auth: &transport.AuthMethod{
+				User: "",
+				Pass: "",
+			},
+		},
 		options:      o,
 		ClusterName:  o.ClusterName,
 		BasePath:     o.BasePath,
@@ -72,7 +91,15 @@ func (git *JSONGitStore) write(relativePath string, data []byte) error {
 		return err
 	}
 	defer fo.Close()
+
 	_, err = io.Copy(fo, strings.NewReader(string(data)))
+	if err != nil {
+		return err
+	}
+
+	//git init here
+	log.Printf("\nCreating new git repo into $GOPATH [%s]", fqn)
+	r, err := git.PlainOpen(fqn)
 	if err != nil {
 		return err
 	}
@@ -92,6 +119,7 @@ func (git *JSONGitStore) ReadStore() ([]byte, error) {
 	return git.Read(state.ClusterJSONFile)
 }
 
+//Performs a git 'commit' and 'push' of the current cluster changes.
 func (git *JSONGitStore) Commit(c *cluster.Cluster) error {
 	if c == nil {
 		return fmt.Errorf("Nil cluster spec")
@@ -100,7 +128,39 @@ func (git *JSONGitStore) Commit(c *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
-	return git.write(state.ClusterJSONFile, bytes)
+
+	//writes latest changes to git repo.
+	git.write(state.ClusterJSONFile, bytes)
+
+	//commits the changes
+	r, err := git.PlainOpen(state.ClusterJSONFile)
+	if err != nil {
+		return err
+	}
+	w, err := r.Worktree()
+	if err != nil {
+		return err
+	}
+
+	_, err = w.Add(" . ")
+	if err != nil {
+		return err
+	}
+
+	// Commits the current staging are to the repository, with the new files
+	// just created. We should provide the object.Signature of Author of the
+	// commit.
+	commit, err := w.Commit("Adding new cluster changes", JSONGitStore.commit)
+	if err != nil {
+		return err
+	}
+
+	//pushes the changes to remote repo.
+	err = r.Push(JSONGitStore.push)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (git *JSONGitStore) Rename(existingRelativePath, newRelativePath string) error {
