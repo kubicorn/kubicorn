@@ -72,7 +72,31 @@ func (m *Model) Resources() map[int]cloud.Resource {
 	//
 	for _, serverPool := range known.ServerPools {
 		name := serverPool.Name
-
+		// ---- [IAM InstanceProfile ] //Optional// ----
+		if serverPool.InstanceProfile != nil {
+			instanceProfile := &resources.InstanceProfile{
+				Shared: resources.Shared{
+					Name:       serverPool.InstanceProfile.Name,
+					Tags:       make(map[string]string),
+					Identifier: serverPool.InstanceProfile.Identifier,
+				},
+				ServerPool: serverPool,
+			}
+			iamRole := &resources.IAMRole{}
+			iamRole.Name = serverPool.InstanceProfile.Role.Name
+			for _, policy := range serverPool.InstanceProfile.Role.Policies {
+				iamPolicy := &resources.IAMPolicy{
+					Shared: resources.Shared{
+						Name: policy.Name,
+					},
+					Document: policy.Document,
+				}
+				iamRole.Policies = append(iamRole.Policies, iamPolicy)
+			}
+			instanceProfile.Role = iamRole
+			r[i] = instanceProfile
+			i++
+		}
 		// ---- [Security Groups] ----
 		for _, firewall := range serverPool.Firewalls {
 			r[i] = &resources.SecurityGroup{
@@ -109,7 +133,6 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			}
 			i++
 		}
-
 		// ---- [Launch Configuration] ----
 		r[i] = &resources.Lc{
 			Shared: resources.Shared{
@@ -119,7 +142,6 @@ func (m *Model) Resources() map[int]cloud.Resource {
 			ServerPool: serverPool,
 		}
 		i++
-
 		// ---- [Autoscale Group] ----
 		r[i] = &resources.Asg{
 			Shared: resources.Shared{
