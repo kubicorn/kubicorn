@@ -7,27 +7,27 @@ doctype: general
 
 ## Introduction
 
-This document explains how `kubicorn` project works, the project's structure and information you need to know so you can easily start contributing.
+This document explains how the `kubicorn` project works, the project's structure and information you need to know so you can easily start contributing.
 
 ## Glossary
 
 This chapter explains the most important concepts.
 
-* [Cluster API](https://github.com/kris-nova/kubicorn/tree/master/apis) — universal (cloud provider agnostic) representation of a Kubernetes cluster. It defines every part of an cluster, including infrastructure parts such as virtual machines, networking units and firewalls. The matching of universal representation of the cluster to the representation for specific cloud provider is done as the part of Reconciling process.
-* [State](https://github.com/kris-nova/kubicorn/blob/master/state/README.md) — representation of an specific Kubernetes cluster. It's used in reconciling process to create the cluster.
+* [Cluster API](https://github.com/kris-nova/kubicorn/tree/master/apis) — universal (cloud provider agnostic) representation of a Kubernetes cluster. It defines every part of a cluster, including infrastructure parts such as virtual machines, networking units and firewalls. The matching of universal representation of the cluster to the representation for specific cloud provider is done as part of reconciling process.
+* [State](https://github.com/kris-nova/kubicorn/blob/master/state/README.md) — representation of an specific Kubernetes cluster. It's used in the reconciling process to create the cluster.
 * [State store](https://github.com/kris-nova/kubicorn/blob/master/state/README.md) — place where state is stored. Currently, we only support states located on the disk and in [YAML](https://github.com/kris-nova/kubicorn/tree/master/state/fs) or [JSON](https://github.com/kris-nova/kubicorn/tree/master/state/jsonfs) format. We're looking forward to implementing Git and S3 state stores.
 * [Reconciler](https://github.com/kris-nova/kubicorn/tree/master/cloud) — the core of the project and place where provision logic is located. It matches cloud provider agnostic Cluster definition to the specific cloud provider definition, which is used to provision cluster. It takes care of provisioning new clusters, destroying the old ones and keeping the consistency between Actual and Expected states.
 * Actual state — the representation of current resources in the cloud.
 * Expected state — the representation of intended resources in the cloud.
 * [Bootstrap scripts](https://github.com/kris-nova/kubicorn/tree/master/bootstrap) — Bootstrap scripts are provided as the `user data` on the cluster creation to install dependencies and create the cluster. They're provided as Bash scripts, so you can easily create them without Go knowledge. You can also inject values in the reconciling process, per your needs.
-* [VPN Boostrap scripts](https://github.com/kris-nova/kubicorn/tree/master/bootstrap/vpn) — to improve security of our cluster, we create VPN server on master, and connect every node using it. Some cloud providers, such as DigitalOcean, doesn't provide real private networking between Droplets, so we want master and nodes can only communicate between themselves, and with the Internet only on selected ports.
-* [Profile](https://github.com/kris-nova/kubicorn/blob/master/profiles/README.md) — profile is a unique representation of a cluster written in Go. Profiles containts the all information needed to create an cluster, such as: cluster name, cloud provider, VM size, SSH key, network and firewall configurations...
+* [VPN Boostrap scripts](https://github.com/kris-nova/kubicorn/tree/master/bootstrap/vpn) — to improve security of our cluster, we create a VPN server on master, and connect every node using it. Some cloud providers, such as DigitalOcean, doesn't provide real private networking between Droplets, so we want master and nodes can only communicate between themselves, and with the Internet only on selected ports.
+* [Profile](https://github.com/kris-nova/kubicorn/blob/master/profiles/README.md) — profile is a unique representation of a cluster written in Go. Profiles contain all the information needed to create a cluster, such as: cluster name, cloud provider, VM size, SSH key, network and firewall configurations.
 
 ## Project structure
 
-Project is contained from the several packages. 
+The project is contained in several packages.
 
-The most important package is the [`cloud`](https://github.com/kris-nova/kubicorn/tree/master/cloud) which contains Reconciler interface and Reconciler implementations for each cloud provider. Currently, we have implementations for three cloud providers: [Amazon](https://github.com/kris-nova/kubicorn/tree/master/cloud/amazon), [DigitalOcean](https://github.com/kris-nova/kubicorn/tree/master/cloud/digitalocean), [Google](https://github.com/kris-nova/kubicorn/tree/master/cloud/google) and [Azure in-development](https://github.com/kris-nova/kubicorn/pull/327).
+The most important package is the [`cloud`](https://github.com/kris-nova/kubicorn/tree/master/cloud) package, which contains the Reconciler interface and Reconciler implementations for each cloud provider. Currently, we have implementations for three cloud providers: [Amazon](https://github.com/kris-nova/kubicorn/tree/master/cloud/amazon), [DigitalOcean](https://github.com/kris-nova/kubicorn/tree/master/cloud/digitalocean), [Google](https://github.com/kris-nova/kubicorn/tree/master/cloud/google) and [Azure in-development](https://github.com/kris-nova/kubicorn/pull/327).
 
 The Cluster API is located in the [`apis`](https://github.com/kris-nova/kubicorn/tree/master/apis) package.
 
@@ -39,33 +39,33 @@ State store definitions are located in the [`state`](https://github.com/kris-nov
 
 We have two type of tests — CI tests and E2E tests. CI tests are regular Go tests, while E2E tests are run against real cloud infrastucture and it can cost money. E2E tests are available in the [`test`](https://github.com/kris-nova/kubicorn/tree/master/test) package.
 
-The [`cutil`](https://github.com/kris-nova/kubicorn/tree/master/cutil) directory contains many useful, helper packages which are used to do various tasks, such as: [copy the file from the VM](https://github.com/kris-nova/kubicorn/tree/master/cutil/scp), [create `kubeadm` token](https://github.com/kris-nova/kubicorn/tree/master/cutil/kubeadm), [logger implementation](https://github.com/kris-nova/kubicorn/tree/master/cutil/logger)...
+The [`cutil`](https://github.com/kris-nova/kubicorn/tree/master/cutil) directory contains many useful helper packages which are used to do various tasks, such as: [copy the file from the VM](https://github.com/kris-nova/kubicorn/tree/master/cutil/scp), [create `kubeadm` token](https://github.com/kris-nova/kubicorn/tree/master/cutil/kubeadm), [logger implementation](https://github.com/kris-nova/kubicorn/tree/master/cutil/logger)...
 
-The [`cmd`](https://github.com/kris-nova/kubicorn/tree/master/cmd) package is the CLI implementation for `kubicorn`. We use [`cobra`](https://github.com/spf13/cobra) package to create the CLI.
+The [`cmd`](https://github.com/kris-nova/kubicorn/tree/master/cmd) package is the CLI implementation for `kubicorn`. We use [`cobra`](https://github.com/spf13/cobra) to create the CLI.
 
 ## Reconciler
 
 This part of the document will try to summarize what steps are being taken in the reconciling process and how it works.
 
-When you want to create a Kubernetes cluster, you're providing [Cluster API](https://github.com/kris-nova/kubicorn/tree/master/apis) representation of an cluster in form of the [Profile](https://github.com/kris-nova/kubicorn/blob/master/profiles/README.md).
+When you want to create a Kubernetes cluster, you're providing [Cluster API](https://github.com/kris-nova/kubicorn/tree/master/apis) representation of a cluster in form of the [Profile](https://github.com/kris-nova/kubicorn/blob/master/profiles/README.md).
 
-The first task of Reconciler is to convert universal, cloud-provider agnostic representation of an cluster to representation for specific cloud provider. This transition is called **rendering** and is defined in the `model.go` file, as well as in the `immutableRender` function of the cloud-specific Reconciler. For example, this is how [`model.go`](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/model.go) and Droplet's [`immutableRender`](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L305) looks for DigitalOcean.
+The first task of Reconciler is to convert universal, cloud-provider agnostic representation of a cluster to representation for a specific cloud provider. This transition is called **rendering** and is defined in the `model.go` file, as well as in the `immutableRender` function of the cloud-specific Reconciler. For example, this is how [`model.go`](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/model.go) and Droplet's [`immutableRender`](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L305) looks for DigitalOcean.
 
-Once cluster is rendered, we can easily obtain **Expected state** of the cluster using the `Expected` function, which represents what resources we are expecting in the cloud. This is how [`Expected` function](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L92) is defined for DigitalOcean Droplet's.
+Once the cluster is rendered, we can easily obtain **Expected state** of the cluster using the `Expected` function, which represents what resources we are expecting in the cloud. This is how [`Expected` function](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L92) is defined for DigitalOcean Droplets.
 
 Next, Reconciler obtains the **Actual state** using the `Actual ` function, which represents what resources we already have in the cloud. You can take a look at [the following function](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L55), which is used to obtain Actual state of DigitalOcean Droplets.
 
-The most important task of Reconciler is **applying**, using the `Apply` function. Firstly, Reconciler is checking is cluster already existing, by comparing Actual and Expected states, and if yes, it's stopping there returning already existing one. If it doesn't exist, we are proceeding on the creation part, which is consisted of:
+The most important task of Reconciler is **applying**, using the `Apply` function. Firstly, Reconciler is checking if a cluster already exists, by comparing Actual and Expected states, and if yes, it's stopping there returning the already existing one. If it doesn't exist, we are proceeding on the creation part, which consists of:
 
-* [Building Bootstrap Scripts and injecting values at the runtime](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L182-#L196),
+* [Building Bootstrap scripts and injecting values at the runtime](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L182-#L196),
 * [Creating the appropriate resources for Master node](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L203-#L227),
 * [Obtaining needed information for Node creation](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L124-L188),
-* Creating Nodes,
+* Creating Nodes.
 * Downloading the `.kubeconfig` file for the cluster from the master node.
 
 At this point, we have fully functional Kubernetes cluster.
 
-Beside creating the cluster, Reconciler also takes care of destroying the cluster, which is done by the `Delete` function. [This is how it looks for DigitalOcean Droplet's](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L247).
+Besides creating the cluster, Reconciler also takes care of destroying the cluster, which is done by the `Delete` function. [This is how it looks for DigitalOcean Droplets](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/droplet/resources/droplet.go#L247).
 
 ## Website
 
@@ -79,7 +79,7 @@ Below are the relevant bits of the website's structure. Other files can be ignor
 kubicorn/docs/
 │
 ├── _documentation/
-│ → All docs to be displayed on in the Documentation section of the website
+│ → All docs to be displayed in the Documentation section of the website
 │   should go here. They should be markdown, and include the YAML header as
 │   shown in the link above.
 │
@@ -116,9 +116,9 @@ kubicorn/docs/
 
 ## Where should I start?
 
-If you need more help understanding the reconciling process, take a look at the [examples](https://github.com/kris-nova/kubicorn/tree/master/examples). It should explain you which steps are taken to create a Kubernetes cluster.
+If you need more help understanding the reconciling process, take a look at the [examples](https://github.com/kris-nova/kubicorn/tree/master/examples). It should explain which steps are taken to create a Kubernetes cluster.
 
-To be able to better understand how project works, you should read Reconciler part of this document and follow the links to see how code looks like.
+To be able to better understand how the project works, you should read the [Reconciler](#reconciler) part of this document and follow the links to see how the code looks.
 
 Once you get familiar with the process, find the issue you want to work on.
 
@@ -126,10 +126,10 @@ Our [issue tracker](https://github.com/kris-nova/kubicorn/issues) has every issu
 
 If you're new to the project, we recommend taking a look at [Hacktoberfest](https://github.com/kris-nova/kubicorn/labels/Hacktoberfest)-tagged issues. You can learn more about [Hacktoberfest on its official website](https://hacktoberfest.digitalocean.com/).
 
-Beside Hacktoberfest label, you can filter by the following labels:
+Besides the Hacktoberfest label, you can filter by the following labels:
 
 * [Help (small)](https://github.com/kris-nova/kubicorn/labels/Help%20%28small%29) -- containing issues which shouldn't require a lot of effort to be addressed.
-* [Help (medium)](https://github.com/kris-nova/kubicorn/labels/Help%20%28medium%29) -- issues that could require you medium amount of time to get it addressed.
+* [Help (medium)](https://github.com/kris-nova/kubicorn/labels/Help%20%28medium%29) -- issues that could require you a medium amount of time to get it addressed.
 * [Help (hard)](https://github.com/kris-nova/kubicorn/labels/Help%20%28large%29) -- issues that require a lot of effort to get addressed.
 
 We also label our issue per Cloud provider, operating system and type of the problem.

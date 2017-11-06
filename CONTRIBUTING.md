@@ -31,15 +31,15 @@ Please use the `check-headers` make target or run scripts/check-header.sh to val
 
 The `update-headers` make target or scripts/headers.sh will add the necessary headers.
 
-### Vendorning
+### Vendoring
 
-`kubicorn` project uses [`dep`](https://github.com/golang/dep) to manage its dependencies. Before using it, you need to setup it by following the [Setup guide](https://github.com/golang/dep#setup).
+The `kubicorn` project uses [`dep`](https://github.com/golang/dep) to manage its dependencies. Before using it, you need to set it up by following the [Setup guide](https://github.com/golang/dep#setup).
 
-To add new dependency, you need to use:
+To add a new dependency, you need to use:
 ```
 dep ensure import-path
 ```
-If you want to update existing dependency, you need to use:
+If you want to update an existing dependency, you need to use:
 ```
 dep ensure -update import-path
 ```

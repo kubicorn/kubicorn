@@ -7,21 +7,21 @@ doctype: general
 
 This document is a work in progress. 
 The backwards compatibility promise will start as of version 1.0.0.
-Before this version new release can break backwards compatibility.
+Before this version new releases can break backwards compatibility.
 
 ## Semver
 
 `kubicorn` follows [Semantic Versioning 2.0.0](http://semver.org/) when creating new releases. 
 In short, this means that we will only break backwards compatibility when doing major releases (such as 1.0, 2.0 etc).
 When releasing minor (such as 1.1.0, 1.2.0, etc) or patch (such as 1.0.1, 1.2.8, etc) updates no backward compatibility will be broken. 
-Its important to us that `kubicorn` keeps working as expected when updating you release between patches and updates. 
-If any backwards compatibility is broken in a release, other then a major release, this will be rectified in a new update.
+It's important to us that `kubicorn` keeps working as expected when updating your release between patches and updates. 
+If any backwards compatibility is broken in a release, other than a major release, this will be rectified in a new update.
 
 ## Release types
-Semantic Versioning has three specific type of releases that `kubicorn` will use:
-* Major (1.0, 2.0 etc): A major release can contain feature and bug fixes. 
+Semantic Versioning has three specific types of releases that `kubicorn` will use:
+* Major (1.0, 2.0 etc): A major release can contain features and bug fixes. 
 These features and bug fixes can break backwards compatibility. 
-Always read the supplied documentation then performing a major upgrade.  
+Always read the supplied documentation before performing a major upgrade.  
 * Minor (1.1.0, 1.2.0, etc): A minor release can contain features and bug fixes. 
 These features and bug fixes are not allowed to break backwards compatibility.
 * Patch (1.0.1, 1.2.8, etc): A patch release can only contain bug fixes. 
@@ -48,5 +48,5 @@ A major release can be released without breaking backwards compatibility.
 
 Releases can contain experimental features. 
 These experimental features are excluded from the backwards compatibility promise. 
-These features will marked as such to prevent confusion. 
+These features will be marked as such to prevent confusion. 
 Experimental features will not invalidate the backwards compatibility promise of existing features.

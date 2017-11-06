@@ -33,6 +33,8 @@ Verify that `kubicorn create` did a good job by executing:
 $ cat _state/myfirstk8s/cluster.yaml
 ```
 
+Feel free to tweak the configuration to your liking here.
+
 #### Authenticating
 
 We're now in a position to have the cluster resources defined, locally, based on the selected profile.
