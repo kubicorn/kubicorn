@@ -17,7 +17,7 @@ $ go get github.com/kris-nova/kubicorn
 
 The first thing you will do now is to define the cluster resources.
 For this, you need to select a certain profile. Of course, once you're more familiar with `kubicorn`, you can go ahead and extend existing profiles or create new ones.
-In the following we'll be using an existing profile called `do`, which is a profile for a cluster in DigitalOcean.
+In the following we'll be using an existing profile called `azure`, which is a profile for a cluster in Azure.
 
 #### Creating
 
@@ -38,7 +38,7 @@ Feel free to tweak the configuration to your liking here.
 #### Authenticating
 
 Some work will be needed to configure your system to authenticate with `kubicorn`.
-Please spend some time and go through each step carefully to ensure your configuration work correctly.
+Please spend some time and go through each step carefully to ensure your configuration works correctly.
 
 ##### Manually using the Azure CLI tool
 

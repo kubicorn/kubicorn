@@ -18,7 +18,7 @@ $ go get github.com/kris-nova/kubicorn
 
 The first thing you will do now is to define the cluster resources.
 For this, you need to select a certain profile. Of course, once you're more familiar with `kubicorn`, you can go ahead and extend existing profiles or create new ones.
-In the following we'll be using an existing profile called `do`, which is a profile for a cluster in Google.
+In the following we'll be using an existing profile called `google`, which is a profile for a cluster in Google.
 
 #### Creating
 
@@ -58,7 +58,7 @@ $ ls -al ~/.ssh/id_rsa.pub
 -rw-------@ 1 mhausenblas  staff   754B 20 Mar 04:03 /Users/mhausenblas/.ssh/id_rsa.pub
 ```
 
-Finally, it is necessary to create a firewall rule for allowing ingress traffic to the API server, that is esposed by default on tcp:443 in above profile.
+Finally, it is necessary to create a firewall rule for allowing ingress traffic to the API server, that is exposed by default on tcp:443 in the above profile.
 You can use [this guide to create firewall rules](https://cloud.google.com/compute/docs/vpc/using-firewalls); in production systems,
 it is reccomanded to restrict such firewall rule, limiting the target systems e.g. using network tags, and limiting as well
 the range of allowed source systems.

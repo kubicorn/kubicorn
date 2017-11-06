@@ -4,7 +4,7 @@ These are the bootstrap scripts that ship with the default `kubicorn` profiles.
 
 Feel free to add your own, or modify these at any time.
 
-The scripts are effectively what we use as `user data` to init a VM
+The scripts are effectively what we use as `user data` to initialize a VM
 
 ### I need to template out one of these bootstrap scripts
 
