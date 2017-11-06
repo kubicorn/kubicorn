@@ -33,7 +33,7 @@ const (
 	CriticalLabel = "✖"
 	DebugLabel    = "▶"
 	InfoLabel     = "ℹ"
-	SuccessLabel = "✔"
+	SuccessLabel  = "✔"
 	WarningLabel  = "!"
 )
 
