@@ -119,7 +119,7 @@ func (r *Subnet) Apply(actual, expected cloud.Resource, immutable *cluster.Clust
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Created Subnet [%s]", *output.Subnet.SubnetId)
+	logger.Success("Created Subnet [%s]", *output.Subnet.SubnetId)
 	newResource := &Subnet{}
 	newResource.CIDR = *output.Subnet.CidrBlock
 	newResource.VpcID = *output.Subnet.VpcId
@@ -145,7 +145,7 @@ func (r *Subnet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*clu
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted subnet [%s]", actual.(*Subnet).Identifier)
+	logger.Success("Deleted subnet [%s]", actual.(*Subnet).Identifier)
 
 	newResource := &Subnet{}
 	newResource.Name = actual.(*Subnet).Name

@@ -171,7 +171,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Created Security Group [%s]", *output.GroupId)
+	logger.Success("Created Security Group [%s]", *output.GroupId)
 
 	newResource := &SecurityGroup{}
 	newResource.Identifier = *output.GroupId
@@ -188,7 +188,7 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		if err != nil {
 			return nil, nil, err
 		}
-		logger.Info("Created security rule (%s) [ingress] %d %s", expected.(*SecurityGroup).Name, expectedRule.IngressToPort, expectedRule.IngressSource)
+		logger.Success("Created security rule (%s) [ingress] %d %s", expected.(*SecurityGroup).Name, expectedRule.IngressToPort, expectedRule.IngressSource)
 		newResource.Rules = append(newResource.Rules, &Rule{
 			IngressSource:   expectedRule.IngressSource,
 			IngressToPort:   expectedRule.IngressToPort,
@@ -214,7 +214,7 @@ func (r *SecurityGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted Security Group [%s]", actual.(*SecurityGroup).Identifier)
+	logger.Success("Deleted Security Group [%s]", actual.(*SecurityGroup).Identifier)
 
 	newResource := &SecurityGroup{}
 	newResource.Tags = actual.(*SecurityGroup).Tags

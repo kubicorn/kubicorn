@@ -155,7 +155,7 @@ func (r *Asg) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		}
 	}
 
-	logger.Info("Created Asg [%s]", r.Name)
+	logger.Success("Created Asg [%s]", r.Name)
 
 	newResource.Name = r.Name
 	newResource.Identifier = r.Name
@@ -186,7 +186,7 @@ func (r *Asg) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted ASG [%s]", actual.(*Asg).Identifier)
+	logger.Success("Deleted ASG [%s]", actual.(*Asg).Identifier)
 	newResource := &Asg{}
 	newResource.Name = actual.(*Asg).Name
 	newResource.Tags = actual.(*Asg).Tags
