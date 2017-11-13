@@ -17,6 +17,8 @@ package resources
 import (
 	"fmt"
 
+	"bytes"
+	"encoding/json"
 	"github.com/Azure/azure-sdk-for-go/arm/network"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
@@ -169,10 +171,10 @@ func (r *LoadBalancer) Apply(actual, expected cloud.Resource, immutable *cluster
 	}
 
 	// ----- Debug request
-	//byteslice, _ := json.Marshal(parameters)
-	//var out bytes.Buffer
-	//json.Indent(&out, byteslice, "", "  ")
-	//fmt.Println(string(out.Bytes()))
+	byteslice, _ := json.Marshal(parameters)
+	var out bytes.Buffer
+	json.Indent(&out, byteslice, "", "\t")
+	fmt.Println(string(out.Bytes()))
 
 	lbch, errch := Sdk.LoadBalancer.CreateOrUpdate(immutable.Name, r.Subnet.Name, parameters, make(chan struct{}))
 	lb := <-lbch

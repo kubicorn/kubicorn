@@ -29,6 +29,7 @@ import (
 	//"encoding/json"
 	"github.com/kris-nova/kubicorn/cutil/retry"
 	//"time"
+	"github.com/aws/aws-sdk-go/private/util"
 	"time"
 )
 
@@ -107,11 +108,13 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 					var backEndPools []compute.SubResource
 
 					for _, id := range subnet.LoadBalancer.BackendIDs {
+						fmt.Println(id)
 						backEndPools = append(backEndPools, compute.SubResource{ID: &id})
 					}
 					var inboundNatPools []compute.SubResource
 					for _, id := range subnet.LoadBalancer.NATIDs {
 						myId := id
+						logger.Debug("Creating Inbound Nat Pool: %s", myId)
 						inboundNatPools = append(inboundNatPools, compute.SubResource{ID: &myId})
 					}
 
@@ -201,13 +204,16 @@ func (r *VMScaleSet) Apply(actual, expected cloud.Resource, immutable *cluster.C
 				Capacity: i64(int64(r.ServerPool.MaxCount)),
 			},
 		}
+
+		fmt.Println(util.PrettyPrint(parameters))
+
 		vmssch, errch := Sdk.Compute.CreateOrUpdate(immutable.Name, applyResource.Name, parameters, make(chan struct{}))
 
 		// ---------------
 		// Hack in here to fluff a vm scale set if the ARM API is having bad weather
 		logger.Debug("[vmss hack] Begin hack searching for vmss")
 
-		timer := time.NewTimer(time.Duration(15 * time.Second))
+		timer := time.NewTimer(time.Duration(45 * time.Second))
 		defer timer.Stop()
 		var vmss compute.VirtualMachineScaleSet
 		loop := true
