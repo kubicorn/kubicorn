@@ -43,6 +43,8 @@ You might want to create a new [IAM user](http://docs.aws.amazon.com/IAM/latest/
 
 ![AWS IAM permissions required for `kubicorn`](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-iam-user-perm-screen-shot.png){:class="img-fluid"}
 
+If you would like to apply a more restrictive IAM policy to your AWS kubicorn user, take a look at the [explicit list](http://kubicorn.io/documentation/minimal-aws-permissions.html) of actions used.
+
 Next, you need to specify your AWS credentials to use - you can select one of the follwoing options 
 
  * Environment Credentials - export the two environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` so that `kubicorn` can pick it up in the next step:
@@ -81,6 +83,7 @@ You can now `kubectl get nodes` and verify that Kubernetes 1.7.0 is now running.
 You can also `ssh` into your instances using the example command found in the output from `kubicorn`
 
 ![AWS IAM permissions required for `kubicorn`](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-example-apply.png){:class="img-fluid"}
+
 
 #### Deleting
 
