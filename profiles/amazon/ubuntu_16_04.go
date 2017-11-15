@@ -139,7 +139,7 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 						Name: fmt.Sprintf("%s-KubicornNodeRole", name),
 						Policies: []*cluster.IAMPolicy{
 							{
-								Name: "MasterPolicy",
+								Name: "NodePolicy",
 								Document: `{
 								  "Version": "2012-10-17",
 								  "Statement": [
