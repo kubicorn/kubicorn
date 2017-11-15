@@ -133,6 +133,38 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				BootstrapScripts: []string{
 					"bootstrap/amazon_k8s_ubuntu_16.04_node.sh",
 				},
+				InstanceProfile: &cluster.IAMInstanceProfile{
+					Name: fmt.Sprintf("%s-KubicornNodeInstanceProfile", name),
+					Role: &cluster.IAMRole{
+						Name: fmt.Sprintf("%s-KubicornNodeRole", name),
+						Policies: []*cluster.IAMPolicy{
+							{
+								Name: "NodePolicy",
+								Document: `{
+								  "Version": "2012-10-17",
+								  "Statement": [
+									 {
+										"Effect": "Allow",
+										"Action": [
+										   "ec2:Describe*",
+										   "ecr:GetAuthorizationToken",
+										   "ecr:BatchCheckLayerAvailability",
+										   "ecr:GetDownloadUrlForLayer",
+										   "ecr:GetRepositoryPolicy",
+										   "ecr:DescribeRepositories",
+										   "ecr:ListImages",
+										   "ecr:BatchGetImage",
+										   "autoscaling:DescribeAutoScalingGroups",
+										   "autoscaling:UpdateAutoScalingGroup"
+										],
+										"Resource": "*"
+									 }
+								  ]
+								}`,
+							},
+						},
+					},
+				},
 				Subnets: []*cluster.Subnet{
 					{
 						Name: fmt.Sprintf("%s.node", name),
