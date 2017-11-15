@@ -2,7 +2,7 @@ The `cloud` package contains the Reconciler interface and Reconciler implementat
 
 The tasks covered in this package include
 
-* *rendering* a universial, cloud-provider agnostic cluster representation into a representation for a specific cloud provider
+* *rendering* a universal, cloud-provider agnostic cluster representation into a representation for a specific cloud provider
 * obtaining the *expected* state of the cluster
 * obtaining the *actual* state of the cluster
 * comparing *expected* and *actual* and *applying* changes
