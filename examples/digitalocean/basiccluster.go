@@ -41,7 +41,7 @@ func main() {
 		panic(err.Error())
 	}
 	created, err := reconciler.Reconcile(actual, expected)
-	logger.Info("Created cluster [%s]", created.Name)
+	logger.Success("Created cluster [%s]", created.Name)
 	if err != nil {
 		panic(err.Error())
 	}

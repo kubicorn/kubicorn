@@ -253,7 +253,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		}
 		return nil, nil, err
 	}
-	logger.Info("Created Launch Configuration [%s]", r.Name)
+	logger.Success("Created Launch Configuration [%s]", r.Name)
 	newResource.Image = expected.(*Lc).Image
 	newResource.InstanceType = expected.(*Lc).InstanceType
 	newResource.Name = expected.(*Lc).Name
@@ -278,7 +278,7 @@ func (r *Lc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).Name)
+	logger.Success("Deleted Launch Configuration [%s]", actual.(*Lc).Name)
 
 	// Kubernetes API
 	// Todo (@kris-nova) this obviously isn't immutable

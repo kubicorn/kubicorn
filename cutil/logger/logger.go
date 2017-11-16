@@ -32,7 +32,8 @@ const (
 	AlwaysLabel   = "✿"
 	CriticalLabel = "✖"
 	DebugLabel    = "▶"
-	InfoLabel     = "✔"
+	InfoLabel     = "ℹ"
+	SuccessLabel  = "✔"
 	WarningLabel  = "!"
 )
 
@@ -88,6 +89,24 @@ func Info(format string, a ...interface{}) {
 	if Level >= 3 {
 		a, w := extractLoggerArgs(format, a...)
 		s := fmt.Sprintf(label(format, InfoLabel), a...)
+
+		if !TestMode {
+			if Color {
+				w = color.Output
+				s = color.CyanString(s)
+			} else if Fabulous {
+				w = FabulousWriter
+			}
+		}
+
+		fmt.Fprintf(w, s)
+	}
+}
+
+func Success(format string, a ...interface{}) {
+	if Level >= 3 {
+		a, w := extractLoggerArgs(format, a...)
+		s := fmt.Sprintf(label(format, SuccessLabel), a...)
 
 		if !TestMode {
 			if Color {

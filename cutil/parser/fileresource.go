@@ -15,9 +15,10 @@
 package fileresource
 
 import (
-	"github.com/kris-nova/kubicorn/cutil/logger"
 	"net/url"
 	"strings"
+
+	"github.com/kris-nova/kubicorn/cutil/logger"
 )
 
 // ReadFromResource reads a file from different sources

@@ -303,7 +303,7 @@ func (r *InstanceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 			time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
 		}
 
-		logger.Info("Created instance group manager [%s]", templateInstance.Name)
+		logger.Success("Created instance group manager [%s]", templateInstance.Name)
 	}
 
 	newResource := &InstanceGroup{
@@ -334,7 +334,7 @@ func (r *InstanceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 		return nil, nil, fmt.Errorf("Unable to delete instance resource without Name [%s]", deleteResource.Name)
 	}
 
-	logger.Info("Deleting InstanceGroup manager [%s]", r.ServerPool.Name)
+	logger.Success("Deleting InstanceGroup manager [%s]", r.ServerPool.Name)
 	_, err := Sdk.Service.InstanceGroupManagers.Get(immutable.CloudId, immutable.Location, strings.ToLower(r.ServerPool.Name)).Do()
 	if err == nil {
 		_, err := Sdk.Service.InstanceGroupManagers.Delete(immutable.CloudId, immutable.Location, strings.ToLower(r.ServerPool.Name)).Do()

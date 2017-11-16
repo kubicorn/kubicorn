@@ -131,7 +131,7 @@ func (r *Vpc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		return nil, nil, err
 	}
 
-	logger.Info("Created VPC [%s]", *output.Vpc.VpcId)
+	logger.Success("Created VPC [%s]", *output.Vpc.VpcId)
 
 	newResource := &Vpc{
 		Shared: Shared{
@@ -163,7 +163,7 @@ func (r *Vpc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted VPC [%s]", actual.(*Vpc).Identifier)
+	logger.Success("Deleted VPC [%s]", actual.(*Vpc).Identifier)
 
 	newResource := &Vpc{
 		Shared: Shared{

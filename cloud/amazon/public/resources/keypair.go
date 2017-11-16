@@ -118,7 +118,7 @@ func (r *KeyPair) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		}
 		logger.Info("Using existing KeyPair [%s]", expected.(*KeyPair).Name)
 	} else {
-		logger.Info("Created KeyPair [%s]", *output.KeyName)
+		logger.Success("Created KeyPair [%s]", *output.KeyName)
 		newResource.PublicKeyFingerprint = *output.KeyFingerprint
 	}
 	newResource.Identifier = keypair.Name
@@ -145,7 +145,7 @@ func (r *KeyPair) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 		if err != nil {
 			return nil, nil, err
 		}
-		logger.Info("Deleted keypair [%s]", actual.(*KeyPair).Identifier)
+		logger.Success("Deleted keypair [%s]", actual.(*KeyPair).Identifier)
 	}
 	newResource := &KeyPair{}
 	newResource.Tags = actual.(*KeyPair).Tags

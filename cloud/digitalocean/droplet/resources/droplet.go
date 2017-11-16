@@ -226,7 +226,7 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		if err != nil {
 			return nil, nil, err
 		}
-		logger.Info("Created Droplet [%d]", droplet.ID)
+		logger.Success("Created Droplet [%d]", droplet.ID)
 	}
 
 	newResource := &Droplet{
@@ -285,7 +285,7 @@ func (r *Droplet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 		if err != nil {
 			return nil, nil, err
 		}
-		logger.Info("Deleted Droplet [%d]", droplet.ID)
+		logger.Success("Deleted Droplet [%d]", droplet.ID)
 	}
 
 	// Kubernetes API

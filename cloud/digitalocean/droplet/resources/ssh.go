@@ -133,7 +133,7 @@ func (r *SSH) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 		}
 		logger.Info("Using existing SSH Key [%s]", actual.(*SSH).Name)
 	} else {
-		logger.Info("Created SSH Key [%d]", key.ID)
+		logger.Success("Created SSH Key [%d]", key.ID)
 	}
 
 	id := strconv.Itoa(key.ID)
@@ -168,7 +168,7 @@ func (r *SSH) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 			return nil, nil, err
 		}
 
-		logger.Info("Deleted SSH Key [%d]", id)
+		logger.Success("Deleted SSH Key [%d]", id)
 	}
 	newResource := &SSH{}
 	newResource.Name = actual.(*SSH).Name
