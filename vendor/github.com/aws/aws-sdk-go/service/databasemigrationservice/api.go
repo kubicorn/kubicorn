@@ -599,6 +599,7 @@ const opDeleteCertificate = "DeleteCertificate"
 // client's request for the DeleteCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -606,6 +607,15 @@ const opDeleteCertificate = "DeleteCertificate"
 // See DeleteCertificate for more information on using the DeleteCertificate
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteCertificate for more information on using the DeleteCertificate
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -682,6 +692,7 @@ const opDeleteEndpoint = "DeleteEndpoint"
 // client's request for the DeleteEndpoint operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -689,6 +700,15 @@ const opDeleteEndpoint = "DeleteEndpoint"
 // See DeleteEndpoint for more information on using the DeleteEndpoint
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteEndpoint for more information on using the DeleteEndpoint
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -768,6 +788,7 @@ const opDeleteEventSubscription = "DeleteEventSubscription"
 // client's request for the DeleteEventSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -775,6 +796,15 @@ const opDeleteEventSubscription = "DeleteEventSubscription"
 // See DeleteEventSubscription for more information on using the DeleteEventSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteEventSubscription for more information on using the DeleteEventSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1103,6 +1133,7 @@ const opDescribeAccountAttributes = "DescribeAccountAttributes"
 // client's request for the DescribeAccountAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1110,6 +1141,15 @@ const opDescribeAccountAttributes = "DescribeAccountAttributes"
 // See DescribeAccountAttributes for more information on using the DescribeAccountAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeAccountAttributes for more information on using the DescribeAccountAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1182,6 +1222,7 @@ const opDescribeCertificates = "DescribeCertificates"
 // client's request for the DescribeCertificates operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1189,6 +1230,15 @@ const opDescribeCertificates = "DescribeCertificates"
 // See DescribeCertificates for more information on using the DescribeCertificates
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeCertificates for more information on using the DescribeCertificates
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1317,6 +1367,7 @@ const opDescribeConnections = "DescribeConnections"
 // client's request for the DescribeConnections operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1324,6 +1375,15 @@ const opDescribeConnections = "DescribeConnections"
 // See DescribeConnections for more information on using the DescribeConnections
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeConnections for more information on using the DescribeConnections
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1453,6 +1513,7 @@ const opDescribeEndpointTypes = "DescribeEndpointTypes"
 // client's request for the DescribeEndpointTypes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1460,6 +1521,15 @@ const opDescribeEndpointTypes = "DescribeEndpointTypes"
 // See DescribeEndpointTypes for more information on using the DescribeEndpointTypes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEndpointTypes for more information on using the DescribeEndpointTypes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1583,6 +1653,7 @@ const opDescribeEndpoints = "DescribeEndpoints"
 // client's request for the DescribeEndpoints operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1590,6 +1661,15 @@ const opDescribeEndpoints = "DescribeEndpoints"
 // See DescribeEndpoints for more information on using the DescribeEndpoints
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEndpoints for more information on using the DescribeEndpoints
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1718,6 +1798,7 @@ const opDescribeEventCategories = "DescribeEventCategories"
 // client's request for the DescribeEventCategories operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1725,6 +1806,15 @@ const opDescribeEventCategories = "DescribeEventCategories"
 // See DescribeEventCategories for more information on using the DescribeEventCategories
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEventCategories for more information on using the DescribeEventCategories
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1795,6 +1885,7 @@ const opDescribeEventSubscriptions = "DescribeEventSubscriptions"
 // client's request for the DescribeEventSubscriptions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1802,6 +1893,15 @@ const opDescribeEventSubscriptions = "DescribeEventSubscriptions"
 // See DescribeEventSubscriptions for more information on using the DescribeEventSubscriptions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEventSubscriptions for more information on using the DescribeEventSubscriptions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2281,6 +2381,7 @@ const opDescribeReplicationInstances = "DescribeReplicationInstances"
 // client's request for the DescribeReplicationInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2288,6 +2389,15 @@ const opDescribeReplicationInstances = "DescribeReplicationInstances"
 // See DescribeReplicationInstances for more information on using the DescribeReplicationInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeReplicationInstances for more information on using the DescribeReplicationInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2417,6 +2527,7 @@ const opDescribeReplicationSubnetGroups = "DescribeReplicationSubnetGroups"
 // client's request for the DescribeReplicationSubnetGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2424,6 +2535,15 @@ const opDescribeReplicationSubnetGroups = "DescribeReplicationSubnetGroups"
 // See DescribeReplicationSubnetGroups for more information on using the DescribeReplicationSubnetGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeReplicationSubnetGroups for more information on using the DescribeReplicationSubnetGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2963,6 +3083,7 @@ const opDescribeTableStatistics = "DescribeTableStatistics"
 // client's request for the DescribeTableStatistics operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2970,6 +3091,15 @@ const opDescribeTableStatistics = "DescribeTableStatistics"
 // See DescribeTableStatistics for more information on using the DescribeTableStatistics
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeTableStatistics for more information on using the DescribeTableStatistics
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3107,6 +3237,7 @@ const opImportCertificate = "ImportCertificate"
 // client's request for the ImportCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3114,6 +3245,15 @@ const opImportCertificate = "ImportCertificate"
 // See ImportCertificate for more information on using the ImportCertificate
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ImportCertificate for more information on using the ImportCertificate
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3448,6 +3588,7 @@ const opModifyReplicationInstance = "ModifyReplicationInstance"
 // client's request for the ModifyReplicationInstance operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3455,6 +3596,15 @@ const opModifyReplicationInstance = "ModifyReplicationInstance"
 // See ModifyReplicationInstance for more information on using the ModifyReplicationInstance
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyReplicationInstance for more information on using the ModifyReplicationInstance
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3547,6 +3697,7 @@ const opModifyReplicationSubnetGroup = "ModifyReplicationSubnetGroup"
 // client's request for the ModifyReplicationSubnetGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3554,6 +3705,15 @@ const opModifyReplicationSubnetGroup = "ModifyReplicationSubnetGroup"
 // See ModifyReplicationSubnetGroup for more information on using the ModifyReplicationSubnetGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyReplicationSubnetGroup for more information on using the ModifyReplicationSubnetGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3642,6 +3802,7 @@ const opModifyReplicationTask = "ModifyReplicationTask"
 // client's request for the ModifyReplicationTask operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3649,6 +3810,15 @@ const opModifyReplicationTask = "ModifyReplicationTask"
 // See ModifyReplicationTask for more information on using the ModifyReplicationTask
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyReplicationTask for more information on using the ModifyReplicationTask
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3737,6 +3907,7 @@ const opRefreshSchemas = "RefreshSchemas"
 // client's request for the RefreshSchemas operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3744,6 +3915,15 @@ const opRefreshSchemas = "RefreshSchemas"
 // See RefreshSchemas for more information on using the RefreshSchemas
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RefreshSchemas for more information on using the RefreshSchemas
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3828,6 +4008,7 @@ const opReloadTables = "ReloadTables"
 // client's request for the ReloadTables operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3835,6 +4016,15 @@ const opReloadTables = "ReloadTables"
 // See ReloadTables for more information on using the ReloadTables
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ReloadTables for more information on using the ReloadTables
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3911,6 +4101,7 @@ const opRemoveTagsFromResource = "RemoveTagsFromResource"
 // client's request for the RemoveTagsFromResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3918,6 +4109,15 @@ const opRemoveTagsFromResource = "RemoveTagsFromResource"
 // See RemoveTagsFromResource for more information on using the RemoveTagsFromResource
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RemoveTagsFromResource for more information on using the RemoveTagsFromResource
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3990,6 +4190,7 @@ const opStartReplicationTask = "StartReplicationTask"
 // client's request for the StartReplicationTask operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3997,6 +4198,15 @@ const opStartReplicationTask = "StartReplicationTask"
 // See StartReplicationTask for more information on using the StartReplicationTask
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StartReplicationTask for more information on using the StartReplicationTask
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4160,6 +4370,7 @@ const opStopReplicationTask = "StopReplicationTask"
 // client's request for the StopReplicationTask operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4167,6 +4378,15 @@ const opStopReplicationTask = "StopReplicationTask"
 // See StopReplicationTask for more information on using the StopReplicationTask
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StopReplicationTask for more information on using the StopReplicationTask
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4243,6 +4463,7 @@ const opTestConnection = "TestConnection"
 // client's request for the TestConnection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4250,6 +4471,15 @@ const opTestConnection = "TestConnection"
 // See TestConnection for more information on using the TestConnection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See TestConnection for more information on using the TestConnection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7369,7 +7599,11 @@ type DescribeTableStatisticsInput struct {
 	//
 	// A combination of filters creates an AND condition where each record matches
 	// all specified filters.
+<<<<<<< HEAD
 	Filters []*Filter `type:"list"`
+=======
+	Filters []*Filter `locationNameList:"Filter" type:"list"`
+>>>>>>> Initial dep workover
 
 	// An optional pagination token provided by a previous request. If this parameter
 	// is specified, the response includes only records beyond the marker, up to

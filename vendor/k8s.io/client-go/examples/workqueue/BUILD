@@ -8,14 +8,20 @@ load(
 
 go_binary(
     name = "workqueue",
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/examples/workqueue",
+=======
+>>>>>>> Initial dep workover
     library = ":go_default_library",
 )
 
 go_library(
     name = "go_default_library",
     srcs = ["main.go"],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/examples/workqueue",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/golang/glog:go_default_library",
         "//vendor/k8s.io/api/core/v1:go_default_library",

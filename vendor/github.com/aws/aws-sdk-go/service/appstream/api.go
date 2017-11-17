@@ -309,7 +309,11 @@ const opCreateImageBuilder = "CreateImageBuilder"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilder
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilder
+>>>>>>> Initial dep workover
 func (c *AppStream) CreateImageBuilderRequest(input *CreateImageBuilderInput) (req *request.Request, output *CreateImageBuilderOutput) {
 	op := &request.Operation{
 		Name:       opCreateImageBuilder,
@@ -328,11 +332,14 @@ func (c *AppStream) CreateImageBuilderRequest(input *CreateImageBuilderInput) (r
 
 // CreateImageBuilder API operation for Amazon AppStream.
 //
+<<<<<<< HEAD
 // Creates an image builder.
 //
 // The initial state of the builder is PENDING. When it is ready, the state
 // is RUNNING.
 //
+=======
+>>>>>>> Initial dep workover
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -365,7 +372,11 @@ func (c *AppStream) CreateImageBuilderRequest(input *CreateImageBuilderInput) (r
 //   * ErrCodeIncompatibleImageException "IncompatibleImageException"
 //   The image does not support storage connectors.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilder
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilder
+>>>>>>> Initial dep workover
 func (c *AppStream) CreateImageBuilder(input *CreateImageBuilderInput) (*CreateImageBuilderOutput, error) {
 	req, out := c.CreateImageBuilderRequest(input)
 	return out, req.Send()
@@ -412,7 +423,11 @@ const opCreateImageBuilderStreamingURL = "CreateImageBuilderStreamingURL"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderStreamingURL
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderStreamingURL
+>>>>>>> Initial dep workover
 func (c *AppStream) CreateImageBuilderStreamingURLRequest(input *CreateImageBuilderStreamingURLInput) (req *request.Request, output *CreateImageBuilderStreamingURLOutput) {
 	op := &request.Operation{
 		Name:       opCreateImageBuilderStreamingURL,
@@ -431,8 +446,11 @@ func (c *AppStream) CreateImageBuilderStreamingURLRequest(input *CreateImageBuil
 
 // CreateImageBuilderStreamingURL API operation for Amazon AppStream.
 //
+<<<<<<< HEAD
 // Creates a URL to start an image builder streaming session.
 //
+=======
+>>>>>>> Initial dep workover
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -447,7 +465,11 @@ func (c *AppStream) CreateImageBuilderStreamingURLRequest(input *CreateImageBuil
 //   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
 //   The specified resource was not found.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderStreamingURL
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderStreamingURL
+>>>>>>> Initial dep workover
 func (c *AppStream) CreateImageBuilderStreamingURL(input *CreateImageBuilderStreamingURLInput) (*CreateImageBuilderStreamingURLOutput, error) {
 	req, out := c.CreateImageBuilderStreamingURLRequest(input)
 	return out, req.Send()
@@ -475,6 +497,7 @@ const opCreateStack = "CreateStack"
 // client's request for the CreateStack operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -482,6 +505,15 @@ const opCreateStack = "CreateStack"
 // See CreateStack for more information on using the CreateStack
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateStack for more information on using the CreateStack
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -569,6 +601,7 @@ const opCreateStreamingURL = "CreateStreamingURL"
 // client's request for the CreateStreamingURL operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -576,6 +609,15 @@ const opCreateStreamingURL = "CreateStreamingURL"
 // See CreateStreamingURL for more information on using the CreateStreamingURL
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateStreamingURL for more information on using the CreateStreamingURL
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -608,6 +650,12 @@ func (c *AppStream) CreateStreamingURLRequest(input *CreateStreamingURLInput) (r
 // CreateStreamingURL API operation for Amazon AppStream.
 //
 // Creates a URL to start a streaming session for the specified user.
+<<<<<<< HEAD
+=======
+//
+// By default, the URL is valid only for one minute from the time that it is
+// generated.
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -843,7 +891,11 @@ const opDeleteImage = "DeleteImage"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImage
+>>>>>>> Initial dep workover
 func (c *AppStream) DeleteImageRequest(input *DeleteImageInput) (req *request.Request, output *DeleteImageOutput) {
 	op := &request.Operation{
 		Name:       opDeleteImage,
@@ -862,10 +914,13 @@ func (c *AppStream) DeleteImageRequest(input *DeleteImageInput) (req *request.Re
 
 // DeleteImage API operation for Amazon AppStream.
 //
+<<<<<<< HEAD
 // Deletes the specified image. You cannot delete an image that is currently
 // in use. After you delete an image, you cannot provision new capacity using
 // the image.
 //
+=======
+>>>>>>> Initial dep workover
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -886,7 +941,11 @@ func (c *AppStream) DeleteImageRequest(input *DeleteImageInput) (req *request.Re
 //   * ErrCodeConcurrentModificationException "ConcurrentModificationException"
 //   An API error occurred. Wait a few minutes and try again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImage
+>>>>>>> Initial dep workover
 func (c *AppStream) DeleteImage(input *DeleteImageInput) (*DeleteImageOutput, error) {
 	req, out := c.DeleteImageRequest(input)
 	return out, req.Send()
@@ -933,7 +992,11 @@ const opDeleteImageBuilder = "DeleteImageBuilder"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageBuilder
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageBuilder
+>>>>>>> Initial dep workover
 func (c *AppStream) DeleteImageBuilderRequest(input *DeleteImageBuilderInput) (req *request.Request, output *DeleteImageBuilderOutput) {
 	op := &request.Operation{
 		Name:       opDeleteImageBuilder,
@@ -952,8 +1015,11 @@ func (c *AppStream) DeleteImageBuilderRequest(input *DeleteImageBuilderInput) (r
 
 // DeleteImageBuilder API operation for Amazon AppStream.
 //
+<<<<<<< HEAD
 // Deletes the specified image builder and releases the capacity.
 //
+=======
+>>>>>>> Initial dep workover
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -971,7 +1037,11 @@ func (c *AppStream) DeleteImageBuilderRequest(input *DeleteImageBuilderInput) (r
 //   * ErrCodeConcurrentModificationException "ConcurrentModificationException"
 //   An API error occurred. Wait a few minutes and try again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageBuilder
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageBuilder
+>>>>>>> Initial dep workover
 func (c *AppStream) DeleteImageBuilder(input *DeleteImageBuilderInput) (*DeleteImageBuilderOutput, error) {
 	req, out := c.DeleteImageBuilderRequest(input)
 	return out, req.Send()
@@ -1243,6 +1313,7 @@ const opDescribeImageBuilders = "DescribeImageBuilders"
 // client's request for the DescribeImageBuilders operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1295,6 +1366,95 @@ func (c *AppStream) DescribeImageBuildersRequest(input *DescribeImageBuildersInp
 //   The specified resource was not found.
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImageBuilders
+func (c *AppStream) DescribeImageBuilders(input *DescribeImageBuildersInput) (*DescribeImageBuildersOutput, error) {
+	req, out := c.DescribeImageBuildersRequest(input)
+	return out, req.Send()
+}
+
+// DescribeImageBuildersWithContext is the same as DescribeImageBuilders with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DescribeImageBuilders for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *AppStream) DescribeImageBuildersWithContext(ctx aws.Context, input *DescribeImageBuildersInput, opts ...request.Option) (*DescribeImageBuildersOutput, error) {
+	req, out := c.DescribeImageBuildersRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opDescribeImages = "DescribeImages"
+
+// DescribeImagesRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeImages operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeImages for more information on using the DescribeImages
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeImageBuilders for more information on using the DescribeImageBuilders
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+>>>>>>> Initial dep workover
+//
+//
+//    // Example sending a request using the DescribeImageBuildersRequest method.
+//    req, resp := client.DescribeImageBuildersRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImageBuilders
+func (c *AppStream) DescribeImageBuildersRequest(input *DescribeImageBuildersInput) (req *request.Request, output *DescribeImageBuildersOutput) {
+	op := &request.Operation{
+		Name:       opDescribeImageBuilders,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &DescribeImageBuildersInput{}
+	}
+
+	output = &DescribeImageBuildersOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// DescribeImageBuilders API operation for Amazon AppStream.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon AppStream's
+// API operation DescribeImageBuilders for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
+//   The specified resource was not found.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImageBuilders
 func (c *AppStream) DescribeImageBuilders(input *DescribeImageBuildersInput) (*DescribeImageBuildersOutput, error) {
 	req, out := c.DescribeImageBuildersRequest(input)
 	return out, req.Send()
@@ -1401,6 +1561,7 @@ const opDescribeSessions = "DescribeSessions"
 // client's request for the DescribeSessions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1408,6 +1569,15 @@ const opDescribeSessions = "DescribeSessions"
 // See DescribeSessions for more information on using the DescribeSessions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSessions for more information on using the DescribeSessions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1483,6 +1653,7 @@ const opDescribeStacks = "DescribeStacks"
 // client's request for the DescribeStacks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1490,6 +1661,15 @@ const opDescribeStacks = "DescribeStacks"
 // See DescribeStacks for more information on using the DescribeStacks
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeStacks for more information on using the DescribeStacks
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1562,6 +1742,7 @@ const opDisassociateFleet = "DisassociateFleet"
 // client's request for the DisassociateFleet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1569,6 +1750,15 @@ const opDisassociateFleet = "DisassociateFleet"
 // See DisassociateFleet for more information on using the DisassociateFleet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DisassociateFleet for more information on using the DisassociateFleet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1869,6 +2059,7 @@ const opStartFleet = "StartFleet"
 // client's request for the StartFleet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1876,6 +2067,15 @@ const opStartFleet = "StartFleet"
 // See StartFleet for more information on using the StartFleet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StartFleet for more information on using the StartFleet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1976,7 +2176,11 @@ const opStartImageBuilder = "StartImageBuilder"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilder
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilder
+>>>>>>> Initial dep workover
 func (c *AppStream) StartImageBuilderRequest(input *StartImageBuilderInput) (req *request.Request, output *StartImageBuilderOutput) {
 	op := &request.Operation{
 		Name:       opStartImageBuilder,
@@ -1995,8 +2199,11 @@ func (c *AppStream) StartImageBuilderRequest(input *StartImageBuilderInput) (req
 
 // StartImageBuilder API operation for Amazon AppStream.
 //
+<<<<<<< HEAD
 // Starts the specified image builder.
 //
+=======
+>>>>>>> Initial dep workover
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -2014,10 +2221,14 @@ func (c *AppStream) StartImageBuilderRequest(input *StartImageBuilderInput) (req
 //   * ErrCodeConcurrentModificationException "ConcurrentModificationException"
 //   An API error occurred. Wait a few minutes and try again.
 //
+<<<<<<< HEAD
 //   * ErrCodeIncompatibleImageException "IncompatibleImageException"
 //   The image does not support storage connectors.
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilder
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilder
+>>>>>>> Initial dep workover
 func (c *AppStream) StartImageBuilder(input *StartImageBuilderInput) (*StartImageBuilderOutput, error) {
 	req, out := c.StartImageBuilderRequest(input)
 	return out, req.Send()
@@ -2045,6 +2256,7 @@ const opStopFleet = "StopFleet"
 // client's request for the StopFleet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2052,6 +2264,15 @@ const opStopFleet = "StopFleet"
 // See StopFleet for more information on using the StopFleet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StopFleet for more information on using the StopFleet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2146,7 +2367,11 @@ const opStopImageBuilder = "StopImageBuilder"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopImageBuilder
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopImageBuilder
+>>>>>>> Initial dep workover
 func (c *AppStream) StopImageBuilderRequest(input *StopImageBuilderInput) (req *request.Request, output *StopImageBuilderOutput) {
 	op := &request.Operation{
 		Name:       opStopImageBuilder,
@@ -2165,8 +2390,11 @@ func (c *AppStream) StopImageBuilderRequest(input *StopImageBuilderInput) (req *
 
 // StopImageBuilder API operation for Amazon AppStream.
 //
+<<<<<<< HEAD
 // Stops the specified image builder.
 //
+=======
+>>>>>>> Initial dep workover
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -2184,7 +2412,11 @@ func (c *AppStream) StopImageBuilderRequest(input *StopImageBuilderInput) (req *
 //   * ErrCodeConcurrentModificationException "ConcurrentModificationException"
 //   An API error occurred. Wait a few minutes and try again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopImageBuilder
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopImageBuilder
+>>>>>>> Initial dep workover
 func (c *AppStream) StopImageBuilder(input *StopImageBuilderInput) (*StopImageBuilderOutput, error) {
 	req, out := c.StopImageBuilderRequest(input)
 	return out, req.Send()
@@ -2297,6 +2529,7 @@ const opUpdateFleet = "UpdateFleet"
 // client's request for the UpdateFleet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2304,6 +2537,15 @@ const opUpdateFleet = "UpdateFleet"
 // See UpdateFleet for more information on using the UpdateFleet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateFleet for more information on using the UpdateFleet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2494,11 +2736,19 @@ func (c *AppStream) UpdateStackWithContext(ctx aws.Context, input *UpdateStackIn
 }
 
 // Describes an application in the application catalog.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Application
 type Application struct {
 	_ struct{} `type:"structure"`
 
 	// The application name for display.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Application
+type Application struct {
+	_ struct{} `type:"structure"`
+
+	// The application name displayed to end users.
+>>>>>>> Initial dep workover
 	DisplayName *string `min:"1" type:"string"`
 
 	// If there is a problem, the application can be disabled after image creation.
@@ -2647,7 +2897,11 @@ func (s AssociateFleetOutput) GoString() string {
 }
 
 // Describes the capacity for a fleet.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ComputeCapacity
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ComputeCapacity
+>>>>>>> Initial dep workover
 type ComputeCapacity struct {
 	_ struct{} `type:"structure"`
 
@@ -2687,7 +2941,11 @@ func (s *ComputeCapacity) SetDesiredInstances(v int64) *ComputeCapacity {
 }
 
 // Describes the capacity status for a fleet.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ComputeCapacityStatus
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ComputeCapacityStatus
+>>>>>>> Initial dep workover
 type ComputeCapacityStatus struct {
 	_ struct{} `type:"structure"`
 
@@ -2837,7 +3095,11 @@ func (s *CreateDirectoryConfigOutput) SetDirectoryConfig(v *DirectoryConfig) *Cr
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateFleetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateFleetRequest
+>>>>>>> Initial dep workover
 type CreateFleetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2846,7 +3108,11 @@ type CreateFleetInput struct {
 	// ComputeCapacity is a required field
 	ComputeCapacity *ComputeCapacity `type:"structure" required:"true"`
 
+<<<<<<< HEAD
 	// The description for display.
+=======
+	// The description displayed to end users.
+>>>>>>> Initial dep workover
 	Description *string `type:"string"`
 
 	// The time after disconnection when a session is considered to have ended,
@@ -2855,15 +3121,23 @@ type CreateFleetInput struct {
 	// 60 and 57600.
 	DisconnectTimeoutInSeconds *int64 `type:"integer"`
 
+<<<<<<< HEAD
 	// The fleet name for display.
 	DisplayName *string `type:"string"`
 
 	// The information needed to join a Microsoft Active Directory domain.
+=======
+	// The fleet name displayed to end users.
+	DisplayName *string `type:"string"`
+
+	// The information needed for streaming instances to join a domain.
+>>>>>>> Initial dep workover
 	DomainJoinInfo *DomainJoinInfo `type:"structure"`
 
 	// Enables or disables default internet access for the fleet.
 	EnableDefaultInternetAccess *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// The fleet type.
 	//
 	// ALWAYS_ONProvides users with instant-on access to their apps. You are charged
@@ -2876,6 +3150,11 @@ type CreateFleetInput struct {
 	FleetType *string `type:"string" enum:"FleetType"`
 
 	// The name of the image used to create the fleet.
+=======
+	FleetType *string `type:"string" enum:"FleetType"`
+
+	// The name of the image used by the fleet.
+>>>>>>> Initial dep workover
 	//
 	// ImageName is a required field
 	ImageName *string `min:"1" type:"string" required:"true"`
@@ -3078,6 +3357,7 @@ func (s *CreateFleetOutput) SetFleet(v *Fleet) *CreateFleetOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderRequest
 type CreateImageBuilderInput struct {
 	_ struct{} `type:"structure"`
@@ -3114,6 +3394,31 @@ type CreateImageBuilderInput struct {
 	Name *string `type:"string" required:"true"`
 
 	// The VPC configuration for the image builder. You can specify only one subnet.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderRequest
+type CreateImageBuilderInput struct {
+	_ struct{} `type:"structure"`
+
+	Description *string `type:"string"`
+
+	DisplayName *string `type:"string"`
+
+	// Contains the information needed for streaming instances to join a domain.
+	DomainJoinInfo *DomainJoinInfo `type:"structure"`
+
+	EnableDefaultInternetAccess *bool `type:"boolean"`
+
+	// ImageName is a required field
+	ImageName *string `min:"1" type:"string" required:"true"`
+
+	// InstanceType is a required field
+	InstanceType *string `min:"1" type:"string" required:"true"`
+
+	// Name is a required field
+	Name *string `type:"string" required:"true"`
+
+	// Describes VPC configuration information.
+>>>>>>> Initial dep workover
 	VpcConfig *VpcConfig `type:"structure"`
 }
 
@@ -3130,9 +3435,12 @@ func (s CreateImageBuilderInput) GoString() string {
 // Validate inspects the fields of the type to determine if they are valid.
 func (s *CreateImageBuilderInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "CreateImageBuilderInput"}
+<<<<<<< HEAD
 	if s.AppstreamAgentVersion != nil && len(*s.AppstreamAgentVersion) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("AppstreamAgentVersion", 1))
 	}
+=======
+>>>>>>> Initial dep workover
 	if s.ImageName == nil {
 		invalidParams.Add(request.NewErrParamRequired("ImageName"))
 	}
@@ -3155,12 +3463,15 @@ func (s *CreateImageBuilderInput) Validate() error {
 	return nil
 }
 
+<<<<<<< HEAD
 // SetAppstreamAgentVersion sets the AppstreamAgentVersion field's value.
 func (s *CreateImageBuilderInput) SetAppstreamAgentVersion(v string) *CreateImageBuilderInput {
 	s.AppstreamAgentVersion = &v
 	return s
 }
 
+=======
+>>>>>>> Initial dep workover
 // SetDescription sets the Description field's value.
 func (s *CreateImageBuilderInput) SetDescription(v string) *CreateImageBuilderInput {
 	s.Description = &v
@@ -3209,11 +3520,18 @@ func (s *CreateImageBuilderInput) SetVpcConfig(v *VpcConfig) *CreateImageBuilder
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderResult
 type CreateImageBuilderOutput struct {
 	_ struct{} `type:"structure"`
 
 	// Information about the image builder.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderResult
+type CreateImageBuilderOutput struct {
+	_ struct{} `type:"structure"`
+
+>>>>>>> Initial dep workover
 	ImageBuilder *ImageBuilder `type:"structure"`
 }
 
@@ -3233,6 +3551,7 @@ func (s *CreateImageBuilderOutput) SetImageBuilder(v *ImageBuilder) *CreateImage
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderStreamingURLRequest
 type CreateImageBuilderStreamingURLInput struct {
 	_ struct{} `type:"structure"`
@@ -3244,6 +3563,15 @@ type CreateImageBuilderStreamingURLInput struct {
 
 	// The time that the streaming URL will be valid, in seconds. Specify a value
 	// between 1 and 604800 seconds. The default is 3600 seconds.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderStreamingURLRequest
+type CreateImageBuilderStreamingURLInput struct {
+	_ struct{} `type:"structure"`
+
+	// Name is a required field
+	Name *string `min:"1" type:"string" required:"true"`
+
+>>>>>>> Initial dep workover
 	Validity *int64 `type:"long"`
 }
 
@@ -3285,6 +3613,7 @@ func (s *CreateImageBuilderStreamingURLInput) SetValidity(v int64) *CreateImageB
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderStreamingURLResult
 type CreateImageBuilderStreamingURLOutput struct {
 	_ struct{} `type:"structure"`
@@ -3293,6 +3622,14 @@ type CreateImageBuilderStreamingURLOutput struct {
 	Expires *time.Time `type:"timestamp" timestampFormat:"unix"`
 
 	// The URL to start the AppStream 2.0 streaming session.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateImageBuilderStreamingURLResult
+type CreateImageBuilderStreamingURLOutput struct {
+	_ struct{} `type:"structure"`
+
+	Expires *time.Time `type:"timestamp" timestampFormat:"unix"`
+
+>>>>>>> Initial dep workover
 	StreamingURL *string `min:"1" type:"string"`
 }
 
@@ -3318,6 +3655,7 @@ func (s *CreateImageBuilderStreamingURLOutput) SetStreamingURL(v string) *Create
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateStackRequest
 type CreateStackInput struct {
 	_ struct{} `type:"structure"`
@@ -3326,6 +3664,16 @@ type CreateStackInput struct {
 	Description *string `type:"string"`
 
 	// The stack name for display.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/CreateStackRequest
+type CreateStackInput struct {
+	_ struct{} `type:"structure"`
+
+	// The description displayed to end users.
+	Description *string `type:"string"`
+
+	// The stack name displayed to end users.
+>>>>>>> Initial dep workover
 	DisplayName *string `type:"string"`
 
 	// The name of the stack.
@@ -3434,8 +3782,12 @@ type CreateStreamingURLInput struct {
 	// FleetName is a required field
 	FleetName *string `min:"1" type:"string" required:"true"`
 
+<<<<<<< HEAD
 	// The session context. For more information, see Session Context (http://docs.aws.amazon.com/appstream2/latest/developerguide/managing-stacks-fleets.html#managing-stacks-fleets-parameters)
 	// in the Amazon AppStream 2.0 Developer Guide.
+=======
+	// The session context of the streaming URL.
+>>>>>>> Initial dep workover
 	SessionContext *string `min:"1" type:"string"`
 
 	// The name of the stack.
@@ -3449,7 +3801,11 @@ type CreateStreamingURLInput struct {
 	UserId *string `min:"2" type:"string" required:"true"`
 
 	// The time that the streaming URL will be valid, in seconds. Specify a value
+<<<<<<< HEAD
 	// between 1 and 604800 seconds. The default is 60 seconds.
+=======
+	// between 1 and 604800 seconds.
+>>>>>>> Initial dep workover
 	Validity *int64 `type:"long"`
 }
 
@@ -3566,7 +3922,11 @@ func (s *CreateStreamingURLOutput) SetStreamingURL(v string) *CreateStreamingURL
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteDirectoryConfigRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteDirectoryConfigRequest
+>>>>>>> Initial dep workover
 type DeleteDirectoryConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3605,7 +3965,11 @@ func (s *DeleteDirectoryConfigInput) SetDirectoryName(v string) *DeleteDirectory
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteDirectoryConfigResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteDirectoryConfigResult
+>>>>>>> Initial dep workover
 type DeleteDirectoryConfigOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3620,7 +3984,11 @@ func (s DeleteDirectoryConfigOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteFleetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteFleetRequest
+>>>>>>> Initial dep workover
 type DeleteFleetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3662,7 +4030,11 @@ func (s *DeleteFleetInput) SetName(v string) *DeleteFleetInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteFleetResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteFleetResult
+>>>>>>> Initial dep workover
 type DeleteFleetOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3670,6 +4042,7 @@ type DeleteFleetOutput struct {
 // String returns the string representation
 func (s DeleteFleetOutput) String() string {
 	return awsutil.Prettify(s)
+<<<<<<< HEAD
 }
 
 // GoString returns the string representation
@@ -3683,6 +4056,19 @@ type DeleteImageBuilderInput struct {
 
 	// The name of the image builder.
 	//
+=======
+}
+
+// GoString returns the string representation
+func (s DeleteFleetOutput) GoString() string {
+	return s.String()
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageBuilderRequest
+type DeleteImageBuilderInput struct {
+	_ struct{} `type:"structure"`
+
+>>>>>>> Initial dep workover
 	// Name is a required field
 	Name *string `type:"string" required:"true"`
 }
@@ -3716,11 +4102,18 @@ func (s *DeleteImageBuilderInput) SetName(v string) *DeleteImageBuilderInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageBuilderResult
 type DeleteImageBuilderOutput struct {
 	_ struct{} `type:"structure"`
 
 	// Information about the image builder.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageBuilderResult
+type DeleteImageBuilderOutput struct {
+	_ struct{} `type:"structure"`
+
+>>>>>>> Initial dep workover
 	ImageBuilder *ImageBuilder `type:"structure"`
 }
 
@@ -3740,12 +4133,19 @@ func (s *DeleteImageBuilderOutput) SetImageBuilder(v *ImageBuilder) *DeleteImage
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageRequest
 type DeleteImageInput struct {
 	_ struct{} `type:"structure"`
 
 	// The name of the image.
 	//
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageRequest
+type DeleteImageInput struct {
+	_ struct{} `type:"structure"`
+
+>>>>>>> Initial dep workover
 	// Name is a required field
 	Name *string `type:"string" required:"true"`
 }
@@ -3779,11 +4179,19 @@ func (s *DeleteImageInput) SetName(v string) *DeleteImageInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageResult
 type DeleteImageOutput struct {
 	_ struct{} `type:"structure"`
 
 	// Information about the image.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteImageResult
+type DeleteImageOutput struct {
+	_ struct{} `type:"structure"`
+
+	// Describes an image.
+>>>>>>> Initial dep workover
 	Image *Image `type:"structure"`
 }
 
@@ -3803,7 +4211,11 @@ func (s *DeleteImageOutput) SetImage(v *Image) *DeleteImageOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteStackRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DeleteStackRequest
+>>>>>>> Initial dep workover
 type DeleteStackInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4031,6 +4443,7 @@ func (s *DescribeFleetsOutput) SetNextToken(v string) *DescribeFleetsOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImageBuildersRequest
 type DescribeImageBuildersInput struct {
 	_ struct{} `type:"structure"`
@@ -4043,6 +4456,16 @@ type DescribeImageBuildersInput struct {
 
 	// The pagination token to use to retrieve the next page of results for this
 	// operation. If this value is null, it retrieves the first page.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImageBuildersRequest
+type DescribeImageBuildersInput struct {
+	_ struct{} `type:"structure"`
+
+	MaxResults *int64 `type:"integer"`
+
+	Names []*string `type:"list"`
+
+>>>>>>> Initial dep workover
 	NextToken *string `min:"1" type:"string"`
 }
 
@@ -4087,6 +4510,7 @@ func (s *DescribeImageBuildersInput) SetNextToken(v string) *DescribeImageBuilde
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImageBuildersResult
 type DescribeImageBuildersOutput struct {
 	_ struct{} `type:"structure"`
@@ -4096,6 +4520,14 @@ type DescribeImageBuildersOutput struct {
 
 	// The pagination token to use to retrieve the next page of results for this
 	// operation. If there are no more pages, this value is null.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImageBuildersResult
+type DescribeImageBuildersOutput struct {
+	_ struct{} `type:"structure"`
+
+	ImageBuilders []*ImageBuilder `type:"list"`
+
+>>>>>>> Initial dep workover
 	NextToken *string `min:"1" type:"string"`
 }
 
@@ -4121,7 +4553,11 @@ func (s *DescribeImageBuildersOutput) SetNextToken(v string) *DescribeImageBuild
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImagesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DescribeImagesRequest
+>>>>>>> Initial dep workover
 type DescribeImagesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4390,7 +4826,11 @@ func (s *DescribeStacksOutput) SetStacks(v []*Stack) *DescribeStacksOutput {
 }
 
 // Configuration information for the directory used to join domains.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DirectoryConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DirectoryConfig
+>>>>>>> Initial dep workover
 type DirectoryConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -4518,8 +4958,13 @@ func (s DisassociateFleetOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // Contains the information needed to join a Microsoft Active Directory domain.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DomainJoinInfo
+=======
+// Contains the information needed for streaming instances to join a domain.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/DomainJoinInfo
+>>>>>>> Initial dep workover
 type DomainJoinInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -4627,7 +5072,11 @@ type Fleet struct {
 	// The time the fleet was created.
 	CreatedTime *time.Time `type:"timestamp" timestampFormat:"unix"`
 
+<<<<<<< HEAD
 	// The description for display.
+=======
+	// The description displayed to end users.
+>>>>>>> Initial dep workover
 	Description *string `min:"1" type:"string"`
 
 	// The time after disconnection when a session is considered to have ended,
@@ -4636,10 +5085,17 @@ type Fleet struct {
 	// 60 and 57600.
 	DisconnectTimeoutInSeconds *int64 `type:"integer"`
 
+<<<<<<< HEAD
 	// The fleet name for display.
 	DisplayName *string `min:"1" type:"string"`
 
 	// The information needed to join a Microsoft Active Directory domain.
+=======
+	// The fleet name displayed to end users.
+	DisplayName *string `min:"1" type:"string"`
+
+	// The information needed for streaming instances to join a domain.
+>>>>>>> Initial dep workover
 	DomainJoinInfo *DomainJoinInfo `type:"structure"`
 
 	// Indicates whether default internet access is enabled for the fleet.
@@ -4648,6 +5104,7 @@ type Fleet struct {
 	// The fleet errors.
 	FleetErrors []*FleetError `type:"list"`
 
+<<<<<<< HEAD
 	// The fleet type.
 	//
 	// ALWAYS_ONProvides users with instant-on access to their apps. You are charged
@@ -4660,6 +5117,11 @@ type Fleet struct {
 	FleetType *string `type:"string" enum:"FleetType"`
 
 	// The name of the image used to create the fleet.
+=======
+	FleetType *string `type:"string" enum:"FleetType"`
+
+	// The image used by the fleet.
+>>>>>>> Initial dep workover
 	//
 	// ImageName is a required field
 	ImageName *string `min:"1" type:"string" required:"true"`
@@ -4794,7 +5256,11 @@ func (s *Fleet) SetVpcConfig(v *VpcConfig) *Fleet {
 }
 
 // Describes a fleet error.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/FleetError
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/FleetError
+>>>>>>> Initial dep workover
 type FleetError struct {
 	_ struct{} `type:"structure"`
 
@@ -4828,12 +5294,17 @@ func (s *FleetError) SetErrorMessage(v string) *FleetError {
 }
 
 // Describes an image.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Image
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Image
+>>>>>>> Initial dep workover
 type Image struct {
 	_ struct{} `type:"structure"`
 
 	// The applications associated with the image.
 	Applications []*Application `type:"list"`
+<<<<<<< HEAD
 
 	// The version of the AppStream 2.0 agent to use for instances that are launched
 	// from this image.
@@ -5026,6 +5497,171 @@ type ImageBuilder struct {
 	StateChangeReason *ImageBuilderStateChangeReason `type:"structure"`
 
 	// The VPC configuration of the image builder.
+=======
+
+	// The ARN of the image.
+	Arn *string `type:"string"`
+
+	// The ARN of the image from which this image was created.
+	BaseImageArn *string `type:"string"`
+
+	// The time the image was created.
+	CreatedTime *time.Time `type:"timestamp" timestampFormat:"unix"`
+
+	// The description displayed to end users.
+	Description *string `min:"1" type:"string"`
+
+	// The image name displayed to end users.
+	DisplayName *string `min:"1" type:"string"`
+
+	// Indicates whether an image builder can be launched from this image.
+	ImageBuilderSupported *bool `type:"boolean"`
+
+	// The name of the image.
+	//
+	// Name is a required field
+	Name *string `min:"1" type:"string" required:"true"`
+
+	// The operating system platform of the image.
+	Platform *string `type:"string" enum:"PlatformType"`
+
+	// The release date of the public base image. For private images, this date
+	// is the release date of the base image from which the image was created.
+	PublicBaseImageReleasedDate *time.Time `type:"timestamp" timestampFormat:"unix"`
+
+	// The image starts in the PENDING state. If image creation succeeds, the state
+	// is AVAILABLE. If image creation fails, the state is FAILED.
+	State *string `type:"string" enum:"ImageState"`
+
+	// The reason why the last state change occurred.
+	StateChangeReason *ImageStateChangeReason `type:"structure"`
+
+	// Indicates whether the image is public or private.
+	Visibility *string `type:"string" enum:"VisibilityType"`
+}
+
+// String returns the string representation
+func (s Image) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s Image) GoString() string {
+	return s.String()
+}
+
+// SetApplications sets the Applications field's value.
+func (s *Image) SetApplications(v []*Application) *Image {
+	s.Applications = v
+	return s
+}
+
+// SetArn sets the Arn field's value.
+func (s *Image) SetArn(v string) *Image {
+	s.Arn = &v
+	return s
+}
+
+// SetBaseImageArn sets the BaseImageArn field's value.
+func (s *Image) SetBaseImageArn(v string) *Image {
+	s.BaseImageArn = &v
+	return s
+}
+
+// SetCreatedTime sets the CreatedTime field's value.
+func (s *Image) SetCreatedTime(v time.Time) *Image {
+	s.CreatedTime = &v
+	return s
+}
+
+// SetDescription sets the Description field's value.
+func (s *Image) SetDescription(v string) *Image {
+	s.Description = &v
+	return s
+}
+
+// SetDisplayName sets the DisplayName field's value.
+func (s *Image) SetDisplayName(v string) *Image {
+	s.DisplayName = &v
+	return s
+}
+
+// SetImageBuilderSupported sets the ImageBuilderSupported field's value.
+func (s *Image) SetImageBuilderSupported(v bool) *Image {
+	s.ImageBuilderSupported = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *Image) SetName(v string) *Image {
+	s.Name = &v
+	return s
+}
+
+// SetPlatform sets the Platform field's value.
+func (s *Image) SetPlatform(v string) *Image {
+	s.Platform = &v
+	return s
+}
+
+// SetPublicBaseImageReleasedDate sets the PublicBaseImageReleasedDate field's value.
+func (s *Image) SetPublicBaseImageReleasedDate(v time.Time) *Image {
+	s.PublicBaseImageReleasedDate = &v
+	return s
+}
+
+// SetState sets the State field's value.
+func (s *Image) SetState(v string) *Image {
+	s.State = &v
+	return s
+}
+
+// SetStateChangeReason sets the StateChangeReason field's value.
+func (s *Image) SetStateChangeReason(v *ImageStateChangeReason) *Image {
+	s.StateChangeReason = v
+	return s
+}
+
+// SetVisibility sets the Visibility field's value.
+func (s *Image) SetVisibility(v string) *Image {
+	s.Visibility = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ImageBuilder
+type ImageBuilder struct {
+	_ struct{} `type:"structure"`
+
+	Arn *string `type:"string"`
+
+	CreatedTime *time.Time `type:"timestamp" timestampFormat:"unix"`
+
+	Description *string `min:"1" type:"string"`
+
+	DisplayName *string `min:"1" type:"string"`
+
+	// Contains the information needed for streaming instances to join a domain.
+	DomainJoinInfo *DomainJoinInfo `type:"structure"`
+
+	EnableDefaultInternetAccess *bool `type:"boolean"`
+
+	ImageArn *string `type:"string"`
+
+	ImageBuilderErrors []*ResourceError `type:"list"`
+
+	InstanceType *string `min:"1" type:"string"`
+
+	// Name is a required field
+	Name *string `min:"1" type:"string" required:"true"`
+
+	Platform *string `type:"string" enum:"PlatformType"`
+
+	State *string `type:"string" enum:"ImageBuilderState"`
+
+	StateChangeReason *ImageBuilderStateChangeReason `type:"structure"`
+
+	// Describes VPC configuration information.
+>>>>>>> Initial dep workover
 	VpcConfig *VpcConfig `type:"structure"`
 }
 
@@ -5039,12 +5675,15 @@ func (s ImageBuilder) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // SetAppstreamAgentVersion sets the AppstreamAgentVersion field's value.
 func (s *ImageBuilder) SetAppstreamAgentVersion(v string) *ImageBuilder {
 	s.AppstreamAgentVersion = &v
 	return s
 }
 
+=======
+>>>>>>> Initial dep workover
 // SetArn sets the Arn field's value.
 func (s *ImageBuilder) SetArn(v string) *ImageBuilder {
 	s.Arn = &v
@@ -5129,6 +5768,7 @@ func (s *ImageBuilder) SetVpcConfig(v *VpcConfig) *ImageBuilder {
 	return s
 }
 
+<<<<<<< HEAD
 // Describes the reason why the last image builder state change occurred.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ImageBuilderStateChangeReason
 type ImageBuilderStateChangeReason struct {
@@ -5138,6 +5778,14 @@ type ImageBuilderStateChangeReason struct {
 	Code *string `type:"string" enum:"ImageBuilderStateChangeReasonCode"`
 
 	// The state change reason message.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ImageBuilderStateChangeReason
+type ImageBuilderStateChangeReason struct {
+	_ struct{} `type:"structure"`
+
+	Code *string `type:"string" enum:"ImageBuilderStateChangeReasonCode"`
+
+>>>>>>> Initial dep workover
 	Message *string `min:"1" type:"string"`
 }
 
@@ -5163,8 +5811,13 @@ func (s *ImageBuilderStateChangeReason) SetMessage(v string) *ImageBuilderStateC
 	return s
 }
 
+<<<<<<< HEAD
 // Describes the reason why the last image state change occurred.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ImageStateChangeReason
+=======
+// Describes the reason why the last state change occurred.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ImageStateChangeReason
+>>>>>>> Initial dep workover
 type ImageStateChangeReason struct {
 	_ struct{} `type:"structure"`
 
@@ -5252,7 +5905,11 @@ func (s *ListAssociatedFleetsInput) SetStackName(v string) *ListAssociatedFleets
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ListAssociatedFleetsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ListAssociatedFleetsResult
+>>>>>>> Initial dep workover
 type ListAssociatedFleetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5341,7 +5998,11 @@ func (s *ListAssociatedStacksInput) SetNextToken(v string) *ListAssociatedStacks
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ListAssociatedStacksResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ListAssociatedStacksResult
+>>>>>>> Initial dep workover
 type ListAssociatedStacksOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5375,6 +6036,7 @@ func (s *ListAssociatedStacksOutput) SetNextToken(v string) *ListAssociatedStack
 	return s
 }
 
+<<<<<<< HEAD
 // Describes a resource error.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ResourceError
 type ResourceError struct {
@@ -5387,6 +6049,16 @@ type ResourceError struct {
 	ErrorMessage *string `min:"1" type:"string"`
 
 	// The time the error occurred.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ResourceError
+type ResourceError struct {
+	_ struct{} `type:"structure"`
+
+	ErrorCode *string `type:"string" enum:"FleetErrorCode"`
+
+	ErrorMessage *string `min:"1" type:"string"`
+
+>>>>>>> Initial dep workover
 	ErrorTimestamp *time.Time `type:"timestamp" timestampFormat:"unix"`
 }
 
@@ -5420,7 +6092,11 @@ func (s *ResourceError) SetErrorTimestamp(v time.Time) *ResourceError {
 
 // Describes the credentials for the service account used by the streaming instance
 // to connect to the directory.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ServiceAccountCredentials
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/ServiceAccountCredentials
+>>>>>>> Initial dep workover
 type ServiceAccountCredentials struct {
 	_ struct{} `type:"structure"`
 
@@ -5482,7 +6158,11 @@ func (s *ServiceAccountCredentials) SetAccountPassword(v string) *ServiceAccount
 }
 
 // Describes a streaming session.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Session
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Session
+>>>>>>> Initial dep workover
 type Session struct {
 	_ struct{} `type:"structure"`
 
@@ -5563,7 +6243,11 @@ func (s *Session) SetUserId(v string) *Session {
 }
 
 // Describes a stack.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Stack
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/Stack
+>>>>>>> Initial dep workover
 type Stack struct {
 	_ struct{} `type:"structure"`
 
@@ -5573,10 +6257,17 @@ type Stack struct {
 	// The time the stack was created.
 	CreatedTime *time.Time `type:"timestamp" timestampFormat:"unix"`
 
+<<<<<<< HEAD
 	// The description for display.
 	Description *string `min:"1" type:"string"`
 
 	// The stack name for display.
+=======
+	// The description displayed to end users.
+	Description *string `min:"1" type:"string"`
+
+	// The stack name displayed to end users.
+>>>>>>> Initial dep workover
 	DisplayName *string `min:"1" type:"string"`
 
 	// The name of the stack.
@@ -5644,7 +6335,11 @@ func (s *Stack) SetStorageConnectors(v []*StorageConnector) *Stack {
 }
 
 // Describes a stack error.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StackError
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StackError
+>>>>>>> Initial dep workover
 type StackError struct {
 	_ struct{} `type:"structure"`
 
@@ -5734,6 +6429,7 @@ func (s StartFleetOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilderRequest
 type StartImageBuilderInput struct {
 	_ struct{} `type:"structure"`
@@ -5744,6 +6440,12 @@ type StartImageBuilderInput struct {
 
 	// The name of the image builder.
 	//
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilderRequest
+type StartImageBuilderInput struct {
+	_ struct{} `type:"structure"`
+
+>>>>>>> Initial dep workover
 	// Name is a required field
 	Name *string `min:"1" type:"string" required:"true"`
 }
@@ -5761,9 +6463,12 @@ func (s StartImageBuilderInput) GoString() string {
 // Validate inspects the fields of the type to determine if they are valid.
 func (s *StartImageBuilderInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "StartImageBuilderInput"}
+<<<<<<< HEAD
 	if s.AppstreamAgentVersion != nil && len(*s.AppstreamAgentVersion) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("AppstreamAgentVersion", 1))
 	}
+=======
+>>>>>>> Initial dep workover
 	if s.Name == nil {
 		invalidParams.Add(request.NewErrParamRequired("Name"))
 	}
@@ -5777,23 +6482,33 @@ func (s *StartImageBuilderInput) Validate() error {
 	return nil
 }
 
+<<<<<<< HEAD
 // SetAppstreamAgentVersion sets the AppstreamAgentVersion field's value.
 func (s *StartImageBuilderInput) SetAppstreamAgentVersion(v string) *StartImageBuilderInput {
 	s.AppstreamAgentVersion = &v
 	return s
 }
 
+=======
+>>>>>>> Initial dep workover
 // SetName sets the Name field's value.
 func (s *StartImageBuilderInput) SetName(v string) *StartImageBuilderInput {
 	s.Name = &v
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilderResult
 type StartImageBuilderOutput struct {
 	_ struct{} `type:"structure"`
 
 	// Information about the image builder.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StartImageBuilderResult
+type StartImageBuilderOutput struct {
+	_ struct{} `type:"structure"`
+
+>>>>>>> Initial dep workover
 	ImageBuilder *ImageBuilder `type:"structure"`
 }
 
@@ -5813,7 +6528,11 @@ func (s *StartImageBuilderOutput) SetImageBuilder(v *ImageBuilder) *StartImageBu
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopFleetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopFleetRequest
+>>>>>>> Initial dep workover
 type StopFleetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5870,12 +6589,19 @@ func (s StopFleetOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopImageBuilderRequest
 type StopImageBuilderInput struct {
 	_ struct{} `type:"structure"`
 
 	// The name of the image builder.
 	//
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopImageBuilderRequest
+type StopImageBuilderInput struct {
+	_ struct{} `type:"structure"`
+
+>>>>>>> Initial dep workover
 	// Name is a required field
 	Name *string `min:"1" type:"string" required:"true"`
 }
@@ -5912,11 +6638,18 @@ func (s *StopImageBuilderInput) SetName(v string) *StopImageBuilderInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopImageBuilderResult
 type StopImageBuilderOutput struct {
 	_ struct{} `type:"structure"`
 
 	// Information about the image builder.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StopImageBuilderResult
+type StopImageBuilderOutput struct {
+	_ struct{} `type:"structure"`
+
+>>>>>>> Initial dep workover
 	ImageBuilder *ImageBuilder `type:"structure"`
 }
 
@@ -5937,7 +6670,11 @@ func (s *StopImageBuilderOutput) SetImageBuilder(v *ImageBuilder) *StopImageBuil
 }
 
 // Describes a storage connector.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StorageConnector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/StorageConnector
+>>>>>>> Initial dep workover
 type StorageConnector struct {
 	_ struct{} `type:"structure"`
 
@@ -6088,7 +6825,11 @@ type UpdateFleetInput struct {
 	// Deletes the VPC association for the specified fleet.
 	DeleteVpcConfig *bool `deprecated:"true" type:"boolean"`
 
+<<<<<<< HEAD
 	// The description for display.
+=======
+	// The description displayed to end users.
+>>>>>>> Initial dep workover
 	Description *string `type:"string"`
 
 	// The time after disconnection when a session is considered to have ended,
@@ -6097,16 +6838,27 @@ type UpdateFleetInput struct {
 	// 60 and 57600.
 	DisconnectTimeoutInSeconds *int64 `type:"integer"`
 
+<<<<<<< HEAD
 	// The fleet name for display.
 	DisplayName *string `type:"string"`
 
 	// The information needed to join a Microsoft Active Directory domain.
+=======
+	// The fleet name displayed to end users.
+	DisplayName *string `type:"string"`
+
+	// The information needed for streaming instances to join a domain.
+>>>>>>> Initial dep workover
 	DomainJoinInfo *DomainJoinInfo `type:"structure"`
 
 	// Enables or disables default internet access for the fleet.
 	EnableDefaultInternetAccess *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// The name of the image used to create the fleet.
+=======
+	// The name of the image used by the fleet.
+>>>>>>> Initial dep workover
 	ImageName *string `min:"1" type:"string"`
 
 	// The instance type to use when launching fleet instances. The following instance
@@ -6312,10 +7064,17 @@ type UpdateStackInput struct {
 	// Deletes the storage connectors currently enabled for the stack.
 	DeleteStorageConnectors *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// The description for display.
 	Description *string `type:"string"`
 
 	// The stack name for display.
+=======
+	// The description displayed to end users.
+	Description *string `type:"string"`
+
+	// The stack name displayed to end users.
+>>>>>>> Initial dep workover
 	DisplayName *string `type:"string"`
 
 	// The name of the stack.
@@ -6418,7 +7177,11 @@ func (s *UpdateStackOutput) SetStack(v *Stack) *UpdateStackOutput {
 }
 
 // Describes VPC configuration information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/VpcConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/VpcConfig
+>>>>>>> Initial dep workover
 type VpcConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -6580,9 +7343,12 @@ const (
 	// ImageBuilderStatePending is a ImageBuilderState enum value
 	ImageBuilderStatePending = "PENDING"
 
+<<<<<<< HEAD
 	// ImageBuilderStateUpdatingAgent is a ImageBuilderState enum value
 	ImageBuilderStateUpdatingAgent = "UPDATING_AGENT"
 
+=======
+>>>>>>> Initial dep workover
 	// ImageBuilderStateRunning is a ImageBuilderState enum value
 	ImageBuilderStateRunning = "RUNNING"
 

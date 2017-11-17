@@ -12,7 +12,10 @@ go_test(
         "backoff_test.go",
         "throttle_test.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/util/flowcontrol",
+=======
+>>>>>>> Initial dep workover
     library = ":go_default_library",
     deps = ["//vendor/k8s.io/apimachinery/pkg/util/clock:go_default_library"],
 )
@@ -23,7 +26,10 @@ go_library(
         "backoff.go",
         "throttle.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/util/flowcontrol",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/juju/ratelimit:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/util/clock:go_default_library",

@@ -14,12 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+<<<<<<< HEAD
 // +k8s:deepcopy-gen=package
+=======
+// +k8s:deepcopy-gen=package,register
+>>>>>>> Initial dep workover
 // +k8s:openapi-gen=true
 
 // Package v1alpha1 is the v1alpha1 version of the API.
 // AdmissionConfiguration and AdmissionPluginConfiguration are legacy static admission plugin configuration
+<<<<<<< HEAD
 // InitializerConfiguration and validatingWebhookConfiguration is for the
+=======
+// InitializerConfiguration and ExternalAdmissionHookConfiguration is for the
+>>>>>>> Initial dep workover
 // new dynamic admission controller configuration.
 // +groupName=admissionregistration.k8s.io
 package v1alpha1 // import "k8s.io/api/admissionregistration/v1alpha1"

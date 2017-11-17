@@ -41,6 +41,7 @@ var (
 	AddToScheme        = localSchemeBuilder.AddToScheme
 )
 
+<<<<<<< HEAD
 // Adds the list of known types to the given scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
@@ -54,6 +55,13 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&ReplicaSetList{},
 		&ControllerRevision{},
 		&ControllerRevisionList{},
+=======
+// Adds the list of known types to api.Scheme.
+func addKnownTypes(scheme *runtime.Scheme) error {
+	scheme.AddKnownTypes(SchemeGroupVersion,
+		&DaemonSet{},
+		&DaemonSetList{},
+>>>>>>> Initial dep workover
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil

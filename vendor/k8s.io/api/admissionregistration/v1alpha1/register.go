@@ -45,6 +45,11 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&InitializerConfiguration{},
 		&InitializerConfigurationList{},
+<<<<<<< HEAD
+=======
+		&ExternalAdmissionHookConfiguration{},
+		&ExternalAdmissionHookConfigurationList{},
+>>>>>>> Initial dep workover
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil

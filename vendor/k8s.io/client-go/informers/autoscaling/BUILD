@@ -3,7 +3,10 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "go_default_library",
     srcs = ["interface.go"],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/informers/autoscaling",
+=======
+>>>>>>> Initial dep workover
     visibility = ["//visibility:public"],
     deps = [
         "//vendor/k8s.io/client-go/informers/autoscaling/v1:go_default_library",

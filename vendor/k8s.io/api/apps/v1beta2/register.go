@@ -41,7 +41,11 @@ var (
 	AddToScheme        = localSchemeBuilder.AddToScheme
 )
 
+<<<<<<< HEAD
 // Adds the list of known types to the given scheme.
+=======
+// Adds the list of known types to api.Scheme.
+>>>>>>> Initial dep workover
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&Deployment{},

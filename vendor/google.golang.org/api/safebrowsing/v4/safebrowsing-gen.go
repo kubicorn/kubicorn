@@ -1029,6 +1029,7 @@ type ThreatEntrySet struct {
 func (s *ThreatEntrySet) MarshalJSON() ([]byte, error) {
 	type NoMethod ThreatEntrySet
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1108,6 +1109,8 @@ type ThreatHit struct {
 func (s *ThreatHit) MarshalJSON() ([]byte, error) {
 	type NoMethod ThreatHit
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1363,6 +1366,7 @@ type ThreatMatch struct {
 func (s *ThreatMatch) MarshalJSON() ([]byte, error) {
 	type NoMethod ThreatMatch
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1446,6 +1450,8 @@ type UserInfo struct {
 func (s *UserInfo) MarshalJSON() ([]byte, error) {
 	type NoMethod UserInfo
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 

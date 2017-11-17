@@ -170,6 +170,7 @@ type ClusterRole struct {
 
 	// Rules holds all the PolicyRules for this ClusterRole
 	Rules []PolicyRule `json:"rules" protobuf:"bytes,2,rep,name=rules"`
+<<<<<<< HEAD
 
 	// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole.
 	// If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be
@@ -184,6 +185,8 @@ type AggregationRule struct {
 	// If any of the selectors match, then the ClusterRole's permissions will be added
 	// +optional
 	ClusterRoleSelectors []metav1.LabelSelector `json:"clusterRoleSelectors,omitempty" protobuf:"bytes,1,rep,name=clusterRoleSelectors"`
+=======
+>>>>>>> Initial dep workover
 }
 
 // +genclient

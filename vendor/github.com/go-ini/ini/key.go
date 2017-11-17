@@ -34,8 +34,11 @@ type Key struct {
 
 	isShadow bool
 	shadows  []*Key
+<<<<<<< HEAD
 
 	nestedValues []string
+=======
+>>>>>>> Initial dep workover
 }
 
 // newKey simply return a key object with given values.

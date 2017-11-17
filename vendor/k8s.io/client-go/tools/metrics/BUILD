@@ -8,7 +8,10 @@ load(
 go_library(
     name = "go_default_library",
     srcs = ["metrics.go"],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/tools/metrics",
+=======
+>>>>>>> Initial dep workover
 )
 
 filegroup(

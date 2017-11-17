@@ -1039,7 +1039,11 @@ const opListQueueTags = "ListQueueTags"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTags
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTags
+>>>>>>> Initial dep workover
 func (c *SQS) ListQueueTagsRequest(input *ListQueueTagsInput) (req *request.Request, output *ListQueueTagsOutput) {
 	op := &request.Operation{
 		Name:       opListQueueTags,
@@ -1086,7 +1090,11 @@ func (c *SQS) ListQueueTagsRequest(input *ListQueueTagsInput) (req *request.Requ
 //
 // See the AWS API reference guide for Amazon Simple Queue Service's
 // API operation ListQueueTags for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTags
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTags
+>>>>>>> Initial dep workover
 func (c *SQS) ListQueueTags(input *ListQueueTagsInput) (*ListQueueTagsOutput, error) {
 	req, out := c.ListQueueTagsRequest(input)
 	return out, req.Send()
@@ -1811,7 +1819,11 @@ const opTagQueue = "TagQueue"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueue
+>>>>>>> Initial dep workover
 func (c *SQS) TagQueueRequest(input *TagQueueInput) (req *request.Request, output *TagQueueOutput) {
 	op := &request.Operation{
 		Name:       opTagQueue,
@@ -1860,7 +1872,11 @@ func (c *SQS) TagQueueRequest(input *TagQueueInput) (req *request.Request, outpu
 //
 // See the AWS API reference guide for Amazon Simple Queue Service's
 // API operation TagQueue for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueue
+>>>>>>> Initial dep workover
 func (c *SQS) TagQueue(input *TagQueueInput) (*TagQueueOutput, error) {
 	req, out := c.TagQueueRequest(input)
 	return out, req.Send()
@@ -1907,7 +1923,11 @@ const opUntagQueue = "UntagQueue"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueue
+>>>>>>> Initial dep workover
 func (c *SQS) UntagQueueRequest(input *UntagQueueInput) (req *request.Request, output *UntagQueueOutput) {
 	op := &request.Operation{
 		Name:       opUntagQueue,
@@ -1956,7 +1976,11 @@ func (c *SQS) UntagQueueRequest(input *UntagQueueInput) (req *request.Request, o
 //
 // See the AWS API reference guide for Amazon Simple Queue Service's
 // API operation UntagQueue for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueue
+>>>>>>> Initial dep workover
 func (c *SQS) UntagQueue(input *UntagQueueInput) (*UntagQueueOutput, error) {
 	req, out := c.UntagQueueRequest(input)
 	return out, req.Send()
@@ -1978,7 +2002,11 @@ func (c *SQS) UntagQueueWithContext(ctx aws.Context, input *UntagQueueInput, opt
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/AddPermissionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/AddPermissionRequest
+>>>>>>> Initial dep workover
 type AddPermissionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3187,7 +3215,11 @@ func (s *GetQueueUrlInput) SetQueueOwnerAWSAccountId(v string) *GetQueueUrlInput
 
 // For more information, see Responses (http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/UnderstandingResponses.html)
 // in the Amazon Simple Queue Service Developer Guide.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/GetQueueUrlResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/GetQueueUrlResult
+>>>>>>> Initial dep workover
 type GetQueueUrlOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3280,7 +3312,11 @@ func (s *ListDeadLetterSourceQueuesOutput) SetQueueUrls(v []*string) *ListDeadLe
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTagsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTagsRequest
+>>>>>>> Initial dep workover
 type ListQueueTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3319,7 +3355,11 @@ func (s *ListQueueTagsInput) SetQueueUrl(v string) *ListQueueTagsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTagsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueueTagsResult
+>>>>>>> Initial dep workover
 type ListQueueTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3343,7 +3383,11 @@ func (s *ListQueueTagsOutput) SetTags(v map[string]*string) *ListQueueTagsOutput
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueuesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/ListQueuesRequest
+>>>>>>> Initial dep workover
 type ListQueuesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4756,7 +4800,11 @@ func (s SetQueueAttributesOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueueRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueueRequest
+>>>>>>> Initial dep workover
 type TagQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4809,7 +4857,11 @@ func (s *TagQueueInput) SetTags(v map[string]*string) *TagQueueInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueueOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/TagQueueOutput
+>>>>>>> Initial dep workover
 type TagQueueOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4824,7 +4876,11 @@ func (s TagQueueOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueueRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueueRequest
+>>>>>>> Initial dep workover
 type UntagQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4877,7 +4933,11 @@ func (s *UntagQueueInput) SetTagKeys(v []*string) *UntagQueueInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueueOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/UntagQueueOutput
+>>>>>>> Initial dep workover
 type UntagQueueOutput struct {
 	_ struct{} `type:"structure"`
 }

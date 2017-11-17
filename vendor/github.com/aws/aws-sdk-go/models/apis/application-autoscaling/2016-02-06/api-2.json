@@ -420,12 +420,17 @@
       "enum":[
         "DynamoDBReadCapacityUtilization",
         "DynamoDBWriteCapacityUtilization",
+<<<<<<< HEAD
         "ALBRequestCountPerTarget",
         "RDSReaderAverageCPUUtilization",
         "RDSReaderAverageDatabaseConnections",
         "EC2SpotFleetRequestAverageCPUUtilization",
         "EC2SpotFleetRequestAverageNetworkIn",
         "EC2SpotFleetRequestAverageNetworkOut"
+=======
+        "RDSReaderAverageCPUUtilization",
+        "RDSReaderAverageDatabaseConnections"
+>>>>>>> Initial dep workover
       ]
     },
     "MetricUnit":{"type":"string"},

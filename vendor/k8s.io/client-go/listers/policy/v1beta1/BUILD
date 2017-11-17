@@ -13,7 +13,10 @@ go_library(
         "poddisruptionbudget.go",
         "poddisruptionbudget_expansion.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/listers/policy/v1beta1",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/golang/glog:go_default_library",
         "//vendor/k8s.io/api/core/v1:go_default_library",

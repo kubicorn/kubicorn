@@ -112,7 +112,25 @@ func (in *Unstructured) DeepCopy() *Unstructured {
 	}
 	out := new(Unstructured)
 	*out = *in
+<<<<<<< HEAD
 	out.Object = runtime.DeepCopyJSON(in.Object)
+=======
+	out.Object = unstructured.DeepCopyJSON(in.Object)
+	return out
+}
+
+func (in *UnstructuredList) DeepCopy() *UnstructuredList {
+	if in == nil {
+		return nil
+	}
+	out := new(UnstructuredList)
+	*out = *in
+	out.Object = unstructured.DeepCopyJSON(in.Object)
+	out.Items = make([]Unstructured, len(in.Items))
+	for i := range in.Items {
+		in.Items[i].DeepCopyInto(&out.Items[i])
+	}
+>>>>>>> Initial dep workover
 	return out
 }
 
@@ -377,3 +395,275 @@ func (u *Unstructured) GetClusterName() string {
 func (u *Unstructured) SetClusterName(clusterName string) {
 	u.setNestedField(clusterName, "metadata", "clusterName")
 }
+<<<<<<< HEAD
+=======
+
+// UnstructuredList allows lists that do not have Golang structs
+// registered to be manipulated generically. This can be used to deal
+// with the API lists from a plug-in.
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +k8s:deepcopy-gen=true
+type UnstructuredList struct {
+	Object map[string]interface{}
+
+	// Items is a list of unstructured objects.
+	Items []Unstructured `json:"items"`
+}
+
+var _ metav1.ListInterface = &UnstructuredList{}
+
+// MarshalJSON ensures that the unstructured list object produces proper
+// JSON when passed to Go's standard JSON library.
+func (u *UnstructuredList) MarshalJSON() ([]byte, error) {
+	var buf bytes.Buffer
+	err := UnstructuredJSONScheme.Encode(u, &buf)
+	return buf.Bytes(), err
+}
+
+// UnmarshalJSON ensures that the unstructured list object properly
+// decodes JSON when passed to Go's standard JSON library.
+func (u *UnstructuredList) UnmarshalJSON(b []byte) error {
+	_, _, err := UnstructuredJSONScheme.Decode(b, nil, u)
+	return err
+}
+
+func (u *UnstructuredList) setNestedField(value interface{}, fields ...string) {
+	if u.Object == nil {
+		u.Object = make(map[string]interface{})
+	}
+	setNestedField(u.Object, value, fields...)
+}
+
+func (u *UnstructuredList) GetAPIVersion() string {
+	return getNestedString(u.Object, "apiVersion")
+}
+
+func (u *UnstructuredList) SetAPIVersion(version string) {
+	u.setNestedField(version, "apiVersion")
+}
+
+func (u *UnstructuredList) GetKind() string {
+	return getNestedString(u.Object, "kind")
+}
+
+func (u *UnstructuredList) SetKind(kind string) {
+	u.setNestedField(kind, "kind")
+}
+
+func (u *UnstructuredList) GetResourceVersion() string {
+	return getNestedString(u.Object, "metadata", "resourceVersion")
+}
+
+func (u *UnstructuredList) SetResourceVersion(version string) {
+	u.setNestedField(version, "metadata", "resourceVersion")
+}
+
+func (u *UnstructuredList) GetSelfLink() string {
+	return getNestedString(u.Object, "metadata", "selfLink")
+}
+
+func (u *UnstructuredList) SetSelfLink(selfLink string) {
+	u.setNestedField(selfLink, "metadata", "selfLink")
+}
+
+func (u *UnstructuredList) GetContinue() string {
+	return getNestedString(u.Object, "metadata", "continue")
+}
+
+func (u *UnstructuredList) SetContinue(c string) {
+	u.setNestedField(c, "metadata", "continue")
+}
+
+func (u *UnstructuredList) SetGroupVersionKind(gvk schema.GroupVersionKind) {
+	u.SetAPIVersion(gvk.GroupVersion().String())
+	u.SetKind(gvk.Kind)
+}
+
+func (u *UnstructuredList) GroupVersionKind() schema.GroupVersionKind {
+	gv, err := schema.ParseGroupVersion(u.GetAPIVersion())
+	if err != nil {
+		return schema.GroupVersionKind{}
+	}
+	gvk := gv.WithKind(u.GetKind())
+	return gvk
+}
+
+// UnstructuredJSONScheme is capable of converting JSON data into the Unstructured
+// type, which can be used for generic access to objects without a predefined scheme.
+// TODO: move into serializer/json.
+var UnstructuredJSONScheme runtime.Codec = unstructuredJSONScheme{}
+
+type unstructuredJSONScheme struct{}
+
+func (s unstructuredJSONScheme) Decode(data []byte, _ *schema.GroupVersionKind, obj runtime.Object) (runtime.Object, *schema.GroupVersionKind, error) {
+	var err error
+	if obj != nil {
+		err = s.decodeInto(data, obj)
+	} else {
+		obj, err = s.decode(data)
+	}
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	gvk := obj.GetObjectKind().GroupVersionKind()
+	if len(gvk.Kind) == 0 {
+		return nil, &gvk, runtime.NewMissingKindErr(string(data))
+	}
+
+	return obj, &gvk, nil
+}
+
+func (unstructuredJSONScheme) Encode(obj runtime.Object, w io.Writer) error {
+	switch t := obj.(type) {
+	case *Unstructured:
+		return json.NewEncoder(w).Encode(t.Object)
+	case *UnstructuredList:
+		items := make([]map[string]interface{}, 0, len(t.Items))
+		for _, i := range t.Items {
+			items = append(items, i.Object)
+		}
+		listObj := make(map[string]interface{}, len(t.Object)+1)
+		for k, v := range t.Object { // Make a shallow copy
+			listObj[k] = v
+		}
+		listObj["items"] = items
+		return json.NewEncoder(w).Encode(listObj)
+	case *runtime.Unknown:
+		// TODO: Unstructured needs to deal with ContentType.
+		_, err := w.Write(t.Raw)
+		return err
+	default:
+		return json.NewEncoder(w).Encode(t)
+	}
+}
+
+func (s unstructuredJSONScheme) decode(data []byte) (runtime.Object, error) {
+	type detector struct {
+		Items gojson.RawMessage
+	}
+	var det detector
+	if err := json.Unmarshal(data, &det); err != nil {
+		return nil, err
+	}
+
+	if det.Items != nil {
+		list := &UnstructuredList{}
+		err := s.decodeToList(data, list)
+		return list, err
+	}
+
+	// No Items field, so it wasn't a list.
+	unstruct := &Unstructured{}
+	err := s.decodeToUnstructured(data, unstruct)
+	return unstruct, err
+}
+
+func (s unstructuredJSONScheme) decodeInto(data []byte, obj runtime.Object) error {
+	switch x := obj.(type) {
+	case *Unstructured:
+		return s.decodeToUnstructured(data, x)
+	case *UnstructuredList:
+		return s.decodeToList(data, x)
+	case *runtime.VersionedObjects:
+		o, err := s.decode(data)
+		if err == nil {
+			x.Objects = []runtime.Object{o}
+		}
+		return err
+	default:
+		return json.Unmarshal(data, x)
+	}
+}
+
+func (unstructuredJSONScheme) decodeToUnstructured(data []byte, unstruct *Unstructured) error {
+	m := make(map[string]interface{})
+	if err := json.Unmarshal(data, &m); err != nil {
+		return err
+	}
+
+	unstruct.Object = m
+
+	return nil
+}
+
+func (s unstructuredJSONScheme) decodeToList(data []byte, list *UnstructuredList) error {
+	type decodeList struct {
+		Items []gojson.RawMessage
+	}
+
+	var dList decodeList
+	if err := json.Unmarshal(data, &dList); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(data, &list.Object); err != nil {
+		return err
+	}
+
+	// For typed lists, e.g., a PodList, API server doesn't set each item's
+	// APIVersion and Kind. We need to set it.
+	listAPIVersion := list.GetAPIVersion()
+	listKind := list.GetKind()
+	itemKind := strings.TrimSuffix(listKind, "List")
+
+	delete(list.Object, "items")
+	list.Items = nil
+	for _, i := range dList.Items {
+		unstruct := &Unstructured{}
+		if err := s.decodeToUnstructured([]byte(i), unstruct); err != nil {
+			return err
+		}
+		// This is hacky. Set the item's Kind and APIVersion to those inferred
+		// from the List.
+		if len(unstruct.GetKind()) == 0 && len(unstruct.GetAPIVersion()) == 0 {
+			unstruct.SetKind(itemKind)
+			unstruct.SetAPIVersion(listAPIVersion)
+		}
+		list.Items = append(list.Items, *unstruct)
+	}
+	return nil
+}
+
+// UnstructuredObjectConverter is an ObjectConverter for use with
+// Unstructured objects. Since it has no schema or type information,
+// it will only succeed for no-op conversions. This is provided as a
+// sane implementation for APIs that require an object converter.
+type UnstructuredObjectConverter struct{}
+
+func (UnstructuredObjectConverter) Convert(in, out, context interface{}) error {
+	unstructIn, ok := in.(*Unstructured)
+	if !ok {
+		return fmt.Errorf("input type %T in not valid for unstructured conversion", in)
+	}
+
+	unstructOut, ok := out.(*Unstructured)
+	if !ok {
+		return fmt.Errorf("output type %T in not valid for unstructured conversion", out)
+	}
+
+	// maybe deep copy the map? It is documented in the
+	// ObjectConverter interface that this function is not
+	// guaranteeed to not mutate the input. Or maybe set the input
+	// object to nil.
+	unstructOut.Object = unstructIn.Object
+	return nil
+}
+
+func (UnstructuredObjectConverter) ConvertToVersion(in runtime.Object, target runtime.GroupVersioner) (runtime.Object, error) {
+	if kind := in.GetObjectKind().GroupVersionKind(); !kind.Empty() {
+		gvk, ok := target.KindForGroupVersionKinds([]schema.GroupVersionKind{kind})
+		if !ok {
+			// TODO: should this be a typed error?
+			return nil, fmt.Errorf("%v is unstructured and is not suitable for converting to %q", kind, target)
+		}
+		in.GetObjectKind().SetGroupVersionKind(gvk)
+	}
+	return in, nil
+}
+
+func (UnstructuredObjectConverter) ConvertFieldLabel(version, kind, label, value string) (string, string, error) {
+	return "", "", errors.New("unstructured cannot convert field labels")
+}
+>>>>>>> Initial dep workover

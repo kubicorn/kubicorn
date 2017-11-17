@@ -14,7 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+<<<<<<< HEAD
 // +k8s:deepcopy-gen=package
+=======
+// +k8s:deepcopy-gen=package,register
+>>>>>>> Initial dep workover
 // +k8s:openapi-gen=true
 
 // +groupName=settings.k8s.io

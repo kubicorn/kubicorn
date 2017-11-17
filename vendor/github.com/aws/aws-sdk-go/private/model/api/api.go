@@ -355,6 +355,7 @@ func GetCrosslinkURL(baseURL, uid string, params ...string) string {
 	}
 
 	return strings.Join(append([]string{baseURL, "goto", "WebAPI", uid}, params...), "/")
+<<<<<<< HEAD
 }
 
 // ServiceIDFromUID will parse the service id from the uid and return
@@ -375,6 +376,28 @@ func ServiceIDFromUID(uid string) string {
 	return uid[0:i]
 }
 
+=======
+}
+
+// ServiceIDFromUID will parse the service id from the uid and return
+// the service id that was found.
+func ServiceIDFromUID(uid string) string {
+	found := 0
+	i := len(uid) - 1
+	for ; i >= 0; i-- {
+		if uid[i] == '-' {
+			found++
+		}
+		// Terminate after the date component is found, e.g. es-2017-11-11
+		if found == 3 {
+			break
+		}
+	}
+
+	return uid[0:i]
+}
+
+>>>>>>> Initial dep workover
 // APIName returns the API's service name.
 func (a *API) APIName() string {
 	return a.name

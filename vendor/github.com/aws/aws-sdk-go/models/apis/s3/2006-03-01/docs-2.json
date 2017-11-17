@@ -895,6 +895,7 @@
         "ListObjectsV2Request$Delimiter": "A delimiter is a character you use to group keys."
       }
     },
+<<<<<<< HEAD
     "Description": {
       "base": null,
       "refs": {
@@ -904,6 +905,11 @@
     "Destination": {
       "base": "Container for replication destination information.",
       "refs": {
+=======
+    "Destination": {
+      "base": "Container for replication destination information.",
+      "refs": {
+>>>>>>> Initial dep workover
         "ReplicationRule$Destination": "Container for replication destination information."
       }
     },
@@ -950,12 +956,15 @@
         "ListObjectsV2Request$EncodingType": "Encoding type used by Amazon S3 to encode object keys in the response."
       }
     },
+<<<<<<< HEAD
     "Encryption": {
       "base": "Describes the server-side encryption that will be applied to the restore results.",
       "refs": {
         "S3Location$Encryption": null
       }
     },
+=======
+>>>>>>> Initial dep workover
     "EncryptionConfiguration": {
       "base": "Container for information regarding encryption based configuration for replicas.",
       "refs": {
@@ -2826,12 +2835,15 @@
         "InventoryEncryption$SSES3": "Specifies the use of SSE-S3 to encrypt delievered Inventory reports."
       }
     },
+<<<<<<< HEAD
     "SelectParameters": {
       "base": "Describes the parameters for Select job types.",
       "refs": {
         "RestoreRequest$SelectParameters": "Describes the parameters for Select job types."
       }
     },
+=======
+>>>>>>> Initial dep workover
     "ServerSideEncryption": {
       "base": null,
       "refs": {

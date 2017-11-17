@@ -153,6 +153,7 @@ const opDeleteDeliveryStream = "DeleteDeliveryStream"
 // client's request for the DeleteDeliveryStream operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -160,6 +161,15 @@ const opDeleteDeliveryStream = "DeleteDeliveryStream"
 // See DeleteDeliveryStream for more information on using the DeleteDeliveryStream
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDeliveryStream for more information on using the DeleteDeliveryStream
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -246,6 +256,7 @@ const opDescribeDeliveryStream = "DescribeDeliveryStream"
 // client's request for the DescribeDeliveryStream operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -253,6 +264,15 @@ const opDescribeDeliveryStream = "DescribeDeliveryStream"
 // See DescribeDeliveryStream for more information on using the DescribeDeliveryStream
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDeliveryStream for more information on using the DescribeDeliveryStream
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -317,6 +337,88 @@ func (c *Firehose) DescribeDeliveryStream(input *DescribeDeliveryStreamInput) (*
 // for more information on using Contexts.
 func (c *Firehose) DescribeDeliveryStreamWithContext(ctx aws.Context, input *DescribeDeliveryStreamInput, opts ...request.Option) (*DescribeDeliveryStreamOutput, error) {
 	req, out := c.DescribeDeliveryStreamRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opGetKinesisStream = "GetKinesisStream"
+
+// GetKinesisStreamRequest generates a "aws/request.Request" representing the
+// client's request for the GetKinesisStream operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetKinesisStream for more information on using the GetKinesisStream
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the GetKinesisStreamRequest method.
+//    req, resp := client.GetKinesisStreamRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/GetKinesisStream
+func (c *Firehose) GetKinesisStreamRequest(input *GetKinesisStreamInput) (req *request.Request, output *GetKinesisStreamOutput) {
+	op := &request.Operation{
+		Name:       opGetKinesisStream,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &GetKinesisStreamInput{}
+	}
+
+	output = &GetKinesisStreamOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetKinesisStream API operation for Amazon Kinesis Firehose.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Kinesis Firehose's
+// API operation GetKinesisStream for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
+//   The specified resource could not be found.
+//
+//   * ErrCodeInvalidArgumentException "InvalidArgumentException"
+//   The specified input parameter has a value that is not valid.
+//
+//   * ErrCodeInvalidStreamTypeException "InvalidStreamTypeException"
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/GetKinesisStream
+func (c *Firehose) GetKinesisStream(input *GetKinesisStreamInput) (*GetKinesisStreamOutput, error) {
+	req, out := c.GetKinesisStreamRequest(input)
+	return out, req.Send()
+}
+
+// GetKinesisStreamWithContext is the same as GetKinesisStream with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetKinesisStream for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *Firehose) GetKinesisStreamWithContext(ctx aws.Context, input *GetKinesisStreamInput, opts ...request.Option) (*GetKinesisStreamOutput, error) {
+	req, out := c.GetKinesisStreamRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -530,6 +632,7 @@ const opPutRecordBatch = "PutRecordBatch"
 // client's request for the PutRecordBatch operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -537,6 +640,15 @@ const opPutRecordBatch = "PutRecordBatch"
 // See PutRecordBatch for more information on using the PutRecordBatch
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PutRecordBatch for more information on using the PutRecordBatch
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -790,7 +902,11 @@ func (c *Firehose) UpdateDestinationWithContext(ctx aws.Context, input *UpdateDe
 // Describes hints for the buffering to perform before delivering data to the
 // destination. Please note that these options are treated as hints, and therefore
 // Kinesis Firehose may choose to use different values when it is optimal.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/BufferingHints
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/BufferingHints
+>>>>>>> Initial dep workover
 type BufferingHints struct {
 	_ struct{} `type:"structure"`
 
@@ -846,7 +962,11 @@ func (s *BufferingHints) SetSizeInMBs(v int64) *BufferingHints {
 }
 
 // Describes the Amazon CloudWatch logging options for your delivery stream.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/CloudWatchLoggingOptions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/CloudWatchLoggingOptions
+>>>>>>> Initial dep workover
 type CloudWatchLoggingOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -2008,7 +2128,11 @@ func (s *ElasticsearchDestinationUpdate) SetTypeName(v string) *ElasticsearchDes
 
 // Configures retry behavior in case Kinesis Firehose is unable to deliver documents
 // to Amazon ES.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ElasticsearchRetryOptions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ElasticsearchRetryOptions
+>>>>>>> Initial dep workover
 type ElasticsearchRetryOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -2511,6 +2635,77 @@ func (s *ExtendedS3DestinationUpdate) SetS3BackupUpdate(v *S3DestinationUpdate) 
 	return s
 }
 
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/GetKinesisStreamInput
+type GetKinesisStreamInput struct {
+	_ struct{} `type:"structure"`
+
+	// DeliveryStreamARN is a required field
+	DeliveryStreamARN *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s GetKinesisStreamInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetKinesisStreamInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *GetKinesisStreamInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GetKinesisStreamInput"}
+	if s.DeliveryStreamARN == nil {
+		invalidParams.Add(request.NewErrParamRequired("DeliveryStreamARN"))
+	}
+	if s.DeliveryStreamARN != nil && len(*s.DeliveryStreamARN) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("DeliveryStreamARN", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetDeliveryStreamARN sets the DeliveryStreamARN field's value.
+func (s *GetKinesisStreamInput) SetDeliveryStreamARN(v string) *GetKinesisStreamInput {
+	s.DeliveryStreamARN = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/GetKinesisStreamOutput
+type GetKinesisStreamOutput struct {
+	_ struct{} `type:"structure"`
+
+	CredentialsForReadingKinesisStream *SessionCredentials `type:"structure"`
+
+	KinesisStreamARN *string `min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s GetKinesisStreamOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetKinesisStreamOutput) GoString() string {
+	return s.String()
+}
+
+// SetCredentialsForReadingKinesisStream sets the CredentialsForReadingKinesisStream field's value.
+func (s *GetKinesisStreamOutput) SetCredentialsForReadingKinesisStream(v *SessionCredentials) *GetKinesisStreamOutput {
+	s.CredentialsForReadingKinesisStream = v
+	return s
+}
+
+// SetKinesisStreamARN sets the KinesisStreamARN field's value.
+func (s *GetKinesisStreamOutput) SetKinesisStreamARN(v string) *GetKinesisStreamOutput {
+	s.KinesisStreamARN = &v
+	return s
+}
+
 // Describes an encryption key for a destination in Amazon S3.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/KMSEncryptionConfig
 type KMSEncryptionConfig struct {
@@ -2557,7 +2752,11 @@ func (s *KMSEncryptionConfig) SetAWSKMSKeyARN(v string) *KMSEncryptionConfig {
 
 // The stream and role ARNs for a Kinesis stream used as the source for a delivery
 // stream.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/KinesisStreamSourceConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/KinesisStreamSourceConfiguration
+>>>>>>> Initial dep workover
 type KinesisStreamSourceConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -2618,7 +2817,11 @@ func (s *KinesisStreamSourceConfiguration) SetRoleARN(v string) *KinesisStreamSo
 
 // Details about a Kinesis stream used as the source for a Kinesis Firehose
 // delivery stream.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/KinesisStreamSourceDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/KinesisStreamSourceDescription
+>>>>>>> Initial dep workover
 type KinesisStreamSourceDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -2661,7 +2864,11 @@ func (s *KinesisStreamSourceDescription) SetRoleARN(v string) *KinesisStreamSour
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ListDeliveryStreamsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ListDeliveryStreamsInput
+>>>>>>> Initial dep workover
 type ListDeliveryStreamsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3691,7 +3898,11 @@ func (s *RedshiftDestinationUpdate) SetUsername(v string) *RedshiftDestinationUp
 
 // Configures retry behavior in case Kinesis Firehose is unable to deliver documents
 // to Amazon Redshift.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/RedshiftRetryOptions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/RedshiftRetryOptions
+>>>>>>> Initial dep workover
 type RedshiftRetryOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -4054,6 +4265,7 @@ func (s *S3DestinationUpdate) SetRoleARN(v string) *S3DestinationUpdate {
 	return s
 }
 
+<<<<<<< HEAD
 // Details about a Kinesis stream used as the source for a Kinesis Firehose
 // delivery stream.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/SourceDescription
@@ -4133,10 +4345,32 @@ type SplunkDestinationConfiguration struct {
 
 // String returns the string representation
 func (s SplunkDestinationConfiguration) String() string {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/SessionCredentials
+type SessionCredentials struct {
+	_ struct{} `type:"structure"`
+
+	// AccessKeyId is a required field
+	AccessKeyId *string `type:"string" required:"true"`
+
+	// Expiration is a required field
+	Expiration *time.Time `type:"timestamp" timestampFormat:"unix" required:"true"`
+
+	// SecretAccessKey is a required field
+	SecretAccessKey *string `type:"string" required:"true"`
+
+	// SessionToken is a required field
+	SessionToken *string `type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s SessionCredentials) String() string {
+>>>>>>> Initial dep workover
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s SplunkDestinationConfiguration) GoString() string {
 	return s.String()
 }
@@ -4482,10 +4716,53 @@ type SplunkRetryOptions struct {
 
 // String returns the string representation
 func (s SplunkRetryOptions) String() string {
+=======
+func (s SessionCredentials) GoString() string {
+	return s.String()
+}
+
+// SetAccessKeyId sets the AccessKeyId field's value.
+func (s *SessionCredentials) SetAccessKeyId(v string) *SessionCredentials {
+	s.AccessKeyId = &v
+	return s
+}
+
+// SetExpiration sets the Expiration field's value.
+func (s *SessionCredentials) SetExpiration(v time.Time) *SessionCredentials {
+	s.Expiration = &v
+	return s
+}
+
+// SetSecretAccessKey sets the SecretAccessKey field's value.
+func (s *SessionCredentials) SetSecretAccessKey(v string) *SessionCredentials {
+	s.SecretAccessKey = &v
+	return s
+}
+
+// SetSessionToken sets the SessionToken field's value.
+func (s *SessionCredentials) SetSessionToken(v string) *SessionCredentials {
+	s.SessionToken = &v
+	return s
+}
+
+// Details about a Kinesis stream used as the source for a Kinesis Firehose
+// delivery stream.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/SourceDescription
+type SourceDescription struct {
+	_ struct{} `type:"structure"`
+
+	// The KinesisStreamSourceDescription value for the source Kinesis stream.
+	KinesisStreamSourceDescription *KinesisStreamSourceDescription `type:"structure"`
+}
+
+// String returns the string representation
+func (s SourceDescription) String() string {
+>>>>>>> Initial dep workover
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s SplunkRetryOptions) GoString() string {
 	return s.String()
 }
@@ -4497,6 +4774,19 @@ func (s *SplunkRetryOptions) SetDurationInSeconds(v int64) *SplunkRetryOptions {
 }
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/UpdateDestinationInput
+=======
+func (s SourceDescription) GoString() string {
+	return s.String()
+}
+
+// SetKinesisStreamSourceDescription sets the KinesisStreamSourceDescription field's value.
+func (s *SourceDescription) SetKinesisStreamSourceDescription(v *KinesisStreamSourceDescription) *SourceDescription {
+	s.KinesisStreamSourceDescription = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/UpdateDestinationInput
+>>>>>>> Initial dep workover
 type UpdateDestinationInput struct {
 	_ struct{} `type:"structure"`
 

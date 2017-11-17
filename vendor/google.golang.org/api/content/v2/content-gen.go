@@ -305,6 +305,7 @@ type AccountAdwordsLink struct {
 func (s *AccountAdwordsLink) MarshalJSON() ([]byte, error) {
 	type NoMethod AccountAdwordsLink
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -336,6 +337,8 @@ type AccountGoogleMyBusinessLink struct {
 func (s *AccountGoogleMyBusinessLink) MarshalJSON() ([]byte, error) {
 	type NoMethod AccountGoogleMyBusinessLink
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -3508,12 +3511,19 @@ type OrderShipment struct {
 	// Acceptable values are:
 	// - "gsx"
 	// - "ups"
+<<<<<<< HEAD
 	// - "usps"
+=======
+	// - "united parcel service"
+	// - "usps"
+	// - "united states postal service"
+>>>>>>> Initial dep workover
 	// - "fedex"
 	// - "dhl"
 	// - "ecourier"
 	// - "cxt"
 	// - "google"
+<<<<<<< HEAD
 	// - "ontrac"
 	// - "emsy"
 	// - "ont"
@@ -3522,6 +3532,20 @@ type OrderShipment struct {
 	// - "lasership"
 	// - "mpx"
 	// - "uds"
+=======
+	// - "on trac"
+	// - "ontrac"
+	// - "on-trac"
+	// - "on_trac"
+	// - "delvic"
+	// - "dynamex"
+	// - "lasership"
+	// - "smartpost"
+	// - "fedex smartpost"
+	// - "mpx"
+	// - "uds"
+	// - "united delivery service"
+>>>>>>> Initial dep workover
 	Carrier string `json:"carrier,omitempty"`
 
 	// CreationDate: Date on which the shipment has been created, in ISO
@@ -3705,6 +3729,7 @@ type OrdersCancelLineItemRequest struct {
 	// left on the order.
 	Amount *Price `json:"amount,omitempty"`
 
+<<<<<<< HEAD
 	// AmountPretax: Amount to refund for the cancelation. Optional. If not
 	// set, Google will calculate the default based on the price and tax of
 	// the items involved. The amount must not be larger than the net amount
@@ -3715,6 +3740,8 @@ type OrdersCancelLineItemRequest struct {
 	// amountPretax.
 	AmountTax *Price `json:"amountTax,omitempty"`
 
+=======
+>>>>>>> Initial dep workover
 	// LineItemId: The ID of the line item to cancel. Either lineItemId or
 	// productId is required.
 	LineItemId string `json:"lineItemId,omitempty"`
@@ -4060,6 +4087,7 @@ type OrdersCustomBatchRequestEntryCancelLineItem struct {
 	// left on the order.
 	Amount *Price `json:"amount,omitempty"`
 
+<<<<<<< HEAD
 	// AmountPretax: Amount to refund for the cancelation. Optional. If not
 	// set, Google will calculate the default based on the price and tax of
 	// the items involved. The amount must not be larger than the net amount
@@ -4070,6 +4098,8 @@ type OrdersCustomBatchRequestEntryCancelLineItem struct {
 	// amountPretax.
 	AmountTax *Price `json:"amountTax,omitempty"`
 
+=======
+>>>>>>> Initial dep workover
 	// LineItemId: The ID of the line item to cancel. Either lineItemId or
 	// productId is required.
 	LineItemId string `json:"lineItemId,omitempty"`
@@ -7233,7 +7263,11 @@ func (c *AccountsClaimwebsiteCall) Do(opts ...googleapi.CallOption) (*AccountsCl
 	//       "type": "string"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -7505,7 +7539,11 @@ func (c *AccountsDeleteCall) Do(opts ...googleapi.CallOption) error {
 	//       "type": "boolean"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. This must be a multi-client account, and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. This must be a multi-client account.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -7651,7 +7689,11 @@ func (c *AccountsGetCall) Do(opts ...googleapi.CallOption) (*Account, error) {
 	//       "type": "string"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -8136,7 +8178,11 @@ func (c *AccountsPatchCall) Do(opts ...googleapi.CallOption) (*Account, error) {
 	//       "type": "boolean"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -8293,7 +8339,11 @@ func (c *AccountsUpdateCall) Do(opts ...googleapi.CallOption) (*Account, error) 
 	//       "type": "boolean"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -8562,7 +8612,11 @@ func (c *AccountstatusesGetCall) Do(opts ...googleapi.CallOption) (*AccountStatu
 	//       "type": "string"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -9029,7 +9083,11 @@ func (c *AccounttaxGetCall) Do(opts ...googleapi.CallOption) (*AccountTax, error
 	//       "type": "string"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -9369,7 +9427,11 @@ func (c *AccounttaxPatchCall) Do(opts ...googleapi.CallOption) (*AccountTax, err
 	//       "type": "boolean"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -9526,7 +9588,11 @@ func (c *AccounttaxUpdateCall) Do(opts ...googleapi.CallOption) (*AccountTax, er
 	//       "type": "boolean"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -15207,7 +15273,11 @@ func (c *ShippingsettingsGetCall) Do(opts ...googleapi.CallOption) (*ShippingSet
 	//       "type": "string"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -15689,7 +15759,11 @@ func (c *ShippingsettingsPatchCall) Do(opts ...googleapi.CallOption) (*ShippingS
 	//       "type": "boolean"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,
@@ -15846,7 +15920,11 @@ func (c *ShippingsettingsUpdateCall) Do(opts ...googleapi.CallOption) (*Shipping
 	//       "type": "boolean"
 	//     },
 	//     "merchantId": {
+<<<<<<< HEAD
 	//       "description": "The ID of the managing account. If this parameter is not the same as accountId, then this account must be a multi-client account and accountId must be the ID of a sub-account of this account.",
+=======
+	//       "description": "The ID of the managing account. If this account is not a multi-client account, then this parameter must be the same as accountId.",
+>>>>>>> Initial dep workover
 	//       "format": "uint64",
 	//       "location": "path",
 	//       "required": true,

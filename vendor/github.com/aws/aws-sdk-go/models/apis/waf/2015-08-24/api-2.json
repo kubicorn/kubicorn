@@ -724,6 +724,7 @@
         {"shape":"WAFInvalidAccountException"}
       ]
     },
+<<<<<<< HEAD
     "ListRuleGroups":{
       "name":"ListRuleGroups",
       "http":{
@@ -736,6 +737,8 @@
         {"shape":"WAFInternalErrorException"}
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "ListRules":{
       "name":"ListRules",
       "http":{
@@ -924,7 +927,10 @@
         {"shape":"WAFStaleDataException"},
         {"shape":"WAFInternalErrorException"},
         {"shape":"WAFLimitsExceededException"},
+<<<<<<< HEAD
         {"shape":"WAFNonexistentItemException"},
+=======
+>>>>>>> Initial dep workover
         {"shape":"WAFNonexistentContainerException"},
         {"shape":"WAFInvalidOperationException"},
         {"shape":"WAFInvalidAccountException"},
@@ -1182,6 +1188,27 @@
       }
     },
     "CreateGeoMatchSetRequest":{
+<<<<<<< HEAD
+=======
+      "type":"structure",
+      "required":[
+        "Name",
+        "ChangeToken"
+      ],
+      "members":{
+        "Name":{"shape":"ResourceName"},
+        "ChangeToken":{"shape":"ChangeToken"}
+      }
+    },
+    "CreateGeoMatchSetResponse":{
+      "type":"structure",
+      "members":{
+        "GeoMatchSet":{"shape":"GeoMatchSet"},
+        "ChangeToken":{"shape":"ChangeToken"}
+      }
+    },
+    "CreateIPSetRequest":{
+>>>>>>> Initial dep workover
       "type":"structure",
       "required":[
         "Name",
@@ -1277,6 +1304,7 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+<<<<<<< HEAD
     "CreateRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -1297,6 +1325,8 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "CreateRuleRequest":{
       "type":"structure",
       "required":[
@@ -1495,6 +1525,7 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+<<<<<<< HEAD
     "DeleteRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -1512,6 +1543,8 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "DeleteRuleRequest":{
       "type":"structure",
       "required":[
@@ -2038,6 +2071,7 @@
         "RegexPatternSet":{"shape":"RegexPatternSet"}
       }
     },
+<<<<<<< HEAD
     "GetRuleGroupRequest":{
       "type":"structure",
       "required":["RuleGroupId"],
@@ -2051,6 +2085,8 @@
         "RuleGroup":{"shape":"RuleGroup"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "GetRuleRequest":{
       "type":"structure",
       "required":["RuleId"],
@@ -2336,6 +2372,7 @@
         "RegexPatternSets":{"shape":"RegexPatternSetSummaries"}
       }
     },
+<<<<<<< HEAD
     "ListRuleGroupsRequest":{
       "type":"structure",
       "members":{
@@ -2350,6 +2387,8 @@
         "RuleGroups":{"shape":"RuleGroupSummaries"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "ListRulesRequest":{
       "type":"structure",
       "members":{
@@ -3063,6 +3102,7 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+<<<<<<< HEAD
     "UpdateRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -3082,6 +3122,8 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "UpdateRuleRequest":{
       "type":"structure",
       "required":[

@@ -269,11 +269,14 @@
     },
     "ConflictException": {
       "base": "<p>The request configuration has conflicts. For details, see the accompanying error message.</p>",
+<<<<<<< HEAD
       "refs": {
       }
     },
     "ConnectionType": {
       "base": null,
+=======
+>>>>>>> Initial dep workover
       "refs": {
         "Integration$connectionType": "<p>The type of the network connection to the integration endpoint. The valid value is <code>INTERNET</code> for connections through the public routable internet or <code>VPC_LINK</code> for private connections between API Gateway and an network load balancer in a VPC. The default value is <code>INTERNET</code>.</p>",
         "PutIntegrationRequest$connectionType": "<p>The type of the network connection to the integration endpoint. The valid value is <code>INTERNET</code> for connections through the public routable internet or <code>VPC_LINK</code> for private connections between API Gateway and an network load balancer in a VPC. The default value is <code>INTERNET</code>.</p>"
@@ -533,7 +536,11 @@
       }
     },
     "DomainName": {
+<<<<<<< HEAD
       "base": "<p>Represents a custom domain name as a user-friendly host name of an API (<a>RestApi</a>).</p> <div class=\"Remarks\"> <p>When you deploy an API, API Gateway creates a default host name for the API. This default API host name is of the <code>{restapi-id}.execute-api.{region}.amazonaws.com</code> format. With the default host name, you can access the API's root resource with the URL of <code>https://{restapi-id}.execute-api.{region}.amazonaws.com/{stage}/</code>. When you set up a custom domain name of <code>apis.example.com</code> for this API, you can then access the same resource using the URL of the <code>https://apis.examples.com/myApi</code>, where <code>myApi</code> is the base path mapping (<a>BasePathMapping</a>) of your API under the custom domain name. </p> </div> <div class=\"seeAlso\"> <a href=\"http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html\">Set a Custom Host Name for an API</a> </div>",
+=======
+      "base": "<p>Represents a custom domain name as a user-friendly host name of an API (<a>RestApi</a>).</p> <div class=\"Remarks\"> <p>When you deploy an API, Amazon API Gateway creates a default host name for the API. This default API host name is of the <code>{restapi-id}.execute-api.{region}.amazonaws.com</code> format. With the default host name, you can access the API's root resource with the URL of <code>https://{restapi-id}.execute-api.{region}.amazonaws.com/{stage}/</code>. When you set up a custom domain name of <code>apis.example.com</code> for this API, you can then access the same resource using the URL of the <code>https://apis.examples.com/myApi</code>, where <code>myApi</code> is the base path mapping (<a>BasePathMapping</a>) of your API under the custom domain name. </p> </div> <div class=\"seeAlso\"> <a href=\"http://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html\">Set a Custom Host Name for an API</a> </div>",
+>>>>>>> Initial dep workover
       "refs": {
         "ListOfDomainName$member": null
       }
@@ -1081,12 +1088,15 @@
         "UsagePlanKeys$items": "<p>The current page of elements from this collection.</p>"
       }
     },
+<<<<<<< HEAD
     "ListOfVpcLink": {
       "base": null,
       "refs": {
         "VpcLinks$items": "<p>The current page of elements from this collection.</p>"
       }
     },
+=======
+>>>>>>> Initial dep workover
     "LocationStatusType": {
       "base": null,
       "refs": {
@@ -1457,9 +1467,15 @@
         "Authorizer$name": "<p>[Required] The name of the authorizer.</p>",
         "Authorizer$authType": "<p>Optional customer-defined field, used in Swagger imports and exports without functional impact.</p>",
         "Authorizer$authorizerUri": "<p>Specifies the authorizer's Uniform Resource Identifier (URI). For <code>TOKEN</code> or <code>REQUEST</code> authorizers, this must be a well-formed Lambda function URI, for example, <code>arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations</code>. In general, the URI has this form <code>arn:aws:apigateway:{region}:lambda:path/{service_api}</code>, where <code>{region}</code> is the same as the region hosting the Lambda function, <code>path</code> indicates that the remaining substring in the URI should be treated as the path to the resource, including the initial <code>/</code>. For Lambda functions, this is usually of the form <code>/2015-03-31/functions/[FunctionARN]/invocations</code>.</p>",
+<<<<<<< HEAD
         "Authorizer$authorizerCredentials": "<p>Specifies the required credentials as an IAM role for API Gateway to invoke the authorizer. To specify an IAM role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.</p>",
         "Authorizer$identitySource": "<p>The identity source for which authorization is requested. <ul><li>For a <code>TOKEN</code> authorizer, this is required and specifies the request header mapping expression for the custom header holding the authorization token submitted by the client. For example, if the token header name is <code>Auth</code>, the header mapping expression is <code>method.request.header.Auth</code>.</li><li>For the <code>REQUEST</code> authorizer, this is required when authorization caching is enabled. The value is a comma-separated string of one or more mapping expressions of the specified request parameters. For example, if an <code>Auth</code> header, a <code>Name</code> query string parameter are defined as identity sources, this value is <code>method.request.header.Auth, method.request.querystring.Name</code>. These parameters will be used to derive the authorization caching key and to perform runtime validation of the <code>REQUEST</code> authorizer by verifying all of the identity-related request parameters are present, not null and non-empty. Only when this is true does the authorizer invoke the authorizer Lambda function, otherwise, it returns a 401 Unauthorized response without calling the Lambda function. The valid value is a string of comma-separated mapping expressions of the specified request parameters. When the authorization caching is not enabled, this property is optional.</li><li>For a <code>COGNITO_USER_POOLS</code> authorizer, this property is not used.</li></ul></p>",
         "Authorizer$identityValidationExpression": "<p>A validation expression for the incoming identity token. For <code>TOKEN</code> authorizers, this value is a regular expression. API Gateway will match the incoming token from the client against the specified regular expression. It will invoke the authorizer's Lambda function there is a match. Otherwise, it will return a 401 Unauthorized response without calling the Lambda function. The validation expression does not apply to the <code>REQUEST</code> authorizer.</p>",
+=======
+        "Authorizer$authorizerCredentials": "<p>Specifies the required credentials as an IAM role for Amazon API Gateway to invoke the authorizer. To specify an IAM role for Amazon API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.</p>",
+        "Authorizer$identitySource": "<p>The identity source for which authorization is requested. <ul><li>For a <code>TOKEN</code> authorizer, this is required and specifies the request header mapping expression for the custom header holding the authorization token submitted by the client. For example, if the token header name is <code>Auth</code>, the header mapping expression is <code>method.request.header.Auth</code>.</li><li>For the <code>REQUEST</code> authorizer, this is required when authorization caching is enabled. The value is a comma-separated string of one or more mapping expressions of the specified request parameters. For example, if an <code>Auth</code> header, a <code>Name</code> query string parameter are defined as identity sources, this value is <code>method.request.header.Auth, method.request.querystring.Name</code>. These parameters will be used to derive the authorization caching key and to perform runtime validation of the <code>REQUEST</code> authorizer by verifying all of the identity-related request parameters are present, not null and non-empty. Only when this is true does the authorizer invoke the authorizer Lambda function, otherwise, it returns a 401 Unauthorized response without calling the Lambda function. The valid value is a string of comma-separated mapping expressions of the specified request parameters. When the authorization caching is not enabled, this property is optional.</li><li>For a <code>COGNITO_USER_POOLS</code> authorizer, this property is not used.</li></ul></p>",
+        "Authorizer$identityValidationExpression": "<p>A validation expression for the incoming identity token. For <code>TOKEN</code> authorizers, this value is a regular expression. Amazon API Gateway will match the incoming token from the client against the specified regular expression. It will invoke the authorizer's Lambda function there is a match. Otherwise, it will return a 401 Unauthorized response without calling the Lambda function. The validation expression does not apply to the <code>REQUEST</code> authorizer.</p>",
+>>>>>>> Initial dep workover
         "Authorizers$position": null,
         "BadRequestException$message": null,
         "BasePathMapping$basePath": "<p>The base path name that callers of the API must provide as part of the URL after the domain name.</p>",
@@ -1480,9 +1496,15 @@
         "CreateAuthorizerRequest$name": "<p>[Required] The name of the authorizer.</p>",
         "CreateAuthorizerRequest$authType": "<p>Optional customer-defined field, used in Swagger imports and exports without functional impact.</p>",
         "CreateAuthorizerRequest$authorizerUri": "<p>Specifies the authorizer's Uniform Resource Identifier (URI). For <code>TOKEN</code> or <code>REQUEST</code> authorizers, this must be a well-formed Lambda function URI, for example, <code>arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations</code>. In general, the URI has this form <code>arn:aws:apigateway:{region}:lambda:path/{service_api}</code>, where <code>{region}</code> is the same as the region hosting the Lambda function, <code>path</code> indicates that the remaining substring in the URI should be treated as the path to the resource, including the initial <code>/</code>. For Lambda functions, this is usually of the form <code>/2015-03-31/functions/[FunctionARN]/invocations</code>.</p>",
+<<<<<<< HEAD
         "CreateAuthorizerRequest$authorizerCredentials": "<p>Specifies the required credentials as an IAM role for API Gateway to invoke the authorizer. To specify an IAM role for API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.</p>",
         "CreateAuthorizerRequest$identitySource": "<p>The identity source for which authorization is requested. <ul><li>For a <code>TOKEN</code> authorizer, this is required and specifies the request header mapping expression for the custom header holding the authorization token submitted by the client. For example, if the token header name is <code>Auth</code>, the header mapping expression is <code>method.request.header.Auth</code>.</li><li>For the <code>REQUEST</code> authorizer, this is required when authorization caching is enabled. The value is a comma-separated string of one or more mapping expressions of the specified request parameters. For example, if an <code>Auth</code> header, a <code>Name</code> query string parameter are defined as identity sources, this value is <code>method.request.header.Auth, method.request.querystring.Name</code>. These parameters will be used to derive the authorization caching key and to perform runtime validation of the <code>REQUEST</code> authorizer by verifying all of the identity-related request parameters are present, not null and non-empty. Only when this is true does the authorizer invoke the authorizer Lambda function, otherwise, it returns a 401 Unauthorized response without calling the Lambda function. The valid value is a string of comma-separated mapping expressions of the specified request parameters. When the authorization caching is not enabled, this property is optional.</li><li>For a <code>COGNITO_USER_POOLS</code> authorizer, this property is not used.</li></ul></p>",
         "CreateAuthorizerRequest$identityValidationExpression": "<p>A validation expression for the incoming identity token. For <code>TOKEN</code> authorizers, this value is a regular expression. API Gateway will match the incoming token from the client against the specified regular expression. It will invoke the authorizer's Lambda function there is a match. Otherwise, it will return a 401 Unauthorized response without calling the Lambda function. The validation expression does not apply to the <code>REQUEST</code> authorizer.</p>",
+=======
+        "CreateAuthorizerRequest$authorizerCredentials": "<p>Specifies the required credentials as an IAM role for Amazon API Gateway to invoke the authorizer. To specify an IAM role for Amazon API Gateway to assume, use the role's Amazon Resource Name (ARN). To use resource-based permissions on the Lambda function, specify null.</p>",
+        "CreateAuthorizerRequest$identitySource": "<p>The identity source for which authorization is requested. <ul><li>For a <code>TOKEN</code> authorizer, this is required and specifies the request header mapping expression for the custom header holding the authorization token submitted by the client. For example, if the token header name is <code>Auth</code>, the header mapping expression is <code>method.request.header.Auth</code>.</li><li>For the <code>REQUEST</code> authorizer, this is required when authorization caching is enabled. The value is a comma-separated string of one or more mapping expressions of the specified request parameters. For example, if an <code>Auth</code> header, a <code>Name</code> query string parameter are defined as identity sources, this value is <code>method.request.header.Auth, method.request.querystring.Name</code>. These parameters will be used to derive the authorization caching key and to perform runtime validation of the <code>REQUEST</code> authorizer by verifying all of the identity-related request parameters are present, not null and non-empty. Only when this is true does the authorizer invoke the authorizer Lambda function, otherwise, it returns a 401 Unauthorized response without calling the Lambda function. The valid value is a string of comma-separated mapping expressions of the specified request parameters. When the authorization caching is not enabled, this property is optional.</li><li>For a <code>COGNITO_USER_POOLS</code> authorizer, this property is not used.</li></ul></p>",
+        "CreateAuthorizerRequest$identityValidationExpression": "<p>A validation expression for the incoming identity token. For <code>TOKEN</code> authorizers, this value is a regular expression. Amazon API Gateway will match the incoming token from the client against the specified regular expression. It will invoke the authorizer's Lambda function there is a match. Otherwise, it will return a 401 Unauthorized response without calling the Lambda function. The validation expression does not apply to the <code>REQUEST</code> authorizer.</p>",
+>>>>>>> Initial dep workover
         "CreateBasePathMappingRequest$domainName": "<p>The domain name of the <a>BasePathMapping</a> resource to create.</p>",
         "CreateBasePathMappingRequest$basePath": "<p>The base path name that callers of the API must provide as part of the URL after the domain name. This value must be unique for all of the mappings across a single API. Leave this blank if you do not want callers to specify a base path name after the domain name.</p>",
         "CreateBasePathMappingRequest$restApiId": "<p>The string identifier of the associated <a>RestApi</a>.</p>",
@@ -1585,7 +1607,11 @@
         "DomainName$domainName": "<p>The name of the <a>DomainName</a> resource.</p>",
         "DomainName$certificateName": "<p>The name of the certificate that will be used by edge-optimized endpoint for this domain name.</p>",
         "DomainName$certificateArn": "<p>The reference to an AWS-managed certificate that will be used by edge-optimized endpoint for this domain name. AWS Certificate Manager is the only supported source.</p>",
+<<<<<<< HEAD
         "DomainName$regionalDomainName": "<p>The domain name associated with the regional endpoint for this custom domain name. You set up this association by adding a DNS record that points the custom domain name to this regional domain name. The regional domain name is returned by API Gateway when you create a regional endpoint.</p>",
+=======
+        "DomainName$regionalDomainName": "<p>The domain name associated with the regional endpoint for this custom domain name. You set up this association by adding a DNS record that points the custom domain name to this regional domain name. The regional domain name is returned by Amazon API Gateway when you create a regional endpoint.</p>",
+>>>>>>> Initial dep workover
         "DomainName$regionalHostedZoneId": "<p>The region-specific Amazon Route 53 Hosted Zone ID of the regional endpoint. For more information, see <a href=\"https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-regional-api-custom-domain-create.html\">Set up a Regional Custom Domain Name</a> and <a href=\"http://docs.aws.amazon.com/general/latest/gr/rande.html#apigateway_region\">AWS Regions and Endpoints for API Gateway</a>. </p>",
         "DomainName$regionalCertificateName": "<p>The name of the certificate that will be used for validating the regional domain name.</p>",
         "DomainName$regionalCertificateArn": "<p>The reference to an AWS-managed certificate that will be used for validating the regional domain name. AWS Certificate Manager is the only supported source.</p>",
@@ -1667,7 +1693,11 @@
         "GetRestApisRequest$position": "<p>The current pagination position in the paged result set.</p>",
         "GetSdkRequest$restApiId": "<p>The string identifier of the associated <a>RestApi</a>.</p>",
         "GetSdkRequest$stageName": "<p>The name of the <a>Stage</a> that the SDK will use.</p>",
+<<<<<<< HEAD
         "GetSdkRequest$sdkType": "<p>The language for the generated SDK. Currently <code>java</code>, <code>javascript</code>, <code>android</code>, <code>objectivec</code> (for iOS), <code>swift</code> (for iOS), and <code>ruby</code> are supported.</p>",
+=======
+        "GetSdkRequest$sdkType": "<p>The language for the generated SDK. Currently <code>java</code>, <code>javascript</code>, <code>android</code>, <code>objectivec</code> and <code>swift</code> (for iOS) are supported.</p>",
+>>>>>>> Initial dep workover
         "GetSdkTypeRequest$id": "<p>The identifier of the queried <a>SdkType</a> instance.</p>",
         "GetSdkTypesRequest$position": "<p>The current pagination position in the paged result set.</p>",
         "GetStageRequest$restApiId": "<p>The string identifier of the associated <a>RestApi</a>.</p>",

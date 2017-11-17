@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -34,6 +38,7 @@ type Interface interface {
 	PodSecurityPolicies() PodSecurityPolicyInformer
 	// ReplicaSets returns a ReplicaSetInformer.
 	ReplicaSets() ReplicaSetInformer
+<<<<<<< HEAD
 }
 
 type version struct {
@@ -45,29 +50,67 @@ type version struct {
 // New returns a new Interface.
 func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakListOptions internalinterfaces.TweakListOptionsFunc) Interface {
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
+=======
+	// ThirdPartyResources returns a ThirdPartyResourceInformer.
+	ThirdPartyResources() ThirdPartyResourceInformer
+}
+
+type version struct {
+	internalinterfaces.SharedInformerFactory
+}
+
+// New returns a new Interface.
+func New(f internalinterfaces.SharedInformerFactory) Interface {
+	return &version{f}
+>>>>>>> Initial dep workover
 }
 
 // DaemonSets returns a DaemonSetInformer.
 func (v *version) DaemonSets() DaemonSetInformer {
+<<<<<<< HEAD
 	return &daemonSetInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &daemonSetInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Deployments returns a DeploymentInformer.
 func (v *version) Deployments() DeploymentInformer {
+<<<<<<< HEAD
 	return &deploymentInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &deploymentInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Ingresses returns a IngressInformer.
 func (v *version) Ingresses() IngressInformer {
+<<<<<<< HEAD
 	return &ingressInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &ingressInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // PodSecurityPolicies returns a PodSecurityPolicyInformer.
 func (v *version) PodSecurityPolicies() PodSecurityPolicyInformer {
+<<<<<<< HEAD
 	return &podSecurityPolicyInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+=======
+	return &podSecurityPolicyInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // ReplicaSets returns a ReplicaSetInformer.
 func (v *version) ReplicaSets() ReplicaSetInformer {
+<<<<<<< HEAD
 	return &replicaSetInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &replicaSetInformer{factory: v.SharedInformerFactory}
+}
+
+// ThirdPartyResources returns a ThirdPartyResourceInformer.
+func (v *version) ThirdPartyResources() ThirdPartyResourceInformer {
+	return &thirdPartyResourceInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }

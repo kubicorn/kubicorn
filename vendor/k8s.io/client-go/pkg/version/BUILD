@@ -12,7 +12,10 @@ go_library(
         "doc.go",
         "version.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/pkg/version",
+=======
+>>>>>>> Initial dep workover
     deps = ["//vendor/k8s.io/apimachinery/pkg/version:go_default_library"],
 )
 

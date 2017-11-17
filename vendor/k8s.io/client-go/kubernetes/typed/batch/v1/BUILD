@@ -13,7 +13,10 @@ go_library(
         "generated_expansion.go",
         "job.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/kubernetes/typed/batch/v1",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/batch/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

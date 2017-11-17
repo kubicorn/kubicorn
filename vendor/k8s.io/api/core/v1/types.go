@@ -302,7 +302,12 @@ type VolumeSource struct {
 	// +optional
 	RBD *RBDVolumeSource `json:"rbd,omitempty" protobuf:"bytes,11,opt,name=rbd"`
 	// FlexVolume represents a generic volume resource that is
+<<<<<<< HEAD
 	// provisioned/attached using an exec based plugin.
+=======
+	// provisioned/attached using an exec based plugin. This is an
+	// alpha feature and may change in future.
+>>>>>>> Initial dep workover
 	// +optional
 	FlexVolume *FlexVolumeSource `json:"flexVolume,omitempty" protobuf:"bytes,12,opt,name=flexVolume"`
 	// Cinder represents a cinder volume attached and mounted on kubelets host machine
@@ -401,7 +406,11 @@ type PersistentVolumeSource struct {
 	// ISCSI represents an ISCSI Disk resource that is attached to a
 	// kubelet's host machine and then exposed to the pod. Provisioned by an admin.
 	// +optional
+<<<<<<< HEAD
 	ISCSI *ISCSIPersistentVolumeSource `json:"iscsi,omitempty" protobuf:"bytes,7,opt,name=iscsi"`
+=======
+	ISCSI *ISCSIVolumeSource `json:"iscsi,omitempty" protobuf:"bytes,7,opt,name=iscsi"`
+>>>>>>> Initial dep workover
 	// Cinder represents a cinder volume attached and mounted on kubelets host machine
 	// More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md
 	// +optional
@@ -416,7 +425,12 @@ type PersistentVolumeSource struct {
 	// +optional
 	Flocker *FlockerVolumeSource `json:"flocker,omitempty" protobuf:"bytes,11,opt,name=flocker"`
 	// FlexVolume represents a generic volume resource that is
+<<<<<<< HEAD
 	// provisioned/attached using an exec based plugin.
+=======
+	// provisioned/attached using an exec based plugin. This is an
+	// alpha feature and may change in future.
+>>>>>>> Initial dep workover
 	// +optional
 	FlexVolume *FlexVolumeSource `json:"flexVolume,omitempty" protobuf:"bytes,12,opt,name=flexVolume"`
 	// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
@@ -446,9 +460,12 @@ type PersistentVolumeSource struct {
 	// More info: https://releases.k8s.io/HEAD/examples/volumes/storageos/README.md
 	// +optional
 	StorageOS *StorageOSPersistentVolumeSource `json:"storageos,omitempty" protobuf:"bytes,21,opt,name=storageos"`
+<<<<<<< HEAD
 	// CSI represents storage that handled by an external CSI driver
 	// +optional
 	CSI *CSIPersistentVolumeSource `json:"csi,omitempty" protobuf:"bytes,22,opt,name=csi"`
+=======
+>>>>>>> Initial dep workover
 }
 
 const (
@@ -525,11 +542,14 @@ type PersistentVolumeSpec struct {
 	// More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 	// +optional
 	MountOptions []string `json:"mountOptions,omitempty" protobuf:"bytes,7,opt,name=mountOptions"`
+<<<<<<< HEAD
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem
 	// or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	// This is an alpha feature and may change in the future.
 	// +optional
 	VolumeMode *PersistentVolumeMode `json:"volumeMode,omitempty" protobuf:"bytes,8,opt,name=volumeMode,casttype=PersistentVolumeMode"`
+=======
+>>>>>>> Initial dep workover
 }
 
 // PersistentVolumeReclaimPolicy describes a policy for end-of-life maintenance of persistent volumes.
@@ -547,6 +567,7 @@ const (
 	PersistentVolumeReclaimRetain PersistentVolumeReclaimPolicy = "Retain"
 )
 
+<<<<<<< HEAD
 // PersistentVolumeMode describes how a volume is intended to be consumed, either Block or Filesystem.
 type PersistentVolumeMode string
 
@@ -557,6 +578,8 @@ const (
 	PersistentVolumeFilesystem PersistentVolumeMode = "Filesystem"
 )
 
+=======
+>>>>>>> Initial dep workover
 // PersistentVolumeStatus is the current status of a persistent volume.
 type PersistentVolumeStatus struct {
 	// Phase indicates if a volume is available, bound to a claim, or released by a claim.
@@ -644,11 +667,14 @@ type PersistentVolumeClaimSpec struct {
 	// More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	// +optional
 	StorageClassName *string `json:"storageClassName,omitempty" protobuf:"bytes,5,opt,name=storageClassName"`
+<<<<<<< HEAD
 	// volumeMode defines what type of volume is required by the claim.
 	// Value of Filesystem is implied when not included in claim spec.
 	// This is an alpha feature and may change in the future.
 	// +optional
 	VolumeMode *PersistentVolumeMode `json:"volumeMode,omitempty" protobuf:"bytes,6,opt,name=volumeMode,casttype=PersistentVolumeMode"`
+=======
+>>>>>>> Initial dep workover
 }
 
 // PersistentVolumeClaimConditionType is a valid value of PersistentVolumeClaimCondition.Type
@@ -1010,7 +1036,11 @@ type StorageMedium string
 const (
 	StorageMediumDefault   StorageMedium = ""          // use whatever the default is for the node
 	StorageMediumMemory    StorageMedium = "Memory"    // use memory (tmpfs)
+<<<<<<< HEAD
 	StorageMediumHugePages StorageMedium = "HugePages" // use hugepages
+=======
+	StorageMediumHugepages StorageMedium = "HugePages" // use hugepages
+>>>>>>> Initial dep workover
 )
 
 // Protocol defines network protocols supported for things like container ports.
@@ -1082,7 +1112,11 @@ type QuobyteVolumeSource struct {
 }
 
 // FlexVolume represents a generic volume resource that is
+<<<<<<< HEAD
 // provisioned/attached using an exec based plugin.
+=======
+// provisioned/attached using an exec based plugin. This is an alpha feature and may change in future.
+>>>>>>> Initial dep workover
 type FlexVolumeSource struct {
 	// Driver is the name of the driver to use for this volume.
 	Driver string `json:"driver" protobuf:"bytes,1,opt,name=driver"`
@@ -1234,15 +1268,25 @@ type NFSVolumeSource struct {
 // ISCSI volumes can only be mounted as read/write once.
 // ISCSI volumes support ownership management and SELinux relabeling.
 type ISCSIVolumeSource struct {
+<<<<<<< HEAD
 	// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port
+=======
+	// iSCSI target portal. The portal is either an IP or ip_addr:port if the port
+>>>>>>> Initial dep workover
 	// is other than default (typically TCP ports 860 and 3260).
 	TargetPortal string `json:"targetPortal" protobuf:"bytes,1,opt,name=targetPortal"`
 	// Target iSCSI Qualified Name.
 	IQN string `json:"iqn" protobuf:"bytes,2,opt,name=iqn"`
+<<<<<<< HEAD
 	// iSCSI Target Lun number.
 	Lun int32 `json:"lun" protobuf:"varint,3,opt,name=lun"`
 	// iSCSI Interface Name that uses an iSCSI transport.
 	// Defaults to 'default' (tcp).
+=======
+	// iSCSI target lun number.
+	Lun int32 `json:"lun" protobuf:"varint,3,opt,name=lun"`
+	// Optional: Defaults to 'default' (tcp). iSCSI interface name that uses an iSCSI transport.
+>>>>>>> Initial dep workover
 	// +optional
 	ISCSIInterface string `json:"iscsiInterface,omitempty" protobuf:"bytes,4,opt,name=iscsiInterface"`
 	// Filesystem type of the volume that you want to mount.
@@ -1256,7 +1300,11 @@ type ISCSIVolumeSource struct {
 	// Defaults to false.
 	// +optional
 	ReadOnly bool `json:"readOnly,omitempty" protobuf:"varint,6,opt,name=readOnly"`
+<<<<<<< HEAD
 	// iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port
+=======
+	// iSCSI target portal List. The portal is either an IP or ip_addr:port if the port
+>>>>>>> Initial dep workover
 	// is other than default (typically TCP ports 860 and 3260).
 	// +optional
 	Portals []string `json:"portals,omitempty" protobuf:"bytes,7,opt,name=portals"`
@@ -1266,6 +1314,7 @@ type ISCSIVolumeSource struct {
 	// whether support iSCSI Session CHAP authentication
 	// +optional
 	SessionCHAPAuth bool `json:"chapAuthSession,omitempty" protobuf:"varint,11,opt,name=chapAuthSession"`
+<<<<<<< HEAD
 	// CHAP Secret for iSCSI target and initiator authentication
 	// +optional
 	SecretRef *LocalObjectReference `json:"secretRef,omitempty" protobuf:"bytes,10,opt,name=secretRef"`
@@ -1316,6 +1365,12 @@ type ISCSIPersistentVolumeSource struct {
 	// +optional
 	SecretRef *SecretReference `json:"secretRef,omitempty" protobuf:"bytes,10,opt,name=secretRef"`
 	// Custom iSCSI Initiator Name.
+=======
+	// CHAP secret for iSCSI target and initiator authentication
+	// +optional
+	SecretRef *LocalObjectReference `json:"secretRef,omitempty" protobuf:"bytes,10,opt,name=secretRef"`
+	// Custom iSCSI initiator name.
+>>>>>>> Initial dep workover
 	// If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface
 	// <target portal>:<volume name> will be created for the connection.
 	// +optional
@@ -1689,6 +1744,7 @@ type LocalVolumeSource struct {
 	Path string `json:"path" protobuf:"bytes,1,opt,name=path"`
 }
 
+<<<<<<< HEAD
 // Represents storage that is managed by an external CSI volume driver
 type CSIPersistentVolumeSource struct {
 	// Driver is the name of the driver to use for this volume.
@@ -1706,6 +1762,8 @@ type CSIPersistentVolumeSource struct {
 	ReadOnly bool `json:"readOnly,omitempty" protobuf:"varint,3,opt,name=readOnly"`
 }
 
+=======
+>>>>>>> Initial dep workover
 // ContainerPort represents a network port in a single container.
 type ContainerPort struct {
 	// If specified, this must be an IANA_SVC_NAME and unique within the pod. Each
@@ -1774,6 +1832,7 @@ const (
 	MountPropagationBidirectional MountPropagationMode = "Bidirectional"
 )
 
+<<<<<<< HEAD
 // volumeDevice describes a mapping of a raw block device within a container.
 type VolumeDevice struct {
 	// name must match the name of a persistentVolumeClaim in the pod
@@ -1782,6 +1841,8 @@ type VolumeDevice struct {
 	DevicePath string `json:"devicePath" protobuf:"bytes,2,opt,name=devicePath"`
 }
 
+=======
+>>>>>>> Initial dep workover
 // EnvVar represents an environment variable present in a Container.
 type EnvVar struct {
 	// Name of the environment variable. Must be a C_IDENTIFIER.
@@ -2125,12 +2186,15 @@ type Container struct {
 	// +patchMergeKey=mountPath
 	// +patchStrategy=merge
 	VolumeMounts []VolumeMount `json:"volumeMounts,omitempty" patchStrategy:"merge" patchMergeKey:"mountPath" protobuf:"bytes,9,rep,name=volumeMounts"`
+<<<<<<< HEAD
 	// volumeDevices is the list of block devices to be used by the container.
 	// This is an alpha feature and may change in the future.
 	// +patchMergeKey=devicePath
 	// +patchStrategy=merge
 	// +optional
 	VolumeDevices []VolumeDevice `json:"volumeDevices,omitempty" patchStrategy:"merge" patchMergeKey:"devicePath" protobuf:"bytes,21,rep,name=volumeDevices"`
+=======
+>>>>>>> Initial dep workover
 	// Periodic probe of container liveness.
 	// Container will be restarted if the probe fails.
 	// Cannot be updated.
@@ -2429,11 +2493,14 @@ const (
 	// determined by kubelet) DNS settings.
 	DNSDefault DNSPolicy = "Default"
 
+<<<<<<< HEAD
 	// DNSNone indicates that the pod should use empty DNS settings. DNS
 	// parameters such as nameservers and search paths should be defined via
 	// DNSConfig.
 	DNSNone DNSPolicy = "None"
 
+=======
+>>>>>>> Initial dep workover
 	DefaultTerminationGracePeriodSeconds = 30
 )
 
@@ -2590,8 +2657,16 @@ type PodAffinityTerm struct {
 	// the labelSelector in the specified namespaces, where co-located is defined as running on a node
 	// whose value of the label with key topologyKey matches that of any node on which any of the
 	// selected pods is running.
+<<<<<<< HEAD
 	// Empty topologyKey is not allowed.
 	TopologyKey string `json:"topologyKey" protobuf:"bytes,3,opt,name=topologyKey"`
+=======
+	// For PreferredDuringScheduling pod anti-affinity, empty topologyKey is interpreted as "all topologies"
+	// ("all topologies" here means all the topologyKeys indicated by scheduler command-line argument --failure-domains);
+	// for affinity and for RequiredDuringScheduling pod anti-affinity, empty topologyKey is not allowed.
+	// +optional
+	TopologyKey string `json:"topologyKey,omitempty" protobuf:"bytes,3,opt,name=topologyKey"`
+>>>>>>> Initial dep workover
 }
 
 // Node affinity is a group of node affinity scheduling rules.
@@ -2763,6 +2838,7 @@ type PodSpec struct {
 	// Value must be a positive integer.
 	// +optional
 	ActiveDeadlineSeconds *int64 `json:"activeDeadlineSeconds,omitempty" protobuf:"varint,5,opt,name=activeDeadlineSeconds"`
+<<<<<<< HEAD
 	// Set DNS policy for the pod.
 	// Defaults to "ClusterFirst".
 	// Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'.
@@ -2770,6 +2846,12 @@ type PodSpec struct {
 	// To have DNS options set along with hostNetwork, you have to specify DNS policy
 	// explicitly to 'ClusterFirstWithHostNet'.
 	// Note that 'None' policy is an alpha feature introduced in v1.9 and CustomPodDNS feature gate must be enabled to use it.
+=======
+	// Set DNS policy for containers within the pod.
+	// One of 'ClusterFirstWithHostNet', 'ClusterFirst' or 'Default'.
+	// Defaults to "ClusterFirst".
+	// To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+>>>>>>> Initial dep workover
 	// +optional
 	DNSPolicy DNSPolicy `json:"dnsPolicy,omitempty" protobuf:"bytes,6,opt,name=dnsPolicy,casttype=DNSPolicy"`
 	// NodeSelector is a selector which must be true for the pod to fit on a node.
@@ -2862,12 +2944,15 @@ type PodSpec struct {
 	// The higher the value, the higher the priority.
 	// +optional
 	Priority *int32 `json:"priority,omitempty" protobuf:"bytes,25,opt,name=priority"`
+<<<<<<< HEAD
 	// Specifies the DNS parameters of a pod.
 	// Parameters specified here will be merged to the generated DNS
 	// configuration based on DNSPolicy.
 	// This is an alpha feature introduced in v1.9 and CustomPodDNS feature gate must be enabled to use it.
 	// +optional
 	DNSConfig *PodDNSConfig `json:"dnsConfig,omitempty" protobuf:"bytes,26,opt,name=dnsConfig"`
+=======
+>>>>>>> Initial dep workover
 }
 
 // HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the
@@ -2935,6 +3020,7 @@ const (
 	PodQOSBestEffort PodQOSClass = "BestEffort"
 )
 
+<<<<<<< HEAD
 // PodDNSConfig defines the DNS parameters of a pod in addition to
 // those generated from DNSPolicy.
 type PodDNSConfig struct {
@@ -2964,6 +3050,8 @@ type PodDNSConfigOption struct {
 	Value *string `json:"value,omitempty" protobuf:"bytes,2,opt,name=value"`
 }
 
+=======
+>>>>>>> Initial dep workover
 // PodStatus represents information about the status of a pod. Status may trail the actual
 // state of a system.
 type PodStatus struct {
@@ -3427,8 +3515,12 @@ type ServiceSpec struct {
 
 	// externalName is the external reference that kubedns or equivalent will
 	// return as a CNAME record for this service. No proxying will be involved.
+<<<<<<< HEAD
 	// Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123)
 	// and requires Type to be ExternalName.
+=======
+	// Must be a valid DNS name and requires Type to be ExternalName.
+>>>>>>> Initial dep workover
 	// +optional
 	ExternalName string `json:"externalName,omitempty" protobuf:"bytes,10,opt,name=externalName"`
 
@@ -3981,6 +4073,11 @@ const (
 )
 
 const (
+<<<<<<< HEAD
+=======
+	// Namespace prefix for opaque counted resources (alpha).
+	ResourceOpaqueIntPrefix = "pod.alpha.kubernetes.io/opaque-int-resource-"
+>>>>>>> Initial dep workover
 	// Default namespace prefix.
 	ResourceDefaultNamespacePrefix = "kubernetes.io/"
 	// Name prefix for huge page resources (alpha).
@@ -4172,10 +4269,13 @@ type DeleteOptions struct {
 	// Either this field or OrphanDependents may be set, but not both.
 	// The default policy is decided by the existing finalizer set in the
 	// metadata.finalizers and the resource-specific default policy.
+<<<<<<< HEAD
 	// Acceptable values are: 'Orphan' - orphan the dependents; 'Background' -
 	// allow the garbage collector to delete the dependents in the background;
 	// 'Foreground' - a cascading policy that deletes all dependents in the
 	// foreground.
+=======
+>>>>>>> Initial dep workover
 	// +optional
 	PropagationPolicy *DeletionPropagation `protobuf:"bytes,4,opt,name=propagationPolicy,casttype=DeletionPropagation"`
 }
@@ -4468,6 +4568,10 @@ const (
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Event is a report of an event somewhere in the cluster.
+<<<<<<< HEAD
+=======
+// TODO: Decide whether to store these separately or with the object they apply to.
+>>>>>>> Initial dep workover
 type Event struct {
 	metav1.TypeMeta `json:",inline"`
 	// Standard object's metadata.
@@ -4507,6 +4611,7 @@ type Event struct {
 	// Type of this event (Normal, Warning), new types could be added in the future
 	// +optional
 	Type string `json:"type,omitempty" protobuf:"bytes,9,opt,name=type"`
+<<<<<<< HEAD
 
 	// Time when this Event was first observed.
 	// +optional
@@ -4552,6 +4657,10 @@ const (
 	EventSeriesStateUnknown  EventSeriesState = "Unknown"
 )
 
+=======
+}
+
+>>>>>>> Initial dep workover
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // EventList is a list of events.
@@ -4679,6 +4788,7 @@ const (
 	ResourceLimitsEphemeralStorage ResourceName = "limits.ephemeral-storage"
 )
 
+<<<<<<< HEAD
 // The following identify resource prefix for Kubernetes object types
 const (
 	// HugePages request, in bytes. (500Gi = 500GiB = 500 * 1024 * 1024 * 1024)
@@ -4686,6 +4796,8 @@ const (
 	ResourceRequestsHugePagesPrefix = "requests.hugepages-"
 )
 
+=======
+>>>>>>> Initial dep workover
 // A ResourceQuotaScope defines a filter that must match each object tracked by a quota
 type ResourceQuotaScope string
 
@@ -5114,7 +5226,11 @@ const (
 	// corresponding to every RequiredDuringScheduling affinity rule.
 	// When the --hard-pod-affinity-weight scheduler flag is not specified,
 	// DefaultHardPodAffinityWeight defines the weight of the implicit PreferredDuringScheduling affinity rule.
+<<<<<<< HEAD
 	DefaultHardPodAffinitySymmetricWeight int32 = 1
+=======
+	DefaultHardPodAffinitySymmetricWeight int = 1
+>>>>>>> Initial dep workover
 )
 
 // Sysctl defines a kernel parameter to be set

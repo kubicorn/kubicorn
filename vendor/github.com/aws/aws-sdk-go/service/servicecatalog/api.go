@@ -397,7 +397,11 @@ const opCopyProduct = "CopyProduct"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CopyProduct
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CopyProduct
+>>>>>>> Initial dep workover
 func (c *ServiceCatalog) CopyProductRequest(input *CopyProductInput) (req *request.Request, output *CopyProductOutput) {
 	op := &request.Operation{
 		Name:       opCopyProduct,
@@ -419,8 +423,13 @@ func (c *ServiceCatalog) CopyProductRequest(input *CopyProductInput) (req *reque
 // Copies the specified source product to the specified target product or a
 // new product.
 //
+<<<<<<< HEAD
 // You can copy a product to the same account or another account. You can copy
 // a product to the same region or another region.
+=======
+// You can copy the product to the same account or another account. You can
+// copy the product to the same region or another region.
+>>>>>>> Initial dep workover
 //
 // This operation is performed asynchronously. To track the progress of the
 // operation, use DescribeCopyProductStatus.
@@ -437,9 +446,15 @@ func (c *ServiceCatalog) CopyProductRequest(input *CopyProductInput) (req *reque
 //   The specified resource was not found.
 //
 //   * ErrCodeInvalidParametersException "InvalidParametersException"
+<<<<<<< HEAD
 //   One or more parameters provided to the operation are not valid.
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CopyProduct
+=======
+//   One or more parameters provided to the operation are invalid.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CopyProduct
+>>>>>>> Initial dep workover
 func (c *ServiceCatalog) CopyProduct(input *CopyProductInput) (*CopyProductOutput, error) {
 	req, out := c.CopyProductRequest(input)
 	return out, req.Send()
@@ -467,6 +482,7 @@ const opCreateConstraint = "CreateConstraint"
 // client's request for the CreateConstraint operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -474,6 +490,15 @@ const opCreateConstraint = "CreateConstraint"
 // See CreateConstraint for more information on using the CreateConstraint
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateConstraint for more information on using the CreateConstraint
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -557,6 +582,7 @@ const opCreatePortfolio = "CreatePortfolio"
 // client's request for the CreatePortfolio operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -564,6 +590,15 @@ const opCreatePortfolio = "CreatePortfolio"
 // See CreatePortfolio for more information on using the CreatePortfolio
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreatePortfolio for more information on using the CreatePortfolio
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -863,9 +898,12 @@ func (c *ServiceCatalog) CreateProvisioningArtifactRequest(input *CreateProvisio
 // Creates a provisioning artifact (also known as a version) for the specified
 // product.
 //
+<<<<<<< HEAD
 // You cannot create a provisioning artifact for a product that was shared with
 // you.
 //
+=======
+>>>>>>> Initial dep workover
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
@@ -1351,6 +1389,7 @@ const opDeleteProvisioningArtifact = "DeleteProvisioningArtifact"
 // client's request for the DeleteProvisioningArtifact operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1358,6 +1397,15 @@ const opDeleteProvisioningArtifact = "DeleteProvisioningArtifact"
 // See DeleteProvisioningArtifact for more information on using the DeleteProvisioningArtifact
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteProvisioningArtifact for more information on using the DeleteProvisioningArtifact
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1540,7 +1588,11 @@ const opDescribeCopyProductStatus = "DescribeCopyProductStatus"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeCopyProductStatus
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeCopyProductStatus
+>>>>>>> Initial dep workover
 func (c *ServiceCatalog) DescribeCopyProductStatusRequest(input *DescribeCopyProductStatusInput) (req *request.Request, output *DescribeCopyProductStatusOutput) {
 	op := &request.Operation{
 		Name:       opDescribeCopyProductStatus,
@@ -1559,7 +1611,11 @@ func (c *ServiceCatalog) DescribeCopyProductStatusRequest(input *DescribeCopyPro
 
 // DescribeCopyProductStatus API operation for AWS Service Catalog.
 //
+<<<<<<< HEAD
 // Gets the status of the specified copy product operation.
+=======
+// Describes the status of the specified copy product operation.
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -1572,7 +1628,11 @@ func (c *ServiceCatalog) DescribeCopyProductStatusRequest(input *DescribeCopyPro
 //   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
 //   The specified resource was not found.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeCopyProductStatus
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeCopyProductStatus
+>>>>>>> Initial dep workover
 func (c *ServiceCatalog) DescribeCopyProductStatus(input *DescribeCopyProductStatusInput) (*DescribeCopyProductStatusOutput, error) {
 	req, out := c.DescribeCopyProductStatusRequest(input)
 	return out, req.Send()
@@ -1600,6 +1660,7 @@ const opDescribePortfolio = "DescribePortfolio"
 // client's request for the DescribePortfolio operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1607,6 +1668,15 @@ const opDescribePortfolio = "DescribePortfolio"
 // See DescribePortfolio for more information on using the DescribePortfolio
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribePortfolio for more information on using the DescribePortfolio
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1679,6 +1749,7 @@ const opDescribeProduct = "DescribeProduct"
 // client's request for the DescribeProduct operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1686,6 +1757,15 @@ const opDescribeProduct = "DescribeProduct"
 // See DescribeProduct for more information on using the DescribeProduct
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeProduct for more information on using the DescribeProduct
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1923,6 +2003,7 @@ const opDescribeProvisionedProduct = "DescribeProvisionedProduct"
 // client's request for the DescribeProvisionedProduct operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1930,6 +2011,15 @@ const opDescribeProvisionedProduct = "DescribeProvisionedProduct"
 // See DescribeProvisionedProduct for more information on using the DescribeProvisionedProduct
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeProvisionedProduct for more information on using the DescribeProvisionedProduct
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2002,6 +2092,7 @@ const opDescribeProvisioningArtifact = "DescribeProvisioningArtifact"
 // client's request for the DescribeProvisioningArtifact operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2009,6 +2100,15 @@ const opDescribeProvisioningArtifact = "DescribeProvisioningArtifact"
 // See DescribeProvisioningArtifact for more information on using the DescribeProvisioningArtifact
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeProvisioningArtifact for more information on using the DescribeProvisioningArtifact
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2082,6 +2182,7 @@ const opDescribeProvisioningParameters = "DescribeProvisioningParameters"
 // client's request for the DescribeProvisioningParameters operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2089,6 +2190,15 @@ const opDescribeProvisioningParameters = "DescribeProvisioningParameters"
 // See DescribeProvisioningParameters for more information on using the DescribeProvisioningParameters
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeProvisioningParameters for more information on using the DescribeProvisioningParameters
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2172,6 +2282,7 @@ const opDescribeRecord = "DescribeRecord"
 // client's request for the DescribeRecord operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2179,6 +2290,15 @@ const opDescribeRecord = "DescribeRecord"
 // See DescribeRecord for more information on using the DescribeRecord
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeRecord for more information on using the DescribeRecord
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2725,6 +2845,7 @@ const opListConstraintsForPortfolio = "ListConstraintsForPortfolio"
 // client's request for the ListConstraintsForPortfolio operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2732,6 +2853,15 @@ const opListConstraintsForPortfolio = "ListConstraintsForPortfolio"
 // See ListConstraintsForPortfolio for more information on using the ListConstraintsForPortfolio
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListConstraintsForPortfolio for more information on using the ListConstraintsForPortfolio
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2863,6 +2993,7 @@ const opListLaunchPaths = "ListLaunchPaths"
 // client's request for the ListLaunchPaths operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2870,6 +3001,15 @@ const opListLaunchPaths = "ListLaunchPaths"
 // See ListLaunchPaths for more information on using the ListLaunchPaths
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListLaunchPaths for more information on using the ListLaunchPaths
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2950,6 +3090,7 @@ func (c *ServiceCatalog) ListLaunchPathsWithContext(ctx aws.Context, input *List
 // ListLaunchPathsPages iterates over the pages of a ListLaunchPaths operation,
 // calling the "fn" function with the response data for each page. To stop
 // iterating, return false from the fn function.
+<<<<<<< HEAD
 //
 // See ListLaunchPaths method for more information on how to use this operation.
 //
@@ -2963,6 +3104,71 @@ func (c *ServiceCatalog) ListLaunchPathsWithContext(ctx aws.Context, input *List
 //            fmt.Println(page)
 //            return pageNum <= 3
 //        })
+=======
+//
+// See ListLaunchPaths method for more information on how to use this operation.
+//
+// Note: This operation can generate multiple requests to a service.
+//
+//    // Example iterating over at most 3 pages of a ListLaunchPaths operation.
+//    pageNum := 0
+//    err := client.ListLaunchPathsPages(params,
+//        func(page *ListLaunchPathsOutput, lastPage bool) bool {
+//            pageNum++
+//            fmt.Println(page)
+//            return pageNum <= 3
+//        })
+//
+func (c *ServiceCatalog) ListLaunchPathsPages(input *ListLaunchPathsInput, fn func(*ListLaunchPathsOutput, bool) bool) error {
+	return c.ListLaunchPathsPagesWithContext(aws.BackgroundContext(), input, fn)
+}
+
+// ListLaunchPathsPagesWithContext same as ListLaunchPathsPages except
+// it takes a Context and allows setting request options on the pages.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *ServiceCatalog) ListLaunchPathsPagesWithContext(ctx aws.Context, input *ListLaunchPathsInput, fn func(*ListLaunchPathsOutput, bool) bool, opts ...request.Option) error {
+	p := request.Pagination{
+		NewRequest: func() (*request.Request, error) {
+			var inCpy *ListLaunchPathsInput
+			if input != nil {
+				tmp := *input
+				inCpy = &tmp
+			}
+			req, _ := c.ListLaunchPathsRequest(inCpy)
+			req.SetContext(ctx)
+			req.ApplyOptions(opts...)
+			return req, nil
+		},
+	}
+
+	cont := true
+	for p.Next() && cont {
+		cont = fn(p.Page().(*ListLaunchPathsOutput), !p.HasNextPage())
+	}
+	return p.Err()
+}
+
+const opListPortfolioAccess = "ListPortfolioAccess"
+
+// ListPortfolioAccessRequest generates a "aws/request.Request" representing the
+// client's request for the ListPortfolioAccess operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListPortfolioAccess for more information on using the ListPortfolioAccess
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 func (c *ServiceCatalog) ListLaunchPathsPages(input *ListLaunchPathsInput, fn func(*ListLaunchPathsOutput, bool) bool) error {
 	return c.ListLaunchPathsPagesWithContext(aws.BackgroundContext(), input, fn)
@@ -3493,6 +3699,7 @@ const opListProvisioningArtifacts = "ListProvisioningArtifacts"
 // client's request for the ListProvisioningArtifacts operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3500,6 +3707,15 @@ const opListProvisioningArtifacts = "ListProvisioningArtifacts"
 // See ListProvisioningArtifacts for more information on using the ListProvisioningArtifacts
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListProvisioningArtifacts for more information on using the ListProvisioningArtifacts
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3938,6 +4154,7 @@ const opProvisionProduct = "ProvisionProduct"
 // client's request for the ProvisionProduct operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3945,6 +4162,15 @@ const opProvisionProduct = "ProvisionProduct"
 // See ProvisionProduct for more information on using the ProvisionProduct
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ProvisionProduct for more information on using the ProvisionProduct
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4112,6 +4338,7 @@ const opScanProvisionedProducts = "ScanProvisionedProducts"
 // client's request for the ScanProvisionedProducts operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4119,6 +4346,15 @@ const opScanProvisionedProducts = "ScanProvisionedProducts"
 // See ScanProvisionedProducts for more information on using the ScanProvisionedProducts
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ScanProvisionedProducts for more information on using the ScanProvisionedProducts
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4191,6 +4427,7 @@ const opSearchProducts = "SearchProducts"
 // client's request for the SearchProducts operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4198,6 +4435,15 @@ const opSearchProducts = "SearchProducts"
 // See SearchProducts for more information on using the SearchProducts
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SearchProducts for more information on using the SearchProducts
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4326,6 +4572,7 @@ const opSearchProductsAsAdmin = "SearchProductsAsAdmin"
 // client's request for the SearchProductsAsAdmin operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4333,6 +4580,15 @@ const opSearchProductsAsAdmin = "SearchProductsAsAdmin"
 // See SearchProductsAsAdmin for more information on using the SearchProductsAsAdmin
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SearchProductsAsAdmin for more information on using the SearchProductsAsAdmin
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4986,6 +5242,7 @@ const opUpdateTagOption = "UpdateTagOption"
 // client's request for the UpdateTagOption operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4993,6 +5250,15 @@ const opUpdateTagOption = "UpdateTagOption"
 // See UpdateTagOption for more information on using the UpdateTagOption
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateTagOption for more information on using the UpdateTagOption
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5696,7 +5962,153 @@ func (s *CopyProductOutput) SetCopyProductToken(v string) *CopyProductOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CreateConstraintInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CopyProductInput
+type CopyProductInput struct {
+	_ struct{} `type:"structure"`
+
+	// The language code.
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+	//    * zh - Chinese
+	AcceptLanguage *string `type:"string"`
+
+	// The copy options. If the value is CopyTags, the tags from the source product
+	// are copied to the target product.
+	CopyOptions []*string `type:"list"`
+
+	// A token to disambiguate duplicate requests. You can use the same input in
+	// multiple requests, provided that you also specify a different idempotency
+	// token for each request.
+	//
+	// IdempotencyToken is a required field
+	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
+
+	// The Amazon Resource Name (ARN) of the source product.
+	//
+	// SourceProductArn is a required field
+	SourceProductArn *string `min:"1" type:"string" required:"true"`
+
+	// The IDs of the product versions to copy. By default, all provisioning artifacts
+	// are copied.
+	SourceProvisioningArtifactIdentifiers []map[string]*string `type:"list"`
+
+	// The ID of the target product. By default, a new product is created.
+	TargetProductId *string `min:"1" type:"string"`
+
+	// A name for the target product. The default is the name of the source product.
+	TargetProductName *string `type:"string"`
+}
+
+// String returns the string representation
+func (s CopyProductInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CopyProductInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *CopyProductInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "CopyProductInput"}
+	if s.IdempotencyToken == nil {
+		invalidParams.Add(request.NewErrParamRequired("IdempotencyToken"))
+	}
+	if s.IdempotencyToken != nil && len(*s.IdempotencyToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("IdempotencyToken", 1))
+	}
+	if s.SourceProductArn == nil {
+		invalidParams.Add(request.NewErrParamRequired("SourceProductArn"))
+	}
+	if s.SourceProductArn != nil && len(*s.SourceProductArn) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("SourceProductArn", 1))
+	}
+	if s.TargetProductId != nil && len(*s.TargetProductId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("TargetProductId", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAcceptLanguage sets the AcceptLanguage field's value.
+func (s *CopyProductInput) SetAcceptLanguage(v string) *CopyProductInput {
+	s.AcceptLanguage = &v
+	return s
+}
+
+// SetCopyOptions sets the CopyOptions field's value.
+func (s *CopyProductInput) SetCopyOptions(v []*string) *CopyProductInput {
+	s.CopyOptions = v
+	return s
+}
+
+// SetIdempotencyToken sets the IdempotencyToken field's value.
+func (s *CopyProductInput) SetIdempotencyToken(v string) *CopyProductInput {
+	s.IdempotencyToken = &v
+	return s
+}
+
+// SetSourceProductArn sets the SourceProductArn field's value.
+func (s *CopyProductInput) SetSourceProductArn(v string) *CopyProductInput {
+	s.SourceProductArn = &v
+	return s
+}
+
+// SetSourceProvisioningArtifactIdentifiers sets the SourceProvisioningArtifactIdentifiers field's value.
+func (s *CopyProductInput) SetSourceProvisioningArtifactIdentifiers(v []map[string]*string) *CopyProductInput {
+	s.SourceProvisioningArtifactIdentifiers = v
+	return s
+}
+
+// SetTargetProductId sets the TargetProductId field's value.
+func (s *CopyProductInput) SetTargetProductId(v string) *CopyProductInput {
+	s.TargetProductId = &v
+	return s
+}
+
+// SetTargetProductName sets the TargetProductName field's value.
+func (s *CopyProductInput) SetTargetProductName(v string) *CopyProductInput {
+	s.TargetProductName = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CopyProductOutput
+type CopyProductOutput struct {
+	_ struct{} `type:"structure"`
+
+	// A unique token to pass to DescribeCopyProductStatus to track the progress
+	// of the operation.
+	CopyProductToken *string `min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s CopyProductOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CopyProductOutput) GoString() string {
+	return s.String()
+}
+
+// SetCopyProductToken sets the CopyProductToken field's value.
+func (s *CopyProductOutput) SetCopyProductToken(v string) *CopyProductOutput {
+	s.CopyProductToken = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CreateConstraintInput
+>>>>>>> Initial dep workover
 type CreateConstraintInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5712,19 +6124,30 @@ type CreateConstraintInput struct {
 	// The description of the constraint.
 	Description *string `type:"string"`
 
+<<<<<<< HEAD
 	// A unique identifier that you provide to ensure idempotency. If multiple requests
 	// differ only by the idempotency token, the same response is returned for each
 	// repeated request.
+=======
+	// A token to disambiguate duplicate requests. You can use the same input in
+	// multiple requests, provided that you also specify a different idempotency
+	// token for each request.
+>>>>>>> Initial dep workover
 	//
 	// IdempotencyToken is a required field
 	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
 
+<<<<<<< HEAD
 	// The constraint parameters, in JSON format. The syntax depends on the constraint
 	// type as follows:
 	//
 	// LAUNCHSpecify the RoleArn property as follows:
 	//
 	// \"RoleArn\" : \"arn:aws:iam::123456789012:role/LaunchRole\"
+=======
+	// The constraint parameters. Expected values vary depending on which Type is
+	// specified. For more information, see the Examples section.
+>>>>>>> Initial dep workover
 	//
 	// NOTIFICATIONSpecify the NotificationArns property as follows:
 	//
@@ -5894,11 +6317,19 @@ type CreatePortfolioInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -5910,9 +6341,15 @@ type CreatePortfolioInput struct {
 	// DisplayName is a required field
 	DisplayName *string `min:"1" type:"string" required:"true"`
 
+<<<<<<< HEAD
 	// A unique identifier that you provide to ensure idempotency. If multiple requests
 	// differ only by the idempotency token, the same response is returned for each
 	// repeated request.
+=======
+	// A token to disambiguate duplicate requests. You can use the same input in
+	// multiple requests, provided that you also specify a different idempotency
+	// token for each request.
+>>>>>>> Initial dep workover
 	//
 	// IdempotencyToken is a required field
 	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
@@ -6048,11 +6485,19 @@ type CreatePortfolioShareInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -6134,11 +6579,19 @@ type CreateProductInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -6148,9 +6601,15 @@ type CreateProductInput struct {
 	// The distributor of the product.
 	Distributor *string `type:"string"`
 
+<<<<<<< HEAD
 	// A unique identifier that you provide to ensure idempotency. If multiple requests
 	// differ only by the idempotency token, the same response is returned for each
 	// repeated request.
+=======
+	// A token to disambiguate duplicate requests. You can use the same input in
+	// multiple requests, provided that you also specify a different idempotency
+	// token for each request.
+>>>>>>> Initial dep workover
 	//
 	// IdempotencyToken is a required field
 	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
@@ -6360,6 +6819,7 @@ type CreateProvisioningArtifactInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
@@ -6371,6 +6831,19 @@ type CreateProvisioningArtifactInput struct {
 	// A unique identifier that you provide to ensure idempotency. If multiple requests
 	// differ only by the idempotency token, the same response is returned for each
 	// repeated request.
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+	//    * zh - Chinese
+	AcceptLanguage *string `type:"string"`
+
+	// A token to disambiguate duplicate requests. You can use the same input in
+	// multiple requests, provided that you also specify a different idempotency
+	// token for each request.
+>>>>>>> Initial dep workover
 	//
 	// IdempotencyToken is a required field
 	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
@@ -6580,11 +7053,19 @@ type DeleteConstraintInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -6724,11 +7205,19 @@ type DeletePortfolioShareInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -6810,11 +7299,19 @@ type DeleteProductInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -6971,11 +7468,19 @@ type DescribeConstraintInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -7065,6 +7570,7 @@ func (s *DescribeConstraintOutput) SetStatus(v string) *DescribeConstraintOutput
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeCopyProductStatusInput
 type DescribeCopyProductStatusInput struct {
 	_ struct{} `type:"structure"`
@@ -7169,6 +7675,112 @@ type DescribePortfolioInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeCopyProductStatusInput
+type DescribeCopyProductStatusInput struct {
+	_ struct{} `type:"structure"`
+
+	// The language code.
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+	//    * zh - Chinese
+	AcceptLanguage *string `type:"string"`
+
+	// The token returned from the call to CopyProduct that initiated the operation.
+	//
+	// CopyProductToken is a required field
+	CopyProductToken *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DescribeCopyProductStatusInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DescribeCopyProductStatusInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DescribeCopyProductStatusInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DescribeCopyProductStatusInput"}
+	if s.CopyProductToken == nil {
+		invalidParams.Add(request.NewErrParamRequired("CopyProductToken"))
+	}
+	if s.CopyProductToken != nil && len(*s.CopyProductToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("CopyProductToken", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAcceptLanguage sets the AcceptLanguage field's value.
+func (s *DescribeCopyProductStatusInput) SetAcceptLanguage(v string) *DescribeCopyProductStatusInput {
+	s.AcceptLanguage = &v
+	return s
+}
+
+// SetCopyProductToken sets the CopyProductToken field's value.
+func (s *DescribeCopyProductStatusInput) SetCopyProductToken(v string) *DescribeCopyProductStatusInput {
+	s.CopyProductToken = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribeCopyProductStatusOutput
+type DescribeCopyProductStatusOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The status of the copy product operation.
+	CopyProductStatus *string `type:"string" enum:"CopyProductStatus"`
+
+	// The status message.
+	StatusDetail *string `type:"string"`
+
+	// The ID of the copied product.
+	TargetProductId *string `min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s DescribeCopyProductStatusOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DescribeCopyProductStatusOutput) GoString() string {
+	return s.String()
+}
+
+// SetCopyProductStatus sets the CopyProductStatus field's value.
+func (s *DescribeCopyProductStatusOutput) SetCopyProductStatus(v string) *DescribeCopyProductStatusOutput {
+	s.CopyProductStatus = &v
+	return s
+}
+
+// SetStatusDetail sets the StatusDetail field's value.
+func (s *DescribeCopyProductStatusOutput) SetStatusDetail(v string) *DescribeCopyProductStatusOutput {
+	s.StatusDetail = &v
+	return s
+}
+
+// SetTargetProductId sets the TargetProductId field's value.
+func (s *DescribeCopyProductStatusOutput) SetTargetProductId(v string) *DescribeCopyProductStatusOutput {
+	s.TargetProductId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/DescribePortfolioInput
+type DescribePortfolioInput struct {
+	_ struct{} `type:"structure"`
+
+	// The language code.
+>>>>>>> Initial dep workover
 	//
 	//    * en - English (default)
 	//
@@ -7377,11 +7989,19 @@ type DescribeProductInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -7557,11 +8177,19 @@ type DescribeProvisionedProductInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -7638,11 +8266,19 @@ type DescribeProvisioningArtifactInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -7903,11 +8539,19 @@ type DescribeRecordInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -8392,11 +9036,19 @@ type ListAcceptedPortfolioSharesInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -8475,11 +9127,19 @@ type ListConstraintsForPortfolioInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -8597,11 +9257,19 @@ type ListLaunchPathsInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -8707,11 +9375,19 @@ type ListPortfolioAccessInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -8798,11 +9474,19 @@ type ListPortfoliosForProductInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -8908,11 +9592,19 @@ type ListPortfoliosInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -8991,11 +9683,19 @@ type ListPrincipalsForPortfolioInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -9101,11 +9801,19 @@ type ListProvisioningArtifactsInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -9192,11 +9900,19 @@ type ListRecordHistoryInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -9937,11 +10653,19 @@ type ProvisionProductInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -10142,9 +10866,15 @@ type ProvisionedProductDetail struct {
 	// The identifier of the provisioned product.
 	Id *string `type:"string"`
 
+<<<<<<< HEAD
 	// A unique identifier that you provide to ensure idempotency. If multiple requests
 	// differ only by the idempotency token, the same response is returned for each
 	// repeated request.
+=======
+	// A token to disambiguate duplicate requests. You can use the same input in
+	// multiple requests, provided that you also specify a different idempotency
+	// token for each request.
+>>>>>>> Initial dep workover
 	IdempotencyToken *string `min:"1" type:"string"`
 
 	// The record identifier of the last request performed on this provisioned product.
@@ -10906,11 +11636,19 @@ type RejectPortfolioShareInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -11039,11 +11777,19 @@ type ScanProvisionedProductsInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -11131,11 +11877,19 @@ type SearchProductsAsAdminInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -11273,11 +12027,19 @@ type SearchProductsInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -11768,11 +12530,19 @@ type UpdatePortfolioInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
@@ -12100,11 +12870,19 @@ type UpdateProvisionedProductInput struct {
 	_ struct{} `type:"structure"`
 
 	// The language code.
+<<<<<<< HEAD
 	//
 	//    * en - English (default)
 	//
 	//    * jp - Japanese
 	//
+=======
+	//
+	//    * en - English (default)
+	//
+	//    * jp - Japanese
+	//
+>>>>>>> Initial dep workover
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 

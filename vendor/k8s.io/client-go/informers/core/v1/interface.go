@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -59,6 +63,7 @@ type Interface interface {
 }
 
 type version struct {
+<<<<<<< HEAD
 	factory          internalinterfaces.SharedInformerFactory
 	namespace        string
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
@@ -67,84 +72,156 @@ type version struct {
 // New returns a new Interface.
 func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakListOptions internalinterfaces.TweakListOptionsFunc) Interface {
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
+=======
+	internalinterfaces.SharedInformerFactory
+}
+
+// New returns a new Interface.
+func New(f internalinterfaces.SharedInformerFactory) Interface {
+	return &version{f}
+>>>>>>> Initial dep workover
 }
 
 // ComponentStatuses returns a ComponentStatusInformer.
 func (v *version) ComponentStatuses() ComponentStatusInformer {
+<<<<<<< HEAD
 	return &componentStatusInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+=======
+	return &componentStatusInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // ConfigMaps returns a ConfigMapInformer.
 func (v *version) ConfigMaps() ConfigMapInformer {
+<<<<<<< HEAD
 	return &configMapInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &configMapInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Endpoints returns a EndpointsInformer.
 func (v *version) Endpoints() EndpointsInformer {
+<<<<<<< HEAD
 	return &endpointsInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &endpointsInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Events returns a EventInformer.
 func (v *version) Events() EventInformer {
+<<<<<<< HEAD
 	return &eventInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &eventInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // LimitRanges returns a LimitRangeInformer.
 func (v *version) LimitRanges() LimitRangeInformer {
+<<<<<<< HEAD
 	return &limitRangeInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &limitRangeInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Namespaces returns a NamespaceInformer.
 func (v *version) Namespaces() NamespaceInformer {
+<<<<<<< HEAD
 	return &namespaceInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+=======
+	return &namespaceInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Nodes returns a NodeInformer.
 func (v *version) Nodes() NodeInformer {
+<<<<<<< HEAD
 	return &nodeInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+=======
+	return &nodeInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // PersistentVolumes returns a PersistentVolumeInformer.
 func (v *version) PersistentVolumes() PersistentVolumeInformer {
+<<<<<<< HEAD
 	return &persistentVolumeInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+=======
+	return &persistentVolumeInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // PersistentVolumeClaims returns a PersistentVolumeClaimInformer.
 func (v *version) PersistentVolumeClaims() PersistentVolumeClaimInformer {
+<<<<<<< HEAD
 	return &persistentVolumeClaimInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &persistentVolumeClaimInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Pods returns a PodInformer.
 func (v *version) Pods() PodInformer {
+<<<<<<< HEAD
 	return &podInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &podInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // PodTemplates returns a PodTemplateInformer.
 func (v *version) PodTemplates() PodTemplateInformer {
+<<<<<<< HEAD
 	return &podTemplateInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &podTemplateInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // ReplicationControllers returns a ReplicationControllerInformer.
 func (v *version) ReplicationControllers() ReplicationControllerInformer {
+<<<<<<< HEAD
 	return &replicationControllerInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &replicationControllerInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // ResourceQuotas returns a ResourceQuotaInformer.
 func (v *version) ResourceQuotas() ResourceQuotaInformer {
+<<<<<<< HEAD
 	return &resourceQuotaInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &resourceQuotaInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Secrets returns a SecretInformer.
 func (v *version) Secrets() SecretInformer {
+<<<<<<< HEAD
 	return &secretInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &secretInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // Services returns a ServiceInformer.
 func (v *version) Services() ServiceInformer {
+<<<<<<< HEAD
 	return &serviceInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &serviceInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }
 
 // ServiceAccounts returns a ServiceAccountInformer.
 func (v *version) ServiceAccounts() ServiceAccountInformer {
+<<<<<<< HEAD
 	return &serviceAccountInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+=======
+	return &serviceAccountInformer{factory: v.SharedInformerFactory}
+>>>>>>> Initial dep workover
 }

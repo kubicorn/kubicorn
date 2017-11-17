@@ -68,6 +68,7 @@ type LightsailAPI interface {
 	AttachDiskWithContext(aws.Context, *lightsail.AttachDiskInput, ...request.Option) (*lightsail.AttachDiskOutput, error)
 	AttachDiskRequest(*lightsail.AttachDiskInput) (*request.Request, *lightsail.AttachDiskOutput)
 
+<<<<<<< HEAD
 	AttachInstancesToLoadBalancer(*lightsail.AttachInstancesToLoadBalancerInput) (*lightsail.AttachInstancesToLoadBalancerOutput, error)
 	AttachInstancesToLoadBalancerWithContext(aws.Context, *lightsail.AttachInstancesToLoadBalancerInput, ...request.Option) (*lightsail.AttachInstancesToLoadBalancerOutput, error)
 	AttachInstancesToLoadBalancerRequest(*lightsail.AttachInstancesToLoadBalancerInput) (*request.Request, *lightsail.AttachInstancesToLoadBalancerOutput)
@@ -76,6 +77,8 @@ type LightsailAPI interface {
 	AttachLoadBalancerTlsCertificateWithContext(aws.Context, *lightsail.AttachLoadBalancerTlsCertificateInput, ...request.Option) (*lightsail.AttachLoadBalancerTlsCertificateOutput, error)
 	AttachLoadBalancerTlsCertificateRequest(*lightsail.AttachLoadBalancerTlsCertificateInput) (*request.Request, *lightsail.AttachLoadBalancerTlsCertificateOutput)
 
+=======
+>>>>>>> Initial dep workover
 	AttachStaticIp(*lightsail.AttachStaticIpInput) (*lightsail.AttachStaticIpOutput, error)
 	AttachStaticIpWithContext(aws.Context, *lightsail.AttachStaticIpInput, ...request.Option) (*lightsail.AttachStaticIpOutput, error)
 	AttachStaticIpRequest(*lightsail.AttachStaticIpInput) (*request.Request, *lightsail.AttachStaticIpOutput)
@@ -120,6 +123,7 @@ type LightsailAPI interface {
 	CreateKeyPairWithContext(aws.Context, *lightsail.CreateKeyPairInput, ...request.Option) (*lightsail.CreateKeyPairOutput, error)
 	CreateKeyPairRequest(*lightsail.CreateKeyPairInput) (*request.Request, *lightsail.CreateKeyPairOutput)
 
+<<<<<<< HEAD
 	CreateLoadBalancer(*lightsail.CreateLoadBalancerInput) (*lightsail.CreateLoadBalancerOutput, error)
 	CreateLoadBalancerWithContext(aws.Context, *lightsail.CreateLoadBalancerInput, ...request.Option) (*lightsail.CreateLoadBalancerOutput, error)
 	CreateLoadBalancerRequest(*lightsail.CreateLoadBalancerInput) (*request.Request, *lightsail.CreateLoadBalancerOutput)
@@ -128,6 +132,8 @@ type LightsailAPI interface {
 	CreateLoadBalancerTlsCertificateWithContext(aws.Context, *lightsail.CreateLoadBalancerTlsCertificateInput, ...request.Option) (*lightsail.CreateLoadBalancerTlsCertificateOutput, error)
 	CreateLoadBalancerTlsCertificateRequest(*lightsail.CreateLoadBalancerTlsCertificateInput) (*request.Request, *lightsail.CreateLoadBalancerTlsCertificateOutput)
 
+=======
+>>>>>>> Initial dep workover
 	DeleteDisk(*lightsail.DeleteDiskInput) (*lightsail.DeleteDiskOutput, error)
 	DeleteDiskWithContext(aws.Context, *lightsail.DeleteDiskInput, ...request.Option) (*lightsail.DeleteDiskOutput, error)
 	DeleteDiskRequest(*lightsail.DeleteDiskInput) (*request.Request, *lightsail.DeleteDiskOutput)
@@ -156,6 +162,7 @@ type LightsailAPI interface {
 	DeleteKeyPairWithContext(aws.Context, *lightsail.DeleteKeyPairInput, ...request.Option) (*lightsail.DeleteKeyPairOutput, error)
 	DeleteKeyPairRequest(*lightsail.DeleteKeyPairInput) (*request.Request, *lightsail.DeleteKeyPairOutput)
 
+<<<<<<< HEAD
 	DeleteLoadBalancer(*lightsail.DeleteLoadBalancerInput) (*lightsail.DeleteLoadBalancerOutput, error)
 	DeleteLoadBalancerWithContext(aws.Context, *lightsail.DeleteLoadBalancerInput, ...request.Option) (*lightsail.DeleteLoadBalancerOutput, error)
 	DeleteLoadBalancerRequest(*lightsail.DeleteLoadBalancerInput) (*request.Request, *lightsail.DeleteLoadBalancerOutput)
@@ -164,14 +171,19 @@ type LightsailAPI interface {
 	DeleteLoadBalancerTlsCertificateWithContext(aws.Context, *lightsail.DeleteLoadBalancerTlsCertificateInput, ...request.Option) (*lightsail.DeleteLoadBalancerTlsCertificateOutput, error)
 	DeleteLoadBalancerTlsCertificateRequest(*lightsail.DeleteLoadBalancerTlsCertificateInput) (*request.Request, *lightsail.DeleteLoadBalancerTlsCertificateOutput)
 
+=======
+>>>>>>> Initial dep workover
 	DetachDisk(*lightsail.DetachDiskInput) (*lightsail.DetachDiskOutput, error)
 	DetachDiskWithContext(aws.Context, *lightsail.DetachDiskInput, ...request.Option) (*lightsail.DetachDiskOutput, error)
 	DetachDiskRequest(*lightsail.DetachDiskInput) (*request.Request, *lightsail.DetachDiskOutput)
 
+<<<<<<< HEAD
 	DetachInstancesFromLoadBalancer(*lightsail.DetachInstancesFromLoadBalancerInput) (*lightsail.DetachInstancesFromLoadBalancerOutput, error)
 	DetachInstancesFromLoadBalancerWithContext(aws.Context, *lightsail.DetachInstancesFromLoadBalancerInput, ...request.Option) (*lightsail.DetachInstancesFromLoadBalancerOutput, error)
 	DetachInstancesFromLoadBalancerRequest(*lightsail.DetachInstancesFromLoadBalancerInput) (*request.Request, *lightsail.DetachInstancesFromLoadBalancerOutput)
 
+=======
+>>>>>>> Initial dep workover
 	DetachStaticIp(*lightsail.DetachStaticIpInput) (*lightsail.DetachStaticIpOutput, error)
 	DetachStaticIpWithContext(aws.Context, *lightsail.DetachStaticIpInput, ...request.Option) (*lightsail.DetachStaticIpOutput, error)
 	DetachStaticIpRequest(*lightsail.DetachStaticIpInput) (*request.Request, *lightsail.DetachStaticIpOutput)

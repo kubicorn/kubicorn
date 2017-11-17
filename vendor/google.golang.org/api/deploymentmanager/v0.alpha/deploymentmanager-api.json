@@ -1,12 +1,20 @@
 {
  "kind": "discovery#restDescription",
+<<<<<<< HEAD
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/YBhevoUFAfVyqSyxTJkhAWUX4fg\"",
+=======
+ "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/dTaDGpxiMHj3lFlb8pUnNUoP8XA\"",
+>>>>>>> Initial dep workover
  "discoveryVersion": "v1",
  "id": "deploymentmanager:alpha",
  "name": "deploymentmanager",
  "canonicalName": "Deployment Manager Alpha",
  "version": "alpha",
+<<<<<<< HEAD
  "revision": "20171201",
+=======
+ "revision": "20171102",
+>>>>>>> Initial dep workover
  "title": "Google Cloud Deployment Manager Alpha API",
  "description": "The Deployment Manager API allows users to declaratively configure, deploy and run complex solutions on the Google Cloud Platform.",
  "ownerDomain": "google.com",
@@ -1052,6 +1060,7 @@
     "properties": {
      "type": "string",
      "description": "Output only. The current properties of the resource before any references have been filled in. Returned as serialized YAML."
+<<<<<<< HEAD
     },
     "runtimePolicies": {
      "type": "array",
@@ -1059,6 +1068,8 @@
      "items": {
       "type": "string"
      }
+=======
+>>>>>>> Initial dep workover
     },
     "type": {
      "type": "string",
@@ -1178,6 +1189,7 @@
     "properties": {
      "type": "string",
      "description": "Output only. The set of updated properties for this resource, before references are expanded. Returned as serialized YAML."
+<<<<<<< HEAD
     },
     "runtimePolicies": {
      "type": "array",
@@ -1185,6 +1197,8 @@
      "items": {
       "type": "string"
      }
+=======
+>>>>>>> Initial dep workover
     },
     "state": {
      "type": "string",

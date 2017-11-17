@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,7 +23,10 @@ limitations under the License.
 package apps
 
 import (
+<<<<<<< HEAD
 	v1 "k8s.io/client-go/informers/apps/v1"
+=======
+>>>>>>> Initial dep workover
 	v1beta1 "k8s.io/client-go/informers/apps/v1beta1"
 	v1beta2 "k8s.io/client-go/informers/apps/v1beta2"
 	internalinterfaces "k8s.io/client-go/informers/internalinterfaces"
@@ -27,8 +34,11 @@ import (
 
 // Interface provides access to each of this group's versions.
 type Interface interface {
+<<<<<<< HEAD
 	// V1 provides access to shared informers for resources in V1.
 	V1() v1.Interface
+=======
+>>>>>>> Initial dep workover
 	// V1beta1 provides access to shared informers for resources in V1beta1.
 	V1beta1() v1beta1.Interface
 	// V1beta2 provides access to shared informers for resources in V1beta2.
@@ -36,6 +46,7 @@ type Interface interface {
 }
 
 type group struct {
+<<<<<<< HEAD
 	factory          internalinterfaces.SharedInformerFactory
 	namespace        string
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
@@ -49,14 +60,30 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 // V1 returns a new v1.Interface.
 func (g *group) V1() v1.Interface {
 	return v1.New(g.factory, g.namespace, g.tweakListOptions)
+=======
+	internalinterfaces.SharedInformerFactory
+}
+
+// New returns a new Interface.
+func New(f internalinterfaces.SharedInformerFactory) Interface {
+	return &group{f}
+>>>>>>> Initial dep workover
 }
 
 // V1beta1 returns a new v1beta1.Interface.
 func (g *group) V1beta1() v1beta1.Interface {
+<<<<<<< HEAD
 	return v1beta1.New(g.factory, g.namespace, g.tweakListOptions)
+=======
+	return v1beta1.New(g.SharedInformerFactory)
+>>>>>>> Initial dep workover
 }
 
 // V1beta2 returns a new v1beta2.Interface.
 func (g *group) V1beta2() v1beta2.Interface {
+<<<<<<< HEAD
 	return v1beta2.New(g.factory, g.namespace, g.tweakListOptions)
+=======
+	return v1beta2.New(g.SharedInformerFactory)
+>>>>>>> Initial dep workover
 }

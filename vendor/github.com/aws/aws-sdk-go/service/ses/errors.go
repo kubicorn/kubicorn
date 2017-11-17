@@ -46,6 +46,7 @@ const (
 	// You can enable or disable email sending for a configuration set using UpdateConfigurationSetSendingEnabled.
 	ErrCodeConfigurationSetSendingPausedException = "ConfigurationSetSendingPausedException"
 
+<<<<<<< HEAD
 	// ErrCodeCustomVerificationEmailInvalidContentException for service response error code
 	// "CustomVerificationEmailInvalidContent".
 	//
@@ -66,6 +67,8 @@ const (
 	// does not exist.
 	ErrCodeCustomVerificationEmailTemplateDoesNotExistException = "CustomVerificationEmailTemplateDoesNotExist"
 
+=======
+>>>>>>> Initial dep workover
 	// ErrCodeEventDestinationAlreadyExistsException for service response error code
 	// "EventDestinationAlreadyExists".
 	//
@@ -204,12 +207,15 @@ const (
 	// to all of the replacement tags in the specified template.
 	ErrCodeMissingRenderingAttributeException = "MissingRenderingAttribute"
 
+<<<<<<< HEAD
 	// ErrCodeProductionAccessNotGrantedException for service response error code
 	// "ProductionAccessNotGranted".
 	//
 	// Indicates that the account has not been granted production access.
 	ErrCodeProductionAccessNotGrantedException = "ProductionAccessNotGranted"
 
+=======
+>>>>>>> Initial dep workover
 	// ErrCodeRuleDoesNotExistException for service response error code
 	// "RuleDoesNotExist".
 	//

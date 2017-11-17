@@ -269,10 +269,13 @@ func (f *File) parse(reader io.Reader) (err error) {
 		name = strings.ToLower(DEFAULT_SECTION)
 	}
 	section, _ := f.NewSection(name)
+<<<<<<< HEAD
 
 	// This "last" is not strictly equivalent to "previous one" if current key is not the first nested key
 	var isLastValueEmpty bool
 	var lastRegularKey *Key
+=======
+>>>>>>> Initial dep workover
 
 	var line []byte
 	var inUnparseableSection bool

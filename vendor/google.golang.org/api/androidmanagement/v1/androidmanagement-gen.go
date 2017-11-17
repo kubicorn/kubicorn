@@ -1614,6 +1614,7 @@ type Operation struct {
 func (s *Operation) MarshalJSON() ([]byte, error) {
 	type NoMethod Operation
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1642,6 +1643,8 @@ type PackageNameList struct {
 func (s *PackageNameList) MarshalJSON() ([]byte, error) {
 	type NoMethod PackageNameList
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1994,11 +1997,14 @@ type Policy struct {
 	// disabled.
 	ModifyAccountsDisabled bool `json:"modifyAccountsDisabled,omitempty"`
 
+<<<<<<< HEAD
 	// MountPhysicalMediaDisabled: Whether the user mounting physical
 	// external media is disabled. <i>Requires the beta version of the
 	// Android Device Policy app.</i>
 	MountPhysicalMediaDisabled bool `json:"mountPhysicalMediaDisabled,omitempty"`
 
+=======
+>>>>>>> Initial dep workover
 	// Name: The name of the policy in the form
 	// enterprises/{enterpriseId}/policies/{policyId}
 	Name string `json:"name,omitempty"`
@@ -2014,10 +2020,13 @@ type Policy struct {
 	// device settings.
 	NetworkEscapeHatchEnabled bool `json:"networkEscapeHatchEnabled,omitempty"`
 
+<<<<<<< HEAD
 	// NetworkResetDisabled: Whether resetting network settings is disabled.
 	// <i>Requires the beta version of the Android Device Policy app.</i>
 	NetworkResetDisabled bool `json:"networkResetDisabled,omitempty"`
 
+=======
+>>>>>>> Initial dep workover
 	// OpenNetworkConfiguration: Network configuration for the device. See
 	// configure networks for more information.
 	OpenNetworkConfiguration googleapi.RawMessage `json:"openNetworkConfiguration,omitempty"`
@@ -2127,10 +2136,13 @@ type Policy struct {
 	// version is incremented each time the policy is updated.
 	Version int64 `json:"version,omitempty,string"`
 
+<<<<<<< HEAD
 	// VpnConfigDisabled: Whether configuring VPN is disabled. <i>Requires
 	// the beta version of the Android Device Policy app.</i>
 	VpnConfigDisabled bool `json:"vpnConfigDisabled,omitempty"`
 
+=======
+>>>>>>> Initial dep workover
 	// WifiConfigDisabled: Whether configuring WiFi access points is
 	// disabled.
 	WifiConfigDisabled bool `json:"wifiConfigDisabled,omitempty"`

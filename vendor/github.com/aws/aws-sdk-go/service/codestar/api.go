@@ -926,7 +926,11 @@ const opListTagsForProject = "ListTagsForProject"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProject
+>>>>>>> Initial dep workover
 func (c *CodeStar) ListTagsForProjectRequest(input *ListTagsForProjectInput) (req *request.Request, output *ListTagsForProjectOutput) {
 	op := &request.Operation{
 		Name:       opListTagsForProject,
@@ -964,7 +968,11 @@ func (c *CodeStar) ListTagsForProjectRequest(input *ListTagsForProjectInput) (re
 //   * ErrCodeInvalidNextTokenException "InvalidNextTokenException"
 //   The next token is not valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProject
+>>>>>>> Initial dep workover
 func (c *CodeStar) ListTagsForProject(input *ListTagsForProjectInput) (*ListTagsForProjectOutput, error) {
 	req, out := c.ListTagsForProjectRequest(input)
 	return out, req.Send()
@@ -1178,7 +1186,11 @@ const opTagProject = "TagProject"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProject
+>>>>>>> Initial dep workover
 func (c *CodeStar) TagProjectRequest(input *TagProjectInput) (req *request.Request, output *TagProjectOutput) {
 	op := &request.Operation{
 		Name:       opTagProject,
@@ -1220,7 +1232,11 @@ func (c *CodeStar) TagProjectRequest(input *TagProjectInput) (req *request.Reque
 //   Another modification is being made. That modification must complete before
 //   you can make your change.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProject
+>>>>>>> Initial dep workover
 func (c *CodeStar) TagProject(input *TagProjectInput) (*TagProjectOutput, error) {
 	req, out := c.TagProjectRequest(input)
 	return out, req.Send()
@@ -1267,7 +1283,11 @@ const opUntagProject = "UntagProject"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProject
+>>>>>>> Initial dep workover
 func (c *CodeStar) UntagProjectRequest(input *UntagProjectInput) (req *request.Request, output *UntagProjectOutput) {
 	op := &request.Operation{
 		Name:       opUntagProject,
@@ -1309,7 +1329,11 @@ func (c *CodeStar) UntagProjectRequest(input *UntagProjectInput) (req *request.R
 //   Another modification is being made. That modification must complete before
 //   you can make your change.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProject
+>>>>>>> Initial dep workover
 func (c *CodeStar) UntagProject(input *UntagProjectInput) (*UntagProjectOutput, error) {
 	req, out := c.UntagProjectRequest(input)
 	return out, req.Send()
@@ -2710,7 +2734,11 @@ func (s *ListResourcesOutput) SetResources(v []*Resource) *ListResourcesOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProjectRequest
+>>>>>>> Initial dep workover
 type ListTagsForProjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2776,7 +2804,11 @@ func (s *ListTagsForProjectInput) SetNextToken(v string) *ListTagsForProjectInpu
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProjectResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTagsForProjectResult
+>>>>>>> Initial dep workover
 type ListTagsForProjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2809,7 +2841,11 @@ func (s *ListTagsForProjectOutput) SetTags(v map[string]*string) *ListTagsForPro
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTeamMembersRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/ListTeamMembersRequest
+>>>>>>> Initial dep workover
 type ListTeamMembersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3059,7 +3095,11 @@ func (s *Resource) SetId(v string) *Resource {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProjectRequest
+>>>>>>> Initial dep workover
 type TagProjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3115,7 +3155,11 @@ func (s *TagProjectInput) SetTags(v map[string]*string) *TagProjectInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProjectResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/TagProjectResult
+>>>>>>> Initial dep workover
 type TagProjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3189,7 +3233,11 @@ func (s *TeamMember) SetUserArn(v string) *TeamMember {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProjectRequest
+>>>>>>> Initial dep workover
 type UntagProjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3245,7 +3293,11 @@ func (s *UntagProjectInput) SetTags(v []*string) *UntagProjectInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProjectResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UntagProjectResult
+>>>>>>> Initial dep workover
 type UntagProjectOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3260,7 +3312,11 @@ func (s UntagProjectOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UpdateProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codestar-2017-04-19/UpdateProjectRequest
+>>>>>>> Initial dep workover
 type UpdateProjectInput struct {
 	_ struct{} `type:"structure"`
 

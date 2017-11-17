@@ -47,7 +47,11 @@ func Sum(m []byte, key *[KeySize]byte) *[Size]byte {
 
 // Verify checks that digest is a valid authenticator of message m under the
 // given secret key. Verify does not leak timing information.
+<<<<<<< HEAD
 func Verify(digest []byte, m []byte, key *[KeySize]byte) bool {
+=======
+func Verify(digest []byte, m []byte, key *[32]byte) bool {
+>>>>>>> Initial dep workover
 	if len(digest) != Size {
 		return false
 	}

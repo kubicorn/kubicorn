@@ -750,7 +750,11 @@ const opCreateQueryLoggingConfig = "CreateQueryLoggingConfig"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfig
+>>>>>>> Initial dep workover
 func (c *Route53) CreateQueryLoggingConfigRequest(input *CreateQueryLoggingConfigInput) (req *request.Request, output *CreateQueryLoggingConfigOutput) {
 	op := &request.Operation{
 		Name:       opCreateQueryLoggingConfig,
@@ -904,7 +908,11 @@ func (c *Route53) CreateQueryLoggingConfigRequest(input *CreateQueryLoggingConfi
 //
 //      * The resource policy hasn't finished propagating yet.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfig
+>>>>>>> Initial dep workover
 func (c *Route53) CreateQueryLoggingConfig(input *CreateQueryLoggingConfigInput) (*CreateQueryLoggingConfigOutput, error) {
 	req, out := c.CreateQueryLoggingConfigRequest(input)
 	return out, req.Send()
@@ -1693,7 +1701,11 @@ const opDeleteQueryLoggingConfig = "DeleteQueryLoggingConfig"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfig
+>>>>>>> Initial dep workover
 func (c *Route53) DeleteQueryLoggingConfigRequest(input *DeleteQueryLoggingConfigInput) (req *request.Request, output *DeleteQueryLoggingConfigOutput) {
 	op := &request.Operation{
 		Name:       opDeleteQueryLoggingConfig,
@@ -1736,7 +1748,11 @@ func (c *Route53) DeleteQueryLoggingConfigRequest(input *DeleteQueryLoggingConfi
 //   * ErrCodeInvalidInput "InvalidInput"
 //   The input is not valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfig
+>>>>>>> Initial dep workover
 func (c *Route53) DeleteQueryLoggingConfig(input *DeleteQueryLoggingConfigInput) (*DeleteQueryLoggingConfigOutput, error) {
 	req, out := c.DeleteQueryLoggingConfigRequest(input)
 	return out, req.Send()
@@ -2265,7 +2281,11 @@ const opGetAccountLimit = "GetAccountLimit"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetAccountLimit
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetAccountLimit
+>>>>>>> Initial dep workover
 func (c *Route53) GetAccountLimitRequest(input *GetAccountLimitInput) (req *request.Request, output *GetAccountLimitOutput) {
 	op := &request.Operation{
 		Name:       opGetAccountLimit,
@@ -2302,7 +2322,11 @@ func (c *Route53) GetAccountLimitRequest(input *GetAccountLimitInput) (req *requ
 //   * ErrCodeInvalidInput "InvalidInput"
 //   The input is not valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetAccountLimit
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetAccountLimit
+>>>>>>> Initial dep workover
 func (c *Route53) GetAccountLimit(input *GetAccountLimitInput) (*GetAccountLimitOutput, error) {
 	req, out := c.GetAccountLimitRequest(input)
 	return out, req.Send()
@@ -3106,7 +3130,11 @@ const opGetHostedZoneLimit = "GetHostedZoneLimit"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimit
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimit
+>>>>>>> Initial dep workover
 func (c *Route53) GetHostedZoneLimitRequest(input *GetHostedZoneLimitInput) (req *request.Request, output *GetHostedZoneLimitOutput) {
 	op := &request.Operation{
 		Name:       opGetHostedZoneLimit,
@@ -3138,6 +3166,180 @@ func (c *Route53) GetHostedZoneLimitRequest(input *GetHostedZoneLimitInput) (req
 //
 // See the AWS API reference guide for Amazon Route 53's
 // API operation GetHostedZoneLimit for usage and error information.
+<<<<<<< HEAD
+=======
+//
+// Returned Error Codes:
+//   * ErrCodeNoSuchHostedZone "NoSuchHostedZone"
+//   No hosted zone exists with the ID that you specified.
+//
+//   * ErrCodeInvalidInput "InvalidInput"
+//   The input is not valid.
+//
+//   * ErrCodeHostedZoneNotPrivate "HostedZoneNotPrivate"
+//   The specified hosted zone is a public hosted zone, not a private hosted zone.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimit
+func (c *Route53) GetHostedZoneLimit(input *GetHostedZoneLimitInput) (*GetHostedZoneLimitOutput, error) {
+	req, out := c.GetHostedZoneLimitRequest(input)
+	return out, req.Send()
+}
+
+// GetHostedZoneLimitWithContext is the same as GetHostedZoneLimit with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetHostedZoneLimit for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *Route53) GetHostedZoneLimitWithContext(ctx aws.Context, input *GetHostedZoneLimitInput, opts ...request.Option) (*GetHostedZoneLimitOutput, error) {
+	req, out := c.GetHostedZoneLimitRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opGetQueryLoggingConfig = "GetQueryLoggingConfig"
+
+// GetQueryLoggingConfigRequest generates a "aws/request.Request" representing the
+// client's request for the GetQueryLoggingConfig operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetQueryLoggingConfig for more information on using the GetQueryLoggingConfig
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the GetQueryLoggingConfigRequest method.
+//    req, resp := client.GetQueryLoggingConfigRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetQueryLoggingConfig
+func (c *Route53) GetQueryLoggingConfigRequest(input *GetQueryLoggingConfigInput) (req *request.Request, output *GetQueryLoggingConfigOutput) {
+	op := &request.Operation{
+		Name:       opGetQueryLoggingConfig,
+		HTTPMethod: "GET",
+		HTTPPath:   "/2013-04-01/queryloggingconfig/{Id}",
+	}
+
+	if input == nil {
+		input = &GetQueryLoggingConfigInput{}
+	}
+
+	output = &GetQueryLoggingConfigOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetQueryLoggingConfig API operation for Amazon Route 53.
+//
+// Gets information about a specified configuration for DNS query logging.
+//
+// For more information about DNS query logs, see CreateQueryLoggingConfig and
+// Logging DNS Queries (http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html).
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Route 53's
+// API operation GetQueryLoggingConfig for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeNoSuchQueryLoggingConfig "NoSuchQueryLoggingConfig"
+//   There is no DNS query logging configuration with the specified ID.
+//
+//   * ErrCodeInvalidInput "InvalidInput"
+//   The input is not valid.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetQueryLoggingConfig
+func (c *Route53) GetQueryLoggingConfig(input *GetQueryLoggingConfigInput) (*GetQueryLoggingConfigOutput, error) {
+	req, out := c.GetQueryLoggingConfigRequest(input)
+	return out, req.Send()
+}
+
+// GetQueryLoggingConfigWithContext is the same as GetQueryLoggingConfig with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetQueryLoggingConfig for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *Route53) GetQueryLoggingConfigWithContext(ctx aws.Context, input *GetQueryLoggingConfigInput, opts ...request.Option) (*GetQueryLoggingConfigOutput, error) {
+	req, out := c.GetQueryLoggingConfigRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opGetReusableDelegationSet = "GetReusableDelegationSet"
+
+// GetReusableDelegationSetRequest generates a "aws/request.Request" representing the
+// client's request for the GetReusableDelegationSet operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetReusableDelegationSet for more information on using the GetReusableDelegationSet
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the GetReusableDelegationSetRequest method.
+//    req, resp := client.GetReusableDelegationSetRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSet
+func (c *Route53) GetReusableDelegationSetRequest(input *GetReusableDelegationSetInput) (req *request.Request, output *GetReusableDelegationSetOutput) {
+	op := &request.Operation{
+		Name:       opGetReusableDelegationSet,
+		HTTPMethod: "GET",
+		HTTPPath:   "/2013-04-01/delegationset/{Id}",
+	}
+
+	if input == nil {
+		input = &GetReusableDelegationSetInput{}
+	}
+
+	output = &GetReusableDelegationSetOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetReusableDelegationSet API operation for Amazon Route 53.
+//
+// Retrieves information about a specified reusable delegation set, including
+// the four name servers that are assigned to the delegation set.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Route 53's
+// API operation GetReusableDelegationSet for usage and error information.
+>>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeNoSuchHostedZone "NoSuchHostedZone"
@@ -3367,7 +3569,11 @@ const opGetReusableDelegationSetLimit = "GetReusableDelegationSetLimit"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetLimit
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetLimit
+>>>>>>> Initial dep workover
 func (c *Route53) GetReusableDelegationSetLimitRequest(input *GetReusableDelegationSetLimitInput) (req *request.Request, output *GetReusableDelegationSetLimitOutput) {
 	op := &request.Operation{
 		Name:       opGetReusableDelegationSetLimit,
@@ -3407,7 +3613,11 @@ func (c *Route53) GetReusableDelegationSetLimitRequest(input *GetReusableDelegat
 //   * ErrCodeNoSuchDelegationSet "NoSuchDelegationSet"
 //   A reusable delegation set with the specified ID does not exist.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetLimit
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetLimit
+>>>>>>> Initial dep workover
 func (c *Route53) GetReusableDelegationSetLimit(input *GetReusableDelegationSetLimitInput) (*GetReusableDelegationSetLimitOutput, error) {
 	req, out := c.GetReusableDelegationSetLimitRequest(input)
 	return out, req.Send()
@@ -4203,7 +4413,11 @@ const opListQueryLoggingConfigs = "ListQueryLoggingConfigs"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListQueryLoggingConfigs
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListQueryLoggingConfigs
+>>>>>>> Initial dep workover
 func (c *Route53) ListQueryLoggingConfigsRequest(input *ListQueryLoggingConfigsInput) (req *request.Request, output *ListQueryLoggingConfigsOutput) {
 	op := &request.Operation{
 		Name:       opListQueryLoggingConfigs,
@@ -4249,7 +4463,11 @@ func (c *Route53) ListQueryLoggingConfigsRequest(input *ListQueryLoggingConfigsI
 //   * ErrCodeNoSuchHostedZone "NoSuchHostedZone"
 //   No hosted zone exists with the ID that you specified.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListQueryLoggingConfigs
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListQueryLoggingConfigs
+>>>>>>> Initial dep workover
 func (c *Route53) ListQueryLoggingConfigs(input *ListQueryLoggingConfigsInput) (*ListQueryLoggingConfigsOutput, error) {
 	req, out := c.ListQueryLoggingConfigsRequest(input)
 	return out, req.Send()
@@ -5725,7 +5943,11 @@ func (c *Route53) UpdateTrafficPolicyInstanceWithContext(ctx aws.Context, input 
 
 // A complex type that contains the type of limit that you specified in the
 // request and the current value for that limit.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/AccountLimit
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/AccountLimit
+>>>>>>> Initial dep workover
 type AccountLimit struct {
 	_ struct{} `type:"structure"`
 
@@ -5909,12 +6131,21 @@ type AliasTarget struct {
 	// DNSName. For more information, see the applicable guide:
 	//
 	// Classic Load Balancers: DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/2012-06-01/APIReference/API_DescribeLoadBalancers.html)
+<<<<<<< HEAD
 	//
 	// Application and Network Load Balancers: DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
 	//
 	// AWS CLI: Use describe-load-balancers to get the value of DNSName. For more
 	// information, see the applicable guide:
 	//
+=======
+	//
+	// Application and Network Load Balancers: DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
+	//
+	// AWS CLI: Use describe-load-balancers to get the value of DNSName. For more
+	// information, see the applicable guide:
+	//
+>>>>>>> Initial dep workover
 	// Classic Load Balancers: describe-load-balancers (http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html)
 	//
 	// Application and Network Load Balancers: describe-load-balancers (http://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-load-balancers.html)
@@ -6016,6 +6247,7 @@ type AliasTarget struct {
 	//
 	// Elastic Load Balancing API: Use DescribeLoadBalancers to get the applicable
 	// value. For more information, see the applicable guide:
+<<<<<<< HEAD
 	//
 	// Classic Load Balancers: Use DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/2012-06-01/APIReference/API_DescribeLoadBalancers.html)
 	// to get the value of CanonicalHostedZoneNameId.
@@ -6029,6 +6261,21 @@ type AliasTarget struct {
 	// Classic Load Balancers: Use describe-load-balancers (http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html)
 	// to get the value of CanonicalHostedZoneNameId.
 	//
+=======
+	//
+	// Classic Load Balancers: Use DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/2012-06-01/APIReference/API_DescribeLoadBalancers.html)
+	// to get the value of CanonicalHostedZoneNameId.
+	//
+	// Application and Network Load Balancers: Use DescribeLoadBalancers (http://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeLoadBalancers.html)
+	// to get the value of CanonicalHostedZoneId.
+	//
+	// AWS CLI: Use describe-load-balancers to get the applicable value. For more
+	// information, see the applicable guide:
+	//
+	// Classic Load Balancers: Use describe-load-balancers (http://docs.aws.amazon.com/cli/latest/reference/elb/describe-load-balancers.html)
+	// to get the value of CanonicalHostedZoneNameId.
+	//
+>>>>>>> Initial dep workover
 	// Application and Network Load Balancers: Use describe-load-balancers (http://docs.aws.amazon.com/cli/latest/reference/elbv2/describe-load-balancers.html)
 	// to get the value of CanonicalHostedZoneId.
 	//
@@ -7013,7 +7260,11 @@ func (s *CreateHostedZoneOutput) SetVPC(v *VPC) *CreateHostedZoneOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfigRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfigRequest
+>>>>>>> Initial dep workover
 type CreateQueryLoggingConfigInput struct {
 	_ struct{} `locationName:"CreateQueryLoggingConfigRequest" type:"structure" xmlURI:"https://route53.amazonaws.com/doc/2013-04-01/"`
 
@@ -7075,7 +7326,11 @@ func (s *CreateQueryLoggingConfigInput) SetHostedZoneId(v string) *CreateQueryLo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfigResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfigResponse
+>>>>>>> Initial dep workover
 type CreateQueryLoggingConfigOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7114,7 +7369,11 @@ func (s *CreateQueryLoggingConfigOutput) SetQueryLoggingConfig(v *QueryLoggingCo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateReusableDelegationSetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateReusableDelegationSetRequest
+>>>>>>> Initial dep workover
 type CreateReusableDelegationSetInput struct {
 	_ struct{} `locationName:"CreateReusableDelegationSetRequest" type:"structure" xmlURI:"https://route53.amazonaws.com/doc/2013-04-01/"`
 
@@ -7843,7 +8102,11 @@ func (s *DeleteHostedZoneOutput) SetChangeInfo(v *ChangeInfo) *DeleteHostedZoneO
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfigRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfigRequest
+>>>>>>> Initial dep workover
 type DeleteQueryLoggingConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7885,7 +8148,11 @@ func (s *DeleteQueryLoggingConfigInput) SetId(v string) *DeleteQueryLoggingConfi
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfigResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/DeleteQueryLoggingConfigResponse
+>>>>>>> Initial dep workover
 type DeleteQueryLoggingConfigOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8459,7 +8726,11 @@ func (s *GeoLocationDetails) SetSubdivisionName(v string) *GeoLocationDetails {
 
 // A complex type that contains information about the request to create a hosted
 // zone.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetAccountLimitRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetAccountLimitRequest
+>>>>>>> Initial dep workover
 type GetAccountLimitInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8516,7 +8787,11 @@ func (s *GetAccountLimitInput) SetType(v string) *GetAccountLimitInput {
 }
 
 // A complex type that contains the requested limit.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetAccountLimitResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetAccountLimitResponse
+>>>>>>> Initial dep workover
 type GetAccountLimitOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9124,7 +9399,11 @@ func (s *GetHostedZoneInput) SetId(v string) *GetHostedZoneInput {
 
 // A complex type that contains information about the request to create a hosted
 // zone.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimitRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimitRequest
+>>>>>>> Initial dep workover
 type GetHostedZoneLimitInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9184,7 +9463,11 @@ func (s *GetHostedZoneLimitInput) SetType(v string) *GetHostedZoneLimitInput {
 }
 
 // A complex type that contains the requested limit.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimitResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneLimitResponse
+>>>>>>> Initial dep workover
 type GetHostedZoneLimitOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9275,7 +9558,11 @@ func (s *GetHostedZoneOutput) SetVPCs(v []*VPC) *GetHostedZoneOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetQueryLoggingConfigRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetQueryLoggingConfigRequest
+>>>>>>> Initial dep workover
 type GetQueryLoggingConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9318,7 +9605,11 @@ func (s *GetQueryLoggingConfigInput) SetId(v string) *GetQueryLoggingConfigInput
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetQueryLoggingConfigResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetQueryLoggingConfigResponse
+>>>>>>> Initial dep workover
 type GetQueryLoggingConfigOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9346,7 +9637,11 @@ func (s *GetQueryLoggingConfigOutput) SetQueryLoggingConfig(v *QueryLoggingConfi
 }
 
 // A request to get information about a specified reusable delegation set.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetRequest
+>>>>>>> Initial dep workover
 type GetReusableDelegationSetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9388,7 +9683,11 @@ func (s *GetReusableDelegationSetInput) SetId(v string) *GetReusableDelegationSe
 
 // A complex type that contains information about the request to create a hosted
 // zone.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetLimitRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetLimitRequest
+>>>>>>> Initial dep workover
 type GetReusableDelegationSetLimitInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9444,7 +9743,11 @@ func (s *GetReusableDelegationSetLimitInput) SetType(v string) *GetReusableDeleg
 }
 
 // A complex type that contains the requested limit.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetLimitResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSetLimitResponse
+>>>>>>> Initial dep workover
 type GetReusableDelegationSetLimitOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10385,7 +10688,11 @@ func (s *HostedZoneConfig) SetPrivateZone(v bool) *HostedZoneConfig {
 
 // A complex type that contains the type of limit that you specified in the
 // request and the current value for that limit.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HostedZoneLimit
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/HostedZoneLimit
+>>>>>>> Initial dep workover
 type HostedZoneLimit struct {
 	_ struct{} `type:"structure"`
 
@@ -10432,7 +10739,11 @@ func (s *HostedZoneLimit) SetValue(v int64) *HostedZoneLimit {
 // is a complex type that describes the service that created the resource. When
 // a resource is created by another service, you can't edit or delete it using
 // Amazon Route 53.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/LinkedService
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/LinkedService
+>>>>>>> Initial dep workover
 type LinkedService struct {
 	_ struct{} `type:"structure"`
 
@@ -11076,7 +11387,11 @@ func (s *ListHostedZonesOutput) SetNextMarker(v string) *ListHostedZonesOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListQueryLoggingConfigsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListQueryLoggingConfigsRequest
+>>>>>>> Initial dep workover
 type ListQueryLoggingConfigsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11134,7 +11449,11 @@ func (s *ListQueryLoggingConfigsInput) SetNextToken(v string) *ListQueryLoggingC
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListQueryLoggingConfigsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListQueryLoggingConfigsResponse
+>>>>>>> Initial dep workover
 type ListQueryLoggingConfigsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12619,7 +12938,11 @@ func (s *ListVPCAssociationAuthorizationsOutput) SetVPCs(v []*VPC) *ListVPCAssoc
 
 // A complex type that contains information about a configuration for DNS query
 // logging.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/QueryLoggingConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/QueryLoggingConfig
+>>>>>>> Initial dep workover
 type QueryLoggingConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -13300,7 +13623,11 @@ func (s *ResourceTagSet) SetTags(v []*Tag) *ResourceTagSet {
 
 // A complex type that contains the type of limit that you specified in the
 // request and the current value for that limit.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ReusableDelegationSetLimit
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ReusableDelegationSetLimit
+>>>>>>> Initial dep workover
 type ReusableDelegationSetLimit struct {
 	_ struct{} `type:"structure"`
 

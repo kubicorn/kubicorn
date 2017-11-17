@@ -268,7 +268,10 @@ const (
 	POLLWRBAND = C.POLLWRBAND
 	POLLWRNORM = C.POLLWRNORM
 )
+<<<<<<< HEAD
 
 // Uname
 
 type Utsname C.struct_utsname
+=======
+>>>>>>> Initial dep workover

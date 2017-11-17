@@ -28,6 +28,10 @@ import (
 
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+<<<<<<< HEAD
+=======
+	uapi "k8s.io/apimachinery/pkg/apis/meta/v1"
+>>>>>>> Initial dep workover
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -86,7 +90,11 @@ func TestServerSupportsVersion(t *testing.T) {
 			NegotiatedSerializer: scheme.Codecs,
 			Resp: &http.Response{
 				StatusCode: test.statusCode,
+<<<<<<< HEAD
 				Body:       objBody(&metav1.APIVersions{Versions: test.serverVersions}),
+=======
+				Body:       objBody(&uapi.APIVersions{Versions: test.serverVersions}),
+>>>>>>> Initial dep workover
 			},
 			Client: fake.CreateHTTPClient(func(req *http.Request) (*http.Response, error) {
 				if test.sendErr != nil {
@@ -94,7 +102,11 @@ func TestServerSupportsVersion(t *testing.T) {
 				}
 				header := http.Header{}
 				header.Set("Content-Type", runtime.ContentTypeJSON)
+<<<<<<< HEAD
 				return &http.Response{StatusCode: test.statusCode, Header: header, Body: objBody(&metav1.APIVersions{Versions: test.serverVersions})}, nil
+=======
+				return &http.Response{StatusCode: test.statusCode, Header: header, Body: objBody(&uapi.APIVersions{Versions: test.serverVersions})}, nil
+>>>>>>> Initial dep workover
 			}),
 		}
 		c := discovery.NewDiscoveryClientForConfigOrDie(&restclient.Config{})

@@ -490,6 +490,7 @@ const opAdminDeleteUser = "AdminDeleteUser"
 // client's request for the AdminDeleteUser operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -497,6 +498,15 @@ const opAdminDeleteUser = "AdminDeleteUser"
 // See AdminDeleteUser for more information on using the AdminDeleteUser
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminDeleteUser for more information on using the AdminDeleteUser
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -591,6 +601,7 @@ const opAdminDeleteUserAttributes = "AdminDeleteUserAttributes"
 // client's request for the AdminDeleteUserAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -598,6 +609,15 @@ const opAdminDeleteUserAttributes = "AdminDeleteUserAttributes"
 // See AdminDeleteUserAttributes for more information on using the AdminDeleteUserAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminDeleteUserAttributes for more information on using the AdminDeleteUserAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -710,7 +730,11 @@ const opAdminDisableProviderForUser = "AdminDisableProviderForUser"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableProviderForUser
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableProviderForUser
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) AdminDisableProviderForUserRequest(input *AdminDisableProviderForUserInput) (req *request.Request, output *AdminDisableProviderForUserOutput) {
 	op := &request.Operation{
 		Name:       opAdminDisableProviderForUser,
@@ -735,7 +759,11 @@ func (c *CognitoIdentityProvider) AdminDisableProviderForUserRequest(input *Admi
 // sign-in. If the user to disable is a linked external IdP user, any link between
 // that user and an existing user is removed. The next time the external user
 // (no longer attached to the previously linked DestinationUser) signs in, they
+<<<<<<< HEAD
 // must create a new user account. See .
+=======
+// must create a new user account. See AdminLinkProviderForUser (API_AdminLinkProviderForUser.html).
+>>>>>>> Initial dep workover
 //
 // This action is enabled only for admin access and requires developer credentials.
 //
@@ -754,10 +782,18 @@ func (c *CognitoIdentityProvider) AdminDisableProviderForUserRequest(input *Admi
 // For de-linking a SAML identity, there are two scenarios. If the linked identity
 // has not yet been used to sign-in, the ProviderAttributeName and ProviderAttributeValue
 // must be the same values that were used for the SourceUser when the identities
+<<<<<<< HEAD
 // were originally linked in the call. (If the linking was done with ProviderAttributeName
 // set to Cognito_Subject, the same applies here). However, if the user has
 // already signed in, the ProviderAttributeName must be Cognito_Subject and
 // ProviderAttributeValue must be the subject of the SAML assertion.
+=======
+// were originally linked in the AdminLinkProviderForUser (API_AdminLinkProviderForUser.html)
+// call. (If the linking was done with ProviderAttributeName set to Cognito_Subject,
+// the same applies here). However, if the user has already signed in, the ProviderAttributeName
+// must be Cognito_Subject and ProviderAttributeValue must be the subject of
+// the SAML assertion.
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -794,7 +830,11 @@ func (c *CognitoIdentityProvider) AdminDisableProviderForUserRequest(input *Admi
 //   * ErrCodeInternalErrorException "InternalErrorException"
 //   This exception is thrown when Amazon Cognito encounters an internal error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableProviderForUser
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableProviderForUser
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) AdminDisableProviderForUser(input *AdminDisableProviderForUserInput) (*AdminDisableProviderForUserOutput, error) {
 	req, out := c.AdminDisableProviderForUserRequest(input)
 	return out, req.Send()
@@ -822,6 +862,7 @@ const opAdminDisableUser = "AdminDisableUser"
 // client's request for the AdminDisableUser operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -829,6 +870,15 @@ const opAdminDisableUser = "AdminDisableUser"
 // See AdminDisableUser for more information on using the AdminDisableUser
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminDisableUser for more information on using the AdminDisableUser
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -921,6 +971,7 @@ const opAdminEnableUser = "AdminEnableUser"
 // client's request for the AdminEnableUser operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -928,6 +979,15 @@ const opAdminEnableUser = "AdminEnableUser"
 // See AdminEnableUser for more information on using the AdminEnableUser
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminEnableUser for more information on using the AdminEnableUser
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1020,6 +1080,7 @@ const opAdminForgetDevice = "AdminForgetDevice"
 // client's request for the AdminForgetDevice operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1027,6 +1088,15 @@ const opAdminForgetDevice = "AdminForgetDevice"
 // See AdminForgetDevice for more information on using the AdminForgetDevice
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminForgetDevice for more information on using the AdminForgetDevice
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1124,6 +1194,7 @@ const opAdminGetDevice = "AdminGetDevice"
 // client's request for the AdminGetDevice operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1131,6 +1202,15 @@ const opAdminGetDevice = "AdminGetDevice"
 // See AdminGetDevice for more information on using the AdminGetDevice
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminGetDevice for more information on using the AdminGetDevice
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1223,6 +1303,7 @@ const opAdminGetUser = "AdminGetUser"
 // client's request for the AdminGetUser operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1230,6 +1311,15 @@ const opAdminGetUser = "AdminGetUser"
 // See AdminGetUser for more information on using the AdminGetUser
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminGetUser for more information on using the AdminGetUser
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1323,6 +1413,7 @@ const opAdminInitiateAuth = "AdminInitiateAuth"
 // client's request for the AdminInitiateAuth operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1330,6 +1421,15 @@ const opAdminInitiateAuth = "AdminInitiateAuth"
 // See AdminInitiateAuth for more information on using the AdminInitiateAuth
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminInitiateAuth for more information on using the AdminInitiateAuth
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1476,7 +1576,11 @@ const opAdminLinkProviderForUser = "AdminLinkProviderForUser"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminLinkProviderForUser
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminLinkProviderForUser
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) AdminLinkProviderForUserRequest(input *AdminLinkProviderForUserInput) (req *request.Request, output *AdminLinkProviderForUserOutput) {
 	op := &request.Operation{
 		Name:       opAdminLinkProviderForUser,
@@ -1511,7 +1615,11 @@ func (c *CognitoIdentityProvider) AdminLinkProviderForUserRequest(input *AdminLi
 // with external identity providers and provider attributes that have been trusted
 // by the application owner.
 //
+<<<<<<< HEAD
 // See also .
+=======
+// See also AdminDisableProviderForUser (API_AdminDisableProviderForUser.html).
+>>>>>>> Initial dep workover
 //
 // This action is enabled only for admin access and requires developer credentials.
 //
@@ -1550,7 +1658,11 @@ func (c *CognitoIdentityProvider) AdminLinkProviderForUserRequest(input *AdminLi
 //   * ErrCodeInternalErrorException "InternalErrorException"
 //   This exception is thrown when Amazon Cognito encounters an internal error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminLinkProviderForUser
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminLinkProviderForUser
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) AdminLinkProviderForUser(input *AdminLinkProviderForUserInput) (*AdminLinkProviderForUserOutput, error) {
 	req, out := c.AdminLinkProviderForUserRequest(input)
 	return out, req.Send()
@@ -1578,6 +1690,7 @@ const opAdminListDevices = "AdminListDevices"
 // client's request for the AdminListDevices operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1585,6 +1698,15 @@ const opAdminListDevices = "AdminListDevices"
 // See AdminListDevices for more information on using the AdminListDevices
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminListDevices for more information on using the AdminListDevices
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1677,6 +1799,7 @@ const opAdminListGroupsForUser = "AdminListGroupsForUser"
 // client's request for the AdminListGroupsForUser operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1684,6 +1807,15 @@ const opAdminListGroupsForUser = "AdminListGroupsForUser"
 // See AdminListGroupsForUser for more information on using the AdminListGroupsForUser
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminListGroupsForUser for more information on using the AdminListGroupsForUser
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1877,6 +2009,7 @@ const opAdminRemoveUserFromGroup = "AdminRemoveUserFromGroup"
 // client's request for the AdminRemoveUserFromGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1884,6 +2017,15 @@ const opAdminRemoveUserFromGroup = "AdminRemoveUserFromGroup"
 // See AdminRemoveUserFromGroup for more information on using the AdminRemoveUserFromGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminRemoveUserFromGroup for more information on using the AdminRemoveUserFromGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1978,6 +2120,7 @@ const opAdminResetUserPassword = "AdminResetUserPassword"
 // client's request for the AdminResetUserPassword operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1985,6 +2128,15 @@ const opAdminResetUserPassword = "AdminResetUserPassword"
 // See AdminResetUserPassword for more information on using the AdminResetUserPassword
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminResetUserPassword for more information on using the AdminResetUserPassword
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2118,6 +2270,7 @@ const opAdminRespondToAuthChallenge = "AdminRespondToAuthChallenge"
 // client's request for the AdminRespondToAuthChallenge operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2125,6 +2278,15 @@ const opAdminRespondToAuthChallenge = "AdminRespondToAuthChallenge"
 // See AdminRespondToAuthChallenge for more information on using the AdminRespondToAuthChallenge
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminRespondToAuthChallenge for more information on using the AdminRespondToAuthChallenge
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2269,6 +2431,7 @@ func (c *CognitoIdentityProvider) AdminRespondToAuthChallengeWithContext(ctx aws
 
 const opAdminSetUserMFAPreference = "AdminSetUserMFAPreference"
 
+<<<<<<< HEAD
 // AdminSetUserMFAPreferenceRequest generates a "aws/request.Request" representing the
 // client's request for the AdminSetUserMFAPreference operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2379,6 +2542,19 @@ const opAdminSetUserSettings = "AdminSetUserSettings"
 // See AdminSetUserSettings for more information on using the AdminSetUserSettings
 // API call, and error handling.
 //
+=======
+// AdminSetUserSettingsRequest generates a "aws/request.Request" representing the
+// client's request for the AdminSetUserSettings operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminSetUserSettings for more information on using the AdminSetUserSettings
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2569,6 +2745,7 @@ const opAdminUpdateDeviceStatus = "AdminUpdateDeviceStatus"
 // client's request for the AdminUpdateDeviceStatus operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2576,6 +2753,15 @@ const opAdminUpdateDeviceStatus = "AdminUpdateDeviceStatus"
 // See AdminUpdateDeviceStatus for more information on using the AdminUpdateDeviceStatus
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminUpdateDeviceStatus for more information on using the AdminUpdateDeviceStatus
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2671,6 +2857,7 @@ const opAdminUpdateUserAttributes = "AdminUpdateUserAttributes"
 // client's request for the AdminUpdateUserAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2678,6 +2865,15 @@ const opAdminUpdateUserAttributes = "AdminUpdateUserAttributes"
 // See AdminUpdateUserAttributes for more information on using the AdminUpdateUserAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminUpdateUserAttributes for more information on using the AdminUpdateUserAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2795,6 +2991,7 @@ const opAdminUserGlobalSignOut = "AdminUserGlobalSignOut"
 // client's request for the AdminUserGlobalSignOut operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2802,6 +2999,15 @@ const opAdminUserGlobalSignOut = "AdminUserGlobalSignOut"
 // See AdminUserGlobalSignOut for more information on using the AdminUserGlobalSignOut
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AdminUserGlobalSignOut for more information on using the AdminUserGlobalSignOut
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3709,7 +3915,11 @@ const opCreateResourceServer = "CreateResourceServer"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServer
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) CreateResourceServerRequest(input *CreateResourceServerInput) (req *request.Request, output *CreateResourceServerOutput) {
 	op := &request.Operation{
 		Name:       opCreateResourceServer,
@@ -3760,7 +3970,11 @@ func (c *CognitoIdentityProvider) CreateResourceServerRequest(input *CreateResou
 //   * ErrCodeInternalErrorException "InternalErrorException"
 //   This exception is thrown when Amazon Cognito encounters an internal error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServer
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) CreateResourceServer(input *CreateResourceServerInput) (*CreateResourceServerOutput, error) {
 	req, out := c.CreateResourceServerRequest(input)
 	return out, req.Send()
@@ -3791,6 +4005,7 @@ const opCreateUserImportJob = "CreateUserImportJob"
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
+<<<<<<< HEAD
 //
 // See CreateUserImportJob for more information on using the CreateUserImportJob
 // API call, and error handling.
@@ -3899,6 +4114,121 @@ const opCreateUserPool = "CreateUserPool"
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
+=======
+//
+// See CreateUserImportJob for more information on using the CreateUserImportJob
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+>>>>>>> Initial dep workover
+//
+//
+//    // Example sending a request using the CreateUserImportJobRequest method.
+//    req, resp := client.CreateUserImportJobRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+<<<<<<< HEAD
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPool
+func (c *CognitoIdentityProvider) CreateUserPoolRequest(input *CreateUserPoolInput) (req *request.Request, output *CreateUserPoolOutput) {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserImportJob
+func (c *CognitoIdentityProvider) CreateUserImportJobRequest(input *CreateUserImportJobInput) (req *request.Request, output *CreateUserImportJobOutput) {
+>>>>>>> Initial dep workover
+	op := &request.Operation{
+		Name:       opCreateUserImportJob,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &CreateUserImportJobInput{}
+	}
+
+	output = &CreateUserImportJobOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// CreateUserImportJob API operation for Amazon Cognito Identity Provider.
+//
+// Creates the user import job.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Cognito Identity Provider's
+// API operation CreateUserImportJob for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
+//   This exception is thrown when the Amazon Cognito service cannot find the
+//   requested resource.
+//
+//   * ErrCodeInvalidParameterException "InvalidParameterException"
+//   This exception is thrown when the Amazon Cognito service encounters an invalid
+//   parameter.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   This exception is thrown when the user has made too many requests for a given
+//   operation.
+//
+//   * ErrCodePreconditionNotMetException "PreconditionNotMetException"
+//   This exception is thrown when a precondition is not met.
+//
+//   * ErrCodeNotAuthorizedException "NotAuthorizedException"
+//   This exception is thrown when a user is not authorized.
+//
+//   * ErrCodeLimitExceededException "LimitExceededException"
+//   This exception is thrown when a user exceeds the limit for a requested AWS
+//   resource.
+//
+//   * ErrCodeInternalErrorException "InternalErrorException"
+//   This exception is thrown when Amazon Cognito encounters an internal error.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserImportJob
+func (c *CognitoIdentityProvider) CreateUserImportJob(input *CreateUserImportJobInput) (*CreateUserImportJobOutput, error) {
+	req, out := c.CreateUserImportJobRequest(input)
+	return out, req.Send()
+}
+
+// CreateUserImportJobWithContext is the same as CreateUserImportJob with the addition of
+// the ability to pass a context and additional request options.
+//
+// See CreateUserImportJob for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CognitoIdentityProvider) CreateUserImportJobWithContext(ctx aws.Context, input *CreateUserImportJobInput, opts ...request.Option) (*CreateUserImportJobOutput, error) {
+	req, out := c.CreateUserImportJobRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opCreateUserPool = "CreateUserPool"
+
+// CreateUserPoolRequest generates a "aws/request.Request" representing the
+// client's request for the CreateUserPool operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateUserPool for more information on using the CreateUserPool
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
 //
 //    // Example sending a request using the CreateUserPoolRequest method.
 //    req, resp := client.CreateUserPoolRequest(params)
@@ -3908,7 +4238,7 @@ const opCreateUserPool = "CreateUserPool"
 //        fmt.Println(resp)
 //    }
 //
-// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPool
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPool
 func (c *CognitoIdentityProvider) CreateUserPoolRequest(input *CreateUserPoolInput) (req *request.Request, output *CreateUserPoolOutput) {
 	op := &request.Operation{
 		Name:       opCreateUserPool,
@@ -4411,7 +4741,11 @@ const opDeleteResourceServer = "DeleteResourceServer"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteResourceServer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteResourceServer
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) DeleteResourceServerRequest(input *DeleteResourceServerInput) (req *request.Request, output *DeleteResourceServerOutput) {
 	op := &request.Operation{
 		Name:       opDeleteResourceServer,
@@ -4460,7 +4794,11 @@ func (c *CognitoIdentityProvider) DeleteResourceServerRequest(input *DeleteResou
 //   * ErrCodeInternalErrorException "InternalErrorException"
 //   This exception is thrown when Amazon Cognito encounters an internal error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteResourceServer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteResourceServer
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) DeleteResourceServer(input *DeleteResourceServerInput) (*DeleteResourceServerOutput, error) {
 	req, out := c.DeleteResourceServerRequest(input)
 	return out, req.Send()
@@ -5073,6 +5411,7 @@ func (c *CognitoIdentityProvider) DescribeIdentityProviderWithContext(ctx aws.Co
 }
 
 const opDescribeResourceServer = "DescribeResourceServer"
+<<<<<<< HEAD
 
 // DescribeResourceServerRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeResourceServer operation. The "output" return
@@ -5087,6 +5426,117 @@ const opDescribeResourceServer = "DescribeResourceServer"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+
+// DescribeResourceServerRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeResourceServer operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeResourceServer for more information on using the DescribeResourceServer
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the DescribeResourceServerRequest method.
+//    req, resp := client.DescribeResourceServerRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeResourceServer
+func (c *CognitoIdentityProvider) DescribeResourceServerRequest(input *DescribeResourceServerInput) (req *request.Request, output *DescribeResourceServerOutput) {
+	op := &request.Operation{
+		Name:       opDescribeResourceServer,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &DescribeResourceServerInput{}
+	}
+
+	output = &DescribeResourceServerOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// DescribeResourceServer API operation for Amazon Cognito Identity Provider.
+//
+// Describes a resource server.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Cognito Identity Provider's
+// API operation DescribeResourceServer for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeInvalidParameterException "InvalidParameterException"
+//   This exception is thrown when the Amazon Cognito service encounters an invalid
+//   parameter.
+//
+//   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
+//   This exception is thrown when the Amazon Cognito service cannot find the
+//   requested resource.
+//
+//   * ErrCodeNotAuthorizedException "NotAuthorizedException"
+//   This exception is thrown when a user is not authorized.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   This exception is thrown when the user has made too many requests for a given
+//   operation.
+//
+//   * ErrCodeInternalErrorException "InternalErrorException"
+//   This exception is thrown when Amazon Cognito encounters an internal error.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeResourceServer
+func (c *CognitoIdentityProvider) DescribeResourceServer(input *DescribeResourceServerInput) (*DescribeResourceServerOutput, error) {
+	req, out := c.DescribeResourceServerRequest(input)
+	return out, req.Send()
+}
+
+// DescribeResourceServerWithContext is the same as DescribeResourceServer with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DescribeResourceServer for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CognitoIdentityProvider) DescribeResourceServerWithContext(ctx aws.Context, input *DescribeResourceServerInput, opts ...request.Option) (*DescribeResourceServerOutput, error) {
+	req, out := c.DescribeResourceServerRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opDescribeUserImportJob = "DescribeUserImportJob"
+
+// DescribeUserImportJobRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeUserImportJob operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeUserImportJob for more information on using the DescribeUserImportJob
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeResourceServerRequest method.
@@ -5168,19 +5618,33 @@ func (c *CognitoIdentityProvider) DescribeResourceServerWithContext(ctx aws.Cont
 
 const opDescribeRiskConfiguration = "DescribeRiskConfiguration"
 
+<<<<<<< HEAD
 // DescribeRiskConfigurationRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeRiskConfiguration operation. The "output" return
+=======
+// DescribeUserPoolRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeUserPool operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DescribeRiskConfiguration for more information on using the DescribeRiskConfiguration
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DescribeUserPool for more information on using the DescribeUserPool
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeRiskConfigurationRequest method.
@@ -5265,6 +5729,7 @@ func (c *CognitoIdentityProvider) DescribeRiskConfigurationWithContext(ctx aws.C
 
 const opDescribeUserImportJob = "DescribeUserImportJob"
 
+<<<<<<< HEAD
 // DescribeUserImportJobRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeUserImportJob operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -5278,6 +5743,22 @@ const opDescribeUserImportJob = "DescribeUserImportJob"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DescribeUserPoolClientRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeUserPoolClient operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeUserPoolClient for more information on using the DescribeUserPoolClient
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeUserImportJobRequest method.
@@ -5556,6 +6037,7 @@ const opDescribeUserPoolDomain = "DescribeUserPoolDomain"
 // client's request for the DescribeUserPoolDomain operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5563,6 +6045,15 @@ const opDescribeUserPoolDomain = "DescribeUserPoolDomain"
 // See DescribeUserPoolDomain for more information on using the DescribeUserPoolDomain
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeUserPoolDomain for more information on using the DescribeUserPoolDomain
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5646,6 +6137,7 @@ const opForgetDevice = "ForgetDevice"
 // client's request for the ForgetDevice operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5653,6 +6145,15 @@ const opForgetDevice = "ForgetDevice"
 // See ForgetDevice for more information on using the ForgetDevice
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ForgetDevice for more information on using the ForgetDevice
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5754,6 +6255,7 @@ const opForgotPassword = "ForgotPassword"
 // client's request for the ForgotPassword operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5761,6 +6263,15 @@ const opForgotPassword = "ForgotPassword"
 // See ForgotPassword for more information on using the ForgotPassword
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ForgotPassword for more information on using the ForgotPassword
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5895,6 +6406,7 @@ const opGetCSVHeader = "GetCSVHeader"
 // client's request for the GetCSVHeader operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5902,6 +6414,15 @@ const opGetCSVHeader = "GetCSVHeader"
 // See GetCSVHeader for more information on using the GetCSVHeader
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetCSVHeader for more information on using the GetCSVHeader
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5990,6 +6511,7 @@ const opGetDevice = "GetDevice"
 // client's request for the GetDevice operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5997,6 +6519,15 @@ const opGetDevice = "GetDevice"
 // See GetDevice for more information on using the GetDevice
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetDevice for more information on using the GetDevice
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6096,6 +6627,7 @@ const opGetGroup = "GetGroup"
 // client's request for the GetGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6103,6 +6635,15 @@ const opGetGroup = "GetGroup"
 // See GetGroup for more information on using the GetGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetGroup for more information on using the GetGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6192,6 +6733,7 @@ const opGetIdentityProviderByIdentifier = "GetIdentityProviderByIdentifier"
 // client's request for the GetIdentityProviderByIdentifier operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6199,6 +6741,15 @@ const opGetIdentityProviderByIdentifier = "GetIdentityProviderByIdentifier"
 // See GetIdentityProviderByIdentifier for more information on using the GetIdentityProviderByIdentifier
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetIdentityProviderByIdentifier for more information on using the GetIdentityProviderByIdentifier
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6281,6 +6832,7 @@ func (c *CognitoIdentityProvider) GetIdentityProviderByIdentifierWithContext(ctx
 }
 
 const opGetUICustomization = "GetUICustomization"
+<<<<<<< HEAD
 
 // GetUICustomizationRequest generates a "aws/request.Request" representing the
 // client's request for the GetUICustomization operation. The "output" return
@@ -6381,6 +6933,122 @@ const opGetUser = "GetUser"
 
 // GetUserRequest generates a "aws/request.Request" representing the
 // client's request for the GetUser operation. The "output" return
+=======
+
+// GetUICustomizationRequest generates a "aws/request.Request" representing the
+// client's request for the GetUICustomization operation. The "output" return
+>>>>>>> Initial dep workover
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+<<<<<<< HEAD
+// See GetUser for more information on using the GetUser
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+=======
+// See GetUICustomization for more information on using the GetUICustomization
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+>>>>>>> Initial dep workover
+//
+//
+//    // Example sending a request using the GetUICustomizationRequest method.
+//    req, resp := client.GetUICustomizationRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+<<<<<<< HEAD
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUser
+func (c *CognitoIdentityProvider) GetUserRequest(input *GetUserInput) (req *request.Request, output *GetUserOutput) {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUICustomization
+func (c *CognitoIdentityProvider) GetUICustomizationRequest(input *GetUICustomizationInput) (req *request.Request, output *GetUICustomizationOutput) {
+>>>>>>> Initial dep workover
+	op := &request.Operation{
+		Name:       opGetUICustomization,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &GetUICustomizationInput{}
+	}
+
+	output = &GetUICustomizationOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetUICustomization API operation for Amazon Cognito Identity Provider.
+//
+// Gets the UI Customization information for a particular app client's app UI,
+// if there is something set. If nothing is set for the particular client, but
+// there is an existing pool level customization (app clientId will be ALL),
+// then that is returned. If nothing is present, then an empty shape is returned.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Cognito Identity Provider's
+// API operation GetUICustomization for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeInvalidParameterException "InvalidParameterException"
+//   This exception is thrown when the Amazon Cognito service encounters an invalid
+//   parameter.
+//
+//   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
+//   This exception is thrown when the Amazon Cognito service cannot find the
+//   requested resource.
+//
+//   * ErrCodeNotAuthorizedException "NotAuthorizedException"
+//   This exception is thrown when a user is not authorized.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   This exception is thrown when the user has made too many requests for a given
+//   operation.
+//
+//   * ErrCodeInternalErrorException "InternalErrorException"
+//   This exception is thrown when Amazon Cognito encounters an internal error.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUICustomization
+func (c *CognitoIdentityProvider) GetUICustomization(input *GetUICustomizationInput) (*GetUICustomizationOutput, error) {
+	req, out := c.GetUICustomizationRequest(input)
+	return out, req.Send()
+}
+
+// GetUICustomizationWithContext is the same as GetUICustomization with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetUICustomization for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CognitoIdentityProvider) GetUICustomizationWithContext(ctx aws.Context, input *GetUICustomizationInput, opts ...request.Option) (*GetUICustomizationOutput, error) {
+	req, out := c.GetUICustomizationRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opGetUser = "GetUser"
+
+// GetUserRequest generates a "aws/request.Request" representing the
+// client's request for the GetUser operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
@@ -6402,7 +7070,7 @@ const opGetUser = "GetUser"
 //        fmt.Println(resp)
 //    }
 //
-// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUser
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUser
 func (c *CognitoIdentityProvider) GetUserRequest(input *GetUserInput) (req *request.Request, output *GetUserOutput) {
 	op := &request.Operation{
 		Name:       opGetUser,
@@ -6487,6 +7155,7 @@ const opGetUserAttributeVerificationCode = "GetUserAttributeVerificationCode"
 // client's request for the GetUserAttributeVerificationCode operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6494,6 +7163,15 @@ const opGetUserAttributeVerificationCode = "GetUserAttributeVerificationCode"
 // See GetUserAttributeVerificationCode for more information on using the GetUserAttributeVerificationCode
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetUserAttributeVerificationCode for more information on using the GetUserAttributeVerificationCode
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6620,6 +7298,7 @@ func (c *CognitoIdentityProvider) GetUserAttributeVerificationCodeWithContext(ct
 
 const opGetUserPoolMfaConfig = "GetUserPoolMfaConfig"
 
+<<<<<<< HEAD
 // GetUserPoolMfaConfigRequest generates a "aws/request.Request" representing the
 // client's request for the GetUserPoolMfaConfig operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -6633,6 +7312,22 @@ const opGetUserPoolMfaConfig = "GetUserPoolMfaConfig"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// GlobalSignOutRequest generates a "aws/request.Request" representing the
+// client's request for the GlobalSignOut operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GlobalSignOut for more information on using the GlobalSignOut
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetUserPoolMfaConfigRequest method.
@@ -6818,6 +7513,7 @@ const opInitiateAuth = "InitiateAuth"
 // client's request for the InitiateAuth operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6825,6 +7521,15 @@ const opInitiateAuth = "InitiateAuth"
 // See InitiateAuth for more information on using the InitiateAuth
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See InitiateAuth for more information on using the InitiateAuth
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6936,6 +7641,7 @@ const opListDevices = "ListDevices"
 // client's request for the ListDevices operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6943,6 +7649,15 @@ const opListDevices = "ListDevices"
 // See ListDevices for more information on using the ListDevices
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListDevices for more information on using the ListDevices
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7042,6 +7757,7 @@ const opListGroups = "ListGroups"
 // client's request for the ListGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7049,6 +7765,15 @@ const opListGroups = "ListGroups"
 // See ListGroups for more information on using the ListGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListGroups for more information on using the ListGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7138,6 +7863,7 @@ const opListIdentityProviders = "ListIdentityProviders"
 // client's request for the ListIdentityProviders operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7145,6 +7871,15 @@ const opListIdentityProviders = "ListIdentityProviders"
 // See ListIdentityProviders for more information on using the ListIdentityProviders
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListIdentityProviders for more information on using the ListIdentityProviders
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7251,7 +7986,11 @@ const opListResourceServers = "ListResourceServers"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListResourceServers
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListResourceServers
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) ListResourceServersRequest(input *ListResourceServersInput) (req *request.Request, output *ListResourceServersOutput) {
 	op := &request.Operation{
 		Name:       opListResourceServers,
@@ -7298,7 +8037,11 @@ func (c *CognitoIdentityProvider) ListResourceServersRequest(input *ListResource
 //   * ErrCodeInternalErrorException "InternalErrorException"
 //   This exception is thrown when Amazon Cognito encounters an internal error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListResourceServers
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListResourceServers
+>>>>>>> Initial dep workover
 func (c *CognitoIdentityProvider) ListResourceServers(input *ListResourceServersInput) (*ListResourceServersOutput, error) {
 	req, out := c.ListResourceServersRequest(input)
 	return out, req.Send()
@@ -7326,6 +8069,7 @@ const opListUserImportJobs = "ListUserImportJobs"
 // client's request for the ListUserImportJobs operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7333,6 +8077,15 @@ const opListUserImportJobs = "ListUserImportJobs"
 // See ListUserImportJobs for more information on using the ListUserImportJobs
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListUserImportJobs for more information on using the ListUserImportJobs
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7420,6 +8173,7 @@ const opListUserPoolClients = "ListUserPoolClients"
 // client's request for the ListUserPoolClients operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7427,6 +8181,15 @@ const opListUserPoolClients = "ListUserPoolClients"
 // See ListUserPoolClients for more information on using the ListUserPoolClients
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListUserPoolClients for more information on using the ListUserPoolClients
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7514,6 +8277,7 @@ const opListUserPools = "ListUserPools"
 // client's request for the ListUserPools operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7521,6 +8285,15 @@ const opListUserPools = "ListUserPools"
 // See ListUserPools for more information on using the ListUserPools
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListUserPools for more information on using the ListUserPools
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7604,6 +8377,7 @@ const opListUsers = "ListUsers"
 // client's request for the ListUsers operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7611,6 +8385,15 @@ const opListUsers = "ListUsers"
 // See ListUsers for more information on using the ListUsers
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListUsers for more information on using the ListUsers
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7698,6 +8481,7 @@ const opListUsersInGroup = "ListUsersInGroup"
 // client's request for the ListUsersInGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7705,6 +8489,15 @@ const opListUsersInGroup = "ListUsersInGroup"
 // See ListUsersInGroup for more information on using the ListUsersInGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListUsersInGroup for more information on using the ListUsersInGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7794,6 +8587,7 @@ const opResendConfirmationCode = "ResendConfirmationCode"
 // client's request for the ResendConfirmationCode operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7801,6 +8595,15 @@ const opResendConfirmationCode = "ResendConfirmationCode"
 // See ResendConfirmationCode for more information on using the ResendConfirmationCode
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ResendConfirmationCode for more information on using the ResendConfirmationCode
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7926,6 +8729,7 @@ const opRespondToAuthChallenge = "RespondToAuthChallenge"
 // client's request for the RespondToAuthChallenge operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7933,6 +8737,15 @@ const opRespondToAuthChallenge = "RespondToAuthChallenge"
 // See RespondToAuthChallenge for more information on using the RespondToAuthChallenge
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RespondToAuthChallenge for more information on using the RespondToAuthChallenge
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8073,6 +8886,7 @@ func (c *CognitoIdentityProvider) RespondToAuthChallengeWithContext(ctx aws.Cont
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 const opSetRiskConfiguration = "SetRiskConfiguration"
 
 // SetRiskConfigurationRequest generates a "aws/request.Request" representing the
@@ -8088,6 +8902,129 @@ const opSetRiskConfiguration = "SetRiskConfiguration"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+const opSetUICustomization = "SetUICustomization"
+
+// SetUICustomizationRequest generates a "aws/request.Request" representing the
+// client's request for the SetUICustomization operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetUICustomization for more information on using the SetUICustomization
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the SetUICustomizationRequest method.
+//    req, resp := client.SetUICustomizationRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUICustomization
+func (c *CognitoIdentityProvider) SetUICustomizationRequest(input *SetUICustomizationInput) (req *request.Request, output *SetUICustomizationOutput) {
+	op := &request.Operation{
+		Name:       opSetUICustomization,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &SetUICustomizationInput{}
+	}
+
+	output = &SetUICustomizationOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// SetUICustomization API operation for Amazon Cognito Identity Provider.
+//
+// Sets the UI customization information for a user pool's built-in app UI.
+//
+// You can specify app UI customization settings for a single client (with a
+// specific clientId) or for all clients (by setting the clientId to ALL). If
+// you specify ALL, the default configuration will be used for every client
+// that has no UI customization set previously. If you specify UI customization
+// settings for a particular client, it will no longer fall back to the ALL
+// configuration.
+//
+// To use this API, your user pool must have a domain associated with it. Otherwise,
+// there is no place to host the app's pages, and the service will throw an
+// error.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Cognito Identity Provider's
+// API operation SetUICustomization for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeInvalidParameterException "InvalidParameterException"
+//   This exception is thrown when the Amazon Cognito service encounters an invalid
+//   parameter.
+//
+//   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
+//   This exception is thrown when the Amazon Cognito service cannot find the
+//   requested resource.
+//
+//   * ErrCodeNotAuthorizedException "NotAuthorizedException"
+//   This exception is thrown when a user is not authorized.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   This exception is thrown when the user has made too many requests for a given
+//   operation.
+//
+//   * ErrCodeInternalErrorException "InternalErrorException"
+//   This exception is thrown when Amazon Cognito encounters an internal error.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUICustomization
+func (c *CognitoIdentityProvider) SetUICustomization(input *SetUICustomizationInput) (*SetUICustomizationOutput, error) {
+	req, out := c.SetUICustomizationRequest(input)
+	return out, req.Send()
+}
+
+// SetUICustomizationWithContext is the same as SetUICustomization with the addition of
+// the ability to pass a context and additional request options.
+//
+// See SetUICustomization for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CognitoIdentityProvider) SetUICustomizationWithContext(ctx aws.Context, input *SetUICustomizationInput, opts ...request.Option) (*SetUICustomizationOutput, error) {
+	req, out := c.SetUICustomizationRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opSetUserSettings = "SetUserSettings"
+
+// SetUserSettingsRequest generates a "aws/request.Request" representing the
+// client's request for the SetUserSettings operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetUserSettings for more information on using the SetUserSettings
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the SetRiskConfigurationRequest method.
@@ -8185,19 +9122,33 @@ func (c *CognitoIdentityProvider) SetRiskConfigurationWithContext(ctx aws.Contex
 
 const opSetUICustomization = "SetUICustomization"
 
+<<<<<<< HEAD
 // SetUICustomizationRequest generates a "aws/request.Request" representing the
 // client's request for the SetUICustomization operation. The "output" return
+=======
+// SignUpRequest generates a "aws/request.Request" representing the
+// client's request for the SignUp operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See SetUICustomization for more information on using the SetUICustomization
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See SignUp for more information on using the SignUp
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the SetUICustomizationRequest method.
@@ -8290,6 +9241,7 @@ func (c *CognitoIdentityProvider) SetUICustomizationWithContext(ctx aws.Context,
 
 const opSetUserMFAPreference = "SetUserMFAPreference"
 
+<<<<<<< HEAD
 // SetUserMFAPreferenceRequest generates a "aws/request.Request" representing the
 // client's request for the SetUserMFAPreference operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -8303,6 +9255,22 @@ const opSetUserMFAPreference = "SetUserMFAPreference"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// StartUserImportJobRequest generates a "aws/request.Request" representing the
+// client's request for the StartUserImportJob operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StartUserImportJob for more information on using the StartUserImportJob
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the SetUserMFAPreferenceRequest method.
@@ -8389,19 +9357,33 @@ func (c *CognitoIdentityProvider) SetUserMFAPreferenceWithContext(ctx aws.Contex
 
 const opSetUserPoolMfaConfig = "SetUserPoolMfaConfig"
 
+<<<<<<< HEAD
 // SetUserPoolMfaConfigRequest generates a "aws/request.Request" representing the
 // client's request for the SetUserPoolMfaConfig operation. The "output" return
+=======
+// StopUserImportJobRequest generates a "aws/request.Request" representing the
+// client's request for the StopUserImportJob operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See SetUserPoolMfaConfig for more information on using the SetUserPoolMfaConfig
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See StopUserImportJob for more information on using the StopUserImportJob
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the SetUserPoolMfaConfigRequest method.
@@ -8493,6 +9475,7 @@ func (c *CognitoIdentityProvider) SetUserPoolMfaConfigWithContext(ctx aws.Contex
 
 const opSetUserSettings = "SetUserSettings"
 
+<<<<<<< HEAD
 // SetUserSettingsRequest generates a "aws/request.Request" representing the
 // client's request for the SetUserSettings operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -8506,6 +9489,22 @@ const opSetUserSettings = "SetUserSettings"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// UpdateDeviceStatusRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateDeviceStatus operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateDeviceStatus for more information on using the UpdateDeviceStatus
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the SetUserSettingsRequest method.
@@ -8595,19 +9594,33 @@ func (c *CognitoIdentityProvider) SetUserSettingsWithContext(ctx aws.Context, in
 
 const opSignUp = "SignUp"
 
+<<<<<<< HEAD
 // SignUpRequest generates a "aws/request.Request" representing the
 // client's request for the SignUp operation. The "output" return
+=======
+// UpdateGroupRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateGroup operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See SignUp for more information on using the SignUp
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See UpdateGroup for more information on using the UpdateGroup
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the SignUpRequest method.
@@ -8728,6 +9741,7 @@ func (c *CognitoIdentityProvider) SignUpWithContext(ctx aws.Context, input *Sign
 
 const opStartUserImportJob = "StartUserImportJob"
 
+<<<<<<< HEAD
 // StartUserImportJobRequest generates a "aws/request.Request" representing the
 // client's request for the StartUserImportJob operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -8741,6 +9755,22 @@ const opStartUserImportJob = "StartUserImportJob"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// UpdateIdentityProviderRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateIdentityProvider operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateIdentityProvider for more information on using the UpdateIdentityProvider
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the StartUserImportJobRequest method.
@@ -8823,58 +9853,195 @@ func (c *CognitoIdentityProvider) StartUserImportJobWithContext(ctx aws.Context,
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 const opStopUserImportJob = "StopUserImportJob"
 
 // StopUserImportJobRequest generates a "aws/request.Request" representing the
 // client's request for the StopUserImportJob operation. The "output" return
+=======
+const opUpdateResourceServer = "UpdateResourceServer"
+
+// UpdateResourceServerRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateResourceServer operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See StopUserImportJob for more information on using the StopUserImportJob
+=======
+// See UpdateResourceServer for more information on using the UpdateResourceServer
+>>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
+<<<<<<< HEAD
 //    // Example sending a request using the StopUserImportJobRequest method.
 //    req, resp := client.StopUserImportJobRequest(params)
+=======
+//    // Example sending a request using the UpdateResourceServerRequest method.
+//    req, resp := client.UpdateResourceServerRequest(params)
+>>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/StopUserImportJob
 func (c *CognitoIdentityProvider) StopUserImportJobRequest(input *StopUserImportJobInput) (req *request.Request, output *StopUserImportJobOutput) {
 	op := &request.Operation{
 		Name:       opStopUserImportJob,
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateResourceServer
+func (c *CognitoIdentityProvider) UpdateResourceServerRequest(input *UpdateResourceServerInput) (req *request.Request, output *UpdateResourceServerOutput) {
+	op := &request.Operation{
+		Name:       opUpdateResourceServer,
+>>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
+<<<<<<< HEAD
 		input = &StopUserImportJobInput{}
 	}
 
 	output = &StopUserImportJobOutput{}
+=======
+		input = &UpdateResourceServerInput{}
+	}
+
+	output = &UpdateResourceServerOutput{}
+>>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
+<<<<<<< HEAD
 // StopUserImportJob API operation for Amazon Cognito Identity Provider.
 //
 // Stops the user import job.
+=======
+// UpdateResourceServer API operation for Amazon Cognito Identity Provider.
+//
+// Updates the name and scopes of resource server. All other fields are read-only.
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for Amazon Cognito Identity Provider's
+<<<<<<< HEAD
 // API operation StopUserImportJob for usage and error information.
+=======
+// API operation UpdateResourceServer for usage and error information.
+>>>>>>> Initial dep workover
+//
+// Returned Error Codes:
+//   * ErrCodeInvalidParameterException "InvalidParameterException"
+//   This exception is thrown when the Amazon Cognito service encounters an invalid
+//   parameter.
+//
+<<<<<<< HEAD
+=======
+//   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
+//   This exception is thrown when the Amazon Cognito service cannot find the
+//   requested resource.
+//
+//   * ErrCodeNotAuthorizedException "NotAuthorizedException"
+//   This exception is thrown when a user is not authorized.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   This exception is thrown when the user has made too many requests for a given
+//   operation.
+//
+//   * ErrCodeInternalErrorException "InternalErrorException"
+//   This exception is thrown when Amazon Cognito encounters an internal error.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateResourceServer
+func (c *CognitoIdentityProvider) UpdateResourceServer(input *UpdateResourceServerInput) (*UpdateResourceServerOutput, error) {
+	req, out := c.UpdateResourceServerRequest(input)
+	return out, req.Send()
+}
+
+// UpdateResourceServerWithContext is the same as UpdateResourceServer with the addition of
+// the ability to pass a context and additional request options.
+//
+// See UpdateResourceServer for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CognitoIdentityProvider) UpdateResourceServerWithContext(ctx aws.Context, input *UpdateResourceServerInput, opts ...request.Option) (*UpdateResourceServerOutput, error) {
+	req, out := c.UpdateResourceServerRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opUpdateUserAttributes = "UpdateUserAttributes"
+
+// UpdateUserAttributesRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateUserAttributes operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateUserAttributes for more information on using the UpdateUserAttributes
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the UpdateUserAttributesRequest method.
+//    req, resp := client.UpdateUserAttributesRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateUserAttributes
+func (c *CognitoIdentityProvider) UpdateUserAttributesRequest(input *UpdateUserAttributesInput) (req *request.Request, output *UpdateUserAttributesOutput) {
+	op := &request.Operation{
+		Name:       opUpdateUserAttributes,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &UpdateUserAttributesInput{}
+	}
+
+	output = &UpdateUserAttributesOutput{}
+	req = c.newRequest(op, input, output)
+	req.Config.Credentials = credentials.AnonymousCredentials
+	return
+}
+
+// UpdateUserAttributes API operation for Amazon Cognito Identity Provider.
+//
+// Allows a user to update a specific attribute (one at a time).
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Cognito Identity Provider's
+// API operation UpdateUserAttributes for usage and error information.
 //
 // Returned Error Codes:
 //   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
@@ -8885,6 +10052,29 @@ func (c *CognitoIdentityProvider) StopUserImportJobRequest(input *StopUserImport
 //   This exception is thrown when the Amazon Cognito service encounters an invalid
 //   parameter.
 //
+//   * ErrCodeCodeMismatchException "CodeMismatchException"
+//   This exception is thrown if the provided code does not match what the server
+//   was expecting.
+//
+//   * ErrCodeExpiredCodeException "ExpiredCodeException"
+//   This exception is thrown if a code has expired.
+//
+//   * ErrCodeNotAuthorizedException "NotAuthorizedException"
+//   This exception is thrown when a user is not authorized.
+//
+//   * ErrCodeUnexpectedLambdaException "UnexpectedLambdaException"
+//   This exception is thrown when the Amazon Cognito service encounters an unexpected
+//   exception with the AWS Lambda service.
+//
+//   * ErrCodeUserLambdaValidationException "UserLambdaValidationException"
+//   This exception is thrown when the Amazon Cognito service encounters a user
+//   validation exception with the AWS Lambda service.
+//
+//   * ErrCodeInvalidLambdaResponseException "InvalidLambdaResponseException"
+//   This exception is thrown when the Amazon Cognito service encounters an invalid
+//   AWS Lambda response.
+//
+>>>>>>> Initial dep workover
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //   This exception is thrown when the user has made too many requests for a given
 //   operation.
@@ -8922,6 +10112,7 @@ func (c *CognitoIdentityProvider) StopUserImportJobWithContext(ctx aws.Context, 
 
 const opUpdateAuthEventFeedback = "UpdateAuthEventFeedback"
 
+<<<<<<< HEAD
 // UpdateAuthEventFeedbackRequest generates a "aws/request.Request" representing the
 // client's request for the UpdateAuthEventFeedback operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -8935,6 +10126,22 @@ const opUpdateAuthEventFeedback = "UpdateAuthEventFeedback"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// UpdateUserPoolRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateUserPool operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateUserPool for more information on using the UpdateUserPool
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the UpdateAuthEventFeedbackRequest method.
@@ -9024,19 +10231,33 @@ func (c *CognitoIdentityProvider) UpdateAuthEventFeedbackWithContext(ctx aws.Con
 
 const opUpdateDeviceStatus = "UpdateDeviceStatus"
 
+<<<<<<< HEAD
 // UpdateDeviceStatusRequest generates a "aws/request.Request" representing the
 // client's request for the UpdateDeviceStatus operation. The "output" return
+=======
+// UpdateUserPoolClientRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateUserPoolClient operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See UpdateDeviceStatus for more information on using the UpdateDeviceStatus
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See UpdateUserPoolClient for more information on using the UpdateUserPoolClient
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the UpdateDeviceStatusRequest method.
@@ -9130,6 +10351,7 @@ func (c *CognitoIdentityProvider) UpdateDeviceStatusWithContext(ctx aws.Context,
 
 const opUpdateGroup = "UpdateGroup"
 
+<<<<<<< HEAD
 // UpdateGroupRequest generates a "aws/request.Request" representing the
 // client's request for the UpdateGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -9143,6 +10365,22 @@ const opUpdateGroup = "UpdateGroup"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// VerifyUserAttributeRequest generates a "aws/request.Request" representing the
+// client's request for the VerifyUserAttribute operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See VerifyUserAttribute for more information on using the VerifyUserAttribute
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the UpdateGroupRequest method.
@@ -13593,11 +14831,16 @@ func (s *AuthenticationResultType) SetTokenType(v string) *AuthenticationResultT
 type ChallengeResponseType struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// The challenge name
 	ChallengeName *string `type:"string" enum:"ChallengeName"`
 
 	// The challenge response.
 	ChallengeResponse *string `type:"string" enum:"ChallengeResponse"`
+=======
+	// The newly created user.
+	User *UserType `type:"structure"`
+>>>>>>> Initial dep workover
 }
 
 // String returns the string representation
@@ -13776,11 +15019,52 @@ func (s CompromisedCredentialsActionsType) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // Validate inspects the fields of the type to determine if they are valid.
 func (s *CompromisedCredentialsActionsType) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "CompromisedCredentialsActionsType"}
 	if s.EventAction == nil {
 		invalidParams.Add(request.NewErrParamRequired("EventAction"))
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableProviderForUserRequest
+type AdminDisableProviderForUserInput struct {
+	_ struct{} `type:"structure"`
+
+	// The user to be disabled.
+	//
+	// User is a required field
+	User *ProviderUserIdentifierType `type:"structure" required:"true"`
+
+	// The user pool ID for the user pool.
+	//
+	// UserPoolId is a required field
+	UserPoolId *string `type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s AdminDisableProviderForUserInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s AdminDisableProviderForUserInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *AdminDisableProviderForUserInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "AdminDisableProviderForUserInput"}
+	if s.User == nil {
+		invalidParams.Add(request.NewErrParamRequired("User"))
+	}
+	if s.UserPoolId == nil {
+		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
+	}
+	if s.User != nil {
+		if err := s.User.Validate(); err != nil {
+			invalidParams.AddNested("User", err.(request.ErrInvalidParams))
+		}
+>>>>>>> Initial dep workover
 	}
 
 	if invalidParams.Len() > 0 {
@@ -13789,6 +15073,7 @@ func (s *CompromisedCredentialsActionsType) Validate() error {
 	return nil
 }
 
+<<<<<<< HEAD
 // SetEventAction sets the EventAction field's value.
 func (s *CompromisedCredentialsActionsType) SetEventAction(v string) *CompromisedCredentialsActionsType {
 	s.EventAction = &v
@@ -13798,6 +15083,38 @@ func (s *CompromisedCredentialsActionsType) SetEventAction(v string) *Compromise
 // The compromised credentials risk configuration type.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CompromisedCredentialsRiskConfigurationType
 type CompromisedCredentialsRiskConfigurationType struct {
+=======
+// SetUser sets the User field's value.
+func (s *AdminDisableProviderForUserInput) SetUser(v *ProviderUserIdentifierType) *AdminDisableProviderForUserInput {
+	s.User = v
+	return s
+}
+
+// SetUserPoolId sets the UserPoolId field's value.
+func (s *AdminDisableProviderForUserInput) SetUserPoolId(v string) *AdminDisableProviderForUserInput {
+	s.UserPoolId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableProviderForUserResponse
+type AdminDisableProviderForUserOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s AdminDisableProviderForUserOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s AdminDisableProviderForUserOutput) GoString() string {
+	return s.String()
+}
+
+// Represents the request to disable any user as an administrator.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminDisableUserRequest
+type AdminDisableUserInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The compromised credentials risk configuration actions.
@@ -14594,8 +15911,129 @@ func (s *CreateIdentityProviderOutput) SetIdentityProvider(v *IdentityProviderTy
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServerRequest
 type CreateResourceServerInput struct {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminLinkProviderForUserRequest
+type AdminLinkProviderForUserInput struct {
+	_ struct{} `type:"structure"`
+
+	// The existing user in the user pool to be linked to the external identity
+	// provider user account. Can be a native (Username + Password) Cognito User
+	// Pools user or a federated user (for example, a SAML or Facebook user). If
+	// the user doesn't exist, an exception is thrown. This is the user that is
+	// returned when the new user (with the linked identity provider attribute)
+	// signs in.
+	//
+	// The ProviderAttributeValue for the DestinationUser must match the username
+	// for the user in the user pool. The ProviderAttributeName will always be ignored.
+	//
+	// DestinationUser is a required field
+	DestinationUser *ProviderUserIdentifierType `type:"structure" required:"true"`
+
+	// An external identity provider account for a user who does not currently exist
+	// yet in the user pool. This user must be a federated user (for example, a
+	// SAML or Facebook user), not another native user.
+	//
+	// If the SourceUser is a federated social identity provider user (Facebook,
+	// Google, or Login with Amazon), you must set the ProviderAttributeName to
+	// Cognito_Subject. For social identity providers, the ProviderName will be
+	// Facebook, Google, or LoginWithAmazon, and Cognito will automatically parse
+	// the Facebook, Google, and Login with Amazon tokens for id, sub, and user_id,
+	// respectively. The ProviderAttributeValue for the user must be the same value
+	// as the id, sub, or user_id value found in the social identity provider token.
+	//
+	// For SAML, the ProviderAttributeNamecan be any value that matches a claim in the SAML assertion. If you wish
+	// to link SAML users based on the subject of the SAML assertion, you should
+	// map the subject to a claim through the SAML identity provider and submit
+	// that claim name as the ProviderAttributeName. If you set ProviderAttributeNameto Cognito_Subject
+	//
+	// SourceUser is a required field
+	SourceUser *ProviderUserIdentifierType `type:"structure" required:"true"`
+
+	// The user pool ID for the user pool.
+	//
+	// UserPoolId is a required field
+	UserPoolId *string `type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s AdminLinkProviderForUserInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s AdminLinkProviderForUserInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *AdminLinkProviderForUserInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "AdminLinkProviderForUserInput"}
+	if s.DestinationUser == nil {
+		invalidParams.Add(request.NewErrParamRequired("DestinationUser"))
+	}
+	if s.SourceUser == nil {
+		invalidParams.Add(request.NewErrParamRequired("SourceUser"))
+	}
+	if s.UserPoolId == nil {
+		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
+	}
+	if s.DestinationUser != nil {
+		if err := s.DestinationUser.Validate(); err != nil {
+			invalidParams.AddNested("DestinationUser", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.SourceUser != nil {
+		if err := s.SourceUser.Validate(); err != nil {
+			invalidParams.AddNested("SourceUser", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetDestinationUser sets the DestinationUser field's value.
+func (s *AdminLinkProviderForUserInput) SetDestinationUser(v *ProviderUserIdentifierType) *AdminLinkProviderForUserInput {
+	s.DestinationUser = v
+	return s
+}
+
+// SetSourceUser sets the SourceUser field's value.
+func (s *AdminLinkProviderForUserInput) SetSourceUser(v *ProviderUserIdentifierType) *AdminLinkProviderForUserInput {
+	s.SourceUser = v
+	return s
+}
+
+// SetUserPoolId sets the UserPoolId field's value.
+func (s *AdminLinkProviderForUserInput) SetUserPoolId(v string) *AdminLinkProviderForUserInput {
+	s.UserPoolId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminLinkProviderForUserResponse
+type AdminLinkProviderForUserOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s AdminLinkProviderForUserOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s AdminLinkProviderForUserOutput) GoString() string {
+	return s.String()
+}
+
+// Represents the request to list devices, as an administrator.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminListDevicesRequest
+type AdminListDevicesInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// A unique resource server identifier for the resource server. This could be
@@ -15915,7 +17353,32 @@ func (s DeleteUserPoolDomainOutput) GoString() string {
 type DeleteUserPoolInput struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// The user pool ID for the user pool you want to delete.
+=======
+	// The app client ID of the app associated with the user pool.
+	//
+	// ClientId is a required field
+	ClientId *string `min:"1" type:"string" required:"true"`
+
+	// The confirmation code sent by a user's request to retrieve a forgotten password.
+	// For more information, see ForgotPassword (API_ForgotPassword.html)
+	//
+	// ConfirmationCode is a required field
+	ConfirmationCode *string `min:"1" type:"string" required:"true"`
+
+	// The password sent by a user's request to retrieve a forgotten password.
+	//
+	// Password is a required field
+	Password *string `min:"6" type:"string" required:"true"`
+
+	// A keyed-hash message authentication code (HMAC) calculated using the secret
+	// key of a user pool client and username plus the client ID in the message.
+	SecretHash *string `min:"1" type:"string"`
+
+	// The user name of the user for whom you want to enter a code to retrieve a
+	// forgotten password.
+>>>>>>> Initial dep workover
 	//
 	// UserPoolId is a required field
 	UserPoolId *string `min:"1" type:"string" required:"true"`
@@ -15972,7 +17435,16 @@ func (s DeleteUserPoolOutput) GoString() string {
 type DescribeIdentityProviderInput struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// The identity provider name.
+=======
+	// The ID of the app client associated with the user pool.
+	//
+	// ClientId is a required field
+	ClientId *string `min:"1" type:"string" required:"true"`
+
+	// The confirmation code sent by a user's request to confirm registration.
+>>>>>>> Initial dep workover
 	//
 	// ProviderName is a required field
 	ProviderName *string `min:"1" type:"string" required:"true"`
@@ -16218,6 +17690,7 @@ func (s *DescribeRiskConfigurationOutput) SetRiskConfiguration(v *RiskConfigurat
 	return s
 }
 
+<<<<<<< HEAD
 // Represents the request to describe the user import job.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserImportJobRequest
 type DescribeUserImportJobInput struct {
@@ -16227,6 +17700,178 @@ type DescribeUserImportJobInput struct {
 	//
 	// JobId is a required field
 	JobId *string `min:"1" type:"string" required:"true"`
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServerRequest
+type CreateResourceServerInput struct {
+	_ struct{} `type:"structure"`
+
+	// A unique resource server identifier for the resource server. This could be
+	// an HTTPS endpoint where the resource server is located. For example, https://my-weather-api.example.com.
+	//
+	// Identifier is a required field
+	Identifier *string `min:"1" type:"string" required:"true"`
+
+	// A friendly name for the resource server.
+	//
+	// Name is a required field
+	Name *string `min:"1" type:"string" required:"true"`
+>>>>>>> Initial dep workover
+
+	// A list of scopes. Each scope is map, where the keys are name and description.
+	Scopes []*ResourceServerScopeType `type:"list"`
+
+	// The user pool ID for the user pool.
+	//
+	// UserPoolId is a required field
+	UserPoolId *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+<<<<<<< HEAD
+func (s DescribeUserImportJobInput) String() string {
+=======
+func (s CreateResourceServerInput) String() string {
+>>>>>>> Initial dep workover
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+<<<<<<< HEAD
+func (s DescribeUserImportJobInput) GoString() string {
+=======
+func (s CreateResourceServerInput) GoString() string {
+>>>>>>> Initial dep workover
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+<<<<<<< HEAD
+func (s *DescribeUserImportJobInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DescribeUserImportJobInput"}
+	if s.JobId == nil {
+		invalidParams.Add(request.NewErrParamRequired("JobId"))
+	}
+	if s.JobId != nil && len(*s.JobId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("JobId", 1))
+=======
+func (s *CreateResourceServerInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "CreateResourceServerInput"}
+	if s.Identifier == nil {
+		invalidParams.Add(request.NewErrParamRequired("Identifier"))
+	}
+	if s.Identifier != nil && len(*s.Identifier) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Identifier", 1))
+	}
+	if s.Name == nil {
+		invalidParams.Add(request.NewErrParamRequired("Name"))
+	}
+	if s.Name != nil && len(*s.Name) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Name", 1))
+>>>>>>> Initial dep workover
+	}
+	if s.UserPoolId == nil {
+		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
+	}
+	if s.UserPoolId != nil && len(*s.UserPoolId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("UserPoolId", 1))
+	}
+	if s.Scopes != nil {
+		for i, v := range s.Scopes {
+			if v == nil {
+				continue
+			}
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "Scopes", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+<<<<<<< HEAD
+// SetJobId sets the JobId field's value.
+func (s *DescribeUserImportJobInput) SetJobId(v string) *DescribeUserImportJobInput {
+	s.JobId = &v
+=======
+// SetIdentifier sets the Identifier field's value.
+func (s *CreateResourceServerInput) SetIdentifier(v string) *CreateResourceServerInput {
+	s.Identifier = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *CreateResourceServerInput) SetName(v string) *CreateResourceServerInput {
+	s.Name = &v
+	return s
+}
+
+// SetScopes sets the Scopes field's value.
+func (s *CreateResourceServerInput) SetScopes(v []*ResourceServerScopeType) *CreateResourceServerInput {
+	s.Scopes = v
+>>>>>>> Initial dep workover
+	return s
+}
+
+// SetUserPoolId sets the UserPoolId field's value.
+<<<<<<< HEAD
+func (s *DescribeUserImportJobInput) SetUserPoolId(v string) *DescribeUserImportJobInput {
+=======
+func (s *CreateResourceServerInput) SetUserPoolId(v string) *CreateResourceServerInput {
+>>>>>>> Initial dep workover
+	s.UserPoolId = &v
+	return s
+}
+
+<<<<<<< HEAD
+// Represents the response from the server to the request to describe the user
+// import job.
+// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserImportJobResponse
+type DescribeUserImportJobOutput struct {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateResourceServerResponse
+type CreateResourceServerOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The newly created resource server.
+	//
+	// ResourceServer is a required field
+	ResourceServer *ResourceServerType `type:"structure" required:"true"`
+}
+
+// String returns the string representation
+func (s CreateResourceServerOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CreateResourceServerOutput) GoString() string {
+	return s.String()
+}
+
+// SetResourceServer sets the ResourceServer field's value.
+func (s *CreateResourceServerOutput) SetResourceServer(v *ResourceServerType) *CreateResourceServerOutput {
+	s.ResourceServer = v
+	return s
+}
+
+// Represents the request to create the user import job.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserImportJobRequest
+type CreateUserImportJobInput struct {
+	_ struct{} `type:"structure"`
+
+	// The role ARN for the Amazon CloudWatch Logging role for the user import job.
+	//
+	// CloudWatchLogsRoleArn is a required field
+	CloudWatchLogsRoleArn *string `min:"20" type:"string" required:"true"`
+
+	// The job name for the user import job.
+	//
+	// JobName is a required field
+	JobName *string `min:"1" type:"string" required:"true"`
 
 	// The user pool ID for the user pool that the users are being imported into.
 	//
@@ -16235,23 +17880,29 @@ type DescribeUserImportJobInput struct {
 }
 
 // String returns the string representation
-func (s DescribeUserImportJobInput) String() string {
+func (s CreateUserImportJobInput) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s DescribeUserImportJobInput) GoString() string {
+func (s CreateUserImportJobInput) GoString() string {
 	return s.String()
 }
 
 // Validate inspects the fields of the type to determine if they are valid.
-func (s *DescribeUserImportJobInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "DescribeUserImportJobInput"}
-	if s.JobId == nil {
-		invalidParams.Add(request.NewErrParamRequired("JobId"))
+func (s *CreateUserImportJobInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "CreateUserImportJobInput"}
+	if s.CloudWatchLogsRoleArn == nil {
+		invalidParams.Add(request.NewErrParamRequired("CloudWatchLogsRoleArn"))
 	}
-	if s.JobId != nil && len(*s.JobId) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("JobId", 1))
+	if s.CloudWatchLogsRoleArn != nil && len(*s.CloudWatchLogsRoleArn) < 20 {
+		invalidParams.Add(request.NewErrParamMinLen("CloudWatchLogsRoleArn", 20))
+	}
+	if s.JobName == nil {
+		invalidParams.Add(request.NewErrParamRequired("JobName"))
+	}
+	if s.JobName != nil && len(*s.JobName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("JobName", 1))
 	}
 	if s.UserPoolId == nil {
 		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
@@ -16266,22 +17917,29 @@ func (s *DescribeUserImportJobInput) Validate() error {
 	return nil
 }
 
-// SetJobId sets the JobId field's value.
-func (s *DescribeUserImportJobInput) SetJobId(v string) *DescribeUserImportJobInput {
-	s.JobId = &v
+// SetCloudWatchLogsRoleArn sets the CloudWatchLogsRoleArn field's value.
+func (s *CreateUserImportJobInput) SetCloudWatchLogsRoleArn(v string) *CreateUserImportJobInput {
+	s.CloudWatchLogsRoleArn = &v
+	return s
+}
+
+// SetJobName sets the JobName field's value.
+func (s *CreateUserImportJobInput) SetJobName(v string) *CreateUserImportJobInput {
+	s.JobName = &v
 	return s
 }
 
 // SetUserPoolId sets the UserPoolId field's value.
-func (s *DescribeUserImportJobInput) SetUserPoolId(v string) *DescribeUserImportJobInput {
+func (s *CreateUserImportJobInput) SetUserPoolId(v string) *CreateUserImportJobInput {
 	s.UserPoolId = &v
 	return s
 }
 
-// Represents the response from the server to the request to describe the user
+// Represents the response from the server to the request to create the user
 // import job.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserImportJobResponse
-type DescribeUserImportJobOutput struct {
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserImportJobResponse
+type CreateUserImportJobOutput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The job object that represents the user import job.
@@ -16529,12 +18187,22 @@ func (s *DescribeUserPoolOutput) SetUserPool(v *UserPoolType) *DescribeUserPoolO
 type DeviceConfigurationType struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// Indicates whether a challenge is required on a new device. Only applicable
 	// to a new device.
 	ChallengeRequiredOnNewDevice *bool `type:"boolean"`
 
 	// If true, a device is only remembered on user prompt.
 	DeviceOnlyRememberedOnUserPrompt *bool `type:"boolean"`
+=======
+	// Specifies whether email addresses or phone numbers can be specified as usernames
+	// when a user signs up.
+	UsernameAttributes []*string `type:"list"`
+
+	// The template for the verification message that the user sees when the app
+	// requests permission to access the user's information.
+	VerificationMessageTemplate *VerificationMessageTemplateType `type:"structure"`
+>>>>>>> Initial dep workover
 }
 
 // String returns the string representation
@@ -16547,10 +18215,82 @@ func (s DeviceConfigurationType) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // SetChallengeRequiredOnNewDevice sets the ChallengeRequiredOnNewDevice field's value.
 func (s *DeviceConfigurationType) SetChallengeRequiredOnNewDevice(v bool) *DeviceConfigurationType {
 	s.ChallengeRequiredOnNewDevice = &v
 	return s
+=======
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *CreateUserPoolInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "CreateUserPoolInput"}
+	if s.EmailVerificationMessage != nil && len(*s.EmailVerificationMessage) < 6 {
+		invalidParams.Add(request.NewErrParamMinLen("EmailVerificationMessage", 6))
+	}
+	if s.EmailVerificationSubject != nil && len(*s.EmailVerificationSubject) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("EmailVerificationSubject", 1))
+	}
+	if s.PoolName == nil {
+		invalidParams.Add(request.NewErrParamRequired("PoolName"))
+	}
+	if s.PoolName != nil && len(*s.PoolName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("PoolName", 1))
+	}
+	if s.Schema != nil && len(s.Schema) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Schema", 1))
+	}
+	if s.SmsAuthenticationMessage != nil && len(*s.SmsAuthenticationMessage) < 6 {
+		invalidParams.Add(request.NewErrParamMinLen("SmsAuthenticationMessage", 6))
+	}
+	if s.SmsVerificationMessage != nil && len(*s.SmsVerificationMessage) < 6 {
+		invalidParams.Add(request.NewErrParamMinLen("SmsVerificationMessage", 6))
+	}
+	if s.AdminCreateUserConfig != nil {
+		if err := s.AdminCreateUserConfig.Validate(); err != nil {
+			invalidParams.AddNested("AdminCreateUserConfig", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.EmailConfiguration != nil {
+		if err := s.EmailConfiguration.Validate(); err != nil {
+			invalidParams.AddNested("EmailConfiguration", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.LambdaConfig != nil {
+		if err := s.LambdaConfig.Validate(); err != nil {
+			invalidParams.AddNested("LambdaConfig", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.Policies != nil {
+		if err := s.Policies.Validate(); err != nil {
+			invalidParams.AddNested("Policies", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.Schema != nil {
+		for i, v := range s.Schema {
+			if v == nil {
+				continue
+			}
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "Schema", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+	if s.SmsConfiguration != nil {
+		if err := s.SmsConfiguration.Validate(); err != nil {
+			invalidParams.AddNested("SmsConfiguration", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.VerificationMessageTemplate != nil {
+		if err := s.VerificationMessageTemplate.Validate(); err != nil {
+			invalidParams.AddNested("VerificationMessageTemplate", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+>>>>>>> Initial dep workover
 }
 
 // SetDeviceOnlyRememberedOnUserPrompt sets the DeviceOnlyRememberedOnUserPrompt field's value.
@@ -16703,11 +18443,25 @@ func (s *DomainDescriptionType) SetCloudFrontDistribution(v string) *DomainDescr
 	return s
 }
 
+<<<<<<< HEAD
 // SetDomain sets the Domain field's value.
 func (s *DomainDescriptionType) SetDomain(v string) *DomainDescriptionType {
 	s.Domain = &v
 	return s
 }
+=======
+// SetVerificationMessageTemplate sets the VerificationMessageTemplate field's value.
+func (s *CreateUserPoolInput) SetVerificationMessageTemplate(v *VerificationMessageTemplateType) *CreateUserPoolInput {
+	s.VerificationMessageTemplate = v
+	return s
+}
+
+// Represents the response from the server for the request to create a user
+// pool.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateUserPoolResponse
+type CreateUserPoolOutput struct {
+	_ struct{} `type:"structure"`
+>>>>>>> Initial dep workover
 
 // SetS3Bucket sets the S3Bucket field's value.
 func (s *DomainDescriptionType) SetS3Bucket(v string) *DomainDescriptionType {
@@ -16910,6 +18664,7 @@ func (s EventRiskType) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // SetRiskDecision sets the RiskDecision field's value.
 func (s *EventRiskType) SetRiskDecision(v string) *EventRiskType {
 	s.RiskDecision = &v
@@ -16925,6 +18680,85 @@ func (s *EventRiskType) SetRiskLevel(v string) *EventRiskType {
 // Represents the request to forget the device.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ForgetDeviceRequest
 type ForgetDeviceInput struct {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteResourceServerRequest
+type DeleteResourceServerInput struct {
+	_ struct{} `type:"structure"`
+
+	// The identifier for the resource server.
+	//
+	// Identifier is a required field
+	Identifier *string `min:"1" type:"string" required:"true"`
+
+	// The user pool ID for the user pool that hosts the resource server.
+	//
+	// UserPoolId is a required field
+	UserPoolId *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteResourceServerInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteResourceServerInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteResourceServerInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteResourceServerInput"}
+	if s.Identifier == nil {
+		invalidParams.Add(request.NewErrParamRequired("Identifier"))
+	}
+	if s.Identifier != nil && len(*s.Identifier) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Identifier", 1))
+	}
+	if s.UserPoolId == nil {
+		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
+	}
+	if s.UserPoolId != nil && len(*s.UserPoolId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("UserPoolId", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetIdentifier sets the Identifier field's value.
+func (s *DeleteResourceServerInput) SetIdentifier(v string) *DeleteResourceServerInput {
+	s.Identifier = &v
+	return s
+}
+
+// SetUserPoolId sets the UserPoolId field's value.
+func (s *DeleteResourceServerInput) SetUserPoolId(v string) *DeleteResourceServerInput {
+	s.UserPoolId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteResourceServerOutput
+type DeleteResourceServerOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteResourceServerOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteResourceServerOutput) GoString() string {
+	return s.String()
+}
+
+// Represents the request to delete user attributes.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteUserAttributesRequest
+type DeleteUserAttributesInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The access token for the forgotten device request.
@@ -17111,11 +18945,18 @@ func (s *ForgotPasswordOutput) SetCodeDeliveryDetails(v *CodeDeliveryDetailsType
 	return s
 }
 
+<<<<<<< HEAD
 // Represents the request to get the header information for the .csv file for
 // the user import job.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetCSVHeaderRequest
 type GetCSVHeaderInput struct {
 	_ struct{} `type:"structure"`
+=======
+	// The app client ID of the app associated with the user pool.
+	//
+	// ClientId is a required field
+	ClientId *string `min:"1" type:"string" required:"true"`
+>>>>>>> Initial dep workover
 
 	// The user pool ID for the user pool that the users are to be imported into.
 	//
@@ -17437,8 +19278,99 @@ func (s *GetIdentityProviderByIdentifierOutput) SetIdentityProvider(v *IdentityP
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUICustomizationRequest
 type GetUICustomizationInput struct {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeResourceServerRequest
+type DescribeResourceServerInput struct {
+	_ struct{} `type:"structure"`
+
+	// The identifier for the resource server
+	//
+	// Identifier is a required field
+	Identifier *string `min:"1" type:"string" required:"true"`
+
+	// The user pool ID for the user pool that hosts the resource server.
+	//
+	// UserPoolId is a required field
+	UserPoolId *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DescribeResourceServerInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DescribeResourceServerInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DescribeResourceServerInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DescribeResourceServerInput"}
+	if s.Identifier == nil {
+		invalidParams.Add(request.NewErrParamRequired("Identifier"))
+	}
+	if s.Identifier != nil && len(*s.Identifier) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("Identifier", 1))
+	}
+	if s.UserPoolId == nil {
+		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
+	}
+	if s.UserPoolId != nil && len(*s.UserPoolId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("UserPoolId", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetIdentifier sets the Identifier field's value.
+func (s *DescribeResourceServerInput) SetIdentifier(v string) *DescribeResourceServerInput {
+	s.Identifier = &v
+	return s
+}
+
+// SetUserPoolId sets the UserPoolId field's value.
+func (s *DescribeResourceServerInput) SetUserPoolId(v string) *DescribeResourceServerInput {
+	s.UserPoolId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeResourceServerResponse
+type DescribeResourceServerOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The resource server.
+	//
+	// ResourceServer is a required field
+	ResourceServer *ResourceServerType `type:"structure" required:"true"`
+}
+
+// String returns the string representation
+func (s DescribeResourceServerOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DescribeResourceServerOutput) GoString() string {
+	return s.String()
+}
+
+// SetResourceServer sets the ResourceServer field's value.
+func (s *DescribeResourceServerOutput) SetResourceServer(v *ResourceServerType) *DescribeResourceServerOutput {
+	s.ResourceServer = v
+	return s
+}
+
+// Represents the request to describe the user import job.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeUserImportJobRequest
+type DescribeUserImportJobInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The client ID for the client app.
@@ -17522,8 +19454,12 @@ func (s *GetUICustomizationOutput) SetUICustomization(v *UICustomizationType) *G
 type GetUserAttributeVerificationCodeInput struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// The access token returned by the server response to get the user attribute
 	// verification code.
+=======
+	// The app client ID of the app associated with the user pool.
+>>>>>>> Initial dep workover
 	//
 	// AccessToken is a required field
 	AccessToken *string `type:"string" required:"true"`
@@ -18806,6 +20742,7 @@ func (s *ListResourceServersOutput) SetNextToken(v string) *ListResourceServersO
 	return s
 }
 
+<<<<<<< HEAD
 // SetResourceServers sets the ResourceServers field's value.
 func (s *ListResourceServersOutput) SetResourceServers(v []*ResourceServerType) *ListResourceServersOutput {
 	s.ResourceServers = v
@@ -18827,22 +20764,41 @@ type ListUserImportJobsInput struct {
 	PaginationToken *string `min:"1" type:"string"`
 
 	// The user pool ID for the user pool that the users are being imported into.
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUICustomizationRequest
+type GetUICustomizationInput struct {
+	_ struct{} `type:"structure"`
+
+	// The client ID for the client app.
+	ClientId *string `min:"1" type:"string"`
+
+	// The user pool ID for the user pool.
+>>>>>>> Initial dep workover
 	//
 	// UserPoolId is a required field
 	UserPoolId *string `min:"1" type:"string" required:"true"`
 }
 
 // String returns the string representation
+<<<<<<< HEAD
 func (s ListUserImportJobsInput) String() string {
+=======
+func (s GetUICustomizationInput) String() string {
+>>>>>>> Initial dep workover
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s ListUserImportJobsInput) GoString() string {
+=======
+func (s GetUICustomizationInput) GoString() string {
+>>>>>>> Initial dep workover
 	return s.String()
 }
 
 // Validate inspects the fields of the type to determine if they are valid.
+<<<<<<< HEAD
 func (s *ListUserImportJobsInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "ListUserImportJobsInput"}
 	if s.MaxResults == nil {
@@ -18857,6 +20813,16 @@ func (s *ListUserImportJobsInput) Validate() error {
 	if s.UserPoolId == nil {
 		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
 	}
+=======
+func (s *GetUICustomizationInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GetUICustomizationInput"}
+	if s.ClientId != nil && len(*s.ClientId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ClientId", 1))
+	}
+	if s.UserPoolId == nil {
+		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
+	}
+>>>>>>> Initial dep workover
 	if s.UserPoolId != nil && len(*s.UserPoolId) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("UserPoolId", 1))
 	}
@@ -18867,6 +20833,7 @@ func (s *ListUserImportJobsInput) Validate() error {
 	return nil
 }
 
+<<<<<<< HEAD
 // SetMaxResults sets the MaxResults field's value.
 func (s *ListUserImportJobsInput) SetMaxResults(v int64) *ListUserImportJobsInput {
 	s.MaxResults = &v
@@ -18876,6 +20843,102 @@ func (s *ListUserImportJobsInput) SetMaxResults(v int64) *ListUserImportJobsInpu
 // SetPaginationToken sets the PaginationToken field's value.
 func (s *ListUserImportJobsInput) SetPaginationToken(v string) *ListUserImportJobsInput {
 	s.PaginationToken = &v
+=======
+// SetClientId sets the ClientId field's value.
+func (s *GetUICustomizationInput) SetClientId(v string) *GetUICustomizationInput {
+	s.ClientId = &v
+	return s
+}
+
+// SetUserPoolId sets the UserPoolId field's value.
+func (s *GetUICustomizationInput) SetUserPoolId(v string) *GetUICustomizationInput {
+	s.UserPoolId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUICustomizationResponse
+type GetUICustomizationOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The UI customization information.
+	//
+	// UICustomization is a required field
+	UICustomization *UICustomizationType `type:"structure" required:"true"`
+}
+
+// String returns the string representation
+func (s GetUICustomizationOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetUICustomizationOutput) GoString() string {
+	return s.String()
+}
+
+// SetUICustomization sets the UICustomization field's value.
+func (s *GetUICustomizationOutput) SetUICustomization(v *UICustomizationType) *GetUICustomizationOutput {
+	s.UICustomization = v
+	return s
+}
+
+// Represents the request to get user attribute verification.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/GetUserAttributeVerificationCodeRequest
+type GetUserAttributeVerificationCodeInput struct {
+	_ struct{} `type:"structure"`
+
+	// The access token returned by the server response to get the user attribute
+	// verification code.
+	//
+	// AccessToken is a required field
+	AccessToken *string `type:"string" required:"true"`
+
+	// The attribute name returned by the server response to get the user attribute
+	// verification code.
+	//
+	// AttributeName is a required field
+	AttributeName *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s GetUserAttributeVerificationCodeInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetUserAttributeVerificationCodeInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *GetUserAttributeVerificationCodeInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GetUserAttributeVerificationCodeInput"}
+	if s.AccessToken == nil {
+		invalidParams.Add(request.NewErrParamRequired("AccessToken"))
+	}
+	if s.AttributeName == nil {
+		invalidParams.Add(request.NewErrParamRequired("AttributeName"))
+	}
+	if s.AttributeName != nil && len(*s.AttributeName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("AttributeName", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAccessToken sets the AccessToken field's value.
+func (s *GetUserAttributeVerificationCodeInput) SetAccessToken(v string) *GetUserAttributeVerificationCodeInput {
+	s.AccessToken = &v
+	return s
+}
+
+// SetAttributeName sets the AttributeName field's value.
+func (s *GetUserAttributeVerificationCodeInput) SetAttributeName(v string) *GetUserAttributeVerificationCodeInput {
+	s.AttributeName = &v
+>>>>>>> Initial dep workover
 	return s
 }
 
@@ -19746,9 +21809,116 @@ func (s *NumberAttributeConstraintsType) SetMinValue(v string) *NumberAttributeC
 	return s
 }
 
+<<<<<<< HEAD
 // The password policy type.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/PasswordPolicyType
 type PasswordPolicyType struct {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListResourceServersRequest
+type ListResourceServersInput struct {
+	_ struct{} `type:"structure"`
+
+	// The maximum number of resource servers to return.
+	MaxResults *int64 `min:"1" type:"integer"`
+
+	// A pagination token.
+	NextToken *string `min:"1" type:"string"`
+
+	// The user pool ID for the user pool.
+	//
+	// UserPoolId is a required field
+	UserPoolId *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s ListResourceServersInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListResourceServersInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ListResourceServersInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ListResourceServersInput"}
+	if s.MaxResults != nil && *s.MaxResults < 1 {
+		invalidParams.Add(request.NewErrParamMinValue("MaxResults", 1))
+	}
+	if s.NextToken != nil && len(*s.NextToken) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("NextToken", 1))
+	}
+	if s.UserPoolId == nil {
+		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
+	}
+	if s.UserPoolId != nil && len(*s.UserPoolId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("UserPoolId", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetMaxResults sets the MaxResults field's value.
+func (s *ListResourceServersInput) SetMaxResults(v int64) *ListResourceServersInput {
+	s.MaxResults = &v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListResourceServersInput) SetNextToken(v string) *ListResourceServersInput {
+	s.NextToken = &v
+	return s
+}
+
+// SetUserPoolId sets the UserPoolId field's value.
+func (s *ListResourceServersInput) SetUserPoolId(v string) *ListResourceServersInput {
+	s.UserPoolId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListResourceServersResponse
+type ListResourceServersOutput struct {
+	_ struct{} `type:"structure"`
+
+	// A pagination token.
+	NextToken *string `min:"1" type:"string"`
+
+	// The resource servers.
+	//
+	// ResourceServers is a required field
+	ResourceServers []*ResourceServerType `type:"list" required:"true"`
+}
+
+// String returns the string representation
+func (s ListResourceServersOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListResourceServersOutput) GoString() string {
+	return s.String()
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListResourceServersOutput) SetNextToken(v string) *ListResourceServersOutput {
+	s.NextToken = &v
+	return s
+}
+
+// SetResourceServers sets the ResourceServers field's value.
+func (s *ListResourceServersOutput) SetResourceServers(v []*ResourceServerType) *ListResourceServersOutput {
+	s.ResourceServers = v
+	return s
+}
+
+// Represents the request to list the user import jobs.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListUserImportJobsRequest
+type ListUserImportJobsInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The minimum length of the password policy that you have set. Cannot be less
@@ -20576,8 +22746,70 @@ func (s *SchemaAttributeType) SetStringAttributeConstraints(v *StringAttributeCo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetRiskConfigurationRequest
 type SetRiskConfigurationInput struct {
+=======
+// A container for information about an identity provider for a user pool.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ProviderUserIdentifierType
+type ProviderUserIdentifierType struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the provider attribute to link to, for example, NameID.
+	ProviderAttributeName *string `type:"string"`
+
+	// The value of the provider attribute to link to, for example, xxxxx_account.
+	ProviderAttributeValue *string `type:"string"`
+
+	// The name of the provider, for example, Facebook, Google, or Login with Amazon.
+	ProviderName *string `min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s ProviderUserIdentifierType) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ProviderUserIdentifierType) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ProviderUserIdentifierType) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ProviderUserIdentifierType"}
+	if s.ProviderName != nil && len(*s.ProviderName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ProviderName", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetProviderAttributeName sets the ProviderAttributeName field's value.
+func (s *ProviderUserIdentifierType) SetProviderAttributeName(v string) *ProviderUserIdentifierType {
+	s.ProviderAttributeName = &v
+	return s
+}
+
+// SetProviderAttributeValue sets the ProviderAttributeValue field's value.
+func (s *ProviderUserIdentifierType) SetProviderAttributeValue(v string) *ProviderUserIdentifierType {
+	s.ProviderAttributeValue = &v
+	return s
+}
+
+// SetProviderName sets the ProviderName field's value.
+func (s *ProviderUserIdentifierType) SetProviderName(v string) *ProviderUserIdentifierType {
+	s.ProviderName = &v
+	return s
+}
+
+// Represents the request to resend the confirmation code.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ResendConfirmationCodeRequest
+type ResendConfirmationCodeInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The account takeover risk configuration.
@@ -20699,8 +22931,126 @@ func (s *SetRiskConfigurationOutput) SetRiskConfiguration(v *RiskConfigurationTy
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUICustomizationRequest
 type SetUICustomizationInput struct {
+=======
+// A resource server scope.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ResourceServerScopeType
+type ResourceServerScopeType struct {
+	_ struct{} `type:"structure"`
+
+	// A description of the scope.
+	//
+	// ScopeDescription is a required field
+	ScopeDescription *string `min:"1" type:"string" required:"true"`
+
+	// The name of the scope.
+	//
+	// ScopeName is a required field
+	ScopeName *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s ResourceServerScopeType) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ResourceServerScopeType) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ResourceServerScopeType) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ResourceServerScopeType"}
+	if s.ScopeDescription == nil {
+		invalidParams.Add(request.NewErrParamRequired("ScopeDescription"))
+	}
+	if s.ScopeDescription != nil && len(*s.ScopeDescription) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ScopeDescription", 1))
+	}
+	if s.ScopeName == nil {
+		invalidParams.Add(request.NewErrParamRequired("ScopeName"))
+	}
+	if s.ScopeName != nil && len(*s.ScopeName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ScopeName", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetScopeDescription sets the ScopeDescription field's value.
+func (s *ResourceServerScopeType) SetScopeDescription(v string) *ResourceServerScopeType {
+	s.ScopeDescription = &v
+	return s
+}
+
+// SetScopeName sets the ScopeName field's value.
+func (s *ResourceServerScopeType) SetScopeName(v string) *ResourceServerScopeType {
+	s.ScopeName = &v
+	return s
+}
+
+// A container for information about a resource server for a user pool.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ResourceServerType
+type ResourceServerType struct {
+	_ struct{} `type:"structure"`
+
+	// The identifier for the resource server.
+	Identifier *string `min:"1" type:"string"`
+
+	// The name of the resource server.
+	Name *string `min:"1" type:"string"`
+
+	// A list of scopes that are defined for the resource server.
+	Scopes []*ResourceServerScopeType `type:"list"`
+
+	// The user pool ID for the user pool that hosts the resource server.
+	UserPoolId *string `min:"1" type:"string"`
+}
+
+// String returns the string representation
+func (s ResourceServerType) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ResourceServerType) GoString() string {
+	return s.String()
+}
+
+// SetIdentifier sets the Identifier field's value.
+func (s *ResourceServerType) SetIdentifier(v string) *ResourceServerType {
+	s.Identifier = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *ResourceServerType) SetName(v string) *ResourceServerType {
+	s.Name = &v
+	return s
+}
+
+// SetScopes sets the Scopes field's value.
+func (s *ResourceServerType) SetScopes(v []*ResourceServerScopeType) *ResourceServerType {
+	s.Scopes = v
+	return s
+}
+
+// SetUserPoolId sets the UserPoolId field's value.
+func (s *ResourceServerType) SetUserPoolId(v string) *ResourceServerType {
+	s.UserPoolId = &v
+	return s
+}
+
+// The request to respond to an authentication challenge.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/RespondToAuthChallengeRequest
+type RespondToAuthChallengeInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The CSS values in the UI customization.
@@ -20921,6 +23271,7 @@ func (s *SetUserPoolMfaConfigInput) Validate() error {
 	return nil
 }
 
+<<<<<<< HEAD
 // SetMfaConfiguration sets the MfaConfiguration field's value.
 func (s *SetUserPoolMfaConfigInput) SetMfaConfiguration(v string) *SetUserPoolMfaConfigInput {
 	s.MfaConfiguration = &v
@@ -20936,15 +23287,129 @@ func (s *SetUserPoolMfaConfigInput) SetSmsMfaConfiguration(v *SmsMfaConfigType) 
 // SetSoftwareTokenMfaConfiguration sets the SoftwareTokenMfaConfiguration field's value.
 func (s *SetUserPoolMfaConfigInput) SetSoftwareTokenMfaConfiguration(v *SoftwareTokenMfaConfigType) *SetUserPoolMfaConfigInput {
 	s.SoftwareTokenMfaConfiguration = v
+=======
+// SetAttributeDataType sets the AttributeDataType field's value.
+func (s *SchemaAttributeType) SetAttributeDataType(v string) *SchemaAttributeType {
+	s.AttributeDataType = &v
+	return s
+}
+
+// SetDeveloperOnlyAttribute sets the DeveloperOnlyAttribute field's value.
+func (s *SchemaAttributeType) SetDeveloperOnlyAttribute(v bool) *SchemaAttributeType {
+	s.DeveloperOnlyAttribute = &v
+	return s
+}
+
+// SetMutable sets the Mutable field's value.
+func (s *SchemaAttributeType) SetMutable(v bool) *SchemaAttributeType {
+	s.Mutable = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *SchemaAttributeType) SetName(v string) *SchemaAttributeType {
+	s.Name = &v
+	return s
+}
+
+// SetNumberAttributeConstraints sets the NumberAttributeConstraints field's value.
+func (s *SchemaAttributeType) SetNumberAttributeConstraints(v *NumberAttributeConstraintsType) *SchemaAttributeType {
+	s.NumberAttributeConstraints = v
+	return s
+}
+
+// SetRequired sets the Required field's value.
+func (s *SchemaAttributeType) SetRequired(v bool) *SchemaAttributeType {
+	s.Required = &v
+	return s
+}
+
+// SetStringAttributeConstraints sets the StringAttributeConstraints field's value.
+func (s *SchemaAttributeType) SetStringAttributeConstraints(v *StringAttributeConstraintsType) *SchemaAttributeType {
+	s.StringAttributeConstraints = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUICustomizationRequest
+type SetUICustomizationInput struct {
+	_ struct{} `type:"structure"`
+
+	// The CSS values in the UI customization.
+	CSS *string `type:"string"`
+
+	// The client ID for the client app.
+	ClientId *string `min:"1" type:"string"`
+
+	// The uploaded logo image for the UI customization.
+	//
+	// ImageFile is automatically base64 encoded/decoded by the SDK.
+	ImageFile []byte `type:"blob"`
+
+	// The user pool ID for the user pool.
+	//
+	// UserPoolId is a required field
+	UserPoolId *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s SetUICustomizationInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s SetUICustomizationInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *SetUICustomizationInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "SetUICustomizationInput"}
+	if s.ClientId != nil && len(*s.ClientId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ClientId", 1))
+	}
+	if s.UserPoolId == nil {
+		invalidParams.Add(request.NewErrParamRequired("UserPoolId"))
+	}
+	if s.UserPoolId != nil && len(*s.UserPoolId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("UserPoolId", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetCSS sets the CSS field's value.
+func (s *SetUICustomizationInput) SetCSS(v string) *SetUICustomizationInput {
+	s.CSS = &v
+	return s
+}
+
+// SetClientId sets the ClientId field's value.
+func (s *SetUICustomizationInput) SetClientId(v string) *SetUICustomizationInput {
+	s.ClientId = &v
+	return s
+}
+
+// SetImageFile sets the ImageFile field's value.
+func (s *SetUICustomizationInput) SetImageFile(v []byte) *SetUICustomizationInput {
+	s.ImageFile = v
+>>>>>>> Initial dep workover
 	return s
 }
 
 // SetUserPoolId sets the UserPoolId field's value.
+<<<<<<< HEAD
 func (s *SetUserPoolMfaConfigInput) SetUserPoolId(v string) *SetUserPoolMfaConfigInput {
+=======
+func (s *SetUICustomizationInput) SetUserPoolId(v string) *SetUICustomizationInput {
+>>>>>>> Initial dep workover
 	s.UserPoolId = &v
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUserPoolMfaConfigResponse
 type SetUserPoolMfaConfigOutput struct {
 	_ struct{} `type:"structure"`
@@ -20984,6 +23449,31 @@ func (s *SetUserPoolMfaConfigOutput) SetSmsMfaConfiguration(v *SmsMfaConfigType)
 // SetSoftwareTokenMfaConfiguration sets the SoftwareTokenMfaConfiguration field's value.
 func (s *SetUserPoolMfaConfigOutput) SetSoftwareTokenMfaConfiguration(v *SoftwareTokenMfaConfigType) *SetUserPoolMfaConfigOutput {
 	s.SoftwareTokenMfaConfiguration = v
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/SetUICustomizationResponse
+type SetUICustomizationOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The UI customization information.
+	//
+	// UICustomization is a required field
+	UICustomization *UICustomizationType `type:"structure" required:"true"`
+}
+
+// String returns the string representation
+func (s SetUICustomizationOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s SetUICustomizationOutput) GoString() string {
+	return s.String()
+}
+
+// SetUICustomization sets the UICustomization field's value.
+func (s *SetUICustomizationOutput) SetUICustomization(v *UICustomizationType) *SetUICustomizationOutput {
+	s.UICustomization = v
+>>>>>>> Initial dep workover
 	return s
 }
 
@@ -21639,7 +24129,11 @@ func (s *StringAttributeConstraintsType) SetMinLength(v string) *StringAttribute
 
 // A container for the UI customization information for a user pool's built-in
 // app UI.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UICustomizationType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UICustomizationType
+>>>>>>> Initial dep workover
 type UICustomizationType struct {
 	_ struct{} `type:"structure"`
 
@@ -21717,6 +24211,7 @@ func (s *UICustomizationType) SetUserPoolId(v string) *UICustomizationType {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateAuthEventFeedbackRequest
 type UpdateAuthEventFeedbackInput struct {
 	_ struct{} `type:"structure"`
@@ -21836,6 +24331,8 @@ func (s UpdateAuthEventFeedbackOutput) GoString() string {
 	return s.String()
 }
 
+=======
+>>>>>>> Initial dep workover
 // Represents the request to update the device status.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateDeviceStatusRequest
 type UpdateDeviceStatusInput struct {
@@ -22145,7 +24642,11 @@ func (s *UpdateIdentityProviderOutput) SetIdentityProvider(v *IdentityProviderTy
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateResourceServerRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateResourceServerRequest
+>>>>>>> Initial dep workover
 type UpdateResourceServerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -22240,7 +24741,11 @@ func (s *UpdateResourceServerInput) SetUserPoolId(v string) *UpdateResourceServe
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateResourceServerResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateResourceServerResponse
+>>>>>>> Initial dep workover
 type UpdateResourceServerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -22709,11 +25214,14 @@ func (s *UpdateUserPoolInput) Validate() error {
 			invalidParams.AddNested("SmsConfiguration", err.(request.ErrInvalidParams))
 		}
 	}
+<<<<<<< HEAD
 	if s.UserPoolAddOns != nil {
 		if err := s.UserPoolAddOns.Validate(); err != nil {
 			invalidParams.AddNested("UserPoolAddOns", err.(request.ErrInvalidParams))
 		}
 	}
+=======
+>>>>>>> Initial dep workover
 	if s.VerificationMessageTemplate != nil {
 		if err := s.VerificationMessageTemplate.Validate(); err != nil {
 			invalidParams.AddNested("VerificationMessageTemplate", err.(request.ErrInvalidParams))
@@ -23109,7 +25617,11 @@ func (s *UserPoolClientDescription) SetUserPoolId(v string) *UserPoolClientDescr
 }
 
 // Contains information about a user pool client.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolClientType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UserPoolClientType
+>>>>>>> Initial dep workover
 type UserPoolClientType struct {
 	_ struct{} `type:"structure"`
 
@@ -23755,7 +26267,11 @@ func (s *UserType) SetUsername(v string) *UserType {
 }
 
 // The template for verification messages.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerificationMessageTemplateType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerificationMessageTemplateType
+>>>>>>> Initial dep workover
 type VerificationMessageTemplateType struct {
 	_ struct{} `type:"structure"`
 
@@ -23850,6 +26366,7 @@ func (s *VerificationMessageTemplateType) SetSmsMessage(v string) *VerificationM
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerifySoftwareTokenRequest
 type VerifySoftwareTokenInput struct {
 	_ struct{} `type:"structure"`
@@ -23957,6 +26474,8 @@ func (s *VerifySoftwareTokenOutput) SetStatus(v string) *VerifySoftwareTokenOutp
 	return s
 }
 
+=======
+>>>>>>> Initial dep workover
 // Represents the request to verify user attributes.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/VerifyUserAttributeRequest
 type VerifyUserAttributeInput struct {
@@ -24156,6 +26675,7 @@ const (
 )
 
 const (
+<<<<<<< HEAD
 	// ChallengeResponseSuccess is a ChallengeResponse enum value
 	ChallengeResponseSuccess = "Success"
 
@@ -24172,6 +26692,8 @@ const (
 )
 
 const (
+=======
+>>>>>>> Initial dep workover
 	// DefaultEmailOptionTypeConfirmWithLink is a DefaultEmailOptionType enum value
 	DefaultEmailOptionTypeConfirmWithLink = "CONFIRM_WITH_LINK"
 
@@ -24210,6 +26732,7 @@ const (
 
 	// DomainStatusTypeFailed is a DomainStatusType enum value
 	DomainStatusTypeFailed = "FAILED"
+<<<<<<< HEAD
 )
 
 const (
@@ -24240,6 +26763,8 @@ const (
 
 	// EventTypeForgotPassword is a EventType enum value
 	EventTypeForgotPassword = "ForgotPassword"
+=======
+>>>>>>> Initial dep workover
 )
 
 const (

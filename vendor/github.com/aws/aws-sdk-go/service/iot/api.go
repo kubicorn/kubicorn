@@ -397,6 +397,7 @@ const opAttachPrincipalPolicy = "AttachPrincipalPolicy"
 // client's request for the AttachPrincipalPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -404,6 +405,15 @@ const opAttachPrincipalPolicy = "AttachPrincipalPolicy"
 // See AttachPrincipalPolicy for more information on using the AttachPrincipalPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachPrincipalPolicy for more information on using the AttachPrincipalPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -499,6 +509,7 @@ const opAttachThingPrincipal = "AttachThingPrincipal"
 // client's request for the AttachThingPrincipal operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -506,6 +517,15 @@ const opAttachThingPrincipal = "AttachThingPrincipal"
 // See AttachThingPrincipal for more information on using the AttachThingPrincipal
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachThingPrincipal for more information on using the AttachThingPrincipal
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -590,6 +610,7 @@ const opCancelCertificateTransfer = "CancelCertificateTransfer"
 // client's request for the CancelCertificateTransfer operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -597,6 +618,15 @@ const opCancelCertificateTransfer = "CancelCertificateTransfer"
 // See CancelCertificateTransfer for more information on using the CancelCertificateTransfer
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CancelCertificateTransfer for more information on using the CancelCertificateTransfer
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -692,19 +722,33 @@ func (c *IoT) CancelCertificateTransferWithContext(ctx aws.Context, input *Cance
 
 const opCancelJob = "CancelJob"
 
+<<<<<<< HEAD
 // CancelJobRequest generates a "aws/request.Request" representing the
 // client's request for the CancelJob operation. The "output" return
+=======
+// CreateCertificateFromCsrRequest generates a "aws/request.Request" representing the
+// client's request for the CreateCertificateFromCsr operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See CancelJob for more information on using the CancelJob
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See CreateCertificateFromCsr for more information on using the CreateCertificateFromCsr
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CancelJobRequest method.
@@ -777,6 +821,7 @@ func (c *IoT) CancelJobWithContext(ctx aws.Context, input *CancelJobInput, opts 
 
 const opClearDefaultAuthorizer = "ClearDefaultAuthorizer"
 
+<<<<<<< HEAD
 // ClearDefaultAuthorizerRequest generates a "aws/request.Request" representing the
 // client's request for the ClearDefaultAuthorizer operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -790,6 +835,22 @@ const opClearDefaultAuthorizer = "ClearDefaultAuthorizer"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// CreateKeysAndCertificateRequest generates a "aws/request.Request" representing the
+// client's request for the CreateKeysAndCertificate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateKeysAndCertificate for more information on using the CreateKeysAndCertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the ClearDefaultAuthorizerRequest method.
@@ -868,19 +929,33 @@ func (c *IoT) ClearDefaultAuthorizerWithContext(ctx aws.Context, input *ClearDef
 
 const opCreateAuthorizer = "CreateAuthorizer"
 
+<<<<<<< HEAD
 // CreateAuthorizerRequest generates a "aws/request.Request" representing the
 // client's request for the CreateAuthorizer operation. The "output" return
+=======
+// CreatePolicyRequest generates a "aws/request.Request" representing the
+// client's request for the CreatePolicy operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See CreateAuthorizer for more information on using the CreateAuthorizer
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See CreatePolicy for more information on using the CreatePolicy
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateAuthorizerRequest method.
@@ -962,6 +1037,7 @@ func (c *IoT) CreateAuthorizerWithContext(ctx aws.Context, input *CreateAuthoriz
 
 const opCreateCertificateFromCsr = "CreateCertificateFromCsr"
 
+<<<<<<< HEAD
 // CreateCertificateFromCsrRequest generates a "aws/request.Request" representing the
 // client's request for the CreateCertificateFromCsr operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -975,6 +1051,22 @@ const opCreateCertificateFromCsr = "CreateCertificateFromCsr"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// CreatePolicyVersionRequest generates a "aws/request.Request" representing the
+// client's request for the CreatePolicyVersion operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreatePolicyVersion for more information on using the CreatePolicyVersion
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateCertificateFromCsrRequest method.
@@ -1091,19 +1183,33 @@ func (c *IoT) CreateCertificateFromCsrWithContext(ctx aws.Context, input *Create
 
 const opCreateJob = "CreateJob"
 
+<<<<<<< HEAD
 // CreateJobRequest generates a "aws/request.Request" representing the
 // client's request for the CreateJob operation. The "output" return
+=======
+// CreateThingRequest generates a "aws/request.Request" representing the
+// client's request for the CreateThing operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See CreateJob for more information on using the CreateJob
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See CreateThing for more information on using the CreateThing
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateJobRequest method.
@@ -1182,6 +1288,7 @@ func (c *IoT) CreateJobWithContext(ctx aws.Context, input *CreateJobInput, opts 
 
 const opCreateKeysAndCertificate = "CreateKeysAndCertificate"
 
+<<<<<<< HEAD
 // CreateKeysAndCertificateRequest generates a "aws/request.Request" representing the
 // client's request for the CreateKeysAndCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1195,6 +1302,22 @@ const opCreateKeysAndCertificate = "CreateKeysAndCertificate"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// CreateThingTypeRequest generates a "aws/request.Request" representing the
+// client's request for the CreateThingType operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateThingType for more information on using the CreateThingType
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateKeysAndCertificateRequest method.
@@ -1274,19 +1397,33 @@ func (c *IoT) CreateKeysAndCertificateWithContext(ctx aws.Context, input *Create
 
 const opCreatePolicy = "CreatePolicy"
 
+<<<<<<< HEAD
 // CreatePolicyRequest generates a "aws/request.Request" representing the
 // client's request for the CreatePolicy operation. The "output" return
+=======
+// CreateTopicRuleRequest generates a "aws/request.Request" representing the
+// client's request for the CreateTopicRule operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See CreatePolicy for more information on using the CreatePolicy
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See CreateTopicRule for more information on using the CreateTopicRule
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreatePolicyRequest method.
@@ -1372,6 +1509,7 @@ func (c *IoT) CreatePolicyWithContext(ctx aws.Context, input *CreatePolicyInput,
 
 const opCreatePolicyVersion = "CreatePolicyVersion"
 
+<<<<<<< HEAD
 // CreatePolicyVersionRequest generates a "aws/request.Request" representing the
 // client's request for the CreatePolicyVersion operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1385,6 +1523,22 @@ const opCreatePolicyVersion = "CreatePolicyVersion"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DeleteCACertificateRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteCACertificate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteCACertificate for more information on using the DeleteCACertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreatePolicyVersionRequest method.
@@ -1476,19 +1630,33 @@ func (c *IoT) CreatePolicyVersionWithContext(ctx aws.Context, input *CreatePolic
 
 const opCreateRoleAlias = "CreateRoleAlias"
 
+<<<<<<< HEAD
 // CreateRoleAliasRequest generates a "aws/request.Request" representing the
 // client's request for the CreateRoleAlias operation. The "output" return
+=======
+// DeleteCertificateRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteCertificate operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See CreateRoleAlias for more information on using the CreateRoleAlias
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DeleteCertificate for more information on using the DeleteCertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateRoleAliasRequest method.
@@ -1570,6 +1738,7 @@ func (c *IoT) CreateRoleAliasWithContext(ctx aws.Context, input *CreateRoleAlias
 
 const opCreateThing = "CreateThing"
 
+<<<<<<< HEAD
 // CreateThingRequest generates a "aws/request.Request" representing the
 // client's request for the CreateThing operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1583,6 +1752,22 @@ const opCreateThing = "CreateThing"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DeletePolicyRequest generates a "aws/request.Request" representing the
+// client's request for the DeletePolicy operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeletePolicy for more information on using the DeletePolicy
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateThingRequest method.
@@ -1664,6 +1849,7 @@ func (c *IoT) CreateThingWithContext(ctx aws.Context, input *CreateThingInput, o
 
 const opCreateThingGroup = "CreateThingGroup"
 
+<<<<<<< HEAD
 // CreateThingGroupRequest generates a "aws/request.Request" representing the
 // client's request for the CreateThingGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1677,6 +1863,22 @@ const opCreateThingGroup = "CreateThingGroup"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DeletePolicyVersionRequest generates a "aws/request.Request" representing the
+// client's request for the DeletePolicyVersion operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeletePolicyVersion for more information on using the DeletePolicyVersion
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateThingGroupRequest method.
@@ -1749,19 +1951,33 @@ func (c *IoT) CreateThingGroupWithContext(ctx aws.Context, input *CreateThingGro
 
 const opCreateThingType = "CreateThingType"
 
+<<<<<<< HEAD
 // CreateThingTypeRequest generates a "aws/request.Request" representing the
 // client's request for the CreateThingType operation. The "output" return
+=======
+// DeleteRegistrationCodeRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteRegistrationCode operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See CreateThingType for more information on using the CreateThingType
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DeleteRegistrationCode for more information on using the DeleteRegistrationCode
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateThingTypeRequest method.
@@ -1840,6 +2056,7 @@ func (c *IoT) CreateThingTypeWithContext(ctx aws.Context, input *CreateThingType
 
 const opCreateTopicRule = "CreateTopicRule"
 
+<<<<<<< HEAD
 // CreateTopicRuleRequest generates a "aws/request.Request" representing the
 // client's request for the CreateTopicRule operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1853,6 +2070,22 @@ const opCreateTopicRule = "CreateTopicRule"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DeleteThingRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteThing operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteThing for more information on using the DeleteThing
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateTopicRuleRequest method.
@@ -1932,19 +2165,33 @@ func (c *IoT) CreateTopicRuleWithContext(ctx aws.Context, input *CreateTopicRule
 
 const opDeleteAuthorizer = "DeleteAuthorizer"
 
+<<<<<<< HEAD
 // DeleteAuthorizerRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteAuthorizer operation. The "output" return
+=======
+// DeleteThingTypeRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteThingType operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DeleteAuthorizer for more information on using the DeleteAuthorizer
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DeleteThingType for more information on using the DeleteThingType
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteAuthorizerRequest method.
@@ -2026,6 +2273,7 @@ func (c *IoT) DeleteAuthorizerWithContext(ctx aws.Context, input *DeleteAuthoriz
 
 const opDeleteCACertificate = "DeleteCACertificate"
 
+<<<<<<< HEAD
 // DeleteCACertificateRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteCACertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2039,6 +2287,22 @@ const opDeleteCACertificate = "DeleteCACertificate"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DeleteTopicRuleRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteTopicRule operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteTopicRule for more information on using the DeleteTopicRule
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteCACertificateRequest method.
@@ -2120,19 +2384,33 @@ func (c *IoT) DeleteCACertificateWithContext(ctx aws.Context, input *DeleteCACer
 
 const opDeleteCertificate = "DeleteCertificate"
 
+<<<<<<< HEAD
 // DeleteCertificateRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteCertificate operation. The "output" return
+=======
+// DeprecateThingTypeRequest generates a "aws/request.Request" representing the
+// client's request for the DeprecateThingType operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DeleteCertificate for more information on using the DeleteCertificate
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DeprecateThingType for more information on using the DeprecateThingType
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteCertificateRequest method.
@@ -2224,6 +2502,7 @@ func (c *IoT) DeleteCertificateWithContext(ctx aws.Context, input *DeleteCertifi
 
 const opDeletePolicy = "DeletePolicy"
 
+<<<<<<< HEAD
 // DeletePolicyRequest generates a "aws/request.Request" representing the
 // client's request for the DeletePolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2237,6 +2516,22 @@ const opDeletePolicy = "DeletePolicy"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DescribeCACertificateRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeCACertificate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeCACertificate for more information on using the DescribeCACertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeletePolicyRequest method.
@@ -2330,6 +2625,7 @@ func (c *IoT) DeletePolicyWithContext(ctx aws.Context, input *DeletePolicyInput,
 
 const opDeletePolicyVersion = "DeletePolicyVersion"
 
+<<<<<<< HEAD
 // DeletePolicyVersionRequest generates a "aws/request.Request" representing the
 // client's request for the DeletePolicyVersion operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2343,6 +2639,22 @@ const opDeletePolicyVersion = "DeletePolicyVersion"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DescribeCertificateRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeCertificate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeCertificate for more information on using the DescribeCertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeletePolicyVersionRequest method.
@@ -2429,19 +2741,33 @@ func (c *IoT) DeletePolicyVersionWithContext(ctx aws.Context, input *DeletePolic
 
 const opDeleteRegistrationCode = "DeleteRegistrationCode"
 
+<<<<<<< HEAD
 // DeleteRegistrationCodeRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteRegistrationCode operation. The "output" return
+=======
+// DescribeEndpointRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeEndpoint operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DeleteRegistrationCode for more information on using the DeleteRegistrationCode
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DescribeEndpoint for more information on using the DescribeEndpoint
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteRegistrationCodeRequest method.
@@ -2517,6 +2843,7 @@ func (c *IoT) DeleteRegistrationCodeWithContext(ctx aws.Context, input *DeleteRe
 
 const opDeleteRoleAlias = "DeleteRoleAlias"
 
+<<<<<<< HEAD
 // DeleteRoleAliasRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteRoleAlias operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2530,6 +2857,22 @@ const opDeleteRoleAlias = "DeleteRoleAlias"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DescribeThingRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeThing operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeThing for more information on using the DescribeThing
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteRoleAliasRequest method.
@@ -2611,19 +2954,33 @@ func (c *IoT) DeleteRoleAliasWithContext(ctx aws.Context, input *DeleteRoleAlias
 
 const opDeleteThing = "DeleteThing"
 
+<<<<<<< HEAD
 // DeleteThingRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteThing operation. The "output" return
+=======
+// DescribeThingTypeRequest generates a "aws/request.Request" representing the
+// client's request for the DescribeThingType operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DeleteThing for more information on using the DeleteThing
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DescribeThingType for more information on using the DescribeThingType
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteThingRequest method.
@@ -2706,6 +3063,7 @@ func (c *IoT) DeleteThingWithContext(ctx aws.Context, input *DeleteThingInput, o
 
 const opDeleteThingGroup = "DeleteThingGroup"
 
+<<<<<<< HEAD
 // DeleteThingGroupRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteThingGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2719,6 +3077,22 @@ const opDeleteThingGroup = "DeleteThingGroup"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DetachPrincipalPolicyRequest generates a "aws/request.Request" representing the
+// client's request for the DetachPrincipalPolicy operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetachPrincipalPolicy for more information on using the DetachPrincipalPolicy
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteThingGroupRequest method.
@@ -2792,19 +3166,33 @@ func (c *IoT) DeleteThingGroupWithContext(ctx aws.Context, input *DeleteThingGro
 
 const opDeleteThingType = "DeleteThingType"
 
+<<<<<<< HEAD
 // DeleteThingTypeRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteThingType operation. The "output" return
+=======
+// DetachThingPrincipalRequest generates a "aws/request.Request" representing the
+// client's request for the DetachThingPrincipal operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DeleteThingType for more information on using the DeleteThingType
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DetachThingPrincipal for more information on using the DetachThingPrincipal
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteThingTypeRequest method.
@@ -2887,6 +3275,7 @@ func (c *IoT) DeleteThingTypeWithContext(ctx aws.Context, input *DeleteThingType
 
 const opDeleteTopicRule = "DeleteTopicRule"
 
+<<<<<<< HEAD
 // DeleteTopicRuleRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteTopicRule operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2900,6 +3289,22 @@ const opDeleteTopicRule = "DeleteTopicRule"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// DisableTopicRuleRequest generates a "aws/request.Request" representing the
+// client's request for the DisableTopicRule operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DisableTopicRule for more information on using the DisableTopicRule
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteTopicRuleRequest method.
@@ -2974,6 +3379,7 @@ func (c *IoT) DeleteTopicRuleWithContext(ctx aws.Context, input *DeleteTopicRule
 
 const opDeleteV2LoggingLevel = "DeleteV2LoggingLevel"
 
+<<<<<<< HEAD
 // DeleteV2LoggingLevelRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteV2LoggingLevel operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2987,6 +3393,22 @@ const opDeleteV2LoggingLevel = "DeleteV2LoggingLevel"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// EnableTopicRuleRequest generates a "aws/request.Request" representing the
+// client's request for the EnableTopicRule operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See EnableTopicRule for more information on using the EnableTopicRule
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteV2LoggingLevelRequest method.
@@ -3058,19 +3480,33 @@ func (c *IoT) DeleteV2LoggingLevelWithContext(ctx aws.Context, input *DeleteV2Lo
 
 const opDeprecateThingType = "DeprecateThingType"
 
+<<<<<<< HEAD
 // DeprecateThingTypeRequest generates a "aws/request.Request" representing the
 // client's request for the DeprecateThingType operation. The "output" return
+=======
+// GetLoggingOptionsRequest generates a "aws/request.Request" representing the
+// client's request for the GetLoggingOptions operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DeprecateThingType for more information on using the DeprecateThingType
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See GetLoggingOptions for more information on using the GetLoggingOptions
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeprecateThingTypeRequest method.
@@ -3150,6 +3586,7 @@ func (c *IoT) DeprecateThingTypeWithContext(ctx aws.Context, input *DeprecateThi
 
 const opDescribeAuthorizer = "DescribeAuthorizer"
 
+<<<<<<< HEAD
 // DescribeAuthorizerRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeAuthorizer operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -3163,6 +3600,22 @@ const opDescribeAuthorizer = "DescribeAuthorizer"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// GetPolicyRequest generates a "aws/request.Request" representing the
+// client's request for the GetPolicy operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetPolicy for more information on using the GetPolicy
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeAuthorizerRequest method.
@@ -3241,19 +3694,33 @@ func (c *IoT) DescribeAuthorizerWithContext(ctx aws.Context, input *DescribeAuth
 
 const opDescribeCACertificate = "DescribeCACertificate"
 
+<<<<<<< HEAD
 // DescribeCACertificateRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeCACertificate operation. The "output" return
+=======
+// GetPolicyVersionRequest generates a "aws/request.Request" representing the
+// client's request for the GetPolicyVersion operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DescribeCACertificate for more information on using the DescribeCACertificate
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See GetPolicyVersion for more information on using the GetPolicyVersion
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeCACertificateRequest method.
@@ -3332,6 +3799,7 @@ func (c *IoT) DescribeCACertificateWithContext(ctx aws.Context, input *DescribeC
 
 const opDescribeCertificate = "DescribeCertificate"
 
+<<<<<<< HEAD
 // DescribeCertificateRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -3345,6 +3813,22 @@ const opDescribeCertificate = "DescribeCertificate"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// GetRegistrationCodeRequest generates a "aws/request.Request" representing the
+// client's request for the GetRegistrationCode operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetRegistrationCode for more information on using the GetRegistrationCode
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeCertificateRequest method.
@@ -3423,19 +3907,33 @@ func (c *IoT) DescribeCertificateWithContext(ctx aws.Context, input *DescribeCer
 
 const opDescribeDefaultAuthorizer = "DescribeDefaultAuthorizer"
 
+<<<<<<< HEAD
 // DescribeDefaultAuthorizerRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeDefaultAuthorizer operation. The "output" return
+=======
+// GetTopicRuleRequest generates a "aws/request.Request" representing the
+// client's request for the GetTopicRule operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DescribeDefaultAuthorizer for more information on using the DescribeDefaultAuthorizer
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See GetTopicRule for more information on using the GetTopicRule
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeDefaultAuthorizerRequest method.
@@ -3514,6 +4012,7 @@ func (c *IoT) DescribeDefaultAuthorizerWithContext(ctx aws.Context, input *Descr
 
 const opDescribeEndpoint = "DescribeEndpoint"
 
+<<<<<<< HEAD
 // DescribeEndpointRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeEndpoint operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -3527,6 +4026,22 @@ const opDescribeEndpoint = "DescribeEndpoint"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListCACertificatesRequest generates a "aws/request.Request" representing the
+// client's request for the ListCACertificates operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListCACertificates for more information on using the ListCACertificates
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeEndpointRequest method.
@@ -3599,6 +4114,7 @@ func (c *IoT) DescribeEndpointWithContext(ctx aws.Context, input *DescribeEndpoi
 
 const opDescribeEventConfigurations = "DescribeEventConfigurations"
 
+<<<<<<< HEAD
 // DescribeEventConfigurationsRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeEventConfigurations operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -3612,6 +4128,22 @@ const opDescribeEventConfigurations = "DescribeEventConfigurations"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListCertificatesRequest generates a "aws/request.Request" representing the
+// client's request for the ListCertificates operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListCertificates for more information on using the ListCertificates
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeEventConfigurationsRequest method.
@@ -3678,19 +4210,33 @@ func (c *IoT) DescribeEventConfigurationsWithContext(ctx aws.Context, input *Des
 
 const opDescribeIndex = "DescribeIndex"
 
+<<<<<<< HEAD
 // DescribeIndexRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeIndex operation. The "output" return
+=======
+// ListCertificatesByCARequest generates a "aws/request.Request" representing the
+// client's request for the ListCertificatesByCA operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DescribeIndex for more information on using the DescribeIndex
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See ListCertificatesByCA for more information on using the ListCertificatesByCA
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeIndexRequest method.
@@ -3769,6 +4315,7 @@ func (c *IoT) DescribeIndexWithContext(ctx aws.Context, input *DescribeIndexInpu
 
 const opDescribeJob = "DescribeJob"
 
+<<<<<<< HEAD
 // DescribeJobRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeJob operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -3782,6 +4329,22 @@ const opDescribeJob = "DescribeJob"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListOutgoingCertificatesRequest generates a "aws/request.Request" representing the
+// client's request for the ListOutgoingCertificates operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListOutgoingCertificates for more information on using the ListOutgoingCertificates
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeJobRequest method.
@@ -3854,19 +4417,33 @@ func (c *IoT) DescribeJobWithContext(ctx aws.Context, input *DescribeJobInput, o
 
 const opDescribeJobExecution = "DescribeJobExecution"
 
+<<<<<<< HEAD
 // DescribeJobExecutionRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeJobExecution operation. The "output" return
+=======
+// ListPoliciesRequest generates a "aws/request.Request" representing the
+// client's request for the ListPolicies operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DescribeJobExecution for more information on using the DescribeJobExecution
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See ListPolicies for more information on using the ListPolicies
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeJobExecutionRequest method.
@@ -3939,6 +4516,7 @@ func (c *IoT) DescribeJobExecutionWithContext(ctx aws.Context, input *DescribeJo
 
 const opDescribeRoleAlias = "DescribeRoleAlias"
 
+<<<<<<< HEAD
 // DescribeRoleAliasRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeRoleAlias operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -3952,6 +4530,22 @@ const opDescribeRoleAlias = "DescribeRoleAlias"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListPolicyPrincipalsRequest generates a "aws/request.Request" representing the
+// client's request for the ListPolicyPrincipals operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListPolicyPrincipals for more information on using the ListPolicyPrincipals
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeRoleAliasRequest method.
@@ -4030,19 +4624,33 @@ func (c *IoT) DescribeRoleAliasWithContext(ctx aws.Context, input *DescribeRoleA
 
 const opDescribeThing = "DescribeThing"
 
+<<<<<<< HEAD
 // DescribeThingRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeThing operation. The "output" return
+=======
+// ListPolicyVersionsRequest generates a "aws/request.Request" representing the
+// client's request for the ListPolicyVersions operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DescribeThing for more information on using the DescribeThing
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See ListPolicyVersions for more information on using the ListPolicyVersions
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeThingRequest method.
@@ -4121,6 +4729,7 @@ func (c *IoT) DescribeThingWithContext(ctx aws.Context, input *DescribeThingInpu
 
 const opDescribeThingGroup = "DescribeThingGroup"
 
+<<<<<<< HEAD
 // DescribeThingGroupRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeThingGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -4134,6 +4743,22 @@ const opDescribeThingGroup = "DescribeThingGroup"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListPrincipalPoliciesRequest generates a "aws/request.Request" representing the
+// client's request for the ListPrincipalPolicies operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListPrincipalPolicies for more information on using the ListPrincipalPolicies
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeThingGroupRequest method.
@@ -4206,6 +4831,7 @@ func (c *IoT) DescribeThingGroupWithContext(ctx aws.Context, input *DescribeThin
 
 const opDescribeThingRegistrationTask = "DescribeThingRegistrationTask"
 
+<<<<<<< HEAD
 // DescribeThingRegistrationTaskRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeThingRegistrationTask operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -4219,6 +4845,22 @@ const opDescribeThingRegistrationTask = "DescribeThingRegistrationTask"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListPrincipalThingsRequest generates a "aws/request.Request" representing the
+// client's request for the ListPrincipalThings operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListPrincipalThings for more information on using the ListPrincipalThings
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeThingRegistrationTaskRequest method.
@@ -4294,19 +4936,33 @@ func (c *IoT) DescribeThingRegistrationTaskWithContext(ctx aws.Context, input *D
 
 const opDescribeThingType = "DescribeThingType"
 
+<<<<<<< HEAD
 // DescribeThingTypeRequest generates a "aws/request.Request" representing the
 // client's request for the DescribeThingType operation. The "output" return
+=======
+// ListThingPrincipalsRequest generates a "aws/request.Request" representing the
+// client's request for the ListThingPrincipals operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DescribeThingType for more information on using the DescribeThingType
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See ListThingPrincipals for more information on using the ListThingPrincipals
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribeThingTypeRequest method.
@@ -4385,6 +5041,7 @@ func (c *IoT) DescribeThingTypeWithContext(ctx aws.Context, input *DescribeThing
 
 const opDetachPolicy = "DetachPolicy"
 
+<<<<<<< HEAD
 // DetachPolicyRequest generates a "aws/request.Request" representing the
 // client's request for the DetachPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -4398,6 +5055,22 @@ const opDetachPolicy = "DetachPolicy"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListThingTypesRequest generates a "aws/request.Request" representing the
+// client's request for the ListThingTypes operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListThingTypes for more information on using the ListThingTypes
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DetachPolicyRequest method.
@@ -4478,19 +5151,33 @@ func (c *IoT) DetachPolicyWithContext(ctx aws.Context, input *DetachPolicyInput,
 
 const opDetachPrincipalPolicy = "DetachPrincipalPolicy"
 
+<<<<<<< HEAD
 // DetachPrincipalPolicyRequest generates a "aws/request.Request" representing the
 // client's request for the DetachPrincipalPolicy operation. The "output" return
+=======
+// ListThingsRequest generates a "aws/request.Request" representing the
+// client's request for the ListThings operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DetachPrincipalPolicy for more information on using the DetachPrincipalPolicy
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See ListThings for more information on using the ListThings
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DetachPrincipalPolicyRequest method.
@@ -4576,6 +5263,7 @@ func (c *IoT) DetachPrincipalPolicyWithContext(ctx aws.Context, input *DetachPri
 
 const opDetachThingPrincipal = "DetachThingPrincipal"
 
+<<<<<<< HEAD
 // DetachThingPrincipalRequest generates a "aws/request.Request" representing the
 // client's request for the DetachThingPrincipal operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -4589,6 +5277,22 @@ const opDetachThingPrincipal = "DetachThingPrincipal"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListTopicRulesRequest generates a "aws/request.Request" representing the
+// client's request for the ListTopicRules operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListTopicRules for more information on using the ListTopicRules
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DetachThingPrincipalRequest method.
@@ -4667,19 +5371,33 @@ func (c *IoT) DetachThingPrincipalWithContext(ctx aws.Context, input *DetachThin
 
 const opDisableTopicRule = "DisableTopicRule"
 
+<<<<<<< HEAD
 // DisableTopicRuleRequest generates a "aws/request.Request" representing the
 // client's request for the DisableTopicRule operation. The "output" return
+=======
+// RegisterCACertificateRequest generates a "aws/request.Request" representing the
+// client's request for the RegisterCACertificate operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DisableTopicRule for more information on using the DisableTopicRule
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See RegisterCACertificate for more information on using the RegisterCACertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DisableTopicRuleRequest method.
@@ -4754,6 +5472,7 @@ func (c *IoT) DisableTopicRuleWithContext(ctx aws.Context, input *DisableTopicRu
 
 const opEnableTopicRule = "EnableTopicRule"
 
+<<<<<<< HEAD
 // EnableTopicRuleRequest generates a "aws/request.Request" representing the
 // client's request for the EnableTopicRule operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -4767,6 +5486,22 @@ const opEnableTopicRule = "EnableTopicRule"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// RegisterCertificateRequest generates a "aws/request.Request" representing the
+// client's request for the RegisterCertificate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RegisterCertificate for more information on using the RegisterCertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the EnableTopicRuleRequest method.
@@ -4841,6 +5576,7 @@ func (c *IoT) EnableTopicRuleWithContext(ctx aws.Context, input *EnableTopicRule
 
 const opGetEffectivePolicies = "GetEffectivePolicies"
 
+<<<<<<< HEAD
 // GetEffectivePoliciesRequest generates a "aws/request.Request" representing the
 // client's request for the GetEffectivePolicies operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -4854,6 +5590,22 @@ const opGetEffectivePolicies = "GetEffectivePolicies"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// RejectCertificateTransferRequest generates a "aws/request.Request" representing the
+// client's request for the RejectCertificateTransfer operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RejectCertificateTransfer for more information on using the RejectCertificateTransfer
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetEffectivePoliciesRequest method.
@@ -4935,19 +5687,33 @@ func (c *IoT) GetEffectivePoliciesWithContext(ctx aws.Context, input *GetEffecti
 
 const opGetIndexingConfiguration = "GetIndexingConfiguration"
 
+<<<<<<< HEAD
 // GetIndexingConfigurationRequest generates a "aws/request.Request" representing the
 // client's request for the GetIndexingConfiguration operation. The "output" return
+=======
+// ReplaceTopicRuleRequest generates a "aws/request.Request" representing the
+// client's request for the ReplaceTopicRule operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See GetIndexingConfiguration for more information on using the GetIndexingConfiguration
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See ReplaceTopicRule for more information on using the ReplaceTopicRule
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetIndexingConfigurationRequest method.
@@ -5023,6 +5789,7 @@ func (c *IoT) GetIndexingConfigurationWithContext(ctx aws.Context, input *GetInd
 
 const opGetJobDocument = "GetJobDocument"
 
+<<<<<<< HEAD
 // GetJobDocumentRequest generates a "aws/request.Request" representing the
 // client's request for the GetJobDocument operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -5036,6 +5803,22 @@ const opGetJobDocument = "GetJobDocument"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// SetDefaultPolicyVersionRequest generates a "aws/request.Request" representing the
+// client's request for the SetDefaultPolicyVersion operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetDefaultPolicyVersion for more information on using the SetDefaultPolicyVersion
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetJobDocumentRequest method.
@@ -5108,19 +5891,33 @@ func (c *IoT) GetJobDocumentWithContext(ctx aws.Context, input *GetJobDocumentIn
 
 const opGetLoggingOptions = "GetLoggingOptions"
 
+<<<<<<< HEAD
 // GetLoggingOptionsRequest generates a "aws/request.Request" representing the
 // client's request for the GetLoggingOptions operation. The "output" return
+=======
+// SetLoggingOptionsRequest generates a "aws/request.Request" representing the
+// client's request for the SetLoggingOptions operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See GetLoggingOptions for more information on using the GetLoggingOptions
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See SetLoggingOptions for more information on using the SetLoggingOptions
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetLoggingOptionsRequest method.
@@ -5190,6 +5987,7 @@ func (c *IoT) GetLoggingOptionsWithContext(ctx aws.Context, input *GetLoggingOpt
 
 const opGetPolicy = "GetPolicy"
 
+<<<<<<< HEAD
 // GetPolicyRequest generates a "aws/request.Request" representing the
 // client's request for the GetPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -5203,6 +6001,22 @@ const opGetPolicy = "GetPolicy"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// TransferCertificateRequest generates a "aws/request.Request" representing the
+// client's request for the TransferCertificate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See TransferCertificate for more information on using the TransferCertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetPolicyRequest method.
@@ -5282,19 +6096,33 @@ func (c *IoT) GetPolicyWithContext(ctx aws.Context, input *GetPolicyInput, opts 
 
 const opGetPolicyVersion = "GetPolicyVersion"
 
+<<<<<<< HEAD
 // GetPolicyVersionRequest generates a "aws/request.Request" representing the
 // client's request for the GetPolicyVersion operation. The "output" return
+=======
+// UpdateCACertificateRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateCACertificate operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See GetPolicyVersion for more information on using the GetPolicyVersion
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See UpdateCACertificate for more information on using the UpdateCACertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetPolicyVersionRequest method.
@@ -5373,6 +6201,7 @@ func (c *IoT) GetPolicyVersionWithContext(ctx aws.Context, input *GetPolicyVersi
 
 const opGetRegistrationCode = "GetRegistrationCode"
 
+<<<<<<< HEAD
 // GetRegistrationCodeRequest generates a "aws/request.Request" representing the
 // client's request for the GetRegistrationCode operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -5386,6 +6215,22 @@ const opGetRegistrationCode = "GetRegistrationCode"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// UpdateCertificateRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateCertificate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateCertificate for more information on using the UpdateCertificate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetRegistrationCodeRequest method.
@@ -5461,6 +6306,7 @@ func (c *IoT) GetRegistrationCodeWithContext(ctx aws.Context, input *GetRegistra
 
 const opGetTopicRule = "GetTopicRule"
 
+<<<<<<< HEAD
 // GetTopicRuleRequest generates a "aws/request.Request" representing the
 // client's request for the GetTopicRule operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -5474,6 +6320,22 @@ const opGetTopicRule = "GetTopicRule"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// UpdateThingRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateThing operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateThing for more information on using the UpdateThing
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetTopicRuleRequest method.

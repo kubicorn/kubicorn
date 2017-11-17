@@ -20,7 +20,10 @@ go_library(
         "subjectaccessreview.go",
         "subjectaccessreview_expansion.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/kubernetes/typed/authorization/v1beta1",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/authorization/v1beta1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/runtime/serializer:go_default_library",

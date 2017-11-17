@@ -15,7 +15,11 @@ limitations under the License.
 */
 
 // +k8s:openapi-gen=true
+<<<<<<< HEAD
 // +k8s:deepcopy-gen=package
+=======
+// +k8s:deepcopy-gen=package,register
+>>>>>>> Initial dep workover
 
 // Package v1 is the v1 version of the core API.
 package v1 // import "k8s.io/api/core/v1"

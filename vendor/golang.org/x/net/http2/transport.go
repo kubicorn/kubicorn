@@ -405,6 +405,7 @@ func shouldRetryRequest(req *http.Request, err error, afterBodyWrite bool) (*htt
 		return nil, err
 	}
 	if !afterBodyWrite {
+<<<<<<< HEAD
 		return req, nil
 	}
 	// If the Body is nil (or http.NoBody), it's safe to reuse
@@ -412,6 +413,15 @@ func shouldRetryRequest(req *http.Request, err error, afterBodyWrite bool) (*htt
 	if req.Body == nil || reqBodyIsNoBody(req.Body) {
 		return req, nil
 	}
+=======
+		return req, nil
+	}
+	// If the Body is nil (or http.NoBody), it's safe to reuse
+	// this request and its Body.
+	if req.Body == nil || reqBodyIsNoBody(req.Body) {
+		return req, nil
+	}
+>>>>>>> Initial dep workover
 	// Otherwise we depend on the Request having its GetBody
 	// func defined.
 	getBody := reqGetBody(req) // Go 1.8: getBody = req.GetBody
@@ -1300,6 +1310,7 @@ func (cc *ClientConn) encodeTrailers(req *http.Request) ([]byte, error) {
 	cc.hbuf.Reset()
 
 	hlSize := uint64(0)
+<<<<<<< HEAD
 	for k, vv := range req.Trailer {
 		for _, v := range vv {
 			hf := hpack.HeaderField{Name: k, Value: v}
@@ -1311,6 +1322,19 @@ func (cc *ClientConn) encodeTrailers(req *http.Request) ([]byte, error) {
 	}
 
 	for k, vv := range req.Trailer {
+=======
+	for k, vv := range req.Trailer {
+		for _, v := range vv {
+			hf := hpack.HeaderField{Name: k, Value: v}
+			hlSize += uint64(hf.Size())
+		}
+	}
+	if hlSize > cc.peerMaxHeaderListSize {
+		return nil, errRequestHeaderListSize
+	}
+
+	for k, vv := range req.Trailer {
+>>>>>>> Initial dep workover
 		// Transfer-Encoding, etc.. have already been filtered at the
 		// start of RoundTrip
 		lowKey := strings.ToLower(k)
@@ -1523,6 +1547,19 @@ func (rl *clientConnReadLoop) run() error {
 
 func (rl *clientConnReadLoop) processHeaders(f *MetaHeadersFrame) error {
 	cc := rl.cc
+<<<<<<< HEAD
+=======
+	if f.StreamEnded() {
+		// Issue 20521: If the stream has ended, streamByID() causes
+		// clientStream.done to be closed, which causes the request's bodyWriter
+		// to be closed with an errStreamClosed, which may be received by
+		// clientConn.RoundTrip before the result of processing these headers.
+		// Deferring stream closure allows the header processing to occur first.
+		// clientConn.RoundTrip may still receive the bodyWriter error first, but
+		// the fix for issue 16102 prioritises any response.
+		defer cc.streamByID(f.StreamID, true)
+	}
+>>>>>>> Initial dep workover
 	cs := cc.streamByID(f.StreamID, false)
 	if cs == nil {
 		// We'd get here if we canceled a request while the
@@ -1917,6 +1954,10 @@ func (rl *clientConnReadLoop) endStreamError(cs *clientStream, err error) {
 		rl.closeWhenIdle = true
 	}
 	cs.bufPipe.closeWithErrorAndCode(err, code)
+<<<<<<< HEAD
+=======
+	delete(rl.activeRes, cs.ID)
+>>>>>>> Initial dep workover
 
 	select {
 	case cs.resc <- resAndError{err: err}:

@@ -8,6 +8,7 @@ load(
 
 go_test(
     name = "go_default_test",
+<<<<<<< HEAD
     srcs = [
         "helpers_test.go",
         "unstructured_list_test.go",
@@ -19,6 +20,12 @@ go_test(
         "//vendor/github.com/stretchr/testify/require:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
     ],
+=======
+    srcs = ["unstructured_test.go"],
+    importpath = "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured",
+    library = ":go_default_library",
+    deps = ["//vendor/github.com/stretchr/testify/assert:go_default_library"],
+>>>>>>> Initial dep workover
 )
 
 go_library(

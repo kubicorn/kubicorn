@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -170,6 +174,7 @@ message Binding {
   optional ObjectReference target = 2;
 }
 
+<<<<<<< HEAD
 // Represents storage that is managed by an external CSI volume driver
 message CSIPersistentVolumeSource {
   // Driver is the name of the driver to use for this volume.
@@ -187,6 +192,8 @@ message CSIPersistentVolumeSource {
   optional bool readOnly = 3;
 }
 
+=======
+>>>>>>> Initial dep workover
 // Adds and removes POSIX capabilities from running containers.
 message Capabilities {
   // Added capabilities
@@ -533,6 +540,7 @@ message Container {
   // +patchStrategy=merge
   repeated VolumeMount volumeMounts = 9;
 
+<<<<<<< HEAD
   // volumeDevices is the list of block devices to be used by the container.
   // This is an alpha feature and may change in the future.
   // +patchMergeKey=devicePath
@@ -540,6 +548,8 @@ message Container {
   // +optional
   repeated VolumeDevice volumeDevices = 21;
 
+=======
+>>>>>>> Initial dep workover
   // Periodic probe of container liveness.
   // Container will be restarted if the probe fails.
   // Cannot be updated.
@@ -789,10 +799,13 @@ message DeleteOptions {
   // Either this field or OrphanDependents may be set, but not both.
   // The default policy is decided by the existing finalizer set in the
   // metadata.finalizers and the resource-specific default policy.
+<<<<<<< HEAD
   // Acceptable values are: 'Orphan' - orphan the dependents; 'Background' -
   // allow the garbage collector to delete the dependents in the background;
   // 'Foreground' - a cascading policy that deletes all dependents in the
   // foreground.
+=======
+>>>>>>> Initial dep workover
   // +optional
   optional string propagationPolicy = 4;
 }
@@ -1029,6 +1042,10 @@ message EnvVarSource {
 }
 
 // Event is a report of an event somewhere in the cluster.
+<<<<<<< HEAD
+=======
+// TODO: Decide whether to store these separately or with the object they apply to.
+>>>>>>> Initial dep workover
 message Event {
   // Standard object's metadata.
   // More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
@@ -1067,6 +1084,7 @@ message Event {
   // Type of this event (Normal, Warning), new types could be added in the future
   // +optional
   optional string type = 9;
+<<<<<<< HEAD
 
   // Time when this Event was first observed.
   // +optional
@@ -1091,6 +1109,8 @@ message Event {
   // ID of the controller instance, e.g. `kubelet-xyzf`.
   // +optional
   optional string reportingInstance = 15;
+=======
+>>>>>>> Initial dep workover
 }
 
 // EventList is a list of events.
@@ -1104,6 +1124,7 @@ message EventList {
   repeated Event items = 2;
 }
 
+<<<<<<< HEAD
 // EventSeries contain information on series of events, i.e. thing that was/is happening
 // continously for some time.
 message EventSeries {
@@ -1117,6 +1138,8 @@ message EventSeries {
   optional string state = 3;
 }
 
+=======
+>>>>>>> Initial dep workover
 // EventSource contains information for an event.
 message EventSource {
   // Component from which the event is generated.
@@ -1170,7 +1193,11 @@ message FCVolumeSource {
 }
 
 // FlexVolume represents a generic volume resource that is
+<<<<<<< HEAD
 // provisioned/attached using an exec based plugin.
+=======
+// provisioned/attached using an exec based plugin. This is an alpha feature and may change in future.
+>>>>>>> Initial dep workover
 message FlexVolumeSource {
   // Driver is the name of the driver to use for this volume.
   optional string driver = 1;
@@ -1363,6 +1390,7 @@ message HostPathVolumeSource {
   optional string type = 2;
 }
 
+<<<<<<< HEAD
 // ISCSIPersistentVolumeSource represents an ISCSI disk.
 // ISCSI volumes can only be mounted as read/write once.
 // ISCSI volumes support ownership management and SELinux relabeling.
@@ -1419,22 +1447,35 @@ message ISCSIPersistentVolumeSource {
   optional string initiatorName = 12;
 }
 
+=======
+>>>>>>> Initial dep workover
 // Represents an ISCSI disk.
 // ISCSI volumes can only be mounted as read/write once.
 // ISCSI volumes support ownership management and SELinux relabeling.
 message ISCSIVolumeSource {
+<<<<<<< HEAD
   // iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port
+=======
+  // iSCSI target portal. The portal is either an IP or ip_addr:port if the port
+>>>>>>> Initial dep workover
   // is other than default (typically TCP ports 860 and 3260).
   optional string targetPortal = 1;
 
   // Target iSCSI Qualified Name.
   optional string iqn = 2;
 
+<<<<<<< HEAD
   // iSCSI Target Lun number.
   optional int32 lun = 3;
 
   // iSCSI Interface Name that uses an iSCSI transport.
   // Defaults to 'default' (tcp).
+=======
+  // iSCSI target lun number.
+  optional int32 lun = 3;
+
+  // Optional: Defaults to 'default' (tcp). iSCSI interface name that uses an iSCSI transport.
+>>>>>>> Initial dep workover
   // +optional
   optional string iscsiInterface = 4;
 
@@ -1451,7 +1492,11 @@ message ISCSIVolumeSource {
   // +optional
   optional bool readOnly = 6;
 
+<<<<<<< HEAD
   // iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port
+=======
+  // iSCSI target portal List. The portal is either an IP or ip_addr:port if the port
+>>>>>>> Initial dep workover
   // is other than default (typically TCP ports 860 and 3260).
   // +optional
   repeated string portals = 7;
@@ -1464,11 +1509,19 @@ message ISCSIVolumeSource {
   // +optional
   optional bool chapAuthSession = 11;
 
+<<<<<<< HEAD
   // CHAP Secret for iSCSI target and initiator authentication
   // +optional
   optional LocalObjectReference secretRef = 10;
 
   // Custom iSCSI Initiator Name.
+=======
+  // CHAP secret for iSCSI target and initiator authentication
+  // +optional
+  optional LocalObjectReference secretRef = 10;
+
+  // Custom iSCSI initiator name.
+>>>>>>> Initial dep workover
   // If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface
   // <target portal>:<volume name> will be created for the connection.
   // +optional
@@ -2319,12 +2372,15 @@ message PersistentVolumeClaimSpec {
   // More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
   // +optional
   optional string storageClassName = 5;
+<<<<<<< HEAD
 
   // volumeMode defines what type of volume is required by the claim.
   // Value of Filesystem is implied when not included in claim spec.
   // This is an alpha feature and may change in the future.
   // +optional
   optional string volumeMode = 6;
+=======
+>>>>>>> Initial dep workover
 }
 
 // PersistentVolumeClaimStatus is the current status of a persistent volume claim.
@@ -2419,7 +2475,11 @@ message PersistentVolumeSource {
   // ISCSI represents an ISCSI Disk resource that is attached to a
   // kubelet's host machine and then exposed to the pod. Provisioned by an admin.
   // +optional
+<<<<<<< HEAD
   optional ISCSIPersistentVolumeSource iscsi = 7;
+=======
+  optional ISCSIVolumeSource iscsi = 7;
+>>>>>>> Initial dep workover
 
   // Cinder represents a cinder volume attached and mounted on kubelets host machine
   // More info: https://releases.k8s.io/HEAD/examples/mysql-cinder-pd/README.md
@@ -2439,7 +2499,12 @@ message PersistentVolumeSource {
   optional FlockerVolumeSource flocker = 11;
 
   // FlexVolume represents a generic volume resource that is
+<<<<<<< HEAD
   // provisioned/attached using an exec based plugin.
+=======
+  // provisioned/attached using an exec based plugin. This is an
+  // alpha feature and may change in future.
+>>>>>>> Initial dep workover
   // +optional
   optional FlexVolumeSource flexVolume = 12;
 
@@ -2478,10 +2543,13 @@ message PersistentVolumeSource {
   // More info: https://releases.k8s.io/HEAD/examples/volumes/storageos/README.md
   // +optional
   optional StorageOSPersistentVolumeSource storageos = 21;
+<<<<<<< HEAD
 
   // CSI represents storage that handled by an external CSI driver
   // +optional
   optional CSIPersistentVolumeSource csi = 22;
+=======
+>>>>>>> Initial dep workover
 }
 
 // PersistentVolumeSpec is the specification of a persistent volume.
@@ -2523,12 +2591,15 @@ message PersistentVolumeSpec {
   // More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
   // +optional
   repeated string mountOptions = 7;
+<<<<<<< HEAD
 
   // volumeMode defines if a volume is intended to be used with a formatted filesystem
   // or to remain in raw block state. Value of Filesystem is implied when not included in spec.
   // This is an alpha feature and may change in the future.
   // +optional
   optional string volumeMode = 8;
+=======
+>>>>>>> Initial dep workover
 }
 
 // PersistentVolumeStatus is the current status of a persistent volume.
@@ -2625,7 +2696,14 @@ message PodAffinityTerm {
   // the labelSelector in the specified namespaces, where co-located is defined as running on a node
   // whose value of the label with key topologyKey matches that of any node on which any of the
   // selected pods is running.
+<<<<<<< HEAD
   // Empty topologyKey is not allowed.
+=======
+  // For PreferredDuringScheduling pod anti-affinity, empty topologyKey is interpreted as "all topologies"
+  // ("all topologies" here means all the topologyKeys indicated by scheduler command-line argument --failure-domains);
+  // for affinity and for RequiredDuringScheduling pod anti-affinity, empty topologyKey is not allowed.
+  // +optional
+>>>>>>> Initial dep workover
   optional string topologyKey = 3;
 }
 
@@ -2716,6 +2794,7 @@ message PodCondition {
   optional string message = 6;
 }
 
+<<<<<<< HEAD
 // PodDNSConfig defines the DNS parameters of a pod in addition to
 // those generated from DNSPolicy.
 message PodDNSConfig {
@@ -2748,6 +2827,8 @@ message PodDNSConfigOption {
   optional string value = 2;
 }
 
+=======
+>>>>>>> Initial dep workover
 // PodExecOptions is the query options to a Pod's remote exec call.
 // ---
 // TODO: This is largely identical to PodAttachOptions above, make sure they stay in sync and see about merging
@@ -2972,6 +3053,7 @@ message PodSpec {
   // +optional
   optional int64 activeDeadlineSeconds = 5;
 
+<<<<<<< HEAD
   // Set DNS policy for the pod.
   // Defaults to "ClusterFirst".
   // Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'.
@@ -2979,6 +3061,12 @@ message PodSpec {
   // To have DNS options set along with hostNetwork, you have to specify DNS policy
   // explicitly to 'ClusterFirstWithHostNet'.
   // Note that 'None' policy is an alpha feature introduced in v1.9 and CustomPodDNS feature gate must be enabled to use it.
+=======
+  // Set DNS policy for containers within the pod.
+  // One of 'ClusterFirstWithHostNet', 'ClusterFirst' or 'Default'.
+  // Defaults to "ClusterFirst".
+  // To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+>>>>>>> Initial dep workover
   // +optional
   optional string dnsPolicy = 6;
 
@@ -3087,6 +3175,7 @@ message PodSpec {
   // The higher the value, the higher the priority.
   // +optional
   optional int32 priority = 25;
+<<<<<<< HEAD
 
   // Specifies the DNS parameters of a pod.
   // Parameters specified here will be merged to the generated DNS
@@ -3094,6 +3183,8 @@ message PodSpec {
   // This is an alpha feature introduced in v1.9 and CustomPodDNS feature gate must be enabled to use it.
   // +optional
   optional PodDNSConfig dnsConfig = 26;
+=======
+>>>>>>> Initial dep workover
 }
 
 // PodStatus represents information about the status of a pod. Status may trail the actual
@@ -4153,8 +4244,12 @@ message ServiceSpec {
 
   // externalName is the external reference that kubedns or equivalent will
   // return as a CNAME record for this service. No proxying will be involved.
+<<<<<<< HEAD
   // Must be a valid RFC-1123 hostname (https://tools.ietf.org/html/rfc1123)
   // and requires Type to be ExternalName.
+=======
+  // Must be a valid DNS name and requires Type to be ExternalName.
+>>>>>>> Initial dep workover
   // +optional
   optional string externalName = 10;
 
@@ -4359,6 +4454,7 @@ message Volume {
   optional VolumeSource volumeSource = 2;
 }
 
+<<<<<<< HEAD
 // volumeDevice describes a mapping of a raw block device within a container.
 message VolumeDevice {
   // name must match the name of a persistentVolumeClaim in the pod
@@ -4368,6 +4464,8 @@ message VolumeDevice {
   optional string devicePath = 2;
 }
 
+=======
+>>>>>>> Initial dep workover
 // VolumeMount describes a mounting of a Volume within a container.
 message VolumeMount {
   // This must match the Name of a Volume.
@@ -4476,7 +4574,12 @@ message VolumeSource {
   optional RBDVolumeSource rbd = 11;
 
   // FlexVolume represents a generic volume resource that is
+<<<<<<< HEAD
   // provisioned/attached using an exec based plugin.
+=======
+  // provisioned/attached using an exec based plugin. This is an
+  // alpha feature and may change in future.
+>>>>>>> Initial dep workover
   // +optional
   optional FlexVolumeSource flexVolume = 12;
 

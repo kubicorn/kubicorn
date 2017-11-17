@@ -229,6 +229,7 @@ const opAddTagsToVault = "AddTagsToVault"
 // client's request for the AddTagsToVault operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -236,6 +237,15 @@ const opAddTagsToVault = "AddTagsToVault"
 // See AddTagsToVault for more information on using the AddTagsToVault
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AddTagsToVault for more information on using the AddTagsToVault
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -325,6 +335,7 @@ const opCompleteMultipartUpload = "CompleteMultipartUpload"
 // client's request for the CompleteMultipartUpload operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -332,6 +343,15 @@ const opCompleteMultipartUpload = "CompleteMultipartUpload"
 // See CompleteMultipartUpload for more information on using the CompleteMultipartUpload
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CompleteMultipartUpload for more information on using the CompleteMultipartUpload
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -454,6 +474,7 @@ const opCompleteVaultLock = "CompleteVaultLock"
 // client's request for the CompleteVaultLock operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -461,6 +482,15 @@ const opCompleteVaultLock = "CompleteVaultLock"
 // See CompleteVaultLock for more information on using the CompleteVaultLock
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CompleteVaultLock for more information on using the CompleteVaultLock
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -556,6 +586,7 @@ const opCreateVault = "CreateVault"
 // client's request for the CreateVault operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -563,6 +594,15 @@ const opCreateVault = "CreateVault"
 // See CreateVault for more information on using the CreateVault
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateVault for more information on using the CreateVault
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -664,6 +704,7 @@ const opDeleteArchive = "DeleteArchive"
 // client's request for the DeleteArchive operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -671,6 +712,15 @@ const opDeleteArchive = "DeleteArchive"
 // See DeleteArchive for more information on using the DeleteArchive
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteArchive for more information on using the DeleteArchive
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -776,6 +826,7 @@ const opDeleteVault = "DeleteVault"
 // client's request for the DeleteVault operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -783,6 +834,15 @@ const opDeleteVault = "DeleteVault"
 // See DeleteVault for more information on using the DeleteVault
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVault for more information on using the DeleteVault
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -886,6 +946,7 @@ const opDeleteVaultAccessPolicy = "DeleteVaultAccessPolicy"
 // client's request for the DeleteVaultAccessPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -893,6 +954,15 @@ const opDeleteVaultAccessPolicy = "DeleteVaultAccessPolicy"
 // See DeleteVaultAccessPolicy for more information on using the DeleteVaultAccessPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVaultAccessPolicy for more information on using the DeleteVaultAccessPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -983,6 +1053,7 @@ const opDeleteVaultNotifications = "DeleteVaultNotifications"
 // client's request for the DeleteVaultNotifications operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -990,6 +1061,15 @@ const opDeleteVaultNotifications = "DeleteVaultNotifications"
 // See DeleteVaultNotifications for more information on using the DeleteVaultNotifications
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVaultNotifications for more information on using the DeleteVaultNotifications
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1085,6 +1165,7 @@ const opDescribeJob = "DescribeJob"
 // client's request for the DescribeJob operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1092,6 +1173,15 @@ const opDescribeJob = "DescribeJob"
 // See DescribeJob for more information on using the DescribeJob
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeJob for more information on using the DescribeJob
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1192,6 +1282,7 @@ const opDescribeVault = "DescribeVault"
 // client's request for the DescribeVault operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1199,6 +1290,15 @@ const opDescribeVault = "DescribeVault"
 // See DescribeVault for more information on using the DescribeVault
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeVault for more information on using the DescribeVault
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1297,6 +1397,7 @@ const opGetDataRetrievalPolicy = "GetDataRetrievalPolicy"
 // client's request for the GetDataRetrievalPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1304,6 +1405,15 @@ const opGetDataRetrievalPolicy = "GetDataRetrievalPolicy"
 // See GetDataRetrievalPolicy for more information on using the GetDataRetrievalPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetDataRetrievalPolicy for more information on using the GetDataRetrievalPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1381,6 +1491,7 @@ const opGetJobOutput = "GetJobOutput"
 // client's request for the GetJobOutput operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1388,6 +1499,15 @@ const opGetJobOutput = "GetJobOutput"
 // See GetJobOutput for more information on using the GetJobOutput
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetJobOutput for more information on using the GetJobOutput
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2028,6 +2148,7 @@ const opInitiateVaultLock = "InitiateVaultLock"
 // client's request for the InitiateVaultLock operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2035,6 +2156,15 @@ const opInitiateVaultLock = "InitiateVaultLock"
 // See InitiateVaultLock for more information on using the InitiateVaultLock
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See InitiateVaultLock for more information on using the InitiateVaultLock
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2142,6 +2272,7 @@ const opListJobs = "ListJobs"
 // client's request for the ListJobs operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2149,6 +2280,15 @@ const opListJobs = "ListJobs"
 // See ListJobs for more information on using the ListJobs
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListJobs for more information on using the ListJobs
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2655,6 +2795,7 @@ const opListProvisionedCapacity = "ListProvisionedCapacity"
 // client's request for the ListProvisionedCapacity operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2662,6 +2803,15 @@ const opListProvisionedCapacity = "ListProvisionedCapacity"
 // See ListProvisionedCapacity for more information on using the ListProvisionedCapacity
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListProvisionedCapacity for more information on using the ListProvisionedCapacity
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2738,6 +2888,7 @@ const opListTagsForVault = "ListTagsForVault"
 // client's request for the ListTagsForVault operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2745,6 +2896,15 @@ const opListTagsForVault = "ListTagsForVault"
 // See ListTagsForVault for more information on using the ListTagsForVault
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListTagsForVault for more information on using the ListTagsForVault
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2826,6 +2986,7 @@ const opListVaults = "ListVaults"
 // client's request for the ListVaults operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2833,6 +2994,15 @@ const opListVaults = "ListVaults"
 // See ListVaults for more information on using the ListVaults
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListVaults for more information on using the ListVaults
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2988,6 +3158,7 @@ const opPurchaseProvisionedCapacity = "PurchaseProvisionedCapacity"
 // client's request for the PurchaseProvisionedCapacity operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2995,6 +3166,15 @@ const opPurchaseProvisionedCapacity = "PurchaseProvisionedCapacity"
 // See PurchaseProvisionedCapacity for more information on using the PurchaseProvisionedCapacity
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PurchaseProvisionedCapacity for more information on using the PurchaseProvisionedCapacity
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3073,6 +3253,7 @@ const opRemoveTagsFromVault = "RemoveTagsFromVault"
 // client's request for the RemoveTagsFromVault operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3080,6 +3261,15 @@ const opRemoveTagsFromVault = "RemoveTagsFromVault"
 // See RemoveTagsFromVault for more information on using the RemoveTagsFromVault
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RemoveTagsFromVault for more information on using the RemoveTagsFromVault
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3165,6 +3355,7 @@ const opSetDataRetrievalPolicy = "SetDataRetrievalPolicy"
 // client's request for the SetDataRetrievalPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3172,6 +3363,15 @@ const opSetDataRetrievalPolicy = "SetDataRetrievalPolicy"
 // See SetDataRetrievalPolicy for more information on using the SetDataRetrievalPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetDataRetrievalPolicy for more information on using the SetDataRetrievalPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3255,6 +3455,7 @@ const opSetVaultAccessPolicy = "SetVaultAccessPolicy"
 // client's request for the SetVaultAccessPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3262,6 +3463,15 @@ const opSetVaultAccessPolicy = "SetVaultAccessPolicy"
 // See SetVaultAccessPolicy for more information on using the SetVaultAccessPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetVaultAccessPolicy for more information on using the SetVaultAccessPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //

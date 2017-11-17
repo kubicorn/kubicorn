@@ -1200,7 +1200,11 @@ func (c *StorageGateway) CreateTapeWithBarcodeRequest(input *CreateTapeWithBarco
 // Creates a virtual tape by using your own barcode. You write data to the virtual
 // tape and then archive the tape. A barcode is unique and can not be reused
 // if it has already been used on a tape . This applies to barcodes used on
+<<<<<<< HEAD
 // deleted tapes. This operation is only supported in the tape gateway type.
+=======
+// deleted tapes. This operation is only supported in the tape gateway. architecture.
+>>>>>>> Initial dep workover
 //
 // Cache storage must be allocated to the gateway before you can create a virtual
 // tape. Use the AddCache operation to add cache storage to a gateway.
@@ -4657,8 +4661,12 @@ func (c *StorageGateway) RefreshCacheRequest(input *RefreshCacheInput) (req *req
 //
 // Refreshes the cache for the specified file share. This operation finds objects
 // in the Amazon S3 bucket that were added, removed or replaced since the gateway
+<<<<<<< HEAD
 // last listed the bucket's contents and cached the results. This operation
 // is only supported in the file gateway type.
+=======
+// last listed the bucket's contents and cached the results.
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -8200,10 +8208,17 @@ type DeleteFileShareInput struct {
 	// FileShareARN is a required field
 	FileShareARN *string `min:"50" type:"string" required:"true"`
 
+<<<<<<< HEAD
 	// If this value is set to true, the operation deletes a file share immediately
 	// and aborts all data uploads to AWS. Otherwise, the file share is not deleted
 	// until all data is uploaded to AWS. This process aborts the data upload process,
 	// and the file share enters the FORCE_DELETING status.
+=======
+	// If set to true, deletes a file share immediately and aborts all data uploads
+	// to AWS. Otherwise the file share is not deleted until all data is uploaded
+	// to AWS. This process aborts the data upload process and the file share enters
+	// the FORCE_DELETING status.
+>>>>>>> Initial dep workover
 	ForceDelete *bool `type:"boolean"`
 }
 

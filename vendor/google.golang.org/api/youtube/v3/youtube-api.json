@@ -1,12 +1,20 @@
 {
  "kind": "discovery#restDescription",
+<<<<<<< HEAD
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/QsthGWG9JYScjn9llsqMMChWCIQ\"",
+=======
+ "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/4-8iVRS7XjXc8_q8wbRC_IRggBY\"",
+>>>>>>> Initial dep workover
  "discoveryVersion": "v1",
  "id": "youtube:v3",
  "name": "youtube",
  "canonicalName": "YouTube",
  "version": "v3",
+<<<<<<< HEAD
  "revision": "20171129",
+=======
+ "revision": "20171101",
+>>>>>>> Initial dep workover
  "title": "YouTube Data API",
  "description": "Supports core YouTube features, such as uploading videos, creating and managing playlists, searching for content, and much more.",
  "ownerDomain": "google.com",

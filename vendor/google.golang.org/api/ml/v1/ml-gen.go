@@ -672,6 +672,7 @@ type GoogleCloudMlV1__ListJobsResponse struct {
 func (s *GoogleCloudMlV1__ListJobsResponse) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleCloudMlV1__ListJobsResponse
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -709,6 +710,8 @@ type GoogleCloudMlV1__ListLocationsResponse struct {
 func (s *GoogleCloudMlV1__ListLocationsResponse) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleCloudMlV1__ListLocationsResponse
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -785,6 +788,7 @@ type GoogleCloudMlV1__ListVersionsResponse struct {
 func (s *GoogleCloudMlV1__ListVersionsResponse) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleCloudMlV1__ListVersionsResponse
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -818,6 +822,8 @@ type GoogleCloudMlV1__Location struct {
 func (s *GoogleCloudMlV1__Location) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleCloudMlV1__Location
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -986,7 +992,10 @@ type GoogleCloudMlV1__OperationMetadata struct {
 	//   "DELETE_MODEL" - An operation to delete an existing model.
 	//   "UPDATE_MODEL" - An operation to update an existing model.
 	//   "UPDATE_VERSION" - An operation to update an existing version.
+<<<<<<< HEAD
 	//   "UPDATE_CONFIG" - An operation to update project configuration.
+=======
+>>>>>>> Initial dep workover
 	OperationType string `json:"operationType,omitempty"`
 
 	// ProjectNumber: Contains the project number associated with the
@@ -1792,6 +1801,60 @@ type GoogleCloudMlV1__Version struct {
 func (s *GoogleCloudMlV1__Version) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleCloudMlV1__Version
 	raw := NoMethod(*s)
+<<<<<<< HEAD
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// GoogleIamV1__AuditConfig: Specifies the audit configuration for a
+// service.
+// The configuration determines which permission types are logged, and
+// what
+// identities, if any, are exempted from logging.
+// An AuditConfig must have one or more AuditLogConfigs.
+//
+// If there are AuditConfigs for both `allServices` and a specific
+// service,
+// the union of the two AuditConfigs is used for that service: the
+// log_types
+// specified in each AuditConfig are enabled, and the exempted_members
+// in each
+// AuditConfig are exempted.
+//
+// Example Policy with multiple AuditConfigs:
+//
+//     {
+//       "audit_configs": [
+//         {
+//           "service": "allServices"
+//           "audit_log_configs": [
+//             {
+//               "log_type": "DATA_READ",
+//               "exempted_members": [
+//                 "user:foo@gmail.com"
+//               ]
+//             },
+//             {
+//               "log_type": "DATA_WRITE",
+//             },
+//             {
+//               "log_type": "ADMIN_READ",
+//             }
+//           ]
+//         },
+//         {
+//           "service": "fooservice.googleapis.com"
+//           "audit_log_configs": [
+//             {
+//               "log_type": "DATA_READ",
+//             },
+//             {
+//               "log_type": "DATA_WRITE",
+//               "exempted_members": [
+//                 "user:bar@gmail.com"
+//               ]
+//             }
+//           ]
+=======
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -2058,10 +2121,23 @@ func (s *GoogleIamV1__Binding) MarshalJSON() ([]byte, error) {
 //         {
 //           "role": "roles/viewer",
 //           "members": ["user:sean@example.com"]
+>>>>>>> Initial dep workover
 //         }
 //       ]
 //     }
 //
+<<<<<<< HEAD
+// For fooservice, this policy enables DATA_READ, DATA_WRITE and
+// ADMIN_READ
+// logging. It also exempts foo@gmail.com from DATA_READ logging,
+// and
+// bar@gmail.com from DATA_WRITE logging.
+type GoogleIamV1__AuditConfig struct {
+	// AuditLogConfigs: The configuration for logging of each type of
+	// permission.
+	// Next ID: 4
+	AuditLogConfigs []*GoogleIamV1__AuditLogConfig `json:"auditLogConfigs,omitempty"`
+=======
 // For a description of IAM and its features, see the
 // [IAM developer's guide](https://cloud.google.com/iam).
 type GoogleIamV1__Policy struct {
@@ -2243,6 +2319,7 @@ func (s *GoogleIamV1__TestIamPermissionsResponse) MarshalJSON() ([]byte, error) 
 type GoogleLongrunning__ListOperationsResponse struct {
 	// NextPageToken: The standard List next-page token.
 	NextPageToken string `json:"nextPageToken,omitempty"`
+>>>>>>> Initial dep workover
 
 	// Operations: A list of operations that matches the specified filter in
 	// the request.
@@ -2269,8 +2346,13 @@ type GoogleLongrunning__ListOperationsResponse struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *GoogleIamV1__AuditConfig) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleIamV1__AuditConfig
+=======
 func (s *GoogleLongrunning__ListOperationsResponse) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleLongrunning__ListOperationsResponse
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
@@ -2344,8 +2426,13 @@ type GoogleLongrunning__Operation struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *GoogleIamV1__AuditLogConfig) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleIamV1__AuditLogConfig
+=======
 func (s *GoogleLongrunning__Operation) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleLongrunning__Operation
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
@@ -2481,6 +2568,109 @@ type GoogleRpc__Status struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *GoogleIamV1__Binding) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleIamV1__Binding
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// GoogleIamV1__Policy: Defines an Identity and Access Management (IAM)
+// policy. It is used to
+// specify access control policies for Cloud Platform resources.
+//
+//
+// A `Policy` consists of a list of `bindings`. A `Binding` binds a list
+// of
+// `members` to a `role`, where the members can be user accounts, Google
+// groups,
+// Google domains, and service accounts. A `role` is a named list of
+// permissions
+// defined by IAM.
+//
+// **Example**
+//
+//     {
+//       "bindings": [
+//         {
+//           "role": "roles/owner",
+//           "members": [
+//             "user:mike@example.com",
+//             "group:admins@example.com",
+//             "domain:google.com",
+//
+// "serviceAccount:my-other-app@appspot.gserviceaccount.com",
+//           ]
+//         },
+//         {
+//           "role": "roles/viewer",
+//           "members": ["user:sean@example.com"]
+//         }
+//       ]
+//     }
+//
+// For a description of IAM and its features, see the
+// [IAM developer's guide](https://cloud.google.com/iam).
+type GoogleIamV1__Policy struct {
+	// AuditConfigs: Specifies cloud audit logging configuration for this
+	// policy.
+	AuditConfigs []*GoogleIamV1__AuditConfig `json:"auditConfigs,omitempty"`
+
+	// Bindings: Associates a list of `members` to a `role`.
+	// `bindings` with no members will result in an error.
+	Bindings []*GoogleIamV1__Binding `json:"bindings,omitempty"`
+
+	// Etag: `etag` is used for optimistic concurrency control as a way to
+	// help
+	// prevent simultaneous updates of a policy from overwriting each
+	// other.
+	// It is strongly suggested that systems make use of the `etag` in
+	// the
+	// read-modify-write cycle to perform policy updates in order to avoid
+	// race
+	// conditions: An `etag` is returned in the response to `getIamPolicy`,
+	// and
+	// systems are expected to put that etag in the request to
+	// `setIamPolicy` to
+	// ensure that their change will be applied to the same version of the
+	// policy.
+	//
+	// If no `etag` is provided in the call to `setIamPolicy`, then the
+	// existing
+	// policy is overwritten blindly.
+	Etag string `json:"etag,omitempty"`
+
+	IamOwned bool `json:"iamOwned,omitempty"`
+
+	// Version: Version of the `Policy`. The default version is 0.
+	Version int64 `json:"version,omitempty"`
+
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+
+	// ForceSendFields is a list of field names (e.g. "AuditConfigs") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "AuditConfigs") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *GoogleIamV1__Policy) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleIamV1__Policy
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+=======
 func (s *GoogleRpc__Status) MarshalJSON() ([]byte, error) {
 	type NoMethod GoogleRpc__Status
 	raw := NoMethod(*s)
@@ -2648,6 +2838,671 @@ func (c *ProjectsGetConfigCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMl
 	if err := googleapi.CheckResponse(res); err != nil {
 		return nil, err
 	}
+	ret := &GoogleCloudMlV1__GetConfigResponse{
+		ServerResponse: googleapi.ServerResponse{
+			Header:         res.Header,
+			HTTPStatusCode: res.StatusCode,
+		},
+	}
+	target := &ret
+	if err := gensupport.DecodeResponse(target, res); err != nil {
+		return nil, err
+	}
+	return ret, nil
+	// {
+	//   "description": "Get the service account information associated with your project. You need\nthis information in order to grant the service account persmissions for\nthe Google Cloud Storage location where you put your model training code\nfor training the model with Google Cloud Machine Learning.",
+	//   "flatPath": "v1/projects/{projectsId}:getConfig",
+	//   "httpMethod": "GET",
+	//   "id": "ml.projects.getConfig",
+	//   "parameterOrder": [
+	//     "name"
+	//   ],
+	//   "parameters": {
+	//     "name": {
+	//       "description": "Required. The project name.",
+	//       "location": "path",
+	//       "pattern": "^projects/[^/]+$",
+	//       "required": true,
+	//       "type": "string"
+	//     }
+	//   },
+	//   "path": "v1/{+name}:getConfig",
+	//   "response": {
+	//     "$ref": "GoogleCloudMlV1__GetConfigResponse"
+	//   },
+	//   "scopes": [
+	//     "https://www.googleapis.com/auth/cloud-platform"
+	//   ]
+	// }
+
+}
+
+// method id "ml.projects.predict":
+
+type ProjectsPredictCall struct {
+	s                               *Service
+	name                            string
+	googlecloudmlv1__predictrequest *GoogleCloudMlV1__PredictRequest
+	urlParams_                      gensupport.URLParams
+	ctx_                            context.Context
+	header_                         http.Header
+}
+
+// Predict: Performs prediction on the data in the request.
+//
+// **** REMOVE FROM GENERATED DOCUMENTATION
+func (r *ProjectsService) Predict(name string, googlecloudmlv1__predictrequest *GoogleCloudMlV1__PredictRequest) *ProjectsPredictCall {
+	c := &ProjectsPredictCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.name = name
+	c.googlecloudmlv1__predictrequest = googlecloudmlv1__predictrequest
+	return c
+>>>>>>> Initial dep workover
+}
+
+// Fields allows partial responses to be retrieved. See
+// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
+// for more information.
+func (c *ProjectsPredictCall) Fields(s ...googleapi.Field) *ProjectsPredictCall {
+	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+<<<<<<< HEAD
+func (s *GoogleIamV1__SetIamPolicyRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleIamV1__SetIamPolicyRequest
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+=======
+// Context sets the context to be used in this call's Do method. Any
+// pending HTTP request will be aborted if the provided context is
+// canceled.
+func (c *ProjectsPredictCall) Context(ctx context.Context) *ProjectsPredictCall {
+	c.ctx_ = ctx
+	return c
+>>>>>>> Initial dep workover
+}
+
+// Header returns an http.Header that can be modified by the caller to
+// add HTTP headers to the request.
+func (c *ProjectsPredictCall) Header() http.Header {
+	if c.header_ == nil {
+		c.header_ = make(http.Header)
+	}
+	return c.header_
+}
+
+<<<<<<< HEAD
+func (s *GoogleIamV1__TestIamPermissionsRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleIamV1__TestIamPermissionsRequest
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+=======
+func (c *ProjectsPredictCall) doRequest(alt string) (*http.Response, error) {
+	reqHeaders := make(http.Header)
+	for k, v := range c.header_ {
+		reqHeaders[k] = v
+	}
+	reqHeaders.Set("User-Agent", c.s.userAgent())
+	var body io.Reader = nil
+	body, err := googleapi.WithoutDataWrapper.JSONReader(c.googlecloudmlv1__predictrequest)
+	if err != nil {
+		return nil, err
+	}
+	reqHeaders.Set("Content-Type", "application/json")
+	c.urlParams_.Set("alt", alt)
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+name}:predict")
+	urls += "?" + c.urlParams_.Encode()
+	req, _ := http.NewRequest("POST", urls, body)
+	req.Header = reqHeaders
+	googleapi.Expand(req.URL, map[string]string{
+		"name": c.name,
+	})
+	return gensupport.SendRequest(c.ctx_, c.s.client, req)
+>>>>>>> Initial dep workover
+}
+
+// Do executes the "ml.projects.predict" call.
+// Exactly one of *GoogleApi__HttpBody or error will be non-nil. Any
+// non-2xx status code is an error. Response headers are in either
+// *GoogleApi__HttpBody.ServerResponse.Header or (if a response was
+// returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *ProjectsPredictCall) Do(opts ...googleapi.CallOption) (*GoogleApi__HttpBody, error) {
+	gensupport.SetOptions(c.urlParams_, opts...)
+	res, err := c.doRequest("json")
+	if res != nil && res.StatusCode == http.StatusNotModified {
+		if res.Body != nil {
+			res.Body.Close()
+		}
+		return nil, &googleapi.Error{
+			Code:   res.StatusCode,
+			Header: res.Header,
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	defer googleapi.CloseBody(res)
+	if err := googleapi.CheckResponse(res); err != nil {
+		return nil, err
+	}
+	ret := &GoogleApi__HttpBody{
+		ServerResponse: googleapi.ServerResponse{
+			Header:         res.Header,
+			HTTPStatusCode: res.StatusCode,
+		},
+	}
+	target := &ret
+	if err := gensupport.DecodeResponse(target, res); err != nil {
+		return nil, err
+	}
+	return ret, nil
+	// {
+	//   "description": "Performs prediction on the data in the request.\n\n**** REMOVE FROM GENERATED DOCUMENTATION",
+	//   "flatPath": "v1/projects/{projectsId}:predict",
+	//   "httpMethod": "POST",
+	//   "id": "ml.projects.predict",
+	//   "parameterOrder": [
+	//     "name"
+	//   ],
+	//   "parameters": {
+	//     "name": {
+	//       "description": "Required. The resource name of a model or a version.\n\nAuthorization: requires the `predict` permission on the specified resource.",
+	//       "location": "path",
+	//       "pattern": "^projects/.+$",
+	//       "required": true,
+	//       "type": "string"
+	//     }
+	//   },
+	//   "path": "v1/{+name}:predict",
+	//   "request": {
+	//     "$ref": "GoogleCloudMlV1__PredictRequest"
+	//   },
+	//   "response": {
+	//     "$ref": "GoogleApi__HttpBody"
+	//   },
+	//   "scopes": [
+	//     "https://www.googleapis.com/auth/cloud-platform"
+	//   ]
+	// }
+
+<<<<<<< HEAD
+func (s *GoogleIamV1__TestIamPermissionsResponse) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleIamV1__TestIamPermissionsResponse
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+=======
+>>>>>>> Initial dep workover
+}
+
+// method id "ml.projects.jobs.cancel":
+
+type ProjectsJobsCancelCall struct {
+	s                                 *Service
+	name                              string
+	googlecloudmlv1__canceljobrequest *GoogleCloudMlV1__CancelJobRequest
+	urlParams_                        gensupport.URLParams
+	ctx_                              context.Context
+	header_                           http.Header
+}
+
+<<<<<<< HEAD
+func (s *GoogleLongrunning__ListOperationsResponse) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleLongrunning__ListOperationsResponse
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// GoogleLongrunning__Operation: This resource represents a long-running
+// operation that is the result of a
+// network API call.
+type GoogleLongrunning__Operation struct {
+	// Done: If the value is `false`, it means the operation is still in
+	// progress.
+	// If `true`, the operation is completed, and either `error` or
+	// `response` is
+	// available.
+	Done bool `json:"done,omitempty"`
+
+	// Error: The error result of the operation in case of failure or
+	// cancellation.
+	Error *GoogleRpc__Status `json:"error,omitempty"`
+
+	// Metadata: Service-specific metadata associated with the operation.
+	// It typically
+	// contains progress information and common metadata such as create
+	// time.
+	// Some services might not provide such metadata.  Any method that
+	// returns a
+	// long-running operation should document the metadata type, if any.
+	Metadata googleapi.RawMessage `json:"metadata,omitempty"`
+
+	// Name: The server-assigned name, which is only unique within the same
+	// service that
+	// originally returns it. If you use the default HTTP mapping,
+	// the
+	// `name` should have the format of `operations/some/unique/name`.
+	Name string `json:"name,omitempty"`
+
+	// Response: The normal response of the operation in case of success.
+	// If the original
+	// method returns no data on success, such as `Delete`, the response
+	// is
+	// `google.protobuf.Empty`.  If the original method is
+	// standard
+	// `Get`/`Create`/`Update`, the response should be the resource.  For
+	// other
+	// methods, the response should have the type `XxxResponse`, where
+	// `Xxx`
+	// is the original method name.  For example, if the original method
+	// name
+	// is `TakeSnapshot()`, the inferred response type
+	// is
+	// `TakeSnapshotResponse`.
+	Response googleapi.RawMessage `json:"response,omitempty"`
+
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+
+	// ForceSendFields is a list of field names (e.g. "Done") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Done") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *GoogleLongrunning__Operation) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleLongrunning__Operation
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+=======
+// Cancel: Cancels a running job.
+func (r *ProjectsJobsService) Cancel(name string, googlecloudmlv1__canceljobrequest *GoogleCloudMlV1__CancelJobRequest) *ProjectsJobsCancelCall {
+	c := &ProjectsJobsCancelCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.name = name
+	c.googlecloudmlv1__canceljobrequest = googlecloudmlv1__canceljobrequest
+	return c
+}
+
+// Fields allows partial responses to be retrieved. See
+// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
+// for more information.
+func (c *ProjectsJobsCancelCall) Fields(s ...googleapi.Field) *ProjectsJobsCancelCall {
+	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+// Context sets the context to be used in this call's Do method. Any
+// pending HTTP request will be aborted if the provided context is
+// canceled.
+func (c *ProjectsJobsCancelCall) Context(ctx context.Context) *ProjectsJobsCancelCall {
+	c.ctx_ = ctx
+	return c
+>>>>>>> Initial dep workover
+}
+
+// Header returns an http.Header that can be modified by the caller to
+// add HTTP headers to the request.
+func (c *ProjectsJobsCancelCall) Header() http.Header {
+	if c.header_ == nil {
+		c.header_ = make(http.Header)
+	}
+	return c.header_
+}
+
+func (c *ProjectsJobsCancelCall) doRequest(alt string) (*http.Response, error) {
+	reqHeaders := make(http.Header)
+	for k, v := range c.header_ {
+		reqHeaders[k] = v
+	}
+	reqHeaders.Set("User-Agent", c.s.userAgent())
+	var body io.Reader = nil
+	body, err := googleapi.WithoutDataWrapper.JSONReader(c.googlecloudmlv1__canceljobrequest)
+	if err != nil {
+		return nil, err
+	}
+	reqHeaders.Set("Content-Type", "application/json")
+	c.urlParams_.Set("alt", alt)
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+name}:cancel")
+	urls += "?" + c.urlParams_.Encode()
+	req, _ := http.NewRequest("POST", urls, body)
+	req.Header = reqHeaders
+	googleapi.Expand(req.URL, map[string]string{
+		"name": c.name,
+	})
+	return gensupport.SendRequest(c.ctx_, c.s.client, req)
+}
+
+// Do executes the "ml.projects.jobs.cancel" call.
+// Exactly one of *GoogleProtobuf__Empty or error will be non-nil. Any
+// non-2xx status code is an error. Response headers are in either
+// *GoogleProtobuf__Empty.ServerResponse.Header or (if a response was
+// returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *ProjectsJobsCancelCall) Do(opts ...googleapi.CallOption) (*GoogleProtobuf__Empty, error) {
+	gensupport.SetOptions(c.urlParams_, opts...)
+	res, err := c.doRequest("json")
+	if res != nil && res.StatusCode == http.StatusNotModified {
+		if res.Body != nil {
+			res.Body.Close()
+		}
+		return nil, &googleapi.Error{
+			Code:   res.StatusCode,
+			Header: res.Header,
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	defer googleapi.CloseBody(res)
+	if err := googleapi.CheckResponse(res); err != nil {
+		return nil, err
+	}
+	ret := &GoogleProtobuf__Empty{
+		ServerResponse: googleapi.ServerResponse{
+			Header:         res.Header,
+			HTTPStatusCode: res.StatusCode,
+		},
+	}
+	target := &ret
+	if err := gensupport.DecodeResponse(target, res); err != nil {
+		return nil, err
+	}
+	return ret, nil
+	// {
+	//   "description": "Cancels a running job.",
+	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}:cancel",
+	//   "httpMethod": "POST",
+	//   "id": "ml.projects.jobs.cancel",
+	//   "parameterOrder": [
+	//     "name"
+	//   ],
+	//   "parameters": {
+	//     "name": {
+	//       "description": "Required. The name of the job to cancel.",
+	//       "location": "path",
+	//       "pattern": "^projects/[^/]+/jobs/[^/]+$",
+	//       "required": true,
+	//       "type": "string"
+	//     }
+	//   },
+	//   "path": "v1/{+name}:cancel",
+	//   "request": {
+	//     "$ref": "GoogleCloudMlV1__CancelJobRequest"
+	//   },
+	//   "response": {
+	//     "$ref": "GoogleProtobuf__Empty"
+	//   },
+	//   "scopes": [
+	//     "https://www.googleapis.com/auth/cloud-platform"
+	//   ]
+	// }
+
+}
+
+// method id "ml.projects.jobs.create":
+
+type ProjectsJobsCreateCall struct {
+	s                    *Service
+	parent               string
+	googlecloudmlv1__job *GoogleCloudMlV1__Job
+	urlParams_           gensupport.URLParams
+	ctx_                 context.Context
+	header_              http.Header
+}
+
+<<<<<<< HEAD
+func (s *GoogleRpc__Status) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleRpc__Status
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+=======
+// Create: Creates a training or a batch prediction job.
+func (r *ProjectsJobsService) Create(parent string, googlecloudmlv1__job *GoogleCloudMlV1__Job) *ProjectsJobsCreateCall {
+	c := &ProjectsJobsCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.parent = parent
+	c.googlecloudmlv1__job = googlecloudmlv1__job
+	return c
+>>>>>>> Initial dep workover
+}
+
+// Fields allows partial responses to be retrieved. See
+// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
+// for more information.
+func (c *ProjectsJobsCreateCall) Fields(s ...googleapi.Field) *ProjectsJobsCreateCall {
+	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+// Context sets the context to be used in this call's Do method. Any
+// pending HTTP request will be aborted if the provided context is
+// canceled.
+func (c *ProjectsJobsCreateCall) Context(ctx context.Context) *ProjectsJobsCreateCall {
+	c.ctx_ = ctx
+	return c
+}
+
+// Header returns an http.Header that can be modified by the caller to
+// add HTTP headers to the request.
+func (c *ProjectsJobsCreateCall) Header() http.Header {
+	if c.header_ == nil {
+		c.header_ = make(http.Header)
+	}
+	return c.header_
+}
+
+func (c *ProjectsJobsCreateCall) doRequest(alt string) (*http.Response, error) {
+	reqHeaders := make(http.Header)
+	for k, v := range c.header_ {
+		reqHeaders[k] = v
+	}
+	reqHeaders.Set("User-Agent", c.s.userAgent())
+	var body io.Reader = nil
+	body, err := googleapi.WithoutDataWrapper.JSONReader(c.googlecloudmlv1__job)
+	if err != nil {
+		return nil, err
+	}
+	reqHeaders.Set("Content-Type", "application/json")
+	c.urlParams_.Set("alt", alt)
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+parent}/jobs")
+	urls += "?" + c.urlParams_.Encode()
+	req, _ := http.NewRequest("POST", urls, body)
+	req.Header = reqHeaders
+	googleapi.Expand(req.URL, map[string]string{
+		"parent": c.parent,
+	})
+	return gensupport.SendRequest(c.ctx_, c.s.client, req)
+}
+
+<<<<<<< HEAD
+func (s *GoogleType__Expr) MarshalJSON() ([]byte, error) {
+	type NoMethod GoogleType__Expr
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+=======
+// Do executes the "ml.projects.jobs.create" call.
+// Exactly one of *GoogleCloudMlV1__Job or error will be non-nil. Any
+// non-2xx status code is an error. Response headers are in either
+// *GoogleCloudMlV1__Job.ServerResponse.Header or (if a response was
+// returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *ProjectsJobsCreateCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV1__Job, error) {
+	gensupport.SetOptions(c.urlParams_, opts...)
+	res, err := c.doRequest("json")
+	if res != nil && res.StatusCode == http.StatusNotModified {
+		if res.Body != nil {
+			res.Body.Close()
+		}
+		return nil, &googleapi.Error{
+			Code:   res.StatusCode,
+			Header: res.Header,
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	defer googleapi.CloseBody(res)
+	if err := googleapi.CheckResponse(res); err != nil {
+		return nil, err
+	}
+	ret := &GoogleCloudMlV1__Job{
+		ServerResponse: googleapi.ServerResponse{
+			Header:         res.Header,
+			HTTPStatusCode: res.StatusCode,
+		},
+	}
+	target := &ret
+	if err := gensupport.DecodeResponse(target, res); err != nil {
+		return nil, err
+	}
+	return ret, nil
+	// {
+	//   "description": "Creates a training or a batch prediction job.",
+	//   "flatPath": "v1/projects/{projectsId}/jobs",
+	//   "httpMethod": "POST",
+	//   "id": "ml.projects.jobs.create",
+	//   "parameterOrder": [
+	//     "parent"
+	//   ],
+	//   "parameters": {
+	//     "parent": {
+	//       "description": "Required. The project name.",
+	//       "location": "path",
+	//       "pattern": "^projects/[^/]+$",
+	//       "required": true,
+	//       "type": "string"
+	//     }
+	//   },
+	//   "path": "v1/{+parent}/jobs",
+	//   "request": {
+	//     "$ref": "GoogleCloudMlV1__Job"
+	//   },
+	//   "response": {
+	//     "$ref": "GoogleCloudMlV1__Job"
+	//   },
+	//   "scopes": [
+	//     "https://www.googleapis.com/auth/cloud-platform"
+	//   ]
+	// }
+
+>>>>>>> Initial dep workover
+}
+
+// method id "ml.projects.jobs.get":
+
+type ProjectsJobsGetCall struct {
+	s            *Service
+	name         string
+	urlParams_   gensupport.URLParams
+	ifNoneMatch_ string
+	ctx_         context.Context
+	header_      http.Header
+}
+
+// Get: Describes a job.
+func (r *ProjectsJobsService) Get(name string) *ProjectsJobsGetCall {
+	c := &ProjectsJobsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.name = name
+	return c
+}
+
+// Fields allows partial responses to be retrieved. See
+// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
+// for more information.
+func (c *ProjectsJobsGetCall) Fields(s ...googleapi.Field) *ProjectsJobsGetCall {
+	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+// IfNoneMatch sets the optional parameter which makes the operation
+// fail if the object's ETag matches the given value. This is useful for
+// getting updates only after the object has changed since the last
+// request. Use googleapi.IsNotModified to check whether the response
+// error from Do is the result of In-None-Match.
+func (c *ProjectsJobsGetCall) IfNoneMatch(entityTag string) *ProjectsJobsGetCall {
+	c.ifNoneMatch_ = entityTag
+	return c
+}
+
+// Context sets the context to be used in this call's Do method. Any
+// pending HTTP request will be aborted if the provided context is
+// canceled.
+func (c *ProjectsJobsGetCall) Context(ctx context.Context) *ProjectsJobsGetCall {
+	c.ctx_ = ctx
+	return c
+}
+
+// Header returns an http.Header that can be modified by the caller to
+// add HTTP headers to the request.
+func (c *ProjectsJobsGetCall) Header() http.Header {
+	if c.header_ == nil {
+		c.header_ = make(http.Header)
+	}
+	return c.header_
+}
+
+func (c *ProjectsJobsGetCall) doRequest(alt string) (*http.Response, error) {
+	reqHeaders := make(http.Header)
+	for k, v := range c.header_ {
+		reqHeaders[k] = v
+	}
+	reqHeaders.Set("User-Agent", c.s.userAgent())
+	if c.ifNoneMatch_ != "" {
+		reqHeaders.Set("If-None-Match", c.ifNoneMatch_)
+	}
+	var body io.Reader = nil
+	c.urlParams_.Set("alt", alt)
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+name}")
+	urls += "?" + c.urlParams_.Encode()
+	req, _ := http.NewRequest("GET", urls, body)
+	req.Header = reqHeaders
+	googleapi.Expand(req.URL, map[string]string{
+		"name": c.name,
+	})
+	return gensupport.SendRequest(c.ctx_, c.s.client, req)
+}
+
+// Do executes the "ml.projects.jobs.get" call.
+// Exactly one of *GoogleCloudMlV1__Job or error will be non-nil. Any
+// non-2xx status code is an error. Response headers are in either
+// *GoogleCloudMlV1__Job.ServerResponse.Header or (if a response was
+// returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *ProjectsJobsGetCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV1__Job, error) {
+	gensupport.SetOptions(c.urlParams_, opts...)
+	res, err := c.doRequest("json")
+	if res != nil && res.StatusCode == http.StatusNotModified {
+		if res.Body != nil {
+			res.Body.Close()
+		}
+		return nil, &googleapi.Error{
+			Code:   res.StatusCode,
+			Header: res.Header,
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	defer googleapi.CloseBody(res)
+	if err := googleapi.CheckResponse(res); err != nil {
+		return nil, err
+	}
+<<<<<<< HEAD
 	ret := &GoogleCloudMlV1__GetConfigResponse{
 		ServerResponse: googleapi.ServerResponse{
 			Header:         res.Header,
@@ -3509,6 +4364,9 @@ func (c *ProjectsJobsListCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV
 		return nil, err
 	}
 	ret := &GoogleCloudMlV1__ListJobsResponse{
+=======
+	ret := &GoogleCloudMlV1__Job{
+>>>>>>> Initial dep workover
 		ServerResponse: googleapi.ServerResponse{
 			Header:         res.Header,
 			HTTPStatusCode: res.StatusCode,
@@ -3520,14 +4378,22 @@ func (c *ProjectsJobsListCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "Lists the jobs in the project.",
 	//   "flatPath": "v1/projects/{projectsId}/jobs",
 	//   "httpMethod": "GET",
 	//   "id": "ml.projects.jobs.list",
+=======
+	//   "description": "Describes a job.",
+	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}",
+	//   "httpMethod": "GET",
+	//   "id": "ml.projects.jobs.get",
+>>>>>>> Initial dep workover
 	//   "parameterOrder": [
 	//     "parent"
 	//   ],
 	//   "parameters": {
+<<<<<<< HEAD
 	//     "filter": {
 	//       "description": "Optional. Specifies the subset of jobs to retrieve.",
 	//       "location": "query",
@@ -3546,15 +4412,25 @@ func (c *ProjectsJobsListCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV
 	//     },
 	//     "parent": {
 	//       "description": "Required. The name of the project for which to list jobs.",
+=======
+	//     "name": {
+	//       "description": "Required. The name of the job to get the description of.",
+>>>>>>> Initial dep workover
 	//       "location": "path",
-	//       "pattern": "^projects/[^/]+$",
+	//       "pattern": "^projects/[^/]+/jobs/[^/]+$",
 	//       "required": true,
 	//       "type": "string"
 	//     }
 	//   },
+<<<<<<< HEAD
 	//   "path": "v1/{+parent}/jobs",
 	//   "response": {
 	//     "$ref": "GoogleCloudMlV1__ListJobsResponse"
+=======
+	//   "path": "v1/{+name}",
+	//   "response": {
+	//     "$ref": "GoogleCloudMlV1__Job"
+>>>>>>> Initial dep workover
 	//   },
 	//   "scopes": [
 	//     "https://www.googleapis.com/auth/cloud-platform"
@@ -3563,6 +4439,7 @@ func (c *ProjectsJobsListCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV
 
 }
 
+<<<<<<< HEAD
 // Pages invokes f for each page of results.
 // A non-nil error returned from f will halt the iteration.
 // The provided context supersedes any context provided to the Context method.
@@ -3631,57 +4508,115 @@ func (r *ProjectsJobsService) Patch(name string, googlecloudmlv1__job *GoogleClo
 // Currently the only supported update masks are `labels` and `etag`.
 func (c *ProjectsJobsPatchCall) UpdateMask(updateMask string) *ProjectsJobsPatchCall {
 	c.urlParams_.Set("updateMask", updateMask)
+=======
+// method id "ml.projects.jobs.getIamPolicy":
+
+type ProjectsJobsGetIamPolicyCall struct {
+	s            *Service
+	resource     string
+	urlParams_   gensupport.URLParams
+	ifNoneMatch_ string
+	ctx_         context.Context
+	header_      http.Header
+}
+
+// GetIamPolicy: Gets the access control policy for a resource.
+// Returns an empty policy if the resource exists and does not have a
+// policy
+// set.
+func (r *ProjectsJobsService) GetIamPolicy(resource string) *ProjectsJobsGetIamPolicyCall {
+	c := &ProjectsJobsGetIamPolicyCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.resource = resource
+>>>>>>> Initial dep workover
 	return c
 }
 
 // Fields allows partial responses to be retrieved. See
 // https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
 // for more information.
+<<<<<<< HEAD
 func (c *ProjectsJobsPatchCall) Fields(s ...googleapi.Field) *ProjectsJobsPatchCall {
+=======
+func (c *ProjectsJobsGetIamPolicyCall) Fields(s ...googleapi.Field) *ProjectsJobsGetIamPolicyCall {
+>>>>>>> Initial dep workover
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+// IfNoneMatch sets the optional parameter which makes the operation
+// fail if the object's ETag matches the given value. This is useful for
+// getting updates only after the object has changed since the last
+// request. Use googleapi.IsNotModified to check whether the response
+// error from Do is the result of In-None-Match.
+func (c *ProjectsJobsGetIamPolicyCall) IfNoneMatch(entityTag string) *ProjectsJobsGetIamPolicyCall {
+	c.ifNoneMatch_ = entityTag
 	return c
 }
 
 // Context sets the context to be used in this call's Do method. Any
 // pending HTTP request will be aborted if the provided context is
 // canceled.
+<<<<<<< HEAD
 func (c *ProjectsJobsPatchCall) Context(ctx context.Context) *ProjectsJobsPatchCall {
+=======
+func (c *ProjectsJobsGetIamPolicyCall) Context(ctx context.Context) *ProjectsJobsGetIamPolicyCall {
+>>>>>>> Initial dep workover
 	c.ctx_ = ctx
 	return c
 }
 
 // Header returns an http.Header that can be modified by the caller to
 // add HTTP headers to the request.
+<<<<<<< HEAD
 func (c *ProjectsJobsPatchCall) Header() http.Header {
+=======
+func (c *ProjectsJobsGetIamPolicyCall) Header() http.Header {
+>>>>>>> Initial dep workover
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 
+<<<<<<< HEAD
 func (c *ProjectsJobsPatchCall) doRequest(alt string) (*http.Response, error) {
+=======
+func (c *ProjectsJobsGetIamPolicyCall) doRequest(alt string) (*http.Response, error) {
+>>>>>>> Initial dep workover
 	reqHeaders := make(http.Header)
 	for k, v := range c.header_ {
 		reqHeaders[k] = v
 	}
 	reqHeaders.Set("User-Agent", c.s.userAgent())
+<<<<<<< HEAD
 	var body io.Reader = nil
 	body, err := googleapi.WithoutDataWrapper.JSONReader(c.googlecloudmlv1__job)
 	if err != nil {
 		return nil, err
+=======
+	if c.ifNoneMatch_ != "" {
+		reqHeaders.Set("If-None-Match", c.ifNoneMatch_)
+>>>>>>> Initial dep workover
 	}
-	reqHeaders.Set("Content-Type", "application/json")
+	var body io.Reader = nil
 	c.urlParams_.Set("alt", alt)
+<<<<<<< HEAD
 	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+name}")
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("PATCH", urls, body)
+=======
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+resource}:getIamPolicy")
+	urls += "?" + c.urlParams_.Encode()
+	req, _ := http.NewRequest("GET", urls, body)
+>>>>>>> Initial dep workover
 	req.Header = reqHeaders
 	googleapi.Expand(req.URL, map[string]string{
-		"name": c.name,
+		"resource": c.resource,
 	})
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 
+<<<<<<< HEAD
 // Do executes the "ml.projects.jobs.patch" call.
 // Exactly one of *GoogleCloudMlV1__Job or error will be non-nil. Any
 // non-2xx status code is an error. Response headers are in either
@@ -3690,6 +4625,16 @@ func (c *ProjectsJobsPatchCall) doRequest(alt string) (*http.Response, error) {
 // googleapi.IsNotModified to check whether the returned error was
 // because http.StatusNotModified was returned.
 func (c *ProjectsJobsPatchCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV1__Job, error) {
+=======
+// Do executes the "ml.projects.jobs.getIamPolicy" call.
+// Exactly one of *GoogleIamV1__Policy or error will be non-nil. Any
+// non-2xx status code is an error. Response headers are in either
+// *GoogleIamV1__Policy.ServerResponse.Header or (if a response was
+// returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *ProjectsJobsGetIamPolicyCall) Do(opts ...googleapi.CallOption) (*GoogleIamV1__Policy, error) {
+>>>>>>> Initial dep workover
 	gensupport.SetOptions(c.urlParams_, opts...)
 	res, err := c.doRequest("json")
 	if res != nil && res.StatusCode == http.StatusNotModified {
@@ -3708,7 +4653,11 @@ func (c *ProjectsJobsPatchCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMl
 	if err := googleapi.CheckResponse(res); err != nil {
 		return nil, err
 	}
+<<<<<<< HEAD
 	ret := &GoogleCloudMlV1__Job{
+=======
+	ret := &GoogleIamV1__Policy{
+>>>>>>> Initial dep workover
 		ServerResponse: googleapi.ServerResponse{
 			Header:         res.Header,
 			HTTPStatusCode: res.StatusCode,
@@ -3720,16 +4669,28 @@ func (c *ProjectsJobsPatchCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMl
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "Updates a specific job resource.\n\nCurrently the only supported fields to update are `labels`.",
 	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}",
 	//   "httpMethod": "PATCH",
 	//   "id": "ml.projects.jobs.patch",
+=======
+	//   "description": "Gets the access control policy for a resource.\nReturns an empty policy if the resource exists and does not have a policy\nset.",
+	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}:getIamPolicy",
+	//   "httpMethod": "GET",
+	//   "id": "ml.projects.jobs.getIamPolicy",
+>>>>>>> Initial dep workover
 	//   "parameterOrder": [
-	//     "name"
+	//     "resource"
 	//   ],
 	//   "parameters": {
+<<<<<<< HEAD
 	//     "name": {
 	//       "description": "Required. The job name.",
+=======
+	//     "resource": {
+	//       "description": "REQUIRED: The resource for which the policy is being requested.\nSee the operation documentation for the appropriate value for this field.",
+>>>>>>> Initial dep workover
 	//       "location": "path",
 	//       "pattern": "^projects/[^/]+/jobs/[^/]+$",
 	//       "required": true,
@@ -3742,12 +4703,18 @@ func (c *ProjectsJobsPatchCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMl
 	//       "type": "string"
 	//     }
 	//   },
+<<<<<<< HEAD
 	//   "path": "v1/{+name}",
 	//   "request": {
 	//     "$ref": "GoogleCloudMlV1__Job"
 	//   },
 	//   "response": {
 	//     "$ref": "GoogleCloudMlV1__Job"
+=======
+	//   "path": "v1/{+resource}:getIamPolicy",
+	//   "response": {
+	//     "$ref": "GoogleIamV1__Policy"
+>>>>>>> Initial dep workover
 	//   },
 	//   "scopes": [
 	//     "https://www.googleapis.com/auth/cloud-platform"
@@ -3756,6 +4723,7 @@ func (c *ProjectsJobsPatchCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMl
 
 }
 
+<<<<<<< HEAD
 // method id "ml.projects.jobs.setIamPolicy":
 
 type ProjectsJobsSetIamPolicyCall struct {
@@ -3774,57 +4742,144 @@ func (r *ProjectsJobsService) SetIamPolicy(resource string, googleiamv1__setiamp
 	c := &ProjectsJobsSetIamPolicyCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.resource = resource
 	c.googleiamv1__setiampolicyrequest = googleiamv1__setiampolicyrequest
+=======
+// method id "ml.projects.jobs.list":
+
+type ProjectsJobsListCall struct {
+	s            *Service
+	parent       string
+	urlParams_   gensupport.URLParams
+	ifNoneMatch_ string
+	ctx_         context.Context
+	header_      http.Header
+}
+
+// List: Lists the jobs in the project.
+func (r *ProjectsJobsService) List(parent string) *ProjectsJobsListCall {
+	c := &ProjectsJobsListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.parent = parent
+	return c
+}
+
+// Filter sets the optional parameter "filter": Specifies the subset of
+// jobs to retrieve.
+func (c *ProjectsJobsListCall) Filter(filter string) *ProjectsJobsListCall {
+	c.urlParams_.Set("filter", filter)
+	return c
+}
+
+// PageSize sets the optional parameter "pageSize": The number of jobs
+// to retrieve per "page" of results. If there
+// are more remaining results than this number, the response message
+// will
+// contain a valid value in the `next_page_token` field.
+//
+// The default value is 20, and the maximum page size is 100.
+func (c *ProjectsJobsListCall) PageSize(pageSize int64) *ProjectsJobsListCall {
+	c.urlParams_.Set("pageSize", fmt.Sprint(pageSize))
+	return c
+}
+
+// PageToken sets the optional parameter "pageToken": A page token to
+// request the next page of results.
+//
+// You get the token from the `next_page_token` field of the response
+// from
+// the previous call.
+func (c *ProjectsJobsListCall) PageToken(pageToken string) *ProjectsJobsListCall {
+	c.urlParams_.Set("pageToken", pageToken)
+>>>>>>> Initial dep workover
 	return c
 }
 
 // Fields allows partial responses to be retrieved. See
 // https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
 // for more information.
+<<<<<<< HEAD
 func (c *ProjectsJobsSetIamPolicyCall) Fields(s ...googleapi.Field) *ProjectsJobsSetIamPolicyCall {
+=======
+func (c *ProjectsJobsListCall) Fields(s ...googleapi.Field) *ProjectsJobsListCall {
+>>>>>>> Initial dep workover
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+// IfNoneMatch sets the optional parameter which makes the operation
+// fail if the object's ETag matches the given value. This is useful for
+// getting updates only after the object has changed since the last
+// request. Use googleapi.IsNotModified to check whether the response
+// error from Do is the result of In-None-Match.
+func (c *ProjectsJobsListCall) IfNoneMatch(entityTag string) *ProjectsJobsListCall {
+	c.ifNoneMatch_ = entityTag
 	return c
 }
 
 // Context sets the context to be used in this call's Do method. Any
 // pending HTTP request will be aborted if the provided context is
 // canceled.
+<<<<<<< HEAD
 func (c *ProjectsJobsSetIamPolicyCall) Context(ctx context.Context) *ProjectsJobsSetIamPolicyCall {
+=======
+func (c *ProjectsJobsListCall) Context(ctx context.Context) *ProjectsJobsListCall {
+>>>>>>> Initial dep workover
 	c.ctx_ = ctx
 	return c
 }
 
 // Header returns an http.Header that can be modified by the caller to
 // add HTTP headers to the request.
+<<<<<<< HEAD
 func (c *ProjectsJobsSetIamPolicyCall) Header() http.Header {
+=======
+func (c *ProjectsJobsListCall) Header() http.Header {
+>>>>>>> Initial dep workover
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 
+<<<<<<< HEAD
 func (c *ProjectsJobsSetIamPolicyCall) doRequest(alt string) (*http.Response, error) {
+=======
+func (c *ProjectsJobsListCall) doRequest(alt string) (*http.Response, error) {
+>>>>>>> Initial dep workover
 	reqHeaders := make(http.Header)
 	for k, v := range c.header_ {
 		reqHeaders[k] = v
 	}
 	reqHeaders.Set("User-Agent", c.s.userAgent())
+<<<<<<< HEAD
 	var body io.Reader = nil
 	body, err := googleapi.WithoutDataWrapper.JSONReader(c.googleiamv1__setiampolicyrequest)
 	if err != nil {
 		return nil, err
+=======
+	if c.ifNoneMatch_ != "" {
+		reqHeaders.Set("If-None-Match", c.ifNoneMatch_)
+>>>>>>> Initial dep workover
 	}
-	reqHeaders.Set("Content-Type", "application/json")
+	var body io.Reader = nil
 	c.urlParams_.Set("alt", alt)
+<<<<<<< HEAD
 	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+resource}:setIamPolicy")
+=======
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+parent}/jobs")
+>>>>>>> Initial dep workover
 	urls += "?" + c.urlParams_.Encode()
-	req, _ := http.NewRequest("POST", urls, body)
+	req, _ := http.NewRequest("GET", urls, body)
 	req.Header = reqHeaders
 	googleapi.Expand(req.URL, map[string]string{
+<<<<<<< HEAD
 		"resource": c.resource,
+=======
+		"parent": c.parent,
+>>>>>>> Initial dep workover
 	})
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 
+<<<<<<< HEAD
 // Do executes the "ml.projects.jobs.setIamPolicy" call.
 // Exactly one of *GoogleIamV1__Policy or error will be non-nil. Any
 // non-2xx status code is an error. Response headers are in either
@@ -3833,6 +4888,17 @@ func (c *ProjectsJobsSetIamPolicyCall) doRequest(alt string) (*http.Response, er
 // googleapi.IsNotModified to check whether the returned error was
 // because http.StatusNotModified was returned.
 func (c *ProjectsJobsSetIamPolicyCall) Do(opts ...googleapi.CallOption) (*GoogleIamV1__Policy, error) {
+=======
+// Do executes the "ml.projects.jobs.list" call.
+// Exactly one of *GoogleCloudMlV1__ListJobsResponse or error will be
+// non-nil. Any non-2xx status code is an error. Response headers are in
+// either *GoogleCloudMlV1__ListJobsResponse.ServerResponse.Header or
+// (if a response was returned at all) in
+// error.(*googleapi.Error).Header. Use googleapi.IsNotModified to check
+// whether the returned error was because http.StatusNotModified was
+// returned.
+func (c *ProjectsJobsListCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV1__ListJobsResponse, error) {
+>>>>>>> Initial dep workover
 	gensupport.SetOptions(c.urlParams_, opts...)
 	res, err := c.doRequest("json")
 	if res != nil && res.StatusCode == http.StatusNotModified {
@@ -3851,7 +4917,11 @@ func (c *ProjectsJobsSetIamPolicyCall) Do(opts ...googleapi.CallOption) (*Google
 	if err := googleapi.CheckResponse(res); err != nil {
 		return nil, err
 	}
+<<<<<<< HEAD
 	ret := &GoogleIamV1__Policy{
+=======
+	ret := &GoogleCloudMlV1__ListJobsResponse{
+>>>>>>> Initial dep workover
 		ServerResponse: googleapi.ServerResponse{
 			Header:         res.Header,
 			HTTPStatusCode: res.StatusCode,
@@ -3863,6 +4933,7 @@ func (c *ProjectsJobsSetIamPolicyCall) Do(opts ...googleapi.CallOption) (*Google
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "Sets the access control policy on the specified resource. Replaces any\nexisting policy.",
 	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}:setIamPolicy",
 	//   "httpMethod": "POST",
@@ -3873,18 +4944,52 @@ func (c *ProjectsJobsSetIamPolicyCall) Do(opts ...googleapi.CallOption) (*Google
 	//   "parameters": {
 	//     "resource": {
 	//       "description": "REQUIRED: The resource for which the policy is being specified.\nSee the operation documentation for the appropriate value for this field.",
+=======
+	//   "description": "Lists the jobs in the project.",
+	//   "flatPath": "v1/projects/{projectsId}/jobs",
+	//   "httpMethod": "GET",
+	//   "id": "ml.projects.jobs.list",
+	//   "parameterOrder": [
+	//     "parent"
+	//   ],
+	//   "parameters": {
+	//     "filter": {
+	//       "description": "Optional. Specifies the subset of jobs to retrieve.",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
+	//     "pageSize": {
+	//       "description": "Optional. The number of jobs to retrieve per \"page\" of results. If there\nare more remaining results than this number, the response message will\ncontain a valid value in the `next_page_token` field.\n\nThe default value is 20, and the maximum page size is 100.",
+	//       "format": "int32",
+	//       "location": "query",
+	//       "type": "integer"
+	//     },
+	//     "pageToken": {
+	//       "description": "Optional. A page token to request the next page of results.\n\nYou get the token from the `next_page_token` field of the response from\nthe previous call.",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
+	//     "parent": {
+	//       "description": "Required. The name of the project for which to list jobs.",
+>>>>>>> Initial dep workover
 	//       "location": "path",
-	//       "pattern": "^projects/[^/]+/jobs/[^/]+$",
+	//       "pattern": "^projects/[^/]+$",
 	//       "required": true,
 	//       "type": "string"
 	//     }
 	//   },
+<<<<<<< HEAD
 	//   "path": "v1/{+resource}:setIamPolicy",
 	//   "request": {
 	//     "$ref": "GoogleIamV1__SetIamPolicyRequest"
 	//   },
 	//   "response": {
 	//     "$ref": "GoogleIamV1__Policy"
+=======
+	//   "path": "v1/{+parent}/jobs",
+	//   "response": {
+	//     "$ref": "GoogleCloudMlV1__ListJobsResponse"
+>>>>>>> Initial dep workover
 	//   },
 	//   "scopes": [
 	//     "https://www.googleapis.com/auth/cloud-platform"
@@ -3893,6 +4998,7 @@ func (c *ProjectsJobsSetIamPolicyCall) Do(opts ...googleapi.CallOption) (*Google
 
 }
 
+<<<<<<< HEAD
 // method id "ml.projects.jobs.testIamPermissions":
 
 type ProjectsJobsTestIamPermissionsCall struct {
@@ -3919,13 +5025,87 @@ func (r *ProjectsJobsService) TestIamPermissions(resource string, googleiamv1__t
 	c := &ProjectsJobsTestIamPermissionsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.resource = resource
 	c.googleiamv1__testiampermissionsrequest = googleiamv1__testiampermissionsrequest
+=======
+// Pages invokes f for each page of results.
+// A non-nil error returned from f will halt the iteration.
+// The provided context supersedes any context provided to the Context method.
+func (c *ProjectsJobsListCall) Pages(ctx context.Context, f func(*GoogleCloudMlV1__ListJobsResponse) error) error {
+	c.ctx_ = ctx
+	defer c.PageToken(c.urlParams_.Get("pageToken")) // reset paging to original point
+	for {
+		x, err := c.Do()
+		if err != nil {
+			return err
+		}
+		if err := f(x); err != nil {
+			return err
+		}
+		if x.NextPageToken == "" {
+			return nil
+		}
+		c.PageToken(x.NextPageToken)
+	}
+}
+
+// method id "ml.projects.jobs.patch":
+
+type ProjectsJobsPatchCall struct {
+	s                    *Service
+	name                 string
+	googlecloudmlv1__job *GoogleCloudMlV1__Job
+	urlParams_           gensupport.URLParams
+	ctx_                 context.Context
+	header_              http.Header
+}
+
+// Patch: Updates a specific job resource.
+//
+// Currently the only supported fields to update are `labels`.
+func (r *ProjectsJobsService) Patch(name string, googlecloudmlv1__job *GoogleCloudMlV1__Job) *ProjectsJobsPatchCall {
+	c := &ProjectsJobsPatchCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.name = name
+	c.googlecloudmlv1__job = googlecloudmlv1__job
+>>>>>>> Initial dep workover
+	return c
+}
+
+// UpdateMask sets the optional parameter "updateMask": Required.
+// Specifies the path, relative to `Job`, of the field to update.
+// To adopt etag mechanism, include `etag` field in the mask, and
+// include the
+// `etag` value in your job resource.
+//
+// For example, to change the labels of a job, the `update_mask`
+// parameter
+// would be specified as `labels`, `etag`, and the
+// `PATCH` request body would specify the new value, as follows:
+//     {
+//       "labels": {
+//          "owner": "Google",
+//          "color": "Blue"
+//       }
+//       "etag": "33a64df551425fcc55e4d42a148795d9f25f89d4"
+//     }
+// If `etag` matches the one on the server, the labels of the job will
+// be
+// replaced with the given ones, and the server end `etag` will
+// be
+// recalculated.
+//
+// Currently the only supported update masks are `labels` and `etag`.
+func (c *ProjectsJobsPatchCall) UpdateMask(updateMask string) *ProjectsJobsPatchCall {
+	c.urlParams_.Set("updateMask", updateMask)
 	return c
 }
 
 // Fields allows partial responses to be retrieved. See
 // https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
 // for more information.
+<<<<<<< HEAD
 func (c *ProjectsJobsTestIamPermissionsCall) Fields(s ...googleapi.Field) *ProjectsJobsTestIamPermissionsCall {
+=======
+func (c *ProjectsJobsPatchCall) Fields(s ...googleapi.Field) *ProjectsJobsPatchCall {
+>>>>>>> Initial dep workover
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
@@ -3933,21 +5113,33 @@ func (c *ProjectsJobsTestIamPermissionsCall) Fields(s ...googleapi.Field) *Proje
 // Context sets the context to be used in this call's Do method. Any
 // pending HTTP request will be aborted if the provided context is
 // canceled.
+<<<<<<< HEAD
 func (c *ProjectsJobsTestIamPermissionsCall) Context(ctx context.Context) *ProjectsJobsTestIamPermissionsCall {
+=======
+func (c *ProjectsJobsPatchCall) Context(ctx context.Context) *ProjectsJobsPatchCall {
+>>>>>>> Initial dep workover
 	c.ctx_ = ctx
 	return c
 }
 
 // Header returns an http.Header that can be modified by the caller to
 // add HTTP headers to the request.
+<<<<<<< HEAD
 func (c *ProjectsJobsTestIamPermissionsCall) Header() http.Header {
+=======
+func (c *ProjectsJobsPatchCall) Header() http.Header {
+>>>>>>> Initial dep workover
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 
+<<<<<<< HEAD
 func (c *ProjectsJobsTestIamPermissionsCall) doRequest(alt string) (*http.Response, error) {
+=======
+func (c *ProjectsJobsPatchCall) doRequest(alt string) (*http.Response, error) {
+>>>>>>> Initial dep workover
 	reqHeaders := make(http.Header)
 	for k, v := range c.header_ {
 		reqHeaders[k] = v
@@ -3960,16 +5152,25 @@ func (c *ProjectsJobsTestIamPermissionsCall) doRequest(alt string) (*http.Respon
 	}
 	reqHeaders.Set("Content-Type", "application/json")
 	c.urlParams_.Set("alt", alt)
+<<<<<<< HEAD
 	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+resource}:testIamPermissions")
+=======
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+name}")
+>>>>>>> Initial dep workover
 	urls += "?" + c.urlParams_.Encode()
-	req, _ := http.NewRequest("POST", urls, body)
+	req, _ := http.NewRequest("PATCH", urls, body)
 	req.Header = reqHeaders
 	googleapi.Expand(req.URL, map[string]string{
+<<<<<<< HEAD
 		"resource": c.resource,
+=======
+		"name": c.name,
+>>>>>>> Initial dep workover
 	})
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 
+<<<<<<< HEAD
 // Do executes the "ml.projects.jobs.testIamPermissions" call.
 // Exactly one of *GoogleIamV1__TestIamPermissionsResponse or error will
 // be non-nil. Any non-2xx status code is an error. Response headers are
@@ -3979,6 +5180,16 @@ func (c *ProjectsJobsTestIamPermissionsCall) doRequest(alt string) (*http.Respon
 // Use googleapi.IsNotModified to check whether the returned error was
 // because http.StatusNotModified was returned.
 func (c *ProjectsJobsTestIamPermissionsCall) Do(opts ...googleapi.CallOption) (*GoogleIamV1__TestIamPermissionsResponse, error) {
+=======
+// Do executes the "ml.projects.jobs.patch" call.
+// Exactly one of *GoogleCloudMlV1__Job or error will be non-nil. Any
+// non-2xx status code is an error. Response headers are in either
+// *GoogleCloudMlV1__Job.ServerResponse.Header or (if a response was
+// returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *ProjectsJobsPatchCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV1__Job, error) {
+>>>>>>> Initial dep workover
 	gensupport.SetOptions(c.urlParams_, opts...)
 	res, err := c.doRequest("json")
 	if res != nil && res.StatusCode == http.StatusNotModified {
@@ -4009,6 +5220,7 @@ func (c *ProjectsJobsTestIamPermissionsCall) Do(opts ...googleapi.CallOption) (*
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "Returns permissions that a caller has on the specified resource.\nIf the resource does not exist, this will return an empty set of\npermissions, not a NOT_FOUND error.\n\nNote: This operation is designed to be used for building permission-aware\nUIs and command-line tools, not for authorization checking. This operation\nmay \"fail open\" without warning.",
 	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}:testIamPermissions",
 	//   "httpMethod": "POST",
@@ -4019,13 +5231,35 @@ func (c *ProjectsJobsTestIamPermissionsCall) Do(opts ...googleapi.CallOption) (*
 	//   "parameters": {
 	//     "resource": {
 	//       "description": "REQUIRED: The resource for which the policy detail is being requested.\nSee the operation documentation for the appropriate value for this field.",
+=======
+	//   "description": "Updates a specific job resource.\n\nCurrently the only supported fields to update are `labels`.",
+	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}",
+	//   "httpMethod": "PATCH",
+	//   "id": "ml.projects.jobs.patch",
+	//   "parameterOrder": [
+	//     "name"
+	//   ],
+	//   "parameters": {
+	//     "name": {
+	//       "description": "Required. The job name.",
+>>>>>>> Initial dep workover
 	//       "location": "path",
 	//       "pattern": "^projects/[^/]+/jobs/[^/]+$",
 	//       "required": true,
 	//       "type": "string"
+	//     },
+	//     "updateMask": {
+	//       "description": "Required. Specifies the path, relative to `Job`, of the field to update.\nTo adopt etag mechanism, include `etag` field in the mask, and include the\n`etag` value in your job resource.\n\nFor example, to change the labels of a job, the `update_mask` parameter\nwould be specified as `labels`, `etag`, and the\n`PATCH` request body would specify the new value, as follows:\n    {\n      \"labels\": {\n         \"owner\": \"Google\",\n         \"color\": \"Blue\"\n      }\n      \"etag\": \"33a64df551425fcc55e4d42a148795d9f25f89d4\"\n    }\nIf `etag` matches the one on the server, the labels of the job will be\nreplaced with the given ones, and the server end `etag` will be\nrecalculated.\n\nCurrently the only supported update masks are `labels` and `etag`.",
+	//       "format": "google-fieldmask",
+	//       "location": "query",
+	//       "type": "string"
 	//     }
 	//   },
+<<<<<<< HEAD
 	//   "path": "v1/{+resource}:testIamPermissions",
+=======
+	//   "path": "v1/{+name}",
+>>>>>>> Initial dep workover
 	//   "request": {
 	//     "$ref": "GoogleIamV1__TestIamPermissionsRequest"
 	//   },
@@ -4039,6 +5273,7 @@ func (c *ProjectsJobsTestIamPermissionsCall) Do(opts ...googleapi.CallOption) (*
 
 }
 
+<<<<<<< HEAD
 // method id "ml.projects.locations.get":
 
 type ProjectsLocationsGetCall struct {
@@ -4056,17 +5291,42 @@ type ProjectsLocationsGetCall struct {
 func (r *ProjectsLocationsService) Get(name string) *ProjectsLocationsGetCall {
 	c := &ProjectsLocationsGetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
+=======
+// method id "ml.projects.jobs.setIamPolicy":
+
+type ProjectsJobsSetIamPolicyCall struct {
+	s                                *Service
+	resource                         string
+	googleiamv1__setiampolicyrequest *GoogleIamV1__SetIamPolicyRequest
+	urlParams_                       gensupport.URLParams
+	ctx_                             context.Context
+	header_                          http.Header
+}
+
+// SetIamPolicy: Sets the access control policy on the specified
+// resource. Replaces any
+// existing policy.
+func (r *ProjectsJobsService) SetIamPolicy(resource string, googleiamv1__setiampolicyrequest *GoogleIamV1__SetIamPolicyRequest) *ProjectsJobsSetIamPolicyCall {
+	c := &ProjectsJobsSetIamPolicyCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.resource = resource
+	c.googleiamv1__setiampolicyrequest = googleiamv1__setiampolicyrequest
+>>>>>>> Initial dep workover
 	return c
 }
 
 // Fields allows partial responses to be retrieved. See
 // https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
 // for more information.
+<<<<<<< HEAD
 func (c *ProjectsLocationsGetCall) Fields(s ...googleapi.Field) *ProjectsLocationsGetCall {
+=======
+func (c *ProjectsJobsSetIamPolicyCall) Fields(s ...googleapi.Field) *ProjectsJobsSetIamPolicyCall {
+>>>>>>> Initial dep workover
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 
+<<<<<<< HEAD
 // IfNoneMatch sets the optional parameter which makes the operation
 // fail if the object's ETag matches the given value. This is useful for
 // getting updates only after the object has changed since the last
@@ -4081,40 +5341,57 @@ func (c *ProjectsLocationsGetCall) IfNoneMatch(entityTag string) *ProjectsLocati
 // pending HTTP request will be aborted if the provided context is
 // canceled.
 func (c *ProjectsLocationsGetCall) Context(ctx context.Context) *ProjectsLocationsGetCall {
+=======
+// Context sets the context to be used in this call's Do method. Any
+// pending HTTP request will be aborted if the provided context is
+// canceled.
+func (c *ProjectsJobsSetIamPolicyCall) Context(ctx context.Context) *ProjectsJobsSetIamPolicyCall {
+>>>>>>> Initial dep workover
 	c.ctx_ = ctx
 	return c
 }
 
 // Header returns an http.Header that can be modified by the caller to
 // add HTTP headers to the request.
+<<<<<<< HEAD
 func (c *ProjectsLocationsGetCall) Header() http.Header {
+=======
+func (c *ProjectsJobsSetIamPolicyCall) Header() http.Header {
+>>>>>>> Initial dep workover
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 
+<<<<<<< HEAD
 func (c *ProjectsLocationsGetCall) doRequest(alt string) (*http.Response, error) {
+=======
+func (c *ProjectsJobsSetIamPolicyCall) doRequest(alt string) (*http.Response, error) {
+>>>>>>> Initial dep workover
 	reqHeaders := make(http.Header)
 	for k, v := range c.header_ {
 		reqHeaders[k] = v
 	}
 	reqHeaders.Set("User-Agent", c.s.userAgent())
-	if c.ifNoneMatch_ != "" {
-		reqHeaders.Set("If-None-Match", c.ifNoneMatch_)
-	}
 	var body io.Reader = nil
+	body, err := googleapi.WithoutDataWrapper.JSONReader(c.googleiamv1__setiampolicyrequest)
+	if err != nil {
+		return nil, err
+	}
+	reqHeaders.Set("Content-Type", "application/json")
 	c.urlParams_.Set("alt", alt)
-	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+name}")
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+resource}:setIamPolicy")
 	urls += "?" + c.urlParams_.Encode()
-	req, _ := http.NewRequest("GET", urls, body)
+	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
 	googleapi.Expand(req.URL, map[string]string{
-		"name": c.name,
+		"resource": c.resource,
 	})
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 
+<<<<<<< HEAD
 // Do executes the "ml.projects.locations.get" call.
 // Exactly one of *GoogleCloudMlV1__Location or error will be non-nil.
 // Any non-2xx status code is an error. Response headers are in either
@@ -4123,6 +5400,16 @@ func (c *ProjectsLocationsGetCall) doRequest(alt string) (*http.Response, error)
 // googleapi.IsNotModified to check whether the returned error was
 // because http.StatusNotModified was returned.
 func (c *ProjectsLocationsGetCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV1__Location, error) {
+=======
+// Do executes the "ml.projects.jobs.setIamPolicy" call.
+// Exactly one of *GoogleIamV1__Policy or error will be non-nil. Any
+// non-2xx status code is an error. Response headers are in either
+// *GoogleIamV1__Policy.ServerResponse.Header or (if a response was
+// returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *ProjectsJobsSetIamPolicyCall) Do(opts ...googleapi.CallOption) (*GoogleIamV1__Policy, error) {
+>>>>>>> Initial dep workover
 	gensupport.SetOptions(c.urlParams_, opts...)
 	res, err := c.doRequest("json")
 	if res != nil && res.StatusCode == http.StatusNotModified {
@@ -4141,7 +5428,11 @@ func (c *ProjectsLocationsGetCall) Do(opts ...googleapi.CallOption) (*GoogleClou
 	if err := googleapi.CheckResponse(res); err != nil {
 		return nil, err
 	}
+<<<<<<< HEAD
 	ret := &GoogleCloudMlV1__Location{
+=======
+	ret := &GoogleIamV1__Policy{
+>>>>>>> Initial dep workover
 		ServerResponse: googleapi.ServerResponse{
 			Header:         res.Header,
 			HTTPStatusCode: res.StatusCode,
@@ -4153,25 +5444,44 @@ func (c *ProjectsLocationsGetCall) Do(opts ...googleapi.CallOption) (*GoogleClou
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "Get the complete list of CMLE capabilities in a location, along with their\nlocation-specific properties.",
 	//   "flatPath": "v1/projects/{projectsId}/locations/{locationsId}",
 	//   "httpMethod": "GET",
 	//   "id": "ml.projects.locations.get",
+=======
+	//   "description": "Sets the access control policy on the specified resource. Replaces any\nexisting policy.",
+	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}:setIamPolicy",
+	//   "httpMethod": "POST",
+	//   "id": "ml.projects.jobs.setIamPolicy",
+>>>>>>> Initial dep workover
 	//   "parameterOrder": [
-	//     "name"
+	//     "resource"
 	//   ],
 	//   "parameters": {
+<<<<<<< HEAD
 	//     "name": {
 	//       "description": "Required. The name of the location.",
+=======
+	//     "resource": {
+	//       "description": "REQUIRED: The resource for which the policy is being specified.\nSee the operation documentation for the appropriate value for this field.",
+>>>>>>> Initial dep workover
 	//       "location": "path",
 	//       "pattern": "^projects/[^/]+/locations/[^/]+$",
 	//       "required": true,
 	//       "type": "string"
 	//     }
 	//   },
-	//   "path": "v1/{+name}",
+	//   "path": "v1/{+resource}:setIamPolicy",
+	//   "request": {
+	//     "$ref": "GoogleIamV1__SetIamPolicyRequest"
+	//   },
 	//   "response": {
+<<<<<<< HEAD
 	//     "$ref": "GoogleCloudMlV1__Location"
+=======
+	//     "$ref": "GoogleIamV1__Policy"
+>>>>>>> Initial dep workover
 	//   },
 	//   "scopes": [
 	//     "https://www.googleapis.com/auth/cloud-platform"
@@ -4180,6 +5490,7 @@ func (c *ProjectsLocationsGetCall) Do(opts ...googleapi.CallOption) (*GoogleClou
 
 }
 
+<<<<<<< HEAD
 // method id "ml.projects.locations.list":
 
 type ProjectsLocationsListCall struct {
@@ -4209,27 +5520,58 @@ func (r *ProjectsLocationsService) List(parent string) *ProjectsLocationsListCal
 func (c *ProjectsLocationsListCall) PageSize(pageSize int64) *ProjectsLocationsListCall {
 	c.urlParams_.Set("pageSize", fmt.Sprint(pageSize))
 	return c
+=======
+// method id "ml.projects.jobs.testIamPermissions":
+
+type ProjectsJobsTestIamPermissionsCall struct {
+	s                                      *Service
+	resource                               string
+	googleiamv1__testiampermissionsrequest *GoogleIamV1__TestIamPermissionsRequest
+	urlParams_                             gensupport.URLParams
+	ctx_                                   context.Context
+	header_                                http.Header
+>>>>>>> Initial dep workover
 }
 
-// PageToken sets the optional parameter "pageToken": A page token to
-// request the next page of results.
+// TestIamPermissions: Returns permissions that a caller has on the
+// specified resource.
+// If the resource does not exist, this will return an empty set
+// of
+// permissions, not a NOT_FOUND error.
 //
+<<<<<<< HEAD
 // You get the token from the `next_page_token` field of the response
 // from
 // the previous call.
 func (c *ProjectsLocationsListCall) PageToken(pageToken string) *ProjectsLocationsListCall {
 	c.urlParams_.Set("pageToken", pageToken)
+=======
+// Note: This operation is designed to be used for building
+// permission-aware
+// UIs and command-line tools, not for authorization checking. This
+// operation
+// may "fail open" without warning.
+func (r *ProjectsJobsService) TestIamPermissions(resource string, googleiamv1__testiampermissionsrequest *GoogleIamV1__TestIamPermissionsRequest) *ProjectsJobsTestIamPermissionsCall {
+	c := &ProjectsJobsTestIamPermissionsCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.resource = resource
+	c.googleiamv1__testiampermissionsrequest = googleiamv1__testiampermissionsrequest
+>>>>>>> Initial dep workover
 	return c
 }
 
 // Fields allows partial responses to be retrieved. See
 // https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
 // for more information.
+<<<<<<< HEAD
 func (c *ProjectsLocationsListCall) Fields(s ...googleapi.Field) *ProjectsLocationsListCall {
+=======
+func (c *ProjectsJobsTestIamPermissionsCall) Fields(s ...googleapi.Field) *ProjectsJobsTestIamPermissionsCall {
+>>>>>>> Initial dep workover
 	c.urlParams_.Set("fields", googleapi.CombineFields(s))
 	return c
 }
 
+<<<<<<< HEAD
 // IfNoneMatch sets the optional parameter which makes the operation
 // fail if the object's ETag matches the given value. This is useful for
 // getting updates only after the object has changed since the last
@@ -4244,40 +5586,61 @@ func (c *ProjectsLocationsListCall) IfNoneMatch(entityTag string) *ProjectsLocat
 // pending HTTP request will be aborted if the provided context is
 // canceled.
 func (c *ProjectsLocationsListCall) Context(ctx context.Context) *ProjectsLocationsListCall {
+=======
+// Context sets the context to be used in this call's Do method. Any
+// pending HTTP request will be aborted if the provided context is
+// canceled.
+func (c *ProjectsJobsTestIamPermissionsCall) Context(ctx context.Context) *ProjectsJobsTestIamPermissionsCall {
+>>>>>>> Initial dep workover
 	c.ctx_ = ctx
 	return c
 }
 
 // Header returns an http.Header that can be modified by the caller to
 // add HTTP headers to the request.
+<<<<<<< HEAD
 func (c *ProjectsLocationsListCall) Header() http.Header {
+=======
+func (c *ProjectsJobsTestIamPermissionsCall) Header() http.Header {
+>>>>>>> Initial dep workover
 	if c.header_ == nil {
 		c.header_ = make(http.Header)
 	}
 	return c.header_
 }
 
+<<<<<<< HEAD
 func (c *ProjectsLocationsListCall) doRequest(alt string) (*http.Response, error) {
+=======
+func (c *ProjectsJobsTestIamPermissionsCall) doRequest(alt string) (*http.Response, error) {
+>>>>>>> Initial dep workover
 	reqHeaders := make(http.Header)
 	for k, v := range c.header_ {
 		reqHeaders[k] = v
 	}
 	reqHeaders.Set("User-Agent", c.s.userAgent())
-	if c.ifNoneMatch_ != "" {
-		reqHeaders.Set("If-None-Match", c.ifNoneMatch_)
-	}
 	var body io.Reader = nil
+	body, err := googleapi.WithoutDataWrapper.JSONReader(c.googleiamv1__testiampermissionsrequest)
+	if err != nil {
+		return nil, err
+	}
+	reqHeaders.Set("Content-Type", "application/json")
 	c.urlParams_.Set("alt", alt)
+<<<<<<< HEAD
 	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+parent}/locations")
+=======
+	urls := googleapi.ResolveRelative(c.s.BasePath, "v1/{+resource}:testIamPermissions")
+>>>>>>> Initial dep workover
 	urls += "?" + c.urlParams_.Encode()
-	req, _ := http.NewRequest("GET", urls, body)
+	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
 	googleapi.Expand(req.URL, map[string]string{
-		"parent": c.parent,
+		"resource": c.resource,
 	})
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 
+<<<<<<< HEAD
 // Do executes the "ml.projects.locations.list" call.
 // Exactly one of *GoogleCloudMlV1__ListLocationsResponse or error will
 // be non-nil. Any non-2xx status code is an error. Response headers are
@@ -4287,6 +5650,17 @@ func (c *ProjectsLocationsListCall) doRequest(alt string) (*http.Response, error
 // Use googleapi.IsNotModified to check whether the returned error was
 // because http.StatusNotModified was returned.
 func (c *ProjectsLocationsListCall) Do(opts ...googleapi.CallOption) (*GoogleCloudMlV1__ListLocationsResponse, error) {
+=======
+// Do executes the "ml.projects.jobs.testIamPermissions" call.
+// Exactly one of *GoogleIamV1__TestIamPermissionsResponse or error will
+// be non-nil. Any non-2xx status code is an error. Response headers are
+// in either
+// *GoogleIamV1__TestIamPermissionsResponse.ServerResponse.Header or (if
+// a response was returned at all) in error.(*googleapi.Error).Header.
+// Use googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *ProjectsJobsTestIamPermissionsCall) Do(opts ...googleapi.CallOption) (*GoogleIamV1__TestIamPermissionsResponse, error) {
+>>>>>>> Initial dep workover
 	gensupport.SetOptions(c.urlParams_, opts...)
 	res, err := c.doRequest("json")
 	if res != nil && res.StatusCode == http.StatusNotModified {
@@ -4305,7 +5679,11 @@ func (c *ProjectsLocationsListCall) Do(opts ...googleapi.CallOption) (*GoogleClo
 	if err := googleapi.CheckResponse(res); err != nil {
 		return nil, err
 	}
+<<<<<<< HEAD
 	ret := &GoogleCloudMlV1__ListLocationsResponse{
+=======
+	ret := &GoogleIamV1__TestIamPermissionsResponse{
+>>>>>>> Initial dep workover
 		ServerResponse: googleapi.ServerResponse{
 			Header:         res.Header,
 			HTTPStatusCode: res.StatusCode,
@@ -4317,14 +5695,22 @@ func (c *ProjectsLocationsListCall) Do(opts ...googleapi.CallOption) (*GoogleClo
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "List all locations that provides at least one type of CMLE capability.",
 	//   "flatPath": "v1/projects/{projectsId}/locations",
 	//   "httpMethod": "GET",
 	//   "id": "ml.projects.locations.list",
+=======
+	//   "description": "Returns permissions that a caller has on the specified resource.\nIf the resource does not exist, this will return an empty set of\npermissions, not a NOT_FOUND error.\n\nNote: This operation is designed to be used for building permission-aware\nUIs and command-line tools, not for authorization checking. This operation\nmay \"fail open\" without warning.",
+	//   "flatPath": "v1/projects/{projectsId}/jobs/{jobsId}:testIamPermissions",
+	//   "httpMethod": "POST",
+	//   "id": "ml.projects.jobs.testIamPermissions",
+>>>>>>> Initial dep workover
 	//   "parameterOrder": [
-	//     "parent"
+	//     "resource"
 	//   ],
 	//   "parameters": {
+<<<<<<< HEAD
 	//     "pageSize": {
 	//       "description": "Optional. The number of locations to retrieve per \"page\" of results. If there\nare more remaining results than this number, the response message will\ncontain a valid value in the `next_page_token` field.\n\nThe default value is 20, and the maximum page size is 100.",
 	//       "format": "int32",
@@ -4338,15 +5724,28 @@ func (c *ProjectsLocationsListCall) Do(opts ...googleapi.CallOption) (*GoogleClo
 	//     },
 	//     "parent": {
 	//       "description": "Required. The name of the project for which available locations are to be\nlisted (since some locations might be whitelisted for specific projects).",
+=======
+	//     "resource": {
+	//       "description": "REQUIRED: The resource for which the policy detail is being requested.\nSee the operation documentation for the appropriate value for this field.",
+>>>>>>> Initial dep workover
 	//       "location": "path",
-	//       "pattern": "^projects/[^/]+$",
+	//       "pattern": "^projects/[^/]+/jobs/[^/]+$",
 	//       "required": true,
 	//       "type": "string"
 	//     }
 	//   },
+<<<<<<< HEAD
 	//   "path": "v1/{+parent}/locations",
 	//   "response": {
 	//     "$ref": "GoogleCloudMlV1__ListLocationsResponse"
+=======
+	//   "path": "v1/{+resource}:testIamPermissions",
+	//   "request": {
+	//     "$ref": "GoogleIamV1__TestIamPermissionsRequest"
+	//   },
+	//   "response": {
+	//     "$ref": "GoogleIamV1__TestIamPermissionsResponse"
+>>>>>>> Initial dep workover
 	//   },
 	//   "scopes": [
 	//     "https://www.googleapis.com/auth/cloud-platform"
@@ -4355,6 +5754,7 @@ func (c *ProjectsLocationsListCall) Do(opts ...googleapi.CallOption) (*GoogleClo
 
 }
 
+<<<<<<< HEAD
 // Pages invokes f for each page of results.
 // A non-nil error returned from f will halt the iteration.
 // The provided context supersedes any context provided to the Context method.
@@ -4376,6 +5776,8 @@ func (c *ProjectsLocationsListCall) Pages(ctx context.Context, f func(*GoogleClo
 	}
 }
 
+=======
+>>>>>>> Initial dep workover
 // method id "ml.projects.models.create":
 
 type ProjectsModelsCreateCall struct {

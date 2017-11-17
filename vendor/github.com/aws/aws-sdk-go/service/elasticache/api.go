@@ -4016,7 +4016,11 @@ const opModifyReplicationGroupShardConfiguration = "ModifyReplicationGroupShardC
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfiguration
+>>>>>>> Initial dep workover
 func (c *ElastiCache) ModifyReplicationGroupShardConfigurationRequest(input *ModifyReplicationGroupShardConfigurationInput) (req *request.Request, output *ModifyReplicationGroupShardConfigurationOutput) {
 	op := &request.Operation{
 		Name:       opModifyReplicationGroupShardConfiguration,
@@ -4083,7 +4087,11 @@ func (c *ElastiCache) ModifyReplicationGroupShardConfigurationRequest(input *Mod
 //   * ErrCodeInvalidParameterCombinationException "InvalidParameterCombination"
 //   Two or more incompatible parameters were specified.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfiguration
+>>>>>>> Initial dep workover
 func (c *ElastiCache) ModifyReplicationGroupShardConfiguration(input *ModifyReplicationGroupShardConfigurationInput) (*ModifyReplicationGroupShardConfigurationOutput, error) {
 	req, out := c.ModifyReplicationGroupShardConfigurationRequest(input)
 	return out, req.Send()
@@ -4877,7 +4885,11 @@ func (s *AuthorizeCacheSecurityGroupIngressOutput) SetCacheSecurityGroup(v *Cach
 }
 
 // Describes an Availability Zone in which the cluster is launched.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AvailabilityZone
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AvailabilityZone
+>>>>>>> Initial dep workover
 type AvailabilityZone struct {
 	_ struct{} `type:"structure"`
 
@@ -4902,7 +4914,11 @@ func (s *AvailabilityZone) SetName(v string) *AvailabilityZone {
 }
 
 // Contains all of the attributes of a specific cluster.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheCluster
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheCluster
+>>>>>>> Initial dep workover
 type CacheCluster struct {
 	_ struct{} `type:"structure"`
 
@@ -5464,7 +5480,11 @@ func (s *CacheNode) SetSourceCacheNodeId(v string) *CacheNode {
 // A parameter that has a different value for each cache node type it is applied
 // to. For example, in a Redis cluster, a cache.m1.large cache node type would
 // have a larger maxmemory value than a cache.m1.small type.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheNodeTypeSpecificParameter
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheNodeTypeSpecificParameter
+>>>>>>> Initial dep workover
 type CacheNodeTypeSpecificParameter struct {
 	_ struct{} `type:"structure"`
 
@@ -5778,7 +5798,11 @@ func (s *CacheSecurityGroup) SetOwnerId(v string) *CacheSecurityGroup {
 }
 
 // Represents a cluster's status within a particular cache security group.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheSecurityGroupMembership
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CacheSecurityGroupMembership
+>>>>>>> Initial dep workover
 type CacheSecurityGroupMembership struct {
 	_ struct{} `type:"structure"`
 
@@ -7253,7 +7277,11 @@ func (s *CreateReplicationGroupInput) SetTransitEncryptionEnabled(v bool) *Creat
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateReplicationGroupResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateReplicationGroupResult
+>>>>>>> Initial dep workover
 type CreateReplicationGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9343,7 +9371,11 @@ func (s *EngineDefaults) SetParameters(v []*Parameter) *EngineDefaults {
 // Represents a single occurrence of something interesting within the system.
 // Some examples of events are creating a cluster, adding or removing a cache
 // node, or rebooting a node.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Event
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Event
+>>>>>>> Initial dep workover
 type Event struct {
 	_ struct{} `type:"structure"`
 
@@ -9441,7 +9473,11 @@ func (s *ListAllowedNodeTypeModificationsInput) SetReplicationGroupId(v string) 
 
 // Represents the allowed node types you can use to modify your cluster or replication
 // group.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AllowedNodeTypeModificationsMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/AllowedNodeTypeModificationsMessage
+>>>>>>> Initial dep workover
 type ListAllowedNodeTypeModificationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10358,7 +10394,11 @@ func (s *ModifyReplicationGroupOutput) SetReplicationGroup(v *ReplicationGroup) 
 }
 
 // Represents the input for a ModifyReplicationGroupShardConfiguration operation.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfigurationMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfigurationMessage
+>>>>>>> Initial dep workover
 type ModifyReplicationGroupShardConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10457,7 +10497,11 @@ func (s *ModifyReplicationGroupShardConfigurationInput) SetReshardingConfigurati
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfigurationResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ModifyReplicationGroupShardConfigurationResult
+>>>>>>> Initial dep workover
 type ModifyReplicationGroupShardConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10672,7 +10716,11 @@ func (s *NodeGroupMember) SetReadEndpoint(v *Endpoint) *NodeGroupMember {
 }
 
 // Represents an individual cache node in a snapshot of a cluster.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/NodeSnapshot
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/NodeSnapshot
+>>>>>>> Initial dep workover
 type NodeSnapshot struct {
 	_ struct{} `type:"structure"`
 
@@ -10926,7 +10974,11 @@ func (s *ParameterNameValue) SetParameterValue(v string) *ParameterNameValue {
 
 // A group of settings that are applied to the cluster in the future, or that
 // are currently being applied.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/PendingModifiedValues
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/PendingModifiedValues
+>>>>>>> Initial dep workover
 type PendingModifiedValues struct {
 	_ struct{} `type:"structure"`
 
@@ -11902,7 +11954,11 @@ func (s *ResetCacheParameterGroupInput) SetResetAllParameters(v bool) *ResetCach
 
 // A list of PreferredAvailabilityZones objects that specifies the configuration
 // of a node group in the resharded cluster.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReshardingConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReshardingConfiguration
+>>>>>>> Initial dep workover
 type ReshardingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -11927,7 +11983,11 @@ func (s *ReshardingConfiguration) SetPreferredAvailabilityZones(v []*string) *Re
 }
 
 // The status of an online resharding operation.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReshardingStatus
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/ReshardingStatus
+>>>>>>> Initial dep workover
 type ReshardingStatus struct {
 	_ struct{} `type:"structure"`
 
@@ -12088,7 +12148,11 @@ func (s *SecurityGroupMembership) SetStatus(v string) *SecurityGroupMembership {
 }
 
 // Represents the progress of an online resharding operation.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/SlotMigration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/SlotMigration
+>>>>>>> Initial dep workover
 type SlotMigration struct {
 	_ struct{} `type:"structure"`
 
@@ -12114,7 +12178,11 @@ func (s *SlotMigration) SetProgressPercentage(v float64) *SlotMigration {
 
 // Represents a copy of an entire Redis cluster as of the time when the snapshot
 // was taken.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Snapshot
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Snapshot
+>>>>>>> Initial dep workover
 type Snapshot struct {
 	_ struct{} `type:"structure"`
 
@@ -12455,7 +12523,11 @@ func (s *Snapshot) SetVpcId(v string) *Snapshot {
 // Represents the subnet associated with a cluster. This parameter refers to
 // subnets defined in Amazon Virtual Private Cloud (Amazon VPC) and used with
 // ElastiCache.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Subnet
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/Subnet
+>>>>>>> Initial dep workover
 type Subnet struct {
 	_ struct{} `type:"structure"`
 

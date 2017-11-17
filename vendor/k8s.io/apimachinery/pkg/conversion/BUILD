@@ -45,6 +45,10 @@ filegroup(
     srcs = [
         ":package-srcs",
         "//staging/src/k8s.io/apimachinery/pkg/conversion/queryparams:all-srcs",
+<<<<<<< HEAD
+=======
+        "//staging/src/k8s.io/apimachinery/pkg/conversion/unstructured:all-srcs",
+>>>>>>> Initial dep workover
     ],
     tags = ["automanaged"],
 )

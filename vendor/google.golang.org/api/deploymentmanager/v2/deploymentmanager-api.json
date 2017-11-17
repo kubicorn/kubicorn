@@ -1,12 +1,20 @@
 {
  "kind": "discovery#restDescription",
+<<<<<<< HEAD
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/GDaMgEo2rpzvf2TXCj_2gpZ3fIE\"",
+=======
+ "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/4coXG-kLdOLe0xqn_lc-mbxcObg\"",
+>>>>>>> Initial dep workover
  "discoveryVersion": "v1",
  "id": "deploymentmanager:v2",
  "name": "deploymentmanager",
  "canonicalName": "Deployment Manager",
  "version": "v2",
+<<<<<<< HEAD
  "revision": "20171201",
+=======
+ "revision": "20170925",
+>>>>>>> Initial dep workover
  "title": "Google Cloud Deployment Manager API",
  "description": "Declares, configures, and deploys complex solutions on Google Cloud Platform.",
  "ownerDomain": "google.com",

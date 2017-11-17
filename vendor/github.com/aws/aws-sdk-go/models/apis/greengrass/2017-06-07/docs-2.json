@@ -306,7 +306,11 @@
       }
     },
     "InternalServerErrorException" : {
+<<<<<<< HEAD
       "base" : "The server encountered an unexpected error.",
+=======
+      "base" : "Server Error",
+>>>>>>> Initial dep workover
       "refs" : { }
     },
     "ListDefinitionsResponse" : {
@@ -423,12 +427,15 @@
       "base" : null,
       "refs" : { }
     },
+<<<<<<< HEAD
     "Permission" : {
       "base" : "Type of permissions a function could have to access a resource.",
       "refs" : {
         "ResourceAccessPolicy$Permission" : "The function's access permission to the resource."
       }
     },
+=======
+>>>>>>> Initial dep workover
     "ResetDeploymentsRequest" : {
       "base" : "Information needed to perform a reset of a group's deployments.",
       "refs" : { }
@@ -437,6 +444,7 @@
       "base" : null,
       "refs" : { }
     },
+<<<<<<< HEAD
     "Resource" : {
       "base" : "Information on the resource.",
       "refs" : {
@@ -473,6 +481,8 @@
         "CreateSoftwareUpdateJobRequest$SoftwareToUpdate" : null
       }
     },
+=======
+>>>>>>> Initial dep workover
     "Subscription" : {
       "base" : "Information on subscription",
       "refs" : {
@@ -533,8 +543,11 @@
         "Core$SyncShadow" : "If true, the local shadow value automatically syncs with the cloud's shadow state.",
         "Device$SyncShadow" : "If true, the local shadow value automatically syncs with the cloud's shadow state.",
         "FunctionConfiguration$Pinned" : "Whether the function is pinned or not. Pinned means the function is long-lived and starts when the core starts.",
+<<<<<<< HEAD
         "FunctionConfigurationEnvironment$AccessSysfs" : "Flag to allow lambda access sys filesystem.",
         "GroupOwnerSetting$AutoAddGroupOwner" : "Eanble the auto added group owner.",
+=======
+>>>>>>> Initial dep workover
         "ResetDeploymentsRequest$Force" : "When set to true, perform a best-effort only core reset."
       }
     },
@@ -658,9 +671,12 @@
         "Logger$Id" : "Element Id for this entry in the list.",
         "ResetDeploymentsResponse$DeploymentArn" : "The arn of the reset deployment.",
         "ResetDeploymentsResponse$DeploymentId" : "The id of the reset deployment.",
+<<<<<<< HEAD
         "Resource$Id" : "Resource Id.",
         "Resource$Name" : "A descriptive resource name.",
         "ResourceAccessPolicy$ResourceId" : "Id of the resource. A reference to the resource definiton.",
+=======
+>>>>>>> Initial dep workover
         "Subscription$Id" : "Element Id for this entry in the list.",
         "Subscription$Source" : "Source of the subscription. Can be a thing arn, lambda arn or word 'cloud'",
         "Subscription$Subject" : "Subject of the message.",

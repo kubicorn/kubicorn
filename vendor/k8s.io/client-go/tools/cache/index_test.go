@@ -22,6 +22,10 @@ import (
 
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+<<<<<<< HEAD
+=======
+	"k8s.io/client-go/kubernetes/scheme"
+>>>>>>> Initial dep workover
 )
 
 func testIndexFunc(obj interface{}) ([]string, error) {
@@ -77,11 +81,14 @@ func TestMultiIndexKeys(t *testing.T) {
 	if len(erniePods) != 2 {
 		t.Errorf("Expected 2 pods but got %v", len(erniePods))
 	}
+<<<<<<< HEAD
 	for _, erniePod := range erniePods {
 		if erniePod.(*v1.Pod).Name != "one" && erniePod.(*v1.Pod).Name != "tre" {
 			t.Errorf("Expected only 'one' or 'tre' but got %s", erniePod.(*v1.Pod).Name)
 		}
 	}
+=======
+>>>>>>> Initial dep workover
 
 	bertPods, err := index.ByIndex("byUser", "bert")
 	if err != nil {
@@ -90,11 +97,14 @@ func TestMultiIndexKeys(t *testing.T) {
 	if len(bertPods) != 2 {
 		t.Errorf("Expected 2 pods but got %v", len(bertPods))
 	}
+<<<<<<< HEAD
 	for _, bertPod := range bertPods {
 		if bertPod.(*v1.Pod).Name != "one" && bertPod.(*v1.Pod).Name != "two" {
 			t.Errorf("Expected only 'one' or 'two' but got %s", bertPod.(*v1.Pod).Name)
 		}
 	}
+=======
+>>>>>>> Initial dep workover
 
 	oscarPods, err := index.ByIndex("byUser", "oscar")
 	if err != nil {
@@ -103,11 +113,14 @@ func TestMultiIndexKeys(t *testing.T) {
 	if len(oscarPods) != 1 {
 		t.Errorf("Expected 1 pods but got %v", len(erniePods))
 	}
+<<<<<<< HEAD
 	for _, oscarPod := range oscarPods {
 		if oscarPod.(*v1.Pod).Name != "two" {
 			t.Errorf("Expected only 'two' but got %s", oscarPod.(*v1.Pod).Name)
 		}
 	}
+=======
+>>>>>>> Initial dep workover
 
 	ernieAndBertKeys, err := index.Index("byUser", pod1)
 	if err != nil {
@@ -116,11 +129,14 @@ func TestMultiIndexKeys(t *testing.T) {
 	if len(ernieAndBertKeys) != 3 {
 		t.Errorf("Expected 3 pods but got %v", len(ernieAndBertKeys))
 	}
+<<<<<<< HEAD
 	for _, ernieAndBertKey := range ernieAndBertKeys {
 		if ernieAndBertKey.(*v1.Pod).Name != "one" && ernieAndBertKey.(*v1.Pod).Name != "two" && ernieAndBertKey.(*v1.Pod).Name != "tre" {
 			t.Errorf("Expected only 'one', 'two' or 'tre' but got %s", ernieAndBertKey.(*v1.Pod).Name)
 		}
 	}
+=======
+>>>>>>> Initial dep workover
 
 	index.Delete(pod3)
 	erniePods, err = index.ByIndex("byUser", "ernie")
@@ -130,12 +146,15 @@ func TestMultiIndexKeys(t *testing.T) {
 	if len(erniePods) != 1 {
 		t.Errorf("Expected 1 pods but got %v", len(erniePods))
 	}
+<<<<<<< HEAD
 	for _, erniePod := range erniePods {
 		if erniePod.(*v1.Pod).Name != "one" {
 			t.Errorf("Expected only 'one' but got %s", erniePod.(*v1.Pod).Name)
 		}
 	}
 
+=======
+>>>>>>> Initial dep workover
 	elmoPods, err := index.ByIndex("byUser", "elmo")
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
@@ -144,7 +163,15 @@ func TestMultiIndexKeys(t *testing.T) {
 		t.Errorf("Expected 0 pods but got %v", len(elmoPods))
 	}
 
+<<<<<<< HEAD
 	copyOfPod2 := pod2.DeepCopy()
+=======
+	obj, err := scheme.Scheme.DeepCopy(pod2)
+	if err != nil {
+		t.Errorf("unexpected error: %v", err)
+	}
+	copyOfPod2 := obj.(*v1.Pod)
+>>>>>>> Initial dep workover
 	copyOfPod2.Annotations["users"] = "oscar"
 	index.Update(copyOfPod2)
 	bertPods, err = index.ByIndex("byUser", "bert")
@@ -154,10 +181,13 @@ func TestMultiIndexKeys(t *testing.T) {
 	if len(bertPods) != 1 {
 		t.Errorf("Expected 1 pods but got %v", len(bertPods))
 	}
+<<<<<<< HEAD
 	for _, bertPod := range bertPods {
 		if bertPod.(*v1.Pod).Name != "one" {
 			t.Errorf("Expected only 'one' but got %s", bertPod.(*v1.Pod).Name)
 		}
 	}
+=======
+>>>>>>> Initial dep workover
 
 }

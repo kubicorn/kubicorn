@@ -16,6 +16,7 @@ const opCompareFaces = "CompareFaces"
 // client's request for the CompareFaces operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -23,6 +24,15 @@ const opCompareFaces = "CompareFaces"
 // See CompareFaces for more information on using the CompareFaces
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CompareFaces for more information on using the CompareFaces
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -158,6 +168,7 @@ const opCreateCollection = "CreateCollection"
 // client's request for the CreateCollection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -165,6 +176,15 @@ const opCreateCollection = "CreateCollection"
 // See CreateCollection for more information on using the CreateCollection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateCollection for more information on using the CreateCollection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -763,6 +783,7 @@ const opDetectFaces = "DetectFaces"
 // client's request for the DetectFaces operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -770,6 +791,15 @@ const opDetectFaces = "DetectFaces"
 // See DetectFaces for more information on using the DetectFaces
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetectFaces for more information on using the DetectFaces
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1041,6 +1071,7 @@ const opDetectModerationLabels = "DetectModerationLabels"
 // client's request for the DetectModerationLabels operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1048,6 +1079,15 @@ const opDetectModerationLabels = "DetectModerationLabels"
 // See DetectModerationLabels for more information on using the DetectModerationLabels
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetectModerationLabels for more information on using the DetectModerationLabels
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1150,19 +1190,33 @@ func (c *Rekognition) DetectModerationLabelsWithContext(ctx aws.Context, input *
 
 const opDetectText = "DetectText"
 
+<<<<<<< HEAD
 // DetectTextRequest generates a "aws/request.Request" representing the
 // client's request for the DetectText operation. The "output" return
+=======
+// GetCelebrityInfoRequest generates a "aws/request.Request" representing the
+// client's request for the GetCelebrityInfo operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DetectText for more information on using the DetectText
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See GetCelebrityInfo for more information on using the GetCelebrityInfo
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DetectTextRequest method.
@@ -1281,6 +1335,7 @@ func (c *Rekognition) DetectTextWithContext(ctx aws.Context, input *DetectTextIn
 
 const opGetCelebrityInfo = "GetCelebrityInfo"
 
+<<<<<<< HEAD
 // GetCelebrityInfoRequest generates a "aws/request.Request" representing the
 // client's request for the GetCelebrityInfo operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1294,6 +1349,22 @@ const opGetCelebrityInfo = "GetCelebrityInfo"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// IndexFacesRequest generates a "aws/request.Request" representing the
+// client's request for the IndexFaces operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See IndexFaces for more information on using the IndexFaces
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetCelebrityInfoRequest method.
@@ -1381,19 +1452,33 @@ func (c *Rekognition) GetCelebrityInfoWithContext(ctx aws.Context, input *GetCel
 
 const opGetCelebrityRecognition = "GetCelebrityRecognition"
 
+<<<<<<< HEAD
 // GetCelebrityRecognitionRequest generates a "aws/request.Request" representing the
 // client's request for the GetCelebrityRecognition operation. The "output" return
+=======
+// ListCollectionsRequest generates a "aws/request.Request" representing the
+// client's request for the ListCollections operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See GetCelebrityRecognition for more information on using the GetCelebrityRecognition
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See ListCollections for more information on using the ListCollections
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetCelebrityRecognitionRequest method.
@@ -1567,6 +1652,7 @@ func (c *Rekognition) GetCelebrityRecognitionPagesWithContext(ctx aws.Context, i
 
 const opGetContentModeration = "GetContentModeration"
 
+<<<<<<< HEAD
 // GetContentModerationRequest generates a "aws/request.Request" representing the
 // client's request for the GetContentModeration operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1580,6 +1666,22 @@ const opGetContentModeration = "GetContentModeration"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListFacesRequest generates a "aws/request.Request" representing the
+// client's request for the ListFaces operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListFaces for more information on using the ListFaces
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetContentModerationRequest method.
@@ -1747,19 +1849,33 @@ func (c *Rekognition) GetContentModerationPagesWithContext(ctx aws.Context, inpu
 
 const opGetFaceDetection = "GetFaceDetection"
 
+<<<<<<< HEAD
 // GetFaceDetectionRequest generates a "aws/request.Request" representing the
 // client's request for the GetFaceDetection operation. The "output" return
+=======
+// RecognizeCelebritiesRequest generates a "aws/request.Request" representing the
+// client's request for the RecognizeCelebrities operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See GetFaceDetection for more information on using the GetFaceDetection
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See RecognizeCelebrities for more information on using the RecognizeCelebrities
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetFaceDetectionRequest method.
@@ -1888,6 +2004,7 @@ func (c *Rekognition) GetFaceDetectionPages(input *GetFaceDetectionInput, fn fun
 	return c.GetFaceDetectionPagesWithContext(aws.BackgroundContext(), input, fn)
 }
 
+<<<<<<< HEAD
 // GetFaceDetectionPagesWithContext same as GetFaceDetectionPages except
 // it takes a Context and allows setting request options on the pages.
 //
@@ -1932,6 +2049,22 @@ const opGetFaceSearch = "GetFaceSearch"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// SearchFacesRequest generates a "aws/request.Request" representing the
+// client's request for the SearchFaces operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SearchFaces for more information on using the SearchFaces
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetFaceSearchRequest method.
@@ -2062,6 +2195,7 @@ func (c *Rekognition) GetFaceSearchPages(input *GetFaceSearchInput, fn func(*Get
 	return c.GetFaceSearchPagesWithContext(aws.BackgroundContext(), input, fn)
 }
 
+<<<<<<< HEAD
 // GetFaceSearchPagesWithContext same as GetFaceSearchPages except
 // it takes a Context and allows setting request options on the pages.
 //
@@ -2106,6 +2240,22 @@ const opGetLabelDetection = "GetLabelDetection"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// SearchFacesByImageRequest generates a "aws/request.Request" representing the
+// client's request for the SearchFacesByImage operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SearchFacesByImage for more information on using the SearchFacesByImage
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetLabelDetectionRequest method.
@@ -8997,6 +9147,7 @@ type StartContentModerationInput struct {
 	// specified value.
 	MinConfidence *float64 `type:"float"`
 
+<<<<<<< HEAD
 	// The Amazon SNS topic ARN that you want Rekognition Video to publish the completion
 	// status of the content moderation analysis to.
 	NotificationChannel *NotificationChannel `type:"structure"`
@@ -9006,6 +9157,17 @@ type StartContentModerationInput struct {
 	//
 	// Video is a required field
 	Video *Video `type:"structure" required:"true"`
+=======
+	// x-coordinate from the top left of the landmark expressed as the ratio of
+	// the width of the image. For example, if the images is 700x200 and the x-coordinate
+	// of the landmark is at 350 pixels, this value is 0.5.
+	X *float64 `type:"float"`
+
+	// y-coordinate from the top left of the landmark expressed as the ratio of
+	// the height of the image. For example, if the images is 700x200 and the y-coordinate
+	// of the landmark is at 100 pixels, this value is 0.5.
+	Y *float64 `type:"float"`
+>>>>>>> Initial dep workover
 }
 
 // String returns the string representation
@@ -10140,6 +10302,7 @@ const (
 
 	// GenderTypeFemale is a GenderType enum value
 	GenderTypeFemale = "Female"
+<<<<<<< HEAD
 )
 
 const (
@@ -10148,6 +10311,8 @@ const (
 
 	// LabelDetectionSortByTimestamp is a LabelDetectionSortBy enum value
 	LabelDetectionSortByTimestamp = "TIMESTAMP"
+=======
+>>>>>>> Initial dep workover
 )
 
 const (

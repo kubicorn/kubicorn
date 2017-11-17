@@ -345,12 +345,21 @@ func (c *ACM) GetCertificateRequest(input *GetCertificateInput) (req *request.Re
 
 // GetCertificate API operation for AWS Certificate Manager.
 //
+<<<<<<< HEAD
 // Retrieves a certificate specified by an ARN and its certificate chain . The
 // chain is an ordered list of certificates that contains the end entity ertificate,
 // intermediate certificates of subordinate CAs, and the root certificate in
 // that order. The certificate and certificate chain are base64 encoded. If
 // you want to decode the certificate to see the individual fields, you can
 // use OpenSSL.
+=======
+// Retrieves an ACM Certificate and certificate chain for the certificate specified
+// by an ARN. The chain is an ordered list of certificates that contains the
+// ACM Certificate, intermediate certificates of subordinate CAs, and the root
+// certificate in that order. The certificate and certificate chain are base64
+// encoded. If you want to decode the certificate chain to see the individual
+// certificate fields, you can use OpenSSL.
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -446,7 +455,7 @@ func (c *ACM) ImportCertificateRequest(input *ImportCertificateInput) (req *requ
 //
 // For more information about importing certificates into ACM, including the
 // differences between certificates that you import and those that ACM provides,
-// see Importing Certificates (http://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)
+// see  Importing Certificates (http://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)
 // in the AWS Certificate Manager User Guide.
 //
 // In general, you can import almost any valid certificate. However, services
@@ -483,6 +492,12 @@ func (c *ACM) ImportCertificateRequest(input *ImportCertificateInput) (req *requ
 //    saved in the C:\temp folder as C:\temp\certificate_to_import.pem. If you
 //    are making an HTTP or HTTPS Query request, include these parameters as
 //    BLOBs.
+//
+// When you import a certificate by using the CLI or one of the SDKs, you must
+// specify the certificate, chain, and private key parameters as file names
+// preceded by file://. For example, you can specify a certificate saved in
+// the C:\temp folder as C:\temp\certificate_to_import.pem. If you are making
+// an HTTP or HTTPS Query request, include these parameters as BLOBs.
 //
 // This operation returns the Amazon Resource Name (ARN) (http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
 // of the imported certificate.
@@ -534,6 +549,7 @@ const opListCertificates = "ListCertificates"
 // client's request for the ListCertificates operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -541,6 +557,15 @@ const opListCertificates = "ListCertificates"
 // See ListCertificates for more information on using the ListCertificates
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListCertificates for more information on using the ListCertificates
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -666,6 +691,7 @@ const opListTagsForCertificate = "ListTagsForCertificate"
 // client's request for the ListTagsForCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -673,6 +699,15 @@ const opListTagsForCertificate = "ListTagsForCertificate"
 // See ListTagsForCertificate for more information on using the ListTagsForCertificate
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListTagsForCertificate for more information on using the ListTagsForCertificate
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -752,6 +787,7 @@ const opRemoveTagsFromCertificate = "RemoveTagsFromCertificate"
 // client's request for the RemoveTagsFromCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -759,6 +795,15 @@ const opRemoveTagsFromCertificate = "RemoveTagsFromCertificate"
 // See RemoveTagsFromCertificate for more information on using the RemoveTagsFromCertificate
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RemoveTagsFromCertificate for more information on using the RemoveTagsFromCertificate
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //

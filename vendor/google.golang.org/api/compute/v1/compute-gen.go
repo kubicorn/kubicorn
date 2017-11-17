@@ -1291,8 +1291,13 @@ type Address struct {
 	// Address: The static IP address represented by this resource.
 	Address string `json:"address,omitempty"`
 
+<<<<<<< HEAD
 	// AddressType: The type of address to reserve, either INTERNAL or
 	// EXTERNAL. If unspecified, defaults to EXTERNAL.
+=======
+	// AddressType: The type of address to reserve. If unspecified, defaults
+	// to EXTERNAL.
+>>>>>>> Initial dep workover
 	//
 	// Possible values:
 	//   "EXTERNAL"
@@ -1353,10 +1358,18 @@ type Address struct {
 	//   "RESERVED"
 	Status string `json:"status,omitempty"`
 
+<<<<<<< HEAD
 	// Subnetwork: The URL of the subnetwork in which to reserve the
 	// address. If an IP address is specified, it must be within the
 	// subnetwork's IP range. This field can only be used with INTERNAL type
 	// with GCE_ENDPOINT/DNS_RESOLVER purposes.
+=======
+	// Subnetwork: For external addresses, this field should not be
+	// used.
+	//
+	// The URL of the subnetwork in which to reserve the address. If an IP
+	// address is specified, it must be within the subnetwork's IP range.
+>>>>>>> Initial dep workover
 	Subnetwork string `json:"subnetwork,omitempty"`
 
 	// Users: [Output Only] The URLs of the resources that are using this
@@ -7084,8 +7097,15 @@ func (s *GlobalSetLabelsRequest) MarshalJSON() ([]byte, error) {
 
 // GuestOsFeature: Guest OS features.
 type GuestOsFeature struct {
+<<<<<<< HEAD
 	// Type: The ID of a supported feature. Read  Enabling guest operating
 	// system features to see a list of available options.
+=======
+	// Type: The type of supported feature. Currently only
+	// VIRTIO_SCSI_MULTIQUEUE is supported. For newer Windows images, the
+	// server might also populate this property with the value WINDOWS to
+	// indicate that this is a Windows image.
+>>>>>>> Initial dep workover
 	//
 	// Possible values:
 	//   "FEATURE_TYPE_UNSPECIFIED"
@@ -7966,6 +7986,111 @@ type HttpsHealthCheckList struct {
 func (s *HttpsHealthCheckList) MarshalJSON() ([]byte, error) {
 	type NoMethod HttpsHealthCheckList
 	raw := NoMethod(*s)
+<<<<<<< HEAD
+=======
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// HttpsHealthCheckListWarning: [Output Only] Informational warning
+// message.
+type HttpsHealthCheckListWarning struct {
+	// Code: [Output Only] A warning code, if applicable. For example,
+	// Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in
+	// the response.
+	//
+	// Possible values:
+	//   "CLEANUP_FAILED"
+	//   "DEPRECATED_RESOURCE_USED"
+	//   "DEPRECATED_TYPE_USED"
+	//   "DISK_SIZE_LARGER_THAN_IMAGE_SIZE"
+	//   "EXPERIMENTAL_TYPE_USED"
+	//   "EXTERNAL_API_WARNING"
+	//   "FIELD_VALUE_OVERRIDEN"
+	//   "INJECTED_KERNELS_DEPRECATED"
+	//   "MISSING_TYPE_DEPENDENCY"
+	//   "NEXT_HOP_ADDRESS_NOT_ASSIGNED"
+	//   "NEXT_HOP_CANNOT_IP_FORWARD"
+	//   "NEXT_HOP_INSTANCE_NOT_FOUND"
+	//   "NEXT_HOP_INSTANCE_NOT_ON_NETWORK"
+	//   "NEXT_HOP_NOT_RUNNING"
+	//   "NOT_CRITICAL_ERROR"
+	//   "NO_RESULTS_ON_PAGE"
+	//   "REQUIRED_TOS_AGREEMENT"
+	//   "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING"
+	//   "RESOURCE_NOT_DELETED"
+	//   "SCHEMA_VALIDATION_IGNORED"
+	//   "SINGLE_INSTANCE_PROPERTY_TEMPLATE"
+	//   "UNDECLARED_PROPERTIES"
+	//   "UNREACHABLE"
+	Code string `json:"code,omitempty"`
+
+	// Data: [Output Only] Metadata about this warning in key: value format.
+	// For example:
+	// "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+	Data []*HttpsHealthCheckListWarningData `json:"data,omitempty"`
+
+	// Message: [Output Only] A human-readable description of the warning
+	// code.
+	Message string `json:"message,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Code") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Code") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *HttpsHealthCheckListWarning) MarshalJSON() ([]byte, error) {
+	type NoMethod HttpsHealthCheckListWarning
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+type HttpsHealthCheckListWarningData struct {
+	// Key: [Output Only] A key that provides more detail on the warning
+	// being returned. For example, for warnings where there are no results
+	// in a list request for a particular zone, this key might be scope and
+	// the key value might be the zone name. Other examples might be a key
+	// indicating a deprecated resource and a suggested replacement, or a
+	// warning about invalid network settings (for example, if an instance
+	// attempts to perform IP forwarding but is not enabled for IP
+	// forwarding).
+	Key string `json:"key,omitempty"`
+
+	// Value: [Output Only] A warning data value corresponding to the key.
+	Value string `json:"value,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Key") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Key") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *HttpsHealthCheckListWarningData) MarshalJSON() ([]byte, error) {
+	type NoMethod HttpsHealthCheckListWarningData
+	raw := NoMethod(*s)
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -8100,9 +8225,23 @@ type Image struct {
 	// RFC1035.
 	Family string `json:"family,omitempty"`
 
+<<<<<<< HEAD
 	// GuestOsFeatures: A list of features to enable on the guest operating
 	// system. Applicable only for bootable images. Read  Enabling guest
 	// operating system features to see a list of available options.
+=======
+	// GuestOsFeatures: A list of features to enable on the guest OS.
+	// Applicable for bootable images only. Currently, only one feature can
+	// be enabled, VIRTIO_SCSI_MULTIQUEUE, which allows each virtual CPU to
+	// have its own queue. For Windows images, you can only enable
+	// VIRTIO_SCSI_MULTIQUEUE on images with driver version 1.2.0.1621 or
+	// higher. Linux images with kernel versions 3.17 and higher will
+	// support VIRTIO_SCSI_MULTIQUEUE.
+	//
+	// For newer Windows images, the server might also populate this
+	// property with the value WINDOWS to indicate that this is a Windows
+	// image.
+>>>>>>> Initial dep workover
 	GuestOsFeatures []*GuestOsFeature `json:"guestOsFeatures,omitempty"`
 
 	// Id: [Output Only] The unique identifier for the resource. This
@@ -11307,6 +11446,7 @@ func (s *InstancesStartWithEncryptionKeyRequest) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // Interconnect: Represents an Interconnects resource. The Interconnects
 // resource is a dedicated connection between Google's network and your
 // on-premises network. For more information, see the  Dedicated
@@ -11318,6 +11458,17 @@ type Interconnect struct {
 	// When set to false, no packets can be carried over the interconnect
 	// and no BGP routes are exchanged over it. By default, the status is
 	// set to true.
+=======
+// Interconnect: Protocol definitions for Mixer API to support
+// Interconnect. Next available tag: 25
+type Interconnect struct {
+	// AdminEnabled: Administrative status of the interconnect. When this is
+	// set to ?true?, the Interconnect is functional and may carry traffic
+	// (assuming there are functional InterconnectAttachments and other
+	// requirements are satisfied). When set to ?false?, no packets will be
+	// carried over this Interconnect and no BGP routes will be exchanged
+	// over it. By default, it is set to ?true?.
+>>>>>>> Initial dep workover
 	AdminEnabled bool `json:"adminEnabled,omitempty"`
 
 	// CircuitInfos: [Output Only] List of CircuitInfo objects, that
@@ -11357,9 +11508,12 @@ type Interconnect struct {
 	// InterconnectAttachments configured to use this Interconnect.
 	InterconnectAttachments []string `json:"interconnectAttachments,omitempty"`
 
+<<<<<<< HEAD
 	// InterconnectType: Type of interconnect. Note that "IT_PRIVATE" has
 	// been deprecated in favor of "DEDICATED"
 	//
+=======
+>>>>>>> Initial dep workover
 	// Possible values:
 	//   "DEDICATED"
 	//   "IT_PRIVATE"
@@ -11369,10 +11523,13 @@ type Interconnect struct {
 	// for interconnects.
 	Kind string `json:"kind,omitempty"`
 
+<<<<<<< HEAD
 	// LinkType: Type of link requested. This field indicates speed of each
 	// of the links in the bundle, not the entire bundle. Only 10G per link
 	// is allowed for a dedicated interconnect. Options: Ethernet_10G_LR
 	//
+=======
+>>>>>>> Initial dep workover
 	// Possible values:
 	//   "LINK_TYPE_ETHERNET_10G_LR"
 	LinkType string `json:"linkType,omitempty"`
@@ -11401,8 +11558,15 @@ type Interconnect struct {
 	// this Interconnect is functional.
 	//
 	// Possible values:
+<<<<<<< HEAD
 	//   "OS_ACTIVE"
 	//   "OS_UNPROVISIONED"
+=======
+	//   "ACTIVE"
+	//   "OS_ACTIVE"
+	//   "OS_UNPROVISIONED"
+	//   "UNPROVISIONED"
+>>>>>>> Initial dep workover
 	OperationalStatus string `json:"operationalStatus,omitempty"`
 
 	// PeerIpAddress: [Output Only] IP address configured on the customer
@@ -11449,10 +11613,15 @@ func (s *Interconnect) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // InterconnectAttachment: Represents an InterconnectAttachment (VLAN
 // attachment) resource. For more information, see  Creating VLAN
 // Attachments. (== resource_for beta.interconnectAttachments ==) (==
 // resource_for v1.interconnectAttachments ==)
+=======
+// InterconnectAttachment: Protocol definitions for Mixer API to support
+// InterconnectAttachment. Next available tag: 23
+>>>>>>> Initial dep workover
 type InterconnectAttachment struct {
 	// CloudRouterIpAddress: [Output Only] IPv4 address + prefix length to
 	// be configured on Cloud Router Interface for this interconnect
@@ -11468,7 +11637,12 @@ type InterconnectAttachment struct {
 	// interconnect attachment.
 	CustomerRouterIpAddress string `json:"customerRouterIpAddress,omitempty"`
 
+<<<<<<< HEAD
 	// Description: An optional description of this resource.
+=======
+	// Description: An optional description of this resource. Provide this
+	// property when you create the resource.
+>>>>>>> Initial dep workover
 	Description string `json:"description,omitempty"`
 
 	// GoogleReferenceId: [Output Only] Google reference ID, to be used when
@@ -11496,6 +11670,7 @@ type InterconnectAttachment struct {
 	// characters must be a dash, lowercase letter, or digit, except the
 	// last character, which cannot be a dash.
 	Name string `json:"name,omitempty"`
+<<<<<<< HEAD
 
 	// OperationalStatus: [Output Only] The current status of whether or not
 	// this interconnect attachment is functional.
@@ -11514,6 +11689,28 @@ type InterconnectAttachment struct {
 	// interconnect attachment resides.
 	Region string `json:"region,omitempty"`
 
+=======
+
+	// OperationalStatus: [Output Only] The current status of whether or not
+	// this interconnect attachment is functional.
+	//
+	// Possible values:
+	//   "ACTIVE"
+	//   "OS_ACTIVE"
+	//   "OS_UNPROVISIONED"
+	//   "UNPROVISIONED"
+	OperationalStatus string `json:"operationalStatus,omitempty"`
+
+	// PrivateInterconnectInfo: [Output Only] Information specific to a
+	// Private InterconnectAttachment. Only populated if the interconnect
+	// that this is attached is of type IT_PRIVATE.
+	PrivateInterconnectInfo *InterconnectAttachmentPrivateInfo `json:"privateInterconnectInfo,omitempty"`
+
+	// Region: [Output Only] URL of the region where the regional
+	// interconnect attachment resides.
+	Region string `json:"region,omitempty"`
+
+>>>>>>> Initial dep workover
 	// Router: URL of the cloud router to be used for dynamic routing. This
 	// router must be in the same region as this InterconnectAttachment. The
 	// InterconnectAttachment will automatically connect the Interconnect to
@@ -11866,13 +12063,20 @@ func (s *InterconnectAttachmentListWarningData) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // InterconnectAttachmentPrivateInfo: Information for an interconnect
 // attachment when this belongs to an interconnect of type DEDICATED.
+=======
+// InterconnectAttachmentPrivateInfo: Private information for an
+// interconnect attachment when this belongs to an interconnect of type
+// IT_PRIVATE.
+>>>>>>> Initial dep workover
 type InterconnectAttachmentPrivateInfo struct {
 	// Tag8021q: [Output Only] 802.1q encapsulation tag to be used for
 	// traffic between Google and the customer, going to and from this
 	// network and region.
 	Tag8021q int64 `json:"tag8021q,omitempty"`
+<<<<<<< HEAD
 
 	// ForceSendFields is a list of field names (e.g. "Tag8021q") to
 	// unconditionally include in API requests. By default, fields with
@@ -11902,6 +12106,37 @@ type InterconnectAttachmentsScopedList struct {
 	// in this scope.
 	InterconnectAttachments []*InterconnectAttachment `json:"interconnectAttachments,omitempty"`
 
+=======
+
+	// ForceSendFields is a list of field names (e.g. "Tag8021q") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Tag8021q") to include in
+	// API requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *InterconnectAttachmentPrivateInfo) MarshalJSON() ([]byte, error) {
+	type NoMethod InterconnectAttachmentPrivateInfo
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+type InterconnectAttachmentsScopedList struct {
+	// InterconnectAttachments: List of interconnect attachments contained
+	// in this scope.
+	InterconnectAttachments []*InterconnectAttachment `json:"interconnectAttachments,omitempty"`
+
+>>>>>>> Initial dep workover
 	// Warning: Informational warning which replaces the list of addresses
 	// when the list is empty.
 	Warning *InterconnectAttachmentsScopedListWarning `json:"warning,omitempty"`
@@ -12037,7 +12272,13 @@ func (s *InterconnectAttachmentsScopedListWarningData) MarshalJSON() ([]byte, er
 // the Customer and Google. CircuitInfo objects are created by Google,
 // so all fields are output only. Next id: 4
 type InterconnectCircuitInfo struct {
+<<<<<<< HEAD
 	// CustomerDemarcId: Customer-side demarc ID for this circuit.
+=======
+	// CustomerDemarcId: Customer-side demarc ID for this circuit. This will
+	// only be set if it was provided by the Customer to Google during
+	// circuit turn-up.
+>>>>>>> Initial dep workover
 	CustomerDemarcId string `json:"customerDemarcId,omitempty"`
 
 	// GoogleCircuitId: Google-assigned unique ID for this circuit. Assigned
@@ -12228,15 +12469,21 @@ func (s *InterconnectListWarningData) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // InterconnectLocation: Represents an InterconnectLocations resource.
 // The InterconnectLocations resource describes the locations where you
 // can connect to Google's networks. For more information, see
 // Colocation Facilities.
+=======
+// InterconnectLocation: Protocol definitions for Mixer API to support
+// InterconnectLocation.
+>>>>>>> Initial dep workover
 type InterconnectLocation struct {
 	// Address: [Output Only] The postal address of the Point of Presence,
 	// each line in the address is separated by a newline character.
 	Address string `json:"address,omitempty"`
 
+<<<<<<< HEAD
 	// AvailabilityZone: [Output Only] Availability zone for this location.
 	// Within a metropolitan area (metro), maintenance will not be
 	// simultaneously scheduled in more than one availability zone. Example:
@@ -12249,6 +12496,20 @@ type InterconnectLocation struct {
 	City string `json:"city,omitempty"`
 
 	// Continent: [Output Only] Continent for this location.
+=======
+	// AvailabilityZone: Availability zone for this location. Within a city,
+	// maintenance will not be simultaneously scheduled in more than one
+	// availability zone. Example: "zone1" or "zone2".
+	AvailabilityZone string `json:"availabilityZone,omitempty"`
+
+	// City: City designator used by the Interconnect UI to locate this
+	// InterconnectLocation within the Continent. For example: "Chicago,
+	// IL", "Amsterdam, Netherlands".
+	City string `json:"city,omitempty"`
+
+	// Continent: Continent for this location. Used by the location picker
+	// in the Interconnect UI.
+>>>>>>> Initial dep workover
 	//
 	// Possible values:
 	//   "AFRICA"
@@ -12535,6 +12796,7 @@ type InterconnectOutageNotification struct {
 	// Google-side circuit IDs that will be affected.
 	AffectedCircuits []string `json:"affectedCircuits,omitempty"`
 
+<<<<<<< HEAD
 	// Description: A description about the purpose of the outage.
 	Description string `json:"description,omitempty"`
 
@@ -12546,6 +12808,14 @@ type InterconnectOutageNotification struct {
 	// versions of this enum have been deprecated in favor of the unprefixed
 	// values.
 	//
+=======
+	// Description: Short user-visible description of the purpose of the
+	// outage.
+	Description string `json:"description,omitempty"`
+
+	EndTime int64 `json:"endTime,omitempty,string"`
+
+>>>>>>> Initial dep workover
 	// Possible values:
 	//   "IT_OUTAGE"
 	//   "IT_PARTIAL_OUTAGE"
@@ -12556,14 +12826,18 @@ type InterconnectOutageNotification struct {
 	// Name: Unique identifier for this outage notification.
 	Name string `json:"name,omitempty"`
 
+<<<<<<< HEAD
 	// Source: The party that generated this notification. Note that
 	// "NSRC_GOOGLE" has been deprecated in favor of "GOOGLE"
 	//
+=======
+>>>>>>> Initial dep workover
 	// Possible values:
 	//   "GOOGLE"
 	//   "NSRC_GOOGLE"
 	Source string `json:"source,omitempty"`
 
+<<<<<<< HEAD
 	// StartTime: Scheduled start time for the outage (milliseconds since
 	// Unix epoch).
 	StartTime int64 `json:"startTime,omitempty,string"`
@@ -12571,6 +12845,12 @@ type InterconnectOutageNotification struct {
 	// State: State of this notification. Note that the "NS_" versions of
 	// this enum have been deprecated in favor of the unprefixed values.
 	//
+=======
+	// StartTime: Scheduled start and end times for the outage (milliseconds
+	// since Unix epoch).
+	StartTime int64 `json:"startTime,omitempty,string"`
+
+>>>>>>> Initial dep workover
 	// Possible values:
 	//   "ACTIVE"
 	//   "CANCELLED"
@@ -12646,8 +12926,12 @@ func (s *License) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // MachineType: A Machine Type resource. (== resource_for
 // v1.machineTypes ==) (== resource_for beta.machineTypes ==)
+=======
+// MachineType: A Machine Type resource.
+>>>>>>> Initial dep workover
 type MachineType struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -13496,8 +13780,12 @@ func (s *NamedPort) MarshalJSON() ([]byte, error) {
 }
 
 // Network: Represents a Network resource. Read Networks and Firewalls
+<<<<<<< HEAD
 // for more information. (== resource_for v1.networks ==) (==
 // resource_for beta.networks ==)
+=======
+// for more information.
+>>>>>>> Initial dep workover
 type Network struct {
 	// IPv4Range: The range of internal addresses that are legal on this
 	// network. This range is a CIDR specification, for example:
@@ -13750,6 +14038,7 @@ type NetworkListWarning struct {
 	//   "UNDECLARED_PROPERTIES"
 	//   "UNREACHABLE"
 	Code string `json:"code,omitempty"`
+<<<<<<< HEAD
 
 	// Data: [Output Only] Metadata about this warning in key: value format.
 	// For example:
@@ -13768,6 +14057,26 @@ type NetworkListWarning struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+=======
+
+	// Data: [Output Only] Metadata about this warning in key: value format.
+	// For example:
+	// "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+	Data []*NetworkListWarningData `json:"data,omitempty"`
+
+	// Message: [Output Only] A human-readable description of the warning
+	// code.
+	Message string `json:"message,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Code") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+>>>>>>> Initial dep workover
 	// NullFields is a list of field names (e.g. "Code") to include in API
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
@@ -13987,10 +14296,14 @@ func (s *NetworksRemovePeeringRequest) MarshalJSON() ([]byte, error) {
 }
 
 // Operation: An Operation resource, used to manage asynchronous API
+<<<<<<< HEAD
 // requests. (== resource_for v1.globalOperations ==) (== resource_for
 // beta.globalOperations ==) (== resource_for v1.regionOperations ==)
 // (== resource_for beta.regionOperations ==) (== resource_for
 // v1.zoneOperations ==) (== resource_for beta.zoneOperations ==)
+=======
+// requests.
+>>>>>>> Initial dep workover
 type Operation struct {
 	// ClientOperationId: [Output Only] Reserved for future use.
 	ClientOperationId string `json:"clientOperationId,omitempty"`
@@ -14812,8 +15125,12 @@ func (s *PathRule) MarshalJSON() ([]byte, error) {
 
 // Project: A Project resource. Projects can only be created in the
 // Google Cloud Platform Console. Unless marked otherwise, values can
+<<<<<<< HEAD
 // only be modified in the console. (== resource_for v1.projects ==) (==
 // resource_for beta.projects ==)
+=======
+// only be modified in the console.
+>>>>>>> Initial dep workover
 type Project struct {
 	// CommonInstanceMetadata: Metadata key/value pairs available to all
 	// instances contained in this project. See Custom metadata for more
@@ -15054,8 +15371,11 @@ type Quota struct {
 	//   "NVIDIA_P100_GPUS"
 	//   "PREEMPTIBLE_CPUS"
 	//   "PREEMPTIBLE_LOCAL_SSD_GB"
+<<<<<<< HEAD
 	//   "PREEMPTIBLE_NVIDIA_K80_GPUS"
 	//   "PREEMPTIBLE_NVIDIA_P100_GPUS"
+=======
+>>>>>>> Initial dep workover
 	//   "REGIONAL_AUTOSCALERS"
 	//   "REGIONAL_INSTANCE_GROUP_MANAGERS"
 	//   "ROUTERS"
@@ -15120,8 +15440,12 @@ func (s *Quota) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+<<<<<<< HEAD
 // Region: Region resource. (== resource_for beta.regions ==) (==
 // resource_for v1.regions ==)
+=======
+// Region: Region resource.
+>>>>>>> Initial dep workover
 type Region struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -15631,6 +15955,7 @@ type RegionInstanceGroupManagerListWarningData struct {
 	// attempts to perform IP forwarding but is not enabled for IP
 	// forwarding).
 	Key string `json:"key,omitempty"`
+<<<<<<< HEAD
 
 	// Value: [Output Only] A warning data value corresponding to the key.
 	Value string `json:"value,omitempty"`
@@ -15664,6 +15989,41 @@ type RegionInstanceGroupManagersAbandonInstancesRequest struct {
 	// zones/[ZONE]/instances/[INSTANCE_NAME].
 	Instances []string `json:"instances,omitempty"`
 
+=======
+
+	// Value: [Output Only] A warning data value corresponding to the key.
+	Value string `json:"value,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Key") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Key") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *RegionInstanceGroupManagerListWarningData) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupManagerListWarningData
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+type RegionInstanceGroupManagersAbandonInstancesRequest struct {
+	// Instances: The URLs of one or more instances to abandon. This can be
+	// a full URL or a partial URL, such as
+	// zones/[ZONE]/instances/[INSTANCE_NAME].
+	Instances []string `json:"instances,omitempty"`
+
+>>>>>>> Initial dep workover
 	// ForceSendFields is a list of field names (e.g. "Instances") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
@@ -15719,6 +16079,8 @@ func (s *RegionInstanceGroupManagersDeleteInstancesRequest) MarshalJSON() ([]byt
 type RegionInstanceGroupManagersListInstancesResponse struct {
 	// ManagedInstances: List of managed instances.
 	ManagedInstances []*ManagedInstance `json:"managedInstances,omitempty"`
+<<<<<<< HEAD
+=======
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
@@ -15810,13 +16172,18 @@ func (s *RegionInstanceGroupManagersSetTargetPoolsRequest) MarshalJSON() ([]byte
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
+>>>>>>> Initial dep workover
 
 type RegionInstanceGroupManagersSetTemplateRequest struct {
 	// InstanceTemplate: URL of the InstanceTemplate resource from which all
 	// new instances will be created.
 	InstanceTemplate string `json:"instanceTemplate,omitempty"`
 
+<<<<<<< HEAD
+	// ForceSendFields is a list of field names (e.g. "ManagedInstances") to
+=======
 	// ForceSendFields is a list of field names (e.g. "InstanceTemplate") to
+>>>>>>> Initial dep workover
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -15824,7 +16191,11 @@ type RegionInstanceGroupManagersSetTemplateRequest struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "ManagedInstances") to
+=======
 	// NullFields is a list of field names (e.g. "InstanceTemplate") to
+>>>>>>> Initial dep workover
 	// include in API requests with the JSON null value. By default, fields
 	// with empty values are omitted from API requests. However, any field
 	// with an empty value appearing in NullFields will be sent to the
@@ -15834,12 +16205,24 @@ type RegionInstanceGroupManagersSetTemplateRequest struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *RegionInstanceGroupManagersListInstancesResponse) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupManagersListInstancesResponse
+=======
 func (s *RegionInstanceGroupManagersSetTemplateRequest) MarshalJSON() ([]byte, error) {
 	type NoMethod RegionInstanceGroupManagersSetTemplateRequest
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type RegionInstanceGroupManagersRecreateRequest struct {
+	// Instances: The URLs of one or more instances to recreate. This can be
+	// a full URL or a partial URL, such as
+	// zones/[ZONE]/instances/[INSTANCE_NAME].
+	Instances []string `json:"instances,omitempty"`
+=======
 type RegionInstanceGroupsListInstances struct {
 	// Id: [Output Only] Unique identifier for the resource; defined by the
 	// server.
@@ -15868,8 +16251,9 @@ type RegionInstanceGroupsListInstances struct {
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
 	googleapi.ServerResponse `json:"-"`
+>>>>>>> Initial dep workover
 
-	// ForceSendFields is a list of field names (e.g. "Id") to
+	// ForceSendFields is a list of field names (e.g. "Instances") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -15877,8 +16261,8 @@ type RegionInstanceGroupsListInstances struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "Id") to include in API
-	// requests with the JSON null value. By default, fields with empty
+	// NullFields is a list of field names (e.g. "Instances") to include in
+	// API requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
 	// null. It is an error if a field in this list has a non-empty value.
@@ -15886,12 +16270,31 @@ type RegionInstanceGroupsListInstances struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *RegionInstanceGroupManagersRecreateRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupManagersRecreateRequest
+=======
 func (s *RegionInstanceGroupsListInstances) MarshalJSON() ([]byte, error) {
 	type NoMethod RegionInstanceGroupsListInstances
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type RegionInstanceGroupManagersSetTargetPoolsRequest struct {
+	// Fingerprint: Fingerprint of the target pools information, which is a
+	// hash of the contents. This field is used for optimistic locking when
+	// you update the target pool entries. This field is optional.
+	Fingerprint string `json:"fingerprint,omitempty"`
+
+	// TargetPools: The URL of all TargetPool resources to which instances
+	// in the instanceGroup field are added. The target pools automatically
+	// apply to all of the instances in the managed instance group.
+	TargetPools []string `json:"targetPools,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Fingerprint") to
+=======
 // RegionInstanceGroupsListInstancesWarning: [Output Only] Informational
 // warning message.
 type RegionInstanceGroupsListInstancesWarning struct {
@@ -15935,6 +16338,7 @@ type RegionInstanceGroupsListInstancesWarning struct {
 	Message string `json:"message,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Code") to
+>>>>>>> Initial dep workover
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -15942,21 +16346,41 @@ type RegionInstanceGroupsListInstancesWarning struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "Fingerprint") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+=======
 	// NullFields is a list of field names (e.g. "Code") to include in API
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
+>>>>>>> Initial dep workover
 	// null. It is an error if a field in this list has a non-empty value.
 	// This may be used to include null fields in Patch requests.
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *RegionInstanceGroupManagersSetTargetPoolsRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupManagersSetTargetPoolsRequest
+=======
 func (s *RegionInstanceGroupsListInstancesWarning) MarshalJSON() ([]byte, error) {
 	type NoMethod RegionInstanceGroupsListInstancesWarning
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type RegionInstanceGroupManagersSetTemplateRequest struct {
+	// InstanceTemplate: URL of the InstanceTemplate resource from which all
+	// new instances will be created.
+	InstanceTemplate string `json:"instanceTemplate,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "InstanceTemplate") to
+=======
 type RegionInstanceGroupsListInstancesWarningData struct {
 	// Key: [Output Only] A key that provides more detail on the warning
 	// being returned. For example, for warnings where there are no results
@@ -15972,6 +16396,7 @@ type RegionInstanceGroupsListInstancesWarningData struct {
 	Value string `json:"value,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Key") to
+>>>>>>> Initial dep workover
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -15979,6 +16404,20 @@ type RegionInstanceGroupsListInstancesWarningData struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "InstanceTemplate") to
+	// include in API requests with the JSON null value. By default, fields
+	// with empty values are omitted from API requests. However, any field
+	// with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *RegionInstanceGroupManagersSetTemplateRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupManagersSetTemplateRequest
+=======
 	// NullFields is a list of field names (e.g. "Key") to include in API
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
@@ -16063,21 +16502,33 @@ type RegionInstanceGroupsSetNamedPortsRequest struct {
 
 func (s *RegionInstanceGroupsSetNamedPortsRequest) MarshalJSON() ([]byte, error) {
 	type NoMethod RegionInstanceGroupsSetNamedPortsRequest
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type RegionInstanceGroupsListInstances struct {
+=======
 // RegionList: Contains a list of region resources.
 type RegionList struct {
+>>>>>>> Initial dep workover
 	// Id: [Output Only] Unique identifier for the resource; defined by the
 	// server.
 	Id string `json:"id,omitempty"`
 
+<<<<<<< HEAD
+	// Items: A list of InstanceWithNamedPorts resources.
+	Items []*InstanceWithNamedPorts `json:"items,omitempty"`
+
+	// Kind: The resource type.
+=======
 	// Items: A list of Region resources.
 	Items []*Region `json:"items,omitempty"`
 
 	// Kind: [Output Only] Type of resource. Always compute#regionList for
 	// lists of regions.
+>>>>>>> Initial dep workover
 	Kind string `json:"kind,omitempty"`
 
 	// NextPageToken: [Output Only] This token allows you to get the next
@@ -16092,7 +16543,11 @@ type RegionList struct {
 	SelfLink string `json:"selfLink,omitempty"`
 
 	// Warning: [Output Only] Informational warning message.
+<<<<<<< HEAD
+	Warning *RegionInstanceGroupsListInstancesWarning `json:"warning,omitempty"`
+=======
 	Warning *RegionListWarning `json:"warning,omitempty"`
+>>>>>>> Initial dep workover
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
@@ -16115,14 +16570,25 @@ type RegionList struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *RegionInstanceGroupsListInstances) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupsListInstances
+=======
 func (s *RegionList) MarshalJSON() ([]byte, error) {
 	type NoMethod RegionList
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+// RegionInstanceGroupsListInstancesWarning: [Output Only] Informational
+// warning message.
+type RegionInstanceGroupsListInstancesWarning struct {
+=======
 // RegionListWarning: [Output Only] Informational warning message.
 type RegionListWarning struct {
+>>>>>>> Initial dep workover
 	// Code: [Output Only] A warning code, if applicable. For example,
 	// Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in
 	// the response.
@@ -16156,7 +16622,11 @@ type RegionListWarning struct {
 	// Data: [Output Only] Metadata about this warning in key: value format.
 	// For example:
 	// "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+<<<<<<< HEAD
+	Data []*RegionInstanceGroupsListInstancesWarningData `json:"data,omitempty"`
+=======
 	Data []*RegionListWarningData `json:"data,omitempty"`
+>>>>>>> Initial dep workover
 
 	// Message: [Output Only] A human-readable description of the warning
 	// code.
@@ -16179,13 +16649,22 @@ type RegionListWarning struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *RegionInstanceGroupsListInstancesWarning) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupsListInstancesWarning
+=======
 func (s *RegionListWarning) MarshalJSON() ([]byte, error) {
 	type NoMethod RegionListWarning
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type RegionInstanceGroupsListInstancesWarningData struct {
+=======
 type RegionListWarningData struct {
+>>>>>>> Initial dep workover
 	// Key: [Output Only] A key that provides more detail on the warning
 	// being returned. For example, for warnings where there are no results
 	// in a list request for a particular zone, this key might be scope and
@@ -16216,12 +16695,35 @@ type RegionListWarningData struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *RegionInstanceGroupsListInstancesWarningData) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupsListInstancesWarningData
+=======
 func (s *RegionListWarningData) MarshalJSON() ([]byte, error) {
 	type NoMethod RegionListWarningData
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type RegionInstanceGroupsListInstancesRequest struct {
+	// InstanceState: Instances in which state should be returned. Valid
+	// options are: 'ALL', 'RUNNING'. By default, it lists all instances.
+	//
+	// Possible values:
+	//   "ALL"
+	//   "RUNNING"
+	InstanceState string `json:"instanceState,omitempty"`
+
+	// PortName: Name of port user is interested in. It is optional. If it
+	// is set, only information about this ports will be returned. If it is
+	// not set, all the named ports will be returned. Always lists all
+	// instances.
+	PortName string `json:"portName,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "InstanceState") to
+=======
 // ResourceCommitment: Commitment for a particular resource (a
 // Commitment is composed of one or more of these).
 type ResourceCommitment struct {
@@ -16241,6 +16743,7 @@ type ResourceCommitment struct {
 	Type string `json:"type,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Amount") to
+>>>>>>> Initial dep workover
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -16248,27 +16751,55 @@ type ResourceCommitment struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "InstanceState") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+=======
 	// NullFields is a list of field names (e.g. "Amount") to include in API
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
+>>>>>>> Initial dep workover
 	// null. It is an error if a field in this list has a non-empty value.
 	// This may be used to include null fields in Patch requests.
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *RegionInstanceGroupsListInstancesRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupsListInstancesRequest
+=======
 func (s *ResourceCommitment) MarshalJSON() ([]byte, error) {
 	type NoMethod ResourceCommitment
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type RegionInstanceGroupsSetNamedPortsRequest struct {
+	// Fingerprint: The fingerprint of the named ports information for this
+	// instance group. Use this optional property to prevent conflicts when
+	// multiple users change the named ports settings concurrently. Obtain
+	// the fingerprint with the instanceGroups.get method. Then, include the
+	// fingerprint in your request to ensure that you do not overwrite
+	// changes that were applied from another concurrent request.
+	Fingerprint string `json:"fingerprint,omitempty"`
+
+	// NamedPorts: The list of named ports to set for this instance group.
+	NamedPorts []*NamedPort `json:"namedPorts,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Fingerprint") to
+=======
 type ResourceGroupReference struct {
 	// Group: A URI referencing one of the instance groups listed in the
 	// backend service.
 	Group string `json:"group,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Group") to
+>>>>>>> Initial dep workover
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -16276,21 +16807,61 @@ type ResourceGroupReference struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "Fingerprint") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+=======
 	// NullFields is a list of field names (e.g. "Group") to include in API
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
+>>>>>>> Initial dep workover
 	// null. It is an error if a field in this list has a non-empty value.
 	// This may be used to include null fields in Patch requests.
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *RegionInstanceGroupsSetNamedPortsRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionInstanceGroupsSetNamedPortsRequest
+=======
 func (s *ResourceGroupReference) MarshalJSON() ([]byte, error) {
 	type NoMethod ResourceGroupReference
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+// RegionList: Contains a list of region resources.
+type RegionList struct {
+	// Id: [Output Only] Unique identifier for the resource; defined by the
+	// server.
+	Id string `json:"id,omitempty"`
+
+	// Items: A list of Region resources.
+	Items []*Region `json:"items,omitempty"`
+
+	// Kind: [Output Only] Type of resource. Always compute#regionList for
+	// lists of regions.
+	Kind string `json:"kind,omitempty"`
+
+	// NextPageToken: [Output Only] This token allows you to get the next
+	// page of results for list requests. If the number of results is larger
+	// than maxResults, use the nextPageToken as a value for the query
+	// parameter pageToken in the next list request. Subsequent list
+	// requests will have their own nextPageToken to continue paging through
+	// the results.
+	NextPageToken string `json:"nextPageToken,omitempty"`
+
+	// SelfLink: [Output Only] Server-defined URL for this resource.
+	SelfLink string `json:"selfLink,omitempty"`
+
+	// Warning: [Output Only] Informational warning message.
+	Warning *RegionListWarning `json:"warning,omitempty"`
+=======
 // Route: Represents a Route resource. A route specifies how certain
 // packets should be handled by the network. Routes are associated with
 // instances by tags and the set of routes for a particular instance is
@@ -16308,8 +16879,7 @@ func (s *ResourceGroupReference) MarshalJSON() ([]byte, error) {
 // Compute Engine-operated gateway.
 //
 // Packets that do not match any route in the sending instance's routing
-// table are dropped. (== resource_for beta.routes ==) (== resource_for
-// v1.routes ==)
+// table are dropped.
 type Route struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -16390,19 +16960,38 @@ type Route struct {
 	// Warnings: [Output Only] If potential misconfigurations are detected
 	// for this route, this field will be populated with warning messages.
 	Warnings []*RouteWarnings `json:"warnings,omitempty"`
+>>>>>>> Initial dep workover
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
 	googleapi.ServerResponse `json:"-"`
 
+<<<<<<< HEAD
+	// ForceSendFields is a list of field names (e.g. "Id") to
+	// unconditionally include in API requests. By default, fields with
+=======
 	// ForceSendFields is a list of field names (e.g. "CreationTimestamp")
 	// to unconditionally include in API requests. By default, fields with
+>>>>>>> Initial dep workover
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
 	// server regardless of whether the field is empty or not. This may be
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "Id") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *RegionList) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionList
+=======
 	// NullFields is a list of field names (e.g. "CreationTimestamp") to
 	// include in API requests with the JSON null value. By default, fields
 	// with empty values are omitted from API requests. However, any field
@@ -16415,10 +17004,505 @@ type Route struct {
 
 func (s *Route) MarshalJSON() ([]byte, error) {
 	type NoMethod Route
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+// RegionListWarning: [Output Only] Informational warning message.
+type RegionListWarning struct {
+=======
+type RouteWarnings struct {
+>>>>>>> Initial dep workover
+	// Code: [Output Only] A warning code, if applicable. For example,
+	// Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in
+	// the response.
+	//
+	// Possible values:
+	//   "CLEANUP_FAILED"
+	//   "DEPRECATED_RESOURCE_USED"
+	//   "DEPRECATED_TYPE_USED"
+	//   "DISK_SIZE_LARGER_THAN_IMAGE_SIZE"
+	//   "EXPERIMENTAL_TYPE_USED"
+	//   "EXTERNAL_API_WARNING"
+	//   "FIELD_VALUE_OVERRIDEN"
+	//   "INJECTED_KERNELS_DEPRECATED"
+	//   "MISSING_TYPE_DEPENDENCY"
+	//   "NEXT_HOP_ADDRESS_NOT_ASSIGNED"
+	//   "NEXT_HOP_CANNOT_IP_FORWARD"
+	//   "NEXT_HOP_INSTANCE_NOT_FOUND"
+	//   "NEXT_HOP_INSTANCE_NOT_ON_NETWORK"
+	//   "NEXT_HOP_NOT_RUNNING"
+	//   "NOT_CRITICAL_ERROR"
+	//   "NO_RESULTS_ON_PAGE"
+	//   "REQUIRED_TOS_AGREEMENT"
+	//   "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING"
+	//   "RESOURCE_NOT_DELETED"
+	//   "SCHEMA_VALIDATION_IGNORED"
+	//   "SINGLE_INSTANCE_PROPERTY_TEMPLATE"
+	//   "UNDECLARED_PROPERTIES"
+	//   "UNREACHABLE"
+	Code string `json:"code,omitempty"`
+
+	// Data: [Output Only] Metadata about this warning in key: value format.
+	// For example:
+	// "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+<<<<<<< HEAD
+	Data []*RegionListWarningData `json:"data,omitempty"`
+=======
+	Data []*RouteWarningsData `json:"data,omitempty"`
+>>>>>>> Initial dep workover
+
+	// Message: [Output Only] A human-readable description of the warning
+	// code.
+	Message string `json:"message,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Code") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Code") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+<<<<<<< HEAD
+func (s *RegionListWarning) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionListWarning
+=======
+func (s *RouteWarnings) MarshalJSON() ([]byte, error) {
+	type NoMethod RouteWarnings
+>>>>>>> Initial dep workover
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+<<<<<<< HEAD
+type RegionListWarningData struct {
+=======
+type RouteWarningsData struct {
+>>>>>>> Initial dep workover
+	// Key: [Output Only] A key that provides more detail on the warning
+	// being returned. For example, for warnings where there are no results
+	// in a list request for a particular zone, this key might be scope and
+	// the key value might be the zone name. Other examples might be a key
+	// indicating a deprecated resource and a suggested replacement, or a
+	// warning about invalid network settings (for example, if an instance
+	// attempts to perform IP forwarding but is not enabled for IP
+	// forwarding).
+	Key string `json:"key,omitempty"`
+
+	// Value: [Output Only] A warning data value corresponding to the key.
+	Value string `json:"value,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Key") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Key") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+<<<<<<< HEAD
+func (s *RegionListWarningData) MarshalJSON() ([]byte, error) {
+	type NoMethod RegionListWarningData
+=======
+func (s *RouteWarningsData) MarshalJSON() ([]byte, error) {
+	type NoMethod RouteWarningsData
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// RouteList: Contains a list of Route resources.
+type RouteList struct {
+	// Id: [Output Only] Unique identifier for the resource; defined by the
+	// server.
+	Id string `json:"id,omitempty"`
+
+	// Items: A list of Route resources.
+	Items []*Route `json:"items,omitempty"`
+
+	// Kind: Type of resource.
+	Kind string `json:"kind,omitempty"`
+
+	// NextPageToken: [Output Only] This token allows you to get the next
+	// page of results for list requests. If the number of results is larger
+	// than maxResults, use the nextPageToken as a value for the query
+	// parameter pageToken in the next list request. Subsequent list
+	// requests will have their own nextPageToken to continue paging through
+	// the results.
+	NextPageToken string `json:"nextPageToken,omitempty"`
+
+	// SelfLink: [Output Only] Server-defined URL for this resource.
+	SelfLink string `json:"selfLink,omitempty"`
+
+	// Warning: [Output Only] Informational warning message.
+	Warning *RouteListWarning `json:"warning,omitempty"`
+
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+
+	// ForceSendFields is a list of field names (e.g. "Id") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Id") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *RouteList) MarshalJSON() ([]byte, error) {
+	type NoMethod RouteList
+>>>>>>> Initial dep workover
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+<<<<<<< HEAD
+// ResourceCommitment: Commitment for a particular resource (a
+// Commitment is composed of one or more of these).
+type ResourceCommitment struct {
+	// Amount: The amount of the resource purchased (in a type-dependent
+	// unit, such as bytes). For vCPUs, this can just be an integer. For
+	// memory, this must be provided in MB. Memory must be a multiple of 256
+	// MB, with up to 6.5GB of memory per every vCPU.
+	Amount int64 `json:"amount,omitempty,string"`
+
+	// Type: Type of resource for which this commitment applies. Possible
+	// values are VCPU and MEMORY
+	//
+	// Possible values:
+	//   "MEMORY"
+	//   "UNSPECIFIED"
+	//   "VCPU"
+	Type string `json:"type,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Amount") to
+=======
+// RouteListWarning: [Output Only] Informational warning message.
+type RouteListWarning struct {
+	// Code: [Output Only] A warning code, if applicable. For example,
+	// Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in
+	// the response.
+	//
+	// Possible values:
+	//   "CLEANUP_FAILED"
+	//   "DEPRECATED_RESOURCE_USED"
+	//   "DEPRECATED_TYPE_USED"
+	//   "DISK_SIZE_LARGER_THAN_IMAGE_SIZE"
+	//   "EXPERIMENTAL_TYPE_USED"
+	//   "EXTERNAL_API_WARNING"
+	//   "FIELD_VALUE_OVERRIDEN"
+	//   "INJECTED_KERNELS_DEPRECATED"
+	//   "MISSING_TYPE_DEPENDENCY"
+	//   "NEXT_HOP_ADDRESS_NOT_ASSIGNED"
+	//   "NEXT_HOP_CANNOT_IP_FORWARD"
+	//   "NEXT_HOP_INSTANCE_NOT_FOUND"
+	//   "NEXT_HOP_INSTANCE_NOT_ON_NETWORK"
+	//   "NEXT_HOP_NOT_RUNNING"
+	//   "NOT_CRITICAL_ERROR"
+	//   "NO_RESULTS_ON_PAGE"
+	//   "REQUIRED_TOS_AGREEMENT"
+	//   "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING"
+	//   "RESOURCE_NOT_DELETED"
+	//   "SCHEMA_VALIDATION_IGNORED"
+	//   "SINGLE_INSTANCE_PROPERTY_TEMPLATE"
+	//   "UNDECLARED_PROPERTIES"
+	//   "UNREACHABLE"
+	Code string `json:"code,omitempty"`
+
+	// Data: [Output Only] Metadata about this warning in key: value format.
+	// For example:
+	// "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+	Data []*RouteListWarningData `json:"data,omitempty"`
+
+	// Message: [Output Only] A human-readable description of the warning
+	// code.
+	Message string `json:"message,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Code") to
+>>>>>>> Initial dep workover
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "Amount") to include in API
+=======
+	// NullFields is a list of field names (e.g. "Code") to include in API
+>>>>>>> Initial dep workover
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+<<<<<<< HEAD
+func (s *ResourceCommitment) MarshalJSON() ([]byte, error) {
+	type NoMethod ResourceCommitment
+=======
+func (s *RouteListWarning) MarshalJSON() ([]byte, error) {
+	type NoMethod RouteListWarning
+>>>>>>> Initial dep workover
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+<<<<<<< HEAD
+type ResourceGroupReference struct {
+	// Group: A URI referencing one of the instance groups listed in the
+	// backend service.
+	Group string `json:"group,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Group") to
+=======
+type RouteListWarningData struct {
+	// Key: [Output Only] A key that provides more detail on the warning
+	// being returned. For example, for warnings where there are no results
+	// in a list request for a particular zone, this key might be scope and
+	// the key value might be the zone name. Other examples might be a key
+	// indicating a deprecated resource and a suggested replacement, or a
+	// warning about invalid network settings (for example, if an instance
+	// attempts to perform IP forwarding but is not enabled for IP
+	// forwarding).
+	Key string `json:"key,omitempty"`
+
+	// Value: [Output Only] A warning data value corresponding to the key.
+	Value string `json:"value,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Key") to
+>>>>>>> Initial dep workover
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "Group") to include in API
+=======
+	// NullFields is a list of field names (e.g. "Key") to include in API
+>>>>>>> Initial dep workover
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+<<<<<<< HEAD
+func (s *ResourceGroupReference) MarshalJSON() ([]byte, error) {
+	type NoMethod ResourceGroupReference
+=======
+func (s *RouteListWarningData) MarshalJSON() ([]byte, error) {
+	type NoMethod RouteListWarningData
+>>>>>>> Initial dep workover
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+<<<<<<< HEAD
+// Route: Represents a Route resource. A route specifies how certain
+// packets should be handled by the network. Routes are associated with
+// instances by tags and the set of routes for a particular instance is
+// called its routing table.
+//
+// For each packet leaving an instance, the system searches that
+// instance's routing table for a single best matching route. Routes
+// match packets by destination IP address, preferring smaller or more
+// specific ranges over larger ones. If there is a tie, the system
+// selects the route with the smallest priority value. If there is still
+// a tie, it uses the layer three and four packet headers to select just
+// one of the remaining matching routes. The packet is then forwarded as
+// specified by the nextHop field of the winning route - either to
+// another instance destination, an instance gateway, or a Google
+// Compute Engine-operated gateway.
+//
+// Packets that do not match any route in the sending instance's routing
+// table are dropped. (== resource_for beta.routes ==) (== resource_for
+// v1.routes ==)
+type Route struct {
+=======
+// Router: Router resource.
+type Router struct {
+	// Bgp: BGP information specific to this router.
+	Bgp *RouterBgp `json:"bgp,omitempty"`
+
+	// BgpPeers: BGP information that needs to be configured into the
+	// routing stack to establish the BGP peering. It must specify peer ASN
+	// and either interface name, IP, or peer IP. Please refer to RFC4273.
+	BgpPeers []*RouterBgpPeer `json:"bgpPeers,omitempty"`
+
+>>>>>>> Initial dep workover
+	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
+	// format.
+	CreationTimestamp string `json:"creationTimestamp,omitempty"`
+
+	// Description: An optional description of this resource. Provide this
+	// property when you create the resource.
+	Description string `json:"description,omitempty"`
+
+	// DestRange: The destination range of outgoing packets that this route
+	// applies to. Only IPv4 is supported.
+	DestRange string `json:"destRange,omitempty"`
+
+	// Id: [Output Only] The unique identifier for the resource. This
+	// identifier is defined by the server.
+	Id uint64 `json:"id,omitempty,string"`
+
+<<<<<<< HEAD
+	// Kind: [Output Only] Type of this resource. Always compute#routes for
+	// Route resources.
+=======
+	// Interfaces: Router interfaces. Each interface requires either one
+	// linked resource (e.g. linkedVpnTunnel), or IP address and IP address
+	// range (e.g. ipRange), or both.
+	Interfaces []*RouterInterface `json:"interfaces,omitempty"`
+
+	// Kind: [Output Only] Type of resource. Always compute#router for
+	// routers.
+>>>>>>> Initial dep workover
+	Kind string `json:"kind,omitempty"`
+
+	// Name: Name of the resource. Provided by the client when the resource
+	// is created. The name must be 1-63 characters long, and comply with
+	// RFC1035. Specifically, the name must be 1-63 characters long and
+	// match the regular expression [a-z]([-a-z0-9]*[a-z0-9])? which means
+	// the first character must be a lowercase letter, and all following
+	// characters must be a dash, lowercase letter, or digit, except the
+	// last character, which cannot be a dash.
+	Name string `json:"name,omitempty"`
+
+<<<<<<< HEAD
+	// Network: Fully-qualified URL of the network that this route applies
+	// to.
+	Network string `json:"network,omitempty"`
+
+	// NextHopGateway: The URL to a gateway that should handle matching
+	// packets. You can only specify the internet gateway using a full or
+	// partial valid URL:
+	// projects/<project-id>/global/gateways/default-internet-gateway
+	NextHopGateway string `json:"nextHopGateway,omitempty"`
+
+	// NextHopInstance: The URL to an instance that should handle matching
+	// packets. You can specify this as a full or partial URL. For
+	// example:
+	// https://www.googleapis.com/compute/v1/projects/project/zones/
+	// zone/instances/
+	NextHopInstance string `json:"nextHopInstance,omitempty"`
+
+	// NextHopIp: The network IP address of an instance that should handle
+	// matching packets. Only IPv4 is supported.
+	NextHopIp string `json:"nextHopIp,omitempty"`
+
+	// NextHopNetwork: The URL of the local network if it should handle
+	// matching packets.
+	NextHopNetwork string `json:"nextHopNetwork,omitempty"`
+
+	// NextHopPeering: [Output Only] The network peering name that should
+	// handle matching packets, which should conform to RFC1035.
+	NextHopPeering string `json:"nextHopPeering,omitempty"`
+
+	// NextHopVpnTunnel: The URL to a VpnTunnel that should handle matching
+	// packets.
+	NextHopVpnTunnel string `json:"nextHopVpnTunnel,omitempty"`
+
+	// Priority: The priority of this route. Priority is used to break ties
+	// in cases where there is more than one matching route of equal prefix
+	// length. In the case of two routes with equal prefix length, the one
+	// with the lowest-numbered priority value wins. Default value is 1000.
+	// Valid range is 0 through 65535.
+	Priority int64 `json:"priority,omitempty"`
+
+	// SelfLink: [Output Only] Server-defined fully-qualified URL for this
+	// resource.
+	SelfLink string `json:"selfLink,omitempty"`
+
+	// Tags: A list of instance tags to which this route applies.
+	Tags []string `json:"tags,omitempty"`
+
+	// Warnings: [Output Only] If potential misconfigurations are detected
+	// for this route, this field will be populated with warning messages.
+	Warnings []*RouteWarnings `json:"warnings,omitempty"`
+
+=======
+	// Network: URI of the network to which this router belongs.
+	Network string `json:"network,omitempty"`
+
+	// Region: [Output Only] URI of the region where the router resides.
+	Region string `json:"region,omitempty"`
+
+	// SelfLink: [Output Only] Server-defined URL for the resource.
+	SelfLink string `json:"selfLink,omitempty"`
+
+>>>>>>> Initial dep workover
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+
+	// ForceSendFields is a list of field names (e.g. "Bgp") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Bgp") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+<<<<<<< HEAD
+func (s *Route) MarshalJSON() ([]byte, error) {
+	type NoMethod Route
+=======
+func (s *Router) MarshalJSON() ([]byte, error) {
+	type NoMethod Router
+>>>>>>> Initial dep workover
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+<<<<<<< HEAD
 type RouteWarnings struct {
 	// Code: [Output Only] A warning code, if applicable. For example,
 	// Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in
@@ -16521,12 +17605,21 @@ func (s *RouteWarningsData) MarshalJSON() ([]byte, error) {
 
 // RouteList: Contains a list of Route resources.
 type RouteList struct {
+=======
+// RouterAggregatedList: Contains a list of routers.
+type RouterAggregatedList struct {
+>>>>>>> Initial dep workover
 	// Id: [Output Only] Unique identifier for the resource; defined by the
 	// server.
 	Id string `json:"id,omitempty"`
 
+<<<<<<< HEAD
 	// Items: A list of Route resources.
 	Items []*Route `json:"items,omitempty"`
+=======
+	// Items: A list of Router resources.
+	Items map[string]RoutersScopedList `json:"items,omitempty"`
+>>>>>>> Initial dep workover
 
 	// Kind: Type of resource.
 	Kind string `json:"kind,omitempty"`
@@ -16543,7 +17636,11 @@ type RouteList struct {
 	SelfLink string `json:"selfLink,omitempty"`
 
 	// Warning: [Output Only] Informational warning message.
+<<<<<<< HEAD
 	Warning *RouteListWarning `json:"warning,omitempty"`
+=======
+	Warning *RouterAggregatedListWarning `json:"warning,omitempty"`
+>>>>>>> Initial dep workover
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
@@ -16566,14 +17663,25 @@ type RouteList struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
 func (s *RouteList) MarshalJSON() ([]byte, error) {
 	type NoMethod RouteList
+=======
+func (s *RouterAggregatedList) MarshalJSON() ([]byte, error) {
+	type NoMethod RouterAggregatedList
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // RouteListWarning: [Output Only] Informational warning message.
 type RouteListWarning struct {
+=======
+// RouterAggregatedListWarning: [Output Only] Informational warning
+// message.
+type RouterAggregatedListWarning struct {
+>>>>>>> Initial dep workover
 	// Code: [Output Only] A warning code, if applicable. For example,
 	// Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in
 	// the response.
@@ -16603,6 +17711,7 @@ type RouteListWarning struct {
 	//   "UNDECLARED_PROPERTIES"
 	//   "UNREACHABLE"
 	Code string `json:"code,omitempty"`
+<<<<<<< HEAD
 
 	// Data: [Output Only] Metadata about this warning in key: value format.
 	// For example:
@@ -16727,6 +17836,19 @@ type Router struct {
 	googleapi.ServerResponse `json:"-"`
 
 	// ForceSendFields is a list of field names (e.g. "Bgp") to
+=======
+
+	// Data: [Output Only] Metadata about this warning in key: value format.
+	// For example:
+	// "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+	Data []*RouterAggregatedListWarningData `json:"data,omitempty"`
+
+	// Message: [Output Only] A human-readable description of the warning
+	// code.
+	Message string `json:"message,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Code") to
+>>>>>>> Initial dep workover
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -16734,7 +17856,11 @@ type Router struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
 	// NullFields is a list of field names (e.g. "Bgp") to include in API
+=======
+	// NullFields is a list of field names (e.g. "Code") to include in API
+>>>>>>> Initial dep workover
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
@@ -16743,12 +17869,18 @@ type Router struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
 func (s *Router) MarshalJSON() ([]byte, error) {
 	type NoMethod Router
+=======
+func (s *RouterAggregatedListWarning) MarshalJSON() ([]byte, error) {
+	type NoMethod RouterAggregatedListWarning
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // RouterAggregatedList: Contains a list of routers.
 type RouterAggregatedList struct {
 	// Id: [Output Only] Unique identifier for the resource; defined by the
@@ -16760,34 +17892,31 @@ type RouterAggregatedList struct {
 
 	// Kind: Type of resource.
 	Kind string `json:"kind,omitempty"`
+=======
+type RouterAggregatedListWarningData struct {
+	// Key: [Output Only] A key that provides more detail on the warning
+	// being returned. For example, for warnings where there are no results
+	// in a list request for a particular zone, this key might be scope and
+	// the key value might be the zone name. Other examples might be a key
+	// indicating a deprecated resource and a suggested replacement, or a
+	// warning about invalid network settings (for example, if an instance
+	// attempts to perform IP forwarding but is not enabled for IP
+	// forwarding).
+	Key string `json:"key,omitempty"`
 
-	// NextPageToken: [Output Only] This token allows you to get the next
-	// page of results for list requests. If the number of results is larger
-	// than maxResults, use the nextPageToken as a value for the query
-	// parameter pageToken in the next list request. Subsequent list
-	// requests will have their own nextPageToken to continue paging through
-	// the results.
-	NextPageToken string `json:"nextPageToken,omitempty"`
+	// Value: [Output Only] A warning data value corresponding to the key.
+	Value string `json:"value,omitempty"`
 
-	// SelfLink: [Output Only] Server-defined URL for this resource.
-	SelfLink string `json:"selfLink,omitempty"`
-
-	// Warning: [Output Only] Informational warning message.
-	Warning *RouterAggregatedListWarning `json:"warning,omitempty"`
-
-	// ServerResponse contains the HTTP response code and headers from the
-	// server.
-	googleapi.ServerResponse `json:"-"`
-
-	// ForceSendFields is a list of field names (e.g. "Id") to
+	// ForceSendFields is a list of field names (e.g. "Key") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
 	// server regardless of whether the field is empty or not. This may be
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
+>>>>>>> Initial dep workover
 
-	// NullFields is a list of field names (e.g. "Id") to include in API
+	// NullFields is a list of field names (e.g. "Key") to include in API
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
@@ -16796,12 +17925,57 @@ type RouterAggregatedList struct {
 	NullFields []string `json:"-"`
 }
 
-func (s *RouterAggregatedList) MarshalJSON() ([]byte, error) {
-	type NoMethod RouterAggregatedList
+func (s *RouterAggregatedListWarningData) MarshalJSON() ([]byte, error) {
+	type NoMethod RouterAggregatedListWarningData
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+	// Warning: [Output Only] Informational warning message.
+	Warning *RouterAggregatedListWarning `json:"warning,omitempty"`
+
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+=======
+type RouterBgp struct {
+	// Asn: Local BGP Autonomous System Number (ASN). Must be an RFC6996
+	// private ASN, either 16-bit or 32-bit. The value will be fixed for
+	// this router resource. All VPN tunnels that link to this router will
+	// have the same local ASN.
+	Asn int64 `json:"asn,omitempty"`
+>>>>>>> Initial dep workover
+
+	// ForceSendFields is a list of field names (e.g. "Asn") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Asn") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+<<<<<<< HEAD
+func (s *RouterAggregatedList) MarshalJSON() ([]byte, error) {
+	type NoMethod RouterAggregatedList
+=======
+func (s *RouterBgp) MarshalJSON() ([]byte, error) {
+	type NoMethod RouterBgp
+>>>>>>> Initial dep workover
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+<<<<<<< HEAD
 // RouterAggregatedListWarning: [Output Only] Informational warning
 // message.
 type RouterAggregatedListWarning struct {
@@ -16968,6 +18142,42 @@ type RouterBgpPeer struct {
 	// Patch requests.
 	ForceSendFields []string `json:"-"`
 
+=======
+type RouterBgpPeer struct {
+	// AdvertisedRoutePriority: The priority of routes advertised to this
+	// BGP peer. In the case where there is more than one matching route of
+	// maximum length, the routes with lowest priority value win.
+	AdvertisedRoutePriority int64 `json:"advertisedRoutePriority,omitempty"`
+
+	// InterfaceName: Name of the interface the BGP peer is associated with.
+	InterfaceName string `json:"interfaceName,omitempty"`
+
+	// IpAddress: IP address of the interface inside Google Cloud Platform.
+	// Only IPv4 is supported.
+	IpAddress string `json:"ipAddress,omitempty"`
+
+	// Name: Name of this BGP peer. The name must be 1-63 characters long
+	// and comply with RFC1035.
+	Name string `json:"name,omitempty"`
+
+	// PeerAsn: Peer BGP Autonomous System Number (ASN). For VPN use case,
+	// this value can be different for every tunnel.
+	PeerAsn int64 `json:"peerAsn,omitempty"`
+
+	// PeerIpAddress: IP address of the BGP interface outside Google cloud.
+	// Only IPv4 is supported.
+	PeerIpAddress string `json:"peerIpAddress,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g.
+	// "AdvertisedRoutePriority") to unconditionally include in API
+	// requests. By default, fields with empty values are omitted from API
+	// requests. However, any non-pointer, non-interface field appearing in
+	// ForceSendFields will be sent to the server regardless of whether the
+	// field is empty or not. This may be used to include empty fields in
+	// Patch requests.
+	ForceSendFields []string `json:"-"`
+
+>>>>>>> Initial dep workover
 	// NullFields is a list of field names (e.g. "AdvertisedRoutePriority")
 	// to include in API requests with the JSON null value. By default,
 	// fields with empty values are omitted from API requests. However, any
@@ -17224,6 +18434,7 @@ func (s *RouterStatus) MarshalJSON() ([]byte, error) {
 type RouterStatusBgpPeerStatus struct {
 	// AdvertisedRoutes: Routes that were advertised to the remote BGP peer
 	AdvertisedRoutes []*Route `json:"advertisedRoutes,omitempty"`
+<<<<<<< HEAD
 
 	// IpAddress: IP address of the local BGP interface.
 	IpAddress string `json:"ipAddress,omitempty"`
@@ -17240,6 +18451,24 @@ type RouterStatusBgpPeerStatus struct {
 	// PeerIpAddress: IP address of the remote BGP interface.
 	PeerIpAddress string `json:"peerIpAddress,omitempty"`
 
+=======
+
+	// IpAddress: IP address of the local BGP interface.
+	IpAddress string `json:"ipAddress,omitempty"`
+
+	// LinkedVpnTunnel: URL of the VPN tunnel that this BGP peer controls.
+	LinkedVpnTunnel string `json:"linkedVpnTunnel,omitempty"`
+
+	// Name: Name of this BGP peer. Unique within the Routers resource.
+	Name string `json:"name,omitempty"`
+
+	// NumLearnedRoutes: Number of routes learned from the remote BGP Peer.
+	NumLearnedRoutes int64 `json:"numLearnedRoutes,omitempty"`
+
+	// PeerIpAddress: IP address of the remote BGP interface.
+	PeerIpAddress string `json:"peerIpAddress,omitempty"`
+
+>>>>>>> Initial dep workover
 	// State: BGP state as specified in RFC1771.
 	State string `json:"state,omitempty"`
 
@@ -17666,8 +18895,12 @@ func (s *ServiceAccount) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // Snapshot: A persistent disk snapshot resource. (== resource_for
 // beta.snapshots ==) (== resource_for v1.snapshots ==)
+=======
+// Snapshot: A persistent disk snapshot resource.
+>>>>>>> Initial dep workover
 type Snapshot struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -17962,8 +19195,12 @@ func (s *SnapshotListWarningData) MarshalJSON() ([]byte, error) {
 
 // SslCertificate: An SslCertificate resource. This resource provides a
 // mechanism to upload an SSL key and certificate to the load balancer
+<<<<<<< HEAD
 // to serve secure connections from the user. (== resource_for
 // beta.sslCertificates ==) (== resource_for v1.sslCertificates ==)
+=======
+// to serve secure connections from the user.
+>>>>>>> Initial dep workover
 type SslCertificate struct {
 	// Certificate: A local certificate file. The certificate must be in PEM
 	// format. The certificate chain must be no greater than 5 certs long.
@@ -18184,8 +19421,12 @@ func (s *SslCertificateListWarningData) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // Subnetwork: A Subnetwork resource. (== resource_for beta.subnetworks
 // ==) (== resource_for v1.subnetworks ==)
+=======
+// Subnetwork: A Subnetwork resource.
+>>>>>>> Initial dep workover
 type Subnetwork struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -18597,6 +19838,15 @@ type SubnetworkSecondaryRange struct {
 	// primary and secondary IP ranges within a network. Only IPv4 is
 	// supported.
 	IpCidrRange string `json:"ipCidrRange,omitempty"`
+<<<<<<< HEAD
+
+	// RangeName: The name associated with this subnetwork secondary range,
+	// used when adding an alias IP range to a VM instance. The name must be
+	// 1-63 characters long, and comply with RFC1035. The name must be
+	// unique within the subnetwork.
+	RangeName string `json:"rangeName,omitempty"`
+
+=======
 
 	// RangeName: The name associated with this subnetwork secondary range,
 	// used when adding an alias IP range to a VM instance. The name must be
@@ -18635,6 +19885,7 @@ type SubnetworksExpandIpCidrRangeRequest struct {
 	// update.
 	IpCidrRange string `json:"ipCidrRange,omitempty"`
 
+>>>>>>> Initial dep workover
 	// ForceSendFields is a list of field names (e.g. "IpCidrRange") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
@@ -18652,12 +19903,28 @@ type SubnetworksExpandIpCidrRangeRequest struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *SubnetworkSecondaryRange) MarshalJSON() ([]byte, error) {
+	type NoMethod SubnetworkSecondaryRange
+=======
 func (s *SubnetworksExpandIpCidrRangeRequest) MarshalJSON() ([]byte, error) {
 	type NoMethod SubnetworksExpandIpCidrRangeRequest
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type SubnetworksExpandIpCidrRangeRequest struct {
+	// IpCidrRange: The IP (in CIDR format or netmask) of internal addresses
+	// that are legal on this Subnetwork. This range should be disjoint from
+	// other subnetworks within this network. This range can only be larger
+	// than (i.e. a superset of) the range previously defined before the
+	// update.
+	IpCidrRange string `json:"ipCidrRange,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "IpCidrRange") to
+=======
 type SubnetworksScopedList struct {
 	// Subnetworks: List of subnetworks contained in this scope.
 	Subnetworks []*Subnetwork `json:"subnetworks,omitempty"`
@@ -18667,6 +19934,7 @@ type SubnetworksScopedList struct {
 	Warning *SubnetworksScopedListWarning `json:"warning,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Subnetworks") to
+>>>>>>> Initial dep workover
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -18674,7 +19942,11 @@ type SubnetworksScopedList struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "IpCidrRange") to include
+=======
 	// NullFields is a list of field names (e.g. "Subnetworks") to include
+>>>>>>> Initial dep workover
 	// in API requests with the JSON null value. By default, fields with
 	// empty values are omitted from API requests. However, any field with
 	// an empty value appearing in NullFields will be sent to the server as
@@ -18683,12 +19955,28 @@ type SubnetworksScopedList struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
+func (s *SubnetworksExpandIpCidrRangeRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod SubnetworksExpandIpCidrRangeRequest
+=======
 func (s *SubnetworksScopedList) MarshalJSON() ([]byte, error) {
 	type NoMethod SubnetworksScopedList
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+type SubnetworksScopedList struct {
+	// Subnetworks: List of subnetworks contained in this scope.
+	Subnetworks []*Subnetwork `json:"subnetworks,omitempty"`
+
+	// Warning: An informational warning that appears when the list of
+	// addresses is empty.
+	Warning *SubnetworksScopedListWarning `json:"warning,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Subnetworks") to
+=======
 // SubnetworksScopedListWarning: An informational warning that appears
 // when the list of addresses is empty.
 type SubnetworksScopedListWarning struct {
@@ -18732,6 +20020,7 @@ type SubnetworksScopedListWarning struct {
 	Message string `json:"message,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Code") to
+>>>>>>> Initial dep workover
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -18739,7 +20028,106 @@ type SubnetworksScopedListWarning struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "Subnetworks") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+=======
 	// NullFields is a list of field names (e.g. "Code") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+>>>>>>> Initial dep workover
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+<<<<<<< HEAD
+func (s *SubnetworksScopedList) MarshalJSON() ([]byte, error) {
+	type NoMethod SubnetworksScopedList
+=======
+func (s *SubnetworksScopedListWarning) MarshalJSON() ([]byte, error) {
+	type NoMethod SubnetworksScopedListWarning
+>>>>>>> Initial dep workover
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+<<<<<<< HEAD
+// SubnetworksScopedListWarning: An informational warning that appears
+// when the list of addresses is empty.
+type SubnetworksScopedListWarning struct {
+	// Code: [Output Only] A warning code, if applicable. For example,
+	// Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in
+	// the response.
+	//
+	// Possible values:
+	//   "CLEANUP_FAILED"
+	//   "DEPRECATED_RESOURCE_USED"
+	//   "DEPRECATED_TYPE_USED"
+	//   "DISK_SIZE_LARGER_THAN_IMAGE_SIZE"
+	//   "EXPERIMENTAL_TYPE_USED"
+	//   "EXTERNAL_API_WARNING"
+	//   "FIELD_VALUE_OVERRIDEN"
+	//   "INJECTED_KERNELS_DEPRECATED"
+	//   "MISSING_TYPE_DEPENDENCY"
+	//   "NEXT_HOP_ADDRESS_NOT_ASSIGNED"
+	//   "NEXT_HOP_CANNOT_IP_FORWARD"
+	//   "NEXT_HOP_INSTANCE_NOT_FOUND"
+	//   "NEXT_HOP_INSTANCE_NOT_ON_NETWORK"
+	//   "NEXT_HOP_NOT_RUNNING"
+	//   "NOT_CRITICAL_ERROR"
+	//   "NO_RESULTS_ON_PAGE"
+	//   "REQUIRED_TOS_AGREEMENT"
+	//   "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING"
+	//   "RESOURCE_NOT_DELETED"
+	//   "SCHEMA_VALIDATION_IGNORED"
+	//   "SINGLE_INSTANCE_PROPERTY_TEMPLATE"
+	//   "UNDECLARED_PROPERTIES"
+	//   "UNREACHABLE"
+	Code string `json:"code,omitempty"`
+
+	// Data: [Output Only] Metadata about this warning in key: value format.
+	// For example:
+	// "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+	Data []*SubnetworksScopedListWarningData `json:"data,omitempty"`
+
+	// Message: [Output Only] A human-readable description of the warning
+	// code.
+	Message string `json:"message,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Code") to
+=======
+type SubnetworksScopedListWarningData struct {
+	// Key: [Output Only] A key that provides more detail on the warning
+	// being returned. For example, for warnings where there are no results
+	// in a list request for a particular zone, this key might be scope and
+	// the key value might be the zone name. Other examples might be a key
+	// indicating a deprecated resource and a suggested replacement, or a
+	// warning about invalid network settings (for example, if an instance
+	// attempts to perform IP forwarding but is not enabled for IP
+	// forwarding).
+	Key string `json:"key,omitempty"`
+
+	// Value: [Output Only] A warning data value corresponding to the key.
+	Value string `json:"value,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Key") to
+>>>>>>> Initial dep workover
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+<<<<<<< HEAD
+	// NullFields is a list of field names (e.g. "Code") to include in API
+=======
+	// NullFields is a list of field names (e.g. "Key") to include in API
+>>>>>>> Initial dep workover
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
@@ -18748,6 +20136,7 @@ type SubnetworksScopedListWarning struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
 func (s *SubnetworksScopedListWarning) MarshalJSON() ([]byte, error) {
 	type NoMethod SubnetworksScopedListWarning
 	raw := NoMethod(*s)
@@ -18785,6 +20174,8 @@ type SubnetworksScopedListWarningData struct {
 	NullFields []string `json:"-"`
 }
 
+=======
+>>>>>>> Initial dep workover
 func (s *SubnetworksScopedListWarningData) MarshalJSON() ([]byte, error) {
 	type NoMethod SubnetworksScopedListWarningData
 	raw := NoMethod(*s)
@@ -18911,8 +20302,12 @@ func (s *Tags) MarshalJSON() ([]byte, error) {
 }
 
 // TargetHttpProxy: A TargetHttpProxy resource. This resource defines an
+<<<<<<< HEAD
 // HTTP proxy. (== resource_for beta.targetHttpProxies ==) (==
 // resource_for v1.targetHttpProxies ==)
+=======
+// HTTP proxy.
+>>>>>>> Initial dep workover
 type TargetHttpProxy struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -19135,6 +20530,8 @@ type TargetHttpsProxiesSetSslCertificatesRequest struct {
 	// with this TargetHttpsProxy resource. Currently exactly one
 	// SslCertificate resource must be specified.
 	SslCertificates []string `json:"sslCertificates,omitempty"`
+<<<<<<< HEAD
+=======
 
 	// ForceSendFields is a list of field names (e.g. "SslCertificates") to
 	// unconditionally include in API requests. By default, fields with
@@ -19160,6 +20557,141 @@ func (s *TargetHttpsProxiesSetSslCertificatesRequest) MarshalJSON() ([]byte, err
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+// TargetHttpsProxy: A TargetHttpsProxy resource. This resource defines
+// an HTTPS proxy.
+type TargetHttpsProxy struct {
+	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
+	// format.
+	CreationTimestamp string `json:"creationTimestamp,omitempty"`
+
+	// Description: An optional description of this resource. Provide this
+	// property when you create the resource.
+	Description string `json:"description,omitempty"`
+
+	// Id: [Output Only] The unique identifier for the resource. This
+	// identifier is defined by the server.
+	Id uint64 `json:"id,omitempty,string"`
+
+	// Kind: [Output Only] Type of resource. Always compute#targetHttpsProxy
+	// for target HTTPS proxies.
+	Kind string `json:"kind,omitempty"`
+
+	// Name: Name of the resource. Provided by the client when the resource
+	// is created. The name must be 1-63 characters long, and comply with
+	// RFC1035. Specifically, the name must be 1-63 characters long and
+	// match the regular expression [a-z]([-a-z0-9]*[a-z0-9])? which means
+	// the first character must be a lowercase letter, and all following
+	// characters must be a dash, lowercase letter, or digit, except the
+	// last character, which cannot be a dash.
+	Name string `json:"name,omitempty"`
+
+	// SelfLink: [Output Only] Server-defined URL for the resource.
+	SelfLink string `json:"selfLink,omitempty"`
+
+	// SslCertificates: URLs to SslCertificate resources that are used to
+	// authenticate connections between users and the load balancer.
+	// Currently, exactly one SSL certificate must be specified.
+	SslCertificates []string `json:"sslCertificates,omitempty"`
+
+	// UrlMap: A fully-qualified or valid partial URL to the UrlMap resource
+	// that defines the mapping from URL to the BackendService. For example,
+	// the following are all valid URLs for specifying a URL map:
+	// -
+	// https://www.googleapis.compute/v1/projects/project/global/urlMaps/url-map
+	// - projects/project/global/urlMaps/url-map
+	// - global/urlMaps/url-map
+	UrlMap string `json:"urlMap,omitempty"`
+
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+
+	// ForceSendFields is a list of field names (e.g. "CreationTimestamp")
+	// to unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "CreationTimestamp") to
+	// include in API requests with the JSON null value. By default, fields
+	// with empty values are omitted from API requests. However, any field
+	// with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *TargetHttpsProxy) MarshalJSON() ([]byte, error) {
+	type NoMethod TargetHttpsProxy
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// TargetHttpsProxyList: Contains a list of TargetHttpsProxy resources.
+type TargetHttpsProxyList struct {
+	// Id: [Output Only] Unique identifier for the resource; defined by the
+	// server.
+	Id string `json:"id,omitempty"`
+
+	// Items: A list of TargetHttpsProxy resources.
+	Items []*TargetHttpsProxy `json:"items,omitempty"`
+
+	// Kind: Type of resource. Always compute#targetHttpsProxyList for lists
+	// of target HTTPS proxies.
+	Kind string `json:"kind,omitempty"`
+
+	// NextPageToken: [Output Only] This token allows you to get the next
+	// page of results for list requests. If the number of results is larger
+	// than maxResults, use the nextPageToken as a value for the query
+	// parameter pageToken in the next list request. Subsequent list
+	// requests will have their own nextPageToken to continue paging through
+	// the results.
+	NextPageToken string `json:"nextPageToken,omitempty"`
+
+	// SelfLink: [Output Only] Server-defined URL for this resource.
+	SelfLink string `json:"selfLink,omitempty"`
+
+	// Warning: [Output Only] Informational warning message.
+	Warning *TargetHttpsProxyListWarning `json:"warning,omitempty"`
+
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+>>>>>>> Initial dep workover
+
+	// ForceSendFields is a list of field names (e.g. "SslCertificates") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "SslCertificates") to
+	// include in API requests with the JSON null value. By default, fields
+	// with empty values are omitted from API requests. However, any field
+	// with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
+	NullFields []string `json:"-"`
+}
+
+<<<<<<< HEAD
+func (s *TargetHttpsProxiesSetSslCertificatesRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod TargetHttpsProxiesSetSslCertificatesRequest
+=======
+func (s *TargetHttpsProxyList) MarshalJSON() ([]byte, error) {
+	type NoMethod TargetHttpsProxyList
+>>>>>>> Initial dep workover
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+<<<<<<< HEAD
 // TargetHttpsProxy: A TargetHttpsProxy resource. This resource defines
 // an HTTPS proxy. (== resource_for beta.targetHttpsProxies ==) (==
 // resource_for v1.targetHttpsProxies ==)
@@ -19264,8 +20796,51 @@ type TargetHttpsProxyList struct {
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
 	googleapi.ServerResponse `json:"-"`
+=======
+// TargetHttpsProxyListWarning: [Output Only] Informational warning
+// message.
+type TargetHttpsProxyListWarning struct {
+	// Code: [Output Only] A warning code, if applicable. For example,
+	// Compute Engine returns NO_RESULTS_ON_PAGE if there are no results in
+	// the response.
+	//
+	// Possible values:
+	//   "CLEANUP_FAILED"
+	//   "DEPRECATED_RESOURCE_USED"
+	//   "DEPRECATED_TYPE_USED"
+	//   "DISK_SIZE_LARGER_THAN_IMAGE_SIZE"
+	//   "EXPERIMENTAL_TYPE_USED"
+	//   "EXTERNAL_API_WARNING"
+	//   "FIELD_VALUE_OVERRIDEN"
+	//   "INJECTED_KERNELS_DEPRECATED"
+	//   "MISSING_TYPE_DEPENDENCY"
+	//   "NEXT_HOP_ADDRESS_NOT_ASSIGNED"
+	//   "NEXT_HOP_CANNOT_IP_FORWARD"
+	//   "NEXT_HOP_INSTANCE_NOT_FOUND"
+	//   "NEXT_HOP_INSTANCE_NOT_ON_NETWORK"
+	//   "NEXT_HOP_NOT_RUNNING"
+	//   "NOT_CRITICAL_ERROR"
+	//   "NO_RESULTS_ON_PAGE"
+	//   "REQUIRED_TOS_AGREEMENT"
+	//   "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING"
+	//   "RESOURCE_NOT_DELETED"
+	//   "SCHEMA_VALIDATION_IGNORED"
+	//   "SINGLE_INSTANCE_PROPERTY_TEMPLATE"
+	//   "UNDECLARED_PROPERTIES"
+	//   "UNREACHABLE"
+	Code string `json:"code,omitempty"`
+>>>>>>> Initial dep workover
 
-	// ForceSendFields is a list of field names (e.g. "Id") to
+	// Data: [Output Only] Metadata about this warning in key: value format.
+	// For example:
+	// "data": [ { "key": "scope", "value": "zones/us-east1-d" }
+	Data []*TargetHttpsProxyListWarningData `json:"data,omitempty"`
+
+	// Message: [Output Only] A human-readable description of the warning
+	// code.
+	Message string `json:"message,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Code") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -19273,7 +20848,7 @@ type TargetHttpsProxyList struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "Id") to include in API
+	// NullFields is a list of field names (e.g. "Code") to include in API
 	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
@@ -19282,12 +20857,18 @@ type TargetHttpsProxyList struct {
 	NullFields []string `json:"-"`
 }
 
+<<<<<<< HEAD
 func (s *TargetHttpsProxyList) MarshalJSON() ([]byte, error) {
 	type NoMethod TargetHttpsProxyList
+=======
+func (s *TargetHttpsProxyListWarning) MarshalJSON() ([]byte, error) {
+	type NoMethod TargetHttpsProxyListWarning
+>>>>>>> Initial dep workover
 	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // TargetHttpsProxyListWarning: [Output Only] Informational warning
 // message.
 type TargetHttpsProxyListWarning struct {
@@ -19353,6 +20934,8 @@ func (s *TargetHttpsProxyListWarning) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+=======
+>>>>>>> Initial dep workover
 type TargetHttpsProxyListWarningData struct {
 	// Key: [Output Only] A key that provides more detail on the warning
 	// being returned. For example, for warnings where there are no results
@@ -19391,9 +20974,13 @@ func (s *TargetHttpsProxyListWarningData) MarshalJSON() ([]byte, error) {
 }
 
 // TargetInstance: A TargetInstance resource. This resource defines an
+<<<<<<< HEAD
 // endpoint instance that terminates traffic of certain protocols. (==
 // resource_for beta.targetInstances ==) (== resource_for
 // v1.targetInstances ==)
+=======
+// endpoint instance that terminates traffic of certain protocols.
+>>>>>>> Initial dep workover
 type TargetInstance struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -19917,8 +21504,12 @@ func (s *TargetInstancesScopedListWarningData) MarshalJSON() ([]byte, error) {
 
 // TargetPool: A TargetPool resource. This resource defines a pool of
 // instances, an associated HttpHealthCheck resource, and the fallback
+<<<<<<< HEAD
 // target pool. (== resource_for beta.targetPools ==) (== resource_for
 // v1.targetPools ==)
+=======
+// target pool.
+>>>>>>> Initial dep workover
 type TargetPool struct {
 	// BackupPool: This field is applicable only when the containing target
 	// pool is serving a forwarding rule as the primary pool, and its
@@ -20774,8 +22365,12 @@ func (s *TargetSslProxiesSetSslCertificatesRequest) MarshalJSON() ([]byte, error
 }
 
 // TargetSslProxy: A TargetSslProxy resource. This resource defines an
+<<<<<<< HEAD
 // SSL proxy. (== resource_for beta.targetSslProxies ==) (==
 // resource_for v1.targetSslProxies ==)
+=======
+// SSL proxy.
+>>>>>>> Initial dep workover
 type TargetSslProxy struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -21066,8 +22661,12 @@ func (s *TargetTcpProxiesSetProxyHeaderRequest) MarshalJSON() ([]byte, error) {
 }
 
 // TargetTcpProxy: A TargetTcpProxy resource. This resource defines a
+<<<<<<< HEAD
 // TCP proxy. (== resource_for beta.targetTcpProxies ==) (==
 // resource_for v1.targetTcpProxies ==)
+=======
+// TCP proxy.
+>>>>>>> Initial dep workover
 type TargetTcpProxy struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -21292,9 +22891,13 @@ func (s *TargetTcpProxyListWarningData) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // TargetVpnGateway: Represents a Target VPN gateway resource. (==
 // resource_for beta.targetVpnGateways ==) (== resource_for
 // v1.targetVpnGateways ==)
+=======
+// TargetVpnGateway: Represents a Target VPN gateway resource.
+>>>>>>> Initial dep workover
 type TargetVpnGateway struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -22294,8 +23897,11 @@ func (s *UsageExportLocation) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // VpnTunnel: VPN tunnel resource. (== resource_for beta.vpnTunnels ==)
 // (== resource_for v1.vpnTunnels ==)
+=======
+>>>>>>> Initial dep workover
 type VpnTunnel struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -23045,8 +24651,12 @@ func (s *XpnResourceId) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // Zone: A Zone resource. (== resource_for beta.zones ==) (==
 // resource_for v1.zones ==)
+=======
+// Zone: A Zone resource.
+>>>>>>> Initial dep workover
 type Zone struct {
 	// AvailableCpuPlatforms: [Output Only] Available cpu/platform
 	// selections for the zone.
@@ -29368,6 +30978,7 @@ type DiskTypesListCall struct {
 	ifNoneMatch_ string
 	ctx_         context.Context
 	header_      http.Header
+<<<<<<< HEAD
 }
 
 // List: Retrieves a list of disk types available to the specified
@@ -29439,6 +31050,79 @@ func (c *DiskTypesListCall) OrderBy(orderBy string) *DiskTypesListCall {
 	return c
 }
 
+=======
+}
+
+// List: Retrieves a list of disk types available to the specified
+// project.
+// For details, see https://cloud.google.com/compute/docs/reference/latest/diskTypes/list
+func (r *DiskTypesService) List(project string, zone string) *DiskTypesListCall {
+	c := &DiskTypesListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.project = project
+	c.zone = zone
+	return c
+}
+
+// Filter sets the optional parameter "filter": Sets a filter
+// {expression} for filtering listed resources. Your {expression} must
+// be in the format: field_name comparison_string literal_string.
+//
+// The field_name is the name of the field you want to compare. Only
+// atomic field types are supported (string, number, boolean). The
+// comparison_string must be either eq (equals) or ne (not equals). The
+// literal_string is the string value to filter to. The literal value
+// must be valid for the type of field you are filtering by (string,
+// number, boolean). For string fields, the literal value is interpreted
+// as a regular expression using RE2 syntax. The literal value must
+// match the entire field.
+//
+// For example, to filter for instances that do not have a name of
+// example-instance, you would use name ne example-instance.
+//
+// You can filter on nested fields. For example, you could filter on
+// instances that have set the scheduling.automaticRestart field to
+// true. Use filtering on nested fields to take advantage of labels to
+// organize and search for results based on label values.
+//
+// To filter on multiple expressions, provide each separate expression
+// within parentheses. For example, (scheduling.automaticRestart eq
+// true) (zone eq us-central1-f). Multiple expressions are treated as
+// AND expressions, meaning that resources must match all expressions to
+// pass the filters.
+func (c *DiskTypesListCall) Filter(filter string) *DiskTypesListCall {
+	c.urlParams_.Set("filter", filter)
+	return c
+}
+
+// MaxResults sets the optional parameter "maxResults": The maximum
+// number of results per page that should be returned. If the number of
+// available results is larger than maxResults, Compute Engine returns a
+// nextPageToken that can be used to get the next page of results in
+// subsequent list requests. Acceptable values are 0 to 500, inclusive.
+// (Default: 500)
+func (c *DiskTypesListCall) MaxResults(maxResults int64) *DiskTypesListCall {
+	c.urlParams_.Set("maxResults", fmt.Sprint(maxResults))
+	return c
+}
+
+// OrderBy sets the optional parameter "orderBy": Sorts list results by
+// a certain order. By default, results are returned in alphanumerical
+// order based on the resource name.
+//
+// You can also sort results in descending order based on the creation
+// timestamp using orderBy="creationTimestamp desc". This sorts results
+// based on the creationTimestamp field in reverse chronological order
+// (newest result first). Use this to sort resources like operations so
+// that the newest operation is returned first.
+//
+// Currently, only sorting by name or creationTimestamp desc is
+// supported.
+func (c *DiskTypesListCall) OrderBy(orderBy string) *DiskTypesListCall {
+	c.urlParams_.Set("orderBy", orderBy)
+	return c
+}
+
+>>>>>>> Initial dep workover
 // PageToken sets the optional parameter "pageToken": Specifies a page
 // token to use. Set pageToken to the nextPageToken returned by a
 // previous list request to get the next page of results.
@@ -30868,8 +32552,12 @@ type DisksResizeCall struct {
 	header_            http.Header
 }
 
+<<<<<<< HEAD
 // Resize: Resizes the specified persistent disk. You can only increase
 // the size of the disk.
+=======
+// Resize: Resizes the specified persistent disk.
+>>>>>>> Initial dep workover
 func (r *DisksService) Resize(project string, zone string, disk string, disksresizerequest *DisksResizeRequest) *DisksResizeCall {
 	c := &DisksResizeCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.project = project
@@ -30986,7 +32674,11 @@ func (c *DisksResizeCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "Resizes the specified persistent disk. You can only increase the size of the disk.",
+=======
+	//   "description": "Resizes the specified persistent disk.",
+>>>>>>> Initial dep workover
 	//   "httpMethod": "POST",
 	//   "id": "compute.disks.resize",
 	//   "parameterOrder": [
@@ -37558,6 +39250,8 @@ func (c *HttpHealthChecksListCall) Header() http.Header {
 }
 
 func (c *HttpHealthChecksListCall) doRequest(alt string) (*http.Response, error) {
+<<<<<<< HEAD
+=======
 	reqHeaders := make(http.Header)
 	for k, v := range c.header_ {
 		reqHeaders[k] = v
@@ -37573,6 +39267,213 @@ func (c *HttpHealthChecksListCall) doRequest(alt string) (*http.Response, error)
 	req, _ := http.NewRequest("GET", urls, body)
 	req.Header = reqHeaders
 	googleapi.Expand(req.URL, map[string]string{
+		"project": c.project,
+	})
+	return gensupport.SendRequest(c.ctx_, c.s.client, req)
+}
+
+// Do executes the "compute.httpHealthChecks.list" call.
+// Exactly one of *HttpHealthCheckList or error will be non-nil. Any
+// non-2xx status code is an error. Response headers are in either
+// *HttpHealthCheckList.ServerResponse.Header or (if a response was
+// returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *HttpHealthChecksListCall) Do(opts ...googleapi.CallOption) (*HttpHealthCheckList, error) {
+	gensupport.SetOptions(c.urlParams_, opts...)
+	res, err := c.doRequest("json")
+	if res != nil && res.StatusCode == http.StatusNotModified {
+		if res.Body != nil {
+			res.Body.Close()
+		}
+		return nil, &googleapi.Error{
+			Code:   res.StatusCode,
+			Header: res.Header,
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	defer googleapi.CloseBody(res)
+	if err := googleapi.CheckResponse(res); err != nil {
+		return nil, err
+	}
+	ret := &HttpHealthCheckList{
+		ServerResponse: googleapi.ServerResponse{
+			Header:         res.Header,
+			HTTPStatusCode: res.StatusCode,
+		},
+	}
+	target := &ret
+	if err := gensupport.DecodeResponse(target, res); err != nil {
+		return nil, err
+	}
+	return ret, nil
+	// {
+	//   "description": "Retrieves the list of HttpHealthCheck resources available to the specified project.",
+	//   "httpMethod": "GET",
+	//   "id": "compute.httpHealthChecks.list",
+	//   "parameterOrder": [
+	//     "project"
+	//   ],
+	//   "parameters": {
+	//     "filter": {
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
+	//     "maxResults": {
+	//       "default": "500",
+	//       "description": "The maximum number of results per page that should be returned. If the number of available results is larger than maxResults, Compute Engine returns a nextPageToken that can be used to get the next page of results in subsequent list requests. Acceptable values are 0 to 500, inclusive. (Default: 500)",
+	//       "format": "uint32",
+	//       "location": "query",
+	//       "minimum": "0",
+	//       "type": "integer"
+	//     },
+	//     "orderBy": {
+	//       "description": "Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.\n\nYou can also sort results in descending order based on the creation timestamp using orderBy=\"creationTimestamp desc\". This sorts results based on the creationTimestamp field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first.\n\nCurrently, only sorting by name or creationTimestamp desc is supported.",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
+	//     "pageToken": {
+	//       "description": "Specifies a page token to use. Set pageToken to the nextPageToken returned by a previous list request to get the next page of results.",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
+	//     "project": {
+	//       "description": "Project ID for this request.",
+	//       "location": "path",
+	//       "pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+	//       "required": true,
+	//       "type": "string"
+	//     }
+	//   },
+	//   "path": "{project}/global/httpHealthChecks",
+	//   "response": {
+	//     "$ref": "HttpHealthCheckList"
+	//   },
+	//   "scopes": [
+	//     "https://www.googleapis.com/auth/cloud-platform",
+	//     "https://www.googleapis.com/auth/compute",
+	//     "https://www.googleapis.com/auth/compute.readonly"
+	//   ]
+	// }
+
+}
+
+// Pages invokes f for each page of results.
+// A non-nil error returned from f will halt the iteration.
+// The provided context supersedes any context provided to the Context method.
+func (c *HttpHealthChecksListCall) Pages(ctx context.Context, f func(*HttpHealthCheckList) error) error {
+	c.ctx_ = ctx
+	defer c.PageToken(c.urlParams_.Get("pageToken")) // reset paging to original point
+	for {
+		x, err := c.Do()
+		if err != nil {
+			return err
+		}
+		if err := f(x); err != nil {
+			return err
+		}
+		if x.NextPageToken == "" {
+			return nil
+		}
+		c.PageToken(x.NextPageToken)
+	}
+}
+
+// method id "compute.httpHealthChecks.patch":
+
+type HttpHealthChecksPatchCall struct {
+	s               *Service
+	project         string
+	httpHealthCheck string
+	httphealthcheck *HttpHealthCheck
+	urlParams_      gensupport.URLParams
+	ctx_            context.Context
+	header_         http.Header
+}
+
+// Patch: Updates a HttpHealthCheck resource in the specified project
+// using the data included in the request. This method supports PATCH
+// semantics and uses the JSON merge patch format and processing rules.
+// For details, see https://cloud.google.com/compute/docs/reference/latest/httpHealthChecks/patch
+func (r *HttpHealthChecksService) Patch(project string, httpHealthCheck string, httphealthcheck *HttpHealthCheck) *HttpHealthChecksPatchCall {
+	c := &HttpHealthChecksPatchCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.project = project
+	c.httpHealthCheck = httpHealthCheck
+	c.httphealthcheck = httphealthcheck
+	return c
+}
+
+// RequestId sets the optional parameter "requestId": An optional
+// request ID to identify requests. Specify a unique request ID so that
+// if you must retry your request, the server will know to ignore the
+// request if it has already been completed.
+//
+// For example, consider a situation where you make an initial request
+// and the request times out. If you make the request again with the
+// same request ID, the server can check if original operation with the
+// same request ID was received, and if so, will ignore the second
+// request. This prevents clients from accidentally creating duplicate
+// commitments.
+//
+// The request ID must be a valid UUID with the exception that zero UUID
+// is not supported (00000000-0000-0000-0000-000000000000).
+func (c *HttpHealthChecksPatchCall) RequestId(requestId string) *HttpHealthChecksPatchCall {
+	c.urlParams_.Set("requestId", requestId)
+	return c
+}
+
+// Fields allows partial responses to be retrieved. See
+// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
+// for more information.
+func (c *HttpHealthChecksPatchCall) Fields(s ...googleapi.Field) *HttpHealthChecksPatchCall {
+	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+// Context sets the context to be used in this call's Do method. Any
+// pending HTTP request will be aborted if the provided context is
+// canceled.
+func (c *HttpHealthChecksPatchCall) Context(ctx context.Context) *HttpHealthChecksPatchCall {
+	c.ctx_ = ctx
+	return c
+}
+
+// Header returns an http.Header that can be modified by the caller to
+// add HTTP headers to the request.
+func (c *HttpHealthChecksPatchCall) Header() http.Header {
+	if c.header_ == nil {
+		c.header_ = make(http.Header)
+	}
+	return c.header_
+}
+
+func (c *HttpHealthChecksPatchCall) doRequest(alt string) (*http.Response, error) {
+>>>>>>> Initial dep workover
+	reqHeaders := make(http.Header)
+	for k, v := range c.header_ {
+		reqHeaders[k] = v
+	}
+	reqHeaders.Set("User-Agent", c.s.userAgent())
+	var body io.Reader = nil
+	body, err := googleapi.WithoutDataWrapper.JSONReader(c.httphealthcheck)
+	if err != nil {
+		return nil, err
+	}
+	reqHeaders.Set("Content-Type", "application/json")
+	c.urlParams_.Set("alt", alt)
+<<<<<<< HEAD
+	urls := googleapi.ResolveRelative(c.s.BasePath, "{project}/global/httpHealthChecks")
+=======
+	urls := googleapi.ResolveRelative(c.s.BasePath, "{project}/global/httpHealthChecks/{httpHealthCheck}")
+>>>>>>> Initial dep workover
+	urls += "?" + c.urlParams_.Encode()
+	req, _ := http.NewRequest("PATCH", urls, body)
+	req.Header = reqHeaders
+	googleapi.Expand(req.URL, map[string]string{
+<<<<<<< HEAD
 		"project": c.project,
 	})
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
@@ -37774,6 +39675,8 @@ func (c *HttpHealthChecksPatchCall) doRequest(alt string) (*http.Response, error
 	req, _ := http.NewRequest("PATCH", urls, body)
 	req.Header = reqHeaders
 	googleapi.Expand(req.URL, map[string]string{
+=======
+>>>>>>> Initial dep workover
 		"project":         c.project,
 		"httpHealthCheck": c.httpHealthCheck,
 	})
@@ -38362,6 +40265,7 @@ func (r *HttpsHealthChecksService) Insert(project string, httpshealthcheck *Http
 	c := &HttpsHealthChecksInsertCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.project = project
 	c.httpshealthcheck = httpshealthcheck
+<<<<<<< HEAD
 	return c
 }
 
@@ -38392,6 +40296,38 @@ func (c *HttpsHealthChecksInsertCall) Fields(s ...googleapi.Field) *HttpsHealthC
 	return c
 }
 
+=======
+	return c
+}
+
+// RequestId sets the optional parameter "requestId": An optional
+// request ID to identify requests. Specify a unique request ID so that
+// if you must retry your request, the server will know to ignore the
+// request if it has already been completed.
+//
+// For example, consider a situation where you make an initial request
+// and the request times out. If you make the request again with the
+// same request ID, the server can check if original operation with the
+// same request ID was received, and if so, will ignore the second
+// request. This prevents clients from accidentally creating duplicate
+// commitments.
+//
+// The request ID must be a valid UUID with the exception that zero UUID
+// is not supported (00000000-0000-0000-0000-000000000000).
+func (c *HttpsHealthChecksInsertCall) RequestId(requestId string) *HttpsHealthChecksInsertCall {
+	c.urlParams_.Set("requestId", requestId)
+	return c
+}
+
+// Fields allows partial responses to be retrieved. See
+// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
+// for more information.
+func (c *HttpsHealthChecksInsertCall) Fields(s ...googleapi.Field) *HttpsHealthChecksInsertCall {
+	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+>>>>>>> Initial dep workover
 // Context sets the context to be used in this call's Do method. Any
 // pending HTTP request will be aborted if the provided context is
 // canceled.
@@ -39927,8 +41863,13 @@ type ImagesListCall struct {
 	header_      http.Header
 }
 
+<<<<<<< HEAD
 // List: Retrieves the list of custom images available to the specified
 // project. Custom images are images you create that belong to your
+=======
+// List: Retrieves the list of private images available to the specified
+// project. Private images are images you create that belong to your
+>>>>>>> Initial dep workover
 // project. This method does not get any images that belong to other
 // projects, including publicly-available images, like Debian 8. If you
 // want to get a list of publicly-available images, use this method to
@@ -40102,7 +42043,11 @@ func (c *ImagesListCall) Do(opts ...googleapi.CallOption) (*ImageList, error) {
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "Retrieves the list of custom images available to the specified project. Custom images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.",
+=======
+	//   "description": "Retrieves the list of private images available to the specified project. Private images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.",
+>>>>>>> Initial dep workover
 	//   "httpMethod": "GET",
 	//   "id": "compute.images.list",
 	//   "parameterOrder": [
@@ -42336,6 +44281,7 @@ func (r *InstanceGroupManagersService) SetInstanceTemplate(project string, zone 
 	c.zone = zone
 	c.instanceGroupManager = instanceGroupManager
 	c.instancegroupmanagerssetinstancetemplaterequest = instancegroupmanagerssetinstancetemplaterequest
+<<<<<<< HEAD
 	return c
 }
 
@@ -42366,6 +44312,38 @@ func (c *InstanceGroupManagersSetInstanceTemplateCall) Fields(s ...googleapi.Fie
 	return c
 }
 
+=======
+	return c
+}
+
+// RequestId sets the optional parameter "requestId": An optional
+// request ID to identify requests. Specify a unique request ID so that
+// if you must retry your request, the server will know to ignore the
+// request if it has already been completed.
+//
+// For example, consider a situation where you make an initial request
+// and the request times out. If you make the request again with the
+// same request ID, the server can check if original operation with the
+// same request ID was received, and if so, will ignore the second
+// request. This prevents clients from accidentally creating duplicate
+// commitments.
+//
+// The request ID must be a valid UUID with the exception that zero UUID
+// is not supported (00000000-0000-0000-0000-000000000000).
+func (c *InstanceGroupManagersSetInstanceTemplateCall) RequestId(requestId string) *InstanceGroupManagersSetInstanceTemplateCall {
+	c.urlParams_.Set("requestId", requestId)
+	return c
+}
+
+// Fields allows partial responses to be retrieved. See
+// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
+// for more information.
+func (c *InstanceGroupManagersSetInstanceTemplateCall) Fields(s ...googleapi.Field) *InstanceGroupManagersSetInstanceTemplateCall {
+	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+>>>>>>> Initial dep workover
 // Context sets the context to be used in this call's Do method. Any
 // pending HTTP request will be aborted if the provided context is
 // canceled.
@@ -43201,6 +45179,207 @@ func (c *InstanceGroupsDeleteCall) doRequest(alt string) (*http.Response, error)
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 
+<<<<<<< HEAD
+=======
+// Do executes the "compute.instanceGroups.aggregatedList" call.
+// Exactly one of *InstanceGroupAggregatedList or error will be non-nil.
+// Any non-2xx status code is an error. Response headers are in either
+// *InstanceGroupAggregatedList.ServerResponse.Header or (if a response
+// was returned at all) in error.(*googleapi.Error).Header. Use
+// googleapi.IsNotModified to check whether the returned error was
+// because http.StatusNotModified was returned.
+func (c *InstanceGroupsAggregatedListCall) Do(opts ...googleapi.CallOption) (*InstanceGroupAggregatedList, error) {
+	gensupport.SetOptions(c.urlParams_, opts...)
+	res, err := c.doRequest("json")
+	if res != nil && res.StatusCode == http.StatusNotModified {
+		if res.Body != nil {
+			res.Body.Close()
+		}
+		return nil, &googleapi.Error{
+			Code:   res.StatusCode,
+			Header: res.Header,
+		}
+	}
+	if err != nil {
+		return nil, err
+	}
+	defer googleapi.CloseBody(res)
+	if err := googleapi.CheckResponse(res); err != nil {
+		return nil, err
+	}
+	ret := &InstanceGroupAggregatedList{
+		ServerResponse: googleapi.ServerResponse{
+			Header:         res.Header,
+			HTTPStatusCode: res.StatusCode,
+		},
+	}
+	target := &ret
+	if err := gensupport.DecodeResponse(target, res); err != nil {
+		return nil, err
+	}
+	return ret, nil
+	// {
+	//   "description": "Retrieves the list of instance groups and sorts them by zone.",
+	//   "httpMethod": "GET",
+	//   "id": "compute.instanceGroups.aggregatedList",
+	//   "parameterOrder": [
+	//     "project"
+	//   ],
+	//   "parameters": {
+	//     "filter": {
+	//       "description": "Sets a filter {expression} for filtering listed resources. Your {expression} must be in the format: field_name comparison_string literal_string.\n\nThe field_name is the name of the field you want to compare. Only atomic field types are supported (string, number, boolean). The comparison_string must be either eq (equals) or ne (not equals). The literal_string is the string value to filter to. The literal value must be valid for the type of field you are filtering by (string, number, boolean). For string fields, the literal value is interpreted as a regular expression using RE2 syntax. The literal value must match the entire field.\n\nFor example, to filter for instances that do not have a name of example-instance, you would use name ne example-instance.\n\nYou can filter on nested fields. For example, you could filter on instances that have set the scheduling.automaticRestart field to true. Use filtering on nested fields to take advantage of labels to organize and search for results based on label values.\n\nTo filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart eq true) (zone eq us-central1-f). Multiple expressions are treated as AND expressions, meaning that resources must match all expressions to pass the filters.",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
+	//     "maxResults": {
+	//       "default": "500",
+	//       "description": "The maximum number of results per page that should be returned. If the number of available results is larger than maxResults, Compute Engine returns a nextPageToken that can be used to get the next page of results in subsequent list requests. Acceptable values are 0 to 500, inclusive. (Default: 500)",
+	//       "format": "uint32",
+	//       "location": "query",
+	//       "minimum": "0",
+	//       "type": "integer"
+	//     },
+	//     "orderBy": {
+	//       "description": "Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.\n\nYou can also sort results in descending order based on the creation timestamp using orderBy=\"creationTimestamp desc\". This sorts results based on the creationTimestamp field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first.\n\nCurrently, only sorting by name or creationTimestamp desc is supported.",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
+	//     "pageToken": {
+	//       "description": "Specifies a page token to use. Set pageToken to the nextPageToken returned by a previous list request to get the next page of results.",
+	//       "location": "query",
+	//       "type": "string"
+	//     },
+	//     "project": {
+	//       "description": "Project ID for this request.",
+	//       "location": "path",
+	//       "pattern": "(?:(?:[-a-z0-9]{1,63}\\.)*(?:[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?):)?(?:[0-9]{1,19}|(?:[a-z0-9](?:[-a-z0-9]{0,61}[a-z0-9])?))",
+	//       "required": true,
+	//       "type": "string"
+	//     }
+	//   },
+	//   "path": "{project}/aggregated/instanceGroups",
+	//   "response": {
+	//     "$ref": "InstanceGroupAggregatedList"
+	//   },
+	//   "scopes": [
+	//     "https://www.googleapis.com/auth/cloud-platform",
+	//     "https://www.googleapis.com/auth/compute",
+	//     "https://www.googleapis.com/auth/compute.readonly"
+	//   ]
+	// }
+
+}
+
+// Pages invokes f for each page of results.
+// A non-nil error returned from f will halt the iteration.
+// The provided context supersedes any context provided to the Context method.
+func (c *InstanceGroupsAggregatedListCall) Pages(ctx context.Context, f func(*InstanceGroupAggregatedList) error) error {
+	c.ctx_ = ctx
+	defer c.PageToken(c.urlParams_.Get("pageToken")) // reset paging to original point
+	for {
+		x, err := c.Do()
+		if err != nil {
+			return err
+		}
+		if err := f(x); err != nil {
+			return err
+		}
+		if x.NextPageToken == "" {
+			return nil
+		}
+		c.PageToken(x.NextPageToken)
+	}
+}
+
+// method id "compute.instanceGroups.delete":
+
+type InstanceGroupsDeleteCall struct {
+	s             *Service
+	project       string
+	zone          string
+	instanceGroup string
+	urlParams_    gensupport.URLParams
+	ctx_          context.Context
+	header_       http.Header
+}
+
+// Delete: Deletes the specified instance group. The instances in the
+// group are not deleted. Note that instance group must not belong to a
+// backend service. Read  Deleting an instance group for more
+// information.
+func (r *InstanceGroupsService) Delete(project string, zone string, instanceGroup string) *InstanceGroupsDeleteCall {
+	c := &InstanceGroupsDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
+	c.project = project
+	c.zone = zone
+	c.instanceGroup = instanceGroup
+	return c
+}
+
+// RequestId sets the optional parameter "requestId": An optional
+// request ID to identify requests. Specify a unique request ID so that
+// if you must retry your request, the server will know to ignore the
+// request if it has already been completed.
+//
+// For example, consider a situation where you make an initial request
+// and the request times out. If you make the request again with the
+// same request ID, the server can check if original operation with the
+// same request ID was received, and if so, will ignore the second
+// request. This prevents clients from accidentally creating duplicate
+// commitments.
+//
+// The request ID must be a valid UUID with the exception that zero UUID
+// is not supported (00000000-0000-0000-0000-000000000000).
+func (c *InstanceGroupsDeleteCall) RequestId(requestId string) *InstanceGroupsDeleteCall {
+	c.urlParams_.Set("requestId", requestId)
+	return c
+}
+
+// Fields allows partial responses to be retrieved. See
+// https://developers.google.com/gdata/docs/2.0/basics#PartialResponse
+// for more information.
+func (c *InstanceGroupsDeleteCall) Fields(s ...googleapi.Field) *InstanceGroupsDeleteCall {
+	c.urlParams_.Set("fields", googleapi.CombineFields(s))
+	return c
+}
+
+// Context sets the context to be used in this call's Do method. Any
+// pending HTTP request will be aborted if the provided context is
+// canceled.
+func (c *InstanceGroupsDeleteCall) Context(ctx context.Context) *InstanceGroupsDeleteCall {
+	c.ctx_ = ctx
+	return c
+}
+
+// Header returns an http.Header that can be modified by the caller to
+// add HTTP headers to the request.
+func (c *InstanceGroupsDeleteCall) Header() http.Header {
+	if c.header_ == nil {
+		c.header_ = make(http.Header)
+	}
+	return c.header_
+}
+
+func (c *InstanceGroupsDeleteCall) doRequest(alt string) (*http.Response, error) {
+	reqHeaders := make(http.Header)
+	for k, v := range c.header_ {
+		reqHeaders[k] = v
+	}
+	reqHeaders.Set("User-Agent", c.s.userAgent())
+	var body io.Reader = nil
+	c.urlParams_.Set("alt", alt)
+	urls := googleapi.ResolveRelative(c.s.BasePath, "{project}/zones/{zone}/instanceGroups/{instanceGroup}")
+	urls += "?" + c.urlParams_.Encode()
+	req, _ := http.NewRequest("DELETE", urls, body)
+	req.Header = reqHeaders
+	googleapi.Expand(req.URL, map[string]string{
+		"project":       c.project,
+		"zone":          c.zone,
+		"instanceGroup": c.instanceGroup,
+	})
+	return gensupport.SendRequest(c.ctx_, c.s.client, req)
+}
+
+>>>>>>> Initial dep workover
 // Do executes the "compute.instanceGroups.delete" call.
 // Exactly one of *Operation or error will be non-nil. Any non-2xx
 // status code is an error. Response headers are in either
@@ -49390,6 +51569,7 @@ func (c *InstancesStartCall) Do(opts ...googleapi.CallOption) (*Operation, error
 	//   ]
 	// }
 
+<<<<<<< HEAD
 }
 
 // method id "compute.instances.startWithEncryptionKey":
@@ -49405,6 +51585,23 @@ type InstancesStartWithEncryptionKeyCall struct {
 	header_                                http.Header
 }
 
+=======
+}
+
+// method id "compute.instances.startWithEncryptionKey":
+
+type InstancesStartWithEncryptionKeyCall struct {
+	s                                      *Service
+	project                                string
+	zone                                   string
+	instance                               string
+	instancesstartwithencryptionkeyrequest *InstancesStartWithEncryptionKeyRequest
+	urlParams_                             gensupport.URLParams
+	ctx_                                   context.Context
+	header_                                http.Header
+}
+
+>>>>>>> Initial dep workover
 // StartWithEncryptionKey: Starts an instance that was stopped using the
 // using the instances().stop method. For more information, see Restart
 // an instance.
@@ -53816,8 +56013,12 @@ type NetworksPatchCall struct {
 }
 
 // Patch: Patches the specified network with the data included in the
+<<<<<<< HEAD
 // request. Only the following fields can be modified:
 // routingConfig.routingMode.
+=======
+// request.
+>>>>>>> Initial dep workover
 func (r *NetworksService) Patch(project string, network string, network2 *Network) *NetworksPatchCall {
 	c := &NetworksPatchCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.project = project
@@ -53932,7 +56133,11 @@ func (c *NetworksPatchCall) Do(opts ...googleapi.CallOption) (*Operation, error)
 	}
 	return ret, nil
 	// {
+<<<<<<< HEAD
 	//   "description": "Patches the specified network with the data included in the request. Only the following fields can be modified: routingConfig.routingMode.",
+=======
+	//   "description": "Patches the specified network with the data included in the request.",
+>>>>>>> Initial dep workover
 	//   "httpMethod": "PATCH",
 	//   "id": "compute.networks.patch",
 	//   "parameterOrder": [

@@ -134,6 +134,7 @@
         {"shape":"EncryptionKeyUnavailableException"}
       ]
     },
+<<<<<<< HEAD
     "DeleteCommentContent":{
       "name":"DeleteCommentContent",
       "http":{
@@ -149,6 +150,8 @@
         {"shape":"CommentDeletedException"}
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "DeleteRepository":{
       "name":"DeleteRepository",
       "http":{
@@ -1116,6 +1119,7 @@
         "deletedBranch":{"shape":"BranchInfo"}
       }
     },
+<<<<<<< HEAD
     "DeleteCommentContentInput":{
       "type":"structure",
       "required":["commentId"],
@@ -1129,6 +1133,8 @@
         "comment":{"shape":"Comment"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "DeleteRepositoryInput":{
       "type":"structure",
       "required":["repositoryName"],

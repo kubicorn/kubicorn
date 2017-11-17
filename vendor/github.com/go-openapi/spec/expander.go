@@ -352,6 +352,7 @@ func normalizePaths(refPath, base string) string {
 	return baseURL.String()
 }
 
+<<<<<<< HEAD
 // relativeBase could be an ABSOLUTE file path or an ABSOLUTE URL
 func normalizeFileRef(ref *Ref, relativeBase string) *Ref {
 	// This is important for when the reference is pointing to the root schema
@@ -367,6 +368,28 @@ func normalizeFileRef(ref *Ref, relativeBase string) *Ref {
 	r, _ := NewRef(s)
 	return &r
 }
+=======
+func (r *schemaLoader) resolveRef(currentRef, ref *Ref, node, target interface{}) error {
+	tgt := reflect.ValueOf(target)
+	if tgt.Kind() != reflect.Ptr {
+		return fmt.Errorf("resolve ref: target needs to be a pointer")
+	}
+
+	oldRef := currentRef
+	if currentRef != nil {
+		debugLog("resolve ref current %s new %s", currentRef.String(), ref.String())
+		nextRef := nextRef(node, ref, currentRef.GetPointer())
+		if nextRef == nil || nextRef.GetURL() == nil {
+			return nil
+		}
+		var err error
+		currentRef, err = currentRef.Inherits(*nextRef)
+		debugLog("resolved ref current %s", currentRef.String())
+		if err != nil {
+			return err
+		}
+	}
+>>>>>>> Initial dep workover
 
 func (r *schemaLoader) resolveRef(ref *Ref, target interface{}, basePath string) error {
 	tgt := reflect.ValueOf(target)
@@ -415,6 +438,10 @@ func (r *schemaLoader) resolveRef(ref *Ref, target interface{}, basePath string)
 	if err := swag.DynamicJSONToStruct(res, target); err != nil {
 		return err
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> Initial dep workover
 	return nil
 }
 
@@ -617,6 +644,7 @@ func basePathFromSchemaID(oldBasePath, id string) string {
 	return u.String()
 }
 
+<<<<<<< HEAD
 func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, basePath string) (*Schema, error) {
 	if target.Ref.String() == "" && target.Ref.IsRoot() {
 		// normalizing is important
@@ -636,6 +664,22 @@ func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, ba
 		if strings.HasSuffix(target.ID, "/") {
 			// path.Clean here would not work correctly if basepath is http
 			refPath = fmt.Sprintf("%s%s", refPath, "placeholder.json")
+=======
+	var t *Schema
+	var basePath string
+	b, _ := json.Marshal(target)
+	debugLog("Target is: %s", string(b))
+	for target.Ref.String() != "" {
+		if swag.ContainsStringsCI(parentRefs, target.Ref.String()) {
+			return &target, nil
+		}
+		basePath = target.Ref.RemoteURI()
+		debugLog("\n\n\n\n\nbasePath: %s", basePath)
+		b, _ := json.Marshal(target)
+		debugLog("calling Resolve with target: %s", string(b))
+		if err := resolver.Resolve(&target.Ref, &t); shouldStopOnError(err, resolver.options) {
+			return &target, err
+>>>>>>> Initial dep workover
 		}
 		basePath = normalizePaths(refPath, basePath)
 	}
@@ -667,14 +711,27 @@ func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, ba
 			return expandSchema(*t, parentRefs, resolver, newBasePath)
 		}
 	}
+<<<<<<< HEAD
 
 	t, err := expandItems(target, parentRefs, resolver, basePath)
+=======
+	if target.Ref.String() == "" {
+		b, _ := json.Marshal(target)
+		debugLog("before: %s", string(b))
+		modifyRefs(&target, basePath)
+		b, _ = json.Marshal(target)
+		debugLog("after: %s", string(b))
+	}
+	t, err := expandItems(target, parentRefs, resolver)
+>>>>>>> Initial dep workover
 	if shouldStopOnError(err, resolver.options) {
 		return &target, err
 	}
 	if t != nil {
 		target = *t
 	}
+
+	resolver.reset()
 
 	for i := range target.AllOf {
 		t, err := expandSchema(target.AllOf[i], parentRefs, resolver, basePath)

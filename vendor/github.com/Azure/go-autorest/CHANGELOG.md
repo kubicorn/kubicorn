@@ -1,5 +1,6 @@
 # CHANGELOG
 
+<<<<<<< HEAD
 ## v9.5.1
 
 ### Bug Fixes
@@ -34,6 +35,8 @@
   environment variable is not set, it will fall back to use default path set by Azure CLI.
 - Use case-insensitive string comparison for polling states.
 
+=======
+>>>>>>> Initial dep workover
 ## v9.4.0
 
 ### New Features

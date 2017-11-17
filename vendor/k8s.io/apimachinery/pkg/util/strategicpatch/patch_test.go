@@ -6051,12 +6051,21 @@ func TestStrategicMergePatch(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
 func testStrategicMergePatchWithCustomArgumentsUsingStruct(t *testing.T, description, original, patch string, dataStruct interface{}, expected error) {
 	schema, actual := NewPatchMetaFromStruct(dataStruct)
 	// If actual is not nil, check error. If errors match, return.
 	if actual != nil {
 		checkErrorsEqual(t, description, expected, actual, schema)
 		return
+=======
+	// run multiple times to exercise different map traversal orders
+	for i := 0; i < 10; i++ {
+		for _, c := range strategicMergePatchRawTestCases {
+			testTwoWayPatchForRawTestCase(t, c)
+			testThreeWayPatchForRawTestCase(t, c)
+		}
+>>>>>>> Initial dep workover
 	}
 	testStrategicMergePatchWithCustomArguments(t, description, original, patch, schema, expected)
 }

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -21,6 +25,10 @@ package v1
 import (
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
+<<<<<<< HEAD
+=======
+	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+>>>>>>> Initial dep workover
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/tools/cache"
 )
@@ -54,7 +62,12 @@ func (s *persistentVolumeLister) List(selector labels.Selector) (ret []*v1.Persi
 
 // Get retrieves the PersistentVolume from the index for a given name.
 func (s *persistentVolumeLister) Get(name string) (*v1.PersistentVolume, error) {
+<<<<<<< HEAD
 	obj, exists, err := s.indexer.GetByKey(name)
+=======
+	key := &v1.PersistentVolume{ObjectMeta: meta_v1.ObjectMeta{Name: name}}
+	obj, exists, err := s.indexer.Get(key)
+>>>>>>> Initial dep workover
 	if err != nil {
 		return nil, err
 	}

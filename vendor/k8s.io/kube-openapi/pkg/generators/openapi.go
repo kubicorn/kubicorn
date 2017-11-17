@@ -118,6 +118,7 @@ func Packages(context *generator.Context, arguments *args.GeneratorArgs) generat
 
 `)...)
 
+<<<<<<< HEAD
 	return generator.Packages{
 		&generator.DefaultPackage{
 			PackageName: filepath.Base(arguments.OutputPackagePath),
@@ -125,6 +126,37 @@ func Packages(context *generator.Context, arguments *args.GeneratorArgs) generat
 			HeaderText:  header,
 			GeneratorFunc: func(c *generator.Context) (generators []generator.Generator) {
 				return []generator.Generator{NewOpenAPIGen(arguments.OutputFileBaseName, arguments.OutputPackagePath, context)}
+=======
+	outputPath := arguments.OutputPackagePath
+
+	if err := context.AddDir(outputPath); err != nil {
+		glog.Fatalf("Failed to load output package: %v", err)
+	}
+
+	// Compute the canonical output path to allow retrieval of the
+	// package for a vendored output path.
+	const vendorPath = "/vendor/"
+	canonicalOutputPath := outputPath
+	if strings.Contains(outputPath, vendorPath) {
+		canonicalOutputPath = outputPath[strings.Index(outputPath, vendorPath)+len(vendorPath):]
+	}
+
+	// The package for outputPath is mapped to the canonical path
+	pkg := context.Universe[canonicalOutputPath]
+	if pkg == nil {
+		glog.Fatalf("Got nil output package: %v", err)
+	}
+	return generator.Packages{
+		&generator.DefaultPackage{
+			PackageName: strings.Split(filepath.Base(pkg.Path), ".")[0],
+			// Use the supplied output path rather than the canonical
+			// one to allow generation into the path of a
+			// vendored package.
+			PackagePath: outputPath,
+			HeaderText:  header,
+			GeneratorFunc: func(c *generator.Context) (generators []generator.Generator) {
+				return []generator.Generator{NewOpenAPIGen(arguments.OutputFileBaseName, pkg, context)}
+>>>>>>> Initial dep workover
 			},
 			FilterFunc: func(c *generator.Context, t *types.Type) bool {
 				// There is a conflict between this codegen and codecgen, we should avoid types generated for codecgen
@@ -153,12 +185,20 @@ const (
 type openAPIGen struct {
 	generator.DefaultGen
 	// TargetPackage is the package that will get GetOpenAPIDefinitions function returns all open API definitions.
+<<<<<<< HEAD
 	targetPackage string
+=======
+	targetPackage *types.Package
+>>>>>>> Initial dep workover
 	imports       namer.ImportTracker
 	context       *generator.Context
 }
 
+<<<<<<< HEAD
 func NewOpenAPIGen(sanitizedName string, targetPackage string, context *generator.Context) generator.Generator {
+=======
+func NewOpenAPIGen(sanitizedName string, targetPackage *types.Package, context *generator.Context) generator.Generator {
+>>>>>>> Initial dep workover
 	return &openAPIGen{
 		DefaultGen: generator.DefaultGen{
 			OptionalName: sanitizedName,
@@ -172,7 +212,11 @@ func NewOpenAPIGen(sanitizedName string, targetPackage string, context *generato
 func (g *openAPIGen) Namers(c *generator.Context) namer.NameSystems {
 	// Have the raw namer for this file track what it imports.
 	return namer.NameSystems{
+<<<<<<< HEAD
 		"raw": namer.NewRawNamer(g.targetPackage, g.imports),
+=======
+		"raw": namer.NewRawNamer(g.targetPackage.Path, g.imports),
+>>>>>>> Initial dep workover
 	}
 }
 
@@ -185,10 +229,17 @@ func (g *openAPIGen) Filter(c *generator.Context, t *types.Type) bool {
 }
 
 func (g *openAPIGen) isOtherPackage(pkg string) bool {
+<<<<<<< HEAD
 	if pkg == g.targetPackage {
 		return false
 	}
 	if strings.HasSuffix(pkg, "\""+g.targetPackage+"\"") {
+=======
+	if pkg == g.targetPackage.Path {
+		return false
+	}
+	if strings.HasSuffix(pkg, "\""+g.targetPackage.Path+"\"") {
+>>>>>>> Initial dep workover
 		return false
 	}
 	return true

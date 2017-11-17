@@ -30,6 +30,13 @@ func LookupPatchMetadataForStruct(t reflect.Type, jsonField string) (
 	elemType reflect.Type, patchStrategies []string, patchMergeKey string, e error) {
 	if t.Kind() == reflect.Ptr {
 		t = t.Elem()
+<<<<<<< HEAD
+=======
+	}
+	if t.Kind() == reflect.Map {
+		elemType = t.Elem()
+		return
+>>>>>>> Initial dep workover
 	}
 
 	if t.Kind() != reflect.Struct {

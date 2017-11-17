@@ -1147,12 +1147,15 @@
       "polly" : {
         "endpoints" : {
           "ap-northeast-1" : { },
+<<<<<<< HEAD
           "ap-northeast-2" : { },
           "ap-south-1" : { },
           "ap-southeast-1" : { },
           "ap-southeast-2" : { },
           "ca-central-1" : { },
           "eu-central-1" : { },
+=======
+>>>>>>> Initial dep workover
           "eu-west-1" : { },
           "eu-west-2" : { },
           "sa-east-1" : { },
@@ -1971,7 +1974,13 @@
       },
       "dms" : {
         "endpoints" : {
-          "us-gov-west-1" : { }
+          "us-gov-west-1" : { },
+          "us-gov-west-1-fips" : {
+            "credentialScope" : {
+              "region" : "us-gov-west-1"
+            },
+            "hostname" : "dynamodb.us-gov-west-1.amazonaws.com"
+          }
         }
       },
       "dynamodb" : {

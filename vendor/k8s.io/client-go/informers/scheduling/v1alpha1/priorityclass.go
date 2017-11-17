@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -38,14 +42,19 @@ type PriorityClassInformer interface {
 }
 
 type priorityClassInformer struct {
+<<<<<<< HEAD
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
+=======
+	factory internalinterfaces.SharedInformerFactory
+>>>>>>> Initial dep workover
 }
 
 // NewPriorityClassInformer constructs a new informer for PriorityClass type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
 func NewPriorityClassInformer(client kubernetes.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+<<<<<<< HEAD
 	return NewFilteredPriorityClassInformer(client, resyncPeriod, indexers, nil)
 }
 
@@ -65,6 +74,14 @@ func NewFilteredPriorityClassInformer(client kubernetes.Interface, resyncPeriod 
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
+=======
+	return cache.NewSharedIndexInformer(
+		&cache.ListWatch{
+			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
+				return client.SchedulingV1alpha1().PriorityClasses().List(options)
+			},
+			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
+>>>>>>> Initial dep workover
 				return client.SchedulingV1alpha1().PriorityClasses().Watch(options)
 			},
 		},
@@ -74,12 +91,21 @@ func NewFilteredPriorityClassInformer(client kubernetes.Interface, resyncPeriod 
 	)
 }
 
+<<<<<<< HEAD
 func (f *priorityClassInformer) defaultInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
 	return NewFilteredPriorityClassInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
 func (f *priorityClassInformer) Informer() cache.SharedIndexInformer {
 	return f.factory.InformerFor(&scheduling_v1alpha1.PriorityClass{}, f.defaultInformer)
+=======
+func defaultPriorityClassInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewPriorityClassInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
+}
+
+func (f *priorityClassInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&scheduling_v1alpha1.PriorityClass{}, defaultPriorityClassInformer)
+>>>>>>> Initial dep workover
 }
 
 func (f *priorityClassInformer) Lister() v1alpha1.PriorityClassLister {

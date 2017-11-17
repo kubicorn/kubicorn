@@ -229,6 +229,7 @@ func ChangeToGet(req *http.Request) *http.Request {
 	req.Header.Del("Content-Length")
 	return req
 }
+<<<<<<< HEAD
 
 // IsTokenRefreshError returns true if the specified error implements the TokenRefreshError
 // interface.  If err is a DetailedError it will walk the chain of Original errors.
@@ -241,3 +242,5 @@ func IsTokenRefreshError(err error) bool {
 	}
 	return false
 }
+=======
+>>>>>>> Initial dep workover

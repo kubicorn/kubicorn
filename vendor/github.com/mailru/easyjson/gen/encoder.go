@@ -143,7 +143,11 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 			fmt.Fprintln(g.out, ws+"      out.RawByte(',')")
 			fmt.Fprintln(g.out, ws+"    }")
 
+<<<<<<< HEAD
 			if err := g.genTypeEncoder(elem, vVar, tags, indent+2, false); err != nil {
+=======
+			if err := g.genTypeEncoder(elem, vVar, tags, indent+2); err != nil {
+>>>>>>> Initial dep workover
 				return err
 			}
 
@@ -165,7 +169,11 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 			fmt.Fprintln(g.out, ws+"    out.RawByte(',')")
 			fmt.Fprintln(g.out, ws+"  }")
 
+<<<<<<< HEAD
 			if err := g.genTypeEncoder(elem, in+"["+iVar+"]", tags, indent+1, false); err != nil {
+=======
+			if err := g.genTypeEncoder(elem, in+"["+iVar+"]", tags, indent+1); err != nil {
+>>>>>>> Initial dep workover
 				return err
 			}
 
@@ -186,7 +194,11 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 			fmt.Fprintln(g.out, ws+"} else {")
 		}
 
+<<<<<<< HEAD
 		if err := g.genTypeEncoder(t.Elem(), "*"+in, tags, indent+1, false); err != nil {
+=======
+		if err := g.genTypeEncoder(t.Elem(), "*"+in, tags, indent+1); err != nil {
+>>>>>>> Initial dep workover
 			return err
 		}
 
@@ -212,11 +224,20 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 		fmt.Fprintln(g.out, ws+"  out.RawByte('{')")
 		fmt.Fprintln(g.out, ws+"  "+tmpVar+"First := true")
 		fmt.Fprintln(g.out, ws+"  for "+tmpVar+"Name, "+tmpVar+"Value := range "+in+" {")
+<<<<<<< HEAD
 		fmt.Fprintln(g.out, ws+"    if "+tmpVar+"First { "+tmpVar+"First = false } else { out.RawByte(',') }")
 		fmt.Fprintln(g.out, ws+"    "+fmt.Sprintf(keyEnc, tmpVar+"Name"))
 		fmt.Fprintln(g.out, ws+"    out.RawByte(':')")
 
 		if err := g.genTypeEncoder(t.Elem(), tmpVar+"Value", tags, indent+2, false); err != nil {
+=======
+		fmt.Fprintln(g.out, ws+"    if !"+tmpVar+"First { out.RawByte(',') }")
+		fmt.Fprintln(g.out, ws+"    "+tmpVar+"First = false")
+		fmt.Fprintln(g.out, ws+"    "+fmt.Sprintf(keyEnc, tmpVar+"Name"))
+		fmt.Fprintln(g.out, ws+"    out.RawByte(':')")
+
+		if err := g.genTypeEncoder(t.Elem(), tmpVar+"Value", tags, indent+2); err != nil {
+>>>>>>> Initial dep workover
 			return err
 		}
 

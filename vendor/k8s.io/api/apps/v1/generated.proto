@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -31,6 +35,7 @@ import "k8s.io/apimachinery/pkg/util/intstr/generated.proto";
 // Package-wide variables from generator "generated".
 option go_package = "v1";
 
+<<<<<<< HEAD
 // ControllerRevision implements an immutable snapshot of state data. Clients
 // are responsible for serializing and deserializing the objects that contain
 // their internal state.
@@ -63,6 +68,8 @@ message ControllerRevisionList {
   repeated ControllerRevision items = 2;
 }
 
+=======
+>>>>>>> Initial dep workover
 // DaemonSet represents the configuration of a daemon set.
 message DaemonSet {
   // Standard object's metadata.
@@ -84,6 +91,7 @@ message DaemonSet {
   optional DaemonSetStatus status = 3;
 }
 
+<<<<<<< HEAD
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
 message DaemonSetCondition {
   // Type of DaemonSet condition.
@@ -105,6 +113,8 @@ message DaemonSetCondition {
   optional string message = 5;
 }
 
+=======
+>>>>>>> Initial dep workover
 // DaemonSetList is a collection of daemon sets.
 message DaemonSetList {
   // Standard list metadata.
@@ -120,8 +130,14 @@ message DaemonSetList {
 message DaemonSetSpec {
   // A label query over pods that are managed by the daemon set.
   // Must match in order to be controlled.
+<<<<<<< HEAD
   // It must match the pod template's labels.
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+=======
+  // If empty, defaulted to labels on Pod template.
+  // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  // +optional
+>>>>>>> Initial dep workover
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 1;
 
   // An object that describes the pod that will be created.
@@ -195,12 +211,15 @@ message DaemonSetStatus {
   // create the name for the newest ControllerRevision.
   // +optional
   optional int32 collisionCount = 9;
+<<<<<<< HEAD
 
   // Represents the latest available observations of a DaemonSet's current state.
   // +optional
   // +patchMergeKey=type
   // +patchStrategy=merge
   repeated DaemonSetCondition conditions = 10;
+=======
+>>>>>>> Initial dep workover
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
@@ -218,6 +237,7 @@ message DaemonSetUpdateStrategy {
   optional RollingUpdateDaemonSet rollingUpdate = 2;
 }
 
+<<<<<<< HEAD
 // Deployment enables declarative updates for Pods and ReplicaSets.
 message Deployment {
   // Standard object metadata.
@@ -474,6 +494,8 @@ message ReplicaSetStatus {
   repeated ReplicaSetCondition conditions = 6;
 }
 
+=======
+>>>>>>> Initial dep workover
 // Spec to control the desired behavior of daemon set rolling update.
 message RollingUpdateDaemonSet {
   // The maximum number of DaemonSet pods that can be unavailable during the
@@ -494,6 +516,7 @@ message RollingUpdateDaemonSet {
   optional k8s.io.apimachinery.pkg.util.intstr.IntOrString maxUnavailable = 1;
 }
 
+<<<<<<< HEAD
 // Spec to control the desired behavior of rolling update.
 message RollingUpdateDeployment {
   // The maximum number of pods that can be unavailable during the update.
@@ -699,3 +722,5 @@ message StatefulSetUpdateStrategy {
   optional RollingUpdateStatefulSetStrategy rollingUpdate = 2;
 }
 
+=======
+>>>>>>> Initial dep workover

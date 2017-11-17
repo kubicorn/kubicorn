@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -38,14 +42,19 @@ type ComponentStatusInformer interface {
 }
 
 type componentStatusInformer struct {
+<<<<<<< HEAD
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
+=======
+	factory internalinterfaces.SharedInformerFactory
+>>>>>>> Initial dep workover
 }
 
 // NewComponentStatusInformer constructs a new informer for ComponentStatus type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
 func NewComponentStatusInformer(client kubernetes.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+<<<<<<< HEAD
 	return NewFilteredComponentStatusInformer(client, resyncPeriod, indexers, nil)
 }
 
@@ -65,6 +74,14 @@ func NewFilteredComponentStatusInformer(client kubernetes.Interface, resyncPerio
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
+=======
+	return cache.NewSharedIndexInformer(
+		&cache.ListWatch{
+			ListFunc: func(options meta_v1.ListOptions) (runtime.Object, error) {
+				return client.CoreV1().ComponentStatuses().List(options)
+			},
+			WatchFunc: func(options meta_v1.ListOptions) (watch.Interface, error) {
+>>>>>>> Initial dep workover
 				return client.CoreV1().ComponentStatuses().Watch(options)
 			},
 		},
@@ -74,12 +91,21 @@ func NewFilteredComponentStatusInformer(client kubernetes.Interface, resyncPerio
 	)
 }
 
+<<<<<<< HEAD
 func (f *componentStatusInformer) defaultInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
 	return NewFilteredComponentStatusInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
 func (f *componentStatusInformer) Informer() cache.SharedIndexInformer {
 	return f.factory.InformerFor(&core_v1.ComponentStatus{}, f.defaultInformer)
+=======
+func defaultComponentStatusInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewComponentStatusInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
+}
+
+func (f *componentStatusInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&core_v1.ComponentStatus{}, defaultComponentStatusInformer)
+>>>>>>> Initial dep workover
 }
 
 func (f *componentStatusInformer) Lister() v1.ComponentStatusLister {

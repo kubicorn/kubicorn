@@ -2,6 +2,7 @@ TODO: This document was manually maintained so might be incomplete. The
 automation effort is tracked in
 https://github.com/kubernetes/client-go/issues/234.
 
+<<<<<<< HEAD
 # v5.0.1
 
 Bug fix: picked up a security fix [kubernetes/kubernetes#53443](https://github.com/kubernetes/kubernetes/pull/53443) for `PodSecurityPolicy`.
@@ -77,6 +78,20 @@ Bug fix: picked up a security fix [kubernetes/kubernetes#53443](https://github.c
 * The generic RESTClient type (`k8s.io/client-go/rest`) no longer exposes `LabelSelectorParam` or `FieldSelectorParam` methods - use `VersionedParams` with `metav1.ListOptions` instead. The `UintParam` method has been removed. The `timeout` parameter will no longer cause an error when using `Param()`.
 
    * [https://github.com/kubernetes/kubernetes/pull/48991](https://github.com/kubernetes/kubernetes/pull/48991)
+=======
+# HEAD (changes that will go into v5)
+
+** Breaking changes**
+
+pkg/api and pkg/apis are moved to
+[k8s.io/api](https://github.com/kubernetes/api). Other kubernetes repositories
+also import types from there, so they are composable with client-go.
+
+Helper functions in pkg/api and pkg/apis are also removed. They are planned to
+be exported in other repos. The issue is tracked
+[here](https://github.com/kubernetes/kubernetes/issues/48209#issuecomment-314537745).
+During the transition, you'll have to copy the helper functions to your projects. 
+>>>>>>> Initial dep workover
 
 # v4.0.0
 

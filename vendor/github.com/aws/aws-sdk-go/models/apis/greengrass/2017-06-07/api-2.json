@@ -3730,10 +3730,13 @@
         "shape" : "__string"
       }
     },
+<<<<<<< HEAD
     "Permission" : {
       "type" : "string",
       "enum" : [ "ro", "rw" ]
     },
+=======
+>>>>>>> Initial dep workover
     "ResetDeploymentsRequest" : {
       "type" : "structure",
       "members" : {
@@ -3764,6 +3767,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "Resource" : {
       "type" : "structure",
       "members" : {
@@ -3815,6 +3819,8 @@
       "type" : "string",
       "enum" : [ "core", "ota_agent" ]
     },
+=======
+>>>>>>> Initial dep workover
     "Subscription" : {
       "type" : "structure",
       "members" : {

@@ -1485,6 +1485,7 @@ const opSetAlarmState = "SetAlarmState"
 // client's request for the SetAlarmState operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1492,6 +1493,15 @@ const opSetAlarmState = "SetAlarmState"
 // See SetAlarmState for more information on using the SetAlarmState
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetAlarmState for more information on using the SetAlarmState
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //

@@ -28,6 +28,10 @@ import (
 	restclient "k8s.io/client-go/rest"
 	"k8s.io/client-go/rest/fake"
 
+<<<<<<< HEAD
+=======
+	"github.com/emicklei/go-restful-swagger12"
+>>>>>>> Initial dep workover
 	"github.com/googleapis/gnostic/OpenAPIv2"
 	"github.com/stretchr/testify/assert"
 )
@@ -379,6 +383,13 @@ func (c *fakeCachedDiscoveryInterface) ServerVersion() (*version.Info, error) {
 	return &version.Info{}, nil
 }
 
+<<<<<<< HEAD
+=======
+func (c *fakeCachedDiscoveryInterface) SwaggerSchema(version schema.GroupVersion) (*swagger.ApiDeclaration, error) {
+	return &swagger.ApiDeclaration{}, nil
+}
+
+>>>>>>> Initial dep workover
 func (c *fakeCachedDiscoveryInterface) OpenAPISchema() (*openapi_v2.Document, error) {
 	return &openapi_v2.Document{}, nil
 }

@@ -164,6 +164,7 @@ func TestGetRetryDelay(t *testing.T) {
 		}
 	}
 }
+<<<<<<< HEAD
 
 func TestRetryDelay(t *testing.T) {
 	r := request.Request{}
@@ -187,3 +188,5 @@ func TestRetryDelay(t *testing.T) {
 		}
 	}
 }
+=======
+>>>>>>> Initial dep workover

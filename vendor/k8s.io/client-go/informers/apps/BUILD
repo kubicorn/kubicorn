@@ -8,9 +8,13 @@ load(
 go_library(
     name = "go_default_library",
     srcs = ["interface.go"],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/informers/apps",
     deps = [
         "//vendor/k8s.io/client-go/informers/apps/v1:go_default_library",
+=======
+    deps = [
+>>>>>>> Initial dep workover
         "//vendor/k8s.io/client-go/informers/apps/v1beta1:go_default_library",
         "//vendor/k8s.io/client-go/informers/apps/v1beta2:go_default_library",
         "//vendor/k8s.io/client-go/informers/internalinterfaces:go_default_library",
@@ -28,7 +32,10 @@ filegroup(
     name = "all-srcs",
     srcs = [
         ":package-srcs",
+<<<<<<< HEAD
         "//staging/src/k8s.io/client-go/informers/apps/v1:all-srcs",
+=======
+>>>>>>> Initial dep workover
         "//staging/src/k8s.io/client-go/informers/apps/v1beta1:all-srcs",
         "//staging/src/k8s.io/client-go/informers/apps/v1beta2:all-srcs",
     ],

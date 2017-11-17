@@ -37,7 +37,11 @@ const opAssociateKmsKey = "AssociateKmsKey"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKey
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) AssociateKmsKeyRequest(input *AssociateKmsKeyInput) (req *request.Request, output *AssociateKmsKeyOutput) {
 	op := &request.Operation{
 		Name:       opAssociateKmsKey,
@@ -93,7 +97,11 @@ func (c *CloudWatchLogs) AssociateKmsKeyRequest(input *AssociateKmsKeyInput) (re
 //   * ErrCodeServiceUnavailableException "ServiceUnavailableException"
 //   The service cannot complete the request.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKey
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) AssociateKmsKey(input *AssociateKmsKeyInput) (*AssociateKmsKeyOutput, error) {
 	req, out := c.AssociateKmsKeyRequest(input)
 	return out, req.Send()
@@ -916,7 +924,11 @@ const opDeleteResourcePolicy = "DeleteResourcePolicy"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteResourcePolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteResourcePolicy
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) DeleteResourcePolicyRequest(input *DeleteResourcePolicyInput) (req *request.Request, output *DeleteResourcePolicyOutput) {
 	op := &request.Operation{
 		Name:       opDeleteResourcePolicy,
@@ -957,7 +969,11 @@ func (c *CloudWatchLogs) DeleteResourcePolicyRequest(input *DeleteResourcePolicy
 //   * ErrCodeServiceUnavailableException "ServiceUnavailableException"
 //   The service cannot complete the request.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteResourcePolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteResourcePolicy
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) DeleteResourcePolicy(input *DeleteResourcePolicyInput) (*DeleteResourcePolicyOutput, error) {
 	req, out := c.DeleteResourcePolicyRequest(input)
 	return out, req.Send()
@@ -1837,7 +1853,11 @@ const opDescribeResourcePolicies = "DescribeResourcePolicies"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePolicies
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePolicies
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) DescribeResourcePoliciesRequest(input *DescribeResourcePoliciesInput) (req *request.Request, output *DescribeResourcePoliciesOutput) {
 	op := &request.Operation{
 		Name:       opDescribeResourcePolicies,
@@ -1872,7 +1892,11 @@ func (c *CloudWatchLogs) DescribeResourcePoliciesRequest(input *DescribeResource
 //   * ErrCodeServiceUnavailableException "ServiceUnavailableException"
 //   The service cannot complete the request.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePolicies
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePolicies
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) DescribeResourcePolicies(input *DescribeResourcePoliciesInput) (*DescribeResourcePoliciesOutput, error) {
 	req, out := c.DescribeResourcePoliciesRequest(input)
 	return out, req.Send()
@@ -2062,7 +2086,11 @@ const opDisassociateKmsKey = "DisassociateKmsKey"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DisassociateKmsKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DisassociateKmsKey
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) DisassociateKmsKeyRequest(input *DisassociateKmsKeyInput) (req *request.Request, output *DisassociateKmsKeyOutput) {
 	op := &request.Operation{
 		Name:       opDisassociateKmsKey,
@@ -2113,7 +2141,11 @@ func (c *CloudWatchLogs) DisassociateKmsKeyRequest(input *DisassociateKmsKeyInpu
 //   * ErrCodeServiceUnavailableException "ServiceUnavailableException"
 //   The service cannot complete the request.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DisassociateKmsKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DisassociateKmsKey
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) DisassociateKmsKey(input *DisassociateKmsKeyInput) (*DisassociateKmsKeyOutput, error) {
 	req, out := c.DisassociateKmsKeyRequest(input)
 	return out, req.Send()
@@ -2938,7 +2970,11 @@ const opPutResourcePolicy = "PutResourcePolicy"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicy
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) PutResourcePolicyRequest(input *PutResourcePolicyInput) (req *request.Request, output *PutResourcePolicyOutput) {
 	op := &request.Operation{
 		Name:       opPutResourcePolicy,
@@ -2978,7 +3014,11 @@ func (c *CloudWatchLogs) PutResourcePolicyRequest(input *PutResourcePolicyInput)
 //   * ErrCodeServiceUnavailableException "ServiceUnavailableException"
 //   The service cannot complete the request.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicy
+>>>>>>> Initial dep workover
 func (c *CloudWatchLogs) PutResourcePolicy(input *PutResourcePolicyInput) (*PutResourcePolicyOutput, error) {
 	req, out := c.PutResourcePolicyRequest(input)
 	return out, req.Send()
@@ -3464,7 +3504,11 @@ func (c *CloudWatchLogs) UntagLogGroupWithContext(ctx aws.Context, input *UntagL
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKeyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKeyRequest
+>>>>>>> Initial dep workover
 type AssociateKmsKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3522,7 +3566,11 @@ func (s *AssociateKmsKeyInput) SetLogGroupName(v string) *AssociateKmsKeyInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKeyOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/AssociateKmsKeyOutput
+>>>>>>> Initial dep workover
 type AssociateKmsKeyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4161,7 +4209,11 @@ func (s DeleteMetricFilterOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteResourcePolicyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteResourcePolicyRequest
+>>>>>>> Initial dep workover
 type DeleteResourcePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4185,7 +4237,11 @@ func (s *DeleteResourcePolicyInput) SetPolicyName(v string) *DeleteResourcePolic
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteResourcePolicyOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteResourcePolicyOutput
+>>>>>>> Initial dep workover
 type DeleteResourcePolicyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4200,7 +4256,11 @@ func (s DeleteResourcePolicyOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteRetentionPolicyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DeleteRetentionPolicyRequest
+>>>>>>> Initial dep workover
 type DeleteRetentionPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4908,7 +4968,11 @@ func (s *DescribeMetricFiltersOutput) SetNextToken(v string) *DescribeMetricFilt
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePoliciesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePoliciesRequest
+>>>>>>> Initial dep workover
 type DescribeResourcePoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4959,7 +5023,11 @@ func (s *DescribeResourcePoliciesInput) SetNextToken(v string) *DescribeResource
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePoliciesResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeResourcePoliciesResponse
+>>>>>>> Initial dep workover
 type DescribeResourcePoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4993,7 +5061,11 @@ func (s *DescribeResourcePoliciesOutput) SetResourcePolicies(v []*ResourcePolicy
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeSubscriptionFiltersRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DescribeSubscriptionFiltersRequest
+>>>>>>> Initial dep workover
 type DescribeSubscriptionFiltersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5180,7 +5252,11 @@ func (s *Destination) SetTargetArn(v string) *Destination {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DisassociateKmsKeyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DisassociateKmsKeyRequest
+>>>>>>> Initial dep workover
 type DisassociateKmsKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5222,7 +5298,11 @@ func (s *DisassociateKmsKeyInput) SetLogGroupName(v string) *DisassociateKmsKeyI
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DisassociateKmsKeyOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/DisassociateKmsKeyOutput
+>>>>>>> Initial dep workover
 type DisassociateKmsKeyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6763,7 +6843,11 @@ func (s PutMetricFilterOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicyRequest
+>>>>>>> Initial dep workover
 type PutResourcePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6818,7 +6902,11 @@ func (s *PutResourcePolicyInput) SetPolicyName(v string) *PutResourcePolicyInput
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicyResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutResourcePolicyResponse
+>>>>>>> Initial dep workover
 type PutResourcePolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6842,7 +6930,11 @@ func (s *PutResourcePolicyOutput) SetResourcePolicy(v *ResourcePolicy) *PutResou
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutRetentionPolicyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/PutRetentionPolicyRequest
+>>>>>>> Initial dep workover
 type PutRetentionPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7108,7 +7200,11 @@ func (s *RejectedLogEventsInfo) SetTooOldLogEventEndIndex(v int64) *RejectedLogE
 
 // A policy enabling one or more entities to put logs to a log group in this
 // account.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/ResourcePolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/ResourcePolicy
+>>>>>>> Initial dep workover
 type ResourcePolicy struct {
 	_ struct{} `type:"structure"`
 

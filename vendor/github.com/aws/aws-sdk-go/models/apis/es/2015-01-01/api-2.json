@@ -288,7 +288,10 @@
         "AccessPolicies":{"shape":"PolicyDocument"},
         "SnapshotOptions":{"shape":"SnapshotOptions"},
         "VPCOptions":{"shape":"VPCOptions"},
+<<<<<<< HEAD
         "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptions"},
+=======
+>>>>>>> Initial dep workover
         "AdvancedOptions":{"shape":"AdvancedOptions"},
         "LogPublishingOptions":{"shape":"LogPublishingOptions"}
       }
@@ -524,7 +527,10 @@
         "AccessPolicies":{"shape":"AccessPoliciesStatus"},
         "SnapshotOptions":{"shape":"SnapshotOptionsStatus"},
         "VPCOptions":{"shape":"VPCDerivedInfoStatus"},
+<<<<<<< HEAD
         "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptionsStatus"},
+=======
+>>>>>>> Initial dep workover
         "AdvancedOptions":{"shape":"AdvancedOptionsStatus"},
         "LogPublishingOptions":{"shape":"LogPublishingOptionsStatus"}
       }
@@ -552,7 +558,10 @@
         "AccessPolicies":{"shape":"PolicyDocument"},
         "SnapshotOptions":{"shape":"SnapshotOptions"},
         "VPCOptions":{"shape":"VPCDerivedInfo"},
+<<<<<<< HEAD
         "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptions"},
+=======
+>>>>>>> Initial dep workover
         "AdvancedOptions":{"shape":"AdvancedOptions"},
         "LogPublishingOptions":{"shape":"LogPublishingOptions"}
       }
@@ -581,6 +590,7 @@
       }
     },
     "ElasticsearchVersionString":{"type":"string"},
+<<<<<<< HEAD
     "EncryptionAtRestOptions":{
       "type":"structure",
       "members":{
@@ -599,6 +609,8 @@
         "Status":{"shape":"OptionStatus"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "EndpointsMap":{
       "type":"map",
       "key":{"shape":"String"},

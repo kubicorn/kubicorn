@@ -873,7 +873,11 @@ func (c *Command) validateRequiredFlags() error {
 	})
 
 	if len(missingFlagNames) > 0 {
+<<<<<<< HEAD
 		return fmt.Errorf(`required flag(s) "%s" not set`, strings.Join(missingFlagNames, `", "`))
+=======
+		return fmt.Errorf(`Required flag(s) "%s" have/has not been set`, strings.Join(missingFlagNames, `", "`))
+>>>>>>> Initial dep workover
 	}
 	return nil
 }

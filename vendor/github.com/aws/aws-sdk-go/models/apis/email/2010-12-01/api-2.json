@@ -84,6 +84,7 @@
         {"shape":"InvalidTrackingOptionsException"}
       ]
     },
+<<<<<<< HEAD
     "CreateCustomVerificationEmailTemplate":{
       "name":"CreateCustomVerificationEmailTemplate",
       "http":{
@@ -98,6 +99,8 @@
         {"shape":"LimitExceededException"}
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "CreateReceiptFilter":{
       "name":"CreateReceiptFilter",
       "http":{
@@ -215,6 +218,7 @@
         {"shape":"TrackingOptionsDoesNotExistException"}
       ]
     },
+<<<<<<< HEAD
     "DeleteCustomVerificationEmailTemplate":{
       "name":"DeleteCustomVerificationEmailTemplate",
       "http":{
@@ -223,6 +227,8 @@
       },
       "input":{"shape":"DeleteCustomVerificationEmailTemplateRequest"}
     },
+=======
+>>>>>>> Initial dep workover
     "DeleteIdentity":{
       "name":"DeleteIdentity",
       "http":{
@@ -378,6 +384,7 @@
         "resultWrapper":"GetAccountSendingEnabledResult"
       }
     },
+<<<<<<< HEAD
     "GetCustomVerificationEmailTemplate":{
       "name":"GetCustomVerificationEmailTemplate",
       "http":{
@@ -393,6 +400,8 @@
         {"shape":"CustomVerificationEmailTemplateDoesNotExistException"}
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "GetIdentityDkimAttributes":{
       "name":"GetIdentityDkimAttributes",
       "http":{
@@ -651,6 +660,7 @@
         {"shape":"AccountSendingPausedException"}
       ]
     },
+<<<<<<< HEAD
     "SendCustomVerificationEmail":{
       "name":"SendCustomVerificationEmail",
       "http":{
@@ -670,6 +680,8 @@
         {"shape":"ProductionAccessNotGrantedException"}
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "SendEmail":{
       "name":"SendEmail",
       "http":{
@@ -902,6 +914,7 @@
         {"shape":"InvalidTrackingOptionsException"}
       ]
     },
+<<<<<<< HEAD
     "UpdateCustomVerificationEmailTemplate":{
       "name":"UpdateCustomVerificationEmailTemplate",
       "http":{
@@ -915,6 +928,8 @@
         {"shape":"CustomVerificationEmailInvalidContentException"}
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "UpdateReceiptRule":{
       "name":"UpdateReceiptRule",
       "http":{
@@ -1306,6 +1321,7 @@
       "members":{
       }
     },
+<<<<<<< HEAD
     "CreateCustomVerificationEmailTemplateRequest":{
       "type":"structure",
       "required":[
@@ -1325,6 +1341,8 @@
         "FailureRedirectionURL":{"shape":"FailureRedirectionURL"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "CreateReceiptFilterRequest":{
       "type":"structure",
       "required":["Filter"],
@@ -1388,6 +1406,7 @@
       ]
     },
     "CustomRedirectDomain":{"type":"string"},
+<<<<<<< HEAD
     "CustomVerificationEmailInvalidContentException":{
       "type":"structure",
       "members":{
@@ -1437,6 +1456,8 @@
       "type":"list",
       "member":{"shape":"CustomVerificationEmailTemplate"}
     },
+=======
+>>>>>>> Initial dep workover
     "DefaultDimensionValue":{"type":"string"},
     "DeleteConfigurationSetEventDestinationRequest":{
       "type":"structure",
@@ -1478,6 +1499,7 @@
       "members":{
       }
     },
+<<<<<<< HEAD
     "DeleteCustomVerificationEmailTemplateRequest":{
       "type":"structure",
       "required":["TemplateName"],
@@ -1485,6 +1507,8 @@
         "TemplateName":{"shape":"TemplateName"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "DeleteIdentityPolicyRequest":{
       "type":"structure",
       "required":[
@@ -1788,6 +1812,17 @@
         "FailureRedirectionURL":{"shape":"FailureRedirectionURL"}
       }
     },
+<<<<<<< HEAD
+=======
+    "ExtensionFieldName":{"type":"string"},
+    "ExtensionFieldValue":{"type":"string"},
+    "GetAccountSendingEnabledResponse":{
+      "type":"structure",
+      "members":{
+        "Enabled":{"shape":"Enabled"}
+      }
+    },
+>>>>>>> Initial dep workover
     "GetIdentityDkimAttributesRequest":{
       "type":"structure",
       "required":["Identities"],
@@ -2627,6 +2662,7 @@
         "Status":{"shape":"BulkEmailDestinationStatusList"}
       }
     },
+<<<<<<< HEAD
     "SendCustomVerificationEmailRequest":{
       "type":"structure",
       "required":[
@@ -2645,6 +2681,8 @@
         "MessageId":{"shape":"MessageId"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "SendDataPoint":{
       "type":"structure",
       "members":{
@@ -2857,9 +2895,13 @@
       "type":"string",
       "enum":["RuleSet"]
     },
+<<<<<<< HEAD
     "Subject":{"type":"string"},
     "SubjectPart":{"type":"string"},
     "SuccessRedirectionURL":{"type":"string"},
+=======
+    "SubjectPart":{"type":"string"},
+>>>>>>> Initial dep workover
     "Template":{
       "type":"structure",
       "required":["TemplateName"],
@@ -2870,7 +2912,10 @@
         "HtmlPart":{"shape":"HtmlPart"}
       }
     },
+<<<<<<< HEAD
     "TemplateContent":{"type":"string"},
+=======
+>>>>>>> Initial dep workover
     "TemplateData":{
       "type":"string",
       "max":262144
@@ -3015,6 +3060,7 @@
       "members":{
       }
     },
+<<<<<<< HEAD
     "UpdateCustomVerificationEmailTemplateRequest":{
       "type":"structure",
       "required":["TemplateName"],
@@ -3027,6 +3073,8 @@
         "FailureRedirectionURL":{"shape":"FailureRedirectionURL"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "UpdateReceiptRuleRequest":{
       "type":"structure",
       "required":[

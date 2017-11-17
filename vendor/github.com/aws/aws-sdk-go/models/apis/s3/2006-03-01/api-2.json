@@ -2048,6 +2048,7 @@
       "type":"string",
       "enum":["url"]
     },
+<<<<<<< HEAD
     "Encryption":{
       "type":"structure",
       "required":["EncryptionType"],
@@ -2057,6 +2058,8 @@
         "KMSContext":{"shape":"KMSContext"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "EncryptionConfiguration":{
       "type":"structure",
       "members":{
@@ -5198,6 +5201,7 @@
       },
       "locationName":"SSE-S3"
     },
+<<<<<<< HEAD
     "SelectParameters":{
       "type":"structure",
       "required":[
@@ -5213,6 +5217,8 @@
         "OutputSerialization":{"shape":"OutputSerialization"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "ServerSideEncryption":{
       "type":"string",
       "enum":[

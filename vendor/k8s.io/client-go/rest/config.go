@@ -420,6 +420,7 @@ func AnonymousClientConfig(config *Config) *Config {
 		QPS:           config.QPS,
 		Burst:         config.Burst,
 		Timeout:       config.Timeout,
+<<<<<<< HEAD
 		Dial:          config.Dial,
 	}
 }
@@ -460,5 +461,7 @@ func CopyConfig(config *Config) *Config {
 		RateLimiter:   config.RateLimiter,
 		Timeout:       config.Timeout,
 		Dial:          config.Dial,
+=======
+>>>>>>> Initial dep workover
 	}
 }

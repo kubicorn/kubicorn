@@ -62,6 +62,35 @@ func CommonAccessor(obj interface{}) (metav1.Common, error) {
 			return m, nil
 		}
 		return nil, errNotCommon
+<<<<<<< HEAD
+	default:
+		return nil, errNotCommon
+	}
+}
+
+// ListAccessor returns a List interface for the provided object or an error if the object does
+// not provide List.
+// IMPORTANT: Objects are NOT a superset of lists. Do not use this check to determine whether an
+// object *is* a List.
+// TODO: return bool instead of error
+func ListAccessor(obj interface{}) (List, error) {
+	switch t := obj.(type) {
+	case List:
+		return t, nil
+	case metav1.ListInterface:
+		return t, nil
+	case ListMetaAccessor:
+		if m := t.GetListMeta(); m != nil {
+			return m, nil
+		}
+		return nil, errNotList
+	case metav1.ListMetaAccessor:
+		if m := t.GetListMeta(); m != nil {
+			return m, nil
+		}
+		return nil, errNotList
+=======
+>>>>>>> Initial dep workover
 	default:
 		return nil, errNotCommon
 	}
@@ -89,7 +118,7 @@ func ListAccessor(obj interface{}) (List, error) {
 		}
 		return nil, errNotList
 	default:
-		return nil, errNotList
+		panic(fmt.Errorf("%T does not implement the List interface", obj))
 	}
 }
 

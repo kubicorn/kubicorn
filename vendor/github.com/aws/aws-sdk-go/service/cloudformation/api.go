@@ -194,6 +194,7 @@ const opCreateChangeSet = "CreateChangeSet"
 // client's request for the CreateChangeSet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -201,6 +202,15 @@ const opCreateChangeSet = "CreateChangeSet"
 // See CreateChangeSet for more information on using the CreateChangeSet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateChangeSet for more information on using the CreateChangeSet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -274,7 +284,11 @@ func (c *CloudFormation) CreateChangeSetRequest(input *CreateChangeSetInput) (re
 //
 //   For information on stack set limitations, see Limitations of StackSets (http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-limitations.html).
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet
+>>>>>>> Initial dep workover
 func (c *CloudFormation) CreateChangeSet(input *CreateChangeSetInput) (*CreateChangeSetOutput, error) {
 	req, out := c.CreateChangeSetRequest(input)
 	return out, req.Send()
@@ -302,6 +316,7 @@ const opCreateStack = "CreateStack"
 // client's request for the CreateStack operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -309,6 +324,15 @@ const opCreateStack = "CreateStack"
 // See CreateStack for more information on using the CreateStack
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateStack for more information on using the CreateStack
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -395,6 +419,7 @@ const opCreateStackInstances = "CreateStackInstances"
 // client's request for the CreateStackInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -402,6 +427,15 @@ const opCreateStackInstances = "CreateStackInstances"
 // See CreateStackInstances for more information on using the CreateStackInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateStackInstances for more information on using the CreateStackInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -468,7 +502,11 @@ func (c *CloudFormation) CreateStackInstancesRequest(input *CreateStackInstances
 //
 //   For information on stack set limitations, see Limitations of StackSets (http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-limitations.html).
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackInstances
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackInstances
+>>>>>>> Initial dep workover
 func (c *CloudFormation) CreateStackInstances(input *CreateStackInstancesInput) (*CreateStackInstancesOutput, error) {
 	req, out := c.CreateStackInstancesRequest(input)
 	return out, req.Send()
@@ -555,7 +593,11 @@ func (c *CloudFormation) CreateStackSetRequest(input *CreateStackSetInput) (req 
 //
 //   For information on stack set limitations, see Limitations of StackSets (http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-limitations.html).
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackSet
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackSet
+>>>>>>> Initial dep workover
 func (c *CloudFormation) CreateStackSet(input *CreateStackSetInput) (*CreateStackSetOutput, error) {
 	req, out := c.CreateStackSetRequest(input)
 	return out, req.Send()
@@ -751,6 +793,7 @@ const opDeleteStackInstances = "DeleteStackInstances"
 // client's request for the DeleteStackInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -758,6 +801,15 @@ const opDeleteStackInstances = "DeleteStackInstances"
 // See DeleteStackInstances for more information on using the DeleteStackInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteStackInstances for more information on using the DeleteStackInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -844,6 +896,7 @@ const opDeleteStackSet = "DeleteStackSet"
 // client's request for the DeleteStackSet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -851,6 +904,15 @@ const opDeleteStackSet = "DeleteStackSet"
 // See DeleteStackSet for more information on using the DeleteStackSet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteStackSet for more information on using the DeleteStackSet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -931,6 +993,7 @@ const opDescribeAccountLimits = "DescribeAccountLimits"
 // client's request for the DescribeAccountLimits operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -938,6 +1001,15 @@ const opDescribeAccountLimits = "DescribeAccountLimits"
 // See DescribeAccountLimits for more information on using the DescribeAccountLimits
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeAccountLimits for more information on using the DescribeAccountLimits
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1006,6 +1078,7 @@ const opDescribeChangeSet = "DescribeChangeSet"
 // client's request for the DescribeChangeSet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1013,6 +1086,15 @@ const opDescribeChangeSet = "DescribeChangeSet"
 // See DescribeChangeSet for more information on using the DescribeChangeSet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeChangeSet for more information on using the DescribeChangeSet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1089,6 +1171,7 @@ const opDescribeStackEvents = "DescribeStackEvents"
 // client's request for the DescribeStackEvents operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1096,6 +1179,15 @@ const opDescribeStackEvents = "DescribeStackEvents"
 // See DescribeStackEvents for more information on using the DescribeStackEvents
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeStackEvents for more information on using the DescribeStackEvents
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1639,6 +1731,7 @@ const opDescribeStacks = "DescribeStacks"
 // client's request for the DescribeStacks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1646,6 +1739,15 @@ const opDescribeStacks = "DescribeStacks"
 // See DescribeStacks for more information on using the DescribeStacks
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeStacks for more information on using the DescribeStacks
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1772,6 +1874,7 @@ const opEstimateTemplateCost = "EstimateTemplateCost"
 // client's request for the EstimateTemplateCost operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1779,6 +1882,15 @@ const opEstimateTemplateCost = "EstimateTemplateCost"
 // See EstimateTemplateCost for more information on using the EstimateTemplateCost
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See EstimateTemplateCost for more information on using the EstimateTemplateCost
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1848,6 +1960,7 @@ const opExecuteChangeSet = "ExecuteChangeSet"
 // client's request for the ExecuteChangeSet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1855,6 +1968,15 @@ const opExecuteChangeSet = "ExecuteChangeSet"
 // See ExecuteChangeSet for more information on using the ExecuteChangeSet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ExecuteChangeSet for more information on using the ExecuteChangeSet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1951,6 +2073,7 @@ const opGetStackPolicy = "GetStackPolicy"
 // client's request for the GetStackPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1958,6 +2081,15 @@ const opGetStackPolicy = "GetStackPolicy"
 // See GetStackPolicy for more information on using the GetStackPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetStackPolicy for more information on using the GetStackPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2026,6 +2158,7 @@ const opGetTemplate = "GetTemplate"
 // client's request for the GetTemplate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2033,6 +2166,15 @@ const opGetTemplate = "GetTemplate"
 // See GetTemplate for more information on using the GetTemplate
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetTemplate for more information on using the GetTemplate
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2414,6 +2556,7 @@ const opListImports = "ListImports"
 // client's request for the ListImports operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2421,6 +2564,15 @@ const opListImports = "ListImports"
 // See ListImports for more information on using the ListImports
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListImports for more information on using the ListImports
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2550,6 +2702,7 @@ const opListStackInstances = "ListStackInstances"
 // client's request for the ListStackInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2557,6 +2710,15 @@ const opListStackInstances = "ListStackInstances"
 // See ListStackInstances for more information on using the ListStackInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListStackInstances for more information on using the ListStackInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2631,6 +2793,7 @@ const opListStackResources = "ListStackResources"
 // client's request for the ListStackResources operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2638,6 +2801,15 @@ const opListStackResources = "ListStackResources"
 // See ListStackResources for more information on using the ListStackResources
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListStackResources for more information on using the ListStackResources
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2764,6 +2936,7 @@ const opListStackSetOperationResults = "ListStackSetOperationResults"
 // client's request for the ListStackSetOperationResults operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2771,6 +2944,15 @@ const opListStackSetOperationResults = "ListStackSetOperationResults"
 // See ListStackSetOperationResults for more information on using the ListStackSetOperationResults
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListStackSetOperationResults for more information on using the ListStackSetOperationResults
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2846,6 +3028,7 @@ const opListStackSetOperations = "ListStackSetOperations"
 // client's request for the ListStackSetOperations operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2853,6 +3036,15 @@ const opListStackSetOperations = "ListStackSetOperations"
 // See ListStackSetOperations for more information on using the ListStackSetOperations
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListStackSetOperations for more information on using the ListStackSetOperations
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2925,6 +3117,7 @@ const opListStackSets = "ListStackSets"
 // client's request for the ListStackSets operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2932,6 +3125,15 @@ const opListStackSets = "ListStackSets"
 // See ListStackSets for more information on using the ListStackSets
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListStackSets for more information on using the ListStackSets
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3000,6 +3202,7 @@ const opListStacks = "ListStacks"
 // client's request for the ListStacks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3007,6 +3210,15 @@ const opListStacks = "ListStacks"
 // See ListStacks for more information on using the ListStacks
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListStacks for more information on using the ListStacks
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3134,6 +3346,7 @@ const opSetStackPolicy = "SetStackPolicy"
 // client's request for the SetStackPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3141,6 +3354,15 @@ const opSetStackPolicy = "SetStackPolicy"
 // See SetStackPolicy for more information on using the SetStackPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetStackPolicy for more information on using the SetStackPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3210,6 +3432,7 @@ const opSignalResource = "SignalResource"
 // client's request for the SignalResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3217,6 +3440,15 @@ const opSignalResource = "SignalResource"
 // See SignalResource for more information on using the SignalResource
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SignalResource for more information on using the SignalResource
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3580,6 +3812,7 @@ const opUpdateStackSet = "UpdateStackSet"
 // client's request for the UpdateStackSet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3587,6 +3820,15 @@ const opUpdateStackSet = "UpdateStackSet"
 // See UpdateStackSet for more information on using the UpdateStackSet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateStackSet for more information on using the UpdateStackSet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3697,7 +3939,11 @@ const opUpdateTerminationProtection = "UpdateTerminationProtection"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtection
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtection
+>>>>>>> Initial dep workover
 func (c *CloudFormation) UpdateTerminationProtectionRequest(input *UpdateTerminationProtectionInput) (req *request.Request, output *UpdateTerminationProtectionOutput) {
 	op := &request.Operation{
 		Name:       opUpdateTerminationProtection,
@@ -3732,7 +3978,11 @@ func (c *CloudFormation) UpdateTerminationProtectionRequest(input *UpdateTermina
 //
 // See the AWS API reference guide for AWS CloudFormation's
 // API operation UpdateTerminationProtection for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtection
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtection
+>>>>>>> Initial dep workover
 func (c *CloudFormation) UpdateTerminationProtection(input *UpdateTerminationProtectionInput) (*UpdateTerminationProtectionOutput, error) {
 	req, out := c.UpdateTerminationProtectionRequest(input)
 	return out, req.Send()
@@ -3760,6 +4010,7 @@ const opValidateTemplate = "ValidateTemplate"
 // client's request for the ValidateTemplate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3767,6 +4018,15 @@ const opValidateTemplate = "ValidateTemplate"
 // See ValidateTemplate for more information on using the ValidateTemplate
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ValidateTemplate for more information on using the ValidateTemplate
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3834,6 +4094,7 @@ func (c *CloudFormation) ValidateTemplateWithContext(ctx aws.Context, input *Val
 // Structure that contains the results of the account gate function which AWS
 // CloudFormation invokes, if present, before proceeding with a stack set operation
 // in an account and region.
+<<<<<<< HEAD
 //
 // For each account and region, AWS CloudFormation lets you specify a Lamdba
 // function that encapsulates any requirements that must be met before CloudFormation
@@ -3845,6 +4106,19 @@ func (c *CloudFormation) ValidateTemplateWithContext(ctx aws.Context, input *Val
 //
 // For more information, see Configuring a target account gate (http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-account-gating.html).
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/AccountGateResult
+=======
+//
+// For each account and region, AWS CloudFormation lets you specify a Lamdba
+// function that encapsulates any requirements that must be met before CloudFormation
+// can proceed with a stack set operation in that account and region. CloudFormation
+// invokes the function each time a stack set operation is requested for that
+// account and region; if the function returns FAILED, CloudFormation cancels
+// the operation in that account and region, and sets the stack set operation
+// result status for that account and region to FAILED.
+//
+// For more information, see Configuring a target account gate (http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-account-gating.html).
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/AccountGateResult
+>>>>>>> Initial dep workover
 type AccountGateResult struct {
 	_ struct{} `type:"structure"`
 
@@ -3860,6 +4134,7 @@ type AccountGateResult struct {
 	//    AWS CloudFormation cancels the stack set operation in that account and
 	//    region, and sets the stack set operation result status for that account
 	//    and region to FAILED.
+<<<<<<< HEAD
 	//
 	//    * SKIPPED: AWS CloudFormation has skipped calling the account gate function
 	//    for this account and region, for one of the following reasons:
@@ -3868,6 +4143,16 @@ type AccountGateResult struct {
 	//    AWS CloudFormation proceeds with the stack set operation in this account
 	//    and region.
 	//
+=======
+	//
+	//    * SKIPPED: AWS CloudFormation has skipped calling the account gate function
+	//    for this account and region, for one of the following reasons:
+	//
+	// An account gate function has not been specified for the account and region.
+	//    AWS CloudFormation proceeds with the stack set operation in this account
+	//    and region.
+	//
+>>>>>>> Initial dep workover
 	// The AWSCloudFormationStackSetExecutionRole of the stack set adminstration
 	//    account lacks permissions to invoke the function. AWS CloudFormation proceeds
 	//    with the stack set operation in this account and region.
@@ -7083,7 +7368,11 @@ type GetTemplateSummaryInput struct {
 	//
 	// Conditional: You must specify only one of the following parameters: StackName,
 	// StackSetName, TemplateBody, or TemplateURL.
+<<<<<<< HEAD
 	StackSetName *string `type:"string"`
+=======
+	StackSetName *string `min:"1" type:"string"`
+>>>>>>> Initial dep workover
 
 	// Structure containing the template body with a minimum length of 1 byte and
 	// a maximum length of 51,200 bytes. For more information about templates, see
@@ -8622,8 +8911,165 @@ func (s *ResourceTargetDefinition) SetRequiresRecreation(v string) *ResourceTarg
 //
 // AWS CloudFormation does not monitor rollback triggers when it rolls back
 // a stack during an update operation.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackConfiguration
 type RollbackConfiguration struct {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackConfiguration
+type RollbackConfiguration struct {
+	_ struct{} `type:"structure"`
+
+	// The amount of time, in minutes, during which CloudFormation should monitor
+	// all the rollback triggers after the stack creation or update operation deploys
+	// all necessary resources. If any of the alarms goes to ALERT state during
+	// the stack operation or this monitoring period, CloudFormation rolls back
+	// the entire stack operation. Then, for update operations, if the monitoring
+	// period expires without any alarms going to ALERT state CloudFormation proceeds
+	// to dispose of old resources as usual.
+	//
+	// If you specify a monitoring period but do not specify any rollback triggers,
+	// CloudFormation still waits the specified period of time before cleaning up
+	// old resources for update operations. You can use this monitoring period to
+	// perform any manual stack validation desired, and manually cancel the stack
+	// creation or update (using CancelUpdateStack (http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CancelUpdateStack.html),
+	// for example) as necessary.
+	//
+	// If you specify 0 for this parameter, CloudFormation still monitors the specified
+	// rollback triggers during stack creation and update operations. Then, for
+	// update operations, it begins disposing of old resources immediately once
+	// the operation completes.
+	MonitoringTimeInMinutes *int64 `type:"integer"`
+
+	// The triggers to monitor during stack creation or update actions.
+	//
+	// By default, AWS CloudFormation saves the rollback triggers specified for
+	// a stack and applies them to any subsequent update operations for the stack,
+	// unless you specify otherwise. If you do specify rollback triggers for this
+	// parameter, those triggers replace any list of triggers previously specified
+	// for the stack. This means:
+	//
+	//    * If you don't specify this parameter, AWS CloudFormation uses the rollback
+	//    triggers previously specified for this stack, if any.
+	//
+	//    * If you specify any rollback triggers using this parameter, you must
+	//    specify all the triggers that you want used for this stack, even triggers
+	//    you've specifed before (for example, when creating the stack or during
+	//    a previous stack update). Any triggers that you don't include in the updated
+	//    list of triggers are no longer applied to the stack.
+	//
+	//    * If you specify an empty list, AWS CloudFormation removes all currently
+	//    specified triggers.
+	//
+	// If a specified Cloudwatch alarm is missing, the entire stack operation fails
+	// and is rolled back.
+	RollbackTriggers []*RollbackTrigger `type:"list"`
+}
+
+// String returns the string representation
+func (s RollbackConfiguration) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s RollbackConfiguration) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *RollbackConfiguration) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "RollbackConfiguration"}
+	if s.RollbackTriggers != nil {
+		for i, v := range s.RollbackTriggers {
+			if v == nil {
+				continue
+			}
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "RollbackTriggers", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetMonitoringTimeInMinutes sets the MonitoringTimeInMinutes field's value.
+func (s *RollbackConfiguration) SetMonitoringTimeInMinutes(v int64) *RollbackConfiguration {
+	s.MonitoringTimeInMinutes = &v
+	return s
+}
+
+// SetRollbackTriggers sets the RollbackTriggers field's value.
+func (s *RollbackConfiguration) SetRollbackTriggers(v []*RollbackTrigger) *RollbackConfiguration {
+	s.RollbackTriggers = v
+	return s
+}
+
+// A rollback trigger AWS CloudFormation monitors during creation and updating
+// of stacks. If any of the alarms you specify goes to ALERT state during the
+// stack operation or within the specified monitoring period afterwards, CloudFormation
+// rolls back the entire stack operation.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger
+type RollbackTrigger struct {
+	_ struct{} `type:"structure"`
+
+	// The Amazon Resource Name (ARN) of the rollback trigger.
+	//
+	// Arn is a required field
+	Arn *string `type:"string" required:"true"`
+
+	// The resource type of the rollback trigger. Currently, AWS::CloudWatch::Alarm
+	// (http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html)
+	// is the only supported resource type.
+	//
+	// Type is a required field
+	Type *string `type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s RollbackTrigger) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s RollbackTrigger) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *RollbackTrigger) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "RollbackTrigger"}
+	if s.Arn == nil {
+		invalidParams.Add(request.NewErrParamRequired("Arn"))
+	}
+	if s.Type == nil {
+		invalidParams.Add(request.NewErrParamRequired("Type"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetArn sets the Arn field's value.
+func (s *RollbackTrigger) SetArn(v string) *RollbackTrigger {
+	s.Arn = &v
+	return s
+}
+
+// SetType sets the Type field's value.
+func (s *RollbackTrigger) SetType(v string) *RollbackTrigger {
+	s.Type = &v
+	return s
+}
+
+// The input for the SetStackPolicy action.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/SetStackPolicyInput
+type SetStackPolicyInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The amount of time, in minutes, during which CloudFormation should monitor
@@ -10060,7 +10506,11 @@ func (s *StackSetOperation) SetStatus(v string) *StackSetOperation {
 //
 // For more information on maximum concurrent accounts and failure tolerance,
 // see Stack set operation options (http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/StackSetOperationPreferences
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/StackSetOperationPreferences
+>>>>>>> Initial dep workover
 type StackSetOperationPreferences struct {
 	_ struct{} `type:"structure"`
 
@@ -11483,7 +11933,11 @@ func (s *UpdateStackSetOutput) SetOperationId(v string) *UpdateStackSetOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtectionInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtectionInput
+>>>>>>> Initial dep workover
 type UpdateTerminationProtectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11540,7 +11994,11 @@ func (s *UpdateTerminationProtectionInput) SetStackName(v string) *UpdateTermina
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtectionOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateTerminationProtectionOutput
+>>>>>>> Initial dep workover
 type UpdateTerminationProtectionOutput struct {
 	_ struct{} `type:"structure"`
 

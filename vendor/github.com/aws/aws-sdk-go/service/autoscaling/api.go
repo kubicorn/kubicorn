@@ -202,6 +202,7 @@ const opAttachLoadBalancers = "AttachLoadBalancers"
 // client's request for the AttachLoadBalancers operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -209,6 +210,15 @@ const opAttachLoadBalancers = "AttachLoadBalancers"
 // See AttachLoadBalancers for more information on using the AttachLoadBalancers
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachLoadBalancers for more information on using the AttachLoadBalancers
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -292,6 +302,7 @@ const opCompleteLifecycleAction = "CompleteLifecycleAction"
 // client's request for the CompleteLifecycleAction operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -299,6 +310,15 @@ const opCompleteLifecycleAction = "CompleteLifecycleAction"
 // See CompleteLifecycleAction for more information on using the CompleteLifecycleAction
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CompleteLifecycleAction for more information on using the CompleteLifecycleAction
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -394,6 +414,7 @@ const opCreateAutoScalingGroup = "CreateAutoScalingGroup"
 // client's request for the CreateAutoScalingGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -401,6 +422,15 @@ const opCreateAutoScalingGroup = "CreateAutoScalingGroup"
 // See CreateAutoScalingGroup for more information on using the CreateAutoScalingGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateAutoScalingGroup for more information on using the CreateAutoScalingGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -492,6 +522,7 @@ const opCreateLaunchConfiguration = "CreateLaunchConfiguration"
 // client's request for the CreateLaunchConfiguration operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -499,6 +530,15 @@ const opCreateLaunchConfiguration = "CreateLaunchConfiguration"
 // See CreateLaunchConfiguration for more information on using the CreateLaunchConfiguration
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateLaunchConfiguration for more information on using the CreateLaunchConfiguration
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -690,6 +730,7 @@ const opDeleteAutoScalingGroup = "DeleteAutoScalingGroup"
 // client's request for the DeleteAutoScalingGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -697,6 +738,15 @@ const opDeleteAutoScalingGroup = "DeleteAutoScalingGroup"
 // See DeleteAutoScalingGroup for more information on using the DeleteAutoScalingGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteAutoScalingGroup for more information on using the DeleteAutoScalingGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -793,6 +843,7 @@ const opDeleteLaunchConfiguration = "DeleteLaunchConfiguration"
 // client's request for the DeleteLaunchConfiguration operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -800,6 +851,15 @@ const opDeleteLaunchConfiguration = "DeleteLaunchConfiguration"
 // See DeleteLaunchConfiguration for more information on using the DeleteLaunchConfiguration
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteLaunchConfiguration for more information on using the DeleteLaunchConfiguration
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1383,6 +1443,7 @@ const opDescribeAdjustmentTypes = "DescribeAdjustmentTypes"
 // client's request for the DescribeAdjustmentTypes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1390,6 +1451,15 @@ const opDescribeAdjustmentTypes = "DescribeAdjustmentTypes"
 // See DescribeAdjustmentTypes for more information on using the DescribeAdjustmentTypes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeAdjustmentTypes for more information on using the DescribeAdjustmentTypes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1463,6 +1533,7 @@ const opDescribeAutoScalingGroups = "DescribeAutoScalingGroups"
 // client's request for the DescribeAutoScalingGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1470,6 +1541,15 @@ const opDescribeAutoScalingGroups = "DescribeAutoScalingGroups"
 // See DescribeAutoScalingGroups for more information on using the DescribeAutoScalingGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeAutoScalingGroups for more information on using the DescribeAutoScalingGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1602,6 +1682,7 @@ const opDescribeAutoScalingInstances = "DescribeAutoScalingInstances"
 // client's request for the DescribeAutoScalingInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1609,6 +1690,15 @@ const opDescribeAutoScalingInstances = "DescribeAutoScalingInstances"
 // See DescribeAutoScalingInstances for more information on using the DescribeAutoScalingInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeAutoScalingInstances for more information on using the DescribeAutoScalingInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2283,6 +2373,7 @@ const opDescribeMetricCollectionTypes = "DescribeMetricCollectionTypes"
 // client's request for the DescribeMetricCollectionTypes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2290,6 +2381,15 @@ const opDescribeMetricCollectionTypes = "DescribeMetricCollectionTypes"
 // See DescribeMetricCollectionTypes for more information on using the DescribeMetricCollectionTypes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeMetricCollectionTypes for more information on using the DescribeMetricCollectionTypes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2366,6 +2466,7 @@ const opDescribeNotificationConfigurations = "DescribeNotificationConfigurations
 // client's request for the DescribeNotificationConfigurations operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2373,6 +2474,15 @@ const opDescribeNotificationConfigurations = "DescribeNotificationConfigurations
 // See DescribeNotificationConfigurations for more information on using the DescribeNotificationConfigurations
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeNotificationConfigurations for more information on using the DescribeNotificationConfigurations
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2645,6 +2755,7 @@ const opDescribeScalingActivities = "DescribeScalingActivities"
 // client's request for the DescribeScalingActivities operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2652,6 +2763,15 @@ const opDescribeScalingActivities = "DescribeScalingActivities"
 // See DescribeScalingActivities for more information on using the DescribeScalingActivities
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeScalingActivities for more information on using the DescribeScalingActivities
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2784,6 +2904,7 @@ const opDescribeScalingProcessTypes = "DescribeScalingProcessTypes"
 // client's request for the DescribeScalingProcessTypes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2791,6 +2912,15 @@ const opDescribeScalingProcessTypes = "DescribeScalingProcessTypes"
 // See DescribeScalingProcessTypes for more information on using the DescribeScalingProcessTypes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeScalingProcessTypes for more information on using the DescribeScalingProcessTypes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2864,6 +2994,7 @@ const opDescribeScheduledActions = "DescribeScheduledActions"
 // client's request for the DescribeScheduledActions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2871,6 +3002,15 @@ const opDescribeScheduledActions = "DescribeScheduledActions"
 // See DescribeScheduledActions for more information on using the DescribeScheduledActions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeScheduledActions for more information on using the DescribeScheduledActions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3152,6 +3292,7 @@ const opDescribeTerminationPolicyTypes = "DescribeTerminationPolicyTypes"
 // client's request for the DescribeTerminationPolicyTypes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3159,6 +3300,15 @@ const opDescribeTerminationPolicyTypes = "DescribeTerminationPolicyTypes"
 // See DescribeTerminationPolicyTypes for more information on using the DescribeTerminationPolicyTypes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeTerminationPolicyTypes for more information on using the DescribeTerminationPolicyTypes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3232,6 +3382,7 @@ const opDetachInstances = "DetachInstances"
 // client's request for the DetachInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3239,6 +3390,15 @@ const opDetachInstances = "DetachInstances"
 // See DetachInstances for more information on using the DetachInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetachInstances for more information on using the DetachInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3578,6 +3738,7 @@ const opEnableMetricsCollection = "EnableMetricsCollection"
 // client's request for the EnableMetricsCollection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3585,6 +3746,15 @@ const opEnableMetricsCollection = "EnableMetricsCollection"
 // See EnableMetricsCollection for more information on using the EnableMetricsCollection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See EnableMetricsCollection for more information on using the EnableMetricsCollection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3662,6 +3832,7 @@ const opEnterStandby = "EnterStandby"
 // client's request for the EnterStandby operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3669,6 +3840,15 @@ const opEnterStandby = "EnterStandby"
 // See EnterStandby for more information on using the EnterStandby
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See EnterStandby for more information on using the EnterStandby
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3832,6 +4012,7 @@ const opExitStandby = "ExitStandby"
 // client's request for the ExitStandby operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3839,6 +4020,15 @@ const opExitStandby = "ExitStandby"
 // See ExitStandby for more information on using the ExitStandby
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ExitStandby for more information on using the ExitStandby
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4508,6 +4698,7 @@ const opSetDesiredCapacity = "SetDesiredCapacity"
 // client's request for the SetDesiredCapacity operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4515,6 +4706,15 @@ const opSetDesiredCapacity = "SetDesiredCapacity"
 // See SetDesiredCapacity for more information on using the SetDesiredCapacity
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetDesiredCapacity for more information on using the SetDesiredCapacity
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4597,6 +4797,7 @@ const opSetInstanceHealth = "SetInstanceHealth"
 // client's request for the SetInstanceHealth operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4604,6 +4805,15 @@ const opSetInstanceHealth = "SetInstanceHealth"
 // See SetInstanceHealth for more information on using the SetInstanceHealth
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SetInstanceHealth for more information on using the SetInstanceHealth
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4770,6 +4980,7 @@ const opSuspendProcesses = "SuspendProcesses"
 // client's request for the SuspendProcesses operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4777,6 +4988,15 @@ const opSuspendProcesses = "SuspendProcesses"
 // See SuspendProcesses for more information on using the SuspendProcesses
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SuspendProcesses for more information on using the SuspendProcesses
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4865,6 +5085,7 @@ const opTerminateInstanceInAutoScalingGroup = "TerminateInstanceInAutoScalingGro
 // client's request for the TerminateInstanceInAutoScalingGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4872,6 +5093,15 @@ const opTerminateInstanceInAutoScalingGroup = "TerminateInstanceInAutoScalingGro
 // See TerminateInstanceInAutoScalingGroup for more information on using the TerminateInstanceInAutoScalingGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See TerminateInstanceInAutoScalingGroup for more information on using the TerminateInstanceInAutoScalingGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4953,6 +5183,7 @@ const opUpdateAutoScalingGroup = "UpdateAutoScalingGroup"
 // client's request for the UpdateAutoScalingGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4960,6 +5191,15 @@ const opUpdateAutoScalingGroup = "UpdateAutoScalingGroup"
 // See UpdateAutoScalingGroup for more information on using the UpdateAutoScalingGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateAutoScalingGroup for more information on using the UpdateAutoScalingGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5236,7 +5476,11 @@ func (s *Alarm) SetAlarmName(v string) *Alarm {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/AttachInstancesQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/AttachInstancesQuery
+>>>>>>> Initial dep workover
 type AttachInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5302,7 +5546,11 @@ func (s AttachInstancesOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/AttachLoadBalancerTargetGroupsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/AttachLoadBalancerTargetGroupsType
+>>>>>>> Initial dep workover
 type AttachLoadBalancerTargetGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5373,7 +5621,11 @@ func (s AttachLoadBalancerTargetGroupsOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/AttachLoadBalancersType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/AttachLoadBalancersType
+>>>>>>> Initial dep workover
 type AttachLoadBalancersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5429,7 +5681,11 @@ func (s *AttachLoadBalancersInput) SetLoadBalancerNames(v []*string) *AttachLoad
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/AttachLoadBalancersResultType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/AttachLoadBalancersResultType
+>>>>>>> Initial dep workover
 type AttachLoadBalancersOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5526,7 +5782,11 @@ func (s *BlockDeviceMapping) SetVirtualName(v string) *BlockDeviceMapping {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CompleteLifecycleActionType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CompleteLifecycleActionType
+>>>>>>> Initial dep workover
 type CompleteLifecycleActionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5626,7 +5886,11 @@ func (s *CompleteLifecycleActionInput) SetLifecycleHookName(v string) *CompleteL
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CompleteLifecycleActionAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CompleteLifecycleActionAnswer
+>>>>>>> Initial dep workover
 type CompleteLifecycleActionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5641,7 +5905,11 @@ func (s CompleteLifecycleActionOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CreateAutoScalingGroupType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CreateAutoScalingGroupType
+>>>>>>> Initial dep workover
 type CreateAutoScalingGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5704,10 +5972,13 @@ type CreateAutoScalingGroupInput struct {
 	// a launch configuration, a launch template, or an EC2 instance.
 	LaunchConfigurationName *string `min:"1" type:"string"`
 
+<<<<<<< HEAD
 	// The launch template to use to launch instances. You must specify one of the
 	// following: a launch template, a launch configuration, or an EC2 instance.
 	LaunchTemplate *LaunchTemplateSpecification `type:"structure"`
 
+=======
+>>>>>>> Initial dep workover
 	// One or more lifecycle hooks.
 	LifecycleHookSpecificationList []*LifecycleHookSpecification `type:"list"`
 
@@ -5809,11 +6080,14 @@ func (s *CreateAutoScalingGroupInput) Validate() error {
 	if s.VPCZoneIdentifier != nil && len(*s.VPCZoneIdentifier) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("VPCZoneIdentifier", 1))
 	}
+<<<<<<< HEAD
 	if s.LaunchTemplate != nil {
 		if err := s.LaunchTemplate.Validate(); err != nil {
 			invalidParams.AddNested("LaunchTemplate", err.(request.ErrInvalidParams))
 		}
 	}
+=======
+>>>>>>> Initial dep workover
 	if s.LifecycleHookSpecificationList != nil {
 		for i, v := range s.LifecycleHookSpecificationList {
 			if v == nil {
@@ -5889,12 +6163,15 @@ func (s *CreateAutoScalingGroupInput) SetLaunchConfigurationName(v string) *Crea
 	return s
 }
 
+<<<<<<< HEAD
 // SetLaunchTemplate sets the LaunchTemplate field's value.
 func (s *CreateAutoScalingGroupInput) SetLaunchTemplate(v *LaunchTemplateSpecification) *CreateAutoScalingGroupInput {
 	s.LaunchTemplate = v
 	return s
 }
 
+=======
+>>>>>>> Initial dep workover
 // SetLifecycleHookSpecificationList sets the LifecycleHookSpecificationList field's value.
 func (s *CreateAutoScalingGroupInput) SetLifecycleHookSpecificationList(v []*LifecycleHookSpecification) *CreateAutoScalingGroupInput {
 	s.LifecycleHookSpecificationList = v
@@ -5970,7 +6247,11 @@ func (s CreateAutoScalingGroupOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CreateLaunchConfigurationType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CreateLaunchConfigurationType
+>>>>>>> Initial dep workover
 type CreateLaunchConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6307,7 +6588,11 @@ func (s CreateLaunchConfigurationOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CreateOrUpdateTagsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CreateOrUpdateTagsType
+>>>>>>> Initial dep workover
 type CreateOrUpdateTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6467,7 +6752,11 @@ func (s *CustomizedMetricSpecification) SetUnit(v string) *CustomizedMetricSpeci
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteAutoScalingGroupType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteAutoScalingGroupType
+>>>>>>> Initial dep workover
 type DeleteAutoScalingGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6535,7 +6824,11 @@ func (s DeleteAutoScalingGroupOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchConfigurationNameType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchConfigurationNameType
+>>>>>>> Initial dep workover
 type DeleteLaunchConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6592,7 +6885,11 @@ func (s DeleteLaunchConfigurationOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteLifecycleHookType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteLifecycleHookType
+>>>>>>> Initial dep workover
 type DeleteLifecycleHookInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6651,7 +6948,11 @@ func (s *DeleteLifecycleHookInput) SetLifecycleHookName(v string) *DeleteLifecyc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteLifecycleHookAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteLifecycleHookAnswer
+>>>>>>> Initial dep workover
 type DeleteLifecycleHookOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6666,7 +6967,11 @@ func (s DeleteLifecycleHookOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteNotificationConfigurationType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteNotificationConfigurationType
+>>>>>>> Initial dep workover
 type DeleteNotificationConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6741,7 +7046,11 @@ func (s DeleteNotificationConfigurationOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeletePolicyType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeletePolicyType
+>>>>>>> Initial dep workover
 type DeletePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6810,7 +7119,11 @@ func (s DeletePolicyOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteScheduledActionType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteScheduledActionType
+>>>>>>> Initial dep workover
 type DeleteScheduledActionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6884,7 +7197,11 @@ func (s DeleteScheduledActionOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteTagsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DeleteTagsType
+>>>>>>> Initial dep workover
 type DeleteTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6963,7 +7280,11 @@ func (s DescribeAccountLimitsInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeAccountLimitsAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeAccountLimitsAnswer
+>>>>>>> Initial dep workover
 type DescribeAccountLimitsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7031,7 +7352,11 @@ func (s DescribeAdjustmentTypesInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeAdjustmentTypesAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeAdjustmentTypesAnswer
+>>>>>>> Initial dep workover
 type DescribeAdjustmentTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7055,7 +7380,11 @@ func (s *DescribeAdjustmentTypesOutput) SetAdjustmentTypes(v []*AdjustmentType) 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/GroupNamesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/GroupNamesType
+>>>>>>> Initial dep workover
 type DescribeAutoScalingGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7100,7 +7429,11 @@ func (s *DescribeAutoScalingGroupsInput) SetNextToken(v string) *DescribeAutoSca
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/GroupsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/GroupsType
+>>>>>>> Initial dep workover
 type DescribeAutoScalingGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7136,7 +7469,11 @@ func (s *DescribeAutoScalingGroupsOutput) SetNextToken(v string) *DescribeAutoSc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeAutoScalingInstancesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeAutoScalingInstancesType
+>>>>>>> Initial dep workover
 type DescribeAutoScalingInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7182,7 +7519,11 @@ func (s *DescribeAutoScalingInstancesInput) SetNextToken(v string) *DescribeAuto
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/InstancesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/InstancesType
+>>>>>>> Initial dep workover
 type DescribeAutoScalingInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7231,7 +7572,11 @@ func (s DescribeAutoScalingNotificationTypesInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeAutoScalingNotificationTypesAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeAutoScalingNotificationTypesAnswer
+>>>>>>> Initial dep workover
 type DescribeAutoScalingNotificationTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7255,7 +7600,11 @@ func (s *DescribeAutoScalingNotificationTypesOutput) SetAutoScalingNotificationT
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchConfigurationNamesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchConfigurationNamesType
+>>>>>>> Initial dep workover
 type DescribeLaunchConfigurationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7300,7 +7649,11 @@ func (s *DescribeLaunchConfigurationsInput) SetNextToken(v string) *DescribeLaun
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchConfigurationsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchConfigurationsType
+>>>>>>> Initial dep workover
 type DescribeLaunchConfigurationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7351,7 +7704,11 @@ func (s DescribeLifecycleHookTypesInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLifecycleHookTypesAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLifecycleHookTypesAnswer
+>>>>>>> Initial dep workover
 type DescribeLifecycleHookTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7375,7 +7732,11 @@ func (s *DescribeLifecycleHookTypesOutput) SetLifecycleHookTypes(v []*string) *D
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLifecycleHooksType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLifecycleHooksType
+>>>>>>> Initial dep workover
 type DescribeLifecycleHooksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7427,7 +7788,11 @@ func (s *DescribeLifecycleHooksInput) SetLifecycleHookNames(v []*string) *Descri
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLifecycleHooksAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLifecycleHooksAnswer
+>>>>>>> Initial dep workover
 type DescribeLifecycleHooksOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7451,7 +7816,11 @@ func (s *DescribeLifecycleHooksOutput) SetLifecycleHooks(v []*LifecycleHook) *De
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancerTargetGroupsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancerTargetGroupsRequest
+>>>>>>> Initial dep workover
 type DescribeLoadBalancerTargetGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7513,7 +7882,11 @@ func (s *DescribeLoadBalancerTargetGroupsInput) SetNextToken(v string) *Describe
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancerTargetGroupsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancerTargetGroupsResponse
+>>>>>>> Initial dep workover
 type DescribeLoadBalancerTargetGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7547,7 +7920,11 @@ func (s *DescribeLoadBalancerTargetGroupsOutput) SetNextToken(v string) *Describ
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancersRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancersRequest
+>>>>>>> Initial dep workover
 type DescribeLoadBalancersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7609,7 +7986,11 @@ func (s *DescribeLoadBalancersInput) SetNextToken(v string) *DescribeLoadBalance
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancersResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeLoadBalancersResponse
+>>>>>>> Initial dep workover
 type DescribeLoadBalancersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7658,7 +8039,11 @@ func (s DescribeMetricCollectionTypesInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeMetricCollectionTypesAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeMetricCollectionTypesAnswer
+>>>>>>> Initial dep workover
 type DescribeMetricCollectionTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7691,7 +8076,11 @@ func (s *DescribeMetricCollectionTypesOutput) SetMetrics(v []*MetricCollectionTy
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeNotificationConfigurationsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeNotificationConfigurationsType
+>>>>>>> Initial dep workover
 type DescribeNotificationConfigurationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7735,7 +8124,11 @@ func (s *DescribeNotificationConfigurationsInput) SetNextToken(v string) *Descri
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeNotificationConfigurationsAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeNotificationConfigurationsAnswer
+>>>>>>> Initial dep workover
 type DescribeNotificationConfigurationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7771,7 +8164,11 @@ func (s *DescribeNotificationConfigurationsOutput) SetNotificationConfigurations
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribePoliciesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribePoliciesType
+>>>>>>> Initial dep workover
 type DescribePoliciesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7849,7 +8246,11 @@ func (s *DescribePoliciesInput) SetPolicyTypes(v []*string) *DescribePoliciesInp
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PoliciesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PoliciesType
+>>>>>>> Initial dep workover
 type DescribePoliciesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7883,7 +8284,11 @@ func (s *DescribePoliciesOutput) SetScalingPolicies(v []*ScalingPolicy) *Describ
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeScalingActivitiesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeScalingActivitiesType
+>>>>>>> Initial dep workover
 type DescribeScalingActivitiesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7953,7 +8358,11 @@ func (s *DescribeScalingActivitiesInput) SetNextToken(v string) *DescribeScaling
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ActivitiesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ActivitiesType
+>>>>>>> Initial dep workover
 type DescribeScalingActivitiesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8005,7 +8414,11 @@ func (s DescribeScalingProcessTypesInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ProcessesType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ProcessesType
+>>>>>>> Initial dep workover
 type DescribeScalingProcessTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8029,7 +8442,11 @@ func (s *DescribeScalingProcessTypesOutput) SetProcesses(v []*ProcessType) *Desc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeScheduledActionsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeScheduledActionsType
+>>>>>>> Initial dep workover
 type DescribeScheduledActionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8121,7 +8538,11 @@ func (s *DescribeScheduledActionsInput) SetStartTime(v time.Time) *DescribeSched
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ScheduledActionsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ScheduledActionsType
+>>>>>>> Initial dep workover
 type DescribeScheduledActionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8155,7 +8576,11 @@ func (s *DescribeScheduledActionsOutput) SetScheduledUpdateGroupActions(v []*Sch
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeTagsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeTagsType
+>>>>>>> Initial dep workover
 type DescribeTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8199,7 +8624,11 @@ func (s *DescribeTagsInput) SetNextToken(v string) *DescribeTagsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/TagsType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/TagsType
+>>>>>>> Initial dep workover
 type DescribeTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8248,7 +8677,11 @@ func (s DescribeTerminationPolicyTypesInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeTerminationPolicyTypesAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DescribeTerminationPolicyTypesAnswer
+>>>>>>> Initial dep workover
 type DescribeTerminationPolicyTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8273,7 +8706,11 @@ func (s *DescribeTerminationPolicyTypesOutput) SetTerminationPolicyTypes(v []*st
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DetachInstancesQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DetachInstancesQuery
+>>>>>>> Initial dep workover
 type DetachInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8339,7 +8776,11 @@ func (s *DetachInstancesInput) SetShouldDecrementDesiredCapacity(v bool) *Detach
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DetachInstancesAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DetachInstancesAnswer
+>>>>>>> Initial dep workover
 type DetachInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8434,7 +8875,11 @@ func (s DetachLoadBalancerTargetGroupsOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DetachLoadBalancersType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DetachLoadBalancersType
+>>>>>>> Initial dep workover
 type DetachLoadBalancersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8490,7 +8935,11 @@ func (s *DetachLoadBalancersInput) SetLoadBalancerNames(v []*string) *DetachLoad
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DetachLoadBalancersResultType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DetachLoadBalancersResultType
+>>>>>>> Initial dep workover
 type DetachLoadBalancersOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -8505,7 +8954,11 @@ func (s DetachLoadBalancersOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DisableMetricsCollectionQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/DisableMetricsCollectionQuery
+>>>>>>> Initial dep workover
 type DisableMetricsCollectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8701,7 +9154,11 @@ func (s *Ebs) SetVolumeType(v string) *Ebs {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/EnableMetricsCollectionQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/EnableMetricsCollectionQuery
+>>>>>>> Initial dep workover
 type EnableMetricsCollectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8852,7 +9309,11 @@ func (s *EnabledMetric) SetMetric(v string) *EnabledMetric {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/EnterStandbyQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/EnterStandbyQuery
+>>>>>>> Initial dep workover
 type EnterStandbyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8921,7 +9382,11 @@ func (s *EnterStandbyInput) SetShouldDecrementDesiredCapacity(v bool) *EnterStan
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/EnterStandbyAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/EnterStandbyAnswer
+>>>>>>> Initial dep workover
 type EnterStandbyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8945,7 +9410,11 @@ func (s *EnterStandbyOutput) SetActivities(v []*Activity) *EnterStandbyOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ExecutePolicyType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ExecutePolicyType
+>>>>>>> Initial dep workover
 type ExecutePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9061,7 +9530,11 @@ func (s ExecutePolicyOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ExitStandbyQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ExitStandbyQuery
+>>>>>>> Initial dep workover
 type ExitStandbyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9112,7 +9585,11 @@ func (s *ExitStandbyInput) SetInstanceIds(v []*string) *ExitStandbyInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ExitStandbyAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ExitStandbyAnswer
+>>>>>>> Initial dep workover
 type ExitStandbyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9618,7 +10095,11 @@ func (s *InstanceDetails) SetProtectedFromScaleIn(v bool) *InstanceDetails {
 }
 
 // Describes whether detailed monitoring is enabled for the Auto Scaling instances.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/InstanceMonitoring
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/InstanceMonitoring
+>>>>>>> Initial dep workover
 type InstanceMonitoring struct {
 	_ struct{} `type:"structure"`
 
@@ -10029,13 +10510,21 @@ func (s *LifecycleHook) SetRoleARN(v string) *LifecycleHook {
 //
 // For more information, see Auto Scaling Lifecycle Hooks (http://docs.aws.amazon.com/autoscaling/latest/userguide/lifecycle-hooks.html)
 // in the Auto Scaling User Guide.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LifecycleHookSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LifecycleHookSpecification
+>>>>>>> Initial dep workover
 type LifecycleHookSpecification struct {
 	_ struct{} `type:"structure"`
 
 	// Defines the action the Auto Scaling group should take when the lifecycle
 	// hook timeout elapses or if an unexpected failure occurs. The valid values
+<<<<<<< HEAD
 	// are CONTINUE and ABANDON.
+=======
+	// are CONTINUE and ABANDON. The default value is CONTINUE.
+>>>>>>> Initial dep workover
 	DefaultResult *string `type:"string"`
 
 	// The maximum time, in seconds, that can elapse before the lifecycle hook times
@@ -10050,9 +10539,13 @@ type LifecycleHookSpecification struct {
 
 	// The state of the EC2 instance to which you want to attach the lifecycle hook.
 	// For a list of lifecycle hook types, see DescribeLifecycleHookTypes.
+<<<<<<< HEAD
 	//
 	// LifecycleTransition is a required field
 	LifecycleTransition *string `type:"string" required:"true"`
+=======
+	LifecycleTransition *string `type:"string"`
+>>>>>>> Initial dep workover
 
 	// Additional information that you want to include any time Auto Scaling sends
 	// a message to the notification target.
@@ -10087,9 +10580,12 @@ func (s *LifecycleHookSpecification) Validate() error {
 	if s.LifecycleHookName != nil && len(*s.LifecycleHookName) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("LifecycleHookName", 1))
 	}
+<<<<<<< HEAD
 	if s.LifecycleTransition == nil {
 		invalidParams.Add(request.NewErrParamRequired("LifecycleTransition"))
 	}
+=======
+>>>>>>> Initial dep workover
 	if s.NotificationMetadata != nil && len(*s.NotificationMetadata) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("NotificationMetadata", 1))
 	}
@@ -10435,7 +10931,11 @@ func (s *NotificationConfiguration) SetTopicARN(v string) *NotificationConfigura
 }
 
 // Configures a predefined metric for a target tracking policy.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PredefinedMetricSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PredefinedMetricSpecification
+>>>>>>> Initial dep workover
 type PredefinedMetricSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -10459,7 +10959,11 @@ type PredefinedMetricSpecification struct {
 	//    * ALBRequestCountPerTarget - number of requests completed per target in
 	//    an Application Load Balancer target group
 	//
+<<<<<<< HEAD
 	// For predefined metric types ASGAverageCPUUtilization, ASGAverageNetworkIn,
+=======
+	// For predefined metric types ASGAverageCPUUtilization, ASGAverageNetworkIn
+>>>>>>> Initial dep workover
 	// and ASGAverageNetworkOut, the parameter must not be specified as the resource
 	// associated with the metric type is the Auto Scaling group. For predefined
 	// metric type ALBRequestCountPerTarget, the parameter must be specified in
@@ -10555,7 +11059,11 @@ func (s *ProcessType) SetProcessName(v string) *ProcessType {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutLifecycleHookType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutLifecycleHookType
+>>>>>>> Initial dep workover
 type PutLifecycleHookInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10701,7 +11209,11 @@ func (s *PutLifecycleHookInput) SetRoleARN(v string) *PutLifecycleHookInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutLifecycleHookAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutLifecycleHookAnswer
+>>>>>>> Initial dep workover
 type PutLifecycleHookOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10716,7 +11228,11 @@ func (s PutLifecycleHookOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutNotificationConfigurationType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutNotificationConfigurationType
+>>>>>>> Initial dep workover
 type PutNotificationConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10806,7 +11322,11 @@ func (s PutNotificationConfigurationOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutScalingPolicyType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutScalingPolicyType
+>>>>>>> Initial dep workover
 type PutScalingPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11052,7 +11572,11 @@ func (s *PutScalingPolicyOutput) SetPolicyARN(v string) *PutScalingPolicyOutput 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutScheduledUpdateGroupActionType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutScheduledUpdateGroupActionType
+>>>>>>> Initial dep workover
 type PutScheduledUpdateGroupActionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11201,7 +11725,11 @@ func (s PutScheduledUpdateGroupActionOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/RecordLifecycleActionHeartbeatType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/RecordLifecycleActionHeartbeatType
+>>>>>>> Initial dep workover
 type RecordLifecycleActionHeartbeatInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11286,7 +11814,11 @@ func (s *RecordLifecycleActionHeartbeatInput) SetLifecycleHookName(v string) *Re
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/RecordLifecycleActionHeartbeatAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/RecordLifecycleActionHeartbeatAnswer
+>>>>>>> Initial dep workover
 type RecordLifecycleActionHeartbeatOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -11468,7 +12000,11 @@ func (s *ScalingPolicy) SetTargetTrackingConfiguration(v *TargetTrackingConfigur
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ScalingProcessQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ScalingProcessQuery
+>>>>>>> Initial dep workover
 type ScalingProcessQuery struct {
 	_ struct{} `type:"structure"`
 
@@ -11647,7 +12183,11 @@ func (s *ScheduledUpdateGroupAction) SetTime(v time.Time) *ScheduledUpdateGroupA
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SetDesiredCapacityType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SetDesiredCapacityType
+>>>>>>> Initial dep workover
 type SetDesiredCapacityInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11730,7 +12270,11 @@ func (s SetDesiredCapacityOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SetInstanceHealthQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SetInstanceHealthQuery
+>>>>>>> Initial dep workover
 type SetInstanceHealthInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11821,7 +12365,11 @@ func (s SetInstanceHealthOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SetInstanceProtectionQuery
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SetInstanceProtectionQuery
+>>>>>>> Initial dep workover
 type SetInstanceProtectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11892,7 +12440,11 @@ func (s *SetInstanceProtectionInput) SetProtectedFromScaleIn(v bool) *SetInstanc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SetInstanceProtectionAnswer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/SetInstanceProtectionAnswer
+>>>>>>> Initial dep workover
 type SetInstanceProtectionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12279,7 +12831,11 @@ func (s *TargetTrackingConfiguration) SetTargetValue(v float64) *TargetTrackingC
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/TerminateInstanceInAutoScalingGroupType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/TerminateInstanceInAutoScalingGroupType
+>>>>>>> Initial dep workover
 type TerminateInstanceInAutoScalingGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12336,7 +12892,11 @@ func (s *TerminateInstanceInAutoScalingGroupInput) SetShouldDecrementDesiredCapa
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ActivityType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/ActivityType
+>>>>>>> Initial dep workover
 type TerminateInstanceInAutoScalingGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12360,7 +12920,11 @@ func (s *TerminateInstanceInAutoScalingGroupOutput) SetActivity(v *Activity) *Te
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/UpdateAutoScalingGroupType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/UpdateAutoScalingGroupType
+>>>>>>> Initial dep workover
 type UpdateAutoScalingGroupInput struct {
 	_ struct{} `type:"structure"`
 

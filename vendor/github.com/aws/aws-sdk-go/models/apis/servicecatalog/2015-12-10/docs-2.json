@@ -4,6 +4,7 @@
   "operations": {
     "AcceptPortfolioShare": "<p>Accepts an offer to share the specified portfolio.</p>",
     "AssociatePrincipalWithPortfolio": "<p>Associates the specified principal ARN with the specified portfolio.</p>",
+<<<<<<< HEAD
     "AssociateProductWithPortfolio": "<p>Associates the specified product with the specified portfolio.</p>",
     "AssociateTagOptionWithResource": "<p>Associate the specified TagOption with the specified portfolio or product.</p>",
     "CopyProduct": "<p>Copies the specified source product to the specified target product or a new product.</p> <p>You can copy a product to the same account or another account. You can copy a product to the same region or another region.</p> <p>This operation is performed asynchronously. To track the progress of the operation, use <a>DescribeCopyProductStatus</a>.</p>",
@@ -29,6 +30,33 @@
     "DescribeProvisioningParameters": "<p>Gets information about the configuration required to provision the specified product using the specified provisioning artifact.</p> <p>If the output contains a TagOption key with an empty list of values, there is a TagOption conflict for that key. The end user cannot take action to fix the conflict, and launch is not blocked. In subsequent calls to <a>ProvisionProduct</a>, do not include conflicted TagOption keys as tags, or this will cause the error \"Parameter validation failed: Missing required parameter in Tags[<i>N</i>]:<i>Value</i>\" and tag the provisioned product with the value <code>sc-tagoption-conflict-portfolioId-productId</code>.</p>",
     "DescribeRecord": "<p>Gets information about the specified request operation.</p> <p>Use this operation after calling a request operation (for example, <a>ProvisionProduct</a>, <a>TerminateProvisionedProduct</a>, or <a>UpdateProvisionedProduct</a>). </p>",
     "DescribeTagOption": "<p>Gets information about the specified TagOption.</p>",
+=======
+    "AssociateProductWithPortfolio": "<p>Associates a product with a portfolio.</p>",
+    "AssociateTagOptionWithResource": "<p>Associate a TagOption identifier with a resource identifier.</p>",
+    "CopyProduct": "<p>Copies the specified source product to the specified target product or a new product.</p> <p>You can copy the product to the same account or another account. You can copy the product to the same region or another region.</p> <p>This operation is performed asynchronously. To track the progress of the operation, use <a>DescribeCopyProductStatus</a>.</p>",
+    "CreateConstraint": "<p>Creates a new constraint. For more information, see <a href=\"http://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints.html\">Using Constraints</a>.</p>",
+    "CreatePortfolio": "<p>Creates a new portfolio.</p>",
+    "CreatePortfolioShare": "<p>Creates a new portfolio share.</p>",
+    "CreateProduct": "<p>Creates a new product.</p>",
+    "CreateProvisioningArtifact": "<p>Create a new provisioning artifact for the specified product. This operation does not work with a product that has been shared with you.</p>",
+    "CreateTagOption": "<p>Create a new TagOption.</p>",
+    "DeleteConstraint": "<p>Deletes the specified constraint.</p>",
+    "DeletePortfolio": "<p>Deletes the specified portfolio. This operation does not work with a portfolio that has been shared with you or if it has products, users, constraints, or shared accounts associated with it.</p>",
+    "DeletePortfolioShare": "<p>Deletes the specified portfolio share.</p>",
+    "DeleteProduct": "<p>Deletes the specified product. This operation does not work with a product that has been shared with you or is associated with a portfolio. </p>",
+    "DeleteProvisioningArtifact": "<p>Deletes the specified provisioning artifact. This operation does not work on a provisioning artifact associated with a product that has been shared with you, or on the last provisioning artifact associated with a product (a product must have at least one provisioning artifact).</p>",
+    "DescribeConstraint": "<p>Retrieves detailed information for a specified constraint.</p>",
+    "DescribeCopyProductStatus": "<p>Describes the status of the specified copy product operation.</p>",
+    "DescribePortfolio": "<p>Retrieves detailed information and any tags associated with the specified portfolio.</p>",
+    "DescribeProduct": "<p>Retrieves information about a specified product.</p> <p>This operation is functionally identical to <a>DescribeProductView</a> except that it takes as input <code>ProductId</code> instead of <code>ProductViewId</code>.</p>",
+    "DescribeProductAsAdmin": "<p>Retrieves information about a specified product, run with administrator access.</p>",
+    "DescribeProductView": "<p>Retrieves information about a specified product.</p> <p>This operation is functionally identical to <a>DescribeProduct</a> except that it takes as input <code>ProductViewId</code> instead of <code>ProductId</code>.</p>",
+    "DescribeProvisionedProduct": "<p>Retrieve detailed information about the provisioned product.</p>",
+    "DescribeProvisioningArtifact": "<p>Retrieves detailed information about the specified provisioning artifact.</p>",
+    "DescribeProvisioningParameters": "<p>Provides information about parameters required to provision a specified product in a specified manner. Use this operation to obtain the list of <code>ProvisioningArtifactParameters</code> parameters available to call the <a>ProvisionProduct</a> operation for the specified product.</p> <p>If the output contains a TagOption key with an empty list of values, there is a TagOption conflict for that key. The end user cannot take action to fix the conflict, and launch is not blocked. In subsequent calls to the <code>ProvisionProduct</code> operation, do not include conflicted TagOption keys as tags. Calls to <code>ProvisionProduct</code> with empty TagOption values cause the error \"Parameter validation failed: Missing required parameter in Tags[<i>N</i>]:<i>Value</i> \". Calls to <code>ProvisionProduct</code> with conflicted TagOption keys automatically tag the provisioned product with the conflicted keys with the value \"<code>sc-tagoption-conflict-portfolioId-productId</code>\".</p>",
+    "DescribeRecord": "<p>Retrieves a paginated list of the full details of a specific request. Use this operation after calling a request operation (<a>ProvisionProduct</a>, <a>TerminateProvisionedProduct</a>, or <a>UpdateProvisionedProduct</a>). </p>",
+    "DescribeTagOption": "<p>Describes a TagOption.</p>",
+>>>>>>> Initial dep workover
     "DisassociatePrincipalFromPortfolio": "<p>Disassociates a previously associated principal ARN from a specified portfolio.</p>",
     "DisassociateProductFromPortfolio": "<p>Disassociates the specified product from the specified portfolio. </p>",
     "DisassociateTagOptionFromResource": "<p>Disassociates the specified TagOption from the specified resource.</p>",
@@ -242,10 +270,17 @@
     "ConstraintParameters": {
       "base": null,
       "refs": {
+<<<<<<< HEAD
         "CreateConstraintInput$Parameters": "<p>The constraint parameters, in JSON format. The syntax depends on the constraint type as follows:</p> <dl> <dt>LAUNCH</dt> <dd> <p>Specify the <code>RoleArn</code> property as follows:</p> <p>\\\"RoleArn\\\" : \\\"arn:aws:iam::123456789012:role/LaunchRole\\\"</p> </dd> <dt>NOTIFICATION</dt> <dd> <p>Specify the <code>NotificationArns</code> property as follows:</p> <p>\\\"NotificationArns\\\" : [\\\"arn:aws:sns:us-east-1:123456789012:Topic\\\"]</p> </dd> <dt>TEMPLATE</dt> <dd> <p>Specify the <code>Rules</code> property. For more information, see <a href=\"http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html\">Template Constraint Rules</a>.</p> </dd> </dl>",
         "CreateConstraintOutput$ConstraintParameters": "<p>The constraint parameters.</p>",
         "DescribeConstraintOutput$ConstraintParameters": "<p>The constraint parameters.</p>",
         "UpdateConstraintOutput$ConstraintParameters": "<p>The constraint parameters.</p>"
+=======
+        "CreateConstraintInput$Parameters": "<p>The constraint parameters. Expected values vary depending on which <b>Type</b> is specified. For more information, see the Examples section.</p> <p>For Type <code>LAUNCH</code>, the <code>RoleArn</code> property is required. </p> <p>For Type <code>NOTIFICATION</code>, the <code>NotificationArns</code> property is required.</p> <p>For Type <code>TEMPLATE</code>, the <code>Rules</code> property is required.</p>",
+        "CreateConstraintOutput$ConstraintParameters": "<p>The resulting constraint parameters.</p>",
+        "DescribeConstraintOutput$ConstraintParameters": "<p>The current parameters associated with the specified constraint.</p>",
+        "UpdateConstraintOutput$ConstraintParameters": "<p>The resulting updated constraint parameters.</p>"
+>>>>>>> Initial dep workover
       }
     },
     "ConstraintSummaries": {
@@ -267,6 +302,34 @@
         "ConstraintDetail$Type": "<p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li> <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p> </li> </ul>",
         "ConstraintSummary$Type": "<p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li> <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p> </li> </ul>",
         "CreateConstraintInput$Type": "<p>The type of constraint.</p> <ul> <li> <p> <code>LAUNCH</code> </p> </li> <li> <p> <code>NOTIFICATION</code> </p> </li> <li> <p> <code>TEMPLATE</code> </p> </li> </ul>"
+      }
+    },
+    "CopyOption": {
+      "base": null,
+      "refs": {
+        "CopyOptions$member": null
+      }
+    },
+    "CopyOptions": {
+      "base": null,
+      "refs": {
+        "CopyProductInput$CopyOptions": "<p>The copy options. If the value is <code>CopyTags</code>, the tags from the source product are copied to the target product.</p>"
+      }
+    },
+    "CopyProductInput": {
+      "base": null,
+      "refs": {
+      }
+    },
+    "CopyProductOutput": {
+      "base": null,
+      "refs": {
+      }
+    },
+    "CopyProductStatus": {
+      "base": null,
+      "refs": {
+        "DescribeCopyProductStatusOutput$CopyProductStatus": "<p>The status of the copy product operation.</p>"
       }
     },
     "CopyOption": {
@@ -607,8 +670,13 @@
         "AssociateProductWithPortfolioInput$PortfolioId": "<p>The portfolio identifier.</p>",
         "AssociateProductWithPortfolioInput$SourcePortfolioId": "<p>The identifier of the source portfolio.</p>",
         "ConstraintDetail$ConstraintId": "<p>The identifier of the constraint.</p>",
+<<<<<<< HEAD
         "CopyProductInput$TargetProductId": "<p>The identifier of the target product. By default, a new product is created.</p>",
         "CopyProductOutput$CopyProductToken": "<p>The token to use to track the progress of the operation.</p>",
+=======
+        "CopyProductInput$TargetProductId": "<p>The ID of the target product. By default, a new product is created.</p>",
+        "CopyProductOutput$CopyProductToken": "<p>A unique token to pass to <code>DescribeCopyProductStatus</code> to track the progress of the operation.</p>",
+>>>>>>> Initial dep workover
         "CreateConstraintInput$PortfolioId": "<p>The portfolio identifier.</p>",
         "CreateConstraintInput$ProductId": "<p>The product identifier.</p>",
         "CreatePortfolioShareInput$PortfolioId": "<p>The portfolio identifier.</p>",
@@ -620,12 +688,21 @@
         "DeleteProvisioningArtifactInput$ProductId": "<p>The product identifier.</p>",
         "DeleteProvisioningArtifactInput$ProvisioningArtifactId": "<p>The identifier of the provisioning artifact.</p>",
         "DescribeConstraintInput$Id": "<p>The identifier of the constraint.</p>",
+<<<<<<< HEAD
         "DescribeCopyProductStatusInput$CopyProductToken": "<p>The token for the copy product operation. This token is returned by <a>CopyProduct</a>.</p>",
         "DescribeCopyProductStatusOutput$TargetProductId": "<p>The identifier of the copied product.</p>",
         "DescribePortfolioInput$Id": "<p>The portfolio identifier.</p>",
         "DescribeProductAsAdminInput$Id": "<p>The product identifier.</p>",
         "DescribeProductInput$Id": "<p>The product identifier.</p>",
         "DescribeProductViewInput$Id": "<p>The product view identifier.</p>",
+=======
+        "DescribeCopyProductStatusInput$CopyProductToken": "<p>The token returned from the call to <code>CopyProduct</code> that initiated the operation.</p>",
+        "DescribeCopyProductStatusOutput$TargetProductId": "<p>The ID of the copied product.</p>",
+        "DescribePortfolioInput$Id": "<p>The identifier of the portfolio for which to retrieve information.</p>",
+        "DescribeProductAsAdminInput$Id": "<p>The identifier of the product for which to retrieve information.</p>",
+        "DescribeProductInput$Id": "<p>The <code>ProductId</code> of the product to describe.</p>",
+        "DescribeProductViewInput$Id": "<p>The <code>ProductViewId</code> of the product to describe.</p>",
+>>>>>>> Initial dep workover
         "DescribeProvisionedProductInput$Id": "<p>The provisioned product identifier.</p>",
         "DescribeProvisioningArtifactInput$ProvisioningArtifactId": "<p>The identifier of the provisioning artifact.</p>",
         "DescribeProvisioningArtifactInput$ProductId": "<p>The product identifier.</p>",
@@ -675,6 +752,7 @@
     "IdempotencyToken": {
       "base": null,
       "refs": {
+<<<<<<< HEAD
         "CopyProductInput$IdempotencyToken": "<p> A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request. </p>",
         "CreateConstraintInput$IdempotencyToken": "<p>A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.</p>",
         "CreatePortfolioInput$IdempotencyToken": "<p>A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.</p>",
@@ -684,6 +762,17 @@
         "ProvisionedProductDetail$IdempotencyToken": "<p>A unique identifier that you provide to ensure idempotency. If multiple requests differ only by the idempotency token, the same response is returned for each repeated request.</p>",
         "TerminateProvisionedProductInput$TerminateToken": "<p>An idempotency token that uniquely identifies the termination request. This token is only valid during the termination process. After the provisioned product is terminated, subsequent requests to terminate the same provisioned product always return <b>ResourceNotFound</b>.</p>",
         "UpdateProvisionedProductInput$UpdateToken": "<p>The idempotency token that uniquely identifies the provisioning update rquest.</p>"
+=======
+        "CopyProductInput$IdempotencyToken": "<p> A token to disambiguate duplicate requests. You can use the same input in multiple requests, provided that you also specify a different idempotency token for each request. </p>",
+        "CreateConstraintInput$IdempotencyToken": "<p>A token to disambiguate duplicate requests. You can use the same input in multiple requests, provided that you also specify a different idempotency token for each request.</p>",
+        "CreatePortfolioInput$IdempotencyToken": "<p>A token to disambiguate duplicate requests. You can use the same input in multiple requests, provided that you also specify a different idempotency token for each request.</p>",
+        "CreateProductInput$IdempotencyToken": "<p>A token to disambiguate duplicate requests. You can use the same input in multiple requests, provided that you also specify a different idempotency token for each request.</p>",
+        "CreateProvisioningArtifactInput$IdempotencyToken": "<p>A token to disambiguate duplicate requests. You can use the same input in multiple requests, provided that you also specify a different idempotency token for each request.</p>",
+        "ProvisionProductInput$ProvisionToken": "<p>An idempotency token that uniquely identifies the provisioning request. </p>",
+        "ProvisionedProductDetail$IdempotencyToken": "<p>A token to disambiguate duplicate requests. You can use the same input in multiple requests, provided that you also specify a different idempotency token for each request.</p>",
+        "TerminateProvisionedProductInput$TerminateToken": "<p>An idempotency token that uniquely identifies the termination request. This token is only valid during the termination process. After the ProvisionedProduct object is terminated, further requests to terminate the same ProvisionedProduct object always return <b>ResourceNotFound</b> regardless of the value of <code>TerminateToken</code>.</p>",
+        "UpdateProvisionedProductInput$UpdateToken": "<p>The idempotency token that uniquely identifies the provisioning update request.</p>"
+>>>>>>> Initial dep workover
       }
     },
     "IgnoreErrors": {
@@ -1352,6 +1441,18 @@
         "SourceProvisioningArtifactPropertiesMap$value": null
       }
     },
+    "ProvisioningArtifactPropertyName": {
+      "base": null,
+      "refs": {
+        "SourceProvisioningArtifactPropertiesMap$key": null
+      }
+    },
+    "ProvisioningArtifactPropertyValue": {
+      "base": null,
+      "refs": {
+        "SourceProvisioningArtifactPropertiesMap$value": null
+      }
+    },
     "ProvisioningArtifactSummaries": {
       "base": null,
       "refs": {
@@ -1601,6 +1702,18 @@
       "base": null,
       "refs": {
         "CopyProductInput$SourceProvisioningArtifactIdentifiers": "<p>The identifiers of the provisioning artifacts (also known as versions) of the product to copy. By default, all provisioning artifacts are copied.</p>"
+      }
+    },
+    "SourceProvisioningArtifactPropertiesMap": {
+      "base": null,
+      "refs": {
+        "SourceProvisioningArtifactProperties$member": null
+      }
+    },
+    "SourceProvisioningArtifactProperties": {
+      "base": null,
+      "refs": {
+        "CopyProductInput$SourceProvisioningArtifactIdentifiers": "<p>The IDs of the product versions to copy. By default, all provisioning artifacts are copied.</p>"
       }
     },
     "SourceProvisioningArtifactPropertiesMap": {

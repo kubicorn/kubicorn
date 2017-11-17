@@ -44,7 +44,11 @@ func DoRetryWithRegistration(client autorest.Client) autorest.SendDecorator {
 					return resp, err
 				}
 
+<<<<<<< HEAD
 				if resp.StatusCode != http.StatusConflict || client.SkipResourceProviderRegistration {
+=======
+				if resp.StatusCode != http.StatusConflict {
+>>>>>>> Initial dep workover
 					return resp, err
 				}
 				var re RequestError

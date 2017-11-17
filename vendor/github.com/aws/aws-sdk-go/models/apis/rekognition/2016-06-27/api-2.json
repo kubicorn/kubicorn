@@ -1248,6 +1248,7 @@
         "SortBy":{"shape":"LabelDetectionSortBy"}
       }
     },
+<<<<<<< HEAD
     "GetLabelDetectionResponse":{
       "type":"structure",
       "members":{
@@ -1257,6 +1258,14 @@
         "NextToken":{"shape":"PaginationToken"},
         "Labels":{"shape":"LabelDetections"}
       }
+=======
+    "GenderType":{
+      "type":"string",
+      "enum":[
+        "Male",
+        "Female"
+      ]
+>>>>>>> Initial dep workover
     },
     "GetPersonTrackingRequest":{
       "type":"structure",

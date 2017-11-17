@@ -477,6 +477,7 @@ const (
 	POLLWRBAND = 0x100
 	POLLWRNORM = 0x4
 )
+<<<<<<< HEAD
 
 type Utsname struct {
 	Sysname  [256]byte
@@ -485,3 +486,5 @@ type Utsname struct {
 	Version  [256]byte
 	Machine  [256]byte
 }
+=======
+>>>>>>> Initial dep workover

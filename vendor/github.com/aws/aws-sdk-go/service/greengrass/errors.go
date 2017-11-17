@@ -13,6 +13,10 @@ const (
 	// ErrCodeInternalServerErrorException for service response error code
 	// "InternalServerErrorException".
 	//
+<<<<<<< HEAD
 	// The server encountered an unexpected error.
+=======
+	// Server Error
+>>>>>>> Initial dep workover
 	ErrCodeInternalServerErrorException = "InternalServerErrorException"
 )

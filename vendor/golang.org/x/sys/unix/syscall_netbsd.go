@@ -167,6 +167,7 @@ func IoctlGetTermios(fd int, req uint) (*Termios, error) {
 	return &value, err
 }
 
+<<<<<<< HEAD
 func Uname(uname *Utsname) error {
 	mib := []_C_int{CTL_KERN, KERN_OSTYPE}
 	n := unsafe.Sizeof(uname.Sysname)
@@ -213,6 +214,8 @@ func Uname(uname *Utsname) error {
 	return nil
 }
 
+=======
+>>>>>>> Initial dep workover
 /*
  * Exposed directly
  */

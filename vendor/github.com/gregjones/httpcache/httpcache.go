@@ -10,6 +10,10 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
+<<<<<<< HEAD
+=======
+	"fmt"
+>>>>>>> Initial dep workover
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -192,11 +196,22 @@ func (t *Transport) RoundTrip(req *http.Request) (resp *http.Response, err error
 			for _, header := range endToEndHeaders {
 				cachedResp.Header[header] = resp.Header[header]
 			}
+<<<<<<< HEAD
+=======
+			cachedResp.Status = fmt.Sprintf("%d %s", http.StatusOK, http.StatusText(http.StatusOK))
+			cachedResp.StatusCode = http.StatusOK
+
+>>>>>>> Initial dep workover
 			resp = cachedResp
 		} else if (err != nil || (cachedResp != nil && resp.StatusCode >= 500)) &&
 			req.Method == "GET" && canStaleOnError(cachedResp.Header, req.Header) {
 			// In case of transport failure and stale-if-error activated, returns cached content
 			// when available
+<<<<<<< HEAD
+=======
+			cachedResp.Status = fmt.Sprintf("%d %s", http.StatusOK, http.StatusText(http.StatusOK))
+			cachedResp.StatusCode = http.StatusOK
+>>>>>>> Initial dep workover
 			return cachedResp, nil
 		} else {
 			if err != nil || resp.StatusCode != http.StatusOK {

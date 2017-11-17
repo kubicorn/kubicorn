@@ -15,7 +15,10 @@ go_library(
         "fake_scale.go",
         "fake_statefulset.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/kubernetes/typed/apps/v1beta1/fake",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/apps/v1beta1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

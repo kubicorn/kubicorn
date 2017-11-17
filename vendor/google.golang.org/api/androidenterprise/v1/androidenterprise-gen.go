@@ -2086,6 +2086,7 @@ type Permission struct {
 func (s *Permission) MarshalJSON() ([]byte, error) {
 	type NoMethod Permission
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -2129,6 +2130,8 @@ type Policy struct {
 func (s *Policy) MarshalJSON() ([]byte, error) {
 	type NoMethod Policy
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -2148,6 +2151,7 @@ type Product struct {
 	// app developer).
 	AuthorName string `json:"authorName,omitempty"`
 
+<<<<<<< HEAD
 	// AvailableCountries: The countries which this app is available in.
 	AvailableCountries []string `json:"availableCountries,omitempty"`
 
@@ -2163,6 +2167,11 @@ type Product struct {
 	// Description: A localized promotional description, if available.
 	Description string `json:"description,omitempty"`
 
+=======
+	// AvailableTracks: The tracks that are visible to the enterprise.
+	AvailableTracks []string `json:"availableTracks,omitempty"`
+
+>>>>>>> Initial dep workover
 	// DetailsUrl: A link to the (consumer) Google Play details page for the
 	// product.
 	DetailsUrl string `json:"detailsUrl,omitempty"`
@@ -2212,9 +2221,12 @@ type Product struct {
 	// RequiresContainerApp: Deprecated.
 	RequiresContainerApp bool `json:"requiresContainerApp,omitempty"`
 
+<<<<<<< HEAD
 	// ScreenshotUrls: A list of screenshot links representing the app.
 	ScreenshotUrls []string `json:"screenshotUrls,omitempty"`
 
+=======
+>>>>>>> Initial dep workover
 	// SigningCertificate: The certificate used to sign this product.
 	SigningCertificate *ProductSigningCertificate `json:"signingCertificate,omitempty"`
 
@@ -2402,6 +2414,7 @@ type ProductPermissions struct {
 func (s *ProductPermissions) MarshalJSON() ([]byte, error) {
 	type NoMethod ProductPermissions
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -2449,6 +2462,8 @@ type ProductPolicy struct {
 func (s *ProductPolicy) MarshalJSON() ([]byte, error) {
 	type NoMethod ProductPolicy
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 

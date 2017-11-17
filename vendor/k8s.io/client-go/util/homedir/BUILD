@@ -8,7 +8,10 @@ load(
 go_library(
     name = "go_default_library",
     srcs = ["homedir.go"],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/util/homedir",
+=======
+>>>>>>> Initial dep workover
 )
 
 filegroup(

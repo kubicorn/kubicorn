@@ -19,8 +19,13 @@ go_library(
         "replicaset.go",
         "replicaset_expansion.go",
         "scale.go",
+<<<<<<< HEAD
     ],
     importpath = "k8s.io/client-go/listers/extensions/v1beta1",
+=======
+        "thirdpartyresource.go",
+    ],
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/apps/v1beta1:go_default_library",
         "//vendor/k8s.io/api/core/v1:go_default_library",
@@ -35,7 +40,10 @@ go_library(
 go_test(
     name = "go_default_test",
     srcs = ["daemonset_expansion_test.go"],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/listers/extensions/v1beta1",
+=======
+>>>>>>> Initial dep workover
     library = ":go_default_library",
     deps = [
         "//vendor/k8s.io/api/core/v1:go_default_library",

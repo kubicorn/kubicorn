@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -226,6 +230,7 @@ message SubjectAccessReviewSpec {
 
 // SubjectAccessReviewStatus
 message SubjectAccessReviewStatus {
+<<<<<<< HEAD
   // Allowed is required. True if the action would be allowed, false otherwise.
   optional bool allowed = 1;
 
@@ -236,6 +241,11 @@ message SubjectAccessReviewStatus {
   // +optional
   optional bool denied = 4;
 
+=======
+  // Allowed is required.  True if the action would be allowed, false otherwise.
+  optional bool allowed = 1;
+
+>>>>>>> Initial dep workover
   // Reason is optional.  It indicates why a request was allowed or denied.
   // +optional
   optional string reason = 2;

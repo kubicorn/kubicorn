@@ -411,6 +411,7 @@ const opAssignIpv6Addresses = "AssignIpv6Addresses"
 // client's request for the AssignIpv6Addresses operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -418,6 +419,15 @@ const opAssignIpv6Addresses = "AssignIpv6Addresses"
 // See AssignIpv6Addresses for more information on using the AssignIpv6Addresses
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AssignIpv6Addresses for more information on using the AssignIpv6Addresses
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -492,6 +502,7 @@ const opAssignPrivateIpAddresses = "AssignPrivateIpAddresses"
 // client's request for the AssignPrivateIpAddresses operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -499,6 +510,15 @@ const opAssignPrivateIpAddresses = "AssignPrivateIpAddresses"
 // See AssignPrivateIpAddresses for more information on using the AssignPrivateIpAddresses
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AssignPrivateIpAddresses for more information on using the AssignPrivateIpAddresses
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -837,6 +857,7 @@ const opAssociateRouteTable = "AssociateRouteTable"
 // client's request for the AssociateRouteTable operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -844,6 +865,15 @@ const opAssociateRouteTable = "AssociateRouteTable"
 // See AssociateRouteTable for more information on using the AssociateRouteTable
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AssociateRouteTable for more information on using the AssociateRouteTable
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -918,6 +948,7 @@ const opAssociateSubnetCidrBlock = "AssociateSubnetCidrBlock"
 // client's request for the AssociateSubnetCidrBlock operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -925,6 +956,15 @@ const opAssociateSubnetCidrBlock = "AssociateSubnetCidrBlock"
 // See AssociateSubnetCidrBlock for more information on using the AssociateSubnetCidrBlock
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AssociateSubnetCidrBlock for more information on using the AssociateSubnetCidrBlock
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -994,6 +1034,7 @@ const opAssociateVpcCidrBlock = "AssociateVpcCidrBlock"
 // client's request for the AssociateVpcCidrBlock operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1001,6 +1042,15 @@ const opAssociateVpcCidrBlock = "AssociateVpcCidrBlock"
 // See AssociateVpcCidrBlock for more information on using the AssociateVpcCidrBlock
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AssociateVpcCidrBlock for more information on using the AssociateVpcCidrBlock
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1074,6 +1124,7 @@ const opAttachClassicLinkVpc = "AttachClassicLinkVpc"
 // client's request for the AttachClassicLinkVpc operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1081,6 +1132,15 @@ const opAttachClassicLinkVpc = "AttachClassicLinkVpc"
 // See AttachClassicLinkVpc for more information on using the AttachClassicLinkVpc
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachClassicLinkVpc for more information on using the AttachClassicLinkVpc
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1159,6 +1219,7 @@ const opAttachInternetGateway = "AttachInternetGateway"
 // client's request for the AttachInternetGateway operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1166,6 +1227,15 @@ const opAttachInternetGateway = "AttachInternetGateway"
 // See AttachInternetGateway for more information on using the AttachInternetGateway
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachInternetGateway for more information on using the AttachInternetGateway
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1237,6 +1307,7 @@ const opAttachNetworkInterface = "AttachNetworkInterface"
 // client's request for the AttachNetworkInterface operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1244,6 +1315,15 @@ const opAttachNetworkInterface = "AttachNetworkInterface"
 // See AttachNetworkInterface for more information on using the AttachNetworkInterface
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachNetworkInterface for more information on using the AttachNetworkInterface
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1311,6 +1391,7 @@ const opAttachVolume = "AttachVolume"
 // client's request for the AttachVolume operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1318,6 +1399,15 @@ const opAttachVolume = "AttachVolume"
 // See AttachVolume for more information on using the AttachVolume
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachVolume for more information on using the AttachVolume
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2149,6 +2239,7 @@ const opCancelSpotFleetRequests = "CancelSpotFleetRequests"
 // client's request for the CancelSpotFleetRequests operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2156,6 +2247,15 @@ const opCancelSpotFleetRequests = "CancelSpotFleetRequests"
 // See CancelSpotFleetRequests for more information on using the CancelSpotFleetRequests
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CancelSpotFleetRequests for more information on using the CancelSpotFleetRequests
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2230,6 +2330,7 @@ const opCancelSpotInstanceRequests = "CancelSpotInstanceRequests"
 // client's request for the CancelSpotInstanceRequests operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2237,6 +2338,15 @@ const opCancelSpotInstanceRequests = "CancelSpotInstanceRequests"
 // See CancelSpotInstanceRequests for more information on using the CancelSpotInstanceRequests
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CancelSpotInstanceRequests for more information on using the CancelSpotInstanceRequests
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2406,7 +2516,11 @@ const opCopyFpgaImage = "CopyFpgaImage"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyFpgaImage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyFpgaImage
+>>>>>>> Initial dep workover
 func (c *EC2) CopyFpgaImageRequest(input *CopyFpgaImageInput) (req *request.Request, output *CopyFpgaImageOutput) {
 	op := &request.Operation{
 		Name:       opCopyFpgaImage,
@@ -2433,7 +2547,11 @@ func (c *EC2) CopyFpgaImageRequest(input *CopyFpgaImageInput) (req *request.Requ
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation CopyFpgaImage for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyFpgaImage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyFpgaImage
+>>>>>>> Initial dep workover
 func (c *EC2) CopyFpgaImage(input *CopyFpgaImageInput) (*CopyFpgaImageOutput, error) {
 	req, out := c.CopyFpgaImageRequest(input)
 	return out, req.Send()
@@ -2634,6 +2752,7 @@ const opCreateCustomerGateway = "CreateCustomerGateway"
 // client's request for the CreateCustomerGateway operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2641,6 +2760,15 @@ const opCreateCustomerGateway = "CreateCustomerGateway"
 // See CreateCustomerGateway for more information on using the CreateCustomerGateway
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateCustomerGateway for more information on using the CreateCustomerGateway
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2751,7 +2879,11 @@ const opCreateDefaultSubnet = "CreateDefaultSubnet"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateDefaultSubnet
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateDefaultSubnet
+>>>>>>> Initial dep workover
 func (c *EC2) CreateDefaultSubnetRequest(input *CreateDefaultSubnetInput) (req *request.Request, output *CreateDefaultSubnetOutput) {
 	op := &request.Operation{
 		Name:       opCreateDefaultSubnet,
@@ -2782,7 +2914,11 @@ func (c *EC2) CreateDefaultSubnetRequest(input *CreateDefaultSubnetInput) (req *
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation CreateDefaultSubnet for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateDefaultSubnet
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateDefaultSubnet
+>>>>>>> Initial dep workover
 func (c *EC2) CreateDefaultSubnet(input *CreateDefaultSubnetInput) (*CreateDefaultSubnetOutput, error) {
 	req, out := c.CreateDefaultSubnetRequest(input)
 	return out, req.Send()
@@ -2810,6 +2946,7 @@ const opCreateDefaultVpc = "CreateDefaultVpc"
 // client's request for the CreateDefaultVpc operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2817,6 +2954,15 @@ const opCreateDefaultVpc = "CreateDefaultVpc"
 // See CreateDefaultVpc for more information on using the CreateDefaultVpc
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateDefaultVpc for more information on using the CreateDefaultVpc
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2896,6 +3042,7 @@ const opCreateDhcpOptions = "CreateDhcpOptions"
 // client's request for the CreateDhcpOptions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2903,6 +3050,15 @@ const opCreateDhcpOptions = "CreateDhcpOptions"
 // See CreateDhcpOptions for more information on using the CreateDhcpOptions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateDhcpOptions for more information on using the CreateDhcpOptions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3730,6 +3886,7 @@ const opCreateNatGateway = "CreateNatGateway"
 // client's request for the CreateNatGateway operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3737,6 +3894,15 @@ const opCreateNatGateway = "CreateNatGateway"
 // See CreateNatGateway for more information on using the CreateNatGateway
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateNatGateway for more information on using the CreateNatGateway
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3809,6 +3975,7 @@ const opCreateNetworkAcl = "CreateNetworkAcl"
 // client's request for the CreateNetworkAcl operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3816,6 +3983,15 @@ const opCreateNetworkAcl = "CreateNetworkAcl"
 // See CreateNetworkAcl for more information on using the CreateNetworkAcl
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateNetworkAcl for more information on using the CreateNetworkAcl
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3979,6 +4155,7 @@ const opCreateNetworkInterface = "CreateNetworkInterface"
 // client's request for the CreateNetworkInterface operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3986,6 +4163,15 @@ const opCreateNetworkInterface = "CreateNetworkInterface"
 // See CreateNetworkInterface for more information on using the CreateNetworkInterface
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateNetworkInterface for more information on using the CreateNetworkInterface
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4057,6 +4243,7 @@ const opCreateNetworkInterfacePermission = "CreateNetworkInterfacePermission"
 // client's request for the CreateNetworkInterfacePermission operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4064,6 +4251,15 @@ const opCreateNetworkInterfacePermission = "CreateNetworkInterfacePermission"
 // See CreateNetworkInterfacePermission for more information on using the CreateNetworkInterfacePermission
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateNetworkInterfacePermission for more information on using the CreateNetworkInterfacePermission
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4135,6 +4331,7 @@ const opCreatePlacementGroup = "CreatePlacementGroup"
 // client's request for the CreatePlacementGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4142,6 +4339,15 @@ const opCreatePlacementGroup = "CreatePlacementGroup"
 // See CreatePlacementGroup for more information on using the CreatePlacementGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreatePlacementGroup for more information on using the CreatePlacementGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4175,8 +4381,13 @@ func (c *EC2) CreatePlacementGroupRequest(input *CreatePlacementGroupInput) (req
 
 // CreatePlacementGroup API operation for Amazon Elastic Compute Cloud.
 //
+<<<<<<< HEAD
 // Creates a placement group in which to launch instances. The strategy of the
 // placement group determines how the instances are organized within the group.
+=======
+// Creates a placement group that you launch cluster instances into. Give the
+// group a name that's unique within the scope of your account.
+>>>>>>> Initial dep workover
 //
 // A cluster placement group is a logical grouping of instances within a single
 // Availability Zone that benefit from low network latency, high network throughput.
@@ -4688,6 +4899,7 @@ const opCreateSpotDatafeedSubscription = "CreateSpotDatafeedSubscription"
 // client's request for the CreateSpotDatafeedSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4695,6 +4907,15 @@ const opCreateSpotDatafeedSubscription = "CreateSpotDatafeedSubscription"
 // See CreateSpotDatafeedSubscription for more information on using the CreateSpotDatafeedSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateSpotDatafeedSubscription for more information on using the CreateSpotDatafeedSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4765,6 +4986,7 @@ const opCreateSubnet = "CreateSubnet"
 // client's request for the CreateSubnet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4772,6 +4994,15 @@ const opCreateSubnet = "CreateSubnet"
 // See CreateSubnet for more information on using the CreateSubnet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateSubnet for more information on using the CreateSubnet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4865,6 +5096,7 @@ const opCreateTags = "CreateTags"
 // client's request for the CreateTags operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4872,6 +5104,15 @@ const opCreateTags = "CreateTags"
 // See CreateTags for more information on using the CreateTags
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateTags for more information on using the CreateTags
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4949,6 +5190,7 @@ const opCreateVolume = "CreateVolume"
 // client's request for the CreateVolume operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4956,6 +5198,15 @@ const opCreateVolume = "CreateVolume"
 // See CreateVolume for more information on using the CreateVolume
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateVolume for more information on using the CreateVolume
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5041,6 +5292,7 @@ const opCreateVpc = "CreateVpc"
 // client's request for the CreateVpc operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5048,6 +5300,15 @@ const opCreateVpc = "CreateVpc"
 // See CreateVpc for more information on using the CreateVpc
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateVpc for more information on using the CreateVpc
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5171,6 +5432,7 @@ func (c *EC2) CreateVpcEndpointRequest(input *CreateVpcEndpointInput) (req *requ
 
 // CreateVpcEndpoint API operation for Amazon Elastic Compute Cloud.
 //
+<<<<<<< HEAD
 // Creates a VPC endpoint for a specified service. An endpoint enables you to
 // create a private connection between your VPC and the service. The service
 // may be provided by AWS, an AWS Marketplace partner, or another AWS account.
@@ -5188,6 +5450,22 @@ func (c *EC2) CreateVpcEndpointRequest(input *CreateVpcEndpointInput) (req *requ
 // with the endpoint network interface.
 //
 // Use DescribeVpcEndpointServices to get a list of supported services.
+=======
+// Creates a VPC endpoint for a specified AWS service. An endpoint enables you
+// to create a private connection between your VPC and another AWS service in
+// your account. You can create a gateway endpoint or an interface endpoint.
+//
+// A gateway endpoint serves as a target for a route in your route table for
+// traffic destined for the AWS service. You can specify the VPC route tables
+// that use the endpoint, and you can optionally specify an endpoint policy
+// to attach to the endpoint that will control access to the service from your
+// VPC.
+//
+// An interface endpoint is a network interface in your subnet with a private
+// IP address that serves as an entry point for traffic destined to the AWS
+// service. You can specify the subnets in which to create an endpoint, and
+// the security groups to associate with the network interface.
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -5384,6 +5662,7 @@ const opCreateVpcPeeringConnection = "CreateVpcPeeringConnection"
 // client's request for the CreateVpcPeeringConnection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5391,6 +5670,15 @@ const opCreateVpcPeeringConnection = "CreateVpcPeeringConnection"
 // See CreateVpcPeeringConnection for more information on using the CreateVpcPeeringConnection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateVpcPeeringConnection for more information on using the CreateVpcPeeringConnection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5469,6 +5757,7 @@ const opCreateVpnConnection = "CreateVpnConnection"
 // client's request for the CreateVpnConnection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5476,6 +5765,15 @@ const opCreateVpnConnection = "CreateVpnConnection"
 // See CreateVpnConnection for more information on using the CreateVpnConnection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateVpnConnection for more information on using the CreateVpnConnection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5561,6 +5859,7 @@ const opCreateVpnConnectionRoute = "CreateVpnConnectionRoute"
 // client's request for the CreateVpnConnectionRoute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5568,6 +5867,15 @@ const opCreateVpnConnectionRoute = "CreateVpnConnectionRoute"
 // See CreateVpnConnectionRoute for more information on using the CreateVpnConnectionRoute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateVpnConnectionRoute for more information on using the CreateVpnConnectionRoute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6047,7 +6355,11 @@ const opDeleteFpgaImage = "DeleteFpgaImage"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteFpgaImage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteFpgaImage
+>>>>>>> Initial dep workover
 func (c *EC2) DeleteFpgaImageRequest(input *DeleteFpgaImageInput) (req *request.Request, output *DeleteFpgaImageOutput) {
 	op := &request.Operation{
 		Name:       opDeleteFpgaImage,
@@ -6074,7 +6386,11 @@ func (c *EC2) DeleteFpgaImageRequest(input *DeleteFpgaImageInput) (req *request.
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DeleteFpgaImage for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteFpgaImage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteFpgaImage
+>>>>>>> Initial dep workover
 func (c *EC2) DeleteFpgaImage(input *DeleteFpgaImageInput) (*DeleteFpgaImageOutput, error) {
 	req, out := c.DeleteFpgaImageRequest(input)
 	return out, req.Send()
@@ -6483,6 +6799,7 @@ const opDeleteNetworkAcl = "DeleteNetworkAcl"
 // client's request for the DeleteNetworkAcl operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6490,6 +6807,15 @@ const opDeleteNetworkAcl = "DeleteNetworkAcl"
 // See DeleteNetworkAcl for more information on using the DeleteNetworkAcl
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteNetworkAcl for more information on using the DeleteNetworkAcl
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6560,6 +6886,7 @@ const opDeleteNetworkAclEntry = "DeleteNetworkAclEntry"
 // client's request for the DeleteNetworkAclEntry operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6567,6 +6894,15 @@ const opDeleteNetworkAclEntry = "DeleteNetworkAclEntry"
 // See DeleteNetworkAclEntry for more information on using the DeleteNetworkAclEntry
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteNetworkAclEntry for more information on using the DeleteNetworkAclEntry
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6870,6 +7206,7 @@ const opDeleteRoute = "DeleteRoute"
 // client's request for the DeleteRoute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6877,6 +7214,15 @@ const opDeleteRoute = "DeleteRoute"
 // See DeleteRoute for more information on using the DeleteRoute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteRoute for more information on using the DeleteRoute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6946,6 +7292,7 @@ const opDeleteRouteTable = "DeleteRouteTable"
 // client's request for the DeleteRouteTable operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6953,6 +7300,15 @@ const opDeleteRouteTable = "DeleteRouteTable"
 // See DeleteRouteTable for more information on using the DeleteRouteTable
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteRouteTable for more information on using the DeleteRouteTable
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7024,6 +7380,7 @@ const opDeleteSecurityGroup = "DeleteSecurityGroup"
 // client's request for the DeleteSecurityGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7031,6 +7388,15 @@ const opDeleteSecurityGroup = "DeleteSecurityGroup"
 // See DeleteSecurityGroup for more information on using the DeleteSecurityGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteSecurityGroup for more information on using the DeleteSecurityGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7194,6 +7560,7 @@ const opDeleteSpotDatafeedSubscription = "DeleteSpotDatafeedSubscription"
 // client's request for the DeleteSpotDatafeedSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7201,6 +7568,15 @@ const opDeleteSpotDatafeedSubscription = "DeleteSpotDatafeedSubscription"
 // See DeleteSpotDatafeedSubscription for more information on using the DeleteSpotDatafeedSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteSpotDatafeedSubscription for more information on using the DeleteSpotDatafeedSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7270,6 +7646,7 @@ const opDeleteSubnet = "DeleteSubnet"
 // client's request for the DeleteSubnet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7277,6 +7654,15 @@ const opDeleteSubnet = "DeleteSubnet"
 // See DeleteSubnet for more information on using the DeleteSubnet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteSubnet for more information on using the DeleteSubnet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7347,6 +7733,7 @@ const opDeleteTags = "DeleteTags"
 // client's request for the DeleteTags operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7354,6 +7741,15 @@ const opDeleteTags = "DeleteTags"
 // See DeleteTags for more information on using the DeleteTags
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteTags for more information on using the DeleteTags
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7509,6 +7905,7 @@ const opDeleteVpc = "DeleteVpc"
 // client's request for the DeleteVpc operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7516,6 +7913,15 @@ const opDeleteVpc = "DeleteVpc"
 // See DeleteVpc for more information on using the DeleteVpc
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVpc for more information on using the DeleteVpc
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7740,6 +8146,7 @@ const opDeleteVpcEndpoints = "DeleteVpcEndpoints"
 // client's request for the DeleteVpcEndpoints operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7747,6 +8154,15 @@ const opDeleteVpcEndpoints = "DeleteVpcEndpoints"
 // See DeleteVpcEndpoints for more information on using the DeleteVpcEndpoints
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVpcEndpoints for more information on using the DeleteVpcEndpoints
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7817,6 +8233,7 @@ const opDeleteVpcPeeringConnection = "DeleteVpcPeeringConnection"
 // client's request for the DeleteVpcPeeringConnection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7824,6 +8241,15 @@ const opDeleteVpcPeeringConnection = "DeleteVpcPeeringConnection"
 // See DeleteVpcPeeringConnection for more information on using the DeleteVpcPeeringConnection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVpcPeeringConnection for more information on using the DeleteVpcPeeringConnection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7894,6 +8320,7 @@ const opDeleteVpnConnection = "DeleteVpnConnection"
 // client's request for the DeleteVpnConnection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7901,6 +8328,15 @@ const opDeleteVpnConnection = "DeleteVpnConnection"
 // See DeleteVpnConnection for more information on using the DeleteVpnConnection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVpnConnection for more information on using the DeleteVpnConnection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8058,6 +8494,7 @@ const opDeleteVpnGateway = "DeleteVpnGateway"
 // client's request for the DeleteVpnGateway operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8065,6 +8502,15 @@ const opDeleteVpnGateway = "DeleteVpnGateway"
 // See DeleteVpnGateway for more information on using the DeleteVpnGateway
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVpnGateway for more information on using the DeleteVpnGateway
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8138,6 +8584,7 @@ const opDeregisterImage = "DeregisterImage"
 // client's request for the DeregisterImage operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8145,6 +8592,15 @@ const opDeregisterImage = "DeregisterImage"
 // See DeregisterImage for more information on using the DeregisterImage
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeregisterImage for more information on using the DeregisterImage
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8628,6 +9084,7 @@ const opDescribeConversionTasks = "DescribeConversionTasks"
 // client's request for the DescribeConversionTasks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8635,6 +9092,15 @@ const opDescribeConversionTasks = "DescribeConversionTasks"
 // See DescribeConversionTasks for more information on using the DescribeConversionTasks
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeConversionTasks for more information on using the DescribeConversionTasks
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8706,6 +9172,7 @@ const opDescribeCustomerGateways = "DescribeCustomerGateways"
 // client's request for the DescribeCustomerGateways operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8713,6 +9180,15 @@ const opDescribeCustomerGateways = "DescribeCustomerGateways"
 // See DescribeCustomerGateways for more information on using the DescribeCustomerGateways
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeCustomerGateways for more information on using the DescribeCustomerGateways
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8861,6 +9337,7 @@ const opDescribeEgressOnlyInternetGateways = "DescribeEgressOnlyInternetGateways
 // client's request for the DescribeEgressOnlyInternetGateways operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8868,6 +9345,15 @@ const opDescribeEgressOnlyInternetGateways = "DescribeEgressOnlyInternetGateways
 // See DescribeEgressOnlyInternetGateways for more information on using the DescribeEgressOnlyInternetGateways
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEgressOnlyInternetGateways for more information on using the DescribeEgressOnlyInternetGateways
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8935,6 +9421,7 @@ const opDescribeElasticGpus = "DescribeElasticGpus"
 // client's request for the DescribeElasticGpus operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8942,6 +9429,15 @@ const opDescribeElasticGpus = "DescribeElasticGpus"
 // See DescribeElasticGpus for more information on using the DescribeElasticGpus
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeElasticGpus for more information on using the DescribeElasticGpus
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9179,7 +9675,11 @@ const opDescribeFpgaImageAttribute = "DescribeFpgaImageAttribute"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImageAttribute
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImageAttribute
+>>>>>>> Initial dep workover
 func (c *EC2) DescribeFpgaImageAttributeRequest(input *DescribeFpgaImageAttributeInput) (req *request.Request, output *DescribeFpgaImageAttributeOutput) {
 	op := &request.Operation{
 		Name:       opDescribeFpgaImageAttribute,
@@ -9206,7 +9706,11 @@ func (c *EC2) DescribeFpgaImageAttributeRequest(input *DescribeFpgaImageAttribut
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DescribeFpgaImageAttribute for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImageAttribute
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImageAttribute
+>>>>>>> Initial dep workover
 func (c *EC2) DescribeFpgaImageAttribute(input *DescribeFpgaImageAttributeInput) (*DescribeFpgaImageAttributeOutput, error) {
 	req, out := c.DescribeFpgaImageAttributeRequest(input)
 	return out, req.Send()
@@ -9866,6 +10370,7 @@ const opDescribeImages = "DescribeImages"
 // client's request for the DescribeImages operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9873,6 +10378,15 @@ const opDescribeImages = "DescribeImages"
 // See DescribeImages for more information on using the DescribeImages
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeImages for more information on using the DescribeImages
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9946,6 +10460,7 @@ const opDescribeImportImageTasks = "DescribeImportImageTasks"
 // client's request for the DescribeImportImageTasks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9953,6 +10468,15 @@ const opDescribeImportImageTasks = "DescribeImportImageTasks"
 // See DescribeImportImageTasks for more information on using the DescribeImportImageTasks
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeImportImageTasks for more information on using the DescribeImportImageTasks
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10021,6 +10545,7 @@ const opDescribeImportSnapshotTasks = "DescribeImportSnapshotTasks"
 // client's request for the DescribeImportSnapshotTasks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10028,6 +10553,15 @@ const opDescribeImportSnapshotTasks = "DescribeImportSnapshotTasks"
 // See DescribeImportSnapshotTasks for more information on using the DescribeImportSnapshotTasks
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeImportSnapshotTasks for more information on using the DescribeImportSnapshotTasks
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10095,6 +10629,7 @@ const opDescribeInstanceAttribute = "DescribeInstanceAttribute"
 // client's request for the DescribeInstanceAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10102,6 +10637,15 @@ const opDescribeInstanceAttribute = "DescribeInstanceAttribute"
 // See DescribeInstanceAttribute for more information on using the DescribeInstanceAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeInstanceAttribute for more information on using the DescribeInstanceAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10265,6 +10809,7 @@ const opDescribeInstanceStatus = "DescribeInstanceStatus"
 // client's request for the DescribeInstanceStatus operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10272,6 +10817,15 @@ const opDescribeInstanceStatus = "DescribeInstanceStatus"
 // See DescribeInstanceStatus for more information on using the DescribeInstanceStatus
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeInstanceStatus for more information on using the DescribeInstanceStatus
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10861,6 +11415,7 @@ const opDescribeMovingAddresses = "DescribeMovingAddresses"
 // client's request for the DescribeMovingAddresses operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10868,6 +11423,15 @@ const opDescribeMovingAddresses = "DescribeMovingAddresses"
 // See DescribeMovingAddresses for more information on using the DescribeMovingAddresses
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeMovingAddresses for more information on using the DescribeMovingAddresses
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10937,6 +11501,7 @@ const opDescribeNatGateways = "DescribeNatGateways"
 // client's request for the DescribeNatGateways operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10944,6 +11509,15 @@ const opDescribeNatGateways = "DescribeNatGateways"
 // See DescribeNatGateways for more information on using the DescribeNatGateways
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeNatGateways for more information on using the DescribeNatGateways
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11067,6 +11641,7 @@ const opDescribeNetworkAcls = "DescribeNetworkAcls"
 // client's request for the DescribeNetworkAcls operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11074,6 +11649,15 @@ const opDescribeNetworkAcls = "DescribeNetworkAcls"
 // See DescribeNetworkAcls for more information on using the DescribeNetworkAcls
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeNetworkAcls for more information on using the DescribeNetworkAcls
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11219,6 +11803,7 @@ const opDescribeNetworkInterfacePermissions = "DescribeNetworkInterfacePermissio
 // client's request for the DescribeNetworkInterfacePermissions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11226,6 +11811,15 @@ const opDescribeNetworkInterfacePermissions = "DescribeNetworkInterfacePermissio
 // See DescribeNetworkInterfacePermissions for more information on using the DescribeNetworkInterfacePermissions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeNetworkInterfacePermissions for more information on using the DescribeNetworkInterfacePermissions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11293,6 +11887,7 @@ const opDescribeNetworkInterfaces = "DescribeNetworkInterfaces"
 // client's request for the DescribeNetworkInterfaces operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11300,6 +11895,15 @@ const opDescribeNetworkInterfaces = "DescribeNetworkInterfaces"
 // See DescribeNetworkInterfaces for more information on using the DescribeNetworkInterfaces
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeNetworkInterfaces for more information on using the DescribeNetworkInterfaces
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11367,6 +11971,7 @@ const opDescribePlacementGroups = "DescribePlacementGroups"
 // client's request for the DescribePlacementGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11374,6 +11979,15 @@ const opDescribePlacementGroups = "DescribePlacementGroups"
 // See DescribePlacementGroups for more information on using the DescribePlacementGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribePlacementGroups for more information on using the DescribePlacementGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11443,6 +12057,7 @@ const opDescribePrefixLists = "DescribePrefixLists"
 // client's request for the DescribePrefixLists operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11450,6 +12065,15 @@ const opDescribePrefixLists = "DescribePrefixLists"
 // See DescribePrefixLists for more information on using the DescribePrefixLists
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribePrefixLists for more information on using the DescribePrefixLists
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12047,6 +12671,7 @@ const opDescribeRouteTables = "DescribeRouteTables"
 // client's request for the DescribeRouteTables operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12054,6 +12679,15 @@ const opDescribeRouteTables = "DescribeRouteTables"
 // See DescribeRouteTables for more information on using the DescribeRouteTables
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeRouteTables for more information on using the DescribeRouteTables
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12129,6 +12763,7 @@ const opDescribeScheduledInstanceAvailability = "DescribeScheduledInstanceAvaila
 // client's request for the DescribeScheduledInstanceAvailability operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12136,6 +12771,15 @@ const opDescribeScheduledInstanceAvailability = "DescribeScheduledInstanceAvaila
 // See DescribeScheduledInstanceAvailability for more information on using the DescribeScheduledInstanceAvailability
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeScheduledInstanceAvailability for more information on using the DescribeScheduledInstanceAvailability
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12211,6 +12855,7 @@ const opDescribeScheduledInstances = "DescribeScheduledInstances"
 // client's request for the DescribeScheduledInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12218,6 +12863,15 @@ const opDescribeScheduledInstances = "DescribeScheduledInstances"
 // See DescribeScheduledInstances for more information on using the DescribeScheduledInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeScheduledInstances for more information on using the DescribeScheduledInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12285,6 +12939,7 @@ const opDescribeSecurityGroupReferences = "DescribeSecurityGroupReferences"
 // client's request for the DescribeSecurityGroupReferences operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12292,6 +12947,15 @@ const opDescribeSecurityGroupReferences = "DescribeSecurityGroupReferences"
 // See DescribeSecurityGroupReferences for more information on using the DescribeSecurityGroupReferences
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSecurityGroupReferences for more information on using the DescribeSecurityGroupReferences
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12360,6 +13024,7 @@ const opDescribeSecurityGroups = "DescribeSecurityGroups"
 // client's request for the DescribeSecurityGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12367,6 +13032,15 @@ const opDescribeSecurityGroups = "DescribeSecurityGroups"
 // See DescribeSecurityGroups for more information on using the DescribeSecurityGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSecurityGroups for more information on using the DescribeSecurityGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12441,6 +13115,7 @@ const opDescribeSnapshotAttribute = "DescribeSnapshotAttribute"
 // client's request for the DescribeSnapshotAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12448,6 +13123,15 @@ const opDescribeSnapshotAttribute = "DescribeSnapshotAttribute"
 // See DescribeSnapshotAttribute for more information on using the DescribeSnapshotAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSnapshotAttribute for more information on using the DescribeSnapshotAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12519,6 +13203,7 @@ const opDescribeSnapshots = "DescribeSnapshots"
 // client's request for the DescribeSnapshots operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12526,6 +13211,15 @@ const opDescribeSnapshots = "DescribeSnapshots"
 // See DescribeSnapshots for more information on using the DescribeSnapshots
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSnapshots for more information on using the DescribeSnapshots
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12694,6 +13388,7 @@ const opDescribeSpotDatafeedSubscription = "DescribeSpotDatafeedSubscription"
 // client's request for the DescribeSpotDatafeedSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12701,6 +13396,15 @@ const opDescribeSpotDatafeedSubscription = "DescribeSpotDatafeedSubscription"
 // See DescribeSpotDatafeedSubscription for more information on using the DescribeSpotDatafeedSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSpotDatafeedSubscription for more information on using the DescribeSpotDatafeedSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12844,6 +13548,7 @@ const opDescribeSpotFleetRequestHistory = "DescribeSpotFleetRequestHistory"
 // client's request for the DescribeSpotFleetRequestHistory operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12851,6 +13556,15 @@ const opDescribeSpotFleetRequestHistory = "DescribeSpotFleetRequestHistory"
 // See DescribeSpotFleetRequestHistory for more information on using the DescribeSpotFleetRequestHistory
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSpotFleetRequestHistory for more information on using the DescribeSpotFleetRequestHistory
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -12923,6 +13637,7 @@ const opDescribeSpotFleetRequests = "DescribeSpotFleetRequests"
 // client's request for the DescribeSpotFleetRequests operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -12930,6 +13645,15 @@ const opDescribeSpotFleetRequests = "DescribeSpotFleetRequests"
 // See DescribeSpotFleetRequests for more information on using the DescribeSpotFleetRequests
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSpotFleetRequests for more information on using the DescribeSpotFleetRequests
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -13056,6 +13780,7 @@ const opDescribeSpotInstanceRequests = "DescribeSpotInstanceRequests"
 // client's request for the DescribeSpotInstanceRequests operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -13063,6 +13788,15 @@ const opDescribeSpotInstanceRequests = "DescribeSpotInstanceRequests"
 // See DescribeSpotInstanceRequests for more information on using the DescribeSpotInstanceRequests
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSpotInstanceRequests for more information on using the DescribeSpotInstanceRequests
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -13280,6 +14014,7 @@ const opDescribeStaleSecurityGroups = "DescribeStaleSecurityGroups"
 // client's request for the DescribeStaleSecurityGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -13287,6 +14022,15 @@ const opDescribeStaleSecurityGroups = "DescribeStaleSecurityGroups"
 // See DescribeStaleSecurityGroups for more information on using the DescribeStaleSecurityGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeStaleSecurityGroups for more information on using the DescribeStaleSecurityGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -13357,6 +14101,7 @@ const opDescribeSubnets = "DescribeSubnets"
 // client's request for the DescribeSubnets operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -13364,6 +14109,15 @@ const opDescribeSubnets = "DescribeSubnets"
 // See DescribeSubnets for more information on using the DescribeSubnets
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSubnets for more information on using the DescribeSubnets
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -13434,6 +14188,7 @@ const opDescribeTags = "DescribeTags"
 // client's request for the DescribeTags operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -13441,6 +14196,15 @@ const opDescribeTags = "DescribeTags"
 // See DescribeTags for more information on using the DescribeTags
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeTags for more information on using the DescribeTags
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -13567,6 +14331,7 @@ const opDescribeVolumeAttribute = "DescribeVolumeAttribute"
 // client's request for the DescribeVolumeAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -13574,6 +14339,15 @@ const opDescribeVolumeAttribute = "DescribeVolumeAttribute"
 // See DescribeVolumeAttribute for more information on using the DescribeVolumeAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeVolumeAttribute for more information on using the DescribeVolumeAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -13645,6 +14419,7 @@ const opDescribeVolumeStatus = "DescribeVolumeStatus"
 // client's request for the DescribeVolumeStatus operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -13652,6 +14427,15 @@ const opDescribeVolumeStatus = "DescribeVolumeStatus"
 // See DescribeVolumeStatus for more information on using the DescribeVolumeStatus
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeVolumeStatus for more information on using the DescribeVolumeStatus
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -14563,6 +15347,7 @@ const opDescribeVpcEndpointServices = "DescribeVpcEndpointServices"
 // client's request for the DescribeVpcEndpointServices operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -14570,6 +15355,15 @@ const opDescribeVpcEndpointServices = "DescribeVpcEndpointServices"
 // See DescribeVpcEndpointServices for more information on using the DescribeVpcEndpointServices
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeVpcEndpointServices for more information on using the DescribeVpcEndpointServices
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -14637,6 +15431,7 @@ const opDescribeVpcEndpoints = "DescribeVpcEndpoints"
 // client's request for the DescribeVpcEndpoints operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -14644,6 +15439,15 @@ const opDescribeVpcEndpoints = "DescribeVpcEndpoints"
 // See DescribeVpcEndpoints for more information on using the DescribeVpcEndpoints
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeVpcEndpoints for more information on using the DescribeVpcEndpoints
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -14937,6 +15741,7 @@ const opDescribeVpnGateways = "DescribeVpnGateways"
 // client's request for the DescribeVpnGateways operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -14944,6 +15749,15 @@ const opDescribeVpnGateways = "DescribeVpnGateways"
 // See DescribeVpnGateways for more information on using the DescribeVpnGateways
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeVpnGateways for more information on using the DescribeVpnGateways
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -15015,6 +15829,7 @@ const opDetachClassicLinkVpc = "DetachClassicLinkVpc"
 // client's request for the DetachClassicLinkVpc operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -15022,6 +15837,15 @@ const opDetachClassicLinkVpc = "DetachClassicLinkVpc"
 // See DetachClassicLinkVpc for more information on using the DetachClassicLinkVpc
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetachClassicLinkVpc for more information on using the DetachClassicLinkVpc
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -15091,6 +15915,7 @@ const opDetachInternetGateway = "DetachInternetGateway"
 // client's request for the DetachInternetGateway operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -15098,6 +15923,15 @@ const opDetachInternetGateway = "DetachInternetGateway"
 // See DetachInternetGateway for more information on using the DetachInternetGateway
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetachInternetGateway for more information on using the DetachInternetGateway
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -15567,6 +16401,7 @@ const opDisableVpcClassicLinkDnsSupport = "DisableVpcClassicLinkDnsSupport"
 // client's request for the DisableVpcClassicLinkDnsSupport operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -15574,6 +16409,15 @@ const opDisableVpcClassicLinkDnsSupport = "DisableVpcClassicLinkDnsSupport"
 // See DisableVpcClassicLinkDnsSupport for more information on using the DisableVpcClassicLinkDnsSupport
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DisableVpcClassicLinkDnsSupport for more information on using the DisableVpcClassicLinkDnsSupport
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -15645,6 +16489,7 @@ const opDisassociateAddress = "DisassociateAddress"
 // client's request for the DisassociateAddress operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -15652,6 +16497,15 @@ const opDisassociateAddress = "DisassociateAddress"
 // See DisassociateAddress for more information on using the DisassociateAddress
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DisassociateAddress for more information on using the DisassociateAddress
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -15729,6 +16583,7 @@ const opDisassociateIamInstanceProfile = "DisassociateIamInstanceProfile"
 // client's request for the DisassociateIamInstanceProfile operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -15736,6 +16591,15 @@ const opDisassociateIamInstanceProfile = "DisassociateIamInstanceProfile"
 // See DisassociateIamInstanceProfile for more information on using the DisassociateIamInstanceProfile
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DisassociateIamInstanceProfile for more information on using the DisassociateIamInstanceProfile
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -15805,6 +16669,7 @@ const opDisassociateRouteTable = "DisassociateRouteTable"
 // client's request for the DisassociateRouteTable operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -15812,6 +16677,15 @@ const opDisassociateRouteTable = "DisassociateRouteTable"
 // See DisassociateRouteTable for more information on using the DisassociateRouteTable
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DisassociateRouteTable for more information on using the DisassociateRouteTable
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -16119,6 +16993,7 @@ const opEnableVolumeIO = "EnableVolumeIO"
 // client's request for the EnableVolumeIO operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -16126,6 +17001,15 @@ const opEnableVolumeIO = "EnableVolumeIO"
 // See EnableVolumeIO for more information on using the EnableVolumeIO
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See EnableVolumeIO for more information on using the EnableVolumeIO
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -16196,6 +17080,7 @@ const opEnableVpcClassicLink = "EnableVpcClassicLink"
 // client's request for the EnableVpcClassicLink operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -16203,6 +17088,15 @@ const opEnableVpcClassicLink = "EnableVpcClassicLink"
 // See EnableVpcClassicLink for more information on using the EnableVpcClassicLink
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See EnableVpcClassicLink for more information on using the EnableVpcClassicLink
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -16276,6 +17170,7 @@ const opEnableVpcClassicLinkDnsSupport = "EnableVpcClassicLinkDnsSupport"
 // client's request for the EnableVpcClassicLinkDnsSupport operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -16283,6 +17178,15 @@ const opEnableVpcClassicLinkDnsSupport = "EnableVpcClassicLinkDnsSupport"
 // See EnableVpcClassicLinkDnsSupport for more information on using the EnableVpcClassicLinkDnsSupport
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See EnableVpcClassicLinkDnsSupport for more information on using the EnableVpcClassicLinkDnsSupport
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -16356,6 +17260,7 @@ const opGetConsoleOutput = "GetConsoleOutput"
 // client's request for the GetConsoleOutput operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -16363,6 +17268,15 @@ const opGetConsoleOutput = "GetConsoleOutput"
 // See GetConsoleOutput for more information on using the GetConsoleOutput
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetConsoleOutput for more information on using the GetConsoleOutput
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -16447,6 +17361,7 @@ const opGetConsoleScreenshot = "GetConsoleScreenshot"
 // client's request for the GetConsoleScreenshot operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -16454,6 +17369,15 @@ const opGetConsoleScreenshot = "GetConsoleScreenshot"
 // See GetConsoleScreenshot for more information on using the GetConsoleScreenshot
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetConsoleScreenshot for more information on using the GetConsoleScreenshot
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -16523,6 +17447,7 @@ const opGetHostReservationPurchasePreview = "GetHostReservationPurchasePreview"
 // client's request for the GetHostReservationPurchasePreview operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -16530,6 +17455,15 @@ const opGetHostReservationPurchasePreview = "GetHostReservationPurchasePreview"
 // See GetHostReservationPurchasePreview for more information on using the GetHostReservationPurchasePreview
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetHostReservationPurchasePreview for more information on using the GetHostReservationPurchasePreview
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -16677,6 +17611,7 @@ const opGetPasswordData = "GetPasswordData"
 // client's request for the GetPasswordData operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -16684,6 +17619,15 @@ const opGetPasswordData = "GetPasswordData"
 // See GetPasswordData for more information on using the GetPasswordData
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetPasswordData for more information on using the GetPasswordData
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -16716,6 +17660,7 @@ func (c *EC2) GetPasswordDataRequest(input *GetPasswordDataInput) (req *request.
 // GetPasswordData API operation for Amazon Elastic Compute Cloud.
 //
 // Retrieves the encrypted administrator password for a running Windows instance.
+<<<<<<< HEAD
 //
 // The Windows password is generated at boot by the EC2Config service or EC2Launch
 // scripts (Windows Server 2016 and later). This usually only happens the first
@@ -16723,6 +17668,15 @@ func (c *EC2) GetPasswordDataRequest(input *GetPasswordDataInput) (req *request.
 // and EC2Launch (http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2launch.html)
 // in the Amazon Elastic Compute Cloud User Guide.
 //
+=======
+//
+// The Windows password is generated at boot by the EC2Config service or EC2Launch
+// scripts (Windows Server 2016 and later). This usually only happens the first
+// time an instance is launched. For more information, see EC2Config (http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/UsingConfig_WinAMI.html)
+// and EC2Launch (http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2launch.html)
+// in the Amazon Elastic Compute Cloud User Guide.
+//
+>>>>>>> Initial dep workover
 // For the EC2Config service, the password is not generated for rebundled AMIs
 // unless Ec2SetPassword is enabled before bundling.
 //
@@ -17002,6 +17956,7 @@ const opImportKeyPair = "ImportKeyPair"
 // client's request for the ImportKeyPair operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -17009,6 +17964,15 @@ const opImportKeyPair = "ImportKeyPair"
 // See ImportKeyPair for more information on using the ImportKeyPair
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ImportKeyPair for more information on using the ImportKeyPair
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -17083,6 +18047,7 @@ const opImportSnapshot = "ImportSnapshot"
 // client's request for the ImportSnapshot operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -17090,6 +18055,15 @@ const opImportSnapshot = "ImportSnapshot"
 // See ImportSnapshot for more information on using the ImportSnapshot
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ImportSnapshot for more information on using the ImportSnapshot
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -17254,7 +18228,11 @@ const opModifyFpgaImageAttribute = "ModifyFpgaImageAttribute"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttribute
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttribute
+>>>>>>> Initial dep workover
 func (c *EC2) ModifyFpgaImageAttributeRequest(input *ModifyFpgaImageAttributeInput) (req *request.Request, output *ModifyFpgaImageAttributeOutput) {
 	op := &request.Operation{
 		Name:       opModifyFpgaImageAttribute,
@@ -17281,7 +18259,11 @@ func (c *EC2) ModifyFpgaImageAttributeRequest(input *ModifyFpgaImageAttributeInp
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation ModifyFpgaImageAttribute for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttribute
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttribute
+>>>>>>> Initial dep workover
 func (c *EC2) ModifyFpgaImageAttribute(input *ModifyFpgaImageAttributeInput) (*ModifyFpgaImageAttributeOutput, error) {
 	req, out := c.ModifyFpgaImageAttributeRequest(input)
 	return out, req.Send()
@@ -17479,6 +18461,7 @@ const opModifyIdentityIdFormat = "ModifyIdentityIdFormat"
 // client's request for the ModifyIdentityIdFormat operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -17486,6 +18469,15 @@ const opModifyIdentityIdFormat = "ModifyIdentityIdFormat"
 // See ModifyIdentityIdFormat for more information on using the ModifyIdentityIdFormat
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyIdentityIdFormat for more information on using the ModifyIdentityIdFormat
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -17569,6 +18561,7 @@ const opModifyImageAttribute = "ModifyImageAttribute"
 // client's request for the ModifyImageAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -17576,6 +18569,15 @@ const opModifyImageAttribute = "ModifyImageAttribute"
 // See ModifyImageAttribute for more information on using the ModifyImageAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyImageAttribute for more information on using the ModifyImageAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -17654,6 +18656,7 @@ const opModifyInstanceAttribute = "ModifyInstanceAttribute"
 // client's request for the ModifyInstanceAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -17661,6 +18664,15 @@ const opModifyInstanceAttribute = "ModifyInstanceAttribute"
 // See ModifyInstanceAttribute for more information on using the ModifyInstanceAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyInstanceAttribute for more information on using the ModifyInstanceAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -17981,6 +18993,7 @@ const opModifyNetworkInterfaceAttribute = "ModifyNetworkInterfaceAttribute"
 // client's request for the ModifyNetworkInterfaceAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -17988,6 +19001,15 @@ const opModifyNetworkInterfaceAttribute = "ModifyNetworkInterfaceAttribute"
 // See ModifyNetworkInterfaceAttribute for more information on using the ModifyNetworkInterfaceAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyNetworkInterfaceAttribute for more information on using the ModifyNetworkInterfaceAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18058,6 +19080,7 @@ const opModifyReservedInstances = "ModifyReservedInstances"
 // client's request for the ModifyReservedInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18065,6 +19088,15 @@ const opModifyReservedInstances = "ModifyReservedInstances"
 // See ModifyReservedInstances for more information on using the ModifyReservedInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyReservedInstances for more information on using the ModifyReservedInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18138,6 +19170,7 @@ const opModifySnapshotAttribute = "ModifySnapshotAttribute"
 // client's request for the ModifySnapshotAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18145,6 +19178,15 @@ const opModifySnapshotAttribute = "ModifySnapshotAttribute"
 // See ModifySnapshotAttribute for more information on using the ModifySnapshotAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifySnapshotAttribute for more information on using the ModifySnapshotAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18226,6 +19268,7 @@ const opModifySpotFleetRequest = "ModifySpotFleetRequest"
 // client's request for the ModifySpotFleetRequest operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18233,6 +19276,15 @@ const opModifySpotFleetRequest = "ModifySpotFleetRequest"
 // See ModifySpotFleetRequest for more information on using the ModifySpotFleetRequest
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifySpotFleetRequest for more information on using the ModifySpotFleetRequest
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18322,6 +19374,7 @@ const opModifySubnetAttribute = "ModifySubnetAttribute"
 // client's request for the ModifySubnetAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18329,6 +19382,15 @@ const opModifySubnetAttribute = "ModifySubnetAttribute"
 // See ModifySubnetAttribute for more information on using the ModifySubnetAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifySubnetAttribute for more information on using the ModifySubnetAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18398,6 +19460,7 @@ const opModifyVolume = "ModifyVolume"
 // client's request for the ModifyVolume operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18405,6 +19468,15 @@ const opModifyVolume = "ModifyVolume"
 // See ModifyVolume for more information on using the ModifyVolume
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyVolume for more information on using the ModifyVolume
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18504,6 +19576,7 @@ const opModifyVolumeAttribute = "ModifyVolumeAttribute"
 // client's request for the ModifyVolumeAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18511,6 +19584,15 @@ const opModifyVolumeAttribute = "ModifyVolumeAttribute"
 // See ModifyVolumeAttribute for more information on using the ModifyVolumeAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyVolumeAttribute for more information on using the ModifyVolumeAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18589,6 +19671,7 @@ const opModifyVpcAttribute = "ModifyVpcAttribute"
 // client's request for the ModifyVpcAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18596,6 +19679,15 @@ const opModifyVpcAttribute = "ModifyVpcAttribute"
 // See ModifyVpcAttribute for more information on using the ModifyVpcAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyVpcAttribute for more information on using the ModifyVpcAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18665,6 +19757,7 @@ const opModifyVpcEndpoint = "ModifyVpcEndpoint"
 // client's request for the ModifyVpcEndpoint operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18672,6 +19765,15 @@ const opModifyVpcEndpoint = "ModifyVpcEndpoint"
 // See ModifyVpcEndpoint for more information on using the ModifyVpcEndpoint
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyVpcEndpoint for more information on using the ModifyVpcEndpoint
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -18971,6 +20073,7 @@ const opModifyVpcPeeringConnectionOptions = "ModifyVpcPeeringConnectionOptions"
 // client's request for the ModifyVpcPeeringConnectionOptions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -18978,6 +20081,15 @@ const opModifyVpcPeeringConnectionOptions = "ModifyVpcPeeringConnectionOptions"
 // See ModifyVpcPeeringConnectionOptions for more information on using the ModifyVpcPeeringConnectionOptions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyVpcPeeringConnectionOptions for more information on using the ModifyVpcPeeringConnectionOptions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -19083,7 +20195,11 @@ const opModifyVpcTenancy = "ModifyVpcTenancy"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcTenancy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcTenancy
+>>>>>>> Initial dep workover
 func (c *EC2) ModifyVpcTenancyRequest(input *ModifyVpcTenancyInput) (req *request.Request, output *ModifyVpcTenancyOutput) {
 	op := &request.Operation{
 		Name:       opModifyVpcTenancy,
@@ -19119,7 +20235,11 @@ func (c *EC2) ModifyVpcTenancyRequest(input *ModifyVpcTenancyInput) (req *reques
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation ModifyVpcTenancy for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcTenancy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcTenancy
+>>>>>>> Initial dep workover
 func (c *EC2) ModifyVpcTenancy(input *ModifyVpcTenancyInput) (*ModifyVpcTenancyOutput, error) {
 	req, out := c.ModifyVpcTenancyRequest(input)
 	return out, req.Send()
@@ -19383,6 +20503,7 @@ const opPurchaseReservedInstancesOffering = "PurchaseReservedInstancesOffering"
 // client's request for the PurchaseReservedInstancesOffering operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -19390,6 +20511,15 @@ const opPurchaseReservedInstancesOffering = "PurchaseReservedInstancesOffering"
 // See PurchaseReservedInstancesOffering for more information on using the PurchaseReservedInstancesOffering
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PurchaseReservedInstancesOffering for more information on using the PurchaseReservedInstancesOffering
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -19466,6 +20596,7 @@ const opPurchaseScheduledInstances = "PurchaseScheduledInstances"
 // client's request for the PurchaseScheduledInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -19473,6 +20604,15 @@ const opPurchaseScheduledInstances = "PurchaseScheduledInstances"
 // See PurchaseScheduledInstances for more information on using the PurchaseScheduledInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PurchaseScheduledInstances for more information on using the PurchaseScheduledInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -19812,6 +20952,7 @@ const opRejectVpcPeeringConnection = "RejectVpcPeeringConnection"
 // client's request for the RejectVpcPeeringConnection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -19819,6 +20960,15 @@ const opRejectVpcPeeringConnection = "RejectVpcPeeringConnection"
 // See RejectVpcPeeringConnection for more information on using the RejectVpcPeeringConnection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RejectVpcPeeringConnection for more information on using the RejectVpcPeeringConnection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -19890,6 +21040,7 @@ const opReleaseAddress = "ReleaseAddress"
 // client's request for the ReleaseAddress operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -19897,6 +21048,15 @@ const opReleaseAddress = "ReleaseAddress"
 // See ReleaseAddress for more information on using the ReleaseAddress
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ReleaseAddress for more information on using the ReleaseAddress
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -20737,7 +21897,11 @@ const opResetFpgaImageAttribute = "ResetFpgaImageAttribute"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResetFpgaImageAttribute
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResetFpgaImageAttribute
+>>>>>>> Initial dep workover
 func (c *EC2) ResetFpgaImageAttributeRequest(input *ResetFpgaImageAttributeInput) (req *request.Request, output *ResetFpgaImageAttributeOutput) {
 	op := &request.Operation{
 		Name:       opResetFpgaImageAttribute,
@@ -20765,7 +21929,11 @@ func (c *EC2) ResetFpgaImageAttributeRequest(input *ResetFpgaImageAttributeInput
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation ResetFpgaImageAttribute for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResetFpgaImageAttribute
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResetFpgaImageAttribute
+>>>>>>> Initial dep workover
 func (c *EC2) ResetFpgaImageAttribute(input *ResetFpgaImageAttributeInput) (*ResetFpgaImageAttributeOutput, error) {
 	req, out := c.ResetFpgaImageAttributeRequest(input)
 	return out, req.Send()
@@ -20793,6 +21961,7 @@ const opResetImageAttribute = "ResetImageAttribute"
 // client's request for the ResetImageAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -20800,6 +21969,15 @@ const opResetImageAttribute = "ResetImageAttribute"
 // See ResetImageAttribute for more information on using the ResetImageAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ResetImageAttribute for more information on using the ResetImageAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -20871,6 +22049,7 @@ const opResetInstanceAttribute = "ResetInstanceAttribute"
 // client's request for the ResetInstanceAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -20878,6 +22057,15 @@ const opResetInstanceAttribute = "ResetInstanceAttribute"
 // See ResetInstanceAttribute for more information on using the ResetInstanceAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ResetInstanceAttribute for more information on using the ResetInstanceAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -20955,6 +22143,7 @@ const opResetNetworkInterfaceAttribute = "ResetNetworkInterfaceAttribute"
 // client's request for the ResetNetworkInterfaceAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -20962,6 +22151,15 @@ const opResetNetworkInterfaceAttribute = "ResetNetworkInterfaceAttribute"
 // See ResetNetworkInterfaceAttribute for more information on using the ResetNetworkInterfaceAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ResetNetworkInterfaceAttribute for more information on using the ResetNetworkInterfaceAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -21368,6 +22566,7 @@ const opRunInstances = "RunInstances"
 // client's request for the RunInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -21375,6 +22574,15 @@ const opRunInstances = "RunInstances"
 // See RunInstances for more information on using the RunInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RunInstances for more information on using the RunInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -21675,6 +22883,7 @@ const opStopInstances = "StopInstances"
 // client's request for the StopInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -21682,6 +22891,15 @@ const opStopInstances = "StopInstances"
 // See StopInstances for more information on using the StopInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StopInstances for more information on using the StopInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -22124,7 +23342,11 @@ const opUpdateSecurityGroupRuleDescriptionsEgress = "UpdateSecurityGroupRuleDesc
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsEgress
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsEgress
+>>>>>>> Initial dep workover
 func (c *EC2) UpdateSecurityGroupRuleDescriptionsEgressRequest(input *UpdateSecurityGroupRuleDescriptionsEgressInput) (req *request.Request, output *UpdateSecurityGroupRuleDescriptionsEgressOutput) {
 	op := &request.Operation{
 		Name:       opUpdateSecurityGroupRuleDescriptionsEgress,
@@ -22157,7 +23379,11 @@ func (c *EC2) UpdateSecurityGroupRuleDescriptionsEgressRequest(input *UpdateSecu
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation UpdateSecurityGroupRuleDescriptionsEgress for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsEgress
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsEgress
+>>>>>>> Initial dep workover
 func (c *EC2) UpdateSecurityGroupRuleDescriptionsEgress(input *UpdateSecurityGroupRuleDescriptionsEgressInput) (*UpdateSecurityGroupRuleDescriptionsEgressOutput, error) {
 	req, out := c.UpdateSecurityGroupRuleDescriptionsEgressRequest(input)
 	return out, req.Send()
@@ -22204,7 +23430,11 @@ const opUpdateSecurityGroupRuleDescriptionsIngress = "UpdateSecurityGroupRuleDes
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsIngress
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsIngress
+>>>>>>> Initial dep workover
 func (c *EC2) UpdateSecurityGroupRuleDescriptionsIngressRequest(input *UpdateSecurityGroupRuleDescriptionsIngressInput) (req *request.Request, output *UpdateSecurityGroupRuleDescriptionsIngressOutput) {
 	op := &request.Operation{
 		Name:       opUpdateSecurityGroupRuleDescriptionsIngress,
@@ -22237,7 +23467,11 @@ func (c *EC2) UpdateSecurityGroupRuleDescriptionsIngressRequest(input *UpdateSec
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation UpdateSecurityGroupRuleDescriptionsIngress for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsIngress
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsIngress
+>>>>>>> Initial dep workover
 func (c *EC2) UpdateSecurityGroupRuleDescriptionsIngress(input *UpdateSecurityGroupRuleDescriptionsIngressInput) (*UpdateSecurityGroupRuleDescriptionsIngressOutput, error) {
 	req, out := c.UpdateSecurityGroupRuleDescriptionsIngressRequest(input)
 	return out, req.Send()
@@ -25614,7 +26848,11 @@ func (s *CancelledSpotInstanceRequest) SetState(v string) *CancelledSpotInstance
 }
 
 // Describes an IPv4 CIDR block.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CidrBlock
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CidrBlock
+>>>>>>> Initial dep workover
 type CidrBlock struct {
 	_ struct{} `type:"structure"`
 
@@ -25725,7 +26963,11 @@ func (s *ClassicLinkInstance) SetVpcId(v string) *ClassicLinkInstance {
 }
 
 // Describes a Classic Load Balancer.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ClassicLoadBalancer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ClassicLoadBalancer
+>>>>>>> Initial dep workover
 type ClassicLoadBalancer struct {
 	_ struct{} `type:"structure"`
 
@@ -25764,9 +27006,15 @@ func (s *ClassicLoadBalancer) SetName(v string) *ClassicLoadBalancer {
 	return s
 }
 
+<<<<<<< HEAD
 // Describes the Classic Load Balancers to attach to a Spot Fleet. Spot Fleet
 // registers the running Spot Instances with these Classic Load Balancers.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ClassicLoadBalancersConfig
+=======
+// Describes the Classic Load Balancers to attach to a Spot fleet. Spot fleet
+// registers the running Spot instances with these Classic Load Balancers.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ClassicLoadBalancersConfig
+>>>>>>> Initial dep workover
 type ClassicLoadBalancersConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -26138,7 +27386,11 @@ func (s *ConversionTask) SetTags(v []*Tag) *ConversionTask {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyFpgaImageRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyFpgaImageRequest
+>>>>>>> Initial dep workover
 type CopyFpgaImageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26231,7 +27483,11 @@ func (s *CopyFpgaImageInput) SetSourceRegion(v string) *CopyFpgaImageInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyFpgaImageResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyFpgaImageResult
+>>>>>>> Initial dep workover
 type CopyFpgaImageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -26684,7 +27940,11 @@ func (s *CreateCustomerGatewayOutput) SetCustomerGateway(v *CustomerGateway) *Cr
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateDefaultSubnetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateDefaultSubnetRequest
+>>>>>>> Initial dep workover
 type CreateDefaultSubnetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26735,7 +27995,11 @@ func (s *CreateDefaultSubnetInput) SetDryRun(v bool) *CreateDefaultSubnetInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateDefaultSubnetResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateDefaultSubnetResult
+>>>>>>> Initial dep workover
 type CreateDefaultSubnetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -29769,15 +31033,24 @@ type CreateVpcEndpointInput struct {
 	RouteTableIds []*string `locationName:"RouteTableId" locationNameList:"item" type:"list"`
 
 	// (Interface endpoint) The ID of one or more security groups to associate with
+<<<<<<< HEAD
 	// the endpoint network interface.
 	SecurityGroupIds []*string `locationName:"SecurityGroupId" locationNameList:"item" type:"list"`
 
 	// The service name. To get a list of available services, use the DescribeVpcEndpointServices
 	// request.
+=======
+	// the network interface.
+	SecurityGroupIds []*string `locationName:"SecurityGroupId" locationNameList:"item" type:"list"`
+
+	// The AWS service name, in the form com.amazonaws.region.service. To get a
+	// list of available services, use the DescribeVpcEndpointServices request.
+>>>>>>> Initial dep workover
 	//
 	// ServiceName is a required field
 	ServiceName *string `type:"string" required:"true"`
 
+<<<<<<< HEAD
 	// (Interface endpoint) The ID of one or more subnets in which to create an
 	// endpoint network interface.
 	SubnetIds []*string `locationName:"SubnetId" locationNameList:"item" type:"list"`
@@ -29785,6 +31058,13 @@ type CreateVpcEndpointInput struct {
 	// The type of endpoint.
 	//
 	// Default: Gateway
+=======
+	// (Interface endpoint) The ID of one or more subnets in which to create a network
+	// interface for the endpoint.
+	SubnetIds []*string `locationName:"SubnetId" locationNameList:"item" type:"list"`
+
+	// The type of endpoint. If not specified, the default is a gateway endpoint.
+>>>>>>> Initial dep workover
 	VpcEndpointType *string `type:"string" enum:"VpcEndpointType"`
 
 	// The ID of the VPC in which the endpoint will be used.
@@ -30915,7 +32195,11 @@ func (s *DeleteFlowLogsOutput) SetUnsuccessful(v []*UnsuccessfulItem) *DeleteFlo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteFpgaImageRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteFpgaImageRequest
+>>>>>>> Initial dep workover
 type DeleteFpgaImageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -30966,7 +32250,11 @@ func (s *DeleteFpgaImageInput) SetFpgaImageId(v string) *DeleteFpgaImageInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteFpgaImageResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteFpgaImageResult
+>>>>>>> Initial dep workover
 type DeleteFpgaImageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -34129,7 +35417,11 @@ func (s *DescribeFlowLogsOutput) SetNextToken(v string) *DescribeFlowLogsOutput 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImageAttributeRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImageAttributeRequest
+>>>>>>> Initial dep workover
 type DescribeFpgaImageAttributeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -34194,7 +35486,11 @@ func (s *DescribeFpgaImageAttributeInput) SetFpgaImageId(v string) *DescribeFpga
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImageAttributeResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImageAttributeResult
+>>>>>>> Initial dep workover
 type DescribeFpgaImageAttributeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -34218,7 +35514,11 @@ func (s *DescribeFpgaImageAttributeOutput) SetFpgaImageAttribute(v *FpgaImageAtt
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImagesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFpgaImagesRequest
+>>>>>>> Initial dep workover
 type DescribeFpgaImagesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -39794,11 +41094,19 @@ type DescribeSpotInstanceRequestsInput struct {
 	//    * launch.key-name - The name of the key pair the instance launched with.
 	//
 	//    * launch.monitoring-enabled - Whether detailed monitoring is enabled for
+<<<<<<< HEAD
 	//    the Spot Instance.
 	//
 	//    * launch.ramdisk-id - The RAM disk ID.
 	//
 	//    * launched-availability-zone - The Availability Zone in which the request
+=======
+	//    the Spot instance.
+	//
+	//    * launch.ramdisk-id - The RAM disk ID.
+	//
+	//    * launched-availability-zone - The Availability Zone in which the bid
+>>>>>>> Initial dep workover
 	//    is launched.
 	//
 	//    * network-interface.addresses.primary - Indicates whether the IP address
@@ -39858,7 +41166,11 @@ type DescribeSpotInstanceRequestsInput struct {
 	//    * tag-value - The value of a tag assigned to the resource. This filter
 	//    is independent of the tag-key filter.
 	//
+<<<<<<< HEAD
 	//    * type - The type of Spot Instance request (one-time | persistent).
+=======
+	//    * type - The type of Spot instance request (one-time | persistent).
+>>>>>>> Initial dep workover
 	//
 	//    * valid-from - The start date of the request.
 	//
@@ -41737,7 +43049,11 @@ type DescribeVpcEndpointServicesOutput struct {
 	// Information about the service.
 	ServiceDetails []*ServiceDetail `locationName:"serviceDetailSet" locationNameList:"item" type:"list"`
 
+<<<<<<< HEAD
 	// A list of supported services.
+=======
+	// A list of supported AWS services.
+>>>>>>> Initial dep workover
 	ServiceNames []*string `locationName:"serviceNameSet" locationNameList:"item" type:"list"`
 }
 
@@ -43612,7 +44928,11 @@ func (s *DiskImageVolumeDescription) SetSize(v int64) *DiskImageVolumeDescriptio
 }
 
 // Describes a DNS entry.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DnsEntry
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DnsEntry
+>>>>>>> Initial dep workover
 type DnsEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -44414,12 +45734,22 @@ type EventInformation struct {
 	//
 	// The following are the Information events:
 	//
+<<<<<<< HEAD
 	//    * launchSpecUnusable - The price in a launch specification is not valid
 	//    because it is below the Spot price or the Spot price is above the On-Demand
 	//    price.
 	//
 	//    * fleetProgressHalted - The price in every launch specification is not
 	//    valid. A launch specification might become valid if the Spot price changes.
+=======
+	//    * launchSpecUnusable - The bid price of a launch specification is not
+	//    valid because it is below the market price or the market price is above
+	//    the On-Demand price.
+	//
+	//    * fleetProgressHalted - The bid price of every launch specification is
+	//    not valid. A launch specification might become valid if the market price
+	//    changes.
+>>>>>>> Initial dep workover
 	EventSubType *string `locationName:"eventSubType" type:"string"`
 
 	// The ID of the instance. This information is available only for instanceChange
@@ -44974,7 +46304,11 @@ func (s *FpgaImage) SetUpdateTime(v time.Time) *FpgaImage {
 }
 
 // Describes an Amazon FPGA image (AFI) attribute.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/FpgaImageAttribute
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/FpgaImageAttribute
+>>>>>>> Initial dep workover
 type FpgaImageAttribute struct {
 	_ struct{} `type:"structure"`
 
@@ -45762,6 +47096,7 @@ type HistoryRecord struct {
 
 	// The event type.
 	//
+<<<<<<< HEAD
 	//    * error - An error with the Spot Fleet request.
 	//
 	//    * fleetRequestChange - A change in the status or configuration of the
@@ -45769,6 +47104,15 @@ type HistoryRecord struct {
 	//
 	//    * instanceChange - An instance was launched or terminated.
 	//
+=======
+	//    * error - An error with the Spot fleet request.
+	//
+	//    * fleetRequestChange - A change in the status or configuration of the
+	//    Spot fleet request.
+	//
+	//    * instanceChange - An instance was launched or terminated.
+	//
+>>>>>>> Initial dep workover
 	//    * Information - An informational event.
 	//
 	// EventType is a required field
@@ -49552,7 +50896,11 @@ func (s *InternetGatewayAttachment) SetVpcId(v string) *InternetGatewayAttachmen
 }
 
 // Describes a set of permissions for a security group rule.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpPermission
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpPermission
+>>>>>>> Initial dep workover
 type IpPermission struct {
 	_ struct{} `type:"structure"`
 
@@ -49659,6 +51007,7 @@ type IpRange struct {
 	// Constraints: Up to 255 characters in length. Allowed characters are a-z,
 	// A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*
 	Description *string `locationName:"description" type:"string"`
+<<<<<<< HEAD
 }
 
 // String returns the string representation
@@ -51175,6 +52524,8 @@ type LaunchTemplateSpotMarketOptionsRequest struct {
 	// or this date and time is reached. The default end date is 7 days from the
 	// current date.
 	ValidUntil *time.Time `type:"timestamp" timestampFormat:"iso8601"`
+=======
+>>>>>>> Initial dep workover
 }
 
 // String returns the string representation
@@ -51193,6 +52544,7 @@ func (s *LaunchTemplateSpotMarketOptionsRequest) SetBlockDurationMinutes(v int64
 	return s
 }
 
+<<<<<<< HEAD
 // SetInstanceInterruptionBehavior sets the InstanceInterruptionBehavior field's value.
 func (s *LaunchTemplateSpotMarketOptionsRequest) SetInstanceInterruptionBehavior(v string) *LaunchTemplateSpotMarketOptionsRequest {
 	s.InstanceInterruptionBehavior = &v
@@ -51220,6 +52572,17 @@ func (s *LaunchTemplateSpotMarketOptionsRequest) SetValidUntil(v time.Time) *Lau
 // The tag specification for the launch template.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateTagSpecification
 type LaunchTemplateTagSpecification struct {
+=======
+// SetDescription sets the Description field's value.
+func (s *IpRange) SetDescription(v string) *IpRange {
+	s.Description = &v
+	return s
+}
+
+// Describes an IPv6 CIDR block.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/Ipv6CidrBlock
+type Ipv6CidrBlock struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The type of resource.
@@ -51256,12 +52619,25 @@ func (s *LaunchTemplateTagSpecification) SetTags(v []*Tag) *LaunchTemplateTagSpe
 type LaunchTemplateTagSpecificationRequest struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// The type of resource to tag. Currently, the resource types that support tagging
 	// on creation are instance and volume.
 	ResourceType *string `type:"string" enum:"ResourceType"`
 
 	// The tags to apply to the resource.
 	Tags []*Tag `locationName:"Tag" locationNameList:"item" type:"list"`
+=======
+	// The IPv6 CIDR range. You can either specify a CIDR range or a source security
+	// group, not both. To specify a single IPv6 address, use the /128 prefix length.
+	CidrIpv6 *string `locationName:"cidrIpv6" type:"string"`
+
+	// A description for the security group rule that references this IPv6 address
+	// range.
+	//
+	// Constraints: Up to 255 characters in length. Allowed characters are a-z,
+	// A-Z, 0-9, spaces, and ._-:/()#,@[]+=;{}!$*
+	Description *string `locationName:"description" type:"string"`
+>>>>>>> Initial dep workover
 }
 
 // String returns the string representation
@@ -51280,6 +52656,7 @@ func (s *LaunchTemplateTagSpecificationRequest) SetResourceType(v string) *Launc
 	return s
 }
 
+<<<<<<< HEAD
 // SetTags sets the Tags field's value.
 func (s *LaunchTemplateTagSpecificationRequest) SetTags(v []*Tag) *LaunchTemplateTagSpecificationRequest {
 	s.Tags = v
@@ -51289,6 +52666,17 @@ func (s *LaunchTemplateTagSpecificationRequest) SetTags(v []*Tag) *LaunchTemplat
 // Describes a launch template version.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateVersion
 type LaunchTemplateVersion struct {
+=======
+// SetDescription sets the Description field's value.
+func (s *Ipv6Range) SetDescription(v string) *Ipv6Range {
+	s.Description = &v
+	return s
+}
+
+// Describes a key pair.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/KeyPairInfo
+type KeyPairInfo struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The time the version was created.
@@ -51557,9 +52945,14 @@ type LoadPermissionRequest struct {
 	// The name of the group.
 	Group *string `type:"string" enum:"PermissionGroup"`
 
+<<<<<<< HEAD
 	// The AWS account ID.
 	UserId *string `type:"string"`
 }
+=======
+	// One or more block device mapping entries.
+	BlockDeviceMappings []*BlockDeviceMapping `locationName:"blockDeviceMapping" locationNameList:"item" type:"list"`
+>>>>>>> Initial dep workover
 
 // String returns the string representation
 func (s LoadPermissionRequest) String() string {
@@ -51711,6 +53104,314 @@ func (s *ModifyFpgaImageAttributeInput) SetUserIds(v []*string) *ModifyFpgaImage
 }
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttributeResult
+type ModifyFpgaImageAttributeOutput struct {
+	_ struct{} `type:"structure"`
+
+	// Information about the attribute.
+	FpgaImageAttribute *FpgaImageAttribute `locationName:"fpgaImageAttribute" type:"structure"`
+}
+
+// String returns the string representation
+func (s ModifyFpgaImageAttributeOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ModifyFpgaImageAttributeOutput) GoString() string {
+	return s.String()
+}
+
+// SetFpgaImageAttribute sets the FpgaImageAttribute field's value.
+func (s *ModifyFpgaImageAttributeOutput) SetFpgaImageAttribute(v *FpgaImageAttribute) *ModifyFpgaImageAttributeOutput {
+	s.FpgaImageAttribute = v
+	return s
+}
+
+// Describes the Classic Load Balancers and target groups to attach to a Spot
+// fleet request.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LoadBalancersConfig
+type LoadBalancersConfig struct {
+	_ struct{} `type:"structure"`
+
+	// The Classic Load Balancers.
+	ClassicLoadBalancersConfig *ClassicLoadBalancersConfig `locationName:"classicLoadBalancersConfig" type:"structure"`
+
+	// The target groups.
+	TargetGroupsConfig *TargetGroupsConfig `locationName:"targetGroupsConfig" type:"structure"`
+}
+
+// String returns the string representation
+func (s LoadBalancersConfig) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LoadBalancersConfig) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *LoadBalancersConfig) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "LoadBalancersConfig"}
+	if s.ClassicLoadBalancersConfig != nil {
+		if err := s.ClassicLoadBalancersConfig.Validate(); err != nil {
+			invalidParams.AddNested("ClassicLoadBalancersConfig", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.TargetGroupsConfig != nil {
+		if err := s.TargetGroupsConfig.Validate(); err != nil {
+			invalidParams.AddNested("TargetGroupsConfig", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetClassicLoadBalancersConfig sets the ClassicLoadBalancersConfig field's value.
+func (s *LoadBalancersConfig) SetClassicLoadBalancersConfig(v *ClassicLoadBalancersConfig) *LoadBalancersConfig {
+	s.ClassicLoadBalancersConfig = v
+	return s
+}
+
+// SetTargetGroupsConfig sets the TargetGroupsConfig field's value.
+func (s *LoadBalancersConfig) SetTargetGroupsConfig(v *TargetGroupsConfig) *LoadBalancersConfig {
+	s.TargetGroupsConfig = v
+	return s
+}
+
+// Describes a load permission.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LoadPermission
+type LoadPermission struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the group.
+	Group *string `locationName:"group" type:"string" enum:"PermissionGroup"`
+
+	// The AWS account ID.
+	UserId *string `locationName:"userId" type:"string"`
+}
+
+// String returns the string representation
+func (s LoadPermission) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LoadPermission) GoString() string {
+	return s.String()
+}
+
+// SetGroup sets the Group field's value.
+func (s *LoadPermission) SetGroup(v string) *LoadPermission {
+	s.Group = &v
+	return s
+}
+
+// SetUserId sets the UserId field's value.
+func (s *LoadPermission) SetUserId(v string) *LoadPermission {
+	s.UserId = &v
+	return s
+}
+
+// Describes modifications to the load permissions of an Amazon FPGA image (AFI).
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LoadPermissionModifications
+type LoadPermissionModifications struct {
+	_ struct{} `type:"structure"`
+
+	// The load permissions to add.
+	Add []*LoadPermissionRequest `locationNameList:"item" type:"list"`
+
+	// The load permissions to remove.
+	Remove []*LoadPermissionRequest `locationNameList:"item" type:"list"`
+}
+
+// String returns the string representation
+func (s LoadPermissionModifications) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LoadPermissionModifications) GoString() string {
+	return s.String()
+}
+
+// SetAdd sets the Add field's value.
+func (s *LoadPermissionModifications) SetAdd(v []*LoadPermissionRequest) *LoadPermissionModifications {
+	s.Add = v
+	return s
+}
+
+// SetRemove sets the Remove field's value.
+func (s *LoadPermissionModifications) SetRemove(v []*LoadPermissionRequest) *LoadPermissionModifications {
+	s.Remove = v
+	return s
+}
+
+// Describes a load permission.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LoadPermissionRequest
+type LoadPermissionRequest struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the group.
+	Group *string `type:"string" enum:"PermissionGroup"`
+
+	// The AWS account ID.
+	UserId *string `type:"string"`
+}
+
+// String returns the string representation
+func (s LoadPermissionRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LoadPermissionRequest) GoString() string {
+	return s.String()
+}
+
+// SetGroup sets the Group field's value.
+func (s *LoadPermissionRequest) SetGroup(v string) *LoadPermissionRequest {
+	s.Group = &v
+	return s
+}
+
+// SetUserId sets the UserId field's value.
+func (s *LoadPermissionRequest) SetUserId(v string) *LoadPermissionRequest {
+	s.UserId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttributeRequest
+type ModifyFpgaImageAttributeInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the attribute.
+	Attribute *string `type:"string" enum:"FpgaImageAttributeName"`
+
+	// A description for the AFI.
+	Description *string `type:"string"`
+
+	// Checks whether you have the required permissions for the action, without
+	// actually making the request, and provides an error response. If you have
+	// the required permissions, the error response is DryRunOperation. Otherwise,
+	// it is UnauthorizedOperation.
+	DryRun *bool `type:"boolean"`
+
+	// The ID of the AFI.
+	//
+	// FpgaImageId is a required field
+	FpgaImageId *string `type:"string" required:"true"`
+
+	// The load permission for the AFI.
+	LoadPermission *LoadPermissionModifications `type:"structure"`
+
+	// A name for the AFI.
+	Name *string `type:"string"`
+
+	// The operation type.
+	OperationType *string `type:"string" enum:"OperationType"`
+
+	// One or more product codes. After you add a product code to an AFI, it can't
+	// be removed. This parameter is valid only when modifying the productCodes
+	// attribute.
+	ProductCodes []*string `locationName:"ProductCode" locationNameList:"ProductCode" type:"list"`
+
+	// One or more user groups. This parameter is valid only when modifying the
+	// loadPermission attribute.
+	UserGroups []*string `locationName:"UserGroup" locationNameList:"UserGroup" type:"list"`
+
+	// One or more AWS account IDs. This parameter is valid only when modifying
+	// the loadPermission attribute.
+	UserIds []*string `locationName:"UserId" locationNameList:"UserId" type:"list"`
+}
+
+// String returns the string representation
+func (s ModifyFpgaImageAttributeInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ModifyFpgaImageAttributeInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ModifyFpgaImageAttributeInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ModifyFpgaImageAttributeInput"}
+	if s.FpgaImageId == nil {
+		invalidParams.Add(request.NewErrParamRequired("FpgaImageId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAttribute sets the Attribute field's value.
+func (s *ModifyFpgaImageAttributeInput) SetAttribute(v string) *ModifyFpgaImageAttributeInput {
+	s.Attribute = &v
+	return s
+}
+
+// SetDescription sets the Description field's value.
+func (s *ModifyFpgaImageAttributeInput) SetDescription(v string) *ModifyFpgaImageAttributeInput {
+	s.Description = &v
+	return s
+}
+
+// SetDryRun sets the DryRun field's value.
+func (s *ModifyFpgaImageAttributeInput) SetDryRun(v bool) *ModifyFpgaImageAttributeInput {
+	s.DryRun = &v
+	return s
+}
+
+// SetFpgaImageId sets the FpgaImageId field's value.
+func (s *ModifyFpgaImageAttributeInput) SetFpgaImageId(v string) *ModifyFpgaImageAttributeInput {
+	s.FpgaImageId = &v
+	return s
+}
+
+// SetLoadPermission sets the LoadPermission field's value.
+func (s *ModifyFpgaImageAttributeInput) SetLoadPermission(v *LoadPermissionModifications) *ModifyFpgaImageAttributeInput {
+	s.LoadPermission = v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *ModifyFpgaImageAttributeInput) SetName(v string) *ModifyFpgaImageAttributeInput {
+	s.Name = &v
+	return s
+}
+
+// SetOperationType sets the OperationType field's value.
+func (s *ModifyFpgaImageAttributeInput) SetOperationType(v string) *ModifyFpgaImageAttributeInput {
+	s.OperationType = &v
+	return s
+}
+
+// SetProductCodes sets the ProductCodes field's value.
+func (s *ModifyFpgaImageAttributeInput) SetProductCodes(v []*string) *ModifyFpgaImageAttributeInput {
+	s.ProductCodes = v
+	return s
+}
+
+// SetUserGroups sets the UserGroups field's value.
+func (s *ModifyFpgaImageAttributeInput) SetUserGroups(v []*string) *ModifyFpgaImageAttributeInput {
+	s.UserGroups = v
+	return s
+}
+
+// SetUserIds sets the UserIds field's value.
+func (s *ModifyFpgaImageAttributeInput) SetUserIds(v []*string) *ModifyFpgaImageAttributeInput {
+	s.UserIds = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttributeResult
 type ModifyFpgaImageAttributeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -53637,7 +55338,11 @@ func (s *ModifyVpcEndpointInput) SetVpcEndpointId(v string) *ModifyVpcEndpointIn
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointResult
+>>>>>>> Initial dep workover
 type ModifyVpcEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -53963,7 +55668,11 @@ func (s *ModifyVpcPeeringConnectionOptionsOutput) SetRequesterPeeringConnectionO
 }
 
 // Contains the parameters for ModifyVpcTenancy.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcTenancyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcTenancyRequest
+>>>>>>> Initial dep workover
 type ModifyVpcTenancyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -54029,7 +55738,11 @@ func (s *ModifyVpcTenancyInput) SetVpcId(v string) *ModifyVpcTenancyInput {
 }
 
 // Contains the output of ModifyVpcTenancy.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcTenancyResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcTenancyResult
+>>>>>>> Initial dep workover
 type ModifyVpcTenancyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -58231,10 +59944,17 @@ type RequestSpotInstancesInput struct {
 	// Default: 1
 	InstanceCount *int64 `locationName:"instanceCount" type:"integer"`
 
+<<<<<<< HEAD
 	// The behavior when a Spot Instance is interrupted. The default is terminate.
 	InstanceInterruptionBehavior *string `type:"string" enum:"InstanceInterruptionBehavior"`
 
 	// The instance launch group. Launch groups are Spot Instances that launch together
+=======
+	// Indicates whether a Spot instance stops or terminates when it is interrupted.
+	InstanceInterruptionBehavior *string `type:"string" enum:"InstanceInterruptionBehavior"`
+
+	// The instance launch group. Launch groups are Spot instances that launch together
+>>>>>>> Initial dep workover
 	// and terminate together.
 	//
 	// Default: Instances are launched and terminated individually
@@ -59435,7 +61155,11 @@ func (s *ReservedInstancesOffering) SetUsagePrice(v float64) *ReservedInstancesO
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResetFpgaImageAttributeRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResetFpgaImageAttributeRequest
+>>>>>>> Initial dep workover
 type ResetFpgaImageAttributeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -59495,7 +61219,11 @@ func (s *ResetFpgaImageAttributeInput) SetFpgaImageId(v string) *ResetFpgaImageA
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResetFpgaImageAttributeResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResetFpgaImageAttributeResult
+>>>>>>> Initial dep workover
 type ResetFpgaImageAttributeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -62450,7 +64178,11 @@ func (s *SecurityGroup) SetVpcId(v string) *SecurityGroup {
 }
 
 // Describes a security group.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SecurityGroupIdentifier
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SecurityGroupIdentifier
+>>>>>>> Initial dep workover
 type SecurityGroupIdentifier struct {
 	_ struct{} `type:"structure"`
 
@@ -62530,6 +64262,7 @@ func (s *SecurityGroupReference) SetVpcPeeringConnectionId(v string) *SecurityGr
 	return s
 }
 
+<<<<<<< HEAD
 // Describes a service configuration for a VPC endpoint service.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceConfiguration
 type ServiceConfiguration struct {
@@ -62630,6 +64363,10 @@ func (s *ServiceConfiguration) SetServiceType(v []*ServiceTypeDetail) *ServiceCo
 
 // Describes a VPC endpoint service.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceDetail
+=======
+// Describes a service.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceDetail
+>>>>>>> Initial dep workover
 type ServiceDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -62718,7 +64455,11 @@ func (s *ServiceDetail) SetVpcEndpointPolicySupported(v bool) *ServiceDetail {
 }
 
 // Describes the type of service for a VPC endpoint.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceTypeDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceTypeDetail
+>>>>>>> Initial dep workover
 type ServiceTypeDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -63662,6 +65403,7 @@ type SpotFleetRequestConfigData struct {
 	// IamFleetRole is a required field
 	IamFleetRole *string `locationName:"iamFleetRole" type:"string" required:"true"`
 
+<<<<<<< HEAD
 	// The behavior when a Spot Instance is interrupted. The default is terminate.
 	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
 
@@ -63674,13 +65416,32 @@ type SpotFleetRequestConfigData struct {
 	// One or more Classic Load Balancers and target groups to attach to the Spot
 	// Fleet request. Spot Fleet registers the running Spot Instances with the specified
 	// Classic Load Balancers and target groups.
+=======
+	// Indicates whether a Spot instance stops or terminates when it is interrupted.
+	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
+
+	// Information about the launch specifications for the Spot fleet request.
+>>>>>>> Initial dep workover
 	//
 	// With Network Load Balancers, Spot Fleet cannot register instances that have
 	// the following instance types: C1, CC1, CC2, CG1, CG2, CR1, CS1, G1, G2, HI1,
 	// HS1, M1, M2, M3, and T1.
 	LoadBalancersConfig *LoadBalancersConfig `locationName:"loadBalancersConfig" type:"structure"`
 
+<<<<<<< HEAD
 	// Indicates whether Spot Fleet should replace unhealthy instances.
+=======
+	// One or more Classic Load Balancers and target groups to attach to the Spot
+	// fleet request. Spot fleet registers the running Spot instances with the specified
+	// Classic Load Balancers and target groups.
+	//
+	// With Network Load Balancers, Spot fleet cannot register instances that have
+	// the following instance types: C1, CC1, CC2, CG1, CG2, CR1, CS1, G1, G2, HI1,
+	// HS1, M1, M2, M3, and T1.
+	LoadBalancersConfig *LoadBalancersConfig `locationName:"loadBalancersConfig" type:"structure"`
+
+	// Indicates whether Spot fleet should replace unhealthy instances.
+>>>>>>> Initial dep workover
 	ReplaceUnhealthyInstances *bool `locationName:"replaceUnhealthyInstances" type:"boolean"`
 
 	// The maximum price per unit hour that you are willing to pay for a Spot Instance.
@@ -63749,6 +65510,7 @@ func (s *SpotFleetRequestConfigData) Validate() error {
 			}
 		}
 	}
+<<<<<<< HEAD
 	if s.LaunchTemplateConfigs != nil {
 		for i, v := range s.LaunchTemplateConfigs {
 			if v == nil {
@@ -63759,6 +65521,8 @@ func (s *SpotFleetRequestConfigData) Validate() error {
 			}
 		}
 	}
+=======
+>>>>>>> Initial dep workover
 	if s.LoadBalancersConfig != nil {
 		if err := s.LoadBalancersConfig.Validate(); err != nil {
 			invalidParams.AddNested("LoadBalancersConfig", err.(request.ErrInvalidParams))
@@ -63813,12 +65577,15 @@ func (s *SpotFleetRequestConfigData) SetLaunchSpecifications(v []*SpotFleetLaunc
 	return s
 }
 
+<<<<<<< HEAD
 // SetLaunchTemplateConfigs sets the LaunchTemplateConfigs field's value.
 func (s *SpotFleetRequestConfigData) SetLaunchTemplateConfigs(v []*LaunchTemplateConfig) *SpotFleetRequestConfigData {
 	s.LaunchTemplateConfigs = v
 	return s
 }
 
+=======
+>>>>>>> Initial dep workover
 // SetLoadBalancersConfig sets the LoadBalancersConfig field's value.
 func (s *SpotFleetRequestConfigData) SetLoadBalancersConfig(v *LoadBalancersConfig) *SpotFleetRequestConfigData {
 	s.LoadBalancersConfig = v
@@ -63930,10 +65697,17 @@ type SpotInstanceRequest struct {
 	// request.
 	InstanceId *string `locationName:"instanceId" type:"string"`
 
+<<<<<<< HEAD
 	// The behavior when a Spot Instance is interrupted.
 	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
 
 	// The instance launch group. Launch groups are Spot Instances that launch together
+=======
+	// Indicates whether a Spot instance stops or terminates when it is interrupted.
+	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
+
+	// The instance launch group. Launch groups are Spot instances that launch together
+>>>>>>> Initial dep workover
 	// and terminate together.
 	LaunchGroup *string `locationName:"launchGroup" type:"string"`
 
@@ -64612,7 +66386,11 @@ type StateReason struct {
 	//    * Server.ScheduledStop: The instance was stopped due to a scheduled retirement.
 	//
 	//    * Server.SpotInstanceTermination: A Spot Instance was terminated due to
+<<<<<<< HEAD
 	//    an increase in the Spot price.
+=======
+	//    an increase in the market price.
+>>>>>>> Initial dep workover
 	//
 	//    * Client.InternalError: A client error caused the instance to terminate
 	//    on launch.
@@ -65240,7 +67018,11 @@ func (s *TargetConfigurationRequest) SetOfferingId(v string) *TargetConfiguratio
 }
 
 // Describes a load balancer target group.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/TargetGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/TargetGroup
+>>>>>>> Initial dep workover
 type TargetGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -65279,9 +67061,15 @@ func (s *TargetGroup) SetArn(v string) *TargetGroup {
 	return s
 }
 
+<<<<<<< HEAD
 // Describes the target groups to attach to a Spot Fleet. Spot Fleet registers
 // the running Spot Instances with these target groups.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/TargetGroupsConfig
+=======
+// Describes the target groups to attach to a Spot fleet. Spot fleet registers
+// the running Spot instances with these target groups.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/TargetGroupsConfig
+>>>>>>> Initial dep workover
 type TargetGroupsConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -65829,7 +67617,11 @@ func (s *UnsuccessfulItemError) SetMessage(v string) *UnsuccessfulItemError {
 }
 
 // Contains the parameters for UpdateSecurityGroupRuleDescriptionsEgress.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsEgressRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsEgressRequest
+>>>>>>> Initial dep workover
 type UpdateSecurityGroupRuleDescriptionsEgressInput struct {
 	_ struct{} `type:"structure"`
 
@@ -65902,7 +67694,11 @@ func (s *UpdateSecurityGroupRuleDescriptionsEgressInput) SetIpPermissions(v []*I
 }
 
 // Contains the output of UpdateSecurityGroupRuleDescriptionsEgress.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsEgressResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsEgressResult
+>>>>>>> Initial dep workover
 type UpdateSecurityGroupRuleDescriptionsEgressOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -65927,7 +67723,11 @@ func (s *UpdateSecurityGroupRuleDescriptionsEgressOutput) SetReturn(v bool) *Upd
 }
 
 // Contains the parameters for UpdateSecurityGroupRuleDescriptionsIngress.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsIngressRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsIngressRequest
+>>>>>>> Initial dep workover
 type UpdateSecurityGroupRuleDescriptionsIngressInput struct {
 	_ struct{} `type:"structure"`
 
@@ -66000,7 +67800,11 @@ func (s *UpdateSecurityGroupRuleDescriptionsIngressInput) SetIpPermissions(v []*
 }
 
 // Contains the output of UpdateSecurityGroupRuleDescriptionsIngress.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsIngressResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateSecurityGroupRuleDescriptionsIngressResult
+>>>>>>> Initial dep workover
 type UpdateSecurityGroupRuleDescriptionsIngressOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -67021,7 +68825,11 @@ func (s *VpcAttachment) SetVpcId(v string) *VpcAttachment {
 }
 
 // Describes an IPv4 CIDR block associated with a VPC.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpcCidrBlockAssociation
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpcCidrBlockAssociation
+>>>>>>> Initial dep workover
 type VpcCidrBlockAssociation struct {
 	_ struct{} `type:"structure"`
 
@@ -67920,7 +69728,11 @@ func (s *VpnStaticRoute) SetState(v string) *VpnStaticRoute {
 }
 
 // The tunnel options for a VPN connection.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpnTunnelOptionsSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpnTunnelOptionsSpecification
+>>>>>>> Initial dep workover
 type VpnTunnelOptionsSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -68490,9 +70302,12 @@ const (
 )
 
 const (
+<<<<<<< HEAD
 	// InstanceInterruptionBehaviorHibernate is a InstanceInterruptionBehavior enum value
 	InstanceInterruptionBehaviorHibernate = "hibernate"
 
+=======
+>>>>>>> Initial dep workover
 	// InstanceInterruptionBehaviorStop is a InstanceInterruptionBehavior enum value
 	InstanceInterruptionBehaviorStop = "stop"
 
@@ -69277,6 +71092,7 @@ const (
 )
 
 const (
+<<<<<<< HEAD
 	// ServiceStatePending is a ServiceState enum value
 	ServiceStatePending = "Pending"
 
@@ -69294,6 +71110,8 @@ const (
 )
 
 const (
+=======
+>>>>>>> Initial dep workover
 	// ServiceTypeInterface is a ServiceType enum value
 	ServiceTypeInterface = "Interface"
 

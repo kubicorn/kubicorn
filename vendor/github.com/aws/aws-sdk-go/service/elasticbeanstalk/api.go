@@ -901,6 +901,7 @@ const opDeleteApplication = "DeleteApplication"
 // client's request for the DeleteApplication operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -908,6 +909,15 @@ const opDeleteApplication = "DeleteApplication"
 // See DeleteApplication for more information on using the DeleteApplication
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteApplication for more information on using the DeleteApplication
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1090,6 +1100,7 @@ const opDeleteConfigurationTemplate = "DeleteConfigurationTemplate"
 // client's request for the DeleteConfigurationTemplate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1097,6 +1108,15 @@ const opDeleteConfigurationTemplate = "DeleteConfigurationTemplate"
 // See DeleteConfigurationTemplate for more information on using the DeleteConfigurationTemplate
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteConfigurationTemplate for more information on using the DeleteConfigurationTemplate
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1176,6 +1196,7 @@ const opDeleteEnvironmentConfiguration = "DeleteEnvironmentConfiguration"
 // client's request for the DeleteEnvironmentConfiguration operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1183,6 +1204,15 @@ const opDeleteEnvironmentConfiguration = "DeleteEnvironmentConfiguration"
 // See DeleteEnvironmentConfiguration for more information on using the DeleteEnvironmentConfiguration
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteEnvironmentConfiguration for more information on using the DeleteEnvironmentConfiguration
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1259,6 +1289,7 @@ const opDeletePlatformVersion = "DeletePlatformVersion"
 // client's request for the DeletePlatformVersion operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1266,6 +1297,15 @@ const opDeletePlatformVersion = "DeletePlatformVersion"
 // See DeletePlatformVersion for more information on using the DeletePlatformVersion
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeletePlatformVersion for more information on using the DeletePlatformVersion
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1350,6 +1390,7 @@ const opDescribeApplicationVersions = "DescribeApplicationVersions"
 // client's request for the DescribeApplicationVersions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1357,6 +1398,15 @@ const opDescribeApplicationVersions = "DescribeApplicationVersions"
 // See DescribeApplicationVersions for more information on using the DescribeApplicationVersions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeApplicationVersions for more information on using the DescribeApplicationVersions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2545,7 +2595,11 @@ const opListTagsForResource = "ListTagsForResource"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResource
+>>>>>>> Initial dep workover
 func (c *ElasticBeanstalk) ListTagsForResourceRequest(input *ListTagsForResourceInput) (req *request.Request, output *ListTagsForResourceOutput) {
 	op := &request.Operation{
 		Name:       opListTagsForResource,
@@ -2567,9 +2621,13 @@ func (c *ElasticBeanstalk) ListTagsForResourceRequest(input *ListTagsForResource
 // Returns the tags applied to an AWS Elastic Beanstalk resource. The response
 // contains a list of tag key-value pairs.
 //
+<<<<<<< HEAD
 // Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk environments.
 // For details about environment tagging, see Tagging Resources in Your Elastic
 // Beanstalk Environment (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
+=======
+// Currently, Elastic Beanstalk only supports tagging Elastic Beanstalk environments.
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -2590,7 +2648,11 @@ func (c *ElasticBeanstalk) ListTagsForResourceRequest(input *ListTagsForResource
 //   The type of the specified Amazon Resource Name (ARN) isn't supported for
 //   this operation.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResource
+>>>>>>> Initial dep workover
 func (c *ElasticBeanstalk) ListTagsForResource(input *ListTagsForResourceInput) (*ListTagsForResourceOutput, error) {
 	req, out := c.ListTagsForResourceRequest(input)
 	return out, req.Send()
@@ -2618,6 +2680,7 @@ const opRebuildEnvironment = "RebuildEnvironment"
 // client's request for the RebuildEnvironment operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2625,6 +2688,15 @@ const opRebuildEnvironment = "RebuildEnvironment"
 // See RebuildEnvironment for more information on using the RebuildEnvironment
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RebuildEnvironment for more information on using the RebuildEnvironment
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2701,6 +2773,7 @@ const opRequestEnvironmentInfo = "RequestEnvironmentInfo"
 // client's request for the RequestEnvironmentInfo operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2708,6 +2781,15 @@ const opRequestEnvironmentInfo = "RequestEnvironmentInfo"
 // See RequestEnvironmentInfo for more information on using the RequestEnvironmentInfo
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RequestEnvironmentInfo for more information on using the RequestEnvironmentInfo
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2791,6 +2873,7 @@ const opRestartAppServer = "RestartAppServer"
 // client's request for the RestartAppServer operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2798,6 +2881,15 @@ const opRestartAppServer = "RestartAppServer"
 // See RestartAppServer for more information on using the RestartAppServer
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RestartAppServer for more information on using the RestartAppServer
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2868,6 +2960,7 @@ const opRetrieveEnvironmentInfo = "RetrieveEnvironmentInfo"
 // client's request for the RetrieveEnvironmentInfo operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2875,6 +2968,15 @@ const opRetrieveEnvironmentInfo = "RetrieveEnvironmentInfo"
 // See RetrieveEnvironmentInfo for more information on using the RetrieveEnvironmentInfo
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RetrieveEnvironmentInfo for more information on using the RetrieveEnvironmentInfo
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3022,6 +3124,7 @@ const opTerminateEnvironment = "TerminateEnvironment"
 // client's request for the TerminateEnvironment operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3029,6 +3132,15 @@ const opTerminateEnvironment = "TerminateEnvironment"
 // See TerminateEnvironment for more information on using the TerminateEnvironment
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See TerminateEnvironment for more information on using the TerminateEnvironment
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3102,6 +3214,7 @@ const opUpdateApplication = "UpdateApplication"
 // client's request for the UpdateApplication operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3109,6 +3222,15 @@ const opUpdateApplication = "UpdateApplication"
 // See UpdateApplication for more information on using the UpdateApplication
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateApplication for more information on using the UpdateApplication
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3179,6 +3301,7 @@ const opUpdateApplicationResourceLifecycle = "UpdateApplicationResourceLifecycle
 // client's request for the UpdateApplicationResourceLifecycle operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3186,6 +3309,15 @@ const opUpdateApplicationResourceLifecycle = "UpdateApplicationResourceLifecycle
 // See UpdateApplicationResourceLifecycle for more information on using the UpdateApplicationResourceLifecycle
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateApplicationResourceLifecycle for more information on using the UpdateApplicationResourceLifecycle
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3259,6 +3391,7 @@ const opUpdateApplicationVersion = "UpdateApplicationVersion"
 // client's request for the UpdateApplicationVersion operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3266,6 +3399,15 @@ const opUpdateApplicationVersion = "UpdateApplicationVersion"
 // See UpdateApplicationVersion for more information on using the UpdateApplicationVersion
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateApplicationVersion for more information on using the UpdateApplicationVersion
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3336,6 +3478,7 @@ const opUpdateConfigurationTemplate = "UpdateConfigurationTemplate"
 // client's request for the UpdateConfigurationTemplate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3343,6 +3486,15 @@ const opUpdateConfigurationTemplate = "UpdateConfigurationTemplate"
 // See UpdateConfigurationTemplate for more information on using the UpdateConfigurationTemplate
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateConfigurationTemplate for more information on using the UpdateConfigurationTemplate
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3539,7 +3691,11 @@ const opUpdateTagsForResource = "UpdateTagsForResource"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResource
+>>>>>>> Initial dep workover
 func (c *ElasticBeanstalk) UpdateTagsForResourceRequest(input *UpdateTagsForResourceInput) (req *request.Request, output *UpdateTagsForResourceOutput) {
 	op := &request.Operation{
 		Name:       opUpdateTagsForResource,
@@ -3564,6 +3720,7 @@ func (c *ElasticBeanstalk) UpdateTagsForResourceRequest(input *UpdateTagsForReso
 // lists can be passed: TagsToAdd for tags to add or update, and TagsToRemove.
 //
 // Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk environments.
+<<<<<<< HEAD
 // For details about environment tagging, see Tagging Resources in Your Elastic
 // Beanstalk Environment (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
 //
@@ -3579,6 +3736,8 @@ func (c *ElasticBeanstalk) UpdateTagsForResourceRequest(input *UpdateTagsForReso
 //
 // For details about creating a custom user policy, see Creating a Custom User
 // Policy (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies).
+=======
+>>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -3610,7 +3769,11 @@ func (c *ElasticBeanstalk) UpdateTagsForResourceRequest(input *UpdateTagsForReso
 //   The type of the specified Amazon Resource Name (ARN) isn't supported for
 //   this operation.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResource
+>>>>>>> Initial dep workover
 func (c *ElasticBeanstalk) UpdateTagsForResource(input *UpdateTagsForResourceInput) (*UpdateTagsForResourceOutput, error) {
 	req, out := c.UpdateTagsForResourceRequest(input)
 	return out, req.Send()
@@ -3638,6 +3801,7 @@ const opValidateConfigurationSettings = "ValidateConfigurationSettings"
 // client's request for the ValidateConfigurationSettings operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3645,6 +3809,15 @@ const opValidateConfigurationSettings = "ValidateConfigurationSettings"
 // See ValidateConfigurationSettings for more information on using the ValidateConfigurationSettings
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ValidateConfigurationSettings for more information on using the ValidateConfigurationSettings
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8507,7 +8680,11 @@ func (s *ListPlatformVersionsOutput) SetPlatformSummaryList(v []*PlatformSummary
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResourceMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ListTagsForResourceMessage
+>>>>>>> Initial dep workover
 type ListTagsForResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8548,7 +8725,11 @@ func (s *ListTagsForResourceInput) SetResourceArn(v string) *ListTagsForResource
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ResourceTagsDescriptionMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/ResourceTagsDescriptionMessage
+>>>>>>> Initial dep workover
 type ListTagsForResourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11001,7 +11182,11 @@ func (s *UpdateEnvironmentInput) SetVersionLabel(v string) *UpdateEnvironmentInp
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResourceMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResourceMessage
+>>>>>>> Initial dep workover
 type UpdateTagsForResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11074,7 +11259,11 @@ func (s *UpdateTagsForResourceInput) SetTagsToRemove(v []*string) *UpdateTagsFor
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResourceOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateTagsForResourceOutput
+>>>>>>> Initial dep workover
 type UpdateTagsForResourceOutput struct {
 	_ struct{} `type:"structure"`
 }

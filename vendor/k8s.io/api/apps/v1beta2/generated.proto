@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -31,8 +35,11 @@ import "k8s.io/apimachinery/pkg/util/intstr/generated.proto";
 // Package-wide variables from generator "generated".
 option go_package = "v1beta2";
 
+<<<<<<< HEAD
 // DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1/ControllerRevision. See the
 // release notes for more information.
+=======
+>>>>>>> Initial dep workover
 // ControllerRevision implements an immutable snapshot of state data. Clients
 // are responsible for serializing and deserializing the objects that contain
 // their internal state.
@@ -65,8 +72,11 @@ message ControllerRevisionList {
   repeated ControllerRevision items = 2;
 }
 
+<<<<<<< HEAD
 // DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the release notes for
 // more information.
+=======
+>>>>>>> Initial dep workover
 // DaemonSet represents the configuration of a daemon set.
 message DaemonSet {
   // Standard object's metadata.
@@ -88,6 +98,7 @@ message DaemonSet {
   optional DaemonSetStatus status = 3;
 }
 
+<<<<<<< HEAD
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
 message DaemonSetCondition {
   // Type of DaemonSet condition.
@@ -109,6 +120,8 @@ message DaemonSetCondition {
   optional string message = 5;
 }
 
+=======
+>>>>>>> Initial dep workover
 // DaemonSetList is a collection of daemon sets.
 message DaemonSetList {
   // Standard list metadata.
@@ -124,8 +137,14 @@ message DaemonSetList {
 message DaemonSetSpec {
   // A label query over pods that are managed by the daemon set.
   // Must match in order to be controlled.
+<<<<<<< HEAD
   // It must match the pod template's labels.
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+=======
+  // If empty, defaulted to labels on Pod template.
+  // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  // +optional
+>>>>>>> Initial dep workover
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 1;
 
   // An object that describes the pod that will be created.
@@ -199,12 +218,15 @@ message DaemonSetStatus {
   // create the name for the newest ControllerRevision.
   // +optional
   optional int32 collisionCount = 9;
+<<<<<<< HEAD
 
   // Represents the latest available observations of a DaemonSet's current state.
   // +optional
   // +patchMergeKey=type
   // +patchStrategy=merge
   repeated DaemonSetCondition conditions = 10;
+=======
+>>>>>>> Initial dep workover
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
@@ -222,8 +244,11 @@ message DaemonSetUpdateStrategy {
   optional RollingUpdateDaemonSet rollingUpdate = 2;
 }
 
+<<<<<<< HEAD
 // DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the release notes for
 // more information.
+=======
+>>>>>>> Initial dep workover
 // Deployment enables declarative updates for Pods and ReplicaSets.
 message Deployment {
   // Standard object metadata.
@@ -279,7 +304,11 @@ message DeploymentSpec {
 
   // Label selector for pods. Existing ReplicaSets whose pods are
   // selected by this will be the ones affected by this deployment.
+<<<<<<< HEAD
   // It must match the pod template's labels.
+=======
+  // +optional
+>>>>>>> Initial dep workover
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
 
   // Template describes the pods that will be created.
@@ -368,8 +397,11 @@ message DeploymentStrategy {
   optional RollingUpdateDeployment rollingUpdate = 2;
 }
 
+<<<<<<< HEAD
 // DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the release notes for
 // more information.
+=======
+>>>>>>> Initial dep workover
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
 message ReplicaSet {
   // If the Labels of a ReplicaSet are empty, they are defaulted to
@@ -441,9 +473,16 @@ message ReplicaSetSpec {
   optional int32 minReadySeconds = 4;
 
   // Selector is a label query over pods that should match the replica count.
+<<<<<<< HEAD
   // Label keys and values that must match in order to be controlled by this replica set.
   // It must match the pod template's labels.
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+=======
+  // If the selector is empty, it is defaulted to the labels present on the pod template.
+  // Label keys and values that must match in order to be controlled by this replica set.
+  // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  // +optional
+>>>>>>> Initial dep workover
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
 
   // Template is the object that describes the pod that will be created if
@@ -582,8 +621,11 @@ message ScaleStatus {
   optional string targetSelector = 3;
 }
 
+<<<<<<< HEAD
 // DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the release notes for
 // more information.
+=======
+>>>>>>> Initial dep workover
 // StatefulSet represents a set of pods with consistent identities.
 // Identities are defined as:
 //  - Network: A single stable DNS and hostname.
@@ -604,6 +646,7 @@ message StatefulSet {
   optional StatefulSetStatus status = 3;
 }
 
+<<<<<<< HEAD
 // StatefulSetCondition describes the state of a statefulset at a certain point.
 message StatefulSetCondition {
   // Type of statefulset condition.
@@ -625,6 +668,8 @@ message StatefulSetCondition {
   optional string message = 5;
 }
 
+=======
+>>>>>>> Initial dep workover
 // StatefulSetList is a collection of StatefulSets.
 message StatefulSetList {
   // +optional
@@ -644,8 +689,14 @@ message StatefulSetSpec {
   optional int32 replicas = 1;
 
   // selector is a label query over pods that should match the replica count.
+<<<<<<< HEAD
   // It must match the pod template's labels.
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+=======
+  // If empty, defaulted to labels on the pod template.
+  // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+  // +optional
+>>>>>>> Initial dep workover
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
 
   // template is the object that describes the pod that will be created if
@@ -728,12 +779,15 @@ message StatefulSetStatus {
   // newest ControllerRevision.
   // +optional
   optional int32 collisionCount = 9;
+<<<<<<< HEAD
 
   // Represents the latest available observations of a statefulset's current state.
   // +optional
   // +patchMergeKey=type
   // +patchStrategy=merge
   repeated StatefulSetCondition conditions = 10;
+=======
+>>>>>>> Initial dep workover
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet

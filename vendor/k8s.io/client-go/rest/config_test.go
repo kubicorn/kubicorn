@@ -35,8 +35,11 @@ import (
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 	"k8s.io/client-go/util/flowcontrol"
 
+<<<<<<< HEAD
 	"errors"
 
+=======
+>>>>>>> Initial dep workover
 	"github.com/stretchr/testify/assert"
 )
 
@@ -208,6 +211,7 @@ func (n *fakeNegotiatedSerializer) DecoderToVersion(serializer runtime.Decoder, 
 	return &fakeCodec{}
 }
 
+<<<<<<< HEAD
 var fakeDialFunc = func(network, addr string) (net.Conn, error) {
 	return nil, fakeDialerError
 }
@@ -221,6 +225,8 @@ func (fakeAuthProviderConfigPersister) Persist(map[string]string) error {
 
 var fakeAuthProviderConfigPersisterError = errors.New("fakeAuthProviderConfigPersisterError")
 
+=======
+>>>>>>> Initial dep workover
 func TestAnonymousConfig(t *testing.T) {
 	f := fuzz.New().NilChance(0.0).NumElements(1, 1)
 	f.Funcs(
@@ -283,6 +289,7 @@ func TestAnonymousConfig(t *testing.T) {
 			actual.WrapTransport = nil
 			expected.WrapTransport = nil
 		}
+<<<<<<< HEAD
 		if actual.Dial != nil {
 			_, actualError := actual.Dial("", "")
 			_, expectedError := actual.Dial("", "")
@@ -293,12 +300,15 @@ func TestAnonymousConfig(t *testing.T) {
 			actual.Dial = nil
 			expected.Dial = nil
 		}
+=======
+>>>>>>> Initial dep workover
 
 		if !reflect.DeepEqual(*actual, expected) {
 			t.Fatalf("AnonymousClientConfig dropped unexpected fields, identify whether they are security related or not: %s", diff.ObjectGoPrintDiff(expected, actual))
 		}
 	}
 }
+<<<<<<< HEAD
 
 func TestCopyConfig(t *testing.T) {
 	f := fuzz.New().NilChance(0.0).NumElements(1, 1)
@@ -374,3 +384,5 @@ func TestCopyConfig(t *testing.T) {
 		}
 	}
 }
+=======
+>>>>>>> Initial dep workover

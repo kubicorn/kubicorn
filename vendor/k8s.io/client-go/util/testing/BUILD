@@ -9,7 +9,10 @@ load(
 go_test(
     name = "go_default_test",
     srcs = ["fake_handler_test.go"],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/util/testing",
+=======
+>>>>>>> Initial dep workover
     library = ":go_default_library",
 )
 
@@ -19,7 +22,10 @@ go_library(
         "fake_handler.go",
         "tmpdir.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/util/testing",
+=======
+>>>>>>> Initial dep workover
 )
 
 filegroup(

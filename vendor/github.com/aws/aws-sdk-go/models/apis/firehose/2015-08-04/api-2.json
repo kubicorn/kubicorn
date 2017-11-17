@@ -52,6 +52,21 @@
         {"shape":"ResourceNotFoundException"}
       ]
     },
+    "GetKinesisStream":{
+      "name":"GetKinesisStream",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"GetKinesisStreamInput"},
+      "output":{"shape":"GetKinesisStreamOutput"},
+      "errors":[
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InvalidArgumentException"},
+        {"shape":"InvalidStreamTypeException"}
+      ],
+      "internalonly":true
+    },
     "ListDeliveryStreams":{
       "name":"ListDeliveryStreams",
       "http":{
@@ -112,6 +127,7 @@
       "min":1,
       "pattern":"arn:.*"
     },
+    "AccessKeyId":{"type":"string"},
     "BooleanObject":{"type":"boolean"},
     "BucketARN":{
       "type":"string",
@@ -494,6 +510,7 @@
         "S3BackupUpdate":{"shape":"S3DestinationUpdate"}
       }
     },
+<<<<<<< HEAD
     "HECAcknowledgmentTimeoutInSeconds":{
       "type":"integer",
       "max":600,
@@ -508,6 +525,23 @@
       ]
     },
     "HECToken":{"type":"string"},
+=======
+    "FirehoseSource":{"type":"string"},
+    "GetKinesisStreamInput":{
+      "type":"structure",
+      "required":["DeliveryStreamARN"],
+      "members":{
+        "DeliveryStreamARN":{"shape":"DeliveryStreamARN"}
+      }
+    },
+    "GetKinesisStreamOutput":{
+      "type":"structure",
+      "members":{
+        "KinesisStreamARN":{"shape":"KinesisStreamARN"},
+        "CredentialsForReadingKinesisStream":{"shape":"SessionCredentials"}
+      }
+    },
+>>>>>>> Initial dep workover
     "IntervalInSeconds":{
       "type":"integer",
       "max":900,
@@ -517,6 +551,14 @@
       "type":"structure",
       "members":{
         "message":{"shape":"ErrorMessage"}
+      },
+      "exception":true
+    },
+    "InvalidStreamTypeException":{
+      "type":"structure",
+      "members":{
+        "message":{"shape":"ErrorMessage"},
+        "source":{"shape":"FirehoseSource"}
       },
       "exception":true
     },
@@ -877,6 +919,7 @@
         "CloudWatchLoggingOptions":{"shape":"CloudWatchLoggingOptions"}
       }
     },
+    "SecretAccessKey":{"type":"string"},
     "ServiceUnavailableException":{
       "type":"structure",
       "members":{
@@ -885,6 +928,22 @@
       "exception":true,
       "fault":true
     },
+    "SessionCredentials":{
+      "type":"structure",
+      "required":[
+        "AccessKeyId",
+        "SecretAccessKey",
+        "SessionToken",
+        "Expiration"
+      ],
+      "members":{
+        "AccessKeyId":{"shape":"AccessKeyId"},
+        "SecretAccessKey":{"shape":"SecretAccessKey"},
+        "SessionToken":{"shape":"SessionToken"},
+        "Expiration":{"shape":"Timestamp"}
+      }
+    },
+    "SessionToken":{"type":"string"},
     "SizeInMBs":{
       "type":"integer",
       "max":128,
@@ -896,6 +955,7 @@
         "KinesisStreamSourceDescription":{"shape":"KinesisStreamSourceDescription"}
       }
     },
+<<<<<<< HEAD
     "SplunkDestinationConfiguration":{
       "type":"structure",
       "required":[
@@ -962,6 +1022,8 @@
         "AllEvents"
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "Timestamp":{"type":"timestamp"},
     "UpdateDestinationInput":{
       "type":"structure",

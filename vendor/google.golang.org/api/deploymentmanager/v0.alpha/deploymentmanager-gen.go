@@ -1976,10 +1976,13 @@ type Resource struct {
 	// YAML.
 	Properties string `json:"properties,omitempty"`
 
+<<<<<<< HEAD
 	// RuntimePolicies: Output only. In case this is an action, it will show
 	// the runtimePolicies on which this action will run in the deployment
 	RuntimePolicies []string `json:"runtimePolicies,omitempty"`
 
+=======
+>>>>>>> Initial dep workover
 	// Type: Output only. The type of the resource, for example
 	// compute.v1.instance, or cloudfunctions.v1beta1.function.
 	Type string `json:"type,omitempty"`
@@ -2160,11 +2163,14 @@ type ResourceUpdate struct {
 	// YAML.
 	Properties string `json:"properties,omitempty"`
 
+<<<<<<< HEAD
 	// RuntimePolicies: Output only. In case this is an action, it will show
 	// the runtimePolicies that this action will have after updating the
 	// deployment.
 	RuntimePolicies []string `json:"runtimePolicies,omitempty"`
 
+=======
+>>>>>>> Initial dep workover
 	// State: Output only. The state of the resource.
 	State string `json:"state,omitempty"`
 

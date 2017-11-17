@@ -25,9 +25,17 @@ import (
 	"reflect"
 	"testing"
 
+<<<<<<< HEAD
 	"github.com/gogo/protobuf/proto"
 	"github.com/googleapis/gnostic/OpenAPIv2"
 
+=======
+	"github.com/emicklei/go-restful-swagger12"
+	"github.com/gogo/protobuf/proto"
+	"github.com/googleapis/gnostic/OpenAPIv2"
+
+	"k8s.io/api/core/v1"
+>>>>>>> Initial dep workover
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -265,6 +273,71 @@ func TestGetServerResources(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
+=======
+func swaggerSchemaFakeServer() (*httptest.Server, error) {
+	request := 1
+	var sErr error
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		var resp interface{}
+		if request == 1 {
+			resp = metav1.APIVersions{Versions: []string{"v1", "v2", "v3"}}
+			request++
+		} else {
+			resp = swagger.ApiDeclaration{}
+		}
+		output, err := json.Marshal(resp)
+		if err != nil {
+			sErr = err
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(output)
+	}))
+	return server, sErr
+}
+
+func TestGetSwaggerSchema(t *testing.T) {
+	expect := swagger.ApiDeclaration{}
+
+	server, err := swaggerSchemaFakeServer()
+	if err != nil {
+		t.Errorf("unexpected encoding error: %v", err)
+	}
+	defer server.Close()
+
+	client := NewDiscoveryClientForConfigOrDie(&restclient.Config{Host: server.URL})
+	got, err := client.SwaggerSchema(v1.SchemeGroupVersion)
+	if err != nil {
+		t.Fatalf("unexpected encoding error: %v", err)
+	}
+	if e, a := expect, *got; !reflect.DeepEqual(e, a) {
+		t.Errorf("expected %v, got %v", e, a)
+	}
+}
+
+func TestGetSwaggerSchemaFail(t *testing.T) {
+	expErr := "API version: api.group/v4 is not supported by the server. Use one of: [v1 v2 v3]"
+
+	server, err := swaggerSchemaFakeServer()
+	if err != nil {
+		t.Errorf("unexpected encoding error: %v", err)
+	}
+	defer server.Close()
+
+	client := NewDiscoveryClientForConfigOrDie(&restclient.Config{Host: server.URL})
+	got, err := client.SwaggerSchema(schema.GroupVersion{Group: "api.group", Version: "v4"})
+	if got != nil {
+		t.Fatalf("unexpected response: %v", got)
+	}
+	if err.Error() != expErr {
+		t.Errorf("expected an error, got %v", err)
+	}
+}
+
+>>>>>>> Initial dep workover
 var returnedOpenAPI = openapi_v2.Document{
 	Definitions: &openapi_v2.Definitions{
 		AdditionalProperties: []*openapi_v2.NamedSchema{

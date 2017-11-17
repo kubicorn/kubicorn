@@ -17,6 +17,10 @@ const (
 	// The specified input parameter has a value that is not valid.
 	ErrCodeInvalidArgumentException = "InvalidArgumentException"
 
+	// ErrCodeInvalidStreamTypeException for service response error code
+	// "InvalidStreamTypeException".
+	ErrCodeInvalidStreamTypeException = "InvalidStreamTypeException"
+
 	// ErrCodeLimitExceededException for service response error code
 	// "LimitExceededException".
 	//

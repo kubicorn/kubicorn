@@ -2292,11 +2292,14 @@ func TestTransportReadHeadResponse(t *testing.T) {
 }
 
 func TestTransportReadHeadResponseWithBody(t *testing.T) {
+<<<<<<< HEAD
 	// This test use not valid response format.
 	// Discarding logger output to not spam tests output.
 	log.SetOutput(ioutil.Discard)
 	defer log.SetOutput(os.Stderr)
 
+=======
+>>>>>>> Initial dep workover
 	response := "redirecting to /elsewhere"
 	ct := newClientTester(t)
 	clientDone := make(chan struct{})
@@ -3389,11 +3392,14 @@ func TestTransportRetryHasLimit(t *testing.T) {
 }
 
 func TestTransportResponseDataBeforeHeaders(t *testing.T) {
+<<<<<<< HEAD
 	// This test use not valid response format.
 	// Discarding logger output to not spam tests output.
 	log.SetOutput(ioutil.Discard)
 	defer log.SetOutput(os.Stderr)
 
+=======
+>>>>>>> Initial dep workover
 	ct := newClientTester(t)
 	ct.client = func() error {
 		defer ct.cc.(*net.TCPConn).CloseWrite()
@@ -3799,6 +3805,7 @@ func TestTransportResponseAndResetWithoutConsumingBodyRace(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
 // Verify transport doesn't crash when receiving bogus response lacking a :status header.
 // Issue 22880.
 func TestTransportHandlesInvalidStatuslessResponse(t *testing.T) {
@@ -3839,6 +3846,8 @@ func TestTransportHandlesInvalidStatuslessResponse(t *testing.T) {
 	ct.run()
 }
 
+=======
+>>>>>>> Initial dep workover
 func BenchmarkClientRequestHeaders(b *testing.B) {
 	b.Run("   0 Headers", func(b *testing.B) { benchSimpleRoundTrip(b, 0) })
 	b.Run("  10 Headers", func(b *testing.B) { benchSimpleRoundTrip(b, 10) })

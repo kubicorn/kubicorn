@@ -1067,7 +1067,11 @@ const opDeleteServiceLinkedRole = "DeleteServiceLinkedRole2017_03_25"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteServiceLinkedRole
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteServiceLinkedRole
+>>>>>>> Initial dep workover
 func (c *CloudFront) DeleteServiceLinkedRoleRequest(input *DeleteServiceLinkedRoleInput) (req *request.Request, output *DeleteServiceLinkedRoleOutput) {
 	op := &request.Operation{
 		Name:       opDeleteServiceLinkedRole,
@@ -1106,7 +1110,11 @@ func (c *CloudFront) DeleteServiceLinkedRoleRequest(input *DeleteServiceLinkedRo
 //
 //   * ErrCodeNoSuchResource "NoSuchResource"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteServiceLinkedRole
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteServiceLinkedRole
+>>>>>>> Initial dep workover
 func (c *CloudFront) DeleteServiceLinkedRole(input *DeleteServiceLinkedRoleInput) (*DeleteServiceLinkedRoleOutput, error) {
 	req, out := c.DeleteServiceLinkedRoleRequest(input)
 	return out, req.Send()
@@ -5281,7 +5289,11 @@ func (s DeleteDistributionOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteServiceLinkedRoleRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteServiceLinkedRoleRequest
+>>>>>>> Initial dep workover
 type DeleteServiceLinkedRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5318,7 +5330,11 @@ func (s *DeleteServiceLinkedRoleInput) SetRoleName(v string) *DeleteServiceLinke
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteServiceLinkedRoleOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteServiceLinkedRoleOutput
+>>>>>>> Initial dep workover
 type DeleteServiceLinkedRoleOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -10502,7 +10518,11 @@ func (s *UpdateStreamingDistributionOutput) SetStreamingDistribution(v *Streamin
 //
 // For more information, see Using Alternate Domain Names and HTTPS (http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecureConnections.html#CNAMEsAndHTTPS)
 // in the Amazon CloudFront Developer Guide.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/ViewerCertificate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/ViewerCertificate
+>>>>>>> Initial dep workover
 type ViewerCertificate struct {
 	_ struct{} `type:"structure"`
 

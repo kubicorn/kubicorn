@@ -2441,7 +2441,11 @@ func (s *AWSSessionCredentials) SetSessionToken(v string) *AWSSessionCredentials
 }
 
 // Represents the input of an AcknowledgeJob action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJobInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJobInput
+>>>>>>> Initial dep workover
 type AcknowledgeJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2497,7 +2501,11 @@ func (s *AcknowledgeJobInput) SetNonce(v string) *AcknowledgeJobInput {
 }
 
 // Represents the output of an AcknowledgeJob action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJobOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeJobOutput
+>>>>>>> Initial dep workover
 type AcknowledgeJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2522,7 +2530,11 @@ func (s *AcknowledgeJobOutput) SetStatus(v string) *AcknowledgeJobOutput {
 }
 
 // Represents the input of an AcknowledgeThirdPartyJob action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJobInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJobInput
+>>>>>>> Initial dep workover
 type AcknowledgeThirdPartyJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2599,7 +2611,11 @@ func (s *AcknowledgeThirdPartyJobInput) SetNonce(v string) *AcknowledgeThirdPart
 }
 
 // Represents the output of an AcknowledgeThirdPartyJob action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJobOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/AcknowledgeThirdPartyJobOutput
+>>>>>>> Initial dep workover
 type AcknowledgeThirdPartyJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3822,7 +3838,11 @@ func (s *BlockerDeclaration) SetType(v string) *BlockerDeclaration {
 }
 
 // Represents the input of a CreateCustomActionType operation.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionTypeInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionTypeInput
+>>>>>>> Initial dep workover
 type CreateCustomActionTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3975,7 +3995,11 @@ func (s *CreateCustomActionTypeInput) SetVersion(v string) *CreateCustomActionTy
 }
 
 // Represents the output of a CreateCustomActionType operation.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionTypeOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreateCustomActionTypeOutput
+>>>>>>> Initial dep workover
 type CreateCustomActionTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4002,7 +4026,11 @@ func (s *CreateCustomActionTypeOutput) SetActionType(v *ActionType) *CreateCusto
 }
 
 // Represents the input of a CreatePipeline action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipelineInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipelineInput
+>>>>>>> Initial dep workover
 type CreatePipelineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4047,7 +4075,11 @@ func (s *CreatePipelineInput) SetPipeline(v *PipelineDeclaration) *CreatePipelin
 }
 
 // Represents the output of a CreatePipeline action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipelineOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/CreatePipelineOutput
+>>>>>>> Initial dep workover
 type CreatePipelineOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4245,7 +4277,11 @@ func (s DeleteCustomActionTypeOutput) GoString() string {
 }
 
 // Represents the input of a DeletePipeline action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeletePipelineInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DeletePipelineInput
+>>>>>>> Initial dep workover
 type DeletePipelineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4303,7 +4339,11 @@ func (s DeletePipelineOutput) GoString() string {
 }
 
 // Represents the input of a DisableStageTransition action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DisableStageTransitionInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/DisableStageTransitionInput
+>>>>>>> Initial dep workover
 type DisableStageTransitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4416,7 +4456,11 @@ func (s DisableStageTransitionOutput) GoString() string {
 }
 
 // Represents the input of an EnableStageTransition action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EnableStageTransitionInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/EnableStageTransitionInput
+>>>>>>> Initial dep workover
 type EnableStageTransitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4728,7 +4772,11 @@ func (s *FailureDetails) SetType(v string) *FailureDetails {
 }
 
 // Represents the input of a GetJobDetails action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetailsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetailsInput
+>>>>>>> Initial dep workover
 type GetJobDetailsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4768,7 +4816,11 @@ func (s *GetJobDetailsInput) SetJobId(v string) *GetJobDetailsInput {
 }
 
 // Represents the output of a GetJobDetails action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetailsOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetJobDetailsOutput
+>>>>>>> Initial dep workover
 type GetJobDetailsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4796,7 +4848,11 @@ func (s *GetJobDetailsOutput) SetJobDetails(v *JobDetails) *GetJobDetailsOutput 
 }
 
 // Represents the input of a GetPipelineExecution action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecutionInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecutionInput
+>>>>>>> Initial dep workover
 type GetPipelineExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4853,7 +4909,11 @@ func (s *GetPipelineExecutionInput) SetPipelineName(v string) *GetPipelineExecut
 }
 
 // Represents the output of a GetPipelineExecution action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecutionOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineExecutionOutput
+>>>>>>> Initial dep workover
 type GetPipelineExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4878,7 +4938,11 @@ func (s *GetPipelineExecutionOutput) SetPipelineExecution(v *PipelineExecution) 
 }
 
 // Represents the input of a GetPipeline action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineInput
+>>>>>>> Initial dep workover
 type GetPipelineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4935,7 +4999,11 @@ func (s *GetPipelineInput) SetVersion(v int64) *GetPipelineInput {
 }
 
 // Represents the output of a GetPipeline action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineOutput
+>>>>>>> Initial dep workover
 type GetPipelineOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4970,7 +5038,11 @@ func (s *GetPipelineOutput) SetPipeline(v *PipelineDeclaration) *GetPipelineOutp
 }
 
 // Represents the input of a GetPipelineState action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineStateInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineStateInput
+>>>>>>> Initial dep workover
 type GetPipelineStateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5013,7 +5085,11 @@ func (s *GetPipelineStateInput) SetName(v string) *GetPipelineStateInput {
 }
 
 // Represents the output of a GetPipelineState action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineStateOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetPipelineStateOutput
+>>>>>>> Initial dep workover
 type GetPipelineStateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5077,7 +5153,11 @@ func (s *GetPipelineStateOutput) SetUpdated(v time.Time) *GetPipelineStateOutput
 }
 
 // Represents the input of a GetThirdPartyJobDetails action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetailsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetailsInput
+>>>>>>> Initial dep workover
 type GetThirdPartyJobDetailsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5138,7 +5218,11 @@ func (s *GetThirdPartyJobDetailsInput) SetJobId(v string) *GetThirdPartyJobDetai
 }
 
 // Represents the output of a GetThirdPartyJobDetails action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetailsOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/GetThirdPartyJobDetailsOutput
+>>>>>>> Initial dep workover
 type GetThirdPartyJobDetailsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5405,7 +5489,11 @@ func (s *JobDetails) SetId(v string) *JobDetails {
 }
 
 // Represents the input of a ListActionTypes action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypesInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypesInput
+>>>>>>> Initial dep workover
 type ListActionTypesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5453,7 +5541,11 @@ func (s *ListActionTypesInput) SetNextToken(v string) *ListActionTypesInput {
 }
 
 // Represents the output of a ListActionTypes action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypesOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListActionTypesOutput
+>>>>>>> Initial dep workover
 type ListActionTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5491,7 +5583,11 @@ func (s *ListActionTypesOutput) SetNextToken(v string) *ListActionTypesOutput {
 }
 
 // Represents the input of a ListPipelineExecutions action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutionsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutionsInput
+>>>>>>> Initial dep workover
 type ListPipelineExecutionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5562,7 +5658,11 @@ func (s *ListPipelineExecutionsInput) SetPipelineName(v string) *ListPipelineExe
 }
 
 // Represents the output of a ListPipelineExecutions action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutionsOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelineExecutionsOutput
+>>>>>>> Initial dep workover
 type ListPipelineExecutionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5598,7 +5698,11 @@ func (s *ListPipelineExecutionsOutput) SetPipelineExecutionSummaries(v []*Pipeli
 }
 
 // Represents the input of a ListPipelines action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelinesInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelinesInput
+>>>>>>> Initial dep workover
 type ListPipelinesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5637,7 +5741,11 @@ func (s *ListPipelinesInput) SetNextToken(v string) *ListPipelinesInput {
 }
 
 // Represents the output of a ListPipelines action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelinesOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/ListPipelinesOutput
+>>>>>>> Initial dep workover
 type ListPipelinesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6018,7 +6126,11 @@ func (s *PipelineExecutionSummary) SetStatus(v string) *PipelineExecutionSummary
 }
 
 // Information about a pipeline.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PipelineMetadata
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PipelineMetadata
+>>>>>>> Initial dep workover
 type PipelineMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -6113,7 +6225,11 @@ func (s *PipelineSummary) SetVersion(v int64) *PipelineSummary {
 }
 
 // Represents the input of a PollForJobs action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobsInput
+>>>>>>> Initial dep workover
 type PollForJobsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6182,7 +6298,11 @@ func (s *PollForJobsInput) SetQueryParam(v map[string]*string) *PollForJobsInput
 }
 
 // Represents the output of a PollForJobs action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobsOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForJobsOutput
+>>>>>>> Initial dep workover
 type PollForJobsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6207,7 +6327,11 @@ func (s *PollForJobsOutput) SetJobs(v []*Job) *PollForJobsOutput {
 }
 
 // Represents the input of a PollForThirdPartyJobs action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobsInput
+>>>>>>> Initial dep workover
 type PollForThirdPartyJobsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6264,7 +6388,11 @@ func (s *PollForThirdPartyJobsInput) SetMaxBatchSize(v int64) *PollForThirdParty
 }
 
 // Represents the output of a PollForThirdPartyJobs action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobsOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PollForThirdPartyJobsOutput
+>>>>>>> Initial dep workover
 type PollForThirdPartyJobsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6289,7 +6417,11 @@ func (s *PollForThirdPartyJobsOutput) SetJobs(v []*ThirdPartyJob) *PollForThirdP
 }
 
 // Represents the input of a PutActionRevision action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevisionInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevisionInput
+>>>>>>> Initial dep workover
 type PutActionRevisionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6385,7 +6517,11 @@ func (s *PutActionRevisionInput) SetStageName(v string) *PutActionRevisionInput 
 }
 
 // Represents the output of a PutActionRevision action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevisionOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutActionRevisionOutput
+>>>>>>> Initial dep workover
 type PutActionRevisionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6420,7 +6556,11 @@ func (s *PutActionRevisionOutput) SetPipelineExecutionId(v string) *PutActionRev
 }
 
 // Represents the input of a PutApprovalResult action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResultInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResultInput
+>>>>>>> Initial dep workover
 type PutApprovalResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6533,7 +6673,11 @@ func (s *PutApprovalResultInput) SetToken(v string) *PutApprovalResultInput {
 }
 
 // Represents the output of a PutApprovalResult action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResultOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutApprovalResultOutput
+>>>>>>> Initial dep workover
 type PutApprovalResultOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6558,7 +6702,11 @@ func (s *PutApprovalResultOutput) SetApprovedAt(v time.Time) *PutApprovalResultO
 }
 
 // Represents the input of a PutJobFailureResult action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobFailureResultInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobFailureResultInput
+>>>>>>> Initial dep workover
 type PutJobFailureResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6633,7 +6781,11 @@ func (s PutJobFailureResultOutput) GoString() string {
 }
 
 // Represents the input of a PutJobSuccessResult action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobSuccessResultInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutJobSuccessResultInput
+>>>>>>> Initial dep workover
 type PutJobSuccessResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6733,7 +6885,11 @@ func (s PutJobSuccessResultOutput) GoString() string {
 }
 
 // Represents the input of a PutThirdPartyJobFailureResult action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobFailureResultInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobFailureResultInput
+>>>>>>> Initial dep workover
 type PutThirdPartyJobFailureResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6828,7 +6984,11 @@ func (s PutThirdPartyJobFailureResultOutput) GoString() string {
 }
 
 // Represents the input of a PutThirdPartyJobSuccessResult action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobSuccessResultInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/PutThirdPartyJobSuccessResultInput
+>>>>>>> Initial dep workover
 type PutThirdPartyJobSuccessResultInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6948,7 +7108,11 @@ func (s PutThirdPartyJobSuccessResultOutput) GoString() string {
 }
 
 // Represents the input of a RetryStageExecution action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecutionInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecutionInput
+>>>>>>> Initial dep workover
 type RetryStageExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7038,7 +7202,11 @@ func (s *RetryStageExecutionInput) SetStageName(v string) *RetryStageExecutionIn
 }
 
 // Represents the output of a RetryStageExecution action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecutionOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/RetryStageExecutionOutput
+>>>>>>> Initial dep workover
 type RetryStageExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7305,7 +7473,11 @@ func (s *StageState) SetStageName(v string) *StageState {
 }
 
 // Represents the input of a StartPipelineExecution action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecutionInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecutionInput
+>>>>>>> Initial dep workover
 type StartPipelineExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7348,7 +7520,11 @@ func (s *StartPipelineExecutionInput) SetName(v string) *StartPipelineExecutionI
 }
 
 // Represents the output of a StartPipelineExecution action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecutionOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/StartPipelineExecutionOutput
+>>>>>>> Initial dep workover
 type StartPipelineExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7608,7 +7784,11 @@ func (s *TransitionState) SetLastChangedBy(v string) *TransitionState {
 }
 
 // Represents the input of an UpdatePipeline action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipelineInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipelineInput
+>>>>>>> Initial dep workover
 type UpdatePipelineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7653,7 +7833,11 @@ func (s *UpdatePipelineInput) SetPipeline(v *PipelineDeclaration) *UpdatePipelin
 }
 
 // Represents the output of an UpdatePipeline action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipelineOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codepipeline-2015-07-09/UpdatePipelineOutput
+>>>>>>> Initial dep workover
 type UpdatePipelineOutput struct {
 	_ struct{} `type:"structure"`
 

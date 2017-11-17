@@ -1,12 +1,20 @@
 {
  "kind": "discovery#restDescription",
+<<<<<<< HEAD
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/Il044amBYPJvfy3g_7FoUTV7wzs\"",
+=======
+ "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/r1PlUTTtcpzcfJNRzaYpfAOtP-Y\"",
+>>>>>>> Initial dep workover
  "discoveryVersion": "v1",
  "id": "androidenterprise:v1",
  "name": "androidenterprise",
  "canonicalName": "Android Enterprise",
  "version": "v1",
+<<<<<<< HEAD
  "revision": "20171130",
+=======
+ "revision": "20171108",
+>>>>>>> Initial dep workover
  "title": "Google Play EMM API",
  "description": "Manages the deployment of apps to Android for Work users.",
  "ownerDomain": "google.com",
@@ -1041,6 +1049,7 @@
      "type": "string",
      "description": "The name of the author of the product (for example, the app developer)."
     },
+<<<<<<< HEAD
     "availableCountries": {
      "type": "array",
      "description": "The countries which this app is available in.",
@@ -1048,6 +1057,8 @@
       "type": "string"
      }
     },
+=======
+>>>>>>> Initial dep workover
     "availableTracks": {
      "type": "array",
      "description": "The tracks that are visible to the enterprise.",
@@ -1055,6 +1066,7 @@
       "type": "string"
      }
     },
+<<<<<<< HEAD
     "category": {
      "type": "string",
      "description": "The app category (e.g. RACING, SOCIAL, etc.)"
@@ -1067,6 +1079,8 @@
      "type": "string",
      "description": "A localized promotional description, if available."
     },
+=======
+>>>>>>> Initial dep workover
     "detailsUrl": {
      "type": "string",
      "description": "A link to the (consumer) Google Play details page for the product."
@@ -1117,6 +1131,7 @@
      "type": "boolean",
      "description": "Deprecated."
     },
+<<<<<<< HEAD
     "screenshotUrls": {
      "type": "array",
      "description": "A list of screenshot links representing the app.",
@@ -1124,6 +1139,8 @@
       "type": "string"
      }
     },
+=======
+>>>>>>> Initial dep workover
     "signingCertificate": {
      "$ref": "ProductSigningCertificate",
      "description": "The certificate used to sign this product."

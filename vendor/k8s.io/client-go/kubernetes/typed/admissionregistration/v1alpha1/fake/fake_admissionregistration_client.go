@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +30,13 @@ type FakeAdmissionregistrationV1alpha1 struct {
 	*testing.Fake
 }
 
+<<<<<<< HEAD
+=======
+func (c *FakeAdmissionregistrationV1alpha1) ExternalAdmissionHookConfigurations() v1alpha1.ExternalAdmissionHookConfigurationInterface {
+	return &FakeExternalAdmissionHookConfigurations{c}
+}
+
+>>>>>>> Initial dep workover
 func (c *FakeAdmissionregistrationV1alpha1) InitializerConfigurations() v1alpha1.InitializerConfigurationInterface {
 	return &FakeInitializerConfigurations{c}
 }

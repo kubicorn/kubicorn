@@ -19,8 +19,15 @@ package fake
 import (
 	"fmt"
 
+<<<<<<< HEAD
 	"github.com/googleapis/gnostic/OpenAPIv2"
 
+=======
+	"github.com/emicklei/go-restful-swagger12"
+	"github.com/googleapis/gnostic/OpenAPIv2"
+
+	"k8s.io/api/core/v1"
+>>>>>>> Initial dep workover
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/version"
@@ -68,6 +75,7 @@ func (c *FakeDiscovery) ServerPreferredNamespacedResources() ([]*metav1.APIResou
 }
 
 func (c *FakeDiscovery) ServerGroups() (*metav1.APIGroupList, error) {
+<<<<<<< HEAD
 	action := testing.ActionImpl{
 		Verb:     "get",
 		Resource: schema.GroupVersionResource{Resource: "group"},
@@ -106,6 +114,9 @@ func (c *FakeDiscovery) ServerGroups() (*metav1.APIGroupList, error) {
 
 	return list, nil
 
+=======
+	return nil, nil
+>>>>>>> Initial dep workover
 }
 
 func (c *FakeDiscovery) ServerVersion() (*version.Info, error) {
@@ -122,6 +133,22 @@ func (c *FakeDiscovery) ServerVersion() (*version.Info, error) {
 	return &versionInfo, nil
 }
 
+<<<<<<< HEAD
+=======
+func (c *FakeDiscovery) SwaggerSchema(version schema.GroupVersion) (*swagger.ApiDeclaration, error) {
+	action := testing.ActionImpl{}
+	action.Verb = "get"
+	if version == v1.SchemeGroupVersion {
+		action.Resource = schema.GroupVersionResource{Resource: "/swaggerapi/api/" + version.Version}
+	} else {
+		action.Resource = schema.GroupVersionResource{Resource: "/swaggerapi/apis/" + version.Group + "/" + version.Version}
+	}
+
+	c.Invokes(action, nil)
+	return &swagger.ApiDeclaration{}, nil
+}
+
+>>>>>>> Initial dep workover
 func (c *FakeDiscovery) OpenAPISchema() (*openapi_v2.Document, error) {
 	return &openapi_v2.Document{}, nil
 }

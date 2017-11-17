@@ -345,12 +345,15 @@ func (f *File) writeToBuffer(indent string) (*bytes.Buffer, error) {
 					return nil, err
 				}
 			}
+<<<<<<< HEAD
 
 			for _, val := range key.nestedValues {
 				if _, err := buf.WriteString(indent + "  " + val + LineBreak); err != nil {
 					return nil, err
 				}
 			}
+=======
+>>>>>>> Initial dep workover
 		}
 
 		if PrettySection {

@@ -631,7 +631,11 @@ const opDescribeStateMachineForExecution = "DescribeStateMachineForExecution"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecution
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecution
+>>>>>>> Initial dep workover
 func (c *SFN) DescribeStateMachineForExecutionRequest(input *DescribeStateMachineForExecutionInput) (req *request.Request, output *DescribeStateMachineForExecutionOutput) {
 	op := &request.Operation{
 		Name:       opDescribeStateMachineForExecution,
@@ -666,7 +670,11 @@ func (c *SFN) DescribeStateMachineForExecutionRequest(input *DescribeStateMachin
 //   * ErrCodeInvalidArn "InvalidArn"
 //   The provided Amazon Resource Name (ARN) is invalid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecution
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecution
+>>>>>>> Initial dep workover
 func (c *SFN) DescribeStateMachineForExecution(input *DescribeStateMachineForExecutionInput) (*DescribeStateMachineForExecutionOutput, error) {
 	req, out := c.DescribeStateMachineForExecutionRequest(input)
 	return out, req.Send()
@@ -1825,7 +1833,11 @@ const opUpdateStateMachine = "UpdateStateMachine"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachine
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachine
+>>>>>>> Initial dep workover
 func (c *SFN) UpdateStateMachineRequest(input *UpdateStateMachineInput) (req *request.Request, output *UpdateStateMachineOutput) {
 	op := &request.Operation{
 		Name:       opUpdateStateMachine,
@@ -1877,7 +1889,11 @@ func (c *SFN) UpdateStateMachineRequest(input *UpdateStateMachineInput) (req *re
 //   * ErrCodeStateMachineDoesNotExist "StateMachineDoesNotExist"
 //   The specified state machine does not exist.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachine
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachine
+>>>>>>> Initial dep workover
 func (c *SFN) UpdateStateMachine(input *UpdateStateMachineInput) (*UpdateStateMachineOutput, error) {
 	req, out := c.UpdateStateMachineRequest(input)
 	return out, req.Send()
@@ -1900,7 +1916,11 @@ func (c *SFN) UpdateStateMachineWithContext(ctx aws.Context, input *UpdateStateM
 }
 
 // Contains details about an activity which failed during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityFailedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityFailedEventDetails
+>>>>>>> Initial dep workover
 type ActivityFailedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -1934,7 +1954,11 @@ func (s *ActivityFailedEventDetails) SetError(v string) *ActivityFailedEventDeta
 }
 
 // Contains details about an activity.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityListItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityListItem
+>>>>>>> Initial dep workover
 type ActivityListItem struct {
 	_ struct{} `type:"structure"`
 
@@ -1996,7 +2020,11 @@ func (s *ActivityListItem) SetName(v string) *ActivityListItem {
 
 // Contains details about an activity schedule failure which occurred during
 // an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityScheduleFailedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityScheduleFailedEventDetails
+>>>>>>> Initial dep workover
 type ActivityScheduleFailedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -2030,7 +2058,11 @@ func (s *ActivityScheduleFailedEventDetails) SetError(v string) *ActivitySchedul
 }
 
 // Contains details about an activity scheduled during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityScheduledEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityScheduledEventDetails
+>>>>>>> Initial dep workover
 type ActivityScheduledEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -2084,7 +2116,11 @@ func (s *ActivityScheduledEventDetails) SetTimeoutInSeconds(v int64) *ActivitySc
 }
 
 // Contains details about the start of an activity during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityStartedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityStartedEventDetails
+>>>>>>> Initial dep workover
 type ActivityStartedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -2111,7 +2147,11 @@ func (s *ActivityStartedEventDetails) SetWorkerName(v string) *ActivityStartedEv
 
 // Contains details about an activity which successfully terminated during an
 // execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivitySucceededEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivitySucceededEventDetails
+>>>>>>> Initial dep workover
 type ActivitySucceededEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -2136,7 +2176,11 @@ func (s *ActivitySucceededEventDetails) SetOutput(v string) *ActivitySucceededEv
 }
 
 // Contains details about an activity timeout which occurred during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityTimedOutEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ActivityTimedOutEventDetails
+>>>>>>> Initial dep workover
 type ActivityTimedOutEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -2761,7 +2805,11 @@ func (s *DescribeExecutionOutput) SetStopDate(v time.Time) *DescribeExecutionOut
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecutionInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecutionInput
+>>>>>>> Initial dep workover
 type DescribeStateMachineForExecutionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2804,7 +2852,11 @@ func (s *DescribeStateMachineForExecutionInput) SetExecutionArn(v string) *Descr
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecutionOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineForExecutionOutput
+>>>>>>> Initial dep workover
 type DescribeStateMachineForExecutionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2876,7 +2928,11 @@ func (s *DescribeStateMachineForExecutionOutput) SetUpdateDate(v time.Time) *Des
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/DescribeStateMachineInput
+>>>>>>> Initial dep workover
 type DescribeStateMachineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3012,7 +3068,11 @@ func (s *DescribeStateMachineOutput) SetStatus(v string) *DescribeStateMachineOu
 }
 
 // Contains details about an abort of an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionAbortedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionAbortedEventDetails
+>>>>>>> Initial dep workover
 type ExecutionAbortedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3046,7 +3106,11 @@ func (s *ExecutionAbortedEventDetails) SetError(v string) *ExecutionAbortedEvent
 }
 
 // Contains details about an execution failure event.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionFailedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionFailedEventDetails
+>>>>>>> Initial dep workover
 type ExecutionFailedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3080,7 +3144,11 @@ func (s *ExecutionFailedEventDetails) SetError(v string) *ExecutionFailedEventDe
 }
 
 // Contains details about an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionListItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionListItem
+>>>>>>> Initial dep workover
 type ExecutionListItem struct {
 	_ struct{} `type:"structure"`
 
@@ -3172,7 +3240,11 @@ func (s *ExecutionListItem) SetStopDate(v time.Time) *ExecutionListItem {
 }
 
 // Contains details about the start of the execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionStartedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionStartedEventDetails
+>>>>>>> Initial dep workover
 type ExecutionStartedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3207,7 +3279,11 @@ func (s *ExecutionStartedEventDetails) SetRoleArn(v string) *ExecutionStartedEve
 }
 
 // Contains details about the successful termination of the execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionSucceededEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionSucceededEventDetails
+>>>>>>> Initial dep workover
 type ExecutionSucceededEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3232,7 +3308,11 @@ func (s *ExecutionSucceededEventDetails) SetOutput(v string) *ExecutionSucceeded
 }
 
 // Contains details about the execution timeout which occurred during the execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionTimedOutEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/ExecutionTimedOutEventDetails
+>>>>>>> Initial dep workover
 type ExecutionTimedOutEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3480,7 +3560,11 @@ func (s *GetExecutionHistoryOutput) SetNextToken(v string) *GetExecutionHistoryO
 }
 
 // Contains details about the events of an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/HistoryEvent
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/HistoryEvent
+>>>>>>> Initial dep workover
 type HistoryEvent struct {
 	_ struct{} `type:"structure"`
 
@@ -3715,7 +3799,11 @@ func (s *HistoryEvent) SetType(v string) *HistoryEvent {
 }
 
 // Contains details about a lambda function which failed during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionFailedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionFailedEventDetails
+>>>>>>> Initial dep workover
 type LambdaFunctionFailedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3750,7 +3838,11 @@ func (s *LambdaFunctionFailedEventDetails) SetError(v string) *LambdaFunctionFai
 
 // Contains details about a failed lambda function schedule event which occurred
 // during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionScheduleFailedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionScheduleFailedEventDetails
+>>>>>>> Initial dep workover
 type LambdaFunctionScheduleFailedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3784,7 +3876,11 @@ func (s *LambdaFunctionScheduleFailedEventDetails) SetError(v string) *LambdaFun
 }
 
 // Contains details about a lambda function scheduled during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionScheduledEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionScheduledEventDetails
+>>>>>>> Initial dep workover
 type LambdaFunctionScheduledEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3830,7 +3926,11 @@ func (s *LambdaFunctionScheduledEventDetails) SetTimeoutInSeconds(v int64) *Lamb
 
 // Contains details about a lambda function which failed to start during an
 // execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionStartFailedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionStartFailedEventDetails
+>>>>>>> Initial dep workover
 type LambdaFunctionStartFailedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3865,7 +3965,11 @@ func (s *LambdaFunctionStartFailedEventDetails) SetError(v string) *LambdaFuncti
 
 // Contains details about a lambda function which successfully terminated during
 // an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionSucceededEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionSucceededEventDetails
+>>>>>>> Initial dep workover
 type LambdaFunctionSucceededEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -3891,7 +3995,11 @@ func (s *LambdaFunctionSucceededEventDetails) SetOutput(v string) *LambdaFunctio
 
 // Contains details about a lambda function timeout which occurred during an
 // execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionTimedOutEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/LambdaFunctionTimedOutEventDetails
+>>>>>>> Initial dep workover
 type LambdaFunctionTimedOutEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -4578,7 +4686,11 @@ func (s *StartExecutionOutput) SetStartDate(v time.Time) *StartExecutionOutput {
 }
 
 // Contains details about a state entered during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StateEnteredEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StateEnteredEventDetails
+>>>>>>> Initial dep workover
 type StateEnteredEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -4614,7 +4726,11 @@ func (s *StateEnteredEventDetails) SetName(v string) *StateEnteredEventDetails {
 }
 
 // Contains details about an exit from a state during an execution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StateExitedEventDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StateExitedEventDetails
+>>>>>>> Initial dep workover
 type StateExitedEventDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -4662,7 +4778,11 @@ func (s *StateExitedEventDetails) SetOutput(v string) *StateExitedEventDetails {
 }
 
 // Contains details about the state machine.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StateMachineListItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/StateMachineListItem
+>>>>>>> Initial dep workover
 type StateMachineListItem struct {
 	_ struct{} `type:"structure"`
 
@@ -4808,7 +4928,11 @@ func (s *StopExecutionOutput) SetStopDate(v time.Time) *StopExecutionOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachineInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachineInput
+>>>>>>> Initial dep workover
 type UpdateStateMachineInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4874,7 +4998,11 @@ func (s *UpdateStateMachineInput) SetStateMachineArn(v string) *UpdateStateMachi
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachineOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/UpdateStateMachineOutput
+>>>>>>> Initial dep workover
 type UpdateStateMachineOutput struct {
 	_ struct{} `type:"structure"`
 

@@ -179,6 +179,7 @@ func (r *Request) Resource(resource string) *Request {
 	return r
 }
 
+<<<<<<< HEAD
 // BackOff sets the request's backoff manager to the one specified,
 // or defaults to the stub implementation if nil is provided
 func (r *Request) BackOff(manager BackoffManager) *Request {
@@ -197,6 +198,8 @@ func (r *Request) Throttle(limiter flowcontrol.RateLimiter) *Request {
 	return r
 }
 
+=======
+>>>>>>> Initial dep workover
 // SubResource sets a sub-resource path which can be multiple segments segment after the resource
 // name but before the suffix.
 func (r *Request) SubResource(subresources ...string) *Request {
@@ -841,6 +844,7 @@ func (r *Request) transformResponse(resp *http.Response, req *http.Request) Resu
 	}
 }
 
+<<<<<<< HEAD
 // truncateBody decides if the body should be truncated, based on the glog Verbosity.
 func truncateBody(body string) string {
 	max := 0
@@ -860,6 +864,8 @@ func truncateBody(body string) string {
 	return body[:max] + fmt.Sprintf(" [truncated %d chars]", len(body)-max)
 }
 
+=======
+>>>>>>> Initial dep workover
 // glogBody logs a body output that could be either JSON or protobuf. It explicitly guards against
 // allocating a new string for the body output unless necessary. Uses a simple heuristic to determine
 // whether the body is printable.
@@ -868,9 +874,15 @@ func glogBody(prefix string, body []byte) {
 		if bytes.IndexFunc(body, func(r rune) bool {
 			return r < 0x0a
 		}) != -1 {
+<<<<<<< HEAD
 			glog.Infof("%s:\n%s", prefix, truncateBody(hex.Dump(body)))
 		} else {
 			glog.Infof("%s: %s", prefix, truncateBody(string(body)))
+=======
+			glog.Infof("%s:\n%s", prefix, hex.Dump(body))
+		} else {
+			glog.Infof("%s: %s", prefix, string(body))
+>>>>>>> Initial dep workover
 		}
 	}
 }

@@ -240,6 +240,7 @@ type Binding struct {
 func (s *Binding) MarshalJSON() ([]byte, error) {
 	type NoMethod Binding
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -279,6 +280,8 @@ type CreateSnapshotRequest struct {
 func (s *CreateSnapshotRequest) MarshalJSON() ([]byte, error) {
 	type NoMethod CreateSnapshotRequest
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -374,6 +377,7 @@ type ListSubscriptionsResponse struct {
 func (s *ListSubscriptionsResponse) MarshalJSON() ([]byte, error) {
 	type NoMethod ListSubscriptionsResponse
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -414,6 +418,8 @@ type ListTopicSnapshotsResponse struct {
 func (s *ListTopicSnapshotsResponse) MarshalJSON() ([]byte, error) {
 	type NoMethod ListTopicSnapshotsResponse
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -948,6 +954,7 @@ type ReceivedMessage struct {
 func (s *ReceivedMessage) MarshalJSON() ([]byte, error) {
 	type NoMethod ReceivedMessage
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1000,6 +1007,8 @@ type SeekRequest struct {
 func (s *SeekRequest) MarshalJSON() ([]byte, error) {
 	type NoMethod SeekRequest
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1039,6 +1048,7 @@ type SetIamPolicyRequest struct {
 func (s *SetIamPolicyRequest) MarshalJSON() ([]byte, error) {
 	type NoMethod SetIamPolicyRequest
 	raw := NoMethod(*s)
+<<<<<<< HEAD
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1095,6 +1105,8 @@ type Snapshot struct {
 func (s *Snapshot) MarshalJSON() ([]byte, error) {
 	type NoMethod Snapshot
 	raw := NoMethod(*s)
+=======
+>>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 

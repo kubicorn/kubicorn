@@ -254,6 +254,7 @@ func (c *CodeCommit) CreateBranchWithContext(ctx aws.Context, input *CreateBranc
 
 const opCreatePullRequest = "CreatePullRequest"
 
+<<<<<<< HEAD
 // CreatePullRequestRequest generates a "aws/request.Request" representing the
 // client's request for the CreatePullRequest operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -267,6 +268,22 @@ const opCreatePullRequest = "CreatePullRequest"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// CreateRepositoryRequest generates a "aws/request.Request" representing the
+// client's request for the CreateRepository operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateRepository for more information on using the CreateRepository
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreatePullRequestRequest method.
@@ -429,21 +446,153 @@ func (c *CodeCommit) CreatePullRequestWithContext(ctx aws.Context, input *Create
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 const opCreateRepository = "CreateRepository"
 
 // CreateRepositoryRequest generates a "aws/request.Request" representing the
 // client's request for the CreateRepository operation. The "output" return
+=======
+const opDeleteBranch = "DeleteBranch"
+
+// DeleteBranchRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteBranch operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+// See DeleteBranch for more information on using the DeleteBranch
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the DeleteBranchRequest method.
+//    req, resp := client.DeleteBranchRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranch
+func (c *CodeCommit) DeleteBranchRequest(input *DeleteBranchInput) (req *request.Request, output *DeleteBranchOutput) {
+	op := &request.Operation{
+		Name:       opDeleteBranch,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &DeleteBranchInput{}
+	}
+
+	output = &DeleteBranchOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// DeleteBranch API operation for AWS CodeCommit.
+//
+// Deletes a branch from a repository, unless that branch is the default branch
+// for the repository.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS CodeCommit's
+// API operation DeleteBranch for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
+//   A repository name is required but was not specified.
+//
+//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
+//   The specified repository does not exist.
+//
+//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
+//   At least one specified repository name is not valid.
+//
+//   This exception only occurs when a specified repository name is not valid.
+//   Other exceptions occur when a required repository parameter is missing, or
+//   when a specified repository does not exist.
+//
+//   * ErrCodeBranchNameRequiredException "BranchNameRequiredException"
+//   A branch name is required but was not specified.
+//
+//   * ErrCodeInvalidBranchNameException "InvalidBranchNameException"
+//   The specified branch name is not valid.
+//
+//   * ErrCodeDefaultBranchCannotBeDeletedException "DefaultBranchCannotBeDeletedException"
+//   The specified branch is the default branch for the repository, and cannot
+//   be deleted. To delete this branch, you must first set another branch as the
+//   default branch.
+//
+//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
+//   An encryption integrity check failed.
+//
+//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
+//   An encryption key could not be accessed.
+//
+//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
+//   The encryption key is disabled.
+//
+//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
+//   No encryption key was found.
+//
+//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
+//   The encryption key is not available.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranch
+func (c *CodeCommit) DeleteBranch(input *DeleteBranchInput) (*DeleteBranchOutput, error) {
+	req, out := c.DeleteBranchRequest(input)
+	return out, req.Send()
+}
+
+// DeleteBranchWithContext is the same as DeleteBranch with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DeleteBranch for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *CodeCommit) DeleteBranchWithContext(ctx aws.Context, input *DeleteBranchInput, opts ...request.Option) (*DeleteBranchOutput, error) {
+	req, out := c.DeleteBranchRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opDeleteRepository = "DeleteRepository"
+
+// DeleteRepositoryRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteRepository operation. The "output" return
+>>>>>>> Initial dep workover
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+<<<<<<< HEAD
 // See CreateRepository for more information on using the CreateRepository
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See DeleteRepository for more information on using the DeleteRepository
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreateRepositoryRequest method.
@@ -541,6 +690,7 @@ func (c *CodeCommit) CreateRepositoryWithContext(ctx aws.Context, input *CreateR
 
 const opDeleteBranch = "DeleteBranch"
 
+<<<<<<< HEAD
 // DeleteBranchRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteBranch operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -554,6 +704,22 @@ const opDeleteBranch = "DeleteBranch"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// GetBlobRequest generates a "aws/request.Request" representing the
+// client's request for the GetBlob operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetBlob for more information on using the GetBlob
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteBranchRequest method.
@@ -657,6 +823,7 @@ func (c *CodeCommit) DeleteBranchWithContext(ctx aws.Context, input *DeleteBranc
 
 const opDeleteCommentContent = "DeleteCommentContent"
 
+<<<<<<< HEAD
 // DeleteCommentContentRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteCommentContent operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -670,6 +837,22 @@ const opDeleteCommentContent = "DeleteCommentContent"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// GetBranchRequest generates a "aws/request.Request" representing the
+// client's request for the GetBranch operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetBranch for more information on using the GetBranch
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteCommentContentRequest method.
@@ -748,19 +931,33 @@ func (c *CodeCommit) DeleteCommentContentWithContext(ctx aws.Context, input *Del
 
 const opDeleteRepository = "DeleteRepository"
 
+<<<<<<< HEAD
 // DeleteRepositoryRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteRepository operation. The "output" return
+=======
+// GetCommitRequest generates a "aws/request.Request" representing the
+// client's request for the GetCommit operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See DeleteRepository for more information on using the DeleteRepository
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See GetCommit for more information on using the GetCommit
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteRepositoryRequest method.
@@ -854,6 +1051,7 @@ func (c *CodeCommit) DeleteRepositoryWithContext(ctx aws.Context, input *DeleteR
 
 const opDescribePullRequestEvents = "DescribePullRequestEvents"
 
+<<<<<<< HEAD
 // DescribePullRequestEventsRequest generates a "aws/request.Request" representing the
 // client's request for the DescribePullRequestEvents operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -867,6 +1065,22 @@ const opDescribePullRequestEvents = "DescribePullRequestEvents"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// GetDifferencesRequest generates a "aws/request.Request" representing the
+// client's request for the GetDifferences operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetDifferences for more information on using the GetDifferences
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DescribePullRequestEventsRequest method.
@@ -1030,6 +1244,7 @@ func (c *CodeCommit) DescribePullRequestEventsPagesWithContext(ctx aws.Context, 
 
 const opGetBlob = "GetBlob"
 
+<<<<<<< HEAD
 // GetBlobRequest generates a "aws/request.Request" representing the
 // client's request for the GetBlob operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1043,6 +1258,22 @@ const opGetBlob = "GetBlob"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// GetRepositoryRequest generates a "aws/request.Request" representing the
+// client's request for the GetRepository operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetRepository for more information on using the GetRepository
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetBlobRequest method.
@@ -1148,19 +1379,33 @@ func (c *CodeCommit) GetBlobWithContext(ctx aws.Context, input *GetBlobInput, op
 
 const opGetBranch = "GetBranch"
 
+<<<<<<< HEAD
 // GetBranchRequest generates a "aws/request.Request" representing the
 // client's request for the GetBranch operation. The "output" return
+=======
+// GetRepositoryTriggersRequest generates a "aws/request.Request" representing the
+// client's request for the GetRepositoryTriggers operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See GetBranch for more information on using the GetBranch
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See GetRepositoryTriggers for more information on using the GetRepositoryTriggers
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetBranchRequest method.
@@ -1262,6 +1507,7 @@ func (c *CodeCommit) GetBranchWithContext(ctx aws.Context, input *GetBranchInput
 
 const opGetComment = "GetComment"
 
+<<<<<<< HEAD
 // GetCommentRequest generates a "aws/request.Request" representing the
 // client's request for the GetComment operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1275,6 +1521,22 @@ const opGetComment = "GetComment"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListBranchesRequest generates a "aws/request.Request" representing the
+// client's request for the ListBranches operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListBranches for more information on using the ListBranches
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetCommentRequest method.
@@ -1529,6 +1791,7 @@ func (c *CodeCommit) GetCommentsForComparedCommitPagesWithContext(ctx aws.Contex
 
 const opGetCommentsForPullRequest = "GetCommentsForPullRequest"
 
+<<<<<<< HEAD
 // GetCommentsForPullRequestRequest generates a "aws/request.Request" representing the
 // client's request for the GetCommentsForPullRequest operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1542,6 +1805,22 @@ const opGetCommentsForPullRequest = "GetCommentsForPullRequest"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// ListRepositoriesRequest generates a "aws/request.Request" representing the
+// client's request for the ListRepositories operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListRepositories for more information on using the ListRepositories
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetCommentsForPullRequestRequest method.
@@ -1722,19 +2001,33 @@ func (c *CodeCommit) GetCommentsForPullRequestPagesWithContext(ctx aws.Context, 
 
 const opGetCommit = "GetCommit"
 
+<<<<<<< HEAD
 // GetCommitRequest generates a "aws/request.Request" representing the
 // client's request for the GetCommit operation. The "output" return
+=======
+// PutRepositoryTriggersRequest generates a "aws/request.Request" representing the
+// client's request for the PutRepositoryTriggers operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See GetCommit for more information on using the GetCommit
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See PutRepositoryTriggers for more information on using the PutRepositoryTriggers
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetCommitRequest method.
@@ -1836,6 +2129,7 @@ func (c *CodeCommit) GetCommitWithContext(ctx aws.Context, input *GetCommitInput
 
 const opGetDifferences = "GetDifferences"
 
+<<<<<<< HEAD
 // GetDifferencesRequest generates a "aws/request.Request" representing the
 // client's request for the GetDifferences operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1849,6 +2143,22 @@ const opGetDifferences = "GetDifferences"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// TestRepositoryTriggersRequest generates a "aws/request.Request" representing the
+// client's request for the TestRepositoryTriggers operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See TestRepositoryTriggers for more information on using the TestRepositoryTriggers
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetDifferencesRequest method.
@@ -1992,6 +2302,7 @@ func (c *CodeCommit) GetDifferencesPages(input *GetDifferencesInput, fn func(*Ge
 	return c.GetDifferencesPagesWithContext(aws.BackgroundContext(), input, fn)
 }
 
+<<<<<<< HEAD
 // GetDifferencesPagesWithContext same as GetDifferencesPages except
 // it takes a Context and allows setting request options on the pages.
 //
@@ -2025,17 +2336,30 @@ const opGetMergeConflicts = "GetMergeConflicts"
 
 // GetMergeConflictsRequest generates a "aws/request.Request" representing the
 // client's request for the GetMergeConflicts operation. The "output" return
+=======
+// UpdateDefaultBranchRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateDefaultBranch operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See GetMergeConflicts for more information on using the GetMergeConflicts
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See UpdateDefaultBranch for more information on using the UpdateDefaultBranch
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetMergeConflictsRequest method.
@@ -2157,6 +2481,7 @@ func (c *CodeCommit) GetMergeConflictsWithContext(ctx aws.Context, input *GetMer
 
 const opGetPullRequest = "GetPullRequest"
 
+<<<<<<< HEAD
 // GetPullRequestRequest generates a "aws/request.Request" representing the
 // client's request for the GetPullRequest operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2170,6 +2495,22 @@ const opGetPullRequest = "GetPullRequest"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// UpdateRepositoryDescriptionRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateRepositoryDescription operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateRepositoryDescription for more information on using the UpdateRepositoryDescription
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetPullRequestRequest method.
@@ -2260,6 +2601,7 @@ func (c *CodeCommit) GetPullRequestWithContext(ctx aws.Context, input *GetPullRe
 
 const opGetRepository = "GetRepository"
 
+<<<<<<< HEAD
 // GetRepositoryRequest generates a "aws/request.Request" representing the
 // client's request for the GetRepository operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2273,6 +2615,22 @@ const opGetRepository = "GetRepository"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// UpdateRepositoryNameRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateRepositoryName operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateRepositoryName for more information on using the UpdateRepositoryName
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetRepositoryRequest method.
@@ -6630,10 +6988,25 @@ func (s GetPullRequestInput) String() string {
 	return awsutil.Prettify(s)
 }
 
+<<<<<<< HEAD
 // GoString returns the string representation
 func (s GetPullRequestInput) GoString() string {
 	return s.String()
 }
+=======
+	// The full SHA of the specified commit.
+	CommitId *string `locationName:"commitId" type:"string"`
+
+	// Information about the person who committed the specified commit, also known
+	// as the committer. Information includes the date in timestamp format with
+	// GMT offset, the name of the committer, and the email address for the committer,
+	// as configured in Git.
+	//
+	// For more information about the difference between an author and a committer
+	// in Git, see Viewing the Commit History (http://git-scm.com/book/ch2-3.html)
+	// in Pro Git by Scott Chacon and Ben Straub.
+	Committer *UserInfo `locationName:"committer" type:"structure"`
+>>>>>>> Initial dep workover
 
 // Validate inspects the fields of the type to determine if they are valid.
 func (s *GetPullRequestInput) Validate() error {
@@ -6691,9 +7064,22 @@ type GetRepositoryInput struct {
 	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
 }
 
+<<<<<<< HEAD
 // String returns the string representation
 func (s GetRepositoryInput) String() string {
 	return awsutil.Prettify(s)
+=======
+// SetCommitId sets the CommitId field's value.
+func (s *Commit) SetCommitId(v string) *Commit {
+	s.CommitId = &v
+	return s
+}
+
+// SetCommitter sets the Committer field's value.
+func (s *Commit) SetCommitter(v *UserInfo) *Commit {
+	s.Committer = v
+	return s
+>>>>>>> Initial dep workover
 }
 
 // GoString returns the string representation
@@ -6905,6 +7291,7 @@ func (s *ListBranchesOutput) SetBranches(v []*string) *ListBranchesOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // SetNextToken sets the NextToken field's value.
 func (s *ListBranchesOutput) SetNextToken(v string) *ListBranchesOutput {
 	s.NextToken = &v
@@ -6913,6 +7300,97 @@ func (s *ListBranchesOutput) SetNextToken(v string) *ListBranchesOutput {
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListPullRequestsInput
 type ListPullRequestsInput struct {
+=======
+// Represents the input of a delete branch operation.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranchInput
+type DeleteBranchInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the branch to delete.
+	//
+	// BranchName is a required field
+	BranchName *string `locationName:"branchName" min:"1" type:"string" required:"true"`
+
+	// The name of the repository that contains the branch to be deleted.
+	//
+	// RepositoryName is a required field
+	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteBranchInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteBranchInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteBranchInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteBranchInput"}
+	if s.BranchName == nil {
+		invalidParams.Add(request.NewErrParamRequired("BranchName"))
+	}
+	if s.BranchName != nil && len(*s.BranchName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("BranchName", 1))
+	}
+	if s.RepositoryName == nil {
+		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
+	}
+	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetBranchName sets the BranchName field's value.
+func (s *DeleteBranchInput) SetBranchName(v string) *DeleteBranchInput {
+	s.BranchName = &v
+	return s
+}
+
+// SetRepositoryName sets the RepositoryName field's value.
+func (s *DeleteBranchInput) SetRepositoryName(v string) *DeleteBranchInput {
+	s.RepositoryName = &v
+	return s
+}
+
+// Represents the output of a delete branch operation.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranchOutput
+type DeleteBranchOutput struct {
+	_ struct{} `type:"structure"`
+
+	// Information about the branch deleted by the operation, including the branch
+	// name and the commit ID that was the tip of the branch.
+	DeletedBranch *BranchInfo `locationName:"deletedBranch" type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteBranchOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteBranchOutput) GoString() string {
+	return s.String()
+}
+
+// SetDeletedBranch sets the DeletedBranch field's value.
+func (s *DeleteBranchOutput) SetDeletedBranch(v *BranchInfo) *DeleteBranchOutput {
+	s.DeletedBranch = v
+	return s
+}
+
+// Represents the input of a delete repository operation.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteRepositoryInput
+type DeleteRepositoryInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// Optional. The Amazon Resource Name (ARN) of the user who created the pull
@@ -7289,8 +7767,12 @@ func (s *MergePullRequestByFastForwardOutput) SetPullRequest(v *PullRequest) *Me
 type PostCommentForComparedCommitInput struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// To establish the directionality of the comparison, the full commit ID of
 	// the 'after' commit.
+=======
+	// The commit ID. Commit IDs are the full SHA of the commit.
+>>>>>>> Initial dep workover
 	//
 	// AfterCommitId is a required field
 	AfterCommitId *string `locationName:"afterCommitId" type:"string" required:"true"`

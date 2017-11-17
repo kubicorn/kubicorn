@@ -159,8 +159,13 @@ func lookupAndFormat(p *printer, r Reference, a []interface{}) {
 // Arg implements catmsg.Renderer.
 func (p *printer) Arg(i int) interface{} { // TODO, also return "ok" bool
 	i--
+<<<<<<< HEAD
 	if uint(i) < uint(len(p.fmt.Args)) {
 		return p.fmt.Args[i]
+=======
+	if uint(i) < uint(len(p.args)) {
+		return p.args[i]
+>>>>>>> Initial dep workover
 	}
 	return nil
 }

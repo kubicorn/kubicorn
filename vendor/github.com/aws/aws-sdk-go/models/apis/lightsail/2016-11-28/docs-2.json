@@ -4,8 +4,11 @@
   "operations": {
     "AllocateStaticIp": "<p>Allocates a static IP address.</p>",
     "AttachDisk": "<p>Attaches a block storage disk to a running or stopped Lightsail instance and exposes it to the instance with the specified disk name.</p>",
+<<<<<<< HEAD
     "AttachInstancesToLoadBalancer": "<p>Attaches one or more Lightsail instances to a load balancer.</p>",
     "AttachLoadBalancerTlsCertificate": "<p>Attaches a Transport Layer Security (TLS) certificate to your load balancer.</p> <p>TLS is just an updated, more secure version of Secure Socket Layer (SSL).</p>",
+=======
+>>>>>>> Initial dep workover
     "AttachStaticIp": "<p>Attaches a static IP address to a specific Amazon Lightsail instance.</p>",
     "CloseInstancePublicPorts": "<p>Closes the public ports on a specific Amazon Lightsail instance.</p>",
     "CreateDisk": "<p>Creates a block storage disk that can be attached to a Lightsail instance in the same Availability Zone (e.g., <code>us-east-2a</code>). The disk is created in the regional endpoint that you send the HTTP request to. For more information, see <a href=\"https://lightsail.aws.amazon.com/ls/docs/overview/article/understanding-regions-and-availability-zones-in-amazon-lightsail\">Regions and Availability Zones in Lightsail</a>.</p>",
@@ -17,8 +20,11 @@
     "CreateInstances": "<p>Creates one or more Amazon Lightsail virtual private servers, or <i>instances</i>.</p>",
     "CreateInstancesFromSnapshot": "<p>Uses a specific snapshot as a blueprint for creating one or more new instances that are based on that identical configuration.</p>",
     "CreateKeyPair": "<p>Creates sn SSH key pair.</p>",
+<<<<<<< HEAD
     "CreateLoadBalancer": "<p>Creates a Lightsail load balancer.</p> <p>When you create a load balancer, you can specify certificates and port settings. You can create up to 5 load balancers per AWS Region in your account.</p>",
     "CreateLoadBalancerTlsCertificate": "<p>Creates a Lightsail load balancer TLS certificate.</p> <p>TLS is just an updated, more secure version of Secure Socket Layer (SSL).</p>",
+=======
+>>>>>>> Initial dep workover
     "DeleteDisk": "<p>Deletes the specified block storage disk. The disk must be in the <code>available</code> state (not attached to a Lightsail instance).</p> <note> <p>The disk may remain in the <code>deleting</code> state for several minutes.</p> </note>",
     "DeleteDiskSnapshot": "<p>Deletes the specified disk snapshot.</p> <p>When you make periodic snapshots of a disk, the snapshots are incremental, and only the blocks on the device that have changed since your last snapshot are saved in the new snapshot. When you delete a snapshot, only the data not needed for any other snapshot is removed. So regardless of which prior snapshots have been deleted, all active snapshots will have access to all the information needed to restore the disk.</p>",
     "DeleteDomain": "<p>Deletes the specified domain recordset and all of its domain records.</p>",
@@ -26,10 +32,14 @@
     "DeleteInstance": "<p>Deletes a specific Amazon Lightsail virtual private server, or <i>instance</i>.</p>",
     "DeleteInstanceSnapshot": "<p>Deletes a specific snapshot of a virtual private server (or <i>instance</i>).</p>",
     "DeleteKeyPair": "<p>Deletes a specific SSH key pair.</p>",
+<<<<<<< HEAD
     "DeleteLoadBalancer": "<p>Deletes a Lightsail load balancer.</p>",
     "DeleteLoadBalancerTlsCertificate": "<p>Deletes a TLS/SSL certificate associated with a Lightsail load balancer.</p>",
     "DetachDisk": "<p>Detaches a stopped block storage disk from a Lightsail instance. Make sure to unmount any file systems on the device within your operating system before stopping the instance and detaching the disk.</p>",
     "DetachInstancesFromLoadBalancer": "<p>Detaches the specified instances from a Lightsail load balancer.</p>",
+=======
+    "DetachDisk": "<p>Detaches a stopped block storage disk from a Lightsail instance. Make sure to unmount any file systems on the device within your operating system before stopping the instance and detaching the disk.</p>",
+>>>>>>> Initial dep workover
     "DetachStaticIp": "<p>Detaches a static IP from the Amazon Lightsail instance to which it is attached.</p>",
     "DownloadDefaultKeyPair": "<p>Downloads the default SSH key pair from the user's account.</p>",
     "GetActiveNames": "<p>Returns the names of all active (not deleted) resources.</p>",
@@ -111,6 +121,7 @@
       "refs": {
       }
     },
+<<<<<<< HEAD
     "AttachInstancesToLoadBalancerRequest": {
       "base": null,
       "refs": {
@@ -131,6 +142,8 @@
       "refs": {
       }
     },
+=======
+>>>>>>> Initial dep workover
     "AttachStaticIpRequest": {
       "base": null,
       "refs": {
@@ -300,6 +313,7 @@
       "refs": {
       }
     },
+<<<<<<< HEAD
     "CreateLoadBalancerRequest": {
       "base": null,
       "refs": {
@@ -320,6 +334,8 @@
       "refs": {
       }
     },
+=======
+>>>>>>> Initial dep workover
     "DeleteDiskRequest": {
       "base": null,
       "refs": {
@@ -390,6 +406,7 @@
       "refs": {
       }
     },
+<<<<<<< HEAD
     "DeleteLoadBalancerRequest": {
       "base": null,
       "refs": {
@@ -410,6 +427,8 @@
       "refs": {
       }
     },
+=======
+>>>>>>> Initial dep workover
     "DetachDiskRequest": {
       "base": null,
       "refs": {
@@ -420,6 +439,7 @@
       "refs": {
       }
     },
+<<<<<<< HEAD
     "DetachInstancesFromLoadBalancerRequest": {
       "base": null,
       "refs": {
@@ -430,6 +450,8 @@
       "refs": {
       }
     },
+=======
+>>>>>>> Initial dep workover
     "DetachStaticIpRequest": {
       "base": null,
       "refs": {
@@ -1284,6 +1306,7 @@
         "InstanceSnapshot$arn": "<p>The Amazon Resource Name (ARN) of the snapshot (e.g., <code>arn:aws:lightsail:us-east-2:123456789101:InstanceSnapshot/d23b5706-3322-4d83-81e5-12345EXAMPLE</code>).</p>",
         "InstanceSnapshot$fromInstanceArn": "<p>The Amazon Resource Name (ARN) of the instance from which the snapshot was created (e.g., <code>arn:aws:lightsail:us-east-2:123456789101:Instance/64b8404c-ccb1-430b-8daf-12345EXAMPLE</code>).</p>",
         "KeyPair$arn": "<p>The Amazon Resource Name (ARN) of the key pair (e.g., <code>arn:aws:lightsail:us-east-2:123456789101:KeyPair/05859e3d-331d-48ba-9034-12345EXAMPLE</code>).</p>",
+<<<<<<< HEAD
         "LoadBalancer$arn": "<p>The Amazon Resource Name (ARN) of the load balancer.</p>",
         "LoadBalancer$dnsName": "<p>The DNS name of your Lightsail load balancer.</p>",
         "LoadBalancer$healthCheckPath": "<p>The path you specified to perform your health checks. If no path is specified, the load balancer tries to make a request to the default (root) page.</p>",
@@ -1296,6 +1319,8 @@
         "LoadBalancerTlsCertificateDomainValidationRecord$name": "<p>A fully qualified domain name in the certificate. For example, <code>example.com</code>.</p>",
         "LoadBalancerTlsCertificateDomainValidationRecord$type": "<p>The type of validation record. For example, <code>CNAME</code> for domain validation.</p>",
         "LoadBalancerTlsCertificateDomainValidationRecord$value": "<p>The value for that type.</p>",
+=======
+>>>>>>> Initial dep workover
         "Operation$id": "<p>The ID of the operation.</p>",
         "StaticIp$arn": "<p>The Amazon Resource Name (ARN) of the static IP (e.g., <code>arn:aws:lightsail:us-east-2:123456789101:StaticIp/9cbb4a9e-f8e3-4dfe-b57e-12345EXAMPLE</code>).</p>"
       }
@@ -1343,9 +1368,13 @@
       "base": null,
       "refs": {
         "AllocateStaticIpResult$operations": "<p>An array of key-value pairs containing information about the static IP address you allocated.</p>",
+<<<<<<< HEAD
         "AttachDiskResult$operations": "<p>An object describing the API operations.</p>",
         "AttachInstancesToLoadBalancerResult$operations": "<p>An object representing the API operations.</p>",
         "AttachLoadBalancerTlsCertificateResult$operations": "<p>An object representing the API operations.</p>",
+=======
+        "AttachDiskResult$operations": "<p>An object describing the API operation.</p>",
+>>>>>>> Initial dep workover
         "AttachStaticIpResult$operations": "<p>An array of key-value pairs containing information about your API operations.</p>",
         "CreateDiskFromSnapshotResult$operations": "<p>An object describing the API operations.</p>",
         "CreateDiskResult$operations": "<p>An object describing the API operations.</p>",
@@ -1353,16 +1382,23 @@
         "CreateInstanceSnapshotResult$operations": "<p>An array of key-value pairs containing information about the results of your create instances snapshot request.</p>",
         "CreateInstancesFromSnapshotResult$operations": "<p>An array of key-value pairs containing information about the results of your create instances from snapshot request.</p>",
         "CreateInstancesResult$operations": "<p>An array of key-value pairs containing information about the results of your create instances request.</p>",
+<<<<<<< HEAD
         "CreateLoadBalancerResult$operations": "<p>An object containing information about the API operations.</p>",
         "CreateLoadBalancerTlsCertificateResult$operations": "<p>An object containing information about the API operations.</p>",
+=======
+>>>>>>> Initial dep workover
         "DeleteDiskResult$operations": "<p>An object describing the API operations.</p>",
         "DeleteDiskSnapshotResult$operations": "<p>An object describing the API operations.</p>",
         "DeleteInstanceResult$operations": "<p>An array of key-value pairs containing information about the results of your delete instance request.</p>",
         "DeleteInstanceSnapshotResult$operations": "<p>An array of key-value pairs containing information about the results of your delete instance snapshot request.</p>",
+<<<<<<< HEAD
         "DeleteLoadBalancerResult$operations": "<p>An object describing the API operations.</p>",
         "DeleteLoadBalancerTlsCertificateResult$operations": "<p>An object describing the API operations.</p>",
         "DetachDiskResult$operations": "<p>An object describing the API operations.</p>",
         "DetachInstancesFromLoadBalancerResult$operations": "<p>An object describing the API operations.</p>",
+=======
+        "DetachDiskResult$operations": "<p>An object describing the API operations.</p>",
+>>>>>>> Initial dep workover
         "DetachStaticIpResult$operations": "<p>An array of key-value pairs containing information about the results of your detach static IP request.</p>",
         "GetOperationsForResourceResult$operations": "<p>An array of key-value pairs containing information about the results of your get operations for resource request.</p>",
         "GetOperationsResult$operations": "<p>An array of key-value pairs containing information about the results of your get operations request.</p>",
@@ -1517,9 +1553,12 @@
         "AllocateStaticIpRequest$staticIpName": "<p>The name of the static IP address.</p>",
         "AttachDiskRequest$diskName": "<p>The unique Lightsail disk name (e.g., <code>my-disk</code>).</p>",
         "AttachDiskRequest$instanceName": "<p>The name of the Lightsail instance where you want to utilize the storage disk.</p>",
+<<<<<<< HEAD
         "AttachInstancesToLoadBalancerRequest$loadBalancerName": "<p>The name of the load balancer.</p>",
         "AttachLoadBalancerTlsCertificateRequest$loadBalancerName": "<p>The name of the load balancer to which you want to associate the TLS/SSL certificate.</p>",
         "AttachLoadBalancerTlsCertificateRequest$certificateName": "<p>The name of your TLS/SSL certificate.</p>",
+=======
+>>>>>>> Initial dep workover
         "AttachStaticIpRequest$staticIpName": "<p>The name of the static IP.</p>",
         "AttachStaticIpRequest$instanceName": "<p>The instance name to which you want to attach the static IP address.</p>",
         "AttachedDiskMap$key": null,
@@ -1537,20 +1576,27 @@
         "CreateInstancesRequest$customImageName": "<p>(Deprecated) The name for your custom image.</p> <note> <p>In releases prior to June 12, 2017, this parameter was ignored by the API. It is now deprecated.</p> </note>",
         "CreateInstancesRequest$keyPairName": "<p>The name of your key pair.</p>",
         "CreateKeyPairRequest$keyPairName": "<p>The name for your new key pair.</p>",
+<<<<<<< HEAD
         "CreateLoadBalancerRequest$loadBalancerName": "<p>The name of your load balancer.</p>",
         "CreateLoadBalancerRequest$certificateName": "<p>The name of the TLS/SSL certificate.</p> <p>If you specify <code>certificateName</code>, then <code>certificateDomainName</code> is required (and vice-versa).</p>",
         "CreateLoadBalancerTlsCertificateRequest$loadBalancerName": "<p>The load balancer name where you want to create the TLS/SSL certificate.</p>",
         "CreateLoadBalancerTlsCertificateRequest$certificateName": "<p>The TLS/SSL certificate name.</p>",
+=======
+>>>>>>> Initial dep workover
         "DeleteDiskRequest$diskName": "<p>The unique name of the disk you want to delete (e.g., <code>my-disk</code>).</p>",
         "DeleteDiskSnapshotRequest$diskSnapshotName": "<p>The name of the disk snapshot you want to delete (e.g., <code>my-disk-snapshot</code>).</p>",
         "DeleteInstanceRequest$instanceName": "<p>The name of the instance to delete.</p>",
         "DeleteInstanceSnapshotRequest$instanceSnapshotName": "<p>The name of the snapshot to delete.</p>",
         "DeleteKeyPairRequest$keyPairName": "<p>The name of the key pair to delete.</p>",
+<<<<<<< HEAD
         "DeleteLoadBalancerRequest$loadBalancerName": "<p>The name of the load balancer you want to delete.</p>",
         "DeleteLoadBalancerTlsCertificateRequest$loadBalancerName": "<p>The load balancer name.</p>",
         "DeleteLoadBalancerTlsCertificateRequest$certificateName": "<p>The TLS/SSL certificate name.</p>",
         "DetachDiskRequest$diskName": "<p>The unique name of the disk you want to detach from your instance (e.g., <code>my-disk</code>).</p>",
         "DetachInstancesFromLoadBalancerRequest$loadBalancerName": "<p>The name of the Lightsail load balancer.</p>",
+=======
+        "DetachDiskRequest$diskName": "<p>The unique name of the disk you want to detach from your instance (e.g., <code>my-disk</code>).</p>",
+>>>>>>> Initial dep workover
         "DetachStaticIpRequest$staticIpName": "<p>The name of the static IP to detach from the instance.</p>",
         "Disk$name": "<p>The unique name of the disk.</p>",
         "Disk$attachedTo": "<p>The resources to which the disk is attached.</p>",
@@ -1594,6 +1640,7 @@
         "StartInstanceRequest$instanceName": "<p>The name of the instance (a virtual private server) to start.</p>",
         "StaticIp$name": "<p>The name of the static IP (e.g., <code>StaticIP-Ohio-EXAMPLE</code>).</p>",
         "StaticIp$attachedTo": "<p>The instance where the static IP is attached (e.g., <code>Amazon_Linux-1GB-Ohio-1</code>).</p>",
+<<<<<<< HEAD
         "StopInstanceRequest$instanceName": "<p>The name of the instance (a virtual private server) to stop.</p>",
         "UpdateLoadBalancerAttributeRequest$loadBalancerName": "<p>The name of the load balancer that you want to modify.</p>"
       }
@@ -1603,6 +1650,9 @@
       "refs": {
         "AttachInstancesToLoadBalancerRequest$instanceNames": "<p>An array of strings representing the instance name(s) you want to attach to your load balancer.</p>",
         "DetachInstancesFromLoadBalancerRequest$instanceNames": "<p>An array of strings containing the names of the instances you want to detach from the load balancer.</p>"
+=======
+        "StopInstanceRequest$instanceName": "<p>The name of the instance (a virtual private server) to stop.</p>"
+>>>>>>> Initial dep workover
       }
     },
     "ResourceType": {
@@ -1759,7 +1809,11 @@
         "CreateDiskRequest$sizeInGb": "<p>The size of the disk in GB (e.g., <code>32</code>).</p>",
         "Disk$sizeInGb": "<p>The size of the disk in GB.</p>",
         "Disk$iops": "<p>The input/output operations per second (IOPS) of the disk.</p>",
+<<<<<<< HEAD
         "Disk$gbInUse": "<p>(Deprecated) The number of GB in use by the disk.</p> <note> <p>In releases prior to November 14, 2017, this parameter was not included in the API response. It is now deprecated.</p> </note>",
+=======
+        "Disk$gbInUse": "<p>(Deprecated) The number of GB in use by the disk.</p> <note> <p>In releases prior to November 9, 2017, this parameter was not included in the API response. It is now deprecated.</p> </note>",
+>>>>>>> Initial dep workover
         "DiskSnapshot$sizeInGb": "<p>The size of the disk in GB.</p>",
         "InstanceHardware$cpuCount": "<p>The number of vCPUs the instance has.</p>",
         "InstanceSnapshot$sizeInGb": "<p>The size in GB of the SSD.</p>",
@@ -1787,6 +1841,7 @@
         "Bundle$instanceType": "<p>The Amazon EC2 instance type (e.g., <code>t2.micro</code>).</p>",
         "Bundle$name": "<p>A friendly name for the bundle (e.g., <code>Micro</code>).</p>",
         "CreateInstancesFromSnapshotRequest$availabilityZone": "<p>The Availability Zone where you want to create your instances. Use the following formatting: <code>us-east-2a</code> (case sensitive). You can get a list of availability zones by using the <a href=\"http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html\">get regions</a> operation. Be sure to add the <code>include availability zones</code> parameter to your request.</p>",
+<<<<<<< HEAD
         "CreateInstancesFromSnapshotRequest$userData": "<p>You can create a launch script that configures a server with additional user data. For example, <code>apt-get -y update</code>.</p> <note> <p>Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the <a href=\"http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps\">Dev Guide</a>.</p> </note>",
         "CreateInstancesRequest$availabilityZone": "<p>The Availability Zone in which to create your instance. Use the following format: <code>us-east-2a</code> (case sensitive). You can get a list of availability zones by using the <a href=\"http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html\">get regions</a> operation. Be sure to add the <code>include availability zones</code> parameter to your request.</p>",
         "CreateInstancesRequest$userData": "<p>A launch script you can create that configures a server with additional user data. For example, you might want to run <code>apt-get -y update</code>.</p> <note> <p>Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the <a href=\"https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image\">Dev Guide</a>.</p> </note>",
@@ -1794,6 +1849,14 @@
         "Disk$supportCode": "<p>The support code. Include this code in your email to support when you have questions about an instance or another resource in Lightsail. This code enables our support team to look up your Lightsail information more easily.</p>",
         "Disk$path": "<p>The disk path.</p>",
         "Disk$attachmentState": "<p>(Deprecated) The attachment state of the disk.</p> <note> <p>In releases prior to November 14, 2017, this parameter returned <code>attached</code> for system disks in the API response. It is now deprecated, but still included in the response. Use <code>isAttached</code> instead.</p> </note>",
+=======
+        "CreateInstancesFromSnapshotRequest$userData": "<p>You can create a launch script that configures a server with additional user data. For example, <code>apt-get –y update</code>.</p> <note> <p>Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the <a href=\"http://lightsail.aws.amazon.com/ls/docs/getting-started/articles/pre-installed-apps\">Dev Guide</a>.</p> </note>",
+        "CreateInstancesRequest$availabilityZone": "<p>The Availability Zone in which to create your instance. Use the following format: <code>us-east-2a</code> (case sensitive). You can get a list of availability zones by using the <a href=\"http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html\">get regions</a> operation. Be sure to add the <code>include availability zones</code> parameter to your request.</p>",
+        "CreateInstancesRequest$userData": "<p>A launch script you can create that configures a server with additional user data. For example, you might want to run <code>apt-get –y update</code>.</p> <note> <p>Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use <code>yum</code>, Debian and Ubuntu use <code>apt-get</code>, and FreeBSD uses <code>pkg</code>. For a complete list, see the <a href=\"https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image\">Dev Guide</a>.</p> </note>",
+        "Disk$supportCode": "<p>The support code. Include this code in your email to support when you have questions about an instance or another resource in Lightsail. This code enables our support team to look up your Lightsail information more easily.</p>",
+        "Disk$path": "<p>The disk path.</p>",
+        "Disk$attachmentState": "<p>(Deprecated) The attachment state of the disk.</p> <note> <p>In releases prior to November 9, 2017, this parameter returned <code>attached</code> for system disks in the API response. It is now deprecated, but still included in the response. Use <code>isAttached</code> instead.</p> </note>",
+>>>>>>> Initial dep workover
         "DiskSnapshot$supportCode": "<p>The support code. Include this code in your email to support when you have questions about an instance or another resource in Lightsail. This code enables our support team to look up your Lightsail information more easily.</p>",
         "DiskSnapshot$progress": "<p>The progress of the disk snapshot operation.</p>",
         "Domain$supportCode": "<p>The support code. Include this code in your email to support when you have questions about an instance or another resource in Lightsail. This code enables our support team to look up your Lightsail information more easily.</p>",

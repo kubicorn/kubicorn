@@ -234,7 +234,11 @@ const opAddApplicationInputProcessingConfiguration = "AddApplicationInputProcess
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfiguration
+>>>>>>> Initial dep workover
 func (c *KinesisAnalytics) AddApplicationInputProcessingConfigurationRequest(input *AddApplicationInputProcessingConfigurationInput) (req *request.Request, output *AddApplicationInputProcessingConfigurationOutput) {
 	op := &request.Operation{
 		Name:       opAddApplicationInputProcessingConfiguration,
@@ -279,7 +283,11 @@ func (c *KinesisAnalytics) AddApplicationInputProcessingConfigurationRequest(inp
 //   For example, two individuals attempting to edit the same application at the
 //   same time.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfiguration
+>>>>>>> Initial dep workover
 func (c *KinesisAnalytics) AddApplicationInputProcessingConfiguration(input *AddApplicationInputProcessingConfigurationInput) (*AddApplicationInputProcessingConfigurationOutput, error) {
 	req, out := c.AddApplicationInputProcessingConfigurationRequest(input)
 	return out, req.Send()
@@ -840,7 +848,11 @@ const opDeleteApplicationInputProcessingConfiguration = "DeleteApplicationInputP
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfiguration
+>>>>>>> Initial dep workover
 func (c *KinesisAnalytics) DeleteApplicationInputProcessingConfigurationRequest(input *DeleteApplicationInputProcessingConfigurationInput) (req *request.Request, output *DeleteApplicationInputProcessingConfigurationOutput) {
 	op := &request.Operation{
 		Name:       opDeleteApplicationInputProcessingConfiguration,
@@ -883,7 +895,11 @@ func (c *KinesisAnalytics) DeleteApplicationInputProcessingConfigurationRequest(
 //   For example, two individuals attempting to edit the same application at the
 //   same time.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfiguration
+>>>>>>> Initial dep workover
 func (c *KinesisAnalytics) DeleteApplicationInputProcessingConfiguration(input *DeleteApplicationInputProcessingConfigurationInput) (*DeleteApplicationInputProcessingConfigurationOutput, error) {
 	req, out := c.DeleteApplicationInputProcessingConfigurationRequest(input)
 	return out, req.Send()
@@ -1855,7 +1871,11 @@ func (s AddApplicationInputOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfigurationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfigurationRequest
+>>>>>>> Initial dep workover
 type AddApplicationInputProcessingConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1955,7 +1975,11 @@ func (s *AddApplicationInputProcessingConfigurationInput) SetInputProcessingConf
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfigurationResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationInputProcessingConfigurationResponse
+>>>>>>> Initial dep workover
 type AddApplicationInputProcessingConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1970,7 +1994,11 @@ func (s AddApplicationInputProcessingConfigurationOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationOutputRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/AddApplicationOutputRequest
+>>>>>>> Initial dep workover
 type AddApplicationOutputInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3059,7 +3087,11 @@ func (s *DeleteApplicationInput) SetCreateTimestamp(v time.Time) *DeleteApplicat
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfigurationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfigurationRequest
+>>>>>>> Initial dep workover
 type DeleteApplicationInputProcessingConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3083,6 +3115,122 @@ type DeleteApplicationInputProcessingConfigurationInput struct {
 
 // String returns the string representation
 func (s DeleteApplicationInputProcessingConfigurationInput) String() string {
+<<<<<<< HEAD
+=======
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteApplicationInputProcessingConfigurationInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteApplicationInputProcessingConfigurationInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteApplicationInputProcessingConfigurationInput"}
+	if s.ApplicationName == nil {
+		invalidParams.Add(request.NewErrParamRequired("ApplicationName"))
+	}
+	if s.ApplicationName != nil && len(*s.ApplicationName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ApplicationName", 1))
+	}
+	if s.CurrentApplicationVersionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("CurrentApplicationVersionId"))
+	}
+	if s.CurrentApplicationVersionId != nil && *s.CurrentApplicationVersionId < 1 {
+		invalidParams.Add(request.NewErrParamMinValue("CurrentApplicationVersionId", 1))
+	}
+	if s.InputId == nil {
+		invalidParams.Add(request.NewErrParamRequired("InputId"))
+	}
+	if s.InputId != nil && len(*s.InputId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("InputId", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetApplicationName sets the ApplicationName field's value.
+func (s *DeleteApplicationInputProcessingConfigurationInput) SetApplicationName(v string) *DeleteApplicationInputProcessingConfigurationInput {
+	s.ApplicationName = &v
+	return s
+}
+
+// SetCurrentApplicationVersionId sets the CurrentApplicationVersionId field's value.
+func (s *DeleteApplicationInputProcessingConfigurationInput) SetCurrentApplicationVersionId(v int64) *DeleteApplicationInputProcessingConfigurationInput {
+	s.CurrentApplicationVersionId = &v
+	return s
+}
+
+// SetInputId sets the InputId field's value.
+func (s *DeleteApplicationInputProcessingConfigurationInput) SetInputId(v string) *DeleteApplicationInputProcessingConfigurationInput {
+	s.InputId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationInputProcessingConfigurationResponse
+type DeleteApplicationInputProcessingConfigurationOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteApplicationInputProcessingConfigurationOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteApplicationInputProcessingConfigurationOutput) GoString() string {
+	return s.String()
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationResponse
+type DeleteApplicationOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteApplicationOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteApplicationOutput) GoString() string {
+	return s.String()
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DeleteApplicationOutputRequest
+type DeleteApplicationOutputInput struct {
+	_ struct{} `type:"structure"`
+
+	// Amazon Kinesis Analytics application name.
+	//
+	// ApplicationName is a required field
+	ApplicationName *string `min:"1" type:"string" required:"true"`
+
+	// Amazon Kinesis Analytics application version. You can use the DescribeApplication
+	// operation to get the current application version. If the version specified
+	// is not the current version, the ConcurrentModificationException is returned.
+	//
+	// CurrentApplicationVersionId is a required field
+	CurrentApplicationVersionId *int64 `min:"1" type:"long" required:"true"`
+
+	// The ID of the configuration to delete. Each output configuration that is
+	// added to the application, either when the application is created or later
+	// using the AddApplicationOutput operation, has a unique ID. You need to provide
+	// the ID to uniquely identify the output configuration that you want to delete
+	// from the application configuration. You can use the DescribeApplication operation
+	// to get the specific OutputId.
+	//
+	// OutputId is a required field
+	OutputId *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteApplicationOutputInput) String() string {
+>>>>>>> Initial dep workover
 	return awsutil.Prettify(s)
 }
 
@@ -3545,7 +3693,11 @@ func (s *DiscoverInputSchemaInput) SetS3Configuration(v *S3Configuration) *Disco
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DiscoverInputSchemaResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DiscoverInputSchemaResponse
+>>>>>>> Initial dep workover
 type DiscoverInputSchemaOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3914,7 +4066,11 @@ func (s *InputDescription) SetNamePrefix(v string) *InputDescription {
 // An object that contains the ARN of the AWS Lambda (https://aws.amazon.com/documentation/lambda/)
 // function that is used to preprocess records in the stream, and the ARN of
 // the IAM role used to access the AWS Lambda function.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputLambdaProcessor
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputLambdaProcessor
+>>>>>>> Initial dep workover
 type InputLambdaProcessor struct {
 	_ struct{} `type:"structure"`
 
@@ -3977,7 +4133,11 @@ func (s *InputLambdaProcessor) SetRoleARN(v string) *InputLambdaProcessor {
 // An object that contains the ARN of the AWS Lambda (https://aws.amazon.com/documentation/lambda/)
 // function that is used to preprocess records in the stream, and the ARN of
 // the IAM role used to access the AWS Lambda expression.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputLambdaProcessorDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputLambdaProcessorDescription
+>>>>>>> Initial dep workover
 type InputLambdaProcessorDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -4013,7 +4173,11 @@ func (s *InputLambdaProcessorDescription) SetRoleARN(v string) *InputLambdaProce
 
 // Represents an update to the InputLambdaProcessor that is used to preprocess
 // the records in the stream.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputLambdaProcessorUpdate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputLambdaProcessorUpdate
+>>>>>>> Initial dep workover
 type InputLambdaProcessorUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -4145,7 +4309,11 @@ func (s *InputParallelismUpdate) SetCountUpdate(v int64) *InputParallelismUpdate
 // Provides a description of a processor that is used to preprocess the records
 // in the stream prior to being processed by your application code. Currently,
 // the only input processor available is AWS Lambda (https://aws.amazon.com/documentation/lambda/).
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputProcessingConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputProcessingConfiguration
+>>>>>>> Initial dep workover
 type InputProcessingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -4192,7 +4360,11 @@ func (s *InputProcessingConfiguration) SetInputLambdaProcessor(v *InputLambdaPro
 
 // Provides configuration information about an input processor. Currently, the
 // only input processor available is AWS Lambda (https://aws.amazon.com/documentation/lambda/).
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputProcessingConfigurationDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputProcessingConfigurationDescription
+>>>>>>> Initial dep workover
 type InputProcessingConfigurationDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -4217,7 +4389,11 @@ func (s *InputProcessingConfigurationDescription) SetInputLambdaProcessorDescrip
 }
 
 // Describes updates to an InputProcessingConfiguration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputProcessingConfigurationUpdate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/InputProcessingConfigurationUpdate
+>>>>>>> Initial dep workover
 type InputProcessingConfigurationUpdate struct {
 	_ struct{} `type:"structure"`
 
@@ -5934,7 +6110,11 @@ func (s *ReferenceDataSourceUpdate) SetTableNameUpdate(v string) *ReferenceDataS
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/S3Configuration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/S3Configuration
+>>>>>>> Initial dep workover
 type S3Configuration struct {
 	_ struct{} `type:"structure"`
 

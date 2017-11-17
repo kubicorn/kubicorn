@@ -137,7 +137,11 @@ const opDeleteScheduledAction = "DeleteScheduledAction"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledAction
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledAction
+>>>>>>> Initial dep workover
 func (c *ApplicationAutoScaling) DeleteScheduledActionRequest(input *DeleteScheduledActionInput) (req *request.Request, output *DeleteScheduledActionOutput) {
 	op := &request.Operation{
 		Name:       opDeleteScheduledAction,
@@ -185,7 +189,11 @@ func (c *ApplicationAutoScaling) DeleteScheduledActionRequest(input *DeleteSched
 //   * ErrCodeInternalServiceException "InternalServiceException"
 //   The service encountered an internal error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledAction
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledAction
+>>>>>>> Initial dep workover
 func (c *ApplicationAutoScaling) DeleteScheduledAction(input *DeleteScheduledActionInput) (*DeleteScheduledActionOutput, error) {
 	req, out := c.DeleteScheduledActionRequest(input)
 	return out, req.Send()
@@ -799,7 +807,11 @@ const opDescribeScheduledActions = "DescribeScheduledActions"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActions
+>>>>>>> Initial dep workover
 func (c *ApplicationAutoScaling) DescribeScheduledActionsRequest(input *DescribeScheduledActionsInput) (req *request.Request, output *DescribeScheduledActionsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeScheduledActions,
@@ -848,7 +860,11 @@ func (c *ApplicationAutoScaling) DescribeScheduledActionsRequest(input *Describe
 //   * ErrCodeInternalServiceException "InternalServiceException"
 //   The service encountered an internal error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActions
+>>>>>>> Initial dep workover
 func (c *ApplicationAutoScaling) DescribeScheduledActions(input *DescribeScheduledActionsInput) (*DescribeScheduledActionsOutput, error) {
 	req, out := c.DescribeScheduledActionsRequest(input)
 	return out, req.Send()
@@ -1015,7 +1031,11 @@ const opPutScheduledAction = "PutScheduledAction"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledAction
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledAction
+>>>>>>> Initial dep workover
 func (c *ApplicationAutoScaling) PutScheduledActionRequest(input *PutScheduledActionInput) (req *request.Request, output *PutScheduledActionOutput) {
 	op := &request.Operation{
 		Name:       opPutScheduledAction,
@@ -1082,7 +1102,11 @@ func (c *ApplicationAutoScaling) PutScheduledActionRequest(input *PutScheduledAc
 //   * ErrCodeInternalServiceException "InternalServiceException"
 //   The service encountered an internal error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledAction
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledAction
+>>>>>>> Initial dep workover
 func (c *ApplicationAutoScaling) PutScheduledAction(input *PutScheduledActionInput) (*PutScheduledActionOutput, error) {
 	req, out := c.PutScheduledActionRequest(input)
 	return out, req.Send()
@@ -1491,7 +1515,11 @@ func (s DeleteScalingPolicyOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledActionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledActionRequest
+>>>>>>> Initial dep workover
 type DeleteScheduledActionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1624,7 +1652,11 @@ func (s *DeleteScheduledActionInput) SetServiceNamespace(v string) *DeleteSchedu
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledActionResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeleteScheduledActionResponse
+>>>>>>> Initial dep workover
 type DeleteScheduledActionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1639,7 +1671,11 @@ func (s DeleteScheduledActionOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeregisterScalableTargetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeregisterScalableTargetRequest
+>>>>>>> Initial dep workover
 type DeregisterScalableTargetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1760,7 +1796,11 @@ func (s *DeregisterScalableTargetInput) SetServiceNamespace(v string) *Deregiste
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeregisterScalableTargetResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DeregisterScalableTargetResponse
+>>>>>>> Initial dep workover
 type DeregisterScalableTargetOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1775,7 +1815,11 @@ func (s DeregisterScalableTargetOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalableTargetsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalableTargetsRequest
+>>>>>>> Initial dep workover
 type DescribeScalableTargetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2294,7 +2338,11 @@ func (s *DescribeScalingPoliciesOutput) SetScalingPolicies(v []*ScalingPolicy) *
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActionsRequest
+>>>>>>> Initial dep workover
 type DescribeScheduledActionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2440,7 +2488,11 @@ func (s *DescribeScheduledActionsInput) SetServiceNamespace(v string) *DescribeS
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActionsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScheduledActionsResponse
+>>>>>>> Initial dep workover
 type DescribeScheduledActionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2777,6 +2829,235 @@ func (s *PutScalingPolicyInput) SetTargetTrackingScalingPolicyConfiguration(v *T
 	return s
 }
 
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScalingPolicyResponse
+type PutScalingPolicyOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The CloudWatch alarms created for the target tracking policy.
+	Alarms []*Alarm `type:"list"`
+
+	// The Amazon Resource Name (ARN) of the resulting scaling policy.
+	//
+	// PolicyARN is a required field
+	PolicyARN *string `min:"1" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s PutScalingPolicyOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s PutScalingPolicyOutput) GoString() string {
+	return s.String()
+}
+
+// SetAlarms sets the Alarms field's value.
+func (s *PutScalingPolicyOutput) SetAlarms(v []*Alarm) *PutScalingPolicyOutput {
+	s.Alarms = v
+	return s
+}
+
+// SetPolicyARN sets the PolicyARN field's value.
+func (s *PutScalingPolicyOutput) SetPolicyARN(v string) *PutScalingPolicyOutput {
+	s.PolicyARN = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledActionRequest
+type PutScheduledActionInput struct {
+	_ struct{} `type:"structure"`
+
+	// The date and time for the scheduled action to end.
+	EndTime *time.Time `type:"timestamp" timestampFormat:"unix"`
+
+	// The identifier of the resource associated with the scheduled action. This
+	// string consists of the resource type and unique identifier.
+	//
+	//    * ECS service - The resource type is service and the unique identifier
+	//    is the cluster name and service name. Example: service/default/sample-webapp.
+	//
+	//    * Spot fleet request - The resource type is spot-fleet-request and the
+	//    unique identifier is the Spot fleet request ID. Example: spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE.
+	//
+	//    * EMR cluster - The resource type is instancegroup and the unique identifier
+	//    is the cluster ID and instance group ID. Example: instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0.
+	//
+	//    * AppStream 2.0 fleet - The resource type is fleet and the unique identifier
+	//    is the fleet name. Example: fleet/sample-fleet.
+	//
+	//    * DynamoDB table - The resource type is table and the unique identifier
+	//    is the resource ID. Example: table/my-table.
+	//
+	//    * DynamoDB global secondary index - The resource type is index and the
+	//    unique identifier is the resource ID. Example: table/my-table/index/my-table-index.
+	//
+	//    * Aurora DB cluster - The resource type is cluster and the unique identifier
+	//    is the cluster name. Example: cluster:my-db-cluster.
+	//
+	// ResourceId is a required field
+	ResourceId *string `min:"1" type:"string" required:"true"`
+
+	// The scalable dimension. This string consists of the service namespace, resource
+	// type, and scaling property.
+	//
+	//    * ecs:service:DesiredCount - The desired task count of an ECS service.
+	//
+	//    * ec2:spot-fleet-request:TargetCapacity - The target capacity of a Spot
+	//    fleet request.
+	//
+	//    * elasticmapreduce:instancegroup:InstanceCount - The instance count of
+	//    an EMR Instance Group.
+	//
+	//    * appstream:fleet:DesiredCapacity - The desired capacity of an AppStream
+	//    2.0 fleet.
+	//
+	//    * dynamodb:table:ReadCapacityUnits - The provisioned read capacity for
+	//    a DynamoDB table.
+	//
+	//    * dynamodb:table:WriteCapacityUnits - The provisioned write capacity for
+	//    a DynamoDB table.
+	//
+	//    * dynamodb:index:ReadCapacityUnits - The provisioned read capacity for
+	//    a DynamoDB global secondary index.
+	//
+	//    * dynamodb:index:WriteCapacityUnits - The provisioned write capacity for
+	//    a DynamoDB global secondary index.
+	//
+	//    * rds:cluster:ReadReplicaCount - The count of Aurora Replicas in an Aurora
+	//    DB cluster. Available for Aurora MySQL-compatible edition.
+	ScalableDimension *string `type:"string" enum:"ScalableDimension"`
+
+	// The new minimum and maximum capacity. You can set both values or just one.
+	// During the scheduled time, if the current capacity is below the minimum capacity,
+	// Application Auto Scaling scales out to the minimum capacity. If the current
+	// capacity is above the maximum capacity, Application Auto Scaling scales in
+	// to the maximum capacity.
+	ScalableTargetAction *ScalableTargetAction `type:"structure"`
+
+	// The schedule for this action. The following formats are supported:
+	//
+	//    * At expressions - at(yyyy-mm-ddThh:mm:ss)
+	//
+	//    * Rate expressions - rate(valueunit)
+	//
+	//    * Cron expressions - cron(fields)
+	//
+	// At expressions are useful for one-time schedules. Specify the time, in UTC.
+	//
+	// For rate expressions, value is a positive integer and unit is minute | minutes
+	// | hour | hours | day | days.
+	//
+	// For more information about cron expressions, see Cron (https://en.wikipedia.org/wiki/Cron).
+	Schedule *string `min:"1" type:"string"`
+
+	// The name of the scheduled action.
+	//
+	// ScheduledActionName is a required field
+	ScheduledActionName *string `min:"1" type:"string" required:"true"`
+
+	// The namespace of the AWS service. For more information, see AWS Service Namespaces
+	// (http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+	// in the Amazon Web Services General Reference.
+	//
+	// ServiceNamespace is a required field
+	ServiceNamespace *string `type:"string" required:"true" enum:"ServiceNamespace"`
+
+	// The date and time for the scheduled action to start.
+	StartTime *time.Time `type:"timestamp" timestampFormat:"unix"`
+}
+
+// String returns the string representation
+func (s PutScheduledActionInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s PutScheduledActionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+<<<<<<< HEAD
+func (s *PutScalingPolicyInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "PutScalingPolicyInput"}
+	if s.PolicyName == nil {
+		invalidParams.Add(request.NewErrParamRequired("PolicyName"))
+	}
+	if s.PolicyName != nil && len(*s.PolicyName) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("PolicyName", 1))
+	}
+	if s.ResourceId == nil {
+		invalidParams.Add(request.NewErrParamRequired("ResourceId"))
+	}
+	if s.ResourceId != nil && len(*s.ResourceId) < 1 {
+		invalidParams.Add(request.NewErrParamMinLen("ResourceId", 1))
+	}
+	if s.ScalableDimension == nil {
+		invalidParams.Add(request.NewErrParamRequired("ScalableDimension"))
+	}
+	if s.ServiceNamespace == nil {
+		invalidParams.Add(request.NewErrParamRequired("ServiceNamespace"))
+	}
+	if s.StepScalingPolicyConfiguration != nil {
+		if err := s.StepScalingPolicyConfiguration.Validate(); err != nil {
+			invalidParams.AddNested("StepScalingPolicyConfiguration", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.TargetTrackingScalingPolicyConfiguration != nil {
+		if err := s.TargetTrackingScalingPolicyConfiguration.Validate(); err != nil {
+			invalidParams.AddNested("TargetTrackingScalingPolicyConfiguration", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetPolicyName sets the PolicyName field's value.
+func (s *PutScalingPolicyInput) SetPolicyName(v string) *PutScalingPolicyInput {
+	s.PolicyName = &v
+	return s
+}
+
+// SetPolicyType sets the PolicyType field's value.
+func (s *PutScalingPolicyInput) SetPolicyType(v string) *PutScalingPolicyInput {
+	s.PolicyType = &v
+	return s
+}
+
+// SetResourceId sets the ResourceId field's value.
+func (s *PutScalingPolicyInput) SetResourceId(v string) *PutScalingPolicyInput {
+	s.ResourceId = &v
+	return s
+}
+
+// SetScalableDimension sets the ScalableDimension field's value.
+func (s *PutScalingPolicyInput) SetScalableDimension(v string) *PutScalingPolicyInput {
+	s.ScalableDimension = &v
+	return s
+}
+
+// SetServiceNamespace sets the ServiceNamespace field's value.
+func (s *PutScalingPolicyInput) SetServiceNamespace(v string) *PutScalingPolicyInput {
+	s.ServiceNamespace = &v
+	return s
+}
+
+// SetStepScalingPolicyConfiguration sets the StepScalingPolicyConfiguration field's value.
+func (s *PutScalingPolicyInput) SetStepScalingPolicyConfiguration(v *StepScalingPolicyConfiguration) *PutScalingPolicyInput {
+	s.StepScalingPolicyConfiguration = v
+	return s
+}
+
+// SetTargetTrackingScalingPolicyConfiguration sets the TargetTrackingScalingPolicyConfiguration field's value.
+func (s *PutScalingPolicyInput) SetTargetTrackingScalingPolicyConfiguration(v *TargetTrackingScalingPolicyConfiguration) *PutScalingPolicyInput {
+	s.TargetTrackingScalingPolicyConfiguration = v
+	return s
+}
+
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScalingPolicyResponse
 type PutScalingPolicyOutput struct {
 	_ struct{} `type:"structure"`
@@ -2926,6 +3207,8 @@ func (s PutScheduledActionInput) GoString() string {
 }
 
 // Validate inspects the fields of the type to determine if they are valid.
+=======
+>>>>>>> Initial dep workover
 func (s *PutScheduledActionInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "PutScheduledActionInput"}
 	if s.ResourceId == nil {
@@ -3001,7 +3284,11 @@ func (s *PutScheduledActionInput) SetStartTime(v time.Time) *PutScheduledActionI
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledActionResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScheduledActionResponse
+>>>>>>> Initial dep workover
 type PutScheduledActionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3016,7 +3303,11 @@ func (s PutScheduledActionOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/RegisterScalableTargetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/RegisterScalableTargetRequest
+>>>>>>> Initial dep workover
 type RegisterScalableTargetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3341,7 +3632,11 @@ func (s *ScalableTarget) SetServiceNamespace(v string) *ScalableTarget {
 }
 
 // Represents the minimum and maximum capacity for a scheduled action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/ScalableTargetAction
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/ScalableTargetAction
+>>>>>>> Initial dep workover
 type ScalableTargetAction struct {
 	_ struct{} `type:"structure"`
 
@@ -3728,7 +4023,11 @@ func (s *ScalingPolicy) SetTargetTrackingScalingPolicyConfiguration(v *TargetTra
 }
 
 // Represents a scheduled action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/ScheduledAction
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/ScheduledAction
+>>>>>>> Initial dep workover
 type ScheduledAction struct {
 	_ struct{} `type:"structure"`
 
@@ -4276,14 +4575,18 @@ const (
 	// MetricTypeDynamoDbwriteCapacityUtilization is a MetricType enum value
 	MetricTypeDynamoDbwriteCapacityUtilization = "DynamoDBWriteCapacityUtilization"
 
+<<<<<<< HEAD
 	// MetricTypeAlbrequestCountPerTarget is a MetricType enum value
 	MetricTypeAlbrequestCountPerTarget = "ALBRequestCountPerTarget"
 
+=======
+>>>>>>> Initial dep workover
 	// MetricTypeRdsreaderAverageCpuutilization is a MetricType enum value
 	MetricTypeRdsreaderAverageCpuutilization = "RDSReaderAverageCPUUtilization"
 
 	// MetricTypeRdsreaderAverageDatabaseConnections is a MetricType enum value
 	MetricTypeRdsreaderAverageDatabaseConnections = "RDSReaderAverageDatabaseConnections"
+<<<<<<< HEAD
 
 	// MetricTypeEc2spotFleetRequestAverageCpuutilization is a MetricType enum value
 	MetricTypeEc2spotFleetRequestAverageCpuutilization = "EC2SpotFleetRequestAverageCPUUtilization"
@@ -4293,6 +4596,8 @@ const (
 
 	// MetricTypeEc2spotFleetRequestAverageNetworkOut is a MetricType enum value
 	MetricTypeEc2spotFleetRequestAverageNetworkOut = "EC2SpotFleetRequestAverageNetworkOut"
+=======
+>>>>>>> Initial dep workover
 )
 
 const (

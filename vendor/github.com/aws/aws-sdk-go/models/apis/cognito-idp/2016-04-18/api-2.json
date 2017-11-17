@@ -906,6 +906,7 @@
         {"shape":"InternalErrorException"}
       ]
     },
+<<<<<<< HEAD
     "DescribeRiskConfiguration":{
       "name":"DescribeRiskConfiguration",
       "http":{
@@ -923,6 +924,8 @@
         {"shape":"InternalErrorException"}
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "DescribeUserImportJob":{
       "name":"DescribeUserImportJob",
       "http":{
@@ -1494,6 +1497,22 @@
         {"shape":"InvalidSmsRoleAccessPolicyException"},
         {"shape":"InvalidSmsRoleTrustRelationshipException"},
         {"shape":"NotAuthorizedException"},
+        {"shape":"InternalErrorException"}
+      ]
+    },
+    "SetUICustomization":{
+      "name":"SetUICustomization",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"SetUICustomizationRequest"},
+      "output":{"shape":"SetUICustomizationResponse"},
+      "errors":[
+        {"shape":"InvalidParameterException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"NotAuthorizedException"},
+        {"shape":"TooManyRequestsException"},
         {"shape":"InternalErrorException"}
       ]
     },
@@ -3043,6 +3062,7 @@
         "ResourceServer":{"shape":"ResourceServerType"}
       }
     },
+<<<<<<< HEAD
     "DescribeRiskConfigurationRequest":{
       "type":"structure",
       "required":["UserPoolId"],
@@ -3058,6 +3078,8 @@
         "RiskConfiguration":{"shape":"RiskConfigurationType"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "DescribeUserImportJobRequest":{
       "type":"structure",
       "required":[
@@ -3219,6 +3241,7 @@
         "ReplyToEmailAddress":{"shape":"EmailAddressType"}
       }
     },
+<<<<<<< HEAD
     "EmailNotificationBodyType":{
       "type":"string",
       "max":20000,
@@ -3231,6 +3254,8 @@
       "min":1,
       "pattern":"[\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}\\s]+"
     },
+=======
+>>>>>>> Initial dep workover
     "EmailVerificationMessageByLinkType":{
       "type":"string",
       "max":20000,
@@ -4321,6 +4346,7 @@
       "max":2048,
       "min":20
     },
+<<<<<<< HEAD
     "SetRiskConfigurationRequest":{
       "type":"structure",
       "required":["UserPoolId"],
@@ -4339,6 +4365,8 @@
         "RiskConfiguration":{"shape":"RiskConfigurationType"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "SetUICustomizationRequest":{
       "type":"structure",
       "required":["UserPoolId"],
@@ -4356,6 +4384,7 @@
         "UICustomization":{"shape":"UICustomizationType"}
       }
     },
+<<<<<<< HEAD
     "SetUserMFAPreferenceRequest":{
       "type":"structure",
       "required":["AccessToken"],
@@ -4388,6 +4417,8 @@
         "MfaConfiguration":{"shape":"UserPoolMfaType"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "SetUserSettingsRequest":{
       "type":"structure",
       "required":[

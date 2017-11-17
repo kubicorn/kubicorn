@@ -497,10 +497,14 @@
         "ImageQuality$Brightness": "<p>Value representing brightness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a brighter face image.</p>",
         "ImageQuality$Sharpness": "<p>Value representing sharpness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a sharper face image.</p>",
         "Landmark$X": "<p>x-coordinate from the top left of the landmark expressed as the ratio of the width of the image. For example, if the images is 700x200 and the x-coordinate of the landmark is at 350 pixels, this value is 0.5. </p>",
+<<<<<<< HEAD
         "Landmark$Y": "<p>y-coordinate from the top left of the landmark expressed as the ratio of the height of the image. For example, if the images is 700x200 and the y-coordinate of the landmark is at 100 pixels, this value is 0.5.</p>",
         "Point$X": "<p>The value of the X coordinate for a point on a <code>Polygon</code>.</p>",
         "Point$Y": "<p>The value of the Y coordinate for a point on a <code>Polygon</code>.</p>",
         "VideoMetadata$FrameRate": "<p>Number of frames per second in the video.</p>"
+=======
+        "Landmark$Y": "<p>y-coordinate from the top left of the landmark expressed as the ratio of the height of the image. For example, if the images is 700x200 and the y-coordinate of the landmark is at 100 pixels, this value is 0.5.</p>"
+>>>>>>> Initial dep workover
       }
     },
     "Gender": {

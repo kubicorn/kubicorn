@@ -48,9 +48,12 @@ const (
 	// OAuthGrantTypeRefreshToken is the "grant_type" identifier used in refresh token flows
 	OAuthGrantTypeRefreshToken = "refresh_token"
 
+<<<<<<< HEAD
 	// OAuthGrantTypeAuthorizationCode is the "grant_type" identifier used in authorization code flows
 	OAuthGrantTypeAuthorizationCode = "authorization_code"
 
+=======
+>>>>>>> Initial dep workover
 	// metadataHeader is the header required by MSI extension
 	metadataHeader = "Metadata"
 )
@@ -373,6 +376,7 @@ func NewServicePrincipalTokenFromCertificate(oauthConfig OAuthConfig, clientID s
 	)
 }
 
+<<<<<<< HEAD
 // NewServicePrincipalTokenFromUsernamePassword creates a ServicePrincipalToken from the username and password.
 func NewServicePrincipalTokenFromUsernamePassword(oauthConfig OAuthConfig, clientID string, username string, password string, resource string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
 	if err := validateOAuthConfig(oauthConfig); err != nil {
@@ -437,6 +441,8 @@ func NewServicePrincipalTokenFromAuthorizationCode(oauthConfig OAuthConfig, clie
 	)
 }
 
+=======
+>>>>>>> Initial dep workover
 // GetMSIVMEndpoint gets the MSI endpoint on Virtual Machines.
 func GetMSIVMEndpoint() (string, error) {
 	return getMSIVMEndpoint(msiPath)
@@ -586,9 +592,15 @@ func (spt *ServicePrincipalToken) refreshInternal(resource string) error {
 
 	if resp.StatusCode != http.StatusOK {
 		if err != nil {
+<<<<<<< HEAD
 			return newTokenRefreshError(fmt.Sprintf("adal: Refresh request failed. Status Code = '%d'. Failed reading response body", resp.StatusCode), resp)
 		}
 		return newTokenRefreshError(fmt.Sprintf("adal: Refresh request failed. Status Code = '%d'. Response body: %s", resp.StatusCode, string(rb)), resp)
+=======
+			return fmt.Errorf("adal: Refresh request failed. Status Code = '%d'. Failed reading response body", resp.StatusCode)
+		}
+		return fmt.Errorf("adal: Refresh request failed. Status Code = '%d'. Response body: %s", resp.StatusCode, string(rb))
+>>>>>>> Initial dep workover
 	}
 
 	if err != nil {

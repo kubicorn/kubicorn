@@ -206,6 +206,7 @@ const opDeleteProtection = "DeleteProtection"
 // client's request for the DeleteProtection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -213,6 +214,15 @@ const opDeleteProtection = "DeleteProtection"
 // See DeleteProtection for more information on using the DeleteProtection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteProtection for more information on using the DeleteProtection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -293,6 +303,7 @@ const opDeleteSubscription = "DeleteSubscription"
 // client's request for the DeleteSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -300,6 +311,15 @@ const opDeleteSubscription = "DeleteSubscription"
 // See DeleteSubscription for more information on using the DeleteSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteSubscription for more information on using the DeleteSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -382,6 +402,7 @@ const opDescribeAttack = "DescribeAttack"
 // client's request for the DescribeAttack operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -389,6 +410,15 @@ const opDescribeAttack = "DescribeAttack"
 // See DescribeAttack for more information on using the DescribeAttack
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeAttack for more information on using the DescribeAttack
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -465,6 +495,7 @@ const opDescribeProtection = "DescribeProtection"
 // client's request for the DescribeProtection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -472,6 +503,15 @@ const opDescribeProtection = "DescribeProtection"
 // See DescribeProtection for more information on using the DescribeProtection
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeProtection for more information on using the DescribeProtection
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -711,6 +751,7 @@ const opListAttacks = "ListAttacks"
 // client's request for the ListAttacks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -718,6 +759,15 @@ const opListAttacks = "ListAttacks"
 // See ListAttacks for more information on using the ListAttacks
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListAttacks for more information on using the ListAttacks
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //

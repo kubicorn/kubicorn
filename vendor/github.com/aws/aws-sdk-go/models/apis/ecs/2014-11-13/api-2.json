@@ -503,6 +503,7 @@
         "FAILED"
       ]
     },
+<<<<<<< HEAD
     "AssignPublicIp":{
       "type":"string",
       "enum":[
@@ -510,6 +511,8 @@
         "DISABLED"
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "Attachment":{
       "type":"structure",
       "members":{
@@ -567,6 +570,7 @@
       "required":["subnets"],
       "members":{
         "subnets":{"shape":"StringList"},
+<<<<<<< HEAD
         "securityGroups":{"shape":"StringList"},
         "assignPublicIp":{"shape":"AssignPublicIp"}
       }
@@ -577,6 +581,11 @@
       },
       "exception":true
     },
+=======
+        "securityGroups":{"shape":"StringList"}
+      }
+    },
+>>>>>>> Initial dep workover
     "Boolean":{"type":"boolean"},
     "BoxedBoolean":{
       "type":"boolean",
@@ -865,8 +874,11 @@
         "runningCount":{"shape":"Integer"},
         "createdAt":{"shape":"Timestamp"},
         "updatedAt":{"shape":"Timestamp"},
+<<<<<<< HEAD
         "launchType":{"shape":"LaunchType"},
         "platformVersion":{"shape":"String"},
+=======
+>>>>>>> Initial dep workover
         "networkConfiguration":{"shape":"NetworkConfiguration"}
       }
     },
@@ -1091,6 +1103,7 @@
         "value":{"shape":"String"}
       }
     },
+<<<<<<< HEAD
     "LaunchType":{
       "type":"string",
       "enum":[
@@ -1098,6 +1111,8 @@
         "FARGATE"
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "LinuxParameters":{
       "type":"structure",
       "members":{
@@ -1478,8 +1493,11 @@
         "group":{"shape":"String"},
         "placementConstraints":{"shape":"PlacementConstraints"},
         "placementStrategy":{"shape":"PlacementStrategies"},
+<<<<<<< HEAD
         "launchType":{"shape":"LaunchType"},
         "platformVersion":{"shape":"String"},
+=======
+>>>>>>> Initial dep workover
         "networkConfiguration":{"shape":"NetworkConfiguration"}
       }
     },
@@ -1630,10 +1648,14 @@
         "status":{"shape":"String"},
         "reason":{"shape":"String"},
         "containers":{"shape":"ContainerStateChanges"},
+<<<<<<< HEAD
         "attachments":{"shape":"AttachmentStateChanges"},
         "pullStartedAt":{"shape":"Timestamp"},
         "pullStoppedAt":{"shape":"Timestamp"},
         "executionStoppedAt":{"shape":"Timestamp"}
+=======
+        "attachments":{"shape":"AttachmentStateChanges"}
+>>>>>>> Initial dep workover
       }
     },
     "SubmitTaskStateChangeResponse":{
@@ -1678,8 +1700,11 @@
         "stoppingAt":{"shape":"Timestamp"},
         "stoppedAt":{"shape":"Timestamp"},
         "group":{"shape":"String"},
+<<<<<<< HEAD
         "launchType":{"shape":"LaunchType"},
         "platformVersion":{"shape":"String"},
+=======
+>>>>>>> Initial dep workover
         "attachments":{"shape":"Attachments"}
       }
     },
@@ -1844,9 +1869,13 @@
         "desiredCount":{"shape":"BoxedInteger"},
         "taskDefinition":{"shape":"String"},
         "deploymentConfiguration":{"shape":"DeploymentConfiguration"},
+<<<<<<< HEAD
         "networkConfiguration":{"shape":"NetworkConfiguration"},
         "platformVersion":{"shape":"String"},
         "forceNewDeployment":{"shape":"Boolean"}
+=======
+        "networkConfiguration":{"shape":"NetworkConfiguration"}
+>>>>>>> Initial dep workover
       }
     },
     "UpdateServiceResponse":{

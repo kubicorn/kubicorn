@@ -11,7 +11,10 @@ go_library(
         "interface.go",
         "podpreset.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/informers/settings/v1alpha1",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/settings/v1alpha1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

@@ -169,6 +169,7 @@ func IoctlGetTermios(fd int, req uint) (*Termios, error) {
 	return &value, err
 }
 
+<<<<<<< HEAD
 func sysctlUname(mib []_C_int, old *byte, oldlen *uintptr) error {
 	err := sysctl(mib, old, oldlen, nil, 0)
 	if err != nil {
@@ -232,6 +233,8 @@ func Uname(uname *Utsname) error {
 	return nil
 }
 
+=======
+>>>>>>> Initial dep workover
 /*
  * Exposed directly
  */

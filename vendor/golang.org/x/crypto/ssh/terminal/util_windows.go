@@ -17,8 +17,11 @@
 package terminal
 
 import (
+<<<<<<< HEAD
 	"os"
 
+=======
+>>>>>>> Initial dep workover
 	"golang.org/x/sys/windows"
 )
 
@@ -71,6 +74,16 @@ func GetSize(fd int) (width, height int, err error) {
 		return 0, 0, err
 	}
 	return int(info.Size.X), int(info.Size.Y), nil
+<<<<<<< HEAD
+=======
+}
+
+// passwordReader is an io.Reader that reads from a specific Windows HANDLE.
+type passwordReader int
+
+func (r passwordReader) Read(buf []byte) (int, error) {
+	return windows.Read(windows.Handle(r), buf)
+>>>>>>> Initial dep workover
 }
 
 // ReadPassword reads a line of input from a terminal without local echo.  This

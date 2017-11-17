@@ -413,8 +413,13 @@ func (c *RDS) AuthorizeDBSecurityGroupIngressRequest(input *AuthorizeDBSecurityG
 // EC2SecurityGroupId for VPC, or (EC2SecurityGroupOwnerId and either EC2SecurityGroupName
 // or EC2SecurityGroupId for non-VPC).
 //
+<<<<<<< HEAD
 // You can't authorize ingress from an EC2 security group in one AWS Region
 // to an Amazon RDS DB instance in another. You can't authorize ingress from
+=======
+// You cannot authorize ingress from an EC2 security group in one AWS Region
+// to an Amazon RDS DB instance in another. You cannot authorize ingress from
+>>>>>>> Initial dep workover
 // a VPC security group in one VPC to an Amazon RDS DB instance in another.
 //
 // For an overview of CIDR ranges, go to the Wikipedia Tutorial (http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
@@ -603,8 +608,13 @@ func (c *RDS) CopyDBClusterSnapshotRequest(input *CopyDBClusterSnapshotInput) (r
 // copied to. To copy an encrypted DB cluster snapshot from another AWS Region,
 // you must provide the following values:
 //
+<<<<<<< HEAD
 //    * KmsKeyId - The AWS Key Management System (AWS KMS) key identifier for
 //    the key to use to encrypt the copy of the DB cluster snapshot in the destination
+=======
+//    * KmsKeyId - The AWS Key Management System (KMS) key identifier for the
+//    key to use to encrypt the copy of the DB cluster snapshot in the destination
+>>>>>>> Initial dep workover
 //    AWS Region.
 //
 //    * PreSignedUrl - A URL that contains a Signature Version 4 signed request
@@ -629,8 +639,13 @@ func (c *RDS) CopyDBClusterSnapshotRequest(input *CopyDBClusterSnapshotInput) (r
 //    the encrypted DB cluster snapshot to be copied. This identifier must be
 //    in the Amazon Resource Name (ARN) format for the source AWS Region. For
 //    example, if you are copying an encrypted DB cluster snapshot from the
+<<<<<<< HEAD
 //    us-west-2 AWS Region, then your SourceDBClusterSnapshotIdentifier looks
 //    like the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
+=======
+//    us-west-2 region, then your SourceDBClusterSnapshotIdentifier looks like
+//    the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
+>>>>>>> Initial dep workover
 //
 // To learn how to generate a Signature Version 4 signed request, see  Authenticating
 //    Requests: Using Query Parameters (AWS Signature Version 4) (http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
@@ -841,7 +856,11 @@ func (c *RDS) CopyDBSnapshotRequest(input *CopyDBSnapshotInput) (req *request.Re
 // AWS Region where you call the CopyDBSnapshot action is the destination AWS
 // Region for the DB snapshot copy.
 //
+<<<<<<< HEAD
 // You can't copy an encrypted, shared DB snapshot from one AWS Region to another.
+=======
+// You cannot copy an encrypted, shared DB snapshot from one AWS Region to another.
+>>>>>>> Initial dep workover
 //
 // For more information about copying snapshots, see Copying a DB Snapshot (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopyDBSnapshot.html)
 // in the Amazon RDS User Guide.
@@ -1613,6 +1632,7 @@ const opCreateDBParameterGroup = "CreateDBParameterGroup"
 // client's request for the CreateDBParameterGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1620,6 +1640,15 @@ const opCreateDBParameterGroup = "CreateDBParameterGroup"
 // See CreateDBParameterGroup for more information on using the CreateDBParameterGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateDBParameterGroup for more information on using the CreateDBParameterGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1716,6 +1745,7 @@ const opCreateDBSecurityGroup = "CreateDBSecurityGroup"
 // client's request for the CreateDBSecurityGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1723,6 +1753,15 @@ const opCreateDBSecurityGroup = "CreateDBSecurityGroup"
 // See CreateDBSecurityGroup for more information on using the CreateDBSecurityGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateDBSecurityGroup for more information on using the CreateDBSecurityGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1804,6 +1843,7 @@ const opCreateDBSnapshot = "CreateDBSnapshot"
 // client's request for the CreateDBSnapshot operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1811,6 +1851,15 @@ const opCreateDBSnapshot = "CreateDBSnapshot"
 // See CreateDBSnapshot for more information on using the CreateDBSnapshot
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateDBSnapshot for more information on using the CreateDBSnapshot
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1892,6 +1941,7 @@ const opCreateDBSubnetGroup = "CreateDBSubnetGroup"
 // client's request for the CreateDBSubnetGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1899,6 +1949,15 @@ const opCreateDBSubnetGroup = "CreateDBSubnetGroup"
 // See CreateDBSubnetGroup for more information on using the CreateDBSubnetGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateDBSubnetGroup for more information on using the CreateDBSubnetGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1987,6 +2046,7 @@ const opCreateEventSubscription = "CreateEventSubscription"
 // client's request for the CreateEventSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1994,6 +2054,15 @@ const opCreateEventSubscription = "CreateEventSubscription"
 // See CreateEventSubscription for more information on using the CreateEventSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateEventSubscription for more information on using the CreateEventSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2101,6 +2170,7 @@ const opCreateOptionGroup = "CreateOptionGroup"
 // client's request for the CreateOptionGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2108,6 +2178,15 @@ const opCreateOptionGroup = "CreateOptionGroup"
 // See CreateOptionGroup for more information on using the CreateOptionGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateOptionGroup for more information on using the CreateOptionGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2183,6 +2262,7 @@ const opDeleteDBCluster = "DeleteDBCluster"
 // client's request for the DeleteDBCluster operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2190,6 +2270,15 @@ const opDeleteDBCluster = "DeleteDBCluster"
 // See DeleteDBCluster for more information on using the DeleteDBCluster
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDBCluster for more information on using the DeleteDBCluster
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2279,6 +2368,7 @@ const opDeleteDBClusterParameterGroup = "DeleteDBClusterParameterGroup"
 // client's request for the DeleteDBClusterParameterGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2286,6 +2376,15 @@ const opDeleteDBClusterParameterGroup = "DeleteDBClusterParameterGroup"
 // See DeleteDBClusterParameterGroup for more information on using the DeleteDBClusterParameterGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDBClusterParameterGroup for more information on using the DeleteDBClusterParameterGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2369,6 +2468,7 @@ const opDeleteDBClusterSnapshot = "DeleteDBClusterSnapshot"
 // client's request for the DeleteDBClusterSnapshot operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2376,6 +2476,15 @@ const opDeleteDBClusterSnapshot = "DeleteDBClusterSnapshot"
 // See DeleteDBClusterSnapshot for more information on using the DeleteDBClusterSnapshot
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDBClusterSnapshot for more information on using the DeleteDBClusterSnapshot
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2457,6 +2566,7 @@ const opDeleteDBInstance = "DeleteDBInstance"
 // client's request for the DeleteDBInstance operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2464,6 +2574,15 @@ const opDeleteDBInstance = "DeleteDBInstance"
 // See DeleteDBInstance for more information on using the DeleteDBInstance
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDBInstance for more information on using the DeleteDBInstance
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2510,7 +2629,11 @@ func (c *RDS) DeleteDBInstanceRequest(input *DeleteDBInstanceInput) (req *reques
 // the SkipFinalSnapshot parameter is set to true.
 //
 // If the specified DB instance is part of an Amazon Aurora DB cluster, you
+<<<<<<< HEAD
 // can't delete the DB instance if both of the following conditions are true:
+=======
+// cannot delete the DB instance if both of the following conditions are true:
+>>>>>>> Initial dep workover
 //
 //    * The DB cluster is a Read Replica of another Amazon Aurora DB cluster.
 //
@@ -2572,6 +2695,7 @@ const opDeleteDBParameterGroup = "DeleteDBParameterGroup"
 // client's request for the DeleteDBParameterGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2579,6 +2703,15 @@ const opDeleteDBParameterGroup = "DeleteDBParameterGroup"
 // See DeleteDBParameterGroup for more information on using the DeleteDBParameterGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDBParameterGroup for more information on using the DeleteDBParameterGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2659,6 +2792,7 @@ const opDeleteDBSecurityGroup = "DeleteDBSecurityGroup"
 // client's request for the DeleteDBSecurityGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2666,6 +2800,15 @@ const opDeleteDBSecurityGroup = "DeleteDBSecurityGroup"
 // See DeleteDBSecurityGroup for more information on using the DeleteDBSecurityGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDBSecurityGroup for more information on using the DeleteDBSecurityGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2745,6 +2888,7 @@ const opDeleteDBSnapshot = "DeleteDBSnapshot"
 // client's request for the DeleteDBSnapshot operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2752,6 +2896,15 @@ const opDeleteDBSnapshot = "DeleteDBSnapshot"
 // See DeleteDBSnapshot for more information on using the DeleteDBSnapshot
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDBSnapshot for more information on using the DeleteDBSnapshot
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2830,6 +2983,7 @@ const opDeleteDBSubnetGroup = "DeleteDBSubnetGroup"
 // client's request for the DeleteDBSubnetGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2837,6 +2991,15 @@ const opDeleteDBSubnetGroup = "DeleteDBSubnetGroup"
 // See DeleteDBSubnetGroup for more information on using the DeleteDBSubnetGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDBSubnetGroup for more information on using the DeleteDBSubnetGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2919,6 +3082,7 @@ const opDeleteEventSubscription = "DeleteEventSubscription"
 // client's request for the DeleteEventSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2926,6 +3090,15 @@ const opDeleteEventSubscription = "DeleteEventSubscription"
 // See DeleteEventSubscription for more information on using the DeleteEventSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteEventSubscription for more information on using the DeleteEventSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3002,6 +3175,7 @@ const opDeleteOptionGroup = "DeleteOptionGroup"
 // client's request for the DeleteOptionGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3009,6 +3183,15 @@ const opDeleteOptionGroup = "DeleteOptionGroup"
 // See DeleteOptionGroup for more information on using the DeleteOptionGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteOptionGroup for more information on using the DeleteOptionGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3086,6 +3269,7 @@ const opDescribeAccountAttributes = "DescribeAccountAttributes"
 // client's request for the DescribeAccountAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3093,6 +3277,15 @@ const opDescribeAccountAttributes = "DescribeAccountAttributes"
 // See DescribeAccountAttributes for more information on using the DescribeAccountAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeAccountAttributes for more information on using the DescribeAccountAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3165,6 +3358,7 @@ const opDescribeCertificates = "DescribeCertificates"
 // client's request for the DescribeCertificates operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3172,6 +3366,15 @@ const opDescribeCertificates = "DescribeCertificates"
 // See DescribeCertificates for more information on using the DescribeCertificates
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeCertificates for more information on using the DescribeCertificates
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3244,6 +3447,7 @@ const opDescribeDBClusterParameterGroups = "DescribeDBClusterParameterGroups"
 // client's request for the DescribeDBClusterParameterGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3251,6 +3455,15 @@ const opDescribeDBClusterParameterGroups = "DescribeDBClusterParameterGroups"
 // See DescribeDBClusterParameterGroups for more information on using the DescribeDBClusterParameterGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBClusterParameterGroups for more information on using the DescribeDBClusterParameterGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3328,6 +3541,7 @@ const opDescribeDBClusterParameters = "DescribeDBClusterParameters"
 // client's request for the DescribeDBClusterParameters operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3335,6 +3549,15 @@ const opDescribeDBClusterParameters = "DescribeDBClusterParameters"
 // See DescribeDBClusterParameters for more information on using the DescribeDBClusterParameters
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBClusterParameters for more information on using the DescribeDBClusterParameters
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3411,6 +3634,7 @@ const opDescribeDBClusterSnapshotAttributes = "DescribeDBClusterSnapshotAttribut
 // client's request for the DescribeDBClusterSnapshotAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3418,6 +3642,15 @@ const opDescribeDBClusterSnapshotAttributes = "DescribeDBClusterSnapshotAttribut
 // See DescribeDBClusterSnapshotAttributes for more information on using the DescribeDBClusterSnapshotAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBClusterSnapshotAttributes for more information on using the DescribeDBClusterSnapshotAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3501,6 +3734,7 @@ const opDescribeDBClusterSnapshots = "DescribeDBClusterSnapshots"
 // client's request for the DescribeDBClusterSnapshots operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3508,6 +3742,15 @@ const opDescribeDBClusterSnapshots = "DescribeDBClusterSnapshots"
 // See DescribeDBClusterSnapshots for more information on using the DescribeDBClusterSnapshots
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBClusterSnapshots for more information on using the DescribeDBClusterSnapshots
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3584,6 +3827,7 @@ const opDescribeDBClusters = "DescribeDBClusters"
 // client's request for the DescribeDBClusters operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3591,6 +3835,15 @@ const opDescribeDBClusters = "DescribeDBClusters"
 // See DescribeDBClusters for more information on using the DescribeDBClusters
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBClusters for more information on using the DescribeDBClusters
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3667,6 +3920,7 @@ const opDescribeDBEngineVersions = "DescribeDBEngineVersions"
 // client's request for the DescribeDBEngineVersions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3674,6 +3928,15 @@ const opDescribeDBEngineVersions = "DescribeDBEngineVersions"
 // See DescribeDBEngineVersions for more information on using the DescribeDBEngineVersions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBEngineVersions for more information on using the DescribeDBEngineVersions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3797,6 +4060,7 @@ const opDescribeDBInstances = "DescribeDBInstances"
 // client's request for the DescribeDBInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3804,6 +4068,15 @@ const opDescribeDBInstances = "DescribeDBInstances"
 // See DescribeDBInstances for more information on using the DescribeDBInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBInstances for more information on using the DescribeDBInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3932,6 +4205,7 @@ const opDescribeDBLogFiles = "DescribeDBLogFiles"
 // client's request for the DescribeDBLogFiles operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3939,6 +4213,15 @@ const opDescribeDBLogFiles = "DescribeDBLogFiles"
 // See DescribeDBLogFiles for more information on using the DescribeDBLogFiles
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBLogFiles for more information on using the DescribeDBLogFiles
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4067,6 +4350,7 @@ const opDescribeDBParameterGroups = "DescribeDBParameterGroups"
 // client's request for the DescribeDBParameterGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4074,6 +4358,15 @@ const opDescribeDBParameterGroups = "DescribeDBParameterGroups"
 // See DescribeDBParameterGroups for more information on using the DescribeDBParameterGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBParameterGroups for more information on using the DescribeDBParameterGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4204,6 +4497,7 @@ const opDescribeDBParameters = "DescribeDBParameters"
 // client's request for the DescribeDBParameters operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4211,6 +4505,15 @@ const opDescribeDBParameters = "DescribeDBParameters"
 // See DescribeDBParameters for more information on using the DescribeDBParameters
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBParameters for more information on using the DescribeDBParameters
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4339,6 +4642,7 @@ const opDescribeDBSecurityGroups = "DescribeDBSecurityGroups"
 // client's request for the DescribeDBSecurityGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4346,6 +4650,15 @@ const opDescribeDBSecurityGroups = "DescribeDBSecurityGroups"
 // See DescribeDBSecurityGroups for more information on using the DescribeDBSecurityGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBSecurityGroups for more information on using the DescribeDBSecurityGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4476,6 +4789,7 @@ const opDescribeDBSnapshotAttributes = "DescribeDBSnapshotAttributes"
 // client's request for the DescribeDBSnapshotAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4483,6 +4797,15 @@ const opDescribeDBSnapshotAttributes = "DescribeDBSnapshotAttributes"
 // See DescribeDBSnapshotAttributes for more information on using the DescribeDBSnapshotAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBSnapshotAttributes for more information on using the DescribeDBSnapshotAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4566,6 +4889,7 @@ const opDescribeDBSnapshots = "DescribeDBSnapshots"
 // client's request for the DescribeDBSnapshots operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4573,6 +4897,15 @@ const opDescribeDBSnapshots = "DescribeDBSnapshots"
 // See DescribeDBSnapshots for more information on using the DescribeDBSnapshots
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBSnapshots for more information on using the DescribeDBSnapshots
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4701,6 +5034,7 @@ const opDescribeDBSubnetGroups = "DescribeDBSubnetGroups"
 // client's request for the DescribeDBSubnetGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4708,6 +5042,15 @@ const opDescribeDBSubnetGroups = "DescribeDBSubnetGroups"
 // See DescribeDBSubnetGroups for more information on using the DescribeDBSubnetGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeDBSubnetGroups for more information on using the DescribeDBSubnetGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4839,6 +5182,7 @@ const opDescribeEngineDefaultClusterParameters = "DescribeEngineDefaultClusterPa
 // client's request for the DescribeEngineDefaultClusterParameters operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4846,6 +5190,15 @@ const opDescribeEngineDefaultClusterParameters = "DescribeEngineDefaultClusterPa
 // See DescribeEngineDefaultClusterParameters for more information on using the DescribeEngineDefaultClusterParameters
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEngineDefaultClusterParameters for more information on using the DescribeEngineDefaultClusterParameters
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4917,6 +5270,7 @@ const opDescribeEngineDefaultParameters = "DescribeEngineDefaultParameters"
 // client's request for the DescribeEngineDefaultParameters operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4924,6 +5278,15 @@ const opDescribeEngineDefaultParameters = "DescribeEngineDefaultParameters"
 // See DescribeEngineDefaultParameters for more information on using the DescribeEngineDefaultParameters
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEngineDefaultParameters for more information on using the DescribeEngineDefaultParameters
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5048,6 +5411,7 @@ const opDescribeEventCategories = "DescribeEventCategories"
 // client's request for the DescribeEventCategories operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5055,6 +5419,15 @@ const opDescribeEventCategories = "DescribeEventCategories"
 // See DescribeEventCategories for more information on using the DescribeEventCategories
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEventCategories for more information on using the DescribeEventCategories
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5125,6 +5498,7 @@ const opDescribeEventSubscriptions = "DescribeEventSubscriptions"
 // client's request for the DescribeEventSubscriptions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5132,6 +5506,15 @@ const opDescribeEventSubscriptions = "DescribeEventSubscriptions"
 // See DescribeEventSubscriptions for more information on using the DescribeEventSubscriptions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEventSubscriptions for more information on using the DescribeEventSubscriptions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5264,6 +5647,7 @@ const opDescribeEvents = "DescribeEvents"
 // client's request for the DescribeEvents operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5271,6 +5655,15 @@ const opDescribeEvents = "DescribeEvents"
 // See DescribeEvents for more information on using the DescribeEvents
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeEvents for more information on using the DescribeEvents
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5398,6 +5791,7 @@ const opDescribeOptionGroupOptions = "DescribeOptionGroupOptions"
 // client's request for the DescribeOptionGroupOptions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5405,6 +5799,15 @@ const opDescribeOptionGroupOptions = "DescribeOptionGroupOptions"
 // See DescribeOptionGroupOptions for more information on using the DescribeOptionGroupOptions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeOptionGroupOptions for more information on using the DescribeOptionGroupOptions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5528,6 +5931,7 @@ const opDescribeOptionGroups = "DescribeOptionGroups"
 // client's request for the DescribeOptionGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5535,6 +5939,15 @@ const opDescribeOptionGroups = "DescribeOptionGroups"
 // See DescribeOptionGroups for more information on using the DescribeOptionGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeOptionGroups for more information on using the DescribeOptionGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5663,6 +6076,7 @@ const opDescribeOrderableDBInstanceOptions = "DescribeOrderableDBInstanceOptions
 // client's request for the DescribeOrderableDBInstanceOptions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5670,6 +6084,15 @@ const opDescribeOrderableDBInstanceOptions = "DescribeOrderableDBInstanceOptions
 // See DescribeOrderableDBInstanceOptions for more information on using the DescribeOrderableDBInstanceOptions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeOrderableDBInstanceOptions for more information on using the DescribeOrderableDBInstanceOptions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5793,6 +6216,7 @@ const opDescribePendingMaintenanceActions = "DescribePendingMaintenanceActions"
 // client's request for the DescribePendingMaintenanceActions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5800,6 +6224,15 @@ const opDescribePendingMaintenanceActions = "DescribePendingMaintenanceActions"
 // See DescribePendingMaintenanceActions for more information on using the DescribePendingMaintenanceActions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribePendingMaintenanceActions for more information on using the DescribePendingMaintenanceActions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5873,6 +6306,7 @@ const opDescribeReservedDBInstances = "DescribeReservedDBInstances"
 // client's request for the DescribeReservedDBInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5880,6 +6314,15 @@ const opDescribeReservedDBInstances = "DescribeReservedDBInstances"
 // See DescribeReservedDBInstances for more information on using the DescribeReservedDBInstances
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeReservedDBInstances for more information on using the DescribeReservedDBInstances
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6009,6 +6452,7 @@ const opDescribeReservedDBInstancesOfferings = "DescribeReservedDBInstancesOffer
 // client's request for the DescribeReservedDBInstancesOfferings operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6016,6 +6460,15 @@ const opDescribeReservedDBInstancesOfferings = "DescribeReservedDBInstancesOffer
 // See DescribeReservedDBInstancesOfferings for more information on using the DescribeReservedDBInstancesOfferings
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeReservedDBInstancesOfferings for more information on using the DescribeReservedDBInstancesOfferings
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6144,6 +6597,7 @@ const opDescribeSourceRegions = "DescribeSourceRegions"
 // client's request for the DescribeSourceRegions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6151,6 +6605,15 @@ const opDescribeSourceRegions = "DescribeSourceRegions"
 // See DescribeSourceRegions for more information on using the DescribeSourceRegions
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSourceRegions for more information on using the DescribeSourceRegions
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6182,7 +6645,11 @@ func (c *RDS) DescribeSourceRegionsRequest(input *DescribeSourceRegionsInput) (r
 
 // DescribeSourceRegions API operation for Amazon Relational Database Service.
 //
+<<<<<<< HEAD
 // Returns a list of the source AWS Regions where the current AWS Region can
+=======
+// Returns a list of the source AWS regions where the current AWS Region can
+>>>>>>> Initial dep workover
 // create a Read Replica or copy a DB snapshot from. This API action supports
 // pagination.
 //
@@ -6239,7 +6706,11 @@ const opDescribeValidDBInstanceModifications = "DescribeValidDBInstanceModificat
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModifications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModifications
+>>>>>>> Initial dep workover
 func (c *RDS) DescribeValidDBInstanceModificationsRequest(input *DescribeValidDBInstanceModificationsInput) (req *request.Request, output *DescribeValidDBInstanceModificationsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeValidDBInstanceModifications,
@@ -6276,7 +6747,11 @@ func (c *RDS) DescribeValidDBInstanceModificationsRequest(input *DescribeValidDB
 //   * ErrCodeInvalidDBInstanceStateFault "InvalidDBInstanceState"
 //   The specified DB instance is not in the available state.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModifications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModifications
+>>>>>>> Initial dep workover
 func (c *RDS) DescribeValidDBInstanceModifications(input *DescribeValidDBInstanceModificationsInput) (*DescribeValidDBInstanceModificationsOutput, error) {
 	req, out := c.DescribeValidDBInstanceModificationsRequest(input)
 	return out, req.Send()
@@ -6304,6 +6779,7 @@ const opDownloadDBLogFilePortion = "DownloadDBLogFilePortion"
 // client's request for the DownloadDBLogFilePortion operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6311,6 +6787,15 @@ const opDownloadDBLogFilePortion = "DownloadDBLogFilePortion"
 // See DownloadDBLogFilePortion for more information on using the DownloadDBLogFilePortion
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DownloadDBLogFilePortion for more information on using the DownloadDBLogFilePortion
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6442,6 +6927,7 @@ const opFailoverDBCluster = "FailoverDBCluster"
 // client's request for the FailoverDBCluster operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6449,6 +6935,15 @@ const opFailoverDBCluster = "FailoverDBCluster"
 // See FailoverDBCluster for more information on using the FailoverDBCluster
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See FailoverDBCluster for more information on using the FailoverDBCluster
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6540,6 +7035,7 @@ const opListTagsForResource = "ListTagsForResource"
 // client's request for the ListTagsForResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6547,6 +7043,15 @@ const opListTagsForResource = "ListTagsForResource"
 // See ListTagsForResource for more information on using the ListTagsForResource
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListTagsForResource for more information on using the ListTagsForResource
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6628,6 +7133,7 @@ const opModifyDBCluster = "ModifyDBCluster"
 // client's request for the ModifyDBCluster operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6635,6 +7141,15 @@ const opModifyDBCluster = "ModifyDBCluster"
 // See ModifyDBCluster for more information on using the ModifyDBCluster
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyDBCluster for more information on using the ModifyDBCluster
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6745,6 +7260,7 @@ const opModifyDBClusterParameterGroup = "ModifyDBClusterParameterGroup"
 // client's request for the ModifyDBClusterParameterGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6752,6 +7268,15 @@ const opModifyDBClusterParameterGroup = "ModifyDBClusterParameterGroup"
 // See ModifyDBClusterParameterGroup for more information on using the ModifyDBClusterParameterGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyDBClusterParameterGroup for more information on using the ModifyDBClusterParameterGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6849,6 +7374,7 @@ const opModifyDBClusterSnapshotAttribute = "ModifyDBClusterSnapshotAttribute"
 // client's request for the ModifyDBClusterSnapshotAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6856,6 +7382,15 @@ const opModifyDBClusterSnapshotAttribute = "ModifyDBClusterSnapshotAttribute"
 // See ModifyDBClusterSnapshotAttribute for more information on using the ModifyDBClusterSnapshotAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyDBClusterSnapshotAttribute for more information on using the ModifyDBClusterSnapshotAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6951,6 +7486,7 @@ const opModifyDBInstance = "ModifyDBInstance"
 // client's request for the ModifyDBInstance operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6958,6 +7494,15 @@ const opModifyDBInstance = "ModifyDBInstance"
 // See ModifyDBInstance for more information on using the ModifyDBInstance
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyDBInstance for more information on using the ModifyDBInstance
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7085,6 +7630,7 @@ const opModifyDBParameterGroup = "ModifyDBParameterGroup"
 // client's request for the ModifyDBParameterGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7092,6 +7638,15 @@ const opModifyDBParameterGroup = "ModifyDBParameterGroup"
 // See ModifyDBParameterGroup for more information on using the ModifyDBParameterGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyDBParameterGroup for more information on using the ModifyDBParameterGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7186,6 +7741,7 @@ const opModifyDBSnapshot = "ModifyDBSnapshot"
 // client's request for the ModifyDBSnapshot operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7193,6 +7749,15 @@ const opModifyDBSnapshot = "ModifyDBSnapshot"
 // See ModifyDBSnapshot for more information on using the ModifyDBSnapshot
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyDBSnapshot for more information on using the ModifyDBSnapshot
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7268,6 +7833,7 @@ const opModifyDBSnapshotAttribute = "ModifyDBSnapshotAttribute"
 // client's request for the ModifyDBSnapshotAttribute operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7275,6 +7841,15 @@ const opModifyDBSnapshotAttribute = "ModifyDBSnapshotAttribute"
 // See ModifyDBSnapshotAttribute for more information on using the ModifyDBSnapshotAttribute
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyDBSnapshotAttribute for more information on using the ModifyDBSnapshotAttribute
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7370,6 +7945,7 @@ const opModifyDBSubnetGroup = "ModifyDBSubnetGroup"
 // client's request for the ModifyDBSubnetGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7377,6 +7953,15 @@ const opModifyDBSubnetGroup = "ModifyDBSubnetGroup"
 // See ModifyDBSubnetGroup for more information on using the ModifyDBSubnetGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyDBSubnetGroup for more information on using the ModifyDBSubnetGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7465,6 +8050,7 @@ const opModifyEventSubscription = "ModifyEventSubscription"
 // client's request for the ModifyEventSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7472,6 +8058,15 @@ const opModifyEventSubscription = "ModifyEventSubscription"
 // See ModifyEventSubscription for more information on using the ModifyEventSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyEventSubscription for more information on using the ModifyEventSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7567,6 +8162,7 @@ const opModifyOptionGroup = "ModifyOptionGroup"
 // client's request for the ModifyOptionGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7574,6 +8170,15 @@ const opModifyOptionGroup = "ModifyOptionGroup"
 // See ModifyOptionGroup for more information on using the ModifyOptionGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyOptionGroup for more information on using the ModifyOptionGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7649,6 +8254,7 @@ const opPromoteReadReplica = "PromoteReadReplica"
 // client's request for the PromoteReadReplica operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7656,6 +8262,15 @@ const opPromoteReadReplica = "PromoteReadReplica"
 // See PromoteReadReplica for more information on using the PromoteReadReplica
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PromoteReadReplica for more information on using the PromoteReadReplica
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7736,6 +8351,7 @@ const opPromoteReadReplicaDBCluster = "PromoteReadReplicaDBCluster"
 // client's request for the PromoteReadReplicaDBCluster operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7743,6 +8359,15 @@ const opPromoteReadReplicaDBCluster = "PromoteReadReplicaDBCluster"
 // See PromoteReadReplicaDBCluster for more information on using the PromoteReadReplicaDBCluster
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PromoteReadReplicaDBCluster for more information on using the PromoteReadReplicaDBCluster
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7818,6 +8443,7 @@ const opPurchaseReservedDBInstancesOffering = "PurchaseReservedDBInstancesOfferi
 // client's request for the PurchaseReservedDBInstancesOffering operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7825,6 +8451,15 @@ const opPurchaseReservedDBInstancesOffering = "PurchaseReservedDBInstancesOfferi
 // See PurchaseReservedDBInstancesOffering for more information on using the PurchaseReservedDBInstancesOffering
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PurchaseReservedDBInstancesOffering for more information on using the PurchaseReservedDBInstancesOffering
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7903,6 +8538,7 @@ const opRebootDBInstance = "RebootDBInstance"
 // client's request for the RebootDBInstance operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7910,6 +8546,15 @@ const opRebootDBInstance = "RebootDBInstance"
 // See RebootDBInstance for more information on using the RebootDBInstance
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RebootDBInstance for more information on using the RebootDBInstance
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8001,6 +8646,7 @@ const opRemoveRoleFromDBCluster = "RemoveRoleFromDBCluster"
 // client's request for the RemoveRoleFromDBCluster operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8008,6 +8654,15 @@ const opRemoveRoleFromDBCluster = "RemoveRoleFromDBCluster"
 // See RemoveRoleFromDBCluster for more information on using the RemoveRoleFromDBCluster
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RemoveRoleFromDBCluster for more information on using the RemoveRoleFromDBCluster
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8091,6 +8746,7 @@ const opRemoveSourceIdentifierFromSubscription = "RemoveSourceIdentifierFromSubs
 // client's request for the RemoveSourceIdentifierFromSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8098,6 +8754,15 @@ const opRemoveSourceIdentifierFromSubscription = "RemoveSourceIdentifierFromSubs
 // See RemoveSourceIdentifierFromSubscription for more information on using the RemoveSourceIdentifierFromSubscription
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RemoveSourceIdentifierFromSubscription for more information on using the RemoveSourceIdentifierFromSubscription
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8173,6 +8838,7 @@ const opRemoveTagsFromResource = "RemoveTagsFromResource"
 // client's request for the RemoveTagsFromResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8180,6 +8846,15 @@ const opRemoveTagsFromResource = "RemoveTagsFromResource"
 // See RemoveTagsFromResource for more information on using the RemoveTagsFromResource
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RemoveTagsFromResource for more information on using the RemoveTagsFromResource
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8263,6 +8938,7 @@ const opResetDBClusterParameterGroup = "ResetDBClusterParameterGroup"
 // client's request for the ResetDBClusterParameterGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8270,6 +8946,15 @@ const opResetDBClusterParameterGroup = "ResetDBClusterParameterGroup"
 // See ResetDBClusterParameterGroup for more information on using the ResetDBClusterParameterGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ResetDBClusterParameterGroup for more information on using the ResetDBClusterParameterGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8359,6 +9044,7 @@ const opResetDBParameterGroup = "ResetDBParameterGroup"
 // client's request for the ResetDBParameterGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8366,6 +9052,15 @@ const opResetDBParameterGroup = "ResetDBParameterGroup"
 // See ResetDBParameterGroup for more information on using the ResetDBParameterGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ResetDBParameterGroup for more information on using the ResetDBParameterGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8449,6 +9144,7 @@ const opRestoreDBClusterFromS3 = "RestoreDBClusterFromS3"
 // client's request for the RestoreDBClusterFromS3 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8456,6 +9152,15 @@ const opRestoreDBClusterFromS3 = "RestoreDBClusterFromS3"
 // See RestoreDBClusterFromS3 for more information on using the RestoreDBClusterFromS3
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RestoreDBClusterFromS3 for more information on using the RestoreDBClusterFromS3
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8576,6 +9281,7 @@ const opRestoreDBClusterFromSnapshot = "RestoreDBClusterFromSnapshot"
 // client's request for the RestoreDBClusterFromSnapshot operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8583,6 +9289,15 @@ const opRestoreDBClusterFromSnapshot = "RestoreDBClusterFromSnapshot"
 // See RestoreDBClusterFromSnapshot for more information on using the RestoreDBClusterFromSnapshot
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RestoreDBClusterFromSnapshot for more information on using the RestoreDBClusterFromSnapshot
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8721,6 +9436,7 @@ const opRestoreDBClusterToPointInTime = "RestoreDBClusterToPointInTime"
 // client's request for the RestoreDBClusterToPointInTime operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8728,6 +9444,15 @@ const opRestoreDBClusterToPointInTime = "RestoreDBClusterToPointInTime"
 // See RestoreDBClusterToPointInTime for more information on using the RestoreDBClusterToPointInTime
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RestoreDBClusterToPointInTime for more information on using the RestoreDBClusterToPointInTime
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8865,6 +9590,7 @@ const opRestoreDBInstanceFromDBSnapshot = "RestoreDBInstanceFromDBSnapshot"
 // client's request for the RestoreDBInstanceFromDBSnapshot operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -8872,6 +9598,15 @@ const opRestoreDBInstanceFromDBSnapshot = "RestoreDBInstanceFromDBSnapshot"
 // See RestoreDBInstanceFromDBSnapshot for more information on using the RestoreDBInstanceFromDBSnapshot
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RestoreDBInstanceFromDBSnapshot for more information on using the RestoreDBInstanceFromDBSnapshot
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9018,6 +9753,7 @@ func (c *RDS) RestoreDBInstanceFromDBSnapshotWithContext(ctx aws.Context, input 
 
 const opRestoreDBInstanceFromS3 = "RestoreDBInstanceFromS3"
 
+<<<<<<< HEAD
 // RestoreDBInstanceFromS3Request generates a "aws/request.Request" representing the
 // client's request for the RestoreDBInstanceFromS3 operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -9031,6 +9767,22 @@ const opRestoreDBInstanceFromS3 = "RestoreDBInstanceFromS3"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// RestoreDBInstanceToPointInTimeRequest generates a "aws/request.Request" representing the
+// client's request for the RestoreDBInstanceToPointInTime operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RestoreDBInstanceToPointInTime for more information on using the RestoreDBInstanceToPointInTime
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the RestoreDBInstanceFromS3Request method.
@@ -9158,19 +9910,33 @@ func (c *RDS) RestoreDBInstanceFromS3WithContext(ctx aws.Context, input *Restore
 
 const opRestoreDBInstanceToPointInTime = "RestoreDBInstanceToPointInTime"
 
+<<<<<<< HEAD
 // RestoreDBInstanceToPointInTimeRequest generates a "aws/request.Request" representing the
 // client's request for the RestoreDBInstanceToPointInTime operation. The "output" return
+=======
+// RevokeDBSecurityGroupIngressRequest generates a "aws/request.Request" representing the
+// client's request for the RevokeDBSecurityGroupIngress operation. The "output" return
+>>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
+<<<<<<< HEAD
 // See RestoreDBInstanceToPointInTime for more information on using the RestoreDBInstanceToPointInTime
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
+=======
+// See RevokeDBSecurityGroupIngress for more information on using the RevokeDBSecurityGroupIngress
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+>>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the RestoreDBInstanceToPointInTimeRequest method.
@@ -10398,7 +11164,11 @@ type CopyDBClusterSnapshotInput struct {
 	// To copy an encrypted DB cluster snapshot to another AWS Region, you must
 	// set KmsKeyId to the KMS key ID you want to use to encrypt the copy of the
 	// DB cluster snapshot in the destination AWS Region. KMS encryption keys are
+<<<<<<< HEAD
 	// specific to the AWS Region that they are created in, and you can't use encryption
+=======
+	// specific to the AWS Region that they are created in, and you cannot use encryption
+>>>>>>> Initial dep workover
 	// keys from one AWS Region in another AWS Region.
 	KmsKeyId *string `type:"string"`
 
@@ -10412,10 +11182,17 @@ type CopyDBClusterSnapshotInput struct {
 	// encrypted DB cluster snapshot to be copied. The pre-signed URL request must
 	// contain the following parameter values:
 	//
+<<<<<<< HEAD
 	//    * KmsKeyId - The AWS KMS key identifier for the key to use to encrypt
 	//    the copy of the DB cluster snapshot in the destination AWS Region. This
 	//    is the same identifier for both the CopyDBClusterSnapshot action that
 	//    is called in the destination AWS Region, and the action contained in the
+=======
+	//    * KmsKeyId - The KMS key identifier for the key to use to encrypt the
+	//    copy of the DB cluster snapshot in the destination AWS Region. This is
+	//    the same identifier for both the CopyDBClusterSnapshot action that is
+	//    called in the destination AWS Region, and the action contained in the
+>>>>>>> Initial dep workover
 	//    pre-signed URL.
 	//
 	//    * DestinationRegion - The name of the AWS Region that the DB cluster snapshot
@@ -10425,8 +11202,13 @@ type CopyDBClusterSnapshotInput struct {
 	//    for the encrypted DB cluster snapshot to be copied. This identifier must
 	//    be in the Amazon Resource Name (ARN) format for the source AWS Region.
 	//    For example, if you are copying an encrypted DB cluster snapshot from
+<<<<<<< HEAD
 	//    the us-west-2 AWS Region, then your SourceDBClusterSnapshotIdentifier
 	//    looks like the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
+=======
+	//    the us-west-2 region, then your SourceDBClusterSnapshotIdentifier looks
+	//    like the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
+>>>>>>> Initial dep workover
 	//
 	// To learn how to generate a Signature Version 4 signed request, see  Authenticating
 	// Requests: Using Query Parameters (AWS Signature Version 4) (http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
@@ -10436,7 +11218,11 @@ type CopyDBClusterSnapshotInput struct {
 	// The identifier of the DB cluster snapshot to copy. This parameter is not
 	// case-sensitive.
 	//
+<<<<<<< HEAD
 	// You can't copy an encrypted, shared DB cluster snapshot from one AWS Region
+=======
+	// You cannot copy an encrypted, shared DB cluster snapshot from one AWS Region
+>>>>>>> Initial dep workover
 	// to another.
 	//
 	// Constraints:
@@ -10733,7 +11519,11 @@ type CopyDBSnapshotInput struct {
 	//
 	// If you copy an encrypted snapshot to a different AWS Region, then you must
 	// specify a KMS key for the destination AWS Region. KMS encryption keys are
+<<<<<<< HEAD
 	// specific to the AWS Region that they are created in, and you can't use encryption
+=======
+	// specific to the AWS Region that they are created in, and you cannot use encryption
+>>>>>>> Initial dep workover
 	// keys from one AWS Region in another AWS Region.
 	KmsKeyId *string `type:"string"`
 
@@ -10751,9 +11541,15 @@ type CopyDBSnapshotInput struct {
 	// to copy.
 	//
 	// You must specify this parameter when you copy an encrypted DB snapshot from
+<<<<<<< HEAD
 	// another AWS Region by using the Amazon RDS API. You can specify the --source-region
 	// option instead of this parameter when you copy an encrypted DB snapshot from
 	// another AWS Region by using the AWS CLI.
+=======
+	// another AWS Region by using the Amazon RDS API. You can specify the source
+	// region option instead of this parameter when you copy an encrypted DB snapshot
+	// from another AWS Region by using the AWS CLI.
+>>>>>>> Initial dep workover
 	//
 	// The presigned URL must be a valid request for the CopyDBSnapshot API action
 	// that can be executed in the source AWS Region that contains the encrypted
@@ -10764,6 +11560,7 @@ type CopyDBSnapshotInput struct {
 	//    copied to. This AWS Region is the same one where the CopyDBSnapshot action
 	//    is called that contains this presigned URL.
 	//
+<<<<<<< HEAD
 	// For example, if you copy an encrypted DB snapshot from the us-west-2 AWS
 	//    Region to the us-east-1 AWS Region, then you call the CopyDBSnapshot action
 	//    in the us-east-1 AWS Region and provide a presigned URL that contains
@@ -10776,11 +11573,27 @@ type CopyDBSnapshotInput struct {
 	//    same identifier for both the CopyDBSnapshot action that is called in the
 	//    destination AWS Region, and the action contained in the presigned URL.
 	//
+=======
+	// For example, if you copy an encrypted DB snapshot from the us-west-2 region
+	//    to the us-east-1 region, then you call the CopyDBSnapshot action in the
+	//    us-east-1 region and provide a presigned URL that contains a call to the
+	//    CopyDBSnapshot action in the us-west-2 region. For this example, the DestinationRegion
+	//    in the presigned URL must be set to the us-east-1 region.
+	//
+	//    * KmsKeyId - The KMS key identifier for the key to use to encrypt the
+	//    copy of the DB snapshot in the destination AWS Region. This is the same
+	//    identifier for both the CopyDBSnapshot action that is called in the destination
+	//    AWS Region, and the action contained in the presigned URL.
+>>>>>>> Initial dep workover
 	//
 	//    * SourceDBSnapshotIdentifier - The DB snapshot identifier for the encrypted
 	//    snapshot to be copied. This identifier must be in the Amazon Resource
 	//    Name (ARN) format for the source AWS Region. For example, if you are copying
+<<<<<<< HEAD
 	//    an encrypted DB snapshot from the us-west-2 AWS Region, then your SourceDBSnapshotIdentifier
+=======
+	//    an encrypted DB snapshot from the us-west-2 region, then your SourceDBSnapshotIdentifier
+>>>>>>> Initial dep workover
 	//    looks like the following example: arn:aws:rds:us-west-2:123456789012:snapshot:mysql-instance1-snapshot-20161115.
 	//
 	//
@@ -11216,11 +12029,19 @@ type CreateDBClusterInput struct {
 	//
 	// The pre-signed URL request must contain the following parameter values:
 	//
+<<<<<<< HEAD
 	//    * KmsKeyId - The AWS KMS key identifier for the key to use to encrypt
 	//    the copy of the DB cluster in the destination AWS Region. This should
 	//    refer to the same KMS key for both the CreateDBCluster action that is
 	//    called in the destination AWS Region, and the action contained in the
 	//    pre-signed URL.
+=======
+	//    * KmsKeyId - The KMS key identifier for the key to use to encrypt the
+	//    copy of the DB cluster in the destination AWS Region. This should refer
+	//    to the same KMS key for both the CreateDBCluster action that is called
+	//    in the destination AWS Region, and the action contained in the pre-signed
+	//    URL.
+>>>>>>> Initial dep workover
 	//
 	//    * DestinationRegion - The name of the AWS Region that Aurora Read Replica
 	//    will be created in.
@@ -11228,7 +12049,11 @@ type CreateDBClusterInput struct {
 	//    * ReplicationSourceIdentifier - The DB cluster identifier for the encrypted
 	//    DB cluster to be copied. This identifier must be in the Amazon Resource
 	//    Name (ARN) format for the source AWS Region. For example, if you are copying
+<<<<<<< HEAD
 	//    an encrypted DB cluster from the us-west-2 AWS Region, then your ReplicationSourceIdentifier
+=======
+	//    an encrypted DB cluster from the us-west-2 region, then your ReplicationSourceIdentifier
+>>>>>>> Initial dep workover
 	//    would look like Example: arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1.
 	//
 	// To learn how to generate a Signature Version 4 signed request, see  Authenticating
@@ -11239,9 +12064,15 @@ type CreateDBClusterInput struct {
 	// The daily time range during which automated backups are created if automated
 	// backups are enabled using the BackupRetentionPeriod parameter.
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+=======
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
+	// Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Constraints:
@@ -11260,10 +12091,16 @@ type CreateDBClusterInput struct {
 	//
 	// Format: ddd:hh24:mi-ddd:hh24:mi
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region, occurring on a random day of the week. To see
 	// the time blocks available, see  Adjusting the Preferred Maintenance Window
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+=======
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region, occurring on a random day of the week. To see the time blocks
+	// available, see  Adjusting the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -11789,9 +12626,14 @@ type CreateDBInstanceInput struct {
 	// Default: true
 	AutoMinorVersionUpgrade *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// The EC2 Availability Zone that the DB instance is created in. For information
 	// on AWS Regions and Availability Zones, see Regions and Availability Zones
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+=======
+	// The EC2 Availability Zone that the database instance is created in. For information
+	// on regions and Availability Zones, see Regions and Availability Zones (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+>>>>>>> Initial dep workover
 	//
 	// Default: A random, system-chosen Availability Zone in the endpoint's AWS
 	// Region.
@@ -11842,9 +12684,15 @@ type CreateDBInstanceInput struct {
 	DBClusterIdentifier *string `type:"string"`
 
 	// The compute and memory capacity of the DB instance, for example, db.m4.large.
+<<<<<<< HEAD
 	// Not all DB instance classes are available in all AWS Regions, or for all
 	// database engines. For the full list of DB instance classes, and availability
 	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+=======
+	// Not all DB instance classes are available in all regions, or for all database
+	// engines. For the full list of DB instance classes, and availability for your
+	// engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// DBInstanceClass is a required field
@@ -11985,7 +12833,11 @@ type CreateDBInstanceInput struct {
 	// Default: false
 	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// True to enable Performance Insights for the DB instance, and otherwise false.
+=======
+	// True to enable Performance Insights for the DB instance; otherwise false.
+>>>>>>> Initial dep workover
 	EnablePerformanceInsights *bool `type:"boolean"`
 
 	// The name of the database engine to be used for this instance.
@@ -12036,15 +12888,27 @@ type CreateDBInstanceInput struct {
 	//
 	// MariaDB
 	//
+<<<<<<< HEAD
 	//    * 10.1.23 (supported in all AWS Regions)
 	//
 	//    * 10.1.19 (supported in all AWS Regions)
 	//
 	//    * 10.1.14 (supported in all AWS Regions except us-east-2)
+=======
+	//    * 10.1.23 (supported in all AWS regions)
+	//
+	//    * 10.1.19 (supported in all AWS regions)
+>>>>>>> Initial dep workover
 	//
 	// 10.0.31 (supported in all AWS Regions)
 	//
+<<<<<<< HEAD
 	//    * 10.0.28 (supported in all AWS Regions)
+=======
+	// 10.0.31 (supported in all AWS regions)
+	//
+	//    * 10.0.28 (supported in all AWS regions)
+>>>>>>> Initial dep workover
 	//
 	//    * 10.0.24 (supported in all AWS Regions)
 	//
@@ -12092,10 +12956,21 @@ type CreateDBInstanceInput struct {
 	// MySQL
 	//
 	// 5.7.19 (supported in all AWS regions)
+<<<<<<< HEAD
+=======
 	//
 	//    * 5.7.17 (supported in all AWS regions)
 	//
 	//    * 5.7.16 (supported in all AWS regions)
+>>>>>>> Initial dep workover
+	//
+	//    * 5.7.17 (supported in all AWS regions)
+	//
+<<<<<<< HEAD
+	//    * 5.7.16 (supported in all AWS regions)
+=======
+	//    * 5.6.37 (supported in all AWS regions)
+>>>>>>> Initial dep workover
 	//
 	//    * 5.6.37 (supported in all AWS Regions)
 	//
@@ -12105,10 +12980,14 @@ type CreateDBInstanceInput struct {
 	//
 	//    * 5.6.29 (supported in all AWS Regions)
 	//
+<<<<<<< HEAD
 	//    * 5.6.27 (supported in all AWS Regions except us-east-2, ca-central-1,
 	//    eu-west-2)
 	//
 	// 5.5.57(supported in all AWS Regions)
+=======
+	// 5.5.57(supported in all AWS regions)
+>>>>>>> Initial dep workover
 	//
 	// 5.5.54(supported in all AWS Regions)
 	//
@@ -12207,8 +13086,13 @@ type CreateDBInstanceInput struct {
 	// Valid values: license-included | bring-your-own-license | general-public-license
 	LicenseModel *string `type:"string"`
 
+<<<<<<< HEAD
 	// The password for the master user. The password can include any printable
 	// ASCII character except "/", """, or "@".
+=======
+	// The password for the master user. Can be any printable ASCII character except
+	// "/", """, or "@".
+>>>>>>> Initial dep workover
 	//
 	// Amazon Aurora
 	//
@@ -12333,9 +13217,15 @@ type CreateDBInstanceInput struct {
 	// from a DB instance once it is associated with a DB instance
 	OptionGroupName *string `type:"string"`
 
+<<<<<<< HEAD
 	// The AWS KMS key identifier for encryption of Performance Insights data. The
 	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
 	// KMS key alias for the KMS encryption key.
+=======
+	// The KMS key identifier for encryption of Performance Insights data. The KMS
+	// key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS
+	// key alias for the KMS encryption key.
+>>>>>>> Initial dep workover
 	PerformanceInsightsKMSKeyId *string `type:"string"`
 
 	// The port number on which the database accepts connections.
@@ -12395,9 +13285,20 @@ type CreateDBInstanceInput struct {
 	// Not applicable. The daily time range for creating automated backups is managed
 	// by the DB cluster. For more information, see CreateDBCluster.
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred DB Instance Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow).
+=======
+	// Amazon Aurora
+	//
+	// Not applicable. The daily time range for creating automated backups is managed
+	// by the DB cluster. For more information, see CreateDBCluster.
+	//
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
+	// DB Instance Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow).
+>>>>>>> Initial dep workover
 	//
 	// Constraints:
 	//
@@ -12416,8 +13317,15 @@ type CreateDBInstanceInput struct {
 	//
 	// Format: ddd:hh24:mi-ddd:hh24:mi
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region, occurring on a random day of the week.
+=======
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region, occurring on a random day of the week. To see the time blocks
+	// available, see  Adjusting the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+	// in the Amazon RDS User Guide.
+>>>>>>> Initial dep workover
 	//
 	// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
 	//
@@ -12819,9 +13727,15 @@ type CreateDBInstanceReadReplicaInput struct {
 	CopyTagsToSnapshot *bool `type:"boolean"`
 
 	// The compute and memory capacity of the Read Replica, for example, db.m4.large.
+<<<<<<< HEAD
 	// Not all DB instance classes are available in all AWS Regions, or for all
 	// database engines. For the full list of DB instance classes, and availability
 	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+=======
+	// Not all DB instance classes are available in all regions, or for all database
+	// engines. For the full list of DB instance classes, and availability for your
+	// engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Default: Inherits from the source DB instance.
@@ -12842,12 +13756,21 @@ type CreateDBInstanceReadReplicaInput struct {
 	//
 	//    * Can only be specified if the source DB instance identifier specifies
 	//    a DB instance in another AWS Region.
+<<<<<<< HEAD
 	//
 	//    * If supplied, must match the name of an existing DBSubnetGroup.
 	//
 	//    * The specified DB subnet group must be in the same AWS Region in which
 	//    the operation is running.
 	//
+=======
+	//
+	//    * If supplied, must match the name of an existing DBSubnetGroup.
+	//
+	//    * The specified DB subnet group must be in the same AWS Region in which
+	//    the operation is running.
+	//
+>>>>>>> Initial dep workover
 	//    * All Read Replicas in one AWS Region that are created from the same source
 	//    DB instance must either:>
 	//
@@ -12877,7 +13800,11 @@ type CreateDBInstanceReadReplicaInput struct {
 	// Default: false
 	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// True to enable Performance Insights for the read replica, and otherwise false.
+=======
+	// True to enable Performance Insights for the read replica; otherwise false.
+>>>>>>> Initial dep workover
 	EnablePerformanceInsights *bool `type:"boolean"`
 
 	// The amount of Provisioned IOPS (input/output operations per second) to be
@@ -12897,7 +13824,11 @@ type CreateDBInstanceReadReplicaInput struct {
 	//
 	// If you create an encrypted Read Replica in a different AWS Region, then you
 	// must specify a KMS key for the destination AWS Region. KMS encryption keys
+<<<<<<< HEAD
 	// are specific to the AWS Region that they are created in, and you can't use
+=======
+	// are specific to the AWS Region that they are created in, and you cannot use
+>>>>>>> Initial dep workover
 	// encryption keys from one AWS Region in another AWS Region.
 	KmsKeyId *string `type:"string"`
 
@@ -12924,9 +13855,15 @@ type CreateDBInstanceReadReplicaInput struct {
 	// option group for the engine specified is used.
 	OptionGroupName *string `type:"string"`
 
+<<<<<<< HEAD
 	// The AWS KMS key identifier for encryption of Performance Insights data. The
 	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
 	// KMS key alias for the KMS encryption key.
+=======
+	// The KMS key identifier for encryption of Performance Insights data. The KMS
+	// key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS
+	// key alias for the KMS encryption key.
+>>>>>>> Initial dep workover
 	PerformanceInsightsKMSKeyId *string `type:"string"`
 
 	// The port number that the DB instance uses for connections.
@@ -12941,7 +13878,11 @@ type CreateDBInstanceReadReplicaInput struct {
 	//
 	// You must specify this parameter when you create an encrypted Read Replica
 	// from another AWS Region by using the Amazon RDS API. You can specify the
+<<<<<<< HEAD
 	// --source-region option instead of this parameter when you create an encrypted
+=======
+	// source region option instead of this parameter when you create an encrypted
+>>>>>>> Initial dep workover
 	// Read Replica from another AWS Region by using the AWS CLI.
 	//
 	// The presigned URL must be a valid request for the CreateDBInstanceReadReplica
@@ -12953,6 +13894,7 @@ type CreateDBInstanceReadReplicaInput struct {
 	//    created in. This AWS Region is the same one where the CreateDBInstanceReadReplica
 	//    action is called that contains this presigned URL.
 	//
+<<<<<<< HEAD
 	// For example, if you create an encrypted DB instance in the us-west-1 AWS
 	//    Region, from a source DB instance in the us-east-2 AWS Region, then you
 	//    call the CreateDBInstanceReadReplica action in the us-east-1 AWS Region
@@ -12965,11 +13907,29 @@ type CreateDBInstanceReadReplicaInput struct {
 	//    for both the CreateDBInstanceReadReplica action that is called in the
 	//    destination AWS Region, and the action contained in the presigned URL.
 	//
+=======
+	// For example, if you create an encrypted DB instance in the us-west-1 region,
+	//    from a source DB instance in the us-east-2 region, then you call the CreateDBInstanceReadReplica
+	//    action in the us-east-1 region and provide a presigned URL that contains
+	//    a call to the CreateDBInstanceReadReplica action in the us-west-2 region.
+	//    For this example, the DestinationRegion in the presigned URL must be set
+	//    to the us-east-1 region.
+	//
+	//    * KmsKeyId - The KMS key identifier for the key to use to encrypt the
+	//    Read Replica in the destination AWS Region. This is the same identifier
+	//    for both the CreateDBInstanceReadReplica action that is called in the
+	//    destination AWS Region, and the action contained in the presigned URL.
+	//
+>>>>>>> Initial dep workover
 	//
 	//    * SourceDBInstanceIdentifier - The DB instance identifier for the encrypted
 	//    DB instance to be replicated. This identifier must be in the Amazon Resource
 	//    Name (ARN) format for the source AWS Region. For example, if you are creating
+<<<<<<< HEAD
 	//    an encrypted Read Replica from a DB instance in the us-west-2 AWS Region,
+=======
+	//    an encrypted Read Replica from a DB instance in the us-west-2 region,
+>>>>>>> Initial dep workover
 	//    then your SourceDBInstanceIdentifier looks like the following example:
 	//    arn:aws:rds:us-west-2:123456789012:instance:mysql-instance1-20161115.
 	//
@@ -13009,8 +13969,13 @@ type CreateDBInstanceReadReplicaInput struct {
 	//    is running MySQL 5.6.
 	//
 	//    * Can specify a DB instance that is a PostgreSQL DB instance only if the
+<<<<<<< HEAD
 	//    source is running PostgreSQL 9.3.5 or later (9.4.7 and higher for cross-region
 	//    replication).
+=======
+	//    source is running PostgreSQL 9.3.5 or later (9.4.7 and higher for cross
+	//    region replication).
+>>>>>>> Initial dep workover
 	//
 	//    * The specified DB instance must have automatic backups enabled, its backup
 	//    retention period must be greater than 0.
@@ -15080,6 +16045,7 @@ type DBInstance struct {
 	// included when changes are pending. Specific changes are identified by subelements.
 	PendingModifiedValues *PendingModifiedValues `type:"structure"`
 
+<<<<<<< HEAD
 	// True if Performance Insights is enabled for the DB instance, and otherwise
 	// false.
 	PerformanceInsightsEnabled *bool `type:"boolean"`
@@ -15087,6 +16053,14 @@ type DBInstance struct {
 	// The AWS KMS key identifier for encryption of Performance Insights data. The
 	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
 	// KMS key alias for the KMS encryption key.
+=======
+	// True if Performance Insights is enabled for the DB instance; otherwise false.
+	PerformanceInsightsEnabled *bool `type:"boolean"`
+
+	// The KMS key identifier for encryption of Performance Insights data. The KMS
+	// key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS
+	// key alias for the KMS encryption key.
+>>>>>>> Initial dep workover
 	PerformanceInsightsKMSKeyId *string `type:"string"`
 
 	// Specifies the daily time range during which automated backups are created
@@ -20632,7 +21606,11 @@ func (s *DescribeSourceRegionsOutput) SetSourceRegions(v []*SourceRegion) *Descr
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModificationsMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModificationsMessage
+>>>>>>> Initial dep workover
 type DescribeValidDBInstanceModificationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -20671,7 +21649,11 @@ func (s *DescribeValidDBInstanceModificationsInput) SetDBInstanceIdentifier(v st
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModificationsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeValidDBInstanceModificationsResult
+>>>>>>> Initial dep workover
 type DescribeValidDBInstanceModificationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -20752,7 +21734,11 @@ func (s *DomainMembership) SetStatus(v string) *DomainMembership {
 }
 
 // A range of double values.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DoubleRange
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DoubleRange
+>>>>>>> Initial dep workover
 type DoubleRange struct {
 	_ struct{} `type:"structure"`
 
@@ -20785,7 +21771,11 @@ func (s *DoubleRange) SetTo(v float64) *DoubleRange {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DownloadDBLogFilePortionMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DownloadDBLogFilePortionMessage
+>>>>>>> Initial dep workover
 type DownloadDBLogFilePortionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -21637,9 +22627,15 @@ type ModifyDBClusterInput struct {
 	// The daily time range during which automated backups are created if automated
 	// backups are enabled, using the BackupRetentionPeriod parameter.
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+=======
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
+	// Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Constraints:
@@ -21658,10 +22654,16 @@ type ModifyDBClusterInput struct {
 	//
 	// Format: ddd:hh24:mi-ddd:hh24:mi
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region, occurring on a random day of the week. To see
 	// the time blocks available, see  Adjusting the Preferred Maintenance Window
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+=======
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region, occurring on a random day of the week. To see the time blocks
+	// available, see  Adjusting the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -22108,9 +23110,15 @@ type ModifyDBInstanceInput struct {
 	CopyTagsToSnapshot *bool `type:"boolean"`
 
 	// The new compute and memory capacity of the DB instance, for example, db.m4.large.
+<<<<<<< HEAD
 	// Not all DB instance classes are available in all AWS Regions, or for all
 	// database engines. For the full list of DB instance classes, and availability
 	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+=======
+	// Not all DB instance classes are available in all regions, or for all database
+	// engines. For the full list of DB instance classes, and availability for your
+	// engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// If you modify the DB instance class, an outage occurs during the change.
@@ -22241,7 +23249,11 @@ type ModifyDBInstanceInput struct {
 	// Default: false
 	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// True to enable Performance Insights for the DB instance, and otherwise false.
+=======
+	// True to enable Performance Insights for the DB instance; otherwise false.
+>>>>>>> Initial dep workover
 	EnablePerformanceInsights *bool `type:"boolean"`
 
 	// The version number of the database engine to upgrade to. Changing this parameter
@@ -22295,8 +23307,13 @@ type ModifyDBInstanceInput struct {
 	// Valid values: license-included | bring-your-own-license | general-public-license
 	LicenseModel *string `type:"string"`
 
+<<<<<<< HEAD
 	// The new password for the master user. The password can include any printable
 	// ASCII character except "/", """, or "@".
+=======
+	// The new password for the master user. Can be any printable ASCII character
+	// except "/", """, or "@".
+>>>>>>> Initial dep workover
 	//
 	// Changing this parameter does not result in an outage and the change is asynchronously
 	// applied as soon as possible. Between the time of the request and the completion
@@ -22391,9 +23408,15 @@ type ModifyDBInstanceInput struct {
 	// from a DB instance once it is associated with a DB instance
 	OptionGroupName *string `type:"string"`
 
+<<<<<<< HEAD
 	// The AWS KMS key identifier for encryption of Performance Insights data. The
 	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
 	// KMS key alias for the KMS encryption key.
+=======
+	// The KMS key identifier for encryption of Performance Insights data. The KMS
+	// key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS
+	// key alias for the KMS encryption key.
+>>>>>>> Initial dep workover
 	PerformanceInsightsKMSKeyId *string `type:"string"`
 
 	// The daily time range during which automated backups are created if automated
@@ -23008,7 +24031,11 @@ func (s *ModifyDBSnapshotInput) SetOptionGroupName(v string) *ModifyDBSnapshotIn
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBSnapshotResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBSnapshotResult
+>>>>>>> Initial dep workover
 type ModifyDBSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -24668,9 +25695,15 @@ type PromoteReadReplicaInput struct {
 	// The daily time range during which automated backups are created if automated
 	// backups are enabled, using the BackupRetentionPeriod parameter.
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+=======
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
+	// Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Constraints:
@@ -24850,7 +25883,11 @@ func (s *PurchaseReservedDBInstancesOfferingOutput) SetReservedDBInstance(v *Res
 }
 
 // A range of integer values.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Range
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/Range
+>>>>>>> Initial dep workover
 type Range struct {
 	_ struct{} `type:"structure"`
 
@@ -24895,7 +25932,11 @@ func (s *Range) SetTo(v int64) *Range {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RebootDBInstanceMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RebootDBInstanceMessage
+>>>>>>> Initial dep workover
 type RebootDBInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -25798,9 +26839,15 @@ type RestoreDBClusterFromS3Input struct {
 	// The daily time range during which automated backups are created if automated
 	// backups are enabled using the BackupRetentionPeriod parameter.
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+=======
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
+	// Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Constraints:
@@ -25819,10 +26866,16 @@ type RestoreDBClusterFromS3Input struct {
 	//
 	// Format: ddd:hh24:mi-ddd:hh24:mi
 	//
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region, occurring on a random day of the week. To see
 	// the time blocks available, see  Adjusting the Preferred Maintenance Window
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+=======
+	// Default: A 30-minute window selected at random from an 8-hour block of time
+	// per AWS Region, occurring on a random day of the week. To see the time blocks
+	// available, see  Adjusting the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -26148,8 +27201,13 @@ type RestoreDBClusterFromSnapshotInput struct {
 	// The version of the database engine to use for the new DB cluster.
 	EngineVersion *string `type:"string"`
 
+<<<<<<< HEAD
 	// The AWS KMS key identifier to use when restoring an encrypted DB cluster
 	// from a DB snapshot or DB cluster snapshot.
+=======
+	// The KMS key identifier to use when restoring an encrypted DB cluster from
+	// a DB snapshot or DB cluster snapshot.
+>>>>>>> Initial dep workover
 	//
 	// The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption
 	// key. If you are restoring a DB cluster with the same AWS account that owns
@@ -26585,7 +27643,11 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	// instance during the maintenance window.
 	AutoMinorVersionUpgrade *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// The EC2 Availability Zone that the DB instance is created in.
+=======
+	// The EC2 Availability Zone that the database instance is created in.
+>>>>>>> Initial dep workover
 	//
 	// Default: A random, system-chosen Availability Zone.
 	//
@@ -26600,9 +27662,15 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	CopyTagsToSnapshot *bool `type:"boolean"`
 
 	// The compute and memory capacity of the Amazon RDS DB instance, for example,
+<<<<<<< HEAD
 	// db.m4.large. Not all DB instance classes are available in all AWS Regions,
 	// or for all database engines. For the full list of DB instance classes, and
 	// availability for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+=======
+	// db.m4.large. Not all DB instance classes are available in all regions, or
+	// for all database engines. For the full list of DB instance classes, and availability
+	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Default: The same DBInstanceClass as the original DB instance.
@@ -26680,8 +27748,11 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	//
 	//    * aurora
 	//
+<<<<<<< HEAD
 	//    * aurora-postgresql
 	//
+=======
+>>>>>>> Initial dep workover
 	//    * mariadb
 	//
 	//    * mysql
@@ -27543,7 +28614,11 @@ type RestoreDBInstanceToPointInTimeInput struct {
 	// instance during the maintenance window.
 	AutoMinorVersionUpgrade *bool `type:"boolean"`
 
+<<<<<<< HEAD
 	// The EC2 Availability Zone that the DB instance is created in.
+=======
+	// The EC2 Availability Zone that the database instance is created in.
+>>>>>>> Initial dep workover
 	//
 	// Default: A random, system-chosen Availability Zone.
 	//
@@ -27558,9 +28633,15 @@ type RestoreDBInstanceToPointInTimeInput struct {
 	CopyTagsToSnapshot *bool `type:"boolean"`
 
 	// The compute and memory capacity of the Amazon RDS DB instance, for example,
+<<<<<<< HEAD
 	// db.m4.large. Not all DB instance classes are available in all AWS Regions,
 	// or for all database engines. For the full list of DB instance classes, and
 	// availability for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+=======
+	// db.m4.large. Not all DB instance classes are available in all regions, or
+	// for all database engines. For the full list of DB instance classes, and availability
+	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Initial dep workover
 	// in the Amazon RDS User Guide.
 	//
 	// Default: The same DBInstanceClass as the original DB instance.
@@ -27609,8 +28690,11 @@ type RestoreDBInstanceToPointInTimeInput struct {
 	//
 	//    * aurora
 	//
+<<<<<<< HEAD
 	//    * aurora-postgresql
 	//
+=======
+>>>>>>> Initial dep workover
 	//    * mariadb
 	//
 	//    * mysql
@@ -28424,7 +29508,11 @@ func (s *UpgradeTarget) SetIsMajorVersionUpgrade(v bool) *UpgradeTarget {
 // Information about valid modifications that you can make to your DB instance.
 // Contains the result of a successful call to the DescribeValidDBInstanceModifications
 // action. You can use this information when you call ModifyDBInstance.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ValidDBInstanceModificationsMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ValidDBInstanceModificationsMessage
+>>>>>>> Initial dep workover
 type ValidDBInstanceModificationsMessage struct {
 	_ struct{} `type:"structure"`
 
@@ -28451,7 +29539,11 @@ func (s *ValidDBInstanceModificationsMessage) SetStorage(v []*ValidStorageOption
 // Information about valid modifications that you can make to your DB instance.
 // Contains the result of a successful call to the DescribeValidDBInstanceModifications
 // action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ValidStorageOptions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ValidStorageOptions
+>>>>>>> Initial dep workover
 type ValidStorageOptions struct {
 	_ struct{} `type:"structure"`
 

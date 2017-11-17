@@ -22,8 +22,24 @@
 
 
 [[constraint]]
+  name = "github.com/Azure/azure-sdk-for-go"
+  version = "11.2.2-beta"
+
+[[constraint]]
+  name = "github.com/Azure/go-autorest"
+  version = "9.4.0"
+
+[[constraint]]
+  name = "github.com/aws/aws-sdk-go"
+  version = "1.12.29"
+
+[[constraint]]
+  name = "github.com/c-bata/go-prompt"
+  version = "0.1.1"
+
+[[constraint]]
   name = "github.com/digitalocean/godo"
-  version = "1.1.0"
+  version = "1.1.1"
 
 [[constraint]]
   name = "github.com/fatih/color"
@@ -34,8 +50,12 @@
   version = "1.0.0"
 
 [[constraint]]
-  name = "github.com/gravitational/trace"
-  version = "1.0.0"
+  branch = "master"
+  name = "github.com/kris-nova/charlie"
+
+[[constraint]]
+  name = "github.com/kris-nova/klone"
+  version = "1.2.0"
 
 [[constraint]]
   branch = "master"
@@ -46,12 +66,28 @@
   version = "0.8.0"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/pkg/sftp"
+  version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/spf13/cobra"
+  version = "0.0.1"
+
+[[constraint]]
+  name = "github.com/spf13/pflag"
+  version = "1.0.0"
 
 [[constraint]]
   branch = "master"
-  name = "github.com/spf13/cobra"
+  name = "github.com/yuroyoro/swalker"
+
+[[constraint]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+
+[[constraint]]
+  branch = "master"
+  name = "golang.org/x/net"
 
 [[constraint]]
   branch = "master"
@@ -62,6 +98,7 @@
   name = "google.golang.org/api"
 
 [[constraint]]
+<<<<<<< HEAD
   name = "github.com/c-bata/go-prompt"
   version = "0.1.0"
 
@@ -76,3 +113,8 @@
 [[constraint]]
   name = "k8s.io/api"
   revision = "006a217681ae70cbacdd66a5e2fca1a61a8ff28e"
+
+[[constraint]]
+  branch = "master"
+  name = "k8s.io/kube-deploy"
+

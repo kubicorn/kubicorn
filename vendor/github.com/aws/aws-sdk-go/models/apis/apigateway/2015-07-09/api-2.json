@@ -4054,10 +4054,13 @@
       "type":"list",
       "member":{"shape":"UsagePlanKey"}
     },
+<<<<<<< HEAD
     "ListOfVpcLink":{
       "type":"list",
       "member":{"shape":"VpcLink"}
     },
+=======
+>>>>>>> Initial dep workover
     "LocationStatusType":{
       "type":"string",
       "enum":[

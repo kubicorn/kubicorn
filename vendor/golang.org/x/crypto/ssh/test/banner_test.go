@@ -8,6 +8,10 @@ package test
 
 import (
 	"testing"
+<<<<<<< HEAD
+=======
+
+>>>>>>> Initial dep workover
 )
 
 func TestBannerCallbackAgainstOpenSSH(t *testing.T) {

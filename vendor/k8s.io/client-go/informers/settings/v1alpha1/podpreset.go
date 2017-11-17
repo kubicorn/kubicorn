@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -38,15 +42,20 @@ type PodPresetInformer interface {
 }
 
 type podPresetInformer struct {
+<<<<<<< HEAD
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
+=======
+	factory internalinterfaces.SharedInformerFactory
+>>>>>>> Initial dep workover
 }
 
 // NewPodPresetInformer constructs a new informer for PodPreset type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
 func NewPodPresetInformer(client kubernetes.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+<<<<<<< HEAD
 	return NewFilteredPodPresetInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
@@ -66,6 +75,14 @@ func NewFilteredPodPresetInformer(client kubernetes.Interface, namespace string,
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
+=======
+	return cache.NewSharedIndexInformer(
+		&cache.ListWatch{
+			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
+				return client.SettingsV1alpha1().PodPresets(namespace).List(options)
+			},
+			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
+>>>>>>> Initial dep workover
 				return client.SettingsV1alpha1().PodPresets(namespace).Watch(options)
 			},
 		},
@@ -75,12 +92,21 @@ func NewFilteredPodPresetInformer(client kubernetes.Interface, namespace string,
 	)
 }
 
+<<<<<<< HEAD
 func (f *podPresetInformer) defaultInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
 	return NewFilteredPodPresetInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
 func (f *podPresetInformer) Informer() cache.SharedIndexInformer {
 	return f.factory.InformerFor(&settings_v1alpha1.PodPreset{}, f.defaultInformer)
+=======
+func defaultPodPresetInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewPodPresetInformer(client, v1.NamespaceAll, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
+}
+
+func (f *podPresetInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&settings_v1alpha1.PodPreset{}, defaultPodPresetInformer)
+>>>>>>> Initial dep workover
 }
 
 func (f *podPresetInformer) Lister() v1alpha1.PodPresetLister {

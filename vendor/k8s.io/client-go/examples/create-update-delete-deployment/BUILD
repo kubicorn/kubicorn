@@ -8,13 +8,17 @@ load(
 
 go_binary(
     name = "create-update-delete-deployment",
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/examples/create-update-delete-deployment",
+=======
+>>>>>>> Initial dep workover
     library = ":go_default_library",
 )
 
 go_library(
     name = "go_default_library",
     srcs = ["main.go"],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/examples/create-update-delete-deployment",
     deps = [
         "//vendor/k8s.io/api/apps/v1beta1:go_default_library",
@@ -24,6 +28,15 @@ go_library(
         "//vendor/k8s.io/client-go/tools/clientcmd:go_default_library",
         "//vendor/k8s.io/client-go/util/homedir:go_default_library",
         "//vendor/k8s.io/client-go/util/retry:go_default_library",
+=======
+    deps = [
+        "//vendor/k8s.io/api/apps/v1beta1:go_default_library",
+        "//vendor/k8s.io/api/core/v1:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/api/errors:go_default_library",
+        "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
+        "//vendor/k8s.io/client-go/kubernetes:go_default_library",
+        "//vendor/k8s.io/client-go/tools/clientcmd:go_default_library",
+>>>>>>> Initial dep workover
     ],
 )
 

@@ -1,11 +1,19 @@
 {
  "kind": "discovery#restDescription",
+<<<<<<< HEAD
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/RHgdSKr7KDuh1e1sszGVdMKFPWE\"",
+=======
+ "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/QzxyIc9KtbV_mZ3-sB7-1guK-GQ\"",
+>>>>>>> Initial dep workover
  "discoveryVersion": "v1",
  "id": "bigquery:v2",
  "name": "bigquery",
  "version": "v2",
+<<<<<<< HEAD
  "revision": "20171202",
+=======
+ "revision": "20171027",
+>>>>>>> Initial dep workover
  "title": "BigQuery API",
  "description": "A data platform for customers to create, manage, share and query data.",
  "ownerDomain": "google.com",
@@ -413,11 +421,14 @@
    "id": "ExplainQueryStage",
    "type": "object",
    "properties": {
+<<<<<<< HEAD
     "completedParallelInputs": {
      "type": "string",
      "description": "Number of parallel input segments completed.",
      "format": "int64"
     },
+=======
+>>>>>>> Initial dep workover
     "computeMsAvg": {
      "type": "string",
      "description": "Milliseconds the average shard spent on CPU-bound tasks.",
@@ -447,11 +458,14 @@
      "type": "string",
      "description": "Human-readable name for stage."
     },
+<<<<<<< HEAD
     "parallelInputs": {
      "type": "string",
      "description": "Number of parallel input segments to be processed.",
      "format": "int64"
     },
+=======
+>>>>>>> Initial dep workover
     "readMsAvg": {
      "type": "string",
      "description": "Milliseconds the average shard spent reading input.",
@@ -1223,11 +1237,14 @@
      "$ref": "TableReference",
      "description": "[Output-only, Experimental] The DDL target table. Present only for CREATE/DROP TABLE/VIEW queries."
     },
+<<<<<<< HEAD
     "estimatedBytesProcessed": {
      "type": "string",
      "description": "[Output-only] The original estimate of bytes processed for the job.",
      "format": "int64"
     },
+=======
+>>>>>>> Initial dep workover
     "numDmlAffectedRows": {
      "type": "string",
      "description": "[Output-only] The number of rows affected by a DML statement. Present only for DML statements INSERT, UPDATE or DELETE.",

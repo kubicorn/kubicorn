@@ -246,6 +246,7 @@ const opAttachObject = "AttachObject"
 // client's request for the AttachObject operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -253,6 +254,15 @@ const opAttachObject = "AttachObject"
 // See AttachObject for more information on using the AttachObject
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachObject for more information on using the AttachObject
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -378,6 +388,7 @@ const opAttachPolicy = "AttachPolicy"
 // client's request for the AttachPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -385,6 +396,15 @@ const opAttachPolicy = "AttachPolicy"
 // See AttachPolicy for more information on using the AttachPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachPolicy for more information on using the AttachPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -495,6 +515,7 @@ const opAttachToIndex = "AttachToIndex"
 // client's request for the AttachToIndex operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -502,6 +523,15 @@ const opAttachToIndex = "AttachToIndex"
 // See AttachToIndex for more information on using the AttachToIndex
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AttachToIndex for more information on using the AttachToIndex
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -958,6 +988,7 @@ const opCreateDirectory = "CreateDirectory"
 // client's request for the CreateDirectory operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -965,6 +996,15 @@ const opCreateDirectory = "CreateDirectory"
 // See CreateDirectory for more information on using the CreateDirectory
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateDirectory for more information on using the CreateDirectory
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1073,6 +1113,7 @@ const opCreateFacet = "CreateFacet"
 // client's request for the CreateFacet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1080,6 +1121,15 @@ const opCreateFacet = "CreateFacet"
 // See CreateFacet for more information on using the CreateFacet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateFacet for more information on using the CreateFacet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1191,6 +1241,7 @@ const opCreateIndex = "CreateIndex"
 // client's request for the CreateIndex operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1198,6 +1249,15 @@ const opCreateIndex = "CreateIndex"
 // See CreateIndex for more information on using the CreateIndex
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateIndex for more information on using the CreateIndex
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1680,6 +1740,7 @@ const opDeleteDirectory = "DeleteDirectory"
 // client's request for the DeleteDirectory operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1687,6 +1748,15 @@ const opDeleteDirectory = "DeleteDirectory"
 // See DeleteDirectory for more information on using the DeleteDirectory
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteDirectory for more information on using the DeleteDirectory
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1795,6 +1865,7 @@ const opDeleteFacet = "DeleteFacet"
 // client's request for the DeleteFacet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1802,6 +1873,15 @@ const opDeleteFacet = "DeleteFacet"
 // See DeleteFacet for more information on using the DeleteFacet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteFacet for more information on using the DeleteFacet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1910,6 +1990,7 @@ const opDeleteObject = "DeleteObject"
 // client's request for the DeleteObject operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1917,6 +1998,15 @@ const opDeleteObject = "DeleteObject"
 // See DeleteObject for more information on using the DeleteObject
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteObject for more information on using the DeleteObject
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2363,6 +2453,7 @@ const opDetachObject = "DetachObject"
 // client's request for the DetachObject operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2370,6 +2461,15 @@ const opDetachObject = "DetachObject"
 // See DetachObject for more information on using the DetachObject
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetachObject for more information on using the DetachObject
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2474,6 +2574,7 @@ const opDetachPolicy = "DetachPolicy"
 // client's request for the DetachPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2481,6 +2582,15 @@ const opDetachPolicy = "DetachPolicy"
 // See DetachPolicy for more information on using the DetachPolicy
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetachPolicy for more information on using the DetachPolicy
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2590,6 +2700,7 @@ const opDetachTypedLink = "DetachTypedLink"
 // client's request for the DetachTypedLink operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2597,6 +2708,15 @@ const opDetachTypedLink = "DetachTypedLink"
 // See DetachTypedLink for more information on using the DetachTypedLink
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DetachTypedLink for more information on using the DetachTypedLink
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3144,6 +3264,7 @@ const opGetFacet = "GetFacet"
 // client's request for the GetFacet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3151,6 +3272,15 @@ const opGetFacet = "GetFacet"
 // See GetFacet for more information on using the GetFacet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetFacet for more information on using the GetFacet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3256,6 +3386,7 @@ const opGetObjectInformation = "GetObjectInformation"
 // client's request for the GetObjectInformation operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3263,6 +3394,15 @@ const opGetObjectInformation = "GetObjectInformation"
 // See GetObjectInformation for more information on using the GetObjectInformation
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetObjectInformation for more information on using the GetObjectInformation
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3366,6 +3506,7 @@ const opGetSchemaAsJson = "GetSchemaAsJson"
 // client's request for the GetSchemaAsJson operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3373,6 +3514,15 @@ const opGetSchemaAsJson = "GetSchemaAsJson"
 // See GetSchemaAsJson for more information on using the GetSchemaAsJson
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetSchemaAsJson for more information on using the GetSchemaAsJson
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3925,6 +4075,7 @@ const opListDevelopmentSchemaArns = "ListDevelopmentSchemaArns"
 // client's request for the ListDevelopmentSchemaArns operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3932,6 +4083,15 @@ const opListDevelopmentSchemaArns = "ListDevelopmentSchemaArns"
 // See ListDevelopmentSchemaArns for more information on using the ListDevelopmentSchemaArns
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListDevelopmentSchemaArns for more information on using the ListDevelopmentSchemaArns
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4091,6 +4251,7 @@ const opListDirectories = "ListDirectories"
 // client's request for the ListDirectories operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4098,6 +4259,15 @@ const opListDirectories = "ListDirectories"
 // See ListDirectories for more information on using the ListDirectories
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListDirectories for more information on using the ListDirectories
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4254,6 +4424,7 @@ const opListFacetAttributes = "ListFacetAttributes"
 // client's request for the ListFacetAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4261,6 +4432,15 @@ const opListFacetAttributes = "ListFacetAttributes"
 // See ListFacetAttributes for more information on using the ListFacetAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListFacetAttributes for more information on using the ListFacetAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4877,6 +5057,7 @@ const opListObjectAttributes = "ListObjectAttributes"
 // client's request for the ListObjectAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4884,6 +5065,15 @@ const opListObjectAttributes = "ListObjectAttributes"
 // See ListObjectAttributes for more information on using the ListObjectAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListObjectAttributes for more information on using the ListObjectAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5053,6 +5243,7 @@ const opListObjectChildren = "ListObjectChildren"
 // client's request for the ListObjectChildren operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5060,6 +5251,15 @@ const opListObjectChildren = "ListObjectChildren"
 // See ListObjectChildren for more information on using the ListObjectChildren
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListObjectChildren for more information on using the ListObjectChildren
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5230,6 +5430,7 @@ const opListObjectParentPaths = "ListObjectParentPaths"
 // client's request for the ListObjectParentPaths operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5237,6 +5438,15 @@ const opListObjectParentPaths = "ListObjectParentPaths"
 // See ListObjectParentPaths for more information on using the ListObjectParentPaths
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListObjectParentPaths for more information on using the ListObjectParentPaths
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5873,6 +6083,7 @@ const opListPolicyAttachments = "ListPolicyAttachments"
 // client's request for the ListPolicyAttachments operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5880,6 +6091,15 @@ const opListPolicyAttachments = "ListPolicyAttachments"
 // See ListPolicyAttachments for more information on using the ListPolicyAttachments
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListPolicyAttachments for more information on using the ListPolicyAttachments
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6048,6 +6268,7 @@ const opListPublishedSchemaArns = "ListPublishedSchemaArns"
 // client's request for the ListPublishedSchemaArns operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6055,6 +6276,15 @@ const opListPublishedSchemaArns = "ListPublishedSchemaArns"
 // See ListPublishedSchemaArns for more information on using the ListPublishedSchemaArns
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListPublishedSchemaArns for more information on using the ListPublishedSchemaArns
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6215,6 +6445,7 @@ const opListTagsForResource = "ListTagsForResource"
 // client's request for the ListTagsForResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6222,6 +6453,15 @@ const opListTagsForResource = "ListTagsForResource"
 // See ListTagsForResource for more information on using the ListTagsForResource
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListTagsForResource for more information on using the ListTagsForResource
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6900,6 +7140,7 @@ const opPublishSchema = "PublishSchema"
 // client's request for the PublishSchema operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6907,6 +7148,15 @@ const opPublishSchema = "PublishSchema"
 // See PublishSchema for more information on using the PublishSchema
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PublishSchema for more information on using the PublishSchema
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7011,6 +7261,7 @@ const opPutSchemaFromJson = "PutSchemaFromJson"
 // client's request for the PutSchemaFromJson operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7018,6 +7269,15 @@ const opPutSchemaFromJson = "PutSchemaFromJson"
 // See PutSchemaFromJson for more information on using the PutSchemaFromJson
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See PutSchemaFromJson for more information on using the PutSchemaFromJson
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7123,6 +7383,7 @@ const opRemoveFacetFromObject = "RemoveFacetFromObject"
 // client's request for the RemoveFacetFromObject operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7130,6 +7391,15 @@ const opRemoveFacetFromObject = "RemoveFacetFromObject"
 // See RemoveFacetFromObject for more information on using the RemoveFacetFromObject
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RemoveFacetFromObject for more information on using the RemoveFacetFromObject
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7583,6 +7853,7 @@ const opUpdateObjectAttributes = "UpdateObjectAttributes"
 // client's request for the UpdateObjectAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7590,6 +7861,15 @@ const opUpdateObjectAttributes = "UpdateObjectAttributes"
 // See UpdateObjectAttributes for more information on using the UpdateObjectAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateObjectAttributes for more information on using the UpdateObjectAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7697,6 +7977,7 @@ const opUpdateSchema = "UpdateSchema"
 // client's request for the UpdateSchema operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7704,6 +7985,15 @@ const opUpdateSchema = "UpdateSchema"
 // See UpdateSchema for more information on using the UpdateSchema
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateSchema for more information on using the UpdateSchema
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7805,6 +8095,7 @@ const opUpdateTypedLinkFacet = "UpdateTypedLinkFacet"
 // client's request for the UpdateTypedLinkFacet operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7812,6 +8103,15 @@ const opUpdateTypedLinkFacet = "UpdateTypedLinkFacet"
 // See UpdateTypedLinkFacet for more information on using the UpdateTypedLinkFacet
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateTypedLinkFacet for more information on using the UpdateTypedLinkFacet
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10002,6 +10302,86 @@ func (s BatchDetachPolicyResponse) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
+=======
+// SetDetachedObjectIdentifier sets the DetachedObjectIdentifier field's value.
+func (s *BatchDetachObjectResponse) SetDetachedObjectIdentifier(v string) *BatchDetachObjectResponse {
+	s.DetachedObjectIdentifier = &v
+	return s
+}
+
+// Detaches the specified policy from the specified directory inside a BatchRead
+// operation. For more information, see DetachPolicy and BatchReadRequest$Operations.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/BatchDetachPolicy
+type BatchDetachPolicy struct {
+	_ struct{} `type:"structure"`
+
+	// Reference that identifies the object whose policy object will be detached.
+	//
+	// ObjectReference is a required field
+	ObjectReference *ObjectReference `type:"structure" required:"true"`
+
+	// Reference that identifies the policy object.
+	//
+	// PolicyReference is a required field
+	PolicyReference *ObjectReference `type:"structure" required:"true"`
+}
+
+// String returns the string representation
+func (s BatchDetachPolicy) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s BatchDetachPolicy) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *BatchDetachPolicy) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "BatchDetachPolicy"}
+	if s.ObjectReference == nil {
+		invalidParams.Add(request.NewErrParamRequired("ObjectReference"))
+	}
+	if s.PolicyReference == nil {
+		invalidParams.Add(request.NewErrParamRequired("PolicyReference"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetObjectReference sets the ObjectReference field's value.
+func (s *BatchDetachPolicy) SetObjectReference(v *ObjectReference) *BatchDetachPolicy {
+	s.ObjectReference = v
+	return s
+}
+
+// SetPolicyReference sets the PolicyReference field's value.
+func (s *BatchDetachPolicy) SetPolicyReference(v *ObjectReference) *BatchDetachPolicy {
+	s.PolicyReference = v
+	return s
+}
+
+// Represents the output of a DetachPolicy response operation.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/BatchDetachPolicyResponse
+type BatchDetachPolicyResponse struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s BatchDetachPolicyResponse) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s BatchDetachPolicyResponse) GoString() string {
+	return s.String()
+}
+
+>>>>>>> Initial dep workover
 // Detaches a typed link from a specified source and target object inside a
 // BatchRead operation. For more information, see DetachTypedLink and BatchReadRequest$Operations.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/BatchDetachTypedLink

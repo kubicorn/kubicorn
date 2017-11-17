@@ -36,7 +36,11 @@ const opAddListenerCertificates = "AddListenerCertificates"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddListenerCertificates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddListenerCertificates
+>>>>>>> Initial dep workover
 func (c *ELBV2) AddListenerCertificatesRequest(input *AddListenerCertificatesInput) (req *request.Request, output *AddListenerCertificatesOutput) {
 	op := &request.Operation{
 		Name:       opAddListenerCertificates,
@@ -80,7 +84,11 @@ func (c *ELBV2) AddListenerCertificatesRequest(input *AddListenerCertificatesInp
 //   * ErrCodeCertificateNotFoundException "CertificateNotFound"
 //   The specified certificate does not exist.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddListenerCertificates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddListenerCertificates
+>>>>>>> Initial dep workover
 func (c *ELBV2) AddListenerCertificates(input *AddListenerCertificatesInput) (*AddListenerCertificatesOutput, error) {
 	req, out := c.AddListenerCertificatesRequest(input)
 	return out, req.Send()
@@ -108,6 +116,7 @@ const opAddTags = "AddTags"
 // client's request for the AddTags operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -115,6 +124,15 @@ const opAddTags = "AddTags"
 // See AddTags for more information on using the AddTags
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See AddTags for more information on using the AddTags
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -306,7 +324,11 @@ func (c *ELBV2) CreateListenerRequest(input *CreateListenerInput) (req *request.
 //   * ErrCodeTooManyTargetsException "TooManyTargets"
 //   You've reached the limit on the number of targets.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateListener
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateListener
+>>>>>>> Initial dep workover
 func (c *ELBV2) CreateListener(input *CreateListenerInput) (*CreateListenerOutput, error) {
 	req, out := c.CreateListenerRequest(input)
 	return out, req.Send()
@@ -334,6 +356,7 @@ const opCreateLoadBalancer = "CreateLoadBalancer"
 // client's request for the CreateLoadBalancer operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -341,6 +364,15 @@ const opCreateLoadBalancer = "CreateLoadBalancer"
 // See CreateLoadBalancer for more information on using the CreateLoadBalancer
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateLoadBalancer for more information on using the CreateLoadBalancer
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -439,7 +471,11 @@ func (c *ELBV2) CreateLoadBalancerRequest(input *CreateLoadBalancerInput) (req *
 //   * ErrCodeAvailabilityZoneNotSupportedException "AvailabilityZoneNotSupported"
 //   The specified Availability Zone is not supported.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateLoadBalancer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateLoadBalancer
+>>>>>>> Initial dep workover
 func (c *ELBV2) CreateLoadBalancer(input *CreateLoadBalancerInput) (*CreateLoadBalancerOutput, error) {
 	req, out := c.CreateLoadBalancerRequest(input)
 	return out, req.Send()
@@ -467,6 +503,7 @@ const opCreateRule = "CreateRule"
 // client's request for the CreateRule operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -474,6 +511,15 @@ const opCreateRule = "CreateRule"
 // See CreateRule for more information on using the CreateRule
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateRule for more information on using the CreateRule
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -557,7 +603,11 @@ func (c *ELBV2) CreateRuleRequest(input *CreateRuleInput) (req *request.Request,
 //   * ErrCodeTooManyTargetsException "TooManyTargets"
 //   You've reached the limit on the number of targets.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateRule
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateRule
+>>>>>>> Initial dep workover
 func (c *ELBV2) CreateRule(input *CreateRuleInput) (*CreateRuleOutput, error) {
 	req, out := c.CreateRuleRequest(input)
 	return out, req.Send()
@@ -661,7 +711,11 @@ func (c *ELBV2) CreateTargetGroupRequest(input *CreateTargetGroupInput) (req *re
 //   * ErrCodeInvalidConfigurationRequestException "InvalidConfigurationRequest"
 //   The requested configuration is not valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateTargetGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateTargetGroup
+>>>>>>> Initial dep workover
 func (c *ELBV2) CreateTargetGroup(input *CreateTargetGroupInput) (*CreateTargetGroupOutput, error) {
 	req, out := c.CreateTargetGroupRequest(input)
 	return out, req.Send()
@@ -689,6 +743,7 @@ const opDeleteListener = "DeleteListener"
 // client's request for the DeleteListener operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -696,6 +751,15 @@ const opDeleteListener = "DeleteListener"
 // See DeleteListener for more information on using the DeleteListener
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteListener for more information on using the DeleteListener
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -771,6 +835,7 @@ const opDeleteLoadBalancer = "DeleteLoadBalancer"
 // client's request for the DeleteLoadBalancer operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -778,6 +843,15 @@ const opDeleteLoadBalancer = "DeleteLoadBalancer"
 // See DeleteLoadBalancer for more information on using the DeleteLoadBalancer
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteLoadBalancer for more information on using the DeleteLoadBalancer
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -865,6 +939,7 @@ const opDeleteRule = "DeleteRule"
 // client's request for the DeleteRule operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -872,6 +947,15 @@ const opDeleteRule = "DeleteRule"
 // See DeleteRule for more information on using the DeleteRule
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteRule for more information on using the DeleteRule
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -947,6 +1031,7 @@ const opDeleteTargetGroup = "DeleteTargetGroup"
 // client's request for the DeleteTargetGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -954,6 +1039,15 @@ const opDeleteTargetGroup = "DeleteTargetGroup"
 // See DeleteTargetGroup for more information on using the DeleteTargetGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteTargetGroup for more information on using the DeleteTargetGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1029,6 +1123,7 @@ const opDeregisterTargets = "DeregisterTargets"
 // client's request for the DeregisterTargets operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1036,6 +1131,15 @@ const opDeregisterTargets = "DeregisterTargets"
 // See DeregisterTargets for more information on using the DeregisterTargets
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeregisterTargets for more information on using the DeregisterTargets
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1114,6 +1218,7 @@ const opDescribeAccountLimits = "DescribeAccountLimits"
 // client's request for the DescribeAccountLimits operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1121,6 +1226,15 @@ const opDescribeAccountLimits = "DescribeAccountLimits"
 // See DescribeAccountLimits for more information on using the DescribeAccountLimits
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeAccountLimits for more information on using the DescribeAccountLimits
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1213,7 +1327,11 @@ const opDescribeListenerCertificates = "DescribeListenerCertificates"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenerCertificates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenerCertificates
+>>>>>>> Initial dep workover
 func (c *ELBV2) DescribeListenerCertificatesRequest(input *DescribeListenerCertificatesInput) (req *request.Request, output *DescribeListenerCertificatesOutput) {
 	op := &request.Operation{
 		Name:       opDescribeListenerCertificates,
@@ -1245,7 +1363,11 @@ func (c *ELBV2) DescribeListenerCertificatesRequest(input *DescribeListenerCerti
 //   * ErrCodeListenerNotFoundException "ListenerNotFound"
 //   The specified listener does not exist.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenerCertificates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenerCertificates
+>>>>>>> Initial dep workover
 func (c *ELBV2) DescribeListenerCertificates(input *DescribeListenerCertificatesInput) (*DescribeListenerCertificatesOutput, error) {
 	req, out := c.DescribeListenerCertificatesRequest(input)
 	return out, req.Send()
@@ -1273,6 +1395,7 @@ const opDescribeListeners = "DescribeListeners"
 // client's request for the DescribeListeners operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1280,6 +1403,15 @@ const opDescribeListeners = "DescribeListeners"
 // See DescribeListeners for more information on using the DescribeListeners
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeListeners for more information on using the DescribeListeners
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1413,6 +1545,7 @@ const opDescribeLoadBalancerAttributes = "DescribeLoadBalancerAttributes"
 // client's request for the DescribeLoadBalancerAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1420,6 +1553,15 @@ const opDescribeLoadBalancerAttributes = "DescribeLoadBalancerAttributes"
 // See DescribeLoadBalancerAttributes for more information on using the DescribeLoadBalancerAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeLoadBalancerAttributes for more information on using the DescribeLoadBalancerAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1493,6 +1635,7 @@ const opDescribeLoadBalancers = "DescribeLoadBalancers"
 // client's request for the DescribeLoadBalancers operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1500,6 +1643,15 @@ const opDescribeLoadBalancers = "DescribeLoadBalancers"
 // See DescribeLoadBalancers for more information on using the DescribeLoadBalancers
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeLoadBalancers for more information on using the DescribeLoadBalancers
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1631,6 +1783,7 @@ const opDescribeRules = "DescribeRules"
 // client's request for the DescribeRules operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1638,6 +1791,15 @@ const opDescribeRules = "DescribeRules"
 // See DescribeRules for more information on using the DescribeRules
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeRules for more information on using the DescribeRules
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1714,6 +1876,7 @@ const opDescribeSSLPolicies = "DescribeSSLPolicies"
 // client's request for the DescribeSSLPolicies operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1721,6 +1884,15 @@ const opDescribeSSLPolicies = "DescribeSSLPolicies"
 // See DescribeSSLPolicies for more information on using the DescribeSSLPolicies
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeSSLPolicies for more information on using the DescribeSSLPolicies
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1796,6 +1968,7 @@ const opDescribeTags = "DescribeTags"
 // client's request for the DescribeTags operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1803,6 +1976,15 @@ const opDescribeTags = "DescribeTags"
 // See DescribeTags for more information on using the DescribeTags
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeTags for more information on using the DescribeTags
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1886,6 +2068,7 @@ const opDescribeTargetGroupAttributes = "DescribeTargetGroupAttributes"
 // client's request for the DescribeTargetGroupAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1893,6 +2076,15 @@ const opDescribeTargetGroupAttributes = "DescribeTargetGroupAttributes"
 // See DescribeTargetGroupAttributes for more information on using the DescribeTargetGroupAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeTargetGroupAttributes for more information on using the DescribeTargetGroupAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1965,6 +2157,7 @@ const opDescribeTargetGroups = "DescribeTargetGroups"
 // client's request for the DescribeTargetGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1972,6 +2165,15 @@ const opDescribeTargetGroups = "DescribeTargetGroups"
 // See DescribeTargetGroups for more information on using the DescribeTargetGroups
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeTargetGroups for more information on using the DescribeTargetGroups
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2109,6 +2311,7 @@ const opDescribeTargetHealth = "DescribeTargetHealth"
 // client's request for the DescribeTargetHealth operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2116,6 +2319,15 @@ const opDescribeTargetHealth = "DescribeTargetHealth"
 // See DescribeTargetHealth for more information on using the DescribeTargetHealth
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeTargetHealth for more information on using the DescribeTargetHealth
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2196,6 +2408,7 @@ const opModifyListener = "ModifyListener"
 // client's request for the ModifyListener operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2203,6 +2416,15 @@ const opModifyListener = "ModifyListener"
 // See ModifyListener for more information on using the ModifyListener
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyListener for more information on using the ModifyListener
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2289,7 +2511,11 @@ func (c *ELBV2) ModifyListenerRequest(input *ModifyListenerInput) (req *request.
 //   * ErrCodeTooManyTargetsException "TooManyTargets"
 //   You've reached the limit on the number of targets.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyListener
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyListener
+>>>>>>> Initial dep workover
 func (c *ELBV2) ModifyListener(input *ModifyListenerInput) (*ModifyListenerOutput, error) {
 	req, out := c.ModifyListenerRequest(input)
 	return out, req.Send()
@@ -2317,6 +2543,7 @@ const opModifyLoadBalancerAttributes = "ModifyLoadBalancerAttributes"
 // client's request for the ModifyLoadBalancerAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2324,6 +2551,15 @@ const opModifyLoadBalancerAttributes = "ModifyLoadBalancerAttributes"
 // See ModifyLoadBalancerAttributes for more information on using the ModifyLoadBalancerAttributes
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyLoadBalancerAttributes for more information on using the ModifyLoadBalancerAttributes
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2404,6 +2640,7 @@ const opModifyRule = "ModifyRule"
 // client's request for the ModifyRule operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2411,6 +2648,15 @@ const opModifyRule = "ModifyRule"
 // See ModifyRule for more information on using the ModifyRule
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyRule for more information on using the ModifyRule
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2506,6 +2752,7 @@ const opModifyTargetGroup = "ModifyTargetGroup"
 // client's request for the ModifyTargetGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2513,6 +2760,15 @@ const opModifyTargetGroup = "ModifyTargetGroup"
 // See ModifyTargetGroup for more information on using the ModifyTargetGroup
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ModifyTargetGroup for more information on using the ModifyTargetGroup
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2563,7 +2819,11 @@ func (c *ELBV2) ModifyTargetGroupRequest(input *ModifyTargetGroupInput) (req *re
 //   * ErrCodeInvalidConfigurationRequestException "InvalidConfigurationRequest"
 //   The requested configuration is not valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyTargetGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyTargetGroup
+>>>>>>> Initial dep workover
 func (c *ELBV2) ModifyTargetGroup(input *ModifyTargetGroupInput) (*ModifyTargetGroupOutput, error) {
 	req, out := c.ModifyTargetGroupRequest(input)
 	return out, req.Send()
@@ -2645,7 +2905,11 @@ func (c *ELBV2) ModifyTargetGroupAttributesRequest(input *ModifyTargetGroupAttri
 //   * ErrCodeInvalidConfigurationRequestException "InvalidConfigurationRequest"
 //   The requested configuration is not valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyTargetGroupAttributes
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyTargetGroupAttributes
+>>>>>>> Initial dep workover
 func (c *ELBV2) ModifyTargetGroupAttributes(input *ModifyTargetGroupAttributesInput) (*ModifyTargetGroupAttributesOutput, error) {
 	req, out := c.ModifyTargetGroupAttributesRequest(input)
 	return out, req.Send()
@@ -2797,7 +3061,11 @@ const opRemoveListenerCertificates = "RemoveListenerCertificates"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveListenerCertificates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveListenerCertificates
+>>>>>>> Initial dep workover
 func (c *ELBV2) RemoveListenerCertificatesRequest(input *RemoveListenerCertificatesInput) (req *request.Request, output *RemoveListenerCertificatesOutput) {
 	op := &request.Operation{
 		Name:       opRemoveListenerCertificates,
@@ -2837,7 +3105,11 @@ func (c *ELBV2) RemoveListenerCertificatesRequest(input *RemoveListenerCertifica
 //   * ErrCodeOperationNotPermittedException "OperationNotPermitted"
 //   This operation is not allowed.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveListenerCertificates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveListenerCertificates
+>>>>>>> Initial dep workover
 func (c *ELBV2) RemoveListenerCertificates(input *RemoveListenerCertificatesInput) (*RemoveListenerCertificatesOutput, error) {
 	req, out := c.RemoveListenerCertificatesRequest(input)
 	return out, req.Send()
@@ -3294,7 +3566,11 @@ func (c *ELBV2) SetSubnetsRequest(input *SetSubnetsInput) (req *request.Request,
 //   * ErrCodeAvailabilityZoneNotSupportedException "AvailabilityZoneNotSupported"
 //   The specified Availability Zone is not supported.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SetSubnets
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SetSubnets
+>>>>>>> Initial dep workover
 func (c *ELBV2) SetSubnets(input *SetSubnetsInput) (*SetSubnetsOutput, error) {
 	req, out := c.SetSubnetsRequest(input)
 	return out, req.Send()
@@ -3370,7 +3646,11 @@ func (s *Action) SetType(v string) *Action {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddListenerCertificatesInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddListenerCertificatesInput
+>>>>>>> Initial dep workover
 type AddListenerCertificatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3423,7 +3703,11 @@ func (s *AddListenerCertificatesInput) SetListenerArn(v string) *AddListenerCert
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddListenerCertificatesOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddListenerCertificatesOutput
+>>>>>>> Initial dep workover
 type AddListenerCertificatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3447,7 +3731,11 @@ func (s *AddListenerCertificatesOutput) SetCertificates(v []*Certificate) *AddLi
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddTagsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddTagsInput
+>>>>>>> Initial dep workover
 type AddTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3572,7 +3860,11 @@ func (s *AvailabilityZone) SetZoneName(v string) *AvailabilityZone {
 }
 
 // Information about an SSL server certificate.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/Certificate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/Certificate
+>>>>>>> Initial dep workover
 type Certificate struct {
 	_ struct{} `type:"structure"`
 
@@ -3930,7 +4222,11 @@ func (s *CreateLoadBalancerInput) SetType(v string) *CreateLoadBalancerInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateLoadBalancerOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateLoadBalancerOutput
+>>>>>>> Initial dep workover
 type CreateLoadBalancerOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4721,7 +5017,11 @@ func (s *DescribeAccountLimitsOutput) SetNextMarker(v string) *DescribeAccountLi
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenerCertificatesInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenerCertificatesInput
+>>>>>>> Initial dep workover
 type DescribeListenerCertificatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4782,7 +5082,11 @@ func (s *DescribeListenerCertificatesInput) SetPageSize(v int64) *DescribeListen
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenerCertificatesOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenerCertificatesOutput
+>>>>>>> Initial dep workover
 type DescribeListenerCertificatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4816,7 +5120,11 @@ func (s *DescribeListenerCertificatesOutput) SetNextMarker(v string) *DescribeLi
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenersInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListenersInput
+>>>>>>> Initial dep workover
 type DescribeListenersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5851,7 +6159,11 @@ func (s *LoadBalancer) SetVpcId(v string) *LoadBalancer {
 }
 
 // Information about a static IP address for a load balancer.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/LoadBalancerAddress
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/LoadBalancerAddress
+>>>>>>> Initial dep workover
 type LoadBalancerAddress struct {
 	_ struct{} `type:"structure"`
 
@@ -6635,7 +6947,11 @@ func (s RegisterTargetsOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveListenerCertificatesInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveListenerCertificatesInput
+>>>>>>> Initial dep workover
 type RemoveListenerCertificatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6688,7 +7004,11 @@ func (s *RemoveListenerCertificatesInput) SetListenerArn(v string) *RemoveListen
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveListenerCertificatesOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveListenerCertificatesOutput
+>>>>>>> Initial dep workover
 type RemoveListenerCertificatesOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6703,7 +7023,11 @@ func (s RemoveListenerCertificatesOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveTagsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveTagsInput
+>>>>>>> Initial dep workover
 type RemoveTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7306,7 +7630,11 @@ func (s *SslPolicy) SetSslProtocols(v []*string) *SslPolicy {
 }
 
 // Information about a subnet mapping.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SubnetMapping
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SubnetMapping
+>>>>>>> Initial dep workover
 type SubnetMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -7667,6 +7995,7 @@ type TargetGroupAttribute struct {
 	//    from draining to unused. The range is 0-3600 seconds. The default value
 	//    is 300 seconds.
 	//
+<<<<<<< HEAD
 	//    * proxy_protocol_v2.enabled - [Network Load Balancers] Indicates whether
 	//    Proxy Protocol version 2 is enabled.
 	//
@@ -7676,6 +8005,14 @@ type TargetGroupAttribute struct {
 	//    * stickiness.type - [Application Load Balancers] The type of sticky sessions.
 	//    The possible value is lb_cookie.
 	//
+=======
+	//    * stickiness.enabled - [Application Load Balancers] Indicates whether
+	//    sticky sessions are enabled. The value is true or false.
+	//
+	//    * stickiness.type - [Application Load Balancers] The type of sticky sessions.
+	//    The possible value is lb_cookie.
+	//
+>>>>>>> Initial dep workover
 	//    * stickiness.lb_cookie.duration_seconds - [Application Load Balancers]
 	//    The time period, in seconds, during which requests from a client should
 	//    be routed to the same target. After this time period expires, the load

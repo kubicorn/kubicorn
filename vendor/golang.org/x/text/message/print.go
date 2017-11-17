@@ -352,8 +352,13 @@ func (p *printer) fmtDecimalFloat(v float64, size, prec int) {
 
 func (p *printer) fmtVariableFloat(v float64, size int) {
 	prec := -1
+<<<<<<< HEAD
 	if p.fmt.PrecPresent {
 		prec = p.fmt.Prec
+=======
+	if p.fmt.precPresent {
+		prec = p.fmt.prec
+>>>>>>> Initial dep workover
 	}
 	var d number.Decimal
 	p.initScientific(0, prec)
@@ -906,6 +911,7 @@ func (p *printer) missingArg(verb rune) {
 	p.WriteString(missingString)
 }
 
+<<<<<<< HEAD
 func (p *printer) doPrintf(fmt string) {
 	for p.fmt.Parser.SetFormat(fmt); p.fmt.Scan(); {
 		switch p.fmt.Status {
@@ -920,6 +926,128 @@ func (p *printer) doPrintf(fmt string) {
 			p.WriteString(badPrecString)
 			p.printArg(p.Arg(p.fmt.ArgNum), p.fmt.Verb)
 		case format.StatusNoVerb:
+=======
+func (p *printer) doPrintf(format string) {
+	end := len(format)
+	afterIndex := false // previous item in format was an index like [3].
+formatLoop:
+	for i := 0; i < end; {
+		p.goodArgNum = true
+		lasti := i
+		for i < end && format[i] != '%' {
+			i++
+		}
+		if i > lasti {
+			p.WriteString(format[lasti:i])
+		}
+		if i >= end {
+			// done processing format string
+			break
+		}
+
+		// Process one verb
+		i++
+
+		// Do we have flags?
+		p.fmt.clearflags()
+	simpleFormat:
+		for ; i < end; i++ {
+			c := format[i]
+			switch c {
+			case '#':
+				p.fmt.sharp = true
+			case '0':
+				p.fmt.zero = !p.fmt.minus // Only allow zero padding to the left.
+			case '+':
+				p.fmt.plus = true
+			case '-':
+				p.fmt.minus = true
+				p.fmt.zero = false // Do not pad with zeros to the right.
+			case ' ':
+				p.fmt.space = true
+			default:
+				// Fast path for common case of ascii lower case simple verbs
+				// without precision or width or argument indices.
+				if 'a' <= c && c <= 'z' && p.argNum < len(p.args) {
+					if c == 'v' {
+						// Go syntax
+						p.fmt.sharpV = p.fmt.sharp
+						p.fmt.sharp = false
+						// Struct-field syntax
+						p.fmt.plusV = p.fmt.plus
+						p.fmt.plus = false
+					}
+					p.printArg(p.Arg(p.argNum+1), rune(c))
+					p.argNum++
+					i++
+					continue formatLoop
+				}
+				// Format is more complex than simple flags and a verb or is malformed.
+				break simpleFormat
+			}
+		}
+
+		// Do we have an explicit argument index?
+		i, afterIndex = p.updateArgNumber(format, i)
+
+		// Do we have width?
+		if i < end && format[i] == '*' {
+			i++
+			p.fmt.wid, p.fmt.widPresent = p.intFromArg()
+
+			if !p.fmt.widPresent {
+				p.WriteString(badWidthString)
+			}
+
+			// We have a negative width, so take its value and ensure
+			// that the minus flag is set
+			if p.fmt.wid < 0 {
+				p.fmt.wid = -p.fmt.wid
+				p.fmt.minus = true
+				p.fmt.zero = false // Do not pad with zeros to the right.
+			}
+			afterIndex = false
+		} else {
+			p.fmt.wid, p.fmt.widPresent, i = parsenum(format, i, end)
+			if afterIndex && p.fmt.widPresent { // "%[3]2d"
+				p.goodArgNum = false
+			}
+		}
+
+		// Do we have precision?
+		if i+1 < end && format[i] == '.' {
+			i++
+			if afterIndex { // "%[3].2d"
+				p.goodArgNum = false
+			}
+			i, afterIndex = p.updateArgNumber(format, i)
+			if i < end && format[i] == '*' {
+				i++
+				p.fmt.prec, p.fmt.precPresent = p.intFromArg()
+				// Negative precision arguments don't make sense
+				if p.fmt.prec < 0 {
+					p.fmt.prec = 0
+					p.fmt.precPresent = false
+				}
+				if !p.fmt.precPresent {
+					p.WriteString(badPrecString)
+				}
+				afterIndex = false
+			} else {
+				p.fmt.prec, p.fmt.precPresent, i = parsenum(format, i, end)
+				if !p.fmt.precPresent {
+					p.fmt.prec = 0
+					p.fmt.precPresent = true
+				}
+			}
+		}
+
+		if !afterIndex {
+			i, afterIndex = p.updateArgNumber(format, i)
+		}
+
+		if i >= end {
+>>>>>>> Initial dep workover
 			p.WriteString(noVerbString)
 		case format.StatusBadArgNum:
 			p.badArgNum(p.fmt.Verb)

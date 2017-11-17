@@ -12,7 +12,10 @@ go_library(
         "fake_autoscaling_client.go",
         "fake_horizontalpodautoscaler.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/kubernetes/typed/autoscaling/v1/fake",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/autoscaling/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

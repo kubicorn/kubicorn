@@ -19,12 +19,16 @@ package v1
 import (
 	"k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+<<<<<<< HEAD
 	runtime "k8s.io/apimachinery/pkg/runtime"
+=======
+>>>>>>> Initial dep workover
 	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 const (
 	ControllerRevisionHashLabelKey = "controller-revision-hash"
+<<<<<<< HEAD
 	StatefulSetRevisionLabel       = ControllerRevisionHashLabelKey
 	DeprecatedRollbackTo           = "deprecated.deployment.rollback.to"
 	DeprecatedTemplateGeneration   = "deprecated.daemonset.template.generation"
@@ -453,6 +457,11 @@ type DeploymentList struct {
 	Items []Deployment `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
+=======
+	DeprecatedTemplateGeneration   = "deprecated.daemonset.template.generation"
+)
+
+>>>>>>> Initial dep workover
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
 type DaemonSetUpdateStrategy struct {
 	// Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
@@ -502,9 +511,16 @@ type RollingUpdateDaemonSet struct {
 type DaemonSetSpec struct {
 	// A label query over pods that are managed by the daemon set.
 	// Must match in order to be controlled.
+<<<<<<< HEAD
 	// It must match the pod template's labels.
 	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,1,opt,name=selector"`
+=======
+	// If empty, defaulted to labels on Pod template.
+	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+	// +optional
+	Selector *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,1,opt,name=selector"`
+>>>>>>> Initial dep workover
 
 	// An object that describes the pod that will be created.
 	// The DaemonSet will create exactly one copy of this pod on every node
@@ -577,6 +593,7 @@ type DaemonSetStatus struct {
 	// create the name for the newest ControllerRevision.
 	// +optional
 	CollisionCount *int32 `json:"collisionCount,omitempty" protobuf:"varint,9,opt,name=collisionCount"`
+<<<<<<< HEAD
 
 	// Represents the latest available observations of a DaemonSet's current state.
 	// +optional
@@ -604,6 +621,8 @@ type DaemonSetCondition struct {
 	// A human readable message indicating details about the transition.
 	// +optional
 	Message string `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
+=======
+>>>>>>> Initial dep workover
 }
 
 // +genclient
@@ -651,6 +670,7 @@ type DaemonSetList struct {
 	// A list of daemon sets.
 	Items []DaemonSet `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+<<<<<<< HEAD
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -817,3 +837,5 @@ type ControllerRevisionList struct {
 	// Items is the list of ControllerRevisions
 	Items []ControllerRevision `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+=======
+>>>>>>> Initial dep workover

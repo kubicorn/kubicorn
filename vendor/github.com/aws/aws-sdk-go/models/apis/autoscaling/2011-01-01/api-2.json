@@ -1608,10 +1608,14 @@
     },
     "LifecycleHookSpecification":{
       "type":"structure",
+<<<<<<< HEAD
       "required":[
         "LifecycleHookName",
         "LifecycleTransition"
       ],
+=======
+      "required":["LifecycleHookName"],
+>>>>>>> Initial dep workover
       "members":{
         "LifecycleHookName":{"shape":"AsciiStringMaxLen255"},
         "LifecycleTransition":{"shape":"LifecycleTransition"},

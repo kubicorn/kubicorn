@@ -11,7 +11,10 @@ go_library(
         "exec.go",
         "funcs.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/third_party/forked/golang/template",
+=======
+>>>>>>> Initial dep workover
 )
 
 filegroup(

@@ -22,6 +22,10 @@ import (
 	"net/http"
 	"net/url"
 
+<<<<<<< HEAD
+=======
+	"k8s.io/apimachinery/pkg/apimachinery/registered"
+>>>>>>> Initial dep workover
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
@@ -45,7 +49,12 @@ func (f roundTripperFunc) RoundTrip(req *http.Request) (*http.Response, error) {
 type RESTClient struct {
 	Client               *http.Client
 	NegotiatedSerializer runtime.NegotiatedSerializer
+<<<<<<< HEAD
 	GroupVersion         schema.GroupVersion
+=======
+	GroupName            string
+	APIRegistry          *registered.APIRegistrationManager
+>>>>>>> Initial dep workover
 	VersionedAPIPath     string
 
 	Req  *http.Request
@@ -78,7 +87,11 @@ func (c *RESTClient) Verb(verb string) *restclient.Request {
 }
 
 func (c *RESTClient) APIVersion() schema.GroupVersion {
+<<<<<<< HEAD
 	return c.GroupVersion
+=======
+	return c.APIRegistry.GroupOrDie("").GroupVersion
+>>>>>>> Initial dep workover
 }
 
 func (c *RESTClient) GetRateLimiter() flowcontrol.RateLimiter {
@@ -87,20 +100,36 @@ func (c *RESTClient) GetRateLimiter() flowcontrol.RateLimiter {
 
 func (c *RESTClient) request(verb string) *restclient.Request {
 	config := restclient.ContentConfig{
+<<<<<<< HEAD
 		ContentType:          runtime.ContentTypeJSON,
 		GroupVersion:         &c.GroupVersion,
+=======
+		ContentType: runtime.ContentTypeJSON,
+		// TODO this was hardcoded before, but it doesn't look right
+		GroupVersion:         &c.APIRegistry.GroupOrDie("").GroupVersion,
+>>>>>>> Initial dep workover
 		NegotiatedSerializer: c.NegotiatedSerializer,
 	}
 
 	ns := c.NegotiatedSerializer
 	info, _ := runtime.SerializerInfoForMediaType(ns.SupportedMediaTypes(), runtime.ContentTypeJSON)
 	internalVersion := schema.GroupVersion{
+<<<<<<< HEAD
 		Group:   c.GroupVersion.Group,
 		Version: runtime.APIVersionInternal,
 	}
 	serializers := restclient.Serializers{
 		// TODO this was hardcoded before, but it doesn't look right
 		Encoder: ns.EncoderForVersion(info.Serializer, c.GroupVersion),
+=======
+		Group:   c.APIRegistry.GroupOrDie(c.GroupName).GroupVersion.Group,
+		Version: runtime.APIVersionInternal,
+	}
+	internalVersion.Version = runtime.APIVersionInternal
+	serializers := restclient.Serializers{
+		// TODO this was hardcoded before, but it doesn't look right
+		Encoder: ns.EncoderForVersion(info.Serializer, c.APIRegistry.GroupOrDie("").GroupVersion),
+>>>>>>> Initial dep workover
 		Decoder: ns.DecoderToVersion(info.Serializer, internalVersion),
 	}
 	if info.StreamSerializer != nil {

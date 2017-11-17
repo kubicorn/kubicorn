@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Release v1.12.44 (2017-12-08)
 ===
 
@@ -217,6 +218,8 @@ Release v1.12.30 (2017-11-17)
 * `private/protocol/restjson`: Define JSONValue marshaling for body and querystring ([#1640](https://github.com/aws/aws-sdk-go/pull/1640))
   * Adds support for APIs which use JSONValue for body and querystring targets.
   * Fixes [#1636](https://github.com/aws/aws-sdk-go/issues/1636)
+=======
+>>>>>>> Initial dep workover
 Release v1.12.29 (2017-11-16)
 ===
 

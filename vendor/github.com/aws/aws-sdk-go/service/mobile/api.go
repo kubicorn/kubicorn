@@ -35,7 +35,11 @@ const opCreateProject = "CreateProject"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/CreateProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/CreateProject
+>>>>>>> Initial dep workover
 func (c *Mobile) CreateProjectRequest(input *CreateProjectInput) (req *request.Request, output *CreateProjectOutput) {
 	op := &request.Operation{
 		Name:       opCreateProject,
@@ -92,7 +96,11 @@ func (c *Mobile) CreateProjectRequest(input *CreateProjectInput) (req *request.R
 //   create another sub-account using AWS Organizations or remove some resources
 //   and retry your request.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/CreateProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/CreateProject
+>>>>>>> Initial dep workover
 func (c *Mobile) CreateProject(input *CreateProjectInput) (*CreateProjectOutput, error) {
 	req, out := c.CreateProjectRequest(input)
 	return out, req.Send()
@@ -139,7 +147,11 @@ const opDeleteProject = "DeleteProject"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DeleteProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DeleteProject
+>>>>>>> Initial dep workover
 func (c *Mobile) DeleteProjectRequest(input *DeleteProjectInput) (req *request.Request, output *DeleteProjectOutput) {
 	op := &request.Operation{
 		Name:       opDeleteProject,
@@ -186,7 +198,11 @@ func (c *Mobile) DeleteProjectRequest(input *DeleteProjectInput) (req *request.R
 //   * ErrCodeNotFoundException "NotFoundException"
 //   No entity can be found with the specified identifier.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DeleteProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DeleteProject
+>>>>>>> Initial dep workover
 func (c *Mobile) DeleteProject(input *DeleteProjectInput) (*DeleteProjectOutput, error) {
 	req, out := c.DeleteProjectRequest(input)
 	return out, req.Send()
@@ -233,7 +249,11 @@ const opDescribeBundle = "DescribeBundle"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeBundle
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeBundle
+>>>>>>> Initial dep workover
 func (c *Mobile) DescribeBundleRequest(input *DescribeBundleInput) (req *request.Request, output *DescribeBundleOutput) {
 	op := &request.Operation{
 		Name:       opDescribeBundle,
@@ -284,7 +304,11 @@ func (c *Mobile) DescribeBundleRequest(input *DescribeBundleInput) (req *request
 //   * ErrCodeNotFoundException "NotFoundException"
 //   No entity can be found with the specified identifier.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeBundle
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeBundle
+>>>>>>> Initial dep workover
 func (c *Mobile) DescribeBundle(input *DescribeBundleInput) (*DescribeBundleOutput, error) {
 	req, out := c.DescribeBundleRequest(input)
 	return out, req.Send()
@@ -331,7 +355,11 @@ const opDescribeProject = "DescribeProject"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeProject
+>>>>>>> Initial dep workover
 func (c *Mobile) DescribeProjectRequest(input *DescribeProjectInput) (req *request.Request, output *DescribeProjectOutput) {
 	op := &request.Operation{
 		Name:       opDescribeProject,
@@ -382,7 +410,11 @@ func (c *Mobile) DescribeProjectRequest(input *DescribeProjectInput) (req *reque
 //   * ErrCodeNotFoundException "NotFoundException"
 //   No entity can be found with the specified identifier.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeProject
+>>>>>>> Initial dep workover
 func (c *Mobile) DescribeProject(input *DescribeProjectInput) (*DescribeProjectOutput, error) {
 	req, out := c.DescribeProjectRequest(input)
 	return out, req.Send()
@@ -429,7 +461,11 @@ const opExportBundle = "ExportBundle"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportBundle
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportBundle
+>>>>>>> Initial dep workover
 func (c *Mobile) ExportBundleRequest(input *ExportBundleInput) (req *request.Request, output *ExportBundleOutput) {
 	op := &request.Operation{
 		Name:       opExportBundle,
@@ -481,7 +517,11 @@ func (c *Mobile) ExportBundleRequest(input *ExportBundleInput) (req *request.Req
 //   * ErrCodeNotFoundException "NotFoundException"
 //   No entity can be found with the specified identifier.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportBundle
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportBundle
+>>>>>>> Initial dep workover
 func (c *Mobile) ExportBundle(input *ExportBundleInput) (*ExportBundleOutput, error) {
 	req, out := c.ExportBundleRequest(input)
 	return out, req.Send()
@@ -528,7 +568,11 @@ const opExportProject = "ExportProject"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportProject
+>>>>>>> Initial dep workover
 func (c *Mobile) ExportProjectRequest(input *ExportProjectInput) (req *request.Request, output *ExportProjectOutput) {
 	op := &request.Operation{
 		Name:       opExportProject,
@@ -581,7 +625,11 @@ func (c *Mobile) ExportProjectRequest(input *ExportProjectInput) (req *request.R
 //   * ErrCodeNotFoundException "NotFoundException"
 //   No entity can be found with the specified identifier.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportProject
+>>>>>>> Initial dep workover
 func (c *Mobile) ExportProject(input *ExportProjectInput) (*ExportProjectOutput, error) {
 	req, out := c.ExportProjectRequest(input)
 	return out, req.Send()
@@ -628,7 +676,11 @@ const opListBundles = "ListBundles"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListBundles
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListBundles
+>>>>>>> Initial dep workover
 func (c *Mobile) ListBundlesRequest(input *ListBundlesInput) (req *request.Request, output *ListBundlesOutput) {
 	op := &request.Operation{
 		Name:       opListBundles,
@@ -682,7 +734,11 @@ func (c *Mobile) ListBundlesRequest(input *ListBundlesInput) (req *request.Reque
 //   The request cannot be processed because some parameter is not valid or the
 //   project state prevents the operation from being performed.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListBundles
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListBundles
+>>>>>>> Initial dep workover
 func (c *Mobile) ListBundles(input *ListBundlesInput) (*ListBundlesOutput, error) {
 	req, out := c.ListBundlesRequest(input)
 	return out, req.Send()
@@ -779,7 +835,11 @@ const opListProjects = "ListProjects"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListProjects
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListProjects
+>>>>>>> Initial dep workover
 func (c *Mobile) ListProjectsRequest(input *ListProjectsInput) (req *request.Request, output *ListProjectsOutput) {
 	op := &request.Operation{
 		Name:       opListProjects,
@@ -833,7 +893,11 @@ func (c *Mobile) ListProjectsRequest(input *ListProjectsInput) (req *request.Req
 //   The request cannot be processed because some parameter is not valid or the
 //   project state prevents the operation from being performed.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListProjects
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListProjects
+>>>>>>> Initial dep workover
 func (c *Mobile) ListProjects(input *ListProjectsInput) (*ListProjectsOutput, error) {
 	req, out := c.ListProjectsRequest(input)
 	return out, req.Send()
@@ -930,7 +994,11 @@ const opUpdateProject = "UpdateProject"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/UpdateProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/UpdateProject
+>>>>>>> Initial dep workover
 func (c *Mobile) UpdateProjectRequest(input *UpdateProjectInput) (req *request.Request, output *UpdateProjectOutput) {
 	op := &request.Operation{
 		Name:       opUpdateProject,
@@ -990,7 +1058,11 @@ func (c *Mobile) UpdateProjectRequest(input *UpdateProjectInput) (req *request.R
 //   create another sub-account using AWS Organizations or remove some resources
 //   and retry your request.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/UpdateProject
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/UpdateProject
+>>>>>>> Initial dep workover
 func (c *Mobile) UpdateProject(input *UpdateProjectInput) (*UpdateProjectOutput, error) {
 	req, out := c.UpdateProjectRequest(input)
 	return out, req.Send()
@@ -1013,7 +1085,11 @@ func (c *Mobile) UpdateProjectWithContext(ctx aws.Context, input *UpdateProjectI
 }
 
 // The details of the bundle.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/BundleDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/BundleDetails
+>>>>>>> Initial dep workover
 type BundleDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -1083,7 +1159,11 @@ func (s *BundleDetails) SetVersion(v string) *BundleDetails {
 }
 
 // Request structure used to request a project be created.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/CreateProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/CreateProjectRequest
+>>>>>>> Initial dep workover
 type CreateProjectInput struct {
 	_ struct{} `type:"structure" payload:"Contents"`
 
@@ -1138,7 +1218,11 @@ func (s *CreateProjectInput) SetSnapshotId(v string) *CreateProjectInput {
 }
 
 // Result structure used in response to a request to create a project.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/CreateProjectResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/CreateProjectResult
+>>>>>>> Initial dep workover
 type CreateProjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1163,7 +1247,11 @@ func (s *CreateProjectOutput) SetDetails(v *ProjectDetails) *CreateProjectOutput
 }
 
 // Request structure used to request a project be deleted.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DeleteProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DeleteProjectRequest
+>>>>>>> Initial dep workover
 type DeleteProjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1203,7 +1291,11 @@ func (s *DeleteProjectInput) SetProjectId(v string) *DeleteProjectInput {
 }
 
 // Result structure used in response to request to delete a project.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DeleteProjectResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DeleteProjectResult
+>>>>>>> Initial dep workover
 type DeleteProjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1238,7 +1330,11 @@ func (s *DeleteProjectOutput) SetOrphanedResources(v []*Resource) *DeleteProject
 }
 
 // Request structure to request the details of a specific bundle.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeBundleRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeBundleRequest
+>>>>>>> Initial dep workover
 type DescribeBundleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1278,7 +1374,11 @@ func (s *DescribeBundleInput) SetBundleId(v string) *DescribeBundleInput {
 }
 
 // Result structure contains the details of the bundle.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeBundleResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeBundleResult
+>>>>>>> Initial dep workover
 type DescribeBundleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1303,7 +1403,11 @@ func (s *DescribeBundleOutput) SetDetails(v *BundleDetails) *DescribeBundleOutpu
 }
 
 // Request structure used to request details about a project.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeProjectRequest
+>>>>>>> Initial dep workover
 type DescribeProjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1354,7 +1458,11 @@ func (s *DescribeProjectInput) SetSyncFromResources(v bool) *DescribeProjectInpu
 }
 
 // Result structure used for requests of project details.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeProjectResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/DescribeProjectResult
+>>>>>>> Initial dep workover
 type DescribeProjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1380,7 +1488,11 @@ func (s *DescribeProjectOutput) SetDetails(v *ProjectDetails) *DescribeProjectOu
 
 // Request structure used to request generation of custom SDK and tool packages
 // required to integrate mobile web or app clients with backed AWS resources.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportBundleRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportBundleRequest
+>>>>>>> Initial dep workover
 type ExportBundleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1440,7 +1552,11 @@ func (s *ExportBundleInput) SetProjectId(v string) *ExportBundleInput {
 // Result structure which contains link to download custom-generated SDK and
 // tool packages used to integrate mobile web or app clients with backed AWS
 // resources.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportBundleResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportBundleResult
+>>>>>>> Initial dep workover
 type ExportBundleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1467,7 +1583,11 @@ func (s *ExportBundleOutput) SetDownloadUrl(v string) *ExportBundleOutput {
 }
 
 // Request structure used in requests to export project configuration details.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportProjectRequest
+>>>>>>> Initial dep workover
 type ExportProjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1507,7 +1627,11 @@ func (s *ExportProjectInput) SetProjectId(v string) *ExportProjectInput {
 }
 
 // Result structure used for requests to export project configuration details.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportProjectResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ExportProjectResult
+>>>>>>> Initial dep workover
 type ExportProjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1556,7 +1680,11 @@ func (s *ExportProjectOutput) SetSnapshotId(v string) *ExportProjectOutput {
 }
 
 // Request structure to request all available bundles.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListBundlesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListBundlesRequest
+>>>>>>> Initial dep workover
 type ListBundlesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1592,7 +1720,11 @@ func (s *ListBundlesInput) SetNextToken(v string) *ListBundlesInput {
 }
 
 // Result structure contains a list of all available bundles with details.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListBundlesResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListBundlesResult
+>>>>>>> Initial dep workover
 type ListBundlesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1627,7 +1759,11 @@ func (s *ListBundlesOutput) SetNextToken(v string) *ListBundlesOutput {
 }
 
 // Request structure used to request projects list in AWS Mobile Hub.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListProjectsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListProjectsRequest
+>>>>>>> Initial dep workover
 type ListProjectsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1663,7 +1799,11 @@ func (s *ListProjectsInput) SetNextToken(v string) *ListProjectsInput {
 }
 
 // Result structure used for requests to list projects in AWS Mobile Hub.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListProjectsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ListProjectsResult
+>>>>>>> Initial dep workover
 type ListProjectsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1699,7 +1839,11 @@ func (s *ListProjectsOutput) SetProjects(v []*ProjectSummary) *ListProjectsOutpu
 }
 
 // Detailed information about an AWS Mobile Hub project.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ProjectDetails
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ProjectDetails
+>>>>>>> Initial dep workover
 type ProjectDetails struct {
 	_ struct{} `type:"structure"`
 
@@ -1787,7 +1931,11 @@ func (s *ProjectDetails) SetState(v string) *ProjectDetails {
 }
 
 // Summary information about an AWS Mobile Hub project.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ProjectSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/ProjectSummary
+>>>>>>> Initial dep workover
 type ProjectSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -1821,7 +1969,11 @@ func (s *ProjectSummary) SetProjectId(v string) *ProjectSummary {
 }
 
 // Information about an instance of an AWS resource associated with a project.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/Resource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/Resource
+>>>>>>> Initial dep workover
 type Resource struct {
 	_ struct{} `type:"structure"`
 
@@ -1883,7 +2035,11 @@ func (s *Resource) SetType(v string) *Resource {
 }
 
 // Request structure used for requests to update project configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/UpdateProjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/UpdateProjectRequest
+>>>>>>> Initial dep workover
 type UpdateProjectInput struct {
 	_ struct{} `type:"structure" payload:"Contents"`
 
@@ -1934,7 +2090,11 @@ func (s *UpdateProjectInput) SetProjectId(v string) *UpdateProjectInput {
 }
 
 // Result structure used for requests to updated project configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/UpdateProjectResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mobile-2017-07-01/UpdateProjectResult
+>>>>>>> Initial dep workover
 type UpdateProjectOutput struct {
 	_ struct{} `type:"structure"`
 

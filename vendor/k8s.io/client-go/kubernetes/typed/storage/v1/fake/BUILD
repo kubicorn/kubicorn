@@ -12,7 +12,10 @@ go_library(
         "fake_storage_client.go",
         "fake_storageclass.go",
     ],
+<<<<<<< HEAD
     importpath = "k8s.io/client-go/kubernetes/typed/storage/v1/fake",
+=======
+>>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/storage/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

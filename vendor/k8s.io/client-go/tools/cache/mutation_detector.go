@@ -26,6 +26,10 @@ import (
 
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/util/diff"
+<<<<<<< HEAD
+=======
+	"k8s.io/client-go/kubernetes/scheme"
+>>>>>>> Initial dep workover
 )
 
 var mutationDetectionEnabled = false
@@ -95,6 +99,7 @@ func (d *defaultCacheMutationDetector) AddObject(obj interface{}) {
 	if _, ok := obj.(DeletedFinalStateUnknown); ok {
 		return
 	}
+<<<<<<< HEAD
 	if obj, ok := obj.(runtime.Object); ok {
 		copiedObj := obj.DeepCopyObject()
 
@@ -102,6 +107,20 @@ func (d *defaultCacheMutationDetector) AddObject(obj interface{}) {
 		defer d.lock.Unlock()
 		d.cachedObjs = append(d.cachedObjs, cacheObj{cached: obj, copied: copiedObj})
 	}
+=======
+	if _, ok := obj.(runtime.Object); !ok {
+		return
+	}
+
+	copiedObj, err := scheme.Scheme.Copy(obj.(runtime.Object))
+	if err != nil {
+		return
+	}
+
+	d.lock.Lock()
+	defer d.lock.Unlock()
+	d.cachedObjs = append(d.cachedObjs, cacheObj{cached: obj, copied: copiedObj})
+>>>>>>> Initial dep workover
 }
 
 func (d *defaultCacheMutationDetector) CompareObjects() {

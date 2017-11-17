@@ -421,7 +421,11 @@ func updatePollingState(resp *http.Response, ps *pollingState) error {
 		}
 	}
 
+<<<<<<< HEAD
 	if strings.EqualFold(ps.State, operationInProgress) && ps.URI == "" {
+=======
+	if ps.State == operationInProgress && ps.URI == "" {
+>>>>>>> Initial dep workover
 		return autorest.NewError("azure", "updatePollingState", "Azure Polling Error - Unable to obtain polling URI for %s %s", resp.Request.Method, resp.Request.URL)
 	}
 

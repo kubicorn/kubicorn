@@ -102,6 +102,7 @@
         {"shape":"OAuthProviderException"}
       ]
     },
+<<<<<<< HEAD
     "InvalidateProjectCache":{
       "name":"InvalidateProjectCache",
       "http":{
@@ -115,6 +116,8 @@
         {"shape":"ResourceNotFoundException"}
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "ListBuilds":{
       "name":"ListBuilds",
       "http":{
@@ -357,6 +360,7 @@
       "type":"list",
       "member":{"shape":"BuildNotDeleted"}
     },
+<<<<<<< HEAD
     "CacheType":{
       "type":"string",
       "enum":[
@@ -364,6 +368,8 @@
         "S3"
       ]
     },
+=======
+>>>>>>> Initial dep workover
     "ComputeType":{
       "type":"string",
       "enum":[
@@ -652,9 +658,13 @@
         "tags":{"shape":"TagList"},
         "created":{"shape":"Timestamp"},
         "lastModified":{"shape":"Timestamp"},
+<<<<<<< HEAD
         "webhook":{"shape":"Webhook"},
         "vpcConfig":{"shape":"VpcConfig"},
         "badge":{"shape":"ProjectBadge"}
+=======
+        "webhook":{"shape":"Webhook"}
+>>>>>>> Initial dep workover
       }
     },
     "ProjectArtifacts":{
@@ -881,6 +891,7 @@
       "min":1,
       "pattern":"^([\\\\p{L}\\\\p{Z}\\\\p{N}_.:/=@+\\\\-]*)$"
     },
+<<<<<<< HEAD
     "VpcConfig":{
       "type":"structure",
       "members":{
@@ -889,6 +900,8 @@
         "securityGroupIds":{"shape":"SecurityGroupIds"}
       }
     },
+=======
+>>>>>>> Initial dep workover
     "Webhook":{
       "type":"structure",
       "members":{

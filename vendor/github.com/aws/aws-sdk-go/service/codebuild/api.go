@@ -36,7 +36,11 @@ const opBatchDeleteBuilds = "BatchDeleteBuilds"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuilds
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuilds
+>>>>>>> Initial dep workover
 func (c *CodeBuild) BatchDeleteBuildsRequest(input *BatchDeleteBuildsInput) (req *request.Request, output *BatchDeleteBuildsOutput) {
 	op := &request.Operation{
 		Name:       opBatchDeleteBuilds,
@@ -68,7 +72,11 @@ func (c *CodeBuild) BatchDeleteBuildsRequest(input *BatchDeleteBuildsInput) (req
 //   * ErrCodeInvalidInputException "InvalidInputException"
 //   The input value that was provided is not valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuilds
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuilds
+>>>>>>> Initial dep workover
 func (c *CodeBuild) BatchDeleteBuilds(input *BatchDeleteBuildsInput) (*BatchDeleteBuildsOutput, error) {
 	req, out := c.BatchDeleteBuildsRequest(input)
 	return out, req.Send()
@@ -254,6 +262,7 @@ const opCreateProject = "CreateProject"
 // client's request for the CreateProject operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -261,6 +270,15 @@ const opCreateProject = "CreateProject"
 // See CreateProject for more information on using the CreateProject
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateProject for more information on using the CreateProject
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -359,7 +377,11 @@ const opCreateWebhook = "CreateWebhook"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateWebhook
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateWebhook
+>>>>>>> Initial dep workover
 func (c *CodeBuild) CreateWebhookRequest(input *CreateWebhookInput) (req *request.Request, output *CreateWebhookOutput) {
 	op := &request.Operation{
 		Name:       opCreateWebhook,
@@ -412,7 +434,11 @@ func (c *CodeBuild) CreateWebhookRequest(input *CreateWebhookInput) (req *reques
 //   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
 //   The specified AWS resource cannot be found.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateWebhook
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateWebhook
+>>>>>>> Initial dep workover
 func (c *CodeBuild) CreateWebhook(input *CreateWebhookInput) (*CreateWebhookOutput, error) {
 	req, out := c.CreateWebhookRequest(input)
 	return out, req.Send()
@@ -440,6 +466,7 @@ const opDeleteProject = "DeleteProject"
 // client's request for the DeleteProject operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -447,6 +474,15 @@ const opDeleteProject = "DeleteProject"
 // See DeleteProject for more information on using the DeleteProject
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteProject for more information on using the DeleteProject
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -538,7 +574,11 @@ const opDeleteWebhook = "DeleteWebhook"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhook
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhook
+>>>>>>> Initial dep workover
 func (c *CodeBuild) DeleteWebhookRequest(input *DeleteWebhookInput) (req *request.Request, output *DeleteWebhookOutput) {
 	op := &request.Operation{
 		Name:       opDeleteWebhook,
@@ -578,7 +618,11 @@ func (c *CodeBuild) DeleteWebhookRequest(input *DeleteWebhookInput) (req *reques
 //   * ErrCodeOAuthProviderException "OAuthProviderException"
 //   There was a problem with the underlying OAuth provider.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhook
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhook
+>>>>>>> Initial dep workover
 func (c *CodeBuild) DeleteWebhook(input *DeleteWebhookInput) (*DeleteWebhookOutput, error) {
 	req, out := c.DeleteWebhookRequest(input)
 	return out, req.Send()
@@ -600,6 +644,7 @@ func (c *CodeBuild) DeleteWebhookWithContext(ctx aws.Context, input *DeleteWebho
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 const opInvalidateProjectCache = "InvalidateProjectCache"
 
 // InvalidateProjectCacheRequest generates a "aws/request.Request" representing the
@@ -682,12 +727,15 @@ func (c *CodeBuild) InvalidateProjectCacheWithContext(ctx aws.Context, input *In
 	return out, req.Send()
 }
 
+=======
+>>>>>>> Initial dep workover
 const opListBuilds = "ListBuilds"
 
 // ListBuildsRequest generates a "aws/request.Request" representing the
 // client's request for the ListBuilds operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -695,6 +743,15 @@ const opListBuilds = "ListBuilds"
 // See ListBuilds for more information on using the ListBuilds
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListBuilds for more information on using the ListBuilds
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -767,6 +824,7 @@ const opListBuildsForProject = "ListBuildsForProject"
 // client's request for the ListBuildsForProject operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -774,6 +832,15 @@ const opListBuildsForProject = "ListBuildsForProject"
 // See ListBuildsForProject for more information on using the ListBuildsForProject
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListBuildsForProject for more information on using the ListBuildsForProject
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -850,6 +917,7 @@ const opListCuratedEnvironmentImages = "ListCuratedEnvironmentImages"
 // client's request for the ListCuratedEnvironmentImages operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -857,6 +925,15 @@ const opListCuratedEnvironmentImages = "ListCuratedEnvironmentImages"
 // See ListCuratedEnvironmentImages for more information on using the ListCuratedEnvironmentImages
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListCuratedEnvironmentImages for more information on using the ListCuratedEnvironmentImages
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1004,6 +1081,7 @@ const opStartBuild = "StartBuild"
 // client's request for the StartBuild operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1011,6 +1089,15 @@ const opStartBuild = "StartBuild"
 // See StartBuild for more information on using the StartBuild
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StartBuild for more information on using the StartBuild
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1089,6 +1176,7 @@ const opStopBuild = "StopBuild"
 // client's request for the StopBuild operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1096,6 +1184,15 @@ const opStopBuild = "StopBuild"
 // See StopBuild for more information on using the StopBuild
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StopBuild for more information on using the StopBuild
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1247,7 +1344,11 @@ func (c *CodeBuild) UpdateProjectWithContext(ctx aws.Context, input *UpdateProje
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuildsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuildsInput
+>>>>>>> Initial dep workover
 type BatchDeleteBuildsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1289,7 +1390,11 @@ func (s *BatchDeleteBuildsInput) SetIds(v []*string) *BatchDeleteBuildsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuildsOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuildsOutput
+>>>>>>> Initial dep workover
 type BatchDeleteBuildsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1322,7 +1427,11 @@ func (s *BatchDeleteBuildsOutput) SetBuildsNotDeleted(v []*BuildNotDeleted) *Bat
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchGetBuildsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchGetBuildsInput
+>>>>>>> Initial dep workover
 type BatchGetBuildsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1741,7 +1850,11 @@ func (s *BuildArtifacts) SetSha256sum(v string) *BuildArtifacts {
 }
 
 // Information about a build that could not be successfully deleted.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BuildNotDeleted
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BuildNotDeleted
+>>>>>>> Initial dep workover
 type BuildNotDeleted struct {
 	_ struct{} `type:"structure"`
 
@@ -2240,8 +2353,86 @@ func (s DeleteProjectOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhookInput
 type DeleteWebhookInput struct {
+=======
+// SetProject sets the Project field's value.
+func (s *CreateProjectOutput) SetProject(v *Project) *CreateProjectOutput {
+	s.Project = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateWebhookInput
+type CreateWebhookInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the build project.
+	//
+	// ProjectName is a required field
+	ProjectName *string `locationName:"projectName" min:"2" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s CreateWebhookInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CreateWebhookInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *CreateWebhookInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "CreateWebhookInput"}
+	if s.ProjectName == nil {
+		invalidParams.Add(request.NewErrParamRequired("ProjectName"))
+	}
+	if s.ProjectName != nil && len(*s.ProjectName) < 2 {
+		invalidParams.Add(request.NewErrParamMinLen("ProjectName", 2))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetProjectName sets the ProjectName field's value.
+func (s *CreateWebhookInput) SetProjectName(v string) *CreateWebhookInput {
+	s.ProjectName = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateWebhookOutput
+type CreateWebhookOutput struct {
+	_ struct{} `type:"structure"`
+
+	// Information about a webhook in GitHub that connects repository events to
+	// a build project in AWS CodeBuild.
+	Webhook *Webhook `locationName:"webhook" type:"structure"`
+}
+
+// String returns the string representation
+func (s CreateWebhookOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CreateWebhookOutput) GoString() string {
+	return s.String()
+}
+
+// SetWebhook sets the Webhook field's value.
+func (s *CreateWebhookOutput) SetWebhook(v *Webhook) *CreateWebhookOutput {
+	s.Webhook = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteProjectInput
+type DeleteProjectInput struct {
+>>>>>>> Initial dep workover
 	_ struct{} `type:"structure"`
 
 	// The name of the build project.
@@ -2283,6 +2474,63 @@ func (s *DeleteWebhookInput) SetProjectName(v string) *DeleteWebhookInput {
 }
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhookOutput
+type DeleteWebhookOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteWebhookOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteWebhookOutput) GoString() string {
+	return s.String()
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhookInput
+type DeleteWebhookInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the build project.
+	//
+	// ProjectName is a required field
+	ProjectName *string `locationName:"projectName" min:"2" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteWebhookInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteWebhookInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteWebhookInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteWebhookInput"}
+	if s.ProjectName == nil {
+		invalidParams.Add(request.NewErrParamRequired("ProjectName"))
+	}
+	if s.ProjectName != nil && len(*s.ProjectName) < 2 {
+		invalidParams.Add(request.NewErrParamMinLen("ProjectName", 2))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetProjectName sets the ProjectName field's value.
+func (s *DeleteWebhookInput) SetProjectName(v string) *DeleteWebhookInput {
+	s.ProjectName = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhookOutput
 type DeleteWebhookOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3044,12 +3292,15 @@ type Project struct {
 	// The default is 60 minutes.
 	TimeoutInMinutes *int64 `locationName:"timeoutInMinutes" min:"5" type:"integer"`
 
+<<<<<<< HEAD
 	// If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide
 	// this parameter that identifies the VPC ID and the list of security group
 	// IDs and subnet IDs. The security groups and subnets must belong to the same
 	// VPC. You must provide at least one security group and one subnet ID.
 	VpcConfig *VpcConfig `locationName:"vpcConfig" type:"structure"`
 
+=======
+>>>>>>> Initial dep workover
 	// Information about a webhook in GitHub that connects repository events to
 	// a build project in AWS CodeBuild.
 	Webhook *Webhook `locationName:"webhook" type:"structure"`
@@ -3149,12 +3400,15 @@ func (s *Project) SetTimeoutInMinutes(v int64) *Project {
 	return s
 }
 
+<<<<<<< HEAD
 // SetVpcConfig sets the VpcConfig field's value.
 func (s *Project) SetVpcConfig(v *VpcConfig) *Project {
 	s.VpcConfig = v
 	return s
 }
 
+=======
+>>>>>>> Initial dep workover
 // SetWebhook sets the Webhook field's value.
 func (s *Project) SetWebhook(v *Webhook) *Project {
 	s.Webhook = v
@@ -3677,7 +3931,11 @@ func (s *ProjectSource) SetType(v string) *ProjectSource {
 // This information is for the AWS CodeBuild console's use only. Your code should
 // not get or set this information directly (unless the build project's source
 // type value is BITBUCKET or GITHUB).
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/SourceAuth
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/SourceAuth
+>>>>>>> Initial dep workover
 type SourceAuth struct {
 	_ struct{} `type:"structure"`
 
@@ -4220,6 +4478,7 @@ func (s *UpdateProjectOutput) SetProject(v *Project) *UpdateProjectOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide
 // this parameter that identifies the VPC ID and the list of security group
 // IDs and subnet IDs. The security groups and subnets must belong to the same
@@ -4282,6 +4541,11 @@ func (s *VpcConfig) SetVpcId(v string) *VpcConfig {
 // Information about a webhook in GitHub that connects repository events to
 // a build project in AWS CodeBuild.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/Webhook
+=======
+// Information about a webhook in GitHub that connects repository events to
+// a build project in AWS CodeBuild.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/Webhook
+>>>>>>> Initial dep workover
 type Webhook struct {
 	_ struct{} `type:"structure"`
 

@@ -149,8 +149,13 @@ func (c *Batch) CreateComputeEnvironmentRequest(input *CreateComputeEnvironmentI
 // within the environment, based on the compute resources that you specify.
 // Instances launched into a managed compute environment use a recent, approved
 // version of the Amazon ECS-optimized AMI. You can choose to use Amazon EC2
+<<<<<<< HEAD
 // On-Demand Instances in your managed compute environment, or you can use Amazon
 // EC2 Spot Instances that only launch when the Spot bid price is below a specified
+=======
+// On-Demand instances in your managed compute environment, or you can use Amazon
+// EC2 Spot instances that only launch when the Spot bid price is below a specified
+>>>>>>> Initial dep workover
 // percentage of the On-Demand price.
 //
 // In an unmanaged compute environment, you can manage your own compute resources.
@@ -209,6 +214,7 @@ const opCreateJobQueue = "CreateJobQueue"
 // client's request for the CreateJobQueue operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -216,6 +222,15 @@ const opCreateJobQueue = "CreateJobQueue"
 // See CreateJobQueue for more information on using the CreateJobQueue
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See CreateJobQueue for more information on using the CreateJobQueue
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -301,6 +316,7 @@ const opDeleteComputeEnvironment = "DeleteComputeEnvironment"
 // client's request for the DeleteComputeEnvironment operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -308,6 +324,15 @@ const opDeleteComputeEnvironment = "DeleteComputeEnvironment"
 // See DeleteComputeEnvironment for more information on using the DeleteComputeEnvironment
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteComputeEnvironment for more information on using the DeleteComputeEnvironment
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -389,6 +414,7 @@ const opDeleteJobQueue = "DeleteJobQueue"
 // client's request for the DeleteJobQueue operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -396,6 +422,15 @@ const opDeleteJobQueue = "DeleteJobQueue"
 // See DeleteJobQueue for more information on using the DeleteJobQueue
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteJobQueue for more information on using the DeleteJobQueue
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -478,6 +513,7 @@ const opDeregisterJobDefinition = "DeregisterJobDefinition"
 // client's request for the DeregisterJobDefinition operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -485,6 +521,15 @@ const opDeregisterJobDefinition = "DeregisterJobDefinition"
 // See DeregisterJobDefinition for more information on using the DeregisterJobDefinition
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeregisterJobDefinition for more information on using the DeregisterJobDefinition
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -819,6 +864,7 @@ const opDescribeJobs = "DescribeJobs"
 // client's request for the DescribeJobs operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -826,6 +872,15 @@ const opDescribeJobs = "DescribeJobs"
 // See DescribeJobs for more information on using the DescribeJobs
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DescribeJobs for more information on using the DescribeJobs
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -903,6 +958,7 @@ const opListJobs = "ListJobs"
 // client's request for the ListJobs operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -910,6 +966,15 @@ const opListJobs = "ListJobs"
 // See ListJobs for more information on using the ListJobs
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListJobs for more information on using the ListJobs
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1073,6 +1138,7 @@ const opSubmitJob = "SubmitJob"
 // client's request for the SubmitJob operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1080,6 +1146,15 @@ const opSubmitJob = "SubmitJob"
 // See SubmitJob for more information on using the SubmitJob
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SubmitJob for more information on using the SubmitJob
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1158,6 +1233,7 @@ const opTerminateJob = "TerminateJob"
 // client's request for the TerminateJob operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1165,6 +1241,15 @@ const opTerminateJob = "TerminateJob"
 // See TerminateJob for more information on using the TerminateJob
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See TerminateJob for more information on using the TerminateJob
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1244,6 +1329,7 @@ const opUpdateComputeEnvironment = "UpdateComputeEnvironment"
 // client's request for the UpdateComputeEnvironment operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1251,6 +1337,15 @@ const opUpdateComputeEnvironment = "UpdateComputeEnvironment"
 // See UpdateComputeEnvironment for more information on using the UpdateComputeEnvironment
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateComputeEnvironment for more information on using the UpdateComputeEnvironment
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1328,6 +1423,7 @@ const opUpdateJobQueue = "UpdateJobQueue"
 // client's request for the UpdateJobQueue operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
+<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1335,6 +1431,15 @@ const opUpdateJobQueue = "UpdateJobQueue"
 // See UpdateJobQueue for more information on using the UpdateJobQueue
 // API call, and error handling.
 //
+=======
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateJobQueue for more information on using the UpdateJobQueue
+// API call, and error handling.
+//
+>>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2364,8 +2469,13 @@ type ContainerProperties struct {
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/)
 	// and the --env option to docker run (https://docs.docker.com/engine/reference/run/).
 	//
+<<<<<<< HEAD
 	// We do not recommend using plaintext environment variables for sensitive information,
 	// such as credential data.
+=======
+	// We do not recommend using plain text environment variables for sensitive
+	// information, such as credential data.
+>>>>>>> Initial dep workover
 	//
 	// Environment variables must not start with AWS_BATCH; this naming convention
 	// is reserved for variables that are set by the AWS Batch service.
@@ -2446,7 +2556,11 @@ type ContainerProperties struct {
 	// in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/#create-a-container)
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/)
 	// and the --cpu-shares option to docker run (https://docs.docker.com/engine/reference/run/).
+<<<<<<< HEAD
 	// Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one
+=======
+	// Each vCPU is equivalent to 1,024 CPU shares. You must specify at least 1
+>>>>>>> Initial dep workover
 	// vCPU.
 	//
 	// Vcpus is a required field
@@ -4314,12 +4428,17 @@ type SubmitJobInput struct {
 	// an environment override.
 	ContainerOverrides *ContainerOverrides `locationName:"containerOverrides" type:"structure"`
 
+<<<<<<< HEAD
 	// A list of dependencies for the job. A job can depend upon a maximum of 20
 	// jobs. You can specify a SEQUENTIAL type dependency without specifying a job
 	// ID for array jobs so that each child array job completes sequentially, starting
 	// at index 0. You can also specify an N_TO_N type dependency with a job ID
 	// for array jobs so that each index child of this job must wait for the corresponding
 	// index child of each dependency to complete before it can begin.
+=======
+	// A list of job IDs on which this job depends. A job can depend upon a maximum
+	// of 20 jobs.
+>>>>>>> Initial dep workover
 	DependsOn []*JobDependency `locationName:"dependsOn" type:"list"`
 
 	// The job definition used by this job. This value can be either a name:revision

@@ -349,8 +349,12 @@ userAuthLoop:
 
 		s.user = userAuthReq.User
 
+<<<<<<< HEAD
 		if !displayedBanner && config.BannerCallback != nil {
 			displayedBanner = true
+=======
+		if authFailures == 0 && config.BannerCallback != nil {
+>>>>>>> Initial dep workover
 			msg := config.BannerCallback(s)
 			if msg != "" {
 				bannerMsg := &userAuthBannerMsg{

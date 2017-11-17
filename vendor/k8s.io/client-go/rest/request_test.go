@@ -20,7 +20,10 @@ import (
 	"bytes"
 	"context"
 	"errors"
+<<<<<<< HEAD
 	"flag"
+=======
+>>>>>>> Initial dep workover
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -35,8 +38,11 @@ import (
 	"testing"
 	"time"
 
+<<<<<<< HEAD
 	"github.com/golang/glog"
 
+=======
+>>>>>>> Initial dep workover
 	"k8s.io/api/core/v1"
 	apiequality "k8s.io/apimachinery/pkg/api/equality"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -1699,6 +1705,7 @@ func TestDoContext(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
 func buildString(length int) string {
 	s := make([]byte, length)
 	for i := range s {
@@ -1767,6 +1774,8 @@ func TestTruncateBody(t *testing.T) {
 	flag.Set("v", l.String())
 }
 
+=======
+>>>>>>> Initial dep workover
 func defaultResourcePathWithPrefix(prefix, resource, namespace, name string) string {
 	var path string
 	path = "/api/" + v1.SchemeGroupVersion.Version
