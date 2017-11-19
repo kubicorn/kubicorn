@@ -1,5 +1,8 @@
+# Cloud package
+
 The `cloud` package contains the Reconciler interface and Reconciler implementations for each cloud provider.
 
+## Overview
 The tasks covered in this package include
 
 * *rendering* a universal, cloud-provider agnostic cluster representation into a representation for a specific cloud provider
@@ -17,3 +20,5 @@ The *Apply* function does most of the work, including
 
 See the [Kubicorn project walkthrough](http://kubicorn.io/documentation/readme.html) for a more detailed account of these components and how they interrelate.
 
+## Adding a Cloud Provider
+To add a new cloud provider, please see the document [Adding a new cloud provider](../docs/_documentation/cloud-providers.md).
