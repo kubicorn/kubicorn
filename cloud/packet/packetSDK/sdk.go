@@ -12,22 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package defaults
+package packetSDK
 
-import "github.com/kris-nova/kubicorn/apis/cluster"
+import (
+	"fmt"
+	"os"
 
-func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
-	new := &cluster.Cluster{
-		Name:          base.Name,
-		CloudId:       base.CloudId,
-		Cloud:         base.Cloud,
-		Location:      base.Location,
-		Network:       base.Network,
-		SSH:           base.SSH,
-		Values:        base.Values,
-		KubernetesAPI: base.KubernetesAPI,
-		ServerPools:   base.ServerPools,
-		Project:       base.Project,
+	"github.com/packethost/packngo"
+)
+
+// Sdk represents the client connection to the cloud provider SDK.
+type Sdk struct {
+	Client *packngo.Client
+}
+
+// NewSdk is used to create a Sdk client to connect to the cloud provider.
+func NewSdk() (*Sdk, error) {
+	sdk := &Sdk{}
+	apiToken := getToken()
+	if apiToken == "" {
+		return nil, fmt.Errorf("Empty $PACKET_APITOKEN")
 	}
-	return new
+	sdk.Client = packngo.NewClient("kubicorn", apiToken, nil)
+
+	return sdk, nil
+}
+
+func getToken() string {
+	return os.Getenv("PACKET_APITOKEN")
 }

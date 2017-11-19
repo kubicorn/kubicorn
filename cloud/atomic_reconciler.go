@@ -36,6 +36,7 @@ type AtomicReconciler struct {
 }
 
 func NewAtomicReconciler(known *cluster.Cluster, model Model) Reconciler {
+
 	return &AtomicReconciler{
 		known: known,
 		model: model,

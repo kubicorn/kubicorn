@@ -24,12 +24,14 @@ const (
 	CloudGoogle       = "google"
 	CloudBaremetal    = "baremetal"
 	CloudDigitalOcean = "digitalocean"
+	CloudPacket       = "packet"
 )
 
 type Cluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Name              string         `json:"name,omitempty"`
+	Project           *Project       `json:"project,omitempty"`
 	CloudId           string         `json:"cloudId,omitempty"`
 	ServerPools       []*ServerPool  `json:"serverPools,omitempty"`
 	Cloud             string         `json:"cloud,omitempty"`

@@ -12,22 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package defaults
+package cluster
 
-import "github.com/kris-nova/kubicorn/apis/cluster"
-
-func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
-	new := &cluster.Cluster{
-		Name:          base.Name,
-		CloudId:       base.CloudId,
-		Cloud:         base.Cloud,
-		Location:      base.Location,
-		Network:       base.Network,
-		SSH:           base.SSH,
-		Values:        base.Values,
-		KubernetesAPI: base.KubernetesAPI,
-		ServerPools:   base.ServerPools,
-		Project:       base.Project,
-	}
-	return new
+type Project struct {
+	Name       string `json:"name,omitempty"`
+	Identifier string `json:"identifier,omitempty"`
 }

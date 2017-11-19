@@ -31,6 +31,9 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/google/compute"
 	gr "github.com/kris-nova/kubicorn/cloud/google/compute/resources"
 	"github.com/kris-nova/kubicorn/cloud/google/googleSDK"
+	"github.com/kris-nova/kubicorn/cloud/packet/packetSDK"
+	packetpub "github.com/kris-nova/kubicorn/cloud/packet/public"
+	packetr "github.com/kris-nova/kubicorn/cloud/packet/public/resources"
 )
 
 // RuntimeParameters contains specific parameters that needs to be passed to each
@@ -42,7 +45,6 @@ type RuntimeParameters struct {
 
 // GetReconciler gets the correct Reconciler for the cloud provider currenty used.
 func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters) (reconciler cloud.Reconciler, err error) {
-
 	switch known.Cloud {
 	case cluster.CloudGoogle:
 		sdk, err := googleSDK.NewSdk()
@@ -72,6 +74,13 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		azr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, azpub.NewAzurePublicModel(known)), nil
+	case cluster.CloudPacket:
+		sdk, err := packetSDK.NewSdk()
+		if err != nil {
+			return nil, err
+		}
+		packetr.Sdk = sdk
+		return cloud.NewAtomicReconciler(known, packetpub.NewPacketPublicModel(known)), nil
 	default:
 		return nil, fmt.Errorf("Invalid cloud type: %s", known.Cloud)
 	}
