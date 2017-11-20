@@ -46,6 +46,7 @@ gofmt: install-tools
 build-linux-amd64: ## Create the kubicorn executable for Linux 64-bit OS in the ./bin directory. Requires Docker.
 	mkdir -p bin
 	docker run \
+	-u $$(id -u):$$(id -g) \
 	-it \
 	-w /go/src/github.com/kris-nova/kubicorn \
 	-v ${PWD}:/go/src/github.com/kris-nova/kubicorn \
