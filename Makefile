@@ -53,7 +53,7 @@ build-linux-amd64: ## Create the kubicorn executable for Linux 64-bit OS in the 
 	--rm golang:1.8.1 make docker-build-linux-amd64
 
 docker-build-linux-amd64:
-	go build -v -o bin/linux-amd64
+	CGO_ENABLED=0 go build -v -o bin/linux-amd64
 
 build-darwin-amd64: ## Create the kubicorn executable for Darwin (osX) 64-bit OS in the ./bin directory. Requires Docker.
 	GOOS=darwin GOARCH=amd64 go build -v -o bin/darwin-amd64 &
