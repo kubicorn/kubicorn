@@ -244,7 +244,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 			}
 			if strings.Contains(err.Error(), "Invalid IamInstanceProfile") {
 				logger.Debug("InstanceProfile missing waiting...")
-				time.Sleep(time.Duration(i) * time.Second)
+				time.Sleep(time.Duration(i) * time.Second * 2)
 				continue
 			}
 
