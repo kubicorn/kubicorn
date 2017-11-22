@@ -95,6 +95,7 @@ func RunApply(options *ApplyOptions) error {
 		logger.Info("Selected [fs] state store")
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
+			CachePath:   options.CachedStateStorePath,
 			ClusterName: name,
 		})
 	case "jsonfs":
@@ -157,6 +158,8 @@ func RunApply(options *ApplyOptions) error {
 	if err != nil {
 		return fmt.Errorf("Unable to reconcile cluster: %v", err)
 	}
+
+	logger.Info("Caching state store for cluster [%s] in [~/.kubicorn]", options.Name)
 
 	err = stateStore.Commit(newCluster)
 	if err != nil {

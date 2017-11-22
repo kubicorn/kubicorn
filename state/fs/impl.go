@@ -26,17 +26,20 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
+	"github.com/mitchellh/go-homedir"
 )
 
 type FileSystemStoreOptions struct {
 	ClusterName string
 	BasePath    string
+	CachePath   string
 }
 
 type FileSystemStore struct {
 	options      *FileSystemStoreOptions
 	ClusterName  string
 	BasePath     string
+	CachePath    string
 	AbsolutePath string
 }
 
@@ -45,6 +48,7 @@ func NewFileSystemStore(o *FileSystemStoreOptions) *FileSystemStore {
 		options:      o,
 		ClusterName:  o.ClusterName,
 		BasePath:     o.BasePath,
+		CachePath:    o.CachePath,
 		AbsolutePath: fmt.Sprintf("%s/%s", o.BasePath, o.ClusterName),
 	}
 }
@@ -71,6 +75,21 @@ func (fs *FileSystemStore) write(relativePath string, data []byte) error {
 	return nil
 }
 
+func (fs *FileSystemStore) writeCache(CachePath string, data []byte) error {
+	fqn := fmt.Sprintf("%s", CachePath)
+	fqn, err := homedir.Expand(fqn)
+	fo, err := os.Create(fqn)
+	if err != nil {
+		return err
+	}
+	defer fo.Close()
+	_, err = io.Copy(fo, strings.NewReader(string(data)))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (fs *FileSystemStore) Read(relativePath string) ([]byte, error) {
 	fqn := fmt.Sprintf("%s/%s", fs.AbsolutePath, relativePath)
 	bytes, err := ioutil.ReadFile(fqn)
@@ -84,6 +103,10 @@ func (fs *FileSystemStore) ReadStore() ([]byte, error) {
 	return fs.Read(state.ClusterYamlFile)
 }
 
+func (fs *FileSystemStore) ReadCachedStore() ([]byte, error) {
+	return fs.Read(state.ClusterCacheFile)
+}
+
 func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
 	if c == nil {
 		return fmt.Errorf("Nil cluster spec")
@@ -92,6 +115,7 @@ func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
 	if err != nil {
 		return err
 	}
+	fs.writeCache(state.ClusterCacheFile, bytes)
 	fs.write(state.ClusterYamlFile, bytes)
 	return nil
 }
@@ -107,6 +131,15 @@ func (fs *FileSystemStore) Destroy() error {
 
 func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
 	configBytes, err := fs.Read(state.ClusterYamlFile)
+	if err != nil {
+		return nil, err
+	}
+
+	return fs.BytesToCluster(configBytes)
+}
+
+func (fs *FileSystemStore) GetCachedCluster() (*cluster.Cluster, error) {
+	configBytes, err := fs.Read(state.ClusterCacheFile)
 	if err != nil {
 		return nil, err
 	}

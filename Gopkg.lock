@@ -188,6 +188,12 @@
   version = "v0.0.2"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/mitchellh/go-homedir"
+  packages = ["."]
+  revision = "b8bc1bf767474819792c23f32d8286a45736f1c6"
+
+[[projects]]
   name = "github.com/pkg/errors"
   packages = ["."]
   revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
@@ -292,6 +298,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "db0a043f0beb8cda90ececf5c1cc539a559fd4a951e1c9388d9102f17a330fb8"
+  inputs-digest = "b7ebc0a03723931a11a467ceed3b8b4c3f33bcf025138314d349ac60d0b359e9"
   solver-name = "gps-cdcl"
   solver-version = 1
