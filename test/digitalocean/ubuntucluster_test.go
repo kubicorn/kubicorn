@@ -18,61 +18,56 @@ import (
 	"testing"
 )
 
+// go test github.com/kris-nova/kubicorn/test/digitalocean -run ^TestMain$
 func TestMain(m *testing.M) {
-	/*logger.TestMode = true
-	logger.Level = 4
-	ssh.InitRsaTravis()
+	/*
+		logger.TestMode = true
+		logger.Level = 4
+		ssh.InitRsaTravis()
 
-	// Create Cluster...
-	cluster := digitalocean.NewUbuntuCluster("myCluster")
-	cluster, err := initapi.InitCluster(cluster)
-	if err != nil {
-		panic(err.Error())
-	}
-	reconciler, err := cutil.GetReconciler(cluster, nil)
-	if err != nil {
-		panic(err.Error())
-	}
-	expected, err := reconciler.Expected(cluster)
-	if err != nil {
-		panic(err.Error())
-	}
-	actual, err := reconciler.Actual(cluster)
-	if err != nil {
-		panic(err.Error())
-	}
-	created, err := reconciler.Reconcile(actual, expected)
-	logger.Success("Created cluster [%s]", created.Name)
-	if err != nil {
-		panic(err.Error())
-	}
+		// Create Cluster...
+		cluster := digitalocean.NewUbuntuCluster("myCluster")
+		cluster, err := initapi.InitCluster(cluster)
+		if err != nil {
+			panic(err.Error())
+		}
+		reconciler, err := cutil.GetReconciler(cluster, nil)
+		if err != nil {
+			panic(err.Error())
+		}
+		expected, err := reconciler.Expected(cluster)
+		if err != nil {
+			panic(err.Error())
+		}
+		actual, err := reconciler.Actual(cluster)
+		if err != nil {
+			panic(err.Error())
+		}
+		/*created, err := reconciler.Reconcile(actual, expected)
+		logger.Success("Created cluster [%s]", created.Name)
+		if err != nil {
+			panic(err.Error())
+		}
 
-	sdk, err := godoSdk.NewSdk()
-	if err != nil {
-		panic(err)
-	}
-	droplets, _, err := sdk.Client.Droplets.ListByTag(context.TODO(), "myCluster-master", &godo.ListOptions{})
-	if err != nil {
-		panic(err)
-	}
+		agent := agent.NewAgent()
+		err = kubeconfig.RetryGetConfig(created, agent)
+		if err != nil {
+			panic(err)
+		}
 
-	droplet := droplets[0]
-	masterPublicIP, err := droplet.PublicIPv4()
-	if err != nil {
-		panic(err)
-	}
+		sdk, err := godoSdk.NewSdk()
+		if err != nil {
+			panic(err)
+		}
+		droplets, _, err := sdk.Client.Droplets.ListByTag(context.TODO(), "myCluster-master", &godo.ListOptions{})
+		if err != nil {
+			panic(err)
+		}
 
-	agent := agent.NewAgent()
-
-	copier := scp.NewSecureCopier("root", masterPublicIP, "22", "/home/marko/.ssh/id_rsa", agent)
-
-	session := command.NewSSHDetails("root", masterPublicIP, "22", "/home/marko/.ssh/id_rsa", agent)
-	out, err := session.ExecuteCommand("ls")
-	if err != nil {
-		panic(err)
-	}
-	logger.Success("%s", string(out))
-	panic(string(out))
-
+		droplet := droplets[0]
+		masterPublicIP, err := droplet.PublicIPv4()
+		if err != nil {
+			panic(err)
+		}
 	*/
 }

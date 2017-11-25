@@ -21,3 +21,7 @@ jobs:
       before_install:
         - docker build -t eg_sshd test/ssh
         - docker run --rm -p 6666:22 -d --name test_sshd eg_sshd
+    - stage: Integration
+      before_install:
+        - bash ./scripts/e2e.sh
+
