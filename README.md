@@ -26,11 +26,11 @@ Use at your own risk and if you're as excited about it as we are, maybe you want
 
 This is a community driven project. We love you, and respect you. We are here to help you learn, help you grow, and help you succeed. If you have an idea, please share it.
 
-#### Developer empathy. 
+#### Developer empathy.
 
 We are all software engineers, and we all work in many different code bases. We want the code to be stable, and approachable. We strive for clean and simple software, and we encourage refactoring and fixing technical debt.
 
-#### Operational empathy. 
+#### Operational empathy.
 
 We want our tool to work, and work well. If an operator is running `kubicorn` it should feel comfortable and make sense to them. We want operators to feel empowered.
 
@@ -38,15 +38,15 @@ We want our tool to work, and work well. If an operator is running `kubicorn` it
 
 We believe that the oh-so important layer of infrastructure should be represented as software (not as code!). We hope that our project demonstrates this idea, so the community can begin thinking in the way of the new paradigm.
 
-#### Rainbows and Unicorns 
+#### Rainbows and Unicorns
 
-We believe that sharing is important, and encouraging our peers is even more important. Part of contributing to `kubicorn` means respecting, encouraging, and welcoming others to the project. 
+We believe that sharing is important, and encouraging our peers is even more important. Part of contributing to `kubicorn` means respecting, encouraging, and welcoming others to the project.
 
 # Installing
 
 ```bash
 $ go get github.com/kris-nova/kubicorn
-``` 
+```
 
 ..or read the [Install Guide](http://kubicorn.io/documentation/install.html).
 
@@ -111,6 +111,7 @@ Take a snap, save a snap, deploy a snap.
 | **DigitalOcean Walkthrough**          | A walkthrough guide on installing Kubernetes on D.O.    | [walkthrough](docs/docs_old/do/walkthrough.md)                                           |
 | **DigitalOcean Quickstart**          | A quickstart asciicast on installing Kubernetes on D.O.    | [asciinema](https://asciinema.org/a/7JKtK7RSNSjznOYpX1rOprRRq)                                           |
 | **Google Compute Engine Walkthrough** | A walkthrough guide on installing Kubernetes on GCE     | [walkthrough](docs/docs_old/google/walkthrough.md)                                       |
+| **Packet Walkthrough** | A walkthrough guide on installing Kubernetes on Packet     | [walkthrough](docs/docs_old/packet/walkthrough.md)                                       |
 | **AWS Video**                         | A step by step video of using Kubicorn in AWS               | [video](https://www.useloom.com/share/a0afd5034e654b0b8d6785a5fa8ec754)         |
 | **DigitalOcean Video**                | A step by step video of using Kubicorn in DigitalOcean      | [video](https://youtu.be/XpxgSZ3dspE)         |
 | **Tech N Talk Deep Dive**             | A technical deep dive courtesy of RedHat                    | [youtube](https://youtu.be/2DmUG0RgS70?list=PLaR6Rq6Z4IqfwXtKT7KeARRvxdvyLqG72) |

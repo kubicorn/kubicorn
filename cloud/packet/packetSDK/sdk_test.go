@@ -12,22 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package defaults
+package packetSDK
 
-import "github.com/kris-nova/kubicorn/apis/cluster"
+import (
+	"os"
+	"testing"
+)
 
-func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
-	new := &cluster.Cluster{
-		Name:          base.Name,
-		CloudId:       base.CloudId,
-		Cloud:         base.Cloud,
-		Location:      base.Location,
-		Network:       base.Network,
-		SSH:           base.SSH,
-		Values:        base.Values,
-		KubernetesAPI: base.KubernetesAPI,
-		ServerPools:   base.ServerPools,
-		Project:       base.Project,
+var (
+	PacketAccessToken = os.Getenv("PACKET_APITOKEN")
+)
+
+func TestMain(m *testing.M) {
+	m.Run()
+	os.Setenv("PACKET_APITOKEN", PacketAccessToken)
+}
+
+func TestSdkHappy(t *testing.T) {
+	os.Setenv("PACKET_APITOKEN", "123")
+	_, err := NewSdk()
+	if err != nil {
+		t.Fatalf("Unable to get Packet SDK: %v", err)
 	}
-	return new
+}
+
+func TestSdkSad(t *testing.T) {
+	os.Setenv("PACKET_APITOKEN", "")
+	_, err := NewSdk()
+	if err == nil {
+		t.Fatalf("Able to get Packet SDK with empty variables")
+	}
 }

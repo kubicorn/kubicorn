@@ -28,6 +28,7 @@ import (
 	"github.com/kris-nova/kubicorn/profiles/azure"
 	"github.com/kris-nova/kubicorn/profiles/digitalocean"
 	"github.com/kris-nova/kubicorn/profiles/googlecompute"
+	"github.com/kris-nova/kubicorn/profiles/packet"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
@@ -48,7 +49,7 @@ func CreateCmd() *cobra.Command {
 		Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
 		Short: "Create a Kubicorn API model from a profile",
 		Long: `Use this command to create a Kubicorn API model in a defined state store.
-	
+
 	This command will create a cluster API model as a YAML manifest in a state store.
 	Once the API model has been created, a user can optionally change the model to their liking.
 	After a model is defined and configured properly, the user can then apply the model.`,
@@ -140,6 +141,14 @@ var profileMapIndexed = map[string]profileMap{
 	"aws-centos": {
 		profileFunc: amazon.NewCentosCluster,
 		description: "CentOS on Amazon",
+	},
+	"packet": {
+		profileFunc: packet.NewUbuntuCluster,
+		description: "Ubuntu on Packet x86",
+	},
+	"packet-ubuntu": {
+		profileFunc: packet.NewUbuntuCluster,
+		description: "Ubuntu on Packet x86",
 	},
 }
 

@@ -12,22 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package defaults
+package resources
 
-import "github.com/kris-nova/kubicorn/apis/cluster"
+import (
+	"github.com/kris-nova/kubicorn/cloud/packet/packetSDK"
+)
 
-func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
-	new := &cluster.Cluster{
-		Name:          base.Name,
-		CloudId:       base.CloudId,
-		Cloud:         base.Cloud,
-		Location:      base.Location,
-		Network:       base.Network,
-		SSH:           base.SSH,
-		Values:        base.Values,
-		KubernetesAPI: base.KubernetesAPI,
-		ServerPools:   base.ServerPools,
-		Project:       base.Project,
-	}
-	return new
+type Shared struct {
+	Identifier string
+	Name       string `json:"name,omitempty"`
+	Tags       []string
+}
+
+var Sdk *packetSDK.Sdk
+
+func init() {
+
 }

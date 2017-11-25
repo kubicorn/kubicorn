@@ -27,7 +27,13 @@ This chapter explains the most important concepts.
 
 The project is contained in several packages.
 
-The most important package is the [`cloud`](https://github.com/kris-nova/kubicorn/tree/master/cloud) package, which contains the Reconciler interface and Reconciler implementations for each cloud provider. Currently, we have implementations for three cloud providers: [Amazon](https://github.com/kris-nova/kubicorn/tree/master/cloud/amazon), [DigitalOcean](https://github.com/kris-nova/kubicorn/tree/master/cloud/digitalocean), [Google](https://github.com/kris-nova/kubicorn/tree/master/cloud/google) and [Azure in-development](https://github.com/kris-nova/kubicorn/pull/327).
+The most important package is the [`cloud`](https://github.com/kris-nova/kubicorn/tree/master/cloud) package, which contains the Reconciler interface and Reconciler implementations for each cloud provider. Currently, we have implementations for four cloud providers:
+
+* [Amazon](https://github.com/kris-nova/kubicorn/tree/master/cloud/amazon)
+* [DigitalOcean](https://github.com/kris-nova/kubicorn/tree/master/cloud/digitalocean)
+* [Google](https://github.com/kris-nova/kubicorn/tree/master/cloud/google)
+* [Packet](https://github.com/kris-nova/kubicorn/tree/master/cloud/packet) 
+* [Azure in-development](https://github.com/kris-nova/kubicorn/pull/327).
 
 The Cluster API is located in the [`apis`](https://github.com/kris-nova/kubicorn/tree/master/apis) package.
 
@@ -69,7 +75,7 @@ Besides creating the cluster, Reconciler also takes care of destroying the clust
 
 ## Website
 
-The website runs on Jekyll, straight from GitHub Pages. It consists of templates and markdown files that are automatically built into HTML pages whenever any of the content changes. 
+The website runs on Jekyll, straight from GitHub Pages. It consists of templates and markdown files that are automatically built into HTML pages whenever any of the content changes.
 
 The most common edits are changing the home.html files (our index page), and adding or editing files in the documentation/ folder.
 
@@ -111,7 +117,7 @@ kubicorn/docs/
   → This folder contains the auto-generated files that the website serves. They
     are built automatically whenever anything else on the folders above change,
     and should not be edited manually. Any changes to these files will be
-    discarded. 
+    discarded.
 ```
 
 ## Where should I start?
