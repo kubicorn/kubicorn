@@ -12,15 +12,15 @@ layout: default
 </article>
 {% endcomment %}
 
-<!-- 
-         d8b      888          888                       
-         Y8P      888          888                       
-                  888          888                       
-.d8888b  888  .d88888  .d88b.  88888b.   8888b.  888d888 
-88K      888 d88" 888 d8P  Y8b 888 "88b     "88b 888P"   
-"Y8888b. 888 888  888 88888888 888  888 .d888888 888     
-     X88 888 Y88b 888 Y8b.     888 d88P 888  888 888     
- 88888P' 888  "Y88888  "Y8888  88888P"  "Y888888 888     
+<!--
+         d8b      888          888
+         Y8P      888          888
+                  888          888
+.d8888b  888  .d88888  .d88b.  88888b.   8888b.  888d888
+88K      888 d88" 888 d8P  Y8b 888 "88b     "88b 888P"
+"Y8888b. 888 888  888 88888888 888  888 .d888888 888
+     X88 888 Y88b 888 Y8b.     888 d88P 888  888 888
+ 88888P' 888  "Y88888  "Y8888  88888P"  "Y888888 888
 -->
 
 <div class="row">
@@ -74,19 +74,27 @@ layout: default
                 {% endif %} {% endfor %}
             </div>
 
+        <div class="sidebar mb-2 mt-4">
+                <h6 class="mb-3">Pcket</h6>
+                {% for cookie in docs %} {% if cookie.doctype == "packet" %}
+                <a href="{{ cookie.url | relative_url }}">
+                    <p class="mb-2">{{ cookie.title }}</p>
+                </a>
+                {% endif %} {% endfor %}
+            </div>
     </div>
-    <!-- 
-                               888    
-                               888    
-                               888    
-    88888b.   .d88b.  .d8888b  888888 
-    888 "88b d88""88b 88K      888    
-    888  888 888  888 "Y8888b. 888    
-    888 d88P Y88..88P      X88 Y88b.  
-    88888P"   "Y88P"   88888P'  "Y888 
-    888                               
-    888                               
-    888                               
+    <!--
+                               888
+                               888
+                               888
+    88888b.   .d88b.  .d8888b  888888
+    888 "88b d88""88b 88K      888
+    888  888 888  888 "Y8888b. 888
+    888 d88P Y88..88P      X88 Y88b.
+    88888P"   "Y88P"   88888P'  "Y888
+    888
+    888
+    888
      -->
     <div class="col-sm-8">
         <!-- <figure class="figure">
@@ -128,4 +136,3 @@ layout: default
 
     </div>
 </div>
-    

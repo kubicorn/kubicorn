@@ -4,7 +4,7 @@ Here is the content of the official `kubicorn` website: [kubicorn.io](http://kub
 
 All documentation for the project is hosted in the [docs section](http://kubicorn.io/documentation/readme.html) of [kubicorn.io](http://kubicorn.io).
 
-The website runs on Jekyll, straight from GitHub Pages. It consists of templates and markdown files that are automatically built into HTML pages whenever any of the content changes. 
+The website runs on Jekyll, straight from GitHub Pages. It consists of templates and markdown files that are automatically built into HTML pages whenever any of the content changes.
 
 The most common edits are changing the home.html file (our index page), and adding or editing files in the documentation/ folder.
 
@@ -57,7 +57,7 @@ kubicorn/docs/
   → This folder contains the auto-generated files that the website serves. They
     are built automatically whenever anything else on the folders above change,
     and should not be edited manually. Any changes to these files will be
-    discarded. 
+    discarded.
 
 ```
 
@@ -72,11 +72,11 @@ All new docs must contain the header:
 layout: documentation
 title: [The title of your document]
 date: YYYY-MM-DD
-doctype: [general/aws/azure/do/google]
+doctype: [general/aws/azure/do/google/packet]
 ---
 ```
 
-Where `doctype` is the larger category for the documentation (valid categories are `general`, `aws`, `azure`, `do`, and `google`). All docs should be written in valid `.md` markdown.
+Where `doctype` is the larger category for the documentation (valid categories are `general`, `aws`, `azure`, `do`, `google` and `packet`). All docs should be written in valid `.md` markdown.
 
 Do not include a title top level header on the document, e.g. `# Title`. The title is pulled from `title: value` on the section above. You can start your file with a level two header, e.g. `## Second level header`, or go straight to normal text.
 
@@ -92,4 +92,3 @@ Start the website by running the following command from the `/docs` directory:
 bundle exec jekyll serve
 ```
 The website will be available at `localhost:4000`.
-
