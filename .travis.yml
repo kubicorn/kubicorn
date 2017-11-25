@@ -19,5 +19,5 @@ jobs:
     - stage: CI
       script: make ci
       before_install:
-        - docker build -t eg_sshd test
+        - docker build -t eg_sshd test/ssh
         - docker run --rm -p 6666:22 -d --name test_sshd eg_sshd
