@@ -36,7 +36,6 @@ type AtomicReconciler struct {
 }
 
 func NewAtomicReconciler(known *cluster.Cluster, model Model) Reconciler {
-
 	return &AtomicReconciler{
 		known: known,
 		model: model,
@@ -192,6 +191,7 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 	return destroyedCluster, nil
 }
 
+// TODO(@xmudrii): improve implementation of sighandlers
 func initSignal() {
 	sigHandler = signals.NewSignalHandler(600)
 	sigHandler.Register()
@@ -200,4 +200,5 @@ func initSignal() {
 func teardown() {
 	logger.Debug("Resetting TimeOut counter.")
 	sigHandler.Reset()
+	sigHandler = nil
 }
