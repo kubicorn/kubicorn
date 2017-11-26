@@ -47,7 +47,6 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				Image:    "ubuntu-16-04-x64",
 				Size:     "2gb",
 				BootstrapScripts: []string{
-					"bootstrap/vpn/openvpnMaster.sh",
 					"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh",
 				},
 				Firewalls: []*cluster.Firewall{
@@ -97,7 +96,6 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				Image:    "ubuntu-16-04-x64",
 				Size:     "2gb",
 				BootstrapScripts: []string{
-					"bootstrap/vpn/openvpnNode.sh",
 					"bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh",
 				},
 				Firewalls: []*cluster.Firewall{

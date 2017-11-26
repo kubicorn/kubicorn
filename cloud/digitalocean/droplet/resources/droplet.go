@@ -18,18 +18,14 @@ import (
 	"context"
 	"fmt"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/digitalocean/godo"
-	"github.com/kris-nova/klone/pkg/local"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cutil/agent"
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/cutil/scp"
 	"github.com/kris-nova/kubicorn/cutil/script"
 )
 
@@ -120,10 +116,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 		return immutable, applyResource, nil
 	}
 
-	agent := agent.NewAgent()
-
-	//masterIpPrivate := ""
 	masterIPPublic := ""
+	masterIPPrivate := ""
 	if r.ServerPool.Type == cluster.ServerPoolTypeNode {
 		found := false
 		for i := 0; i < MasterIPAttempts; i++ {
@@ -152,38 +146,19 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 				return nil, nil, fmt.Errorf("Found [%d] droplets for tag [%s]", ld, masterTag)
 			}
 			droplet := droplets[0]
-			//masterIpPrivate, err = droplet.PrivateIPv4()
-			//if err != nil {
-			//	return nil, nil, fmt.Errorf("Unable to detect private IP: %v", err)
-			//}
+
 			masterIPPublic, err = droplet.PublicIPv4()
 			if err != nil {
 				return nil, nil, fmt.Errorf("Unable to detect public IP: %v", err)
 			}
-
-			logger.Info("Setting up VPN on Droplets... this could take a little bit longer...")
-			pubPath := local.Expand(immutable.SSH.PublicKeyPath)
-			privPath := strings.Replace(pubPath, ".pub", "", 1)
-			scp := scp.NewSecureCopier(immutable.SSH.User, masterIPPublic, "22", privPath, agent)
-			masterVpnIP, err := scp.ReadBytes("/tmp/.ip")
+			masterIPPrivate, err = droplet.PrivateIPv4()
 			if err != nil {
-				logger.Debug("Hanging for VPN IP.. /tmp/.ip (%v)", err)
-				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
-				continue
+				return nil, nil, fmt.Errorf("Unable to detect private IP: %v", err)
 			}
-			masterVpnIPStr := strings.Replace(string(masterVpnIP), "\n", "", -1)
-			openvpnConfig, err := scp.ReadBytes("/tmp/clients.conf")
-			if err != nil {
-				logger.Debug("Hanging for VPN config.. /tmp/clients.ovpn (%v)", err)
-				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
-				continue
-			}
-			openvpnConfigEscaped := strings.Replace(string(openvpnConfig), "\n", "\\n", -1)
 			found = true
 
 			// Todo (@kris-nova) this is obviously not immutable
-			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterVpnIPStr, immutable.KubernetesAPI.Port)
-			immutable.Values.ItemMap["INJECTEDCONF"] = openvpnConfigEscaped
+			immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", masterIPPrivate, immutable.KubernetesAPI.Port)
 			break
 		}
 		if !found {
