@@ -21,6 +21,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 )
 
+
+
 // NewUbuntuCluster creates a basic Digitalocean cluster profile, to bootstrap Kubernetes.
 func NewUbuntuCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{

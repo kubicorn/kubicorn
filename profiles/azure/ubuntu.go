@@ -43,10 +43,19 @@ func NewUbuntuClusterA(name string) apis.KubicornCluster {
 
 	cluster := v1alpha1.Cluster{
 
-		ObjectMeta: metav1.ObjectMeta{},
-		TypeMeta: metav1.TypeMeta{},
+		ObjectMeta: metav1.ObjectMeta{
+			// ------------------------------------------------------------------
+			Name: name,
+		},
+		TypeMeta: metav1.TypeMeta{
+			// ------------------------------------------------------------------
+		},
 		Spec: v1alpha1.ClusterSpec{
+			// ------------------------------------------------------------------
+			ProviderConfig: "",
+			ClusterNetwork: v1alpha1.ClusterNetworkingConfig{
 
+			},
 		},
 	}
 
