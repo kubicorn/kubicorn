@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package googlecompute
+package digitalocean
 
 import (
 	"fmt"
@@ -20,44 +20,17 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 	"github.com/kris-nova/kubicorn/apis"
-	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-
-// NewUbuntuCluster creates a basic Azure cluster profile, to bootstrap Kubernetes.
-func NewUbuntuClusterA(name string) apis.KubicornCluster {
-
-
-	cluster := v1alpha1.Cluster{
-
-		ObjectMeta: metav1.ObjectMeta{
-			// ------------------------------------------------------------------
-			Name: name,
-		},
-		TypeMeta: metav1.TypeMeta{
-			// ------------------------------------------------------------------
-		},
-		Spec: v1alpha1.ClusterSpec{
-			// ------------------------------------------------------------------
-		},
-	}
-
-
-	return &cluster
-
-}
-
-// NewUbuntuCluster creates a basic Ubuntu Google Compute cluster.
-func NewUbuntuCluster(name string) *cluster.Cluster {
+// NewCentosCluster creates a basic CentOS DigitalOcean cluster.
+func NewCentosCluster(name string) apis.KubicornCluster {
 	return &cluster.Cluster{
 		Name:     name,
-		CloudId:  "example-id",
-		Cloud:    cluster.CloudGoogle,
-		Location: "us-central1-a",
+		Cloud:    cluster.CloudDigitalOcean,
+		Location: "sfo2",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "ubuntu",
+			User:          "root",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
@@ -72,20 +45,22 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				Type:     cluster.ServerPoolTypeMaster,
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
-				Image:    "ubuntu-1604-xenial-v20170811",
-				Size:     "n1-standard-1",
+				Image:    "centos-7-x64",
+				Size:     "s-2vcpu-2gb",
 				BootstrapScripts: []string{
-					"bootstrap/google_compute_k8s_ubuntu_16.04_master.sh",
+					"bootstrap/vpn/openvpnMaster-centos.sh",
+					"bootstrap/digitalocean_k8s_centos_7_master.sh",
 				},
 			},
 			{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
-				MaxCount: 2,
-				Image:    "ubuntu-1604-xenial-v20170811",
-				Size:     "n1-standard-1",
+				MaxCount: 1,
+				Image:    "centos-7-x64",
+				Size:     "s-1vcpu-2gb",
 				BootstrapScripts: []string{
-					"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh",
+					"bootstrap/vpn/openvpnNode-centos.sh",
+					"bootstrap/digitalocean_k8s_centos_7_node.sh",
 				},
 			},
 		},

@@ -20,17 +20,18 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 	"github.com/kris-nova/kubicorn/cutil/uuid"
+	"github.com/kris-nova/kubicorn/apis"
 )
 
-// NewCentosCluster creates a simple CentOS Amazon cluster
-func NewCentosCluster(name string) *cluster.Cluster {
+// NewUbuntuCluster creates a simple Ubuntu Amazon cluster
+func NewUbuntuCluster(name string) apis.KubicornCluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudAmazon,
 		Location: "us-west-2",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "centos",
+			User:          "ubuntu",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
@@ -51,10 +52,10 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s.master", name),
 				MaxCount: 1,
 				MinCount: 1,
-				Image:    "ami-0c2aba6c",
+				Image:    "ami-835b4efa",
 				Size:     "t2.xlarge",
 				BootstrapScripts: []string{
-					"bootstrap/amazon_k8s_centos_7_master.sh",
+					"bootstrap/amazon_k8s_ubuntu_16.04_master.sh",
 				},
 				InstanceProfile: &cluster.IAMInstanceProfile{
 					Name: fmt.Sprintf("%s-KubicornMasterInstanceProfile", name),
@@ -96,7 +97,7 @@ func NewCentosCluster(name string) *cluster.Cluster {
 						Zone: "us-west-2a",
 					},
 				},
-
+				AwsConfiguration: &cluster.AwsConfiguration{},
 				Firewalls: []*cluster.Firewall{
 					{
 						Name: fmt.Sprintf("%s.master-external-%s", name, uuid.TimeOrderedUUID()),
@@ -128,10 +129,10 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s.node", name),
 				MaxCount: 1,
 				MinCount: 1,
-				Image:    "ami-0c2aba6c",
+				Image:    "ami-835b4efa",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
-					"bootstrap/amazon_k8s_centos_7_node.sh",
+					"bootstrap/amazon_k8s_ubuntu_16.04_node.sh",
 				},
 				InstanceProfile: &cluster.IAMInstanceProfile{
 					Name: fmt.Sprintf("%s-KubicornNodeInstanceProfile", name),
@@ -174,6 +175,7 @@ func NewCentosCluster(name string) *cluster.Cluster {
 						Zone: "us-west-2b",
 					},
 				},
+				AwsConfiguration: &cluster.AwsConfiguration{},
 				Firewalls: []*cluster.Firewall{
 					{
 						Name: fmt.Sprintf("%s.node-external-%s", name, uuid.TimeOrderedUUID()),

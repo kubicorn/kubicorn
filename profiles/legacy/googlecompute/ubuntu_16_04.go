@@ -12,24 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package digitalocean
+package googlecompute
 
 import (
 	"fmt"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
+	"github.com/kris-nova/kubicorn/apis"
 )
 
-// NewCentosCluster creates a basic CentOS DigitalOcean cluster.
-func NewCentosCluster(name string) *cluster.Cluster {
+// NewUbuntuCluster creates a basic Ubuntu Google Compute cluster.
+func NewUbuntuCluster(name string) apis.KubicornCluster {
 	return &cluster.Cluster{
 		Name:     name,
-		Cloud:    cluster.CloudDigitalOcean,
-		Location: "sfo2",
+		CloudId:  "example-id",
+		Cloud:    cluster.CloudGoogle,
+		Location: "us-central1-a",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "root",
+			User:          "ubuntu",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
@@ -44,22 +46,20 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Type:     cluster.ServerPoolTypeMaster,
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
-				Image:    "centos-7-x64",
-				Size:     "s-2vcpu-2gb",
+				Image:    "ubuntu-1604-xenial-v20170811",
+				Size:     "n1-standard-1",
 				BootstrapScripts: []string{
-					"bootstrap/vpn/openvpnMaster-centos.sh",
-					"bootstrap/digitalocean_k8s_centos_7_master.sh",
+					"bootstrap/google_compute_k8s_ubuntu_16.04_master.sh",
 				},
 			},
 			{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s-node", name),
-				MaxCount: 1,
-				Image:    "centos-7-x64",
-				Size:     "s-1vcpu-2gb",
+				MaxCount: 2,
+				Image:    "ubuntu-1604-xenial-v20170811",
+				Size:     "n1-standard-1",
 				BootstrapScripts: []string{
-					"bootstrap/vpn/openvpnNode-centos.sh",
-					"bootstrap/digitalocean_k8s_centos_7_node.sh",
+					"bootstrap/google_compute_k8s_ubuntu_16.04_node.sh",
 				},
 			},
 		},

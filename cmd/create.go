@@ -21,15 +21,18 @@ import (
 	"os"
 	"os/user"
 	"strings"
-
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/namer"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
-	"github.com/kris-nova/kubicorn/profiles/azure"
-	"github.com/kris-nova/kubicorn/profiles/digitalocean"
-	"github.com/kris-nova/kubicorn/profiles/googlecompute"
+	//"github.com/kris-nova/kubicorn/profiles/amazon"
+	//"github.com/kris-nova/kubicorn/profiles/azure"
+	//"github.com/kris-nova/kubicorn/profiles/digitalocean"
+	//"github.com/kris-nova/kubicorn/profiles/googlecompute"
 	"github.com/kris-nova/kubicorn/profiles/packet"
+	"github.com/kris-nova/kubicorn/profiles/legacy/amazon"
+	"github.com/kris-nova/kubicorn/profiles/legacy/azure"
+	"github.com/kris-nova/kubicorn/profiles/legacy/digitalocean"
+	newdigitalocean "github.com/kris-nova/kubicorn/profiles/api/digitalocean"
+	"github.com/kris-nova/kubicorn/profiles/legacy/googlecompute"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/git"
@@ -37,6 +40,7 @@ import (
 	"github.com/spf13/cobra"
 	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
+	"github.com/kris-nova/kubicorn/apis"
 )
 
 type CreateOptions struct {
@@ -90,7 +94,7 @@ func CreateCmd() *cobra.Command {
 	return createCmd
 }
 
-type profileFunc func(name string) *cluster.Cluster
+type profileFunc func(name string) apis.KubicornCluster
 
 type profileMap struct {
 	profileFunc profileFunc
@@ -149,6 +153,9 @@ var profileMapIndexed = map[string]profileMap{
 	"packet-ubuntu": {
 		profileFunc: packet.NewUbuntuCluster,
 		description: "Ubuntu on Packet x86",
+	"new-do-ubuntu": {
+		profileFunc: newdigitalocean.NewUbuntuCluster,
+		description: "New Cluster API Ubuntu on Digital Ocean",
 	},
 }
 
@@ -157,7 +164,7 @@ func RunCreate(options *CreateOptions) error {
 
 	// Create our cluster resource
 	name := options.Name
-	var newCluster *cluster.Cluster
+	var newCluster apis.KubicornCluster
 	if _, ok := profileMapIndexed[options.Profile]; ok {
 		newCluster = profileMapIndexed[options.Profile].profileFunc(name)
 	} else {
@@ -178,10 +185,21 @@ func RunCreate(options *CreateOptions) error {
 		}
 	}
 
-	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
-		return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
-	}
-	newCluster.CloudId = options.CloudId
+	// ----- Legacy API ------
+	//var newCluster *cluster.Cluster
+	//if _, ok := kubicornCluster.(*cluster.Cluster); ok {
+	//	newCluster = kubicornCluster.(*cluster.Cluster)
+	//}else if _, ok := kubicornCluster.(*v1alpha1.Cluster); ok{
+	//
+	//}
+	//
+
+
+	// TODO: Move this to validation
+	//if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
+	//	return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
+	//}
+	//newCluster.CloudId = options.CloudId
 
 	// Expand state store path
 	// Todo (@kris-nova) please pull this into a filepath package or something

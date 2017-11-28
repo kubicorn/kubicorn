@@ -26,6 +26,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
+	"github.com/kris-nova/kubicorn/apis"
 )
 
 type FileSystemStoreOptions struct {
@@ -84,7 +85,7 @@ func (fs *FileSystemStore) ReadStore() ([]byte, error) {
 	return fs.Read(state.ClusterYamlFile)
 }
 
-func (fs *FileSystemStore) Commit(c *cluster.Cluster) error {
+func (fs *FileSystemStore) Commit(c apis.KubicornCluster) error {
 	if c == nil {
 		return fmt.Errorf("Nil cluster spec")
 	}
@@ -105,7 +106,7 @@ func (fs *FileSystemStore) Destroy() error {
 	return os.RemoveAll(fs.AbsolutePath)
 }
 
-func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
+func (fs *FileSystemStore) GetCluster() (apis.KubicornCluster, error) {
 	configBytes, err := fs.Read(state.ClusterYamlFile)
 	if err != nil {
 		return nil, err
@@ -114,7 +115,7 @@ func (fs *FileSystemStore) GetCluster() (*cluster.Cluster, error) {
 	return fs.BytesToCluster(configBytes)
 }
 
-func (fs *FileSystemStore) BytesToCluster(bytes []byte) (*cluster.Cluster, error) {
+func (fs *FileSystemStore) BytesToCluster(bytes []byte) (apis.KubicornCluster, error) {
 	cluster := &cluster.Cluster{}
 	err := yaml.Unmarshal(bytes, cluster)
 	if err != nil {

@@ -21,46 +21,17 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 	"github.com/kris-nova/kubicorn/cutil/uuid"
 	"github.com/kris-nova/kubicorn/apis"
-	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// NewUbuntuCluster creates a basic Azure cluster profile, to bootstrap Kubernetes.
-func NewUbuntuClusterA(name string) apis.KubicornCluster {
-
-
-	cluster := v1alpha1.Cluster{
-
-		ObjectMeta: metav1.ObjectMeta{
-			// ------------------------------------------------------------------
-			Name: name,
-		},
-		TypeMeta: metav1.TypeMeta{
-			// ------------------------------------------------------------------
-		},
-		Spec: v1alpha1.ClusterSpec{
-			// ------------------------------------------------------------------
-			ProviderConfig: "",
-			ClusterNetwork: v1alpha1.ClusterNetworkingConfig{
-				// --------------------------------------------------------------
-			},
-		},
-	}
-
-
-	return &cluster
-
-}
-
-// NewUbuntuCluster creates a simple Ubuntu Amazon cluster
-func NewUbuntuCluster(name string) *cluster.Cluster {
+// NewCentosCluster creates a simple CentOS Amazon cluster
+func NewCentosCluster(name string) apis.KubicornCluster{
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudAmazon,
 		Location: "us-west-2",
 		SSH: &cluster.SSH{
 			PublicKeyPath: "~/.ssh/id_rsa.pub",
-			User:          "ubuntu",
+			User:          "centos",
 		},
 		KubernetesAPI: &cluster.KubernetesAPI{
 			Port: "443",
@@ -81,10 +52,10 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s.master", name),
 				MaxCount: 1,
 				MinCount: 1,
-				Image:    "ami-835b4efa",
+				Image:    "ami-0c2aba6c",
 				Size:     "t2.xlarge",
 				BootstrapScripts: []string{
-					"bootstrap/amazon_k8s_ubuntu_16.04_master.sh",
+					"bootstrap/amazon_k8s_centos_7_master.sh",
 				},
 				InstanceProfile: &cluster.IAMInstanceProfile{
 					Name: fmt.Sprintf("%s-KubicornMasterInstanceProfile", name),
@@ -126,7 +97,7 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 						Zone: "us-west-2a",
 					},
 				},
-				AwsConfiguration: &cluster.AwsConfiguration{},
+
 				Firewalls: []*cluster.Firewall{
 					{
 						Name: fmt.Sprintf("%s.master-external-%s", name, uuid.TimeOrderedUUID()),
@@ -158,10 +129,10 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s.node", name),
 				MaxCount: 1,
 				MinCount: 1,
-				Image:    "ami-835b4efa",
+				Image:    "ami-0c2aba6c",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
-					"bootstrap/amazon_k8s_ubuntu_16.04_node.sh",
+					"bootstrap/amazon_k8s_centos_7_node.sh",
 				},
 				InstanceProfile: &cluster.IAMInstanceProfile{
 					Name: fmt.Sprintf("%s-KubicornNodeInstanceProfile", name),
@@ -204,7 +175,6 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 						Zone: "us-west-2b",
 					},
 				},
-				AwsConfiguration: &cluster.AwsConfiguration{},
 				Firewalls: []*cluster.Firewall{
 					{
 						Name: fmt.Sprintf("%s.node-external-%s", name, uuid.TimeOrderedUUID()),

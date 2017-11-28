@@ -18,7 +18,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/profiles/googlecompute"
+	"github.com/kris-nova/kubicorn/profiles/legacy/googlecompute"
 )
 
 func main() {

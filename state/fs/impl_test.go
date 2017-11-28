@@ -22,7 +22,7 @@ import (
 
 	"github.com/ghodss/yaml"
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
+	"github.com/kris-nova/kubicorn/profiles/legacy/amazon"
 	"github.com/kris-nova/kubicorn/state"
 )
 

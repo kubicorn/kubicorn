@@ -14,14 +14,16 @@
 
 package state
 
-import "github.com/kris-nova/kubicorn/apis/cluster"
+import (
+	"github.com/kris-nova/kubicorn/apis"
+)
 
 type ClusterStorer interface {
 	Exists() bool
 	ReadStore() ([]byte, error)
-	BytesToCluster(bytes []byte) (*cluster.Cluster, error)
-	Commit(cluster *cluster.Cluster) error
+	BytesToCluster(bytes []byte) (apis.KubicornCluster, error)
+	Commit(cluster apis.KubicornCluster) error
 	Destroy() error
-	GetCluster() (*cluster.Cluster, error)
+	GetCluster() (apis.KubicornCluster, error)
 	List() ([]string, error)
 }

@@ -21,7 +21,7 @@ import (
 	"testing"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
+	"github.com/kris-nova/kubicorn/profiles/legacy/amazon"
 )
 
 func TestBuildBootstrapScriptHappy(t *testing.T) {

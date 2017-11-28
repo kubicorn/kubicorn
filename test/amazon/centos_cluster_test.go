@@ -19,7 +19,7 @@ import (
 	"github.com/kris-nova/charlie/network"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	profile "github.com/kris-nova/kubicorn/profiles/amazon"
+	profile "github.com/kris-nova/kubicorn/profiles/legacy/amazon"
 	"github.com/kris-nova/kubicorn/test"
 	"os"
 	"testing"

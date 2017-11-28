@@ -19,12 +19,13 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
+	"github.com/kris-nova/kubicorn/apis"
 )
 
 
 
 // NewUbuntuCluster creates a basic Digitalocean cluster profile, to bootstrap Kubernetes.
-func NewUbuntuCluster(name string) *cluster.Cluster {
+func NewUbuntuCluster(name string) apis.KubicornCluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudDigitalOcean,

@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
+	cluster2 "github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/task"
@@ -127,10 +127,14 @@ func RunDelete(options *DeleteOptions) error {
 		return nil
 	}
 
-	expectedCluster, err := stateStore.GetCluster()
+	kubicornCluster, err := stateStore.GetCluster()
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
+
+	// TODO We need to type assert here
+	cluster := kubicornCluster.(*cluster2.Cluster)
+
 
 	runtimeParams := &cutil.RuntimeParameters{}
 
@@ -138,11 +142,11 @@ func RunDelete(options *DeleteOptions) error {
 		runtimeParams.AwsProfile = ao.AwsProfile
 	}
 
-	reconciler, err := cutil.GetReconciler(expectedCluster, runtimeParams)
+	reconciler, err := cutil.GetReconciler(cluster, runtimeParams)
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
 	}
-	var deleteCluster *cluster.Cluster
+	var deleteCluster *cluster2.Cluster
 	var deleteClusterTask = func() error {
 		deleteCluster, err = reconciler.Destroy()
 		return err
