@@ -36,8 +36,17 @@ import (
 )
 
 type JSONGitStoreOptions struct {
-	BasePath    string
-	ClusterName string
+	BasePath     string
+	ClusterName  string
+	CommitConfig *JSONGitCommitConfig
+}
+
+type JSONGitCommitConfig struct {
+	Name   string
+	Email  string
+	User   string
+	Pass   string
+	Remote string
 }
 
 // JSONGitStore exists to save the cluster state as a git change.
@@ -54,16 +63,16 @@ func NewJSONGitStore(o *JSONGitStoreOptions) *JSONGitStore {
 	return &JSONGitStore{
 		commit: &git.CommitOptions{
 			Author: &object.Signature{
-				Name:  "John Doe",
-				Email: "john@doe.org",
+				Name:  o.CommitConfig.Name,
+				Email: o.CommitConfig.Email,
 				When:  time.Now(),
 			},
 		},
 		push: &git.PushOptions{
-			RemoteName: "",
+			RemoteName: o.CommitConfig.Remote,
 			Auth: &transport.AuthMethod{
-				User: "",
-				Pass: "",
+				User: o.CommitConfig.User,
+				Pass: o.CommitConfig.Pass,
 			},
 		},
 		options:      o,
