@@ -33,6 +33,13 @@ func TestJsonGit(t *testing.T) {
 	o := &JSONGitStoreOptions{
 		BasePath:    testFilePath,
 		ClusterName: c.Name,
+		CommitConfig: &JSONGitCommitConfig{
+			Name:   "Dummy Cluster",
+			Email:  "dummy@clustermail.co",
+			User:   "dDluster",
+			Pass:   "dCluserPass123",
+			Remote: "git@github.com:kris-nova/kubicorn.git",
+		},
 	}
 	git := NewJSONGitStore(o)
 	if err := git.Destroy(); err != nil {
