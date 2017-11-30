@@ -27,8 +27,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
-	"github.com/krisnova/kubicorn/state/git"
 	"github.com/spf13/cobra"
 	"github.com/yuroyoro/swalker"
 )
