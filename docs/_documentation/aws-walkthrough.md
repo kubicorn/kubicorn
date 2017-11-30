@@ -33,6 +33,8 @@ Verify that `kubicorn create` did a good job by executing:
 $ cat _state/myfirstk8s/cluster.yaml
 ```
 
+Feel free to tweak the configuration to your liking here.
+
 #### Authenticating
 
 We're now in a position to have the cluster resources defined, locally, based on the selected profile.
@@ -40,6 +42,8 @@ Next we will apply the so defined resources using the `apply` command, but befor
 You might want to create a new [IAM user](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) for this with the following permissions:
 
 ![AWS IAM permissions required for `kubicorn`](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-iam-user-perm-screen-shot.png){:class="img-fluid"}
+
+If you would like to apply a more restrictive IAM policy to your AWS kubicorn user, take a look at the [explicit list](http://kubicorn.io/documentation/minimal-aws-permissions.html) of actions used.
 
 Next, you need to specify your AWS credentials to use - you can select one of the follwoing options 
 
@@ -79,6 +83,7 @@ You can now `kubectl get nodes` and verify that Kubernetes 1.7.0 is now running.
 You can also `ssh` into your instances using the example command found in the output from `kubicorn`
 
 ![AWS IAM permissions required for `kubicorn`](https://github.com/kris-nova/kubicorn/raw/master/docs/img/aws-example-apply.png){:class="img-fluid"}
+
 
 #### Deleting
 

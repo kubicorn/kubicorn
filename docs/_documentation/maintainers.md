@@ -16,23 +16,23 @@ doctype: general
  - Strive towards getting `kubicorn` to be production ready.
  - Work with community to:
     - keep the code base stable
-    - code reviews
-    - bug triage
-    - releases
+    - perform code reviews
+    - triage bugs
+    - create releases
     - resolve conflicts
     - research what's best for the community.
  - Work with other maintainers to keep the project growing and stable.
- - Avoid having too many API changes, if necessary it should fullfil [backwards-compatibility-promise](https://github.com/kris-nova/kubicorn/blob/master/docs/SEMVER.md#backwards-compatibility-promise)
+ - Avoid having too many API changes, if necessary it should fulfill [backwards-compatibility-promise](https://github.com/kris-nova/kubicorn/blob/master/docs/SEMVER.md#backwards-compatibility-promise)
  - Don't say Yes unless you are 99.999% (there is nothing 100%).
  - Remember, you are not alone, there are people to help you as well.
  - Take a break, whenever you need.
 
 
 ## Criteria for code merge:
- - Maintainer(s) of the repo can merge code, with atleast 2 LGTM.
+ - Maintainer(s) of the repo can merge code, with at least 2 LGTM.
  - This is mostly Golang code. If golint, gofmt is not done - DON'T merge, follow guidelines here [CodeReviewComments](https://github.com/golang/go/wiki/CodeReviewComments)
  - Look for unit-tests, it is important (try not to merge with TODO unit-test, that just means forget about it).
- - Ofcourse the builds have to be passing.
+ - Of course the builds have to be passing.
 
 ### Current Maintainers:
 - [Kris Nova](https://github.com/kris-nova)

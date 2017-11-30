@@ -99,7 +99,7 @@ func (r *InternetGateway) Apply(actual, expected cloud.Resource, immutable *clus
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Created Internet Gateway [%s]", *output.InternetGateway.InternetGatewayId)
+	logger.Success("Created Internet Gateway [%s]", *output.InternetGateway.InternetGatewayId)
 	ig := output.InternetGateway
 
 	// --- Attach Internet Gateway to VPC
@@ -176,7 +176,7 @@ func (r *InternetGateway) Delete(actual cloud.Resource, immutable *cluster.Clust
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Deleted internetgateway [%s]", actual.(*InternetGateway).Identifier)
+	logger.Success("Deleted internetgateway [%s]", actual.(*InternetGateway).Identifier)
 	newResource := &InternetGateway{}
 	newResource.Name = actual.(*InternetGateway).Name
 	newResource.Tags = actual.(*InternetGateway).Tags

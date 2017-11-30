@@ -36,6 +36,7 @@ type AtomicReconciler struct {
 }
 
 func NewAtomicReconciler(known *cluster.Cluster, model Model) Reconciler {
+
 	return &AtomicReconciler{
 		known: known,
 		model: model,
@@ -43,6 +44,8 @@ func NewAtomicReconciler(known *cluster.Cluster, model Model) Reconciler {
 }
 
 func (r *AtomicReconciler) Actual(known *cluster.Cluster) (actualCluster *cluster.Cluster, err error) {
+	initSignal()
+	defer teardown()
 	actualCluster = defaults.NewClusterDefaults(r.known)
 	for i := 0; i < len(r.model.Resources()); i++ {
 		resource := r.model.Resources()[i]
@@ -55,6 +58,8 @@ func (r *AtomicReconciler) Actual(known *cluster.Cluster) (actualCluster *cluste
 }
 
 func (r *AtomicReconciler) Expected(known *cluster.Cluster) (expectedCluster *cluster.Cluster, err error) {
+	initSignal()
+	defer teardown()
 	expectedCluster = defaults.NewClusterDefaults(r.known)
 	for i := 0; i < len(r.model.Resources()); i++ {
 		resource := r.model.Resources()[i]
@@ -67,6 +72,8 @@ func (r *AtomicReconciler) Expected(known *cluster.Cluster) (expectedCluster *cl
 }
 
 func (r *AtomicReconciler) cleanUp(failedCluster *cluster.Cluster, i int) (err error) {
+	initSignal()
+	defer teardown()
 	logger.Warning("")
 	logger.Warning("Attempting to backtrack and cleanup created resources.")
 	logger.Warning("")
@@ -88,7 +95,8 @@ func (r *AtomicReconciler) cleanUp(failedCluster *cluster.Cluster, i int) (err e
 var createdResources = make(map[int]Resource)
 
 func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconciledCluster *cluster.Cluster, err error) {
-
+	initSignal()
+	defer teardown()
 	reconciledCluster = defaults.NewClusterDefaults(r.known)
 	for i := 0; i < len(r.model.Resources()); i++ {
 		if sigHandler.GetState() != 0 {
@@ -123,13 +131,13 @@ func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconci
 		reconciledCluster = newCluster
 		createdResources[i] = appliedResource
 	}
-	teardown()
 	return reconciledCluster, nil
 }
 
 var destroyRetryStrings = []string{
 	"DependencyViolation:",
 	"does not exist in default VPC",
+	"must remove roles from instance profile first",
 }
 
 var hg = &hang.Hanger{
@@ -149,16 +157,27 @@ func destroyI(err error, i int) (int, error) {
 }
 
 func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err error) {
+	initSignal()
+	defer teardown()
 	destroyedCluster = defaults.NewClusterDefaults(r.known)
 	for i := len(r.model.Resources()) - 1; i >= 0; i-- {
 		resource := r.model.Resources()[i]
+		logger.Debug("Start deleting resource...")
 		_, actualResource, err := resource.Actual(r.known)
 		if err != nil {
-			i, err = destroyI(err, i)
-			if err != nil {
-				return nil, err
+			//TODO find proper solution resource based
+			logger.Warning("Found error at delete: ", err.Error())
+			skip := false
+			for _, s := range []string{"Found [0]"} {
+				if strings.Contains(err.Error(), s) {
+					logger.Warning("We didn't found the resource so we are skipping it...")
+					skip = true
+					break
+				}
 			}
-			continue
+			if skip {
+				continue
+			}
 		}
 		newCluster, _, err := resource.Delete(actualResource, destroyedCluster)
 		if err != nil {
@@ -170,11 +189,10 @@ func (r *AtomicReconciler) Destroy() (destroyedCluster *cluster.Cluster, err err
 		}
 		destroyedCluster = newCluster
 	}
-	teardown()
 	return destroyedCluster, nil
 }
 
-func init() {
+func initSignal() {
 	sigHandler = signals.NewSignalHandler(600)
 	sigHandler.Register()
 }

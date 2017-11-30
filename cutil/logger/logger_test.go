@@ -94,6 +94,21 @@ func TestInfo(t *testing.T) {
 	}
 }
 
+func TestSuccess(t *testing.T) {
+	Level = 3
+
+	e, err := regexp.Compile(fmt.Sprintf(formatExp, SuccessLabel))
+	g := captureLoggerOutput(Success, format, a)
+
+	if err != nil {
+		t.Fatalf("Failed to compile regexp '%v': %v", e.String(), err)
+	}
+
+	if !e.MatchString(g) {
+		t.Fatalf("Success should produce a pattern '%v' but produces: %v", e.String(), g)
+	}
+}
+
 func TestDebug(t *testing.T) {
 	Level = 4
 

@@ -20,7 +20,7 @@ Set `GOPATH` in your bash profile:
 $ export GOPATH=/Users/<your user>/go
 $ export PATH=$GOPATH/bin:$PATH
 ```
-You can add these two lines to `~/.bash_profile` to make sure these variables are always.
+You can add these two lines to `~/.bash_profile` to make sure these variables are always set.
 
 If you have this you should be able to run the following command:
 
@@ -29,7 +29,7 @@ $ go get github.com/kris-nova/kubicorn
 ```
 
 ### Building
-Now you can run `make` from the src directory of `kubicorn`:
+Now you can run `make` from the `src` directory of `kubicorn`:
 
 ```bash
 $ cd $GOPATH/src/github.com/kris-nova/kubicorn/
@@ -67,7 +67,7 @@ Keep in mind that other branches might have different dependencies that will nee
 As a simple alternative there is a script located in the Docker folder name "build.sh". 
 This can be used to build Kubicorn without the need to setup a golang environment on your local machine.
 You will need to have Docker installed on your development environment.
-This script should work on any platform that support Docker.
+This script should work on any platform that supports Docker.
 Have a look at the [official Docker documentation](https://docs.docker.com/engine/installation/.) on how to install Docker for your platform of choice.
 
 To use this script just make a git checkout of the `kubicorn` repository and run the build.sh:

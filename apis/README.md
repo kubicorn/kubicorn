@@ -21,4 +21,4 @@ There are several stakeholders in the open source community coming together to c
 
 Kubicorn will use this in the future.
 
-More information can be found here at [github.com/kris-nova/cluster-api](https://github.com/kris-nova/cluster-api)
+More information can be found at [github.com/kris-nova/cluster-api](https://github.com/kris-nova/cluster-api)

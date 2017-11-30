@@ -9,12 +9,12 @@ Run `make help` for command line usage.
 
 ## Prerequisites
 
-To be able to build `kubicorn` using Makefile you need to have configured Go 1.8 environment, which you can set up by following the official [install tutorial](https://golang.org/doc/install).
-Before continuing, make sure that you can use `go` command from your shell.
+To be able to build `kubicorn` using Makefile you need to have a configured Go 1.8 environment, which you can set up by following the official [install tutorial](https://golang.org/doc/install).
+Before continuing, make sure that you can use the `go` command from your shell.
 
 ### Building `kubicorn`
 
-Details about the building proccess can be found in [BUILD docs](https://github.com/kris-nova/kubicorn/blob/master/docs/BUILD.md) and [INSTALL docs](https://github.com/kris-nova/kubicorn/blob/master/docs/INSTALL.md).
+Details about the building process can be found in [BUILD docs](https://github.com/kris-nova/kubicorn/blob/master/docs/BUILD.md) and [INSTALL docs](https://github.com/kris-nova/kubicorn/blob/master/docs/INSTALL.md).
 
 The following `make` commands are available for building `kubicorn`:
 * `make` — parse Bootstrap scripts and create `kubicorn` executable in the `./bin` directory and the `AUTHORS` file.
@@ -25,8 +25,8 @@ The following `make` commands are available for building `kubicorn`:
 
 #### Additional building commands
 
-* `make build-linux-amd64` — create the `kubicorn` executable for Linux 64-bit OS in the `./bin` directory. Requires Docker.
-* `make build-darwin-amd64` — create the `kubicorn` executable for macOS in the `./bin` directory.
+* `make build-linux-amd64` — create the `kubicorn` executable for Linux 64-bit in the `./bin` directory. Requires Docker.
+* `make build-darwin-amd64` — create the `kubicorn` executable for macOS 64-bit in the `./bin` directory.
 * `make build-freebsd-amd64` — create the `kubicorn` executable for FreeBSD 64-bit in the `./bin` directory.
 * `make build-windows-amd64` — create the `kubicorn` executable for Windows 64-bit in the `./bin` directory.
 
@@ -40,9 +40,9 @@ The following `make` commands are available for building `kubicorn`:
 ### Formatting Go code
 
 The following commands can be used to format and verify Go code:
-* `make gofmt` — forma the all Go files using `go fmt`.
+* `make gofmt` — format all Go files using `go fmt`.
 * `make lint` — check for style mistakes all Go files using `golint`.
-* `make vet` — apply `go vet` to the all Go files.
+* `make vet` — apply `go vet` to all Go files.
 
 ### Testing
 

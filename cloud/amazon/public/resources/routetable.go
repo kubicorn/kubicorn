@@ -107,7 +107,7 @@ func (r *RouteTable) Apply(actual, expected cloud.Resource, immutable *cluster.C
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Created Route Table [%s]", *rtOutput.RouteTable.RouteTableId)
+	logger.Success("Created Route Table [%s]", *rtOutput.RouteTable.RouteTableId)
 
 	//  --- Lookup Internet Gateway
 	input := &ec2.DescribeInternetGatewaysInput{

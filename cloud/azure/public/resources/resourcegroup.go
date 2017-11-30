@@ -90,7 +90,7 @@ func (r *ResourceGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Info("Created resource group [%s]", *group.Name)
+	logger.Success("Created resource group [%s]", *group.Name)
 
 	newResource := &ResourceGroup{
 		Shared: Shared{
@@ -112,7 +112,7 @@ func (r *ResourceGroup) Delete(actual cloud.Resource, immutable *cluster.Cluster
 	autorestChan, errorChan := Sdk.ResourceGroup.Delete(immutable.ClusterName, make(chan struct{}))
 	select {
 	case <-autorestChan:
-		logger.Info("Successfully deleted resource group [%s]", deleteResource.Identifier)
+		logger.Success("Successfully deleted resource group [%s]", deleteResource.Identifier)
 	case err := <-errorChan:
 		return nil, nil, err
 	}

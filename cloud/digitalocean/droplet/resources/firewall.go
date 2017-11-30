@@ -160,7 +160,7 @@ func (r *Firewall) Apply(actual, expected cloud.Resource, immutable *cluster.Clu
 	if err != nil {
 		return nil, nil, fmt.Errorf("failed to create the firewall err: %v", err)
 	}
-	logger.Info("Created Firewall [%s]", firewall.ID)
+	logger.Success("Created Firewall [%s]", firewall.ID)
 	newResource := &Firewall{
 		Shared: Shared{
 			CloudID: firewall.ID,
@@ -301,7 +301,7 @@ func (r *Firewall) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*c
 	if _, err := Sdk.Client.Firewalls.Delete(context.TODO(), deleteResource.FirewallID); err != nil {
 		return nil, nil, fmt.Errorf("failed to delete firewall [%s] err: %v", deleteResource.Name, err)
 	}
-	logger.Info("Deleted firewall [%s]", deleteResource.FirewallID)
+	logger.Success("Deleted firewall [%s]", deleteResource.FirewallID)
 
 	newResource := &Firewall{
 		Shared: Shared{
