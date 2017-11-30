@@ -24,15 +24,13 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/plumbing/transport"
+	g "gopkg.in/src-d/go-git.v4"
+	"gopkg.in/src-d/go-git.v4/config"
 )
 
 type JSONGitStoreOptions struct {
@@ -44,15 +42,11 @@ type JSONGitStoreOptions struct {
 type JSONGitCommitConfig struct {
 	Name   string
 	Email  string
-	User   string
-	Pass   string
 	Remote string
 }
 
 // JSONGitStore exists to save the cluster state as a git change.
 type JSONGitStore struct {
-	commit       *git.CommitOptions
-	push         *git.PushOptions
 	options      *JSONGitStoreOptions
 	ClusterName  string
 	BasePath     string
@@ -61,20 +55,6 @@ type JSONGitStore struct {
 
 func NewJSONGitStore(o *JSONGitStoreOptions) *JSONGitStore {
 	return &JSONGitStore{
-		commit: &git.CommitOptions{
-			Author: &object.Signature{
-				Name:  o.CommitConfig.Name,
-				Email: o.CommitConfig.Email,
-				When:  time.Now(),
-			},
-		},
-		push: &git.PushOptions{
-			RemoteName: o.CommitConfig.Remote,
-			Auth: &transport.AuthMethod{
-				User: o.CommitConfig.User,
-				Pass: o.CommitConfig.Pass,
-			},
-		},
 		options:      o,
 		ClusterName:  o.ClusterName,
 		BasePath:     o.BasePath,
@@ -89,7 +69,7 @@ func (git *JSONGitStore) Exists() bool {
 	return true
 }
 
-func (git *JSONGitStore) write(relativePath string, data []byte) error {
+func (git *JSONGitStore) Write(relativePath string, data []byte) error {
 	fqn := filepath.Join(git.AbsolutePath, relativePath)
 	err := os.MkdirAll(path.Dir(fqn), 0700)
 	if err != nil {
@@ -108,7 +88,7 @@ func (git *JSONGitStore) write(relativePath string, data []byte) error {
 
 	//git init here
 	log.Printf("\nCreating new git repo into $GOPATH [%s]", fqn)
-	r, err := git.PlainOpen(fqn)
+	r, err := g.NewFilesystemRepository(fqn)
 	if err != nil {
 		return err
 	}
@@ -139,33 +119,21 @@ func (git *JSONGitStore) Commit(c *cluster.Cluster) error {
 	}
 
 	//writes latest changes to git repo.
-	git.write(state.ClusterJSONFile, bytes)
+	git.Write(state.ClusterJSONFile, bytes)
 
 	//commits the changes
-	r, err := git.PlainOpen(state.ClusterJSONFile)
-	if err != nil {
-		return err
-	}
-	w, err := r.Worktree()
+	r, err := g.NewFilesystemRepository(state.ClusterJSONFile)
 	if err != nil {
 		return err
 	}
 
-	_, err = w.Add(" . ")
-	if err != nil {
-		return err
-	}
+	// Add a new remote, with the default fetch refspec
+	rem, err := r.CreateRemote(&config.RemoteConfig{
+		Name: git.ClusterName,
+		URL:  git.options.CommitConfig.Remote,
+	})
 
-	// Commits the current staging are to the repository, with the new files
-	// just created. We should provide the object.Signature of Author of the
-	// commit.
-	commit, err := w.Commit("Adding new cluster changes", JSONGitStore.commit)
-	if err != nil {
-		return err
-	}
-
-	//pushes the changes to remote repo.
-	err = r.Push(JSONGitStore.push)
+	commit, err := r.Commits()
 	if err != nil {
 		return err
 	}

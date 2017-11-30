@@ -36,9 +36,7 @@ func TestJsonGit(t *testing.T) {
 		CommitConfig: &JSONGitCommitConfig{
 			Name:   "Dummy Cluster",
 			Email:  "dummy@clustermail.co",
-			User:   "dCluster",
-			Pass:   "dClusterPass123",
-			Remote: "git@github.com:kris-nova/kubicorn.git",
+			Remote: "https://github.com/kris-nova/kubicorn",
 		},
 	}
 	git := NewJSONGitStore(o)
