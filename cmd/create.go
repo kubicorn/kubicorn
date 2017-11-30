@@ -199,9 +199,14 @@ func RunCreate(options *CreateOptions) error {
 		})
 	case "git":
 		logger.Info("Selected [git] state store")
-		stateStore = git.NewGitStore(&git.GitStoreOptions{
+		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
+			CommitConfig: &git.JSONGitCommitConfig{
+				Name:   name,
+				Email:  "",
+				Remote: "",
+			},
 		})
 	case "jsonfs":
 		logger.Info("Selected [jsonfs] state store")

@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -86,12 +85,6 @@ func (git *JSONGitStore) Write(relativePath string, data []byte) error {
 		return err
 	}
 
-	//git init here
-	log.Printf("\nCreating new git repo into $GOPATH [%s]", fqn)
-	r, err := g.NewFilesystemRepository(fqn)
-	if err != nil {
-		return err
-	}
 	return nil
 }
 
@@ -128,12 +121,11 @@ func (git *JSONGitStore) Commit(c *cluster.Cluster) error {
 	}
 
 	// Add a new remote, with the default fetch refspec
-	rem, err := r.CreateRemote(&config.RemoteConfig{
+	_, err = r.CreateRemote(&config.RemoteConfig{
 		Name: git.ClusterName,
 		URL:  git.options.CommitConfig.Remote,
 	})
-
-	commit, err := r.Commits()
+	_, err = r.Commits()
 	if err != nil {
 		return err
 	}
