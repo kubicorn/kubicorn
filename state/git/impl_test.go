@@ -22,14 +22,14 @@ import (
 	"testing"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles"
+	"github.com/kris-nova/kubicorn/profiles/amazon"
 	"github.com/kris-nova/kubicorn/state"
 )
 
 func TestJsonGit(t *testing.T) {
 	testFilePath := ".test/"
 	clusterName := "git-test"
-	c := profiles.NewUbuntuAmazonCluster(clusterName)
+	c := amazon.NewUbuntuCluster(clusterName)
 	o := &JSONGitStoreOptions{
 		BasePath:    testFilePath,
 		ClusterName: c.Name,
