@@ -23,10 +23,10 @@ import (
 	"strings"
 
 	"github.com/ghodss/yaml"
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/apis"
+	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 )
 
 type FileSystemStoreOptions struct {
@@ -116,7 +116,7 @@ func (fs *FileSystemStore) GetCluster() (apis.KubicornCluster, error) {
 }
 
 func (fs *FileSystemStore) BytesToCluster(bytes []byte) (apis.KubicornCluster, error) {
-	cluster := &cluster.Cluster{}
+	cluster := &v1alpha1.Cluster{}
 	err := yaml.Unmarshal(bytes, cluster)
 	if err != nil {
 		return cluster, err

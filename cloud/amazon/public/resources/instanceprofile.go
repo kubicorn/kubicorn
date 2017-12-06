@@ -176,6 +176,7 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 	//TODO fill in instanceprofile attributes
 
 	// Create InstanceProfile
+	var nameStr, idStr string
 	profileinput := &iam.CreateInstanceProfileInput{
 		InstanceProfileName: &expected.(*InstanceProfile).Name,
 		Path:                S("/"),
@@ -185,10 +186,23 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 		logger.Debug("CreateInstanceProfile error: %v", err)
 		if err.(awserr.Error).Code() != iam.ErrCodeEntityAlreadyExistsException {
 			return nil, nil, err
+		}else {
+			profileinput := &iam.GetInstanceProfileInput{
+				InstanceProfileName: &expected.(*InstanceProfile).Name,
+			}
+			outInstanceProfile, err := Sdk.IAM.GetInstanceProfile(profileinput)
+			if err != nil {
+				return nil, nil, err
+			}
+			nameStr = *outInstanceProfile.InstanceProfile.InstanceProfileName
+			idStr = *outInstanceProfile.InstanceProfile.InstanceProfileId
 		}
+	}else {
+		nameStr = *outInstanceProfile.InstanceProfile.InstanceProfileName
+		idStr = *outInstanceProfile.InstanceProfile.InstanceProfileId
 	}
-	newResource.Name = *outInstanceProfile.InstanceProfile.InstanceProfileName
-	newResource.Identifier = *outInstanceProfile.InstanceProfile.InstanceProfileName
+	newResource.Name = nameStr
+	newResource.Identifier = idStr
 	logger.Info("InstanceProfile created: %s", newResource.Name)
 	// Create role
 	assumeRolePolicy := `{

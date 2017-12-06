@@ -2,20 +2,21 @@ Ajit Kumar <kumaraji@google.com>
 Alex Tasioulis <tasioulis.alex@gmail.com>
 Ann Hill <ahill@appnexus.com>
 Arpit Mohan <me@arpitmohan.com>
-Avi Deitcher <avi@deitcher.net>
 Bo Ingram <boingram6@gmail.com>
 Brad Pinter <brad.pinter@gmail.com>
 Carolyn Van Slyck <me@carolynvanslyck.com>
 Curtis Schiewek <curtis.schiewek@gmail.com>
 Darron Froese <dfroese@salesforce.com>
-ellenkorbes <ellenkorbes@gmail.com>
 Ellen Körbes <ellenkorbes@gmail.com>
 Eric Hole <eric.hole@gmail.com>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> omg this is a huge refactor for the API
+=======
+>>>>>>> #kubecon hacking on #kubicorn
 <<<<<<< HEAD
 fabriziopandini <fabrizio.pandini@gmail.com>
 =======
@@ -26,7 +27,12 @@ fabriziopandini <fabrizio.pandini@gmail.com>
 =======
 fabriziopandini <fabrizio.pandini@gmail.com>
 >>>>>>> omg this is a huge refactor for the API
+<<<<<<< HEAD
 >>>>>>> omg this is a huge refactor for the API
+=======
+=======
+>>>>>>> #kubecon hacking on #kubicorn
+>>>>>>> #kubecon hacking on #kubicorn
 Gar Morley <garmorley@gmail.com>
 Igor Vuk <parcijala@gmail.com>
 Jacopo Nardiello <jacopo@sighup.io>
@@ -47,8 +53,12 @@ Marko Mudrinić <mudrinic.mare@gmail.com>
 Martin Etmajer <martin@etmajer.com>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Michael Hausenblas <michael.hausenblas@gmail.com>
 Michael Zamot <michael@zamot.io>
+=======
+<<<<<<< HEAD
+>>>>>>> #kubecon hacking on #kubicorn
 =======
 <<<<<<< HEAD
 =======
@@ -72,6 +82,10 @@ Michael Zamot <michael@zamot.io>
 =======
 >>>>>>> omg this is a huge refactor for the API
 >>>>>>> omg this is a huge refactor for the API
+=======
+Michael Hausenblas <michael.hausenblas@gmail.com>
+Michael Zamot <michael@zamot.io>
+>>>>>>> #kubecon hacking on #kubicorn
 Nolan Brubaker <nolan@heptio.com>
 Nyah Check <check.nyah@gmail.com>
 Paul Czarkowski <username.taken@gmail.com>
@@ -79,7 +93,16 @@ Peter Smeets <p.e.smeets@gmail.com>
 Prateek Gogia <pgogia@varmour.com>
 Prateek Gogia <prateekgogia@hotmail.com>
 Robert Bailey <robertbailey@google.com>
+<<<<<<< HEAD
 S.Çağlar Onur <caglar@digitalocean.com>
+=======
+>>>>>>> #kubecon hacking on #kubicorn
 Steven Klassen <sklassen@gmail.com>
 Ted Wood <ted@xy0.org>
 William Stewart <zoidbergwill@gmail.com>
+ellenkorbes <ellenkorbes@gmail.com>
+fabriziopandini <fabrizio.pandini@gmail.com>
+matyix <janos.matyas@gmail.com>
+matyix <lalyos@yahoo.com>
+name <email@email.com>
+robjloranger <robjloranger@protonmail.com>

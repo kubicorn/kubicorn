@@ -5,6 +5,9 @@ type KubicornCluster interface {
 
 }
 
+type ProviderConfig interface {
+
+}
 
 
 

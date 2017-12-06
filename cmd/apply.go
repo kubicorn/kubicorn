@@ -21,7 +21,6 @@ import (
 	"strings"
 
 	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/agent"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -32,7 +31,8 @@ import (
 	"github.com/spf13/cobra"
 	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
-	cluster2 "github.com/kris-nova/kubicorn/apis/cluster"
+	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
+	"github.com/kris-nova/kubicorn/profiles"
 )
 
 type ApplyOptions struct {
@@ -80,9 +80,6 @@ func ApplyCmd() *cobra.Command {
 
 func RunApply(options *ApplyOptions) error {
 
-	// Ensure we have SSH agent
-	agent := agent.NewAgent()
-
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
@@ -128,12 +125,20 @@ func RunApply(options *ApplyOptions) error {
 
 	kubicornCluster, err := stateStore.GetCluster()
 	if err != nil {
-		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
+		return fmt.Errorf("unable to get cluster [%s]: %v", name, err)
 	}
 
-	// TODO We need to type assert here
-	cluster := kubicornCluster.(*cluster2.Cluster)
 
+	// Translate into an API cluster
+	apiCluster, ok := kubicornCluster.(*v1alpha1.Cluster)
+	if !ok {
+		return fmt.Errorf("unable to unmarshal cluster, major error")
+	}
+
+	cluster, err := profiles.DeserializeProviderConfig(apiCluster.Spec.ProviderConfig)
+	if err != nil {
+		return fmt.Errorf("unable to deserialize provider config: %v", err)
+	}
 
 
 	logger.Info("Loaded cluster: %s", cluster.Name)
@@ -185,14 +190,20 @@ func RunApply(options *ApplyOptions) error {
 		return fmt.Errorf("Unable to reconcile cluster: %v", err)
 	}
 
-	err = stateStore.Commit(newCluster)
+	providerConfig, err := profiles.SerializeProviderConfig(newCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to serialize provider config: %v", err)
+	}
+	apiCluster.Spec.ProviderConfig = providerConfig
+
+	err = stateStore.Commit(apiCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to commit state store: %v", err)
 	}
 
 	logger.Info("Updating state store for cluster [%s]", options.Name)
 
-	err = kubeconfig.RetryGetConfig(newCluster, agent)
+	err = kubeconfig.RetryGetConfig(newCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to write kubeconfig: %v", err)
 	}
