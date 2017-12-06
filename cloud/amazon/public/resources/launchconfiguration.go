@@ -23,7 +23,6 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
-	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
@@ -146,12 +145,6 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		return nil, nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
 	}
 
-	// --- Hack in here for master IP
-	privip := ""
-	pubip := ""
-
-
-
 	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
 
 	newResource := &Lc{}
@@ -210,6 +203,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	logger.Success("Created Launch Configuration [%s]", r.Name)
 =======
 	logger.Info("Created Launch Configuration [%s]", r.Name)
+<<<<<<< HEAD
 
 	{
 		found := false
@@ -261,6 +255,8 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		}
 	}
 >>>>>>> #kubecon hacking on #kubicorn
+=======
+>>>>>>> AWS IS WORKING WITH THE NEW API FUCK YEAH
 	newResource.Image = expected.(*Lc).Image
 	newResource.InstanceType = expected.(*Lc).InstanceType
 	newResource.Name = expected.(*Lc).Name

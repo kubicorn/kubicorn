@@ -24,6 +24,8 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/aws/aws-sdk-go/service/ec2"
+	"time"
 )
 
 var _ cloud.Resource = &Asg{}
@@ -157,6 +159,8 @@ func (r *Asg) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 
 	logger.Success("Created Asg [%s]", r.Name)
 
+
+
 	newResource.Name = r.Name
 	newResource.Identifier = r.Name
 	newResource.MaxCount = r.MaxCount
@@ -165,6 +169,60 @@ func (r *Asg) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 	err = newResource.tag(applyResource.Tags)
 	if err != nil {
 		return nil, nil, fmt.Errorf("Unable to tag new VPC: %v", err)
+	}
+
+	// --- Hack in here for master IP
+	privip := ""
+	pubip := ""
+
+	{
+		found := false
+		logger.Debug("Tag query: [%s] %s", "Name", fmt.Sprintf("%s.master", immutable.Name))
+		logger.Debug("Tag query: [%s] %s", "KubernetesCluster", immutable.Name)
+		for i := 0; i < MasterIPAttempts; i++ {
+			logger.Debug("Attempting to lookup master IP for node registration..")
+			input := &ec2.DescribeInstancesInput{
+				Filters: []*ec2.Filter{
+					{
+						Name:   S("tag:Name"),
+						Values: []*string{S(fmt.Sprintf("%s.master", immutable.Name))},
+					},
+					{
+						Name:   S("tag:KubernetesCluster"),
+						Values: []*string{S(immutable.Name)},
+					},
+				},
+			}
+			output, err := Sdk.Ec2.DescribeInstances(input)
+			if err != nil {
+				return nil, nil, err
+			}
+			lr := len(output.Reservations)
+			if lr == 0 {
+				logger.Debug("Found %d Reservations, hanging ", lr)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
+				continue
+			}
+			for _, reservation := range output.Reservations {
+				for _, instance := range reservation.Instances {
+					if instance.PublicIpAddress != nil {
+						privip = *instance.PrivateIpAddress
+						pubip = *instance.PublicIpAddress
+						immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, immutable.KubernetesAPI.Port)
+						immutable.KubernetesAPI.Endpoint = pubip
+						logger.Info("Found public IP for master: [%s]", pubip)
+						found = true
+					}
+				}
+			}
+			if found == true {
+				break
+			}
+			time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
+		}
+		if !found {
+			return nil, nil, fmt.Errorf("Unable to find Master IP")
+		}
 	}
 
 	newCluster := r.immutableRender(newResource, immutable)
