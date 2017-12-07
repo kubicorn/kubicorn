@@ -23,6 +23,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
+	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
 	"github.com/kris-nova/kubicorn/cutil/compare"
@@ -145,6 +146,59 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		return nil, nil, fmt.Errorf("Unable to lookup serverpool for Launch Configuration %s", r.Name)
 	}
 
+	// --- Hack in here for master IP
+	privip := ""
+	pubip := ""
+	if strings.Contains(r.ServerPool.Name, "node") {
+		found := false
+		logger.Debug("Tag query: [%s] %s", "Name", fmt.Sprintf("%s.master", immutable.Name))
+		logger.Debug("Tag query: [%s] %s", "KubernetesCluster", immutable.Name)
+		for i := 0; i < MasterIPAttempts; i++ {
+			logger.Debug("Attempting to lookup master IP for node registration..")
+			input := &ec2.DescribeInstancesInput{
+				Filters: []*ec2.Filter{
+					{
+						Name:   S("tag:Name"),
+						Values: []*string{S(fmt.Sprintf("%s.master", immutable.Name))},
+					},
+					{
+						Name:   S("tag:KubernetesCluster"),
+						Values: []*string{S(immutable.Name)},
+					},
+				},
+			}
+			output, err := Sdk.Ec2.DescribeInstances(input)
+			if err != nil {
+				return nil, nil, err
+			}
+			lr := len(output.Reservations)
+			if lr == 0 {
+				logger.Debug("Found %d Reservations, hanging ", lr)
+				time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
+				continue
+			}
+			for _, reservation := range output.Reservations {
+				for _, instance := range reservation.Instances {
+					if instance.PublicIpAddress != nil {
+						privip = *instance.PrivateIpAddress
+						pubip = *instance.PublicIpAddress
+						immutable.Values.ItemMap["INJECTEDMASTER"] = fmt.Sprintf("%s:%s", privip, immutable.KubernetesAPI.Port)
+						immutable.KubernetesAPI.Endpoint = pubip
+						logger.Info("Found public IP for master: [%s]", pubip)
+						found = true
+					}
+				}
+			}
+			if found == true {
+				break
+			}
+			time.Sleep(time.Duration(MasterIPSleepSecondsPerAttempt) * time.Second)
+		}
+		if !found {
+			return nil, nil, fmt.Errorf("Unable to find Master IP")
+		}
+	}
+
 	immutable.Values.ItemMap["INJECTEDPORT"] = immutable.KubernetesAPI.Port
 
 	newResource := &Lc{}
@@ -199,6 +253,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		}
 		return nil, nil, err
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 	logger.Success("Created Launch Configuration [%s]", r.Name)
 =======
@@ -257,6 +312,9 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 >>>>>>> #kubecon hacking on #kubicorn
 =======
 >>>>>>> AWS IS WORKING WITH THE NEW API FUCK YEAH
+=======
+	logger.Success("Created Launch Configuration [%s]", r.Name)
+>>>>>>> Adding files
 	newResource.Image = expected.(*Lc).Image
 	newResource.InstanceType = expected.(*Lc).InstanceType
 	newResource.Name = expected.(*Lc).Name
