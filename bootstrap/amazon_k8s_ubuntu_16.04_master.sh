@@ -8,6 +8,15 @@ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
 touch /etc/apt/sources.list.d/kubernetes.list
 sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
 
+# Has to be configured before installing kubelet, or kubelet has to be restarted to pick up changes
+mkdir -p /etc/systemd/system/kubelet.service.d/20-cloud-provider.conf
+cat << EOF  > /etc/systemd/system/kubelet.service.d/20-cloud-provider.conf
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--cloud-provider=aws"
+EOF
+
+chmod 0600 /etc/systemd/system/kubelet.service.d/20-cloud-provider.conf
+
 apt-get update -y
 apt-get install -y \
     socat \
@@ -15,7 +24,7 @@ apt-get install -y \
     docker.io \
     apt-transport-https \
     kubelet \
-    kubeadm=1.7.0-00 \
+    kubeadm=1.8.4-00 \
     cloud-utils \
     jq
 
@@ -28,13 +37,38 @@ PRIVATEIP=$(ec2metadata --local-ipv4 | cut -d " " -f 2)
 TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDTOKEN')
 PORT=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDPORT | tonumber')
 
+# Necessary for joining a cluster with AWS information
+HOSTNAME=$(hostname -f)
+
+cat << EOF  > "/etc/kubicorn/kubeadm-config.yaml"
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+cloudProvider: aws
+token: ${TOKEN}
+nodeName: ${HOSTNAME}
+api:
+  advertiseAddress: ${PUBLICIP}
+  bindPort: ${PORT}
+apiServerCertSANs:
+- ${PUBLICIP}
+- ${HOSTNAME}
+- ${PRIVATEIP}
+authorizationModes:
+- Node
+- RBAC
+EOF
+
 kubeadm reset
-kubeadm init --apiserver-bind-port ${PORT} --token ${TOKEN}  --apiserver-advertise-address ${PUBLICIP} --apiserver-cert-extra-sans ${PUBLICIP} ${PRIVATEIP}
+kubeadm init --config /etc/kubicorn/kubeadm-config.yaml
 
 # Thanks Kelsey :)
 kubectl apply \
   -f http://docs.projectcalico.org/v2.3/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml \
   --kubeconfig /etc/kubernetes/admin.conf
+
+kubectl apply \
+    -f  https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.8/cluster/addons/storage-class/aws/default.yaml \
+    --kubeconfig /etc/kubernetes/admin.conf
 
 mkdir -p /home/ubuntu/.kube
 cp /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
