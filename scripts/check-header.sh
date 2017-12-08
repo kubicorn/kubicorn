@@ -34,9 +34,6 @@ STATUS=0
 FILES=$(find . -name "*.go" -not -path "./vendor/*")
 
 for FILE in $FILES; do
-        if [ "$FILE" == "./bootstrap/bootstrap.go" ]; then
-            continue
-        fi
         HEADER=$(head -n 13 $FILE)
         if [ "$HEADER" != "$EXPECTED" ]; then
                 echo "incorrect license header: $FILE"

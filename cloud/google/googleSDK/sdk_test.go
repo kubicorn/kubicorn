@@ -20,7 +20,7 @@ import (
 )
 
 func TestSdkHappy(t *testing.T) {
-	err := os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "../../../test/resources/google_application_credentials_example.json")
+	err := os.Setenv("GOOGLE_APPLICATION_CREDENTIALS", "../../../test/resources/credentials/google_application_credentials_example.json")
 	if err != nil {
 		t.Fatalf("Unable to set env var: %v", err)
 	}
