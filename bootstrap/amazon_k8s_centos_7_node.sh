@@ -37,6 +37,12 @@ sudo yum install -y \
 # jq needs its own special yum install as it depends on epel-release
 sudo yum install -y jq
 
+# Has to be configured before starting kubelet, or kubelet has to be restarted to pick up changes
+sudo sh -c 'cat <<EOF > /etc/systemd/system/kubelet.service.d/20-cloud-provider.conf
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--cloud-provider=aws"
+EOF'
+
 sudo systemctl enable docker
 sudo systemctl enable kubelet
 sudo systemctl start docker
@@ -47,6 +53,8 @@ sysctl -p
 
 TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDTOKEN')
 MASTER=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDMASTER')
+# Necessary for joining a cluster with the AWS information
+HOSTNAME=$(hostname -f)
 
 sudo -E kubeadm reset
-sudo -E kubeadm join --token ${TOKEN} ${MASTER}
+sudo -E kubeadm join --token ${TOKEN} --node-name ${HOSTNAME} ${MASTER}
