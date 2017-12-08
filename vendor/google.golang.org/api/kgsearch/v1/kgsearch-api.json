@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   "version": "v1",
   "baseUrl": "https://kgsearch.googleapis.com/",
@@ -11,30 +12,44 @@
   "ownerDomain": "google.com",
   "name": "kgsearch",
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
   "batchPath": "batch",
-  "id": "kgsearch:v1",
-  "documentationLink": "https://developers.google.com/knowledge-graph/",
   "revision": "20171103",
+  "documentationLink": "https://developers.google.com/knowledge-graph/",
+  "id": "kgsearch:v1",
   "title": "Knowledge Graph Search API",
+<<<<<<< HEAD
   "discoveryVersion": "v1",
 <<<<<<< HEAD
 =======
   "ownerName": "Google",
 >>>>>>> Initial dep workover
+=======
+  "ownerName": "Google",
+  "discoveryVersion": "v1",
+>>>>>>> Working on getting compiling
   "version_module": true,
   "resources": {
     "entities": {
       "methods": {
         "search": {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
           "httpMethod": "GET",
           "parameterOrder": [],
 >>>>>>> Initial dep workover
+=======
+          "description": "Searches Knowledge Graph for entities that match the constraints.\nA list of matched entities will be returned in response, which will be in\nJSON-LD format and compatible with http://schema.org",
+>>>>>>> Working on getting compiling
           "response": {
             "$ref": "SearchResponse"
           },
+          "parameterOrder": [],
+          "httpMethod": "GET",
           "parameters": {
+<<<<<<< HEAD
 <<<<<<< HEAD
             "limit": {
               "description": "Limits the number of entities to be returned.",
@@ -60,6 +75,8 @@
               "repeated": true,
               "location": "query"
             },
+=======
+>>>>>>> Working on getting compiling
             "indent": {
               "description": "Enables indenting of json results.",
               "type": "boolean",
@@ -67,23 +84,32 @@
             },
             "languages": {
               "description": "The list of language codes (defined in ISO 693) to run the query with,\ne.g. 'en'.",
+<<<<<<< HEAD
               "type": "string",
               "repeated": true,
               "location": "query"
             },
             "ids": {
               "description": "The list of entity id to be used for search instead of query string.\nTo specify multiple ids in the HTTP request, repeat the parameter in the\nURL as in ...?ids=A&ids=B",
+=======
+>>>>>>> Working on getting compiling
               "type": "string",
               "repeated": true,
               "location": "query"
 <<<<<<< HEAD
 =======
             },
+            "ids": {
+              "repeated": true,
+              "location": "query",
+              "description": "The list of entity id to be used for search instead of query string.\nTo specify multiple ids in the HTTP request, repeat the parameter in the\nURL as in ...?ids=A&ids=B",
+              "type": "string"
+            },
             "limit": {
+              "location": "query",
               "description": "Limits the number of entities to be returned.",
               "format": "int32",
-              "type": "integer",
-              "location": "query"
+              "type": "integer"
             },
             "prefix": {
               "location": "query",
@@ -91,13 +117,20 @@
               "type": "boolean"
             },
             "query": {
-              "location": "query",
               "description": "The literal query string for search.",
+              "type": "string",
+              "location": "query"
+            },
+            "types": {
+              "repeated": true,
+              "location": "query",
+              "description": "Restricts returned entities with these types, e.g. Person\n(as defined in http://schema.org/Person). If multiple types are specified,\nreturned entities will contain one or more of these types.",
               "type": "string"
 >>>>>>> Initial dep workover
             }
           },
           "flatPath": "v1/entities:search",
+<<<<<<< HEAD
           "path": "v1/entities:search",
           "id": "kgsearch.entities.search",
 <<<<<<< HEAD
@@ -105,48 +138,68 @@
           "path": "v1/entities:search",
 >>>>>>> Initial dep workover
           "description": "Searches Knowledge Graph for entities that match the constraints.\nA list of matched entities will be returned in response, which will be in\nJSON-LD format and compatible with http://schema.org"
+=======
+          "path": "v1/entities:search",
+          "id": "kgsearch.entities.search"
+>>>>>>> Working on getting compiling
         }
       }
     }
   },
   "parameters": {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "oauth_token": {
+=======
+    "quotaUser": {
+>>>>>>> Working on getting compiling
       "location": "query",
-      "description": "OAuth 2.0 token for the current user.",
+      "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
       "type": "string"
     },
+    "pp": {
+      "type": "boolean",
+      "default": "true",
+      "location": "query",
+      "description": "Pretty-print response."
+    },
     "bearer_token": {
+      "location": "query",
       "description": "OAuth bearer token.",
+      "type": "string"
+    },
+    "oauth_token": {
+      "description": "OAuth 2.0 token for the current user.",
       "type": "string",
       "location": "query"
     },
 >>>>>>> Initial dep workover
     "upload_protocol": {
+      "location": "query",
       "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
-      "type": "string",
-      "location": "query"
+      "type": "string"
     },
     "prettyPrint": {
+      "location": "query",
       "description": "Returns response with indentations and line breaks.",
       "type": "boolean",
-      "default": "true",
-      "location": "query"
+      "default": "true"
     },
 <<<<<<< HEAD
 =======
     "uploadType": {
+      "location": "query",
       "description": "Legacy upload protocol for media (e.g. \"media\", \"multipart\").",
-      "type": "string",
-      "location": "query"
+      "type": "string"
     },
 >>>>>>> Initial dep workover
     "fields": {
-      "location": "query",
       "description": "Selector specifying which fields to include in a partial response.",
-      "type": "string"
+      "type": "string",
+      "location": "query"
     },
+<<<<<<< HEAD
 <<<<<<< HEAD
     "uploadType": {
       "location": "query",
@@ -161,16 +214,24 @@
         "2"
       ],
       "description": "V1 error format.",
+=======
+    "callback": {
+      "description": "JSONP",
+>>>>>>> Working on getting compiling
       "type": "string",
+      "location": "query"
+    },
+    "$.xgafv": {
       "enumDescriptions": [
         "v1 error format",
         "v2 error format"
       ],
-      "location": "query"
-    },
-    "callback": {
       "location": "query",
-      "description": "JSONP",
+      "enum": [
+        "1",
+        "2"
+      ],
+      "description": "V1 error format.",
       "type": "string"
     },
     "callback": {
@@ -180,7 +241,16 @@
     },
     "alt": {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+      "enum": [
+        "json",
+        "media",
+        "proto"
+      ],
+      "type": "string",
+>>>>>>> Working on getting compiling
       "enumDescriptions": [
         "Responses with Content-Type of application/json",
         "Media download with context-dependent Content-Type",
@@ -188,6 +258,7 @@
       ],
       "location": "query",
       "description": "Data format for response.",
+<<<<<<< HEAD
       "default": "json",
 >>>>>>> Initial dep workover
       "enum": [
@@ -196,6 +267,9 @@
         "proto"
       ],
       "type": "string"
+=======
+      "default": "json"
+>>>>>>> Working on getting compiling
     },
     "key": {
       "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
@@ -226,6 +300,7 @@
       "location": "query",
       "description": "OAuth access token.",
       "type": "string"
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
     },
     "quotaUser": {
@@ -251,6 +326,8 @@
       "type": "string"
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     }
   },
   "schemas": {
@@ -258,6 +335,7 @@
       "description": "Response message includes the context and a list of matching results\nwhich contain the detail of associated entities.",
       "type": "object",
       "properties": {
+<<<<<<< HEAD
 <<<<<<< HEAD
         "@context": {
           "description": "The local context applicable for the response. See more details at\nhttp://www.w3.org/TR/json-ld/#context-definitions.",
@@ -274,6 +352,8 @@
           "description": "The schema type of top-level JSON-LD object, e.g. ItemList.",
           "type": "any"
         },
+=======
+>>>>>>> Working on getting compiling
         "@context": {
           "description": "The local context applicable for the response. See more details at\nhttp://www.w3.org/TR/json-ld/#context-definitions.",
           "type": "any"
@@ -285,6 +365,10 @@
           "items": {
             "type": "any"
           }
+        },
+        "@type": {
+          "description": "The schema type of top-level JSON-LD object, e.g. ItemList.",
+          "type": "any"
         }
       },
       "id": "SearchResponse"
@@ -295,6 +379,9 @@
     "x32": "http://www.google.com/images/icons/product/search-32.gif",
     "x16": "http://www.google.com/images/icons/product/search-16.gif"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
   },
   "version": "v1",
   "baseUrl": "https://kgsearch.googleapis.com/",
@@ -305,7 +392,10 @@
   "basePath": "",
   "ownerDomain": "google.com",
   "name": "kgsearch"
+<<<<<<< HEAD
 =======
   }
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 }

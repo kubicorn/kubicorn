@@ -105,6 +105,9 @@ func (c *Lambda) AddPermissionRequest(input *AddPermissionInput) (req *request.R
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -113,9 +116,12 @@ func (c *Lambda) AddPermissionRequest(input *AddPermissionInput) (req *request.R
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermission
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermission
 >>>>>>> Initial dep workover
@@ -219,6 +225,9 @@ func (c *Lambda) CreateAliasRequest(input *CreateAliasInput) (req *request.Reque
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -227,9 +236,12 @@ func (c *Lambda) CreateAliasRequest(input *CreateAliasInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAlias
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAlias
 >>>>>>> Initial dep workover
@@ -581,6 +593,9 @@ func (c *Lambda) DeleteAliasRequest(input *DeleteAliasInput) (req *request.Reque
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -589,9 +604,12 @@ func (c *Lambda) DeleteAliasRequest(input *DeleteAliasInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAlias
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAlias
 >>>>>>> Initial dep workover
@@ -692,6 +710,9 @@ func (c *Lambda) DeleteEventSourceMappingRequest(input *DeleteEventSourceMapping
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -700,9 +721,12 @@ func (c *Lambda) DeleteEventSourceMappingRequest(input *DeleteEventSourceMapping
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMapping
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMapping
 >>>>>>> Initial dep workover
@@ -885,7 +909,11 @@ const opDeleteFunctionConcurrency = "DeleteFunctionConcurrency"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrency
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrency
+>>>>>>> Working on getting compiling
 func (c *Lambda) DeleteFunctionConcurrencyRequest(input *DeleteFunctionConcurrencyInput) (req *request.Request, output *DeleteFunctionConcurrencyOutput) {
 	op := &request.Operation{
 		Name:       opDeleteFunctionConcurrency,
@@ -938,7 +966,11 @@ func (c *Lambda) DeleteFunctionConcurrencyRequest(input *DeleteFunctionConcurren
 //   an IAM role for AWS Lambda to assume in the CreateFunction or the UpdateFunctionConfiguration
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrency
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrency
+>>>>>>> Working on getting compiling
 func (c *Lambda) DeleteFunctionConcurrency(input *DeleteFunctionConcurrencyInput) (*DeleteFunctionConcurrencyOutput, error) {
 	req, out := c.DeleteFunctionConcurrencyRequest(input)
 	return out, req.Send()
@@ -1159,6 +1191,9 @@ func (c *Lambda) GetAliasRequest(input *GetAliasInput) (req *request.Request, ou
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -1167,9 +1202,12 @@ func (c *Lambda) GetAliasRequest(input *GetAliasInput) (req *request.Request, ou
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAlias
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAlias
 >>>>>>> Initial dep workover
@@ -1279,6 +1317,9 @@ func (c *Lambda) GetEventSourceMappingRequest(input *GetEventSourceMappingInput)
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -1287,9 +1328,12 @@ func (c *Lambda) GetEventSourceMappingRequest(input *GetEventSourceMappingInput)
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMapping
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMapping
 >>>>>>> Initial dep workover
@@ -2061,6 +2105,9 @@ func (c *Lambda) ListAliasesRequest(input *ListAliasesInput) (req *request.Reque
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2069,9 +2116,12 @@ func (c *Lambda) ListAliasesRequest(input *ListAliasesInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliases
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliases
 >>>>>>> Initial dep workover
@@ -2196,6 +2246,9 @@ func (c *Lambda) ListEventSourceMappingsRequest(input *ListEventSourceMappingsIn
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2204,9 +2257,12 @@ func (c *Lambda) ListEventSourceMappingsRequest(input *ListEventSourceMappingsIn
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappings
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappings
 >>>>>>> Initial dep workover
@@ -2530,6 +2586,9 @@ func (c *Lambda) ListTagsRequest(input *ListTagsInput) (req *request.Request, ou
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2538,9 +2597,12 @@ func (c *Lambda) ListTagsRequest(input *ListTagsInput) (req *request.Request, ou
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTags
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTags
 >>>>>>> Initial dep workover
@@ -2638,6 +2700,9 @@ func (c *Lambda) ListVersionsByFunctionRequest(input *ListVersionsByFunctionInpu
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2646,9 +2711,12 @@ func (c *Lambda) ListVersionsByFunctionRequest(input *ListVersionsByFunctionInpu
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunction
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunction
 >>>>>>> Initial dep workover
@@ -2811,7 +2879,11 @@ const opPutFunctionConcurrency = "PutFunctionConcurrency"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrency
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrency
+>>>>>>> Working on getting compiling
 func (c *Lambda) PutFunctionConcurrencyRequest(input *PutFunctionConcurrencyInput) (req *request.Request, output *PutFunctionConcurrencyOutput) {
 	op := &request.Operation{
 		Name:       opPutFunctionConcurrency,
@@ -2867,7 +2939,11 @@ func (c *Lambda) PutFunctionConcurrencyRequest(input *PutFunctionConcurrencyInpu
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrency
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrency
+>>>>>>> Working on getting compiling
 func (c *Lambda) PutFunctionConcurrency(input *PutFunctionConcurrencyInput) (*PutFunctionConcurrencyOutput, error) {
 	req, out := c.PutFunctionConcurrencyRequest(input)
 	return out, req.Send()
@@ -2985,6 +3061,9 @@ func (c *Lambda) RemovePermissionRequest(input *RemovePermissionInput) (req *req
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2993,9 +3072,12 @@ func (c *Lambda) RemovePermissionRequest(input *RemovePermissionInput) (req *req
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermission
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermission
 >>>>>>> Initial dep workover
@@ -3106,6 +3188,9 @@ func (c *Lambda) TagResourceRequest(input *TagResourceInput) (req *request.Reque
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -3114,9 +3199,12 @@ func (c *Lambda) TagResourceRequest(input *TagResourceInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResource
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResource
 >>>>>>> Initial dep workover
@@ -3226,6 +3314,9 @@ func (c *Lambda) UntagResourceRequest(input *UntagResourceInput) (req *request.R
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -3234,9 +3325,12 @@ func (c *Lambda) UntagResourceRequest(input *UntagResourceInput) (req *request.R
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResource
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResource
 >>>>>>> Initial dep workover
@@ -3347,6 +3441,9 @@ func (c *Lambda) UpdateAliasRequest(input *UpdateAliasInput) (req *request.Reque
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -3355,9 +3452,12 @@ func (c *Lambda) UpdateAliasRequest(input *UpdateAliasInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
+<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateAlias
 =======
+=======
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateAlias
 >>>>>>> Initial dep workover
@@ -4145,6 +4245,9 @@ func (s *AliasConfiguration) SetName(v string) *AliasConfiguration {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // SetRoutingConfig sets the RoutingConfig field's value.
 func (s *AliasConfiguration) SetRoutingConfig(v *AliasRoutingConfiguration) *AliasConfiguration {
 	s.RoutingConfig = v
@@ -4153,7 +4256,11 @@ func (s *AliasConfiguration) SetRoutingConfig(v *AliasRoutingConfiguration) *Ali
 
 // The parent object that implements what percentage of traffic will invoke
 // each function version. For more information, see lambda-traffic-shifting-using-aliases.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AliasRoutingConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AliasRoutingConfiguration
+>>>>>>> Working on getting compiling
 type AliasRoutingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -4179,8 +4286,11 @@ func (s *AliasRoutingConfiguration) SetAdditionalVersionWeights(v map[string]*fl
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAliasRequest
 =======
+=======
+>>>>>>> Working on getting compiling
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAliasRequest
 >>>>>>> Initial dep workover
 type CreateAliasInput struct {
@@ -4275,14 +4385,20 @@ func (s *CreateAliasInput) SetName(v string) *CreateAliasInput {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // SetRoutingConfig sets the RoutingConfig field's value.
 func (s *CreateAliasInput) SetRoutingConfig(v *AliasRoutingConfiguration) *CreateAliasInput {
 	s.RoutingConfig = v
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMappingRequest
 =======
+=======
+>>>>>>> Working on getting compiling
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMappingRequest
 >>>>>>> Initial dep workover
 type CreateEventSourceMappingInput struct {
@@ -4810,7 +4926,11 @@ func (s *DeleteEventSourceMappingInput) SetUUID(v string) *DeleteEventSourceMapp
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrencyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrencyRequest
+>>>>>>> Working on getting compiling
 type DeleteFunctionConcurrencyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4852,7 +4972,11 @@ func (s *DeleteFunctionConcurrencyInput) SetFunctionName(v string) *DeleteFuncti
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrencyOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrencyOutput
+>>>>>>> Working on getting compiling
 type DeleteFunctionConcurrencyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4867,8 +4991,11 @@ func (s DeleteFunctionConcurrencyOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionRequest
 =======
+=======
+>>>>>>> Working on getting compiling
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionRequest
 >>>>>>> Initial dep workover
 type DeleteFunctionInput struct {
@@ -6872,7 +6999,11 @@ func (s *PublishVersionInput) SetFunctionName(v string) *PublishVersionInput {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrencyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrencyRequest
+>>>>>>> Working on getting compiling
 type PutFunctionConcurrencyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6928,7 +7059,11 @@ func (s *PutFunctionConcurrencyInput) SetReservedConcurrentExecutions(v int64) *
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Concurrency
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Concurrency
+>>>>>>> Working on getting compiling
 type PutFunctionConcurrencyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6952,8 +7087,11 @@ func (s *PutFunctionConcurrencyOutput) SetReservedConcurrentExecutions(v int64) 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermissionRequest
 =======
+=======
+>>>>>>> Working on getting compiling
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermissionRequest
 >>>>>>> Initial dep workover
 type RemovePermissionInput struct {
@@ -7361,14 +7499,20 @@ func (s *UpdateAliasInput) SetName(v string) *UpdateAliasInput {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // SetRoutingConfig sets the RoutingConfig field's value.
 func (s *UpdateAliasInput) SetRoutingConfig(v *AliasRoutingConfiguration) *UpdateAliasInput {
 	s.RoutingConfig = v
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMappingRequest
 =======
+=======
+>>>>>>> Working on getting compiling
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMappingRequest
 >>>>>>> Initial dep workover
 type UpdateEventSourceMappingInput struct {

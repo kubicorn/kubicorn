@@ -69,10 +69,14 @@ func (c *Greengrass) AssociateRoleToGroupRequest(input *AssociateRoleToGroupInpu
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/AssociateRoleToGroup
 func (c *Greengrass) AssociateRoleToGroup(input *AssociateRoleToGroupInput) (*AssociateRoleToGroupOutput, error) {
@@ -158,10 +162,14 @@ func (c *Greengrass) AssociateServiceRoleToAccountRequest(input *AssociateServic
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/AssociateServiceRoleToAccount
 func (c *Greengrass) AssociateServiceRoleToAccount(input *AssociateServiceRoleToAccountInput) (*AssociateServiceRoleToAccountOutput, error) {
@@ -916,10 +924,14 @@ func (c *Greengrass) CreateGroupCertificateAuthorityRequest(input *CreateGroupCe
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateGroupCertificateAuthority
 func (c *Greengrass) CreateGroupCertificateAuthority(input *CreateGroupCertificateAuthorityInput) (*CreateGroupCertificateAuthorityOutput, error) {
@@ -1227,7 +1239,11 @@ const opCreateResourceDefinition = "CreateResourceDefinition"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinition
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinition
+>>>>>>> Working on getting compiling
 func (c *Greengrass) CreateResourceDefinitionRequest(input *CreateResourceDefinitionInput) (req *request.Request, output *CreateResourceDefinitionOutput) {
 	op := &request.Operation{
 		Name:       opCreateResourceDefinition,
@@ -1261,7 +1277,11 @@ func (c *Greengrass) CreateResourceDefinitionRequest(input *CreateResourceDefini
 //   * ErrCodeBadRequestException "BadRequestException"
 //   user error
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinition
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinition
+>>>>>>> Working on getting compiling
 func (c *Greengrass) CreateResourceDefinition(input *CreateResourceDefinitionInput) (*CreateResourceDefinitionOutput, error) {
 	req, out := c.CreateResourceDefinitionRequest(input)
 	return out, req.Send()
@@ -1308,7 +1328,11 @@ const opCreateResourceDefinitionVersion = "CreateResourceDefinitionVersion"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersion
+>>>>>>> Working on getting compiling
 func (c *Greengrass) CreateResourceDefinitionVersionRequest(input *CreateResourceDefinitionVersionInput) (req *request.Request, output *CreateResourceDefinitionVersionOutput) {
 	op := &request.Operation{
 		Name:       opCreateResourceDefinitionVersion,
@@ -1340,7 +1364,11 @@ func (c *Greengrass) CreateResourceDefinitionVersionRequest(input *CreateResourc
 //   * ErrCodeBadRequestException "BadRequestException"
 //   user error
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersion
+>>>>>>> Working on getting compiling
 func (c *Greengrass) CreateResourceDefinitionVersion(input *CreateResourceDefinitionVersionInput) (*CreateResourceDefinitionVersionOutput, error) {
 	req, out := c.CreateResourceDefinitionVersionRequest(input)
 	return out, req.Send()
@@ -1387,7 +1415,11 @@ const opCreateSoftwareUpdateJob = "CreateSoftwareUpdateJob"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJob
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJob
+>>>>>>> Working on getting compiling
 func (c *Greengrass) CreateSoftwareUpdateJobRequest(input *CreateSoftwareUpdateJobInput) (req *request.Request, output *CreateSoftwareUpdateJobOutput) {
 	op := &request.Operation{
 		Name:       opCreateSoftwareUpdateJob,
@@ -1423,7 +1455,11 @@ func (c *Greengrass) CreateSoftwareUpdateJobRequest(input *CreateSoftwareUpdateJ
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 //   The server encountered an unexpected error.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJob
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJob
+>>>>>>> Working on getting compiling
 func (c *Greengrass) CreateSoftwareUpdateJob(input *CreateSoftwareUpdateJobInput) (*CreateSoftwareUpdateJobOutput, error) {
 	req, out := c.CreateSoftwareUpdateJobRequest(input)
 	return out, req.Send()
@@ -2055,6 +2091,88 @@ func (c *Greengrass) DeleteLoggerDefinitionWithContext(ctx aws.Context, input *D
 }
 
 const opDeleteResourceDefinition = "DeleteResourceDefinition"
+<<<<<<< HEAD
+=======
+
+// DeleteResourceDefinitionRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteResourceDefinition operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteResourceDefinition for more information on using the DeleteResourceDefinition
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the DeleteResourceDefinitionRequest method.
+//    req, resp := client.DeleteResourceDefinitionRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteResourceDefinition
+func (c *Greengrass) DeleteResourceDefinitionRequest(input *DeleteResourceDefinitionInput) (req *request.Request, output *DeleteResourceDefinitionOutput) {
+	op := &request.Operation{
+		Name:       opDeleteResourceDefinition,
+		HTTPMethod: "DELETE",
+		HTTPPath:   "/greengrass/definition/resources/{ResourceDefinitionId}",
+	}
+
+	if input == nil {
+		input = &DeleteResourceDefinitionInput{}
+	}
+
+	output = &DeleteResourceDefinitionOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// DeleteResourceDefinition API operation for AWS Greengrass.
+//
+// Deletes a resource definition.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS Greengrass's
+// API operation DeleteResourceDefinition for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeBadRequestException "BadRequestException"
+//   user error
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteResourceDefinition
+func (c *Greengrass) DeleteResourceDefinition(input *DeleteResourceDefinitionInput) (*DeleteResourceDefinitionOutput, error) {
+	req, out := c.DeleteResourceDefinitionRequest(input)
+	return out, req.Send()
+}
+
+// DeleteResourceDefinitionWithContext is the same as DeleteResourceDefinition with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DeleteResourceDefinition for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *Greengrass) DeleteResourceDefinitionWithContext(ctx aws.Context, input *DeleteResourceDefinitionInput, opts ...request.Option) (*DeleteResourceDefinitionOutput, error) {
+	req, out := c.DeleteResourceDefinitionRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opDeleteSubscriptionDefinition = "DeleteSubscriptionDefinition"
+>>>>>>> Working on getting compiling
 
 // DeleteResourceDefinitionRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteResourceDefinition operation. The "output" return
@@ -2282,10 +2400,14 @@ func (c *Greengrass) DisassociateRoleFromGroupRequest(input *DisassociateRoleFro
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DisassociateRoleFromGroup
 func (c *Greengrass) DisassociateRoleFromGroup(input *DisassociateRoleFromGroupInput) (*DisassociateRoleFromGroupOutput, error) {
@@ -2376,10 +2498,14 @@ func (c *Greengrass) DisassociateServiceRoleFromAccountRequest(input *Disassocia
 // Returned Error Codes:
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DisassociateServiceRoleFromAccount
 func (c *Greengrass) DisassociateServiceRoleFromAccount(input *DisassociateServiceRoleFromAccountInput) (*DisassociateServiceRoleFromAccountOutput, error) {
@@ -2472,10 +2598,14 @@ func (c *Greengrass) GetAssociatedRoleRequest(input *GetAssociatedRoleInput) (re
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetAssociatedRole
 func (c *Greengrass) GetAssociatedRole(input *GetAssociatedRoleInput) (*GetAssociatedRoleOutput, error) {
@@ -2558,10 +2688,14 @@ func (c *Greengrass) GetConnectivityInfoRequest(input *GetConnectivityInfoInput)
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetConnectivityInfo
 func (c *Greengrass) GetConnectivityInfo(input *GetConnectivityInfoInput) (*GetConnectivityInfoOutput, error) {
@@ -3308,10 +3442,14 @@ func (c *Greengrass) GetGroupCertificateAuthorityRequest(input *GetGroupCertific
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupCertificateAuthority
 func (c *Greengrass) GetGroupCertificateAuthority(input *GetGroupCertificateAuthorityInput) (*GetGroupCertificateAuthorityOutput, error) {
@@ -3394,10 +3532,14 @@ func (c *Greengrass) GetGroupCertificateConfigurationRequest(input *GetGroupCert
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetGroupCertificateConfiguration
 func (c *Greengrass) GetGroupCertificateConfiguration(input *GetGroupCertificateConfigurationInput) (*GetGroupCertificateConfigurationOutput, error) {
@@ -3669,6 +3811,7 @@ func (c *Greengrass) GetLoggerDefinitionVersionWithContext(ctx aws.Context, inpu
 }
 
 const opGetResourceDefinition = "GetResourceDefinition"
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 // GetResourceDefinitionRequest generates a "aws/request.Request" representing the
@@ -3844,6 +3987,186 @@ func (c *Greengrass) GetResourceDefinitionVersionWithContext(ctx aws.Context, in
 }
 
 const opGetServiceRoleForAccount = "GetServiceRoleForAccount"
+=======
+>>>>>>> Working on getting compiling
+
+// GetResourceDefinitionRequest generates a "aws/request.Request" representing the
+// client's request for the GetResourceDefinition operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetResourceDefinition for more information on using the GetResourceDefinition
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the GetResourceDefinitionRequest method.
+//    req, resp := client.GetResourceDefinitionRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+<<<<<<< HEAD
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccount
+func (c *Greengrass) GetServiceRoleForAccountRequest(input *GetServiceRoleForAccountInput) (req *request.Request, output *GetServiceRoleForAccountOutput) {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinition
+func (c *Greengrass) GetResourceDefinitionRequest(input *GetResourceDefinitionInput) (req *request.Request, output *GetResourceDefinitionOutput) {
+>>>>>>> Working on getting compiling
+	op := &request.Operation{
+		Name:       opGetResourceDefinition,
+		HTTPMethod: "GET",
+		HTTPPath:   "/greengrass/definition/resources/{ResourceDefinitionId}",
+	}
+
+	if input == nil {
+		input = &GetResourceDefinitionInput{}
+	}
+
+	output = &GetResourceDefinitionOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetResourceDefinition API operation for AWS Greengrass.
+//
+// Retrieves information about a resource definition, such as its creation time
+// and latest version.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS Greengrass's
+// API operation GetResourceDefinition for usage and error information.
+//
+// Returned Error Codes:
+<<<<<<< HEAD
+//   * ErrCodeInternalServerErrorException "InternalServerErrorException"
+//   The server encountered an unexpected error.
+=======
+//   * ErrCodeInternalServerErrorException "InternalServerErrorException"
+//   Server Error
+>>>>>>> Initial dep workover
+//
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccount
+func (c *Greengrass) GetServiceRoleForAccount(input *GetServiceRoleForAccountInput) (*GetServiceRoleForAccountOutput, error) {
+	req, out := c.GetServiceRoleForAccountRequest(input)
+=======
+//   * ErrCodeBadRequestException "BadRequestException"
+//   user error
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinition
+func (c *Greengrass) GetResourceDefinition(input *GetResourceDefinitionInput) (*GetResourceDefinitionOutput, error) {
+	req, out := c.GetResourceDefinitionRequest(input)
+>>>>>>> Working on getting compiling
+	return out, req.Send()
+}
+
+// GetResourceDefinitionWithContext is the same as GetResourceDefinition with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetResourceDefinition for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *Greengrass) GetResourceDefinitionWithContext(ctx aws.Context, input *GetResourceDefinitionInput, opts ...request.Option) (*GetResourceDefinitionOutput, error) {
+	req, out := c.GetResourceDefinitionRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opGetResourceDefinitionVersion = "GetResourceDefinitionVersion"
+
+// GetResourceDefinitionVersionRequest generates a "aws/request.Request" representing the
+// client's request for the GetResourceDefinitionVersion operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetResourceDefinitionVersion for more information on using the GetResourceDefinitionVersion
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the GetResourceDefinitionVersionRequest method.
+//    req, resp := client.GetResourceDefinitionVersionRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionVersion
+func (c *Greengrass) GetResourceDefinitionVersionRequest(input *GetResourceDefinitionVersionInput) (req *request.Request, output *GetResourceDefinitionVersionOutput) {
+	op := &request.Operation{
+		Name:       opGetResourceDefinitionVersion,
+		HTTPMethod: "GET",
+		HTTPPath:   "/greengrass/definition/resources/{ResourceDefinitionId}/versions/{ResourceDefinitionVersionId}",
+	}
+
+	if input == nil {
+		input = &GetResourceDefinitionVersionInput{}
+	}
+
+	output = &GetResourceDefinitionVersionOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetResourceDefinitionVersion API operation for AWS Greengrass.
+//
+// Retrieves information about a resource definition version, such as which
+// resources are included in the version.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS Greengrass's
+// API operation GetResourceDefinitionVersion for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeBadRequestException "BadRequestException"
+//   user error
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionVersion
+func (c *Greengrass) GetResourceDefinitionVersion(input *GetResourceDefinitionVersionInput) (*GetResourceDefinitionVersionOutput, error) {
+	req, out := c.GetResourceDefinitionVersionRequest(input)
+	return out, req.Send()
+}
+
+// GetResourceDefinitionVersionWithContext is the same as GetResourceDefinitionVersion with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetResourceDefinitionVersion for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *Greengrass) GetResourceDefinitionVersionWithContext(ctx aws.Context, input *GetResourceDefinitionVersionInput, opts ...request.Option) (*GetResourceDefinitionVersionOutput, error) {
+	req, out := c.GetResourceDefinitionVersionRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opGetServiceRoleForAccount = "GetServiceRoleForAccount"
 
 // GetServiceRoleForAccountRequest generates a "aws/request.Request" representing the
 // client's request for the GetServiceRoleForAccount operation. The "output" return
@@ -3868,7 +4191,7 @@ const opGetServiceRoleForAccount = "GetServiceRoleForAccount"
 //        fmt.Println(resp)
 //    }
 //
-// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccount
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccount
 func (c *Greengrass) GetServiceRoleForAccountRequest(input *GetServiceRoleForAccountInput) (req *request.Request, output *GetServiceRoleForAccountOutput) {
 	op := &request.Operation{
 		Name:       opGetServiceRoleForAccount,
@@ -3899,12 +4222,8 @@ func (c *Greengrass) GetServiceRoleForAccountRequest(input *GetServiceRoleForAcc
 // Returned Error Codes:
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 //   The server encountered an unexpected error.
-=======
-//   * ErrCodeInternalServerErrorException "InternalServerErrorException"
-//   Server Error
->>>>>>> Initial dep workover
 //
-// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccount
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetServiceRoleForAccount
 func (c *Greengrass) GetServiceRoleForAccount(input *GetServiceRoleForAccountInput) (*GetServiceRoleForAccountOutput, error) {
 	req, out := c.GetServiceRoleForAccountRequest(input)
 	return out, req.Send()
@@ -4721,10 +5040,14 @@ func (c *Greengrass) ListGroupCertificateAuthoritiesRequest(input *ListGroupCert
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupCertificateAuthorities
 func (c *Greengrass) ListGroupCertificateAuthorities(input *ListGroupCertificateAuthoritiesInput) (*ListGroupCertificateAuthoritiesOutput, error) {
@@ -5119,7 +5442,11 @@ const opListResourceDefinitionVersions = "ListResourceDefinitionVersions"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersions
+>>>>>>> Working on getting compiling
 func (c *Greengrass) ListResourceDefinitionVersionsRequest(input *ListResourceDefinitionVersionsInput) (req *request.Request, output *ListResourceDefinitionVersionsOutput) {
 	op := &request.Operation{
 		Name:       opListResourceDefinitionVersions,
@@ -5151,7 +5478,11 @@ func (c *Greengrass) ListResourceDefinitionVersionsRequest(input *ListResourceDe
 //   * ErrCodeBadRequestException "BadRequestException"
 //   user error
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersions
+>>>>>>> Working on getting compiling
 func (c *Greengrass) ListResourceDefinitionVersions(input *ListResourceDefinitionVersionsInput) (*ListResourceDefinitionVersionsOutput, error) {
 	req, out := c.ListResourceDefinitionVersionsRequest(input)
 	return out, req.Send()
@@ -5198,7 +5529,11 @@ const opListResourceDefinitions = "ListResourceDefinitions"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitions
+>>>>>>> Working on getting compiling
 func (c *Greengrass) ListResourceDefinitionsRequest(input *ListResourceDefinitionsInput) (req *request.Request, output *ListResourceDefinitionsOutput) {
 	op := &request.Operation{
 		Name:       opListResourceDefinitions,
@@ -5225,7 +5560,11 @@ func (c *Greengrass) ListResourceDefinitionsRequest(input *ListResourceDefinitio
 //
 // See the AWS API reference guide for AWS Greengrass's
 // API operation ListResourceDefinitions for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitions
+>>>>>>> Working on getting compiling
 func (c *Greengrass) ListResourceDefinitions(input *ListResourceDefinitionsInput) (*ListResourceDefinitionsOutput, error) {
 	req, out := c.ListResourceDefinitionsRequest(input)
 	return out, req.Send()
@@ -6074,10 +6413,14 @@ func (c *Greengrass) UpdateGroupCertificateConfigurationRequest(input *UpdateGro
 //
 //   * ErrCodeInternalServerErrorException "InternalServerErrorException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   The server encountered an unexpected error.
 =======
 //   Server Error
 >>>>>>> Initial dep workover
+=======
+//   The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateGroupCertificateConfiguration
 func (c *Greengrass) UpdateGroupCertificateConfiguration(input *UpdateGroupCertificateConfigurationInput) (*UpdateGroupCertificateConfigurationOutput, error) {
@@ -6181,6 +6524,7 @@ func (c *Greengrass) UpdateLoggerDefinitionWithContext(ctx aws.Context, input *U
 }
 
 const opUpdateResourceDefinition = "UpdateResourceDefinition"
+<<<<<<< HEAD
 
 // UpdateResourceDefinitionRequest generates a "aws/request.Request" representing the
 // client's request for the UpdateResourceDefinition operation. The "output" return
@@ -6260,9 +6604,11 @@ func (c *Greengrass) UpdateResourceDefinitionWithContext(ctx aws.Context, input 
 }
 
 const opUpdateSubscriptionDefinition = "UpdateSubscriptionDefinition"
+=======
+>>>>>>> Working on getting compiling
 
-// UpdateSubscriptionDefinitionRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateSubscriptionDefinition operation. The "output" return
+// UpdateResourceDefinitionRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateResourceDefinition operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
 <<<<<<< HEAD
@@ -6278,10 +6624,94 @@ const opUpdateSubscriptionDefinition = "UpdateSubscriptionDefinition"
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-// See UpdateSubscriptionDefinition for more information on using the UpdateSubscriptionDefinition
+// See UpdateResourceDefinition for more information on using the UpdateResourceDefinition
 // API call, and error handling.
 //
 >>>>>>> Initial dep workover
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the UpdateResourceDefinitionRequest method.
+//    req, resp := client.UpdateResourceDefinitionRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+<<<<<<< HEAD
+// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateSubscriptionDefinition
+func (c *Greengrass) UpdateSubscriptionDefinitionRequest(input *UpdateSubscriptionDefinitionInput) (req *request.Request, output *UpdateSubscriptionDefinitionOutput) {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinition
+func (c *Greengrass) UpdateResourceDefinitionRequest(input *UpdateResourceDefinitionInput) (req *request.Request, output *UpdateResourceDefinitionOutput) {
+>>>>>>> Working on getting compiling
+	op := &request.Operation{
+		Name:       opUpdateResourceDefinition,
+		HTTPMethod: "PUT",
+		HTTPPath:   "/greengrass/definition/resources/{ResourceDefinitionId}",
+	}
+
+	if input == nil {
+		input = &UpdateResourceDefinitionInput{}
+	}
+
+	output = &UpdateResourceDefinitionOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// UpdateResourceDefinition API operation for AWS Greengrass.
+//
+// Updates a resource definition.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS Greengrass's
+// API operation UpdateResourceDefinition for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeBadRequestException "BadRequestException"
+//   user error
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinition
+func (c *Greengrass) UpdateResourceDefinition(input *UpdateResourceDefinitionInput) (*UpdateResourceDefinitionOutput, error) {
+	req, out := c.UpdateResourceDefinitionRequest(input)
+	return out, req.Send()
+}
+
+// UpdateResourceDefinitionWithContext is the same as UpdateResourceDefinition with the addition of
+// the ability to pass a context and additional request options.
+//
+// See UpdateResourceDefinition for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *Greengrass) UpdateResourceDefinitionWithContext(ctx aws.Context, input *UpdateResourceDefinitionInput, opts ...request.Option) (*UpdateResourceDefinitionOutput, error) {
+	req, out := c.UpdateResourceDefinitionRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opUpdateSubscriptionDefinition = "UpdateSubscriptionDefinition"
+
+// UpdateSubscriptionDefinitionRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateSubscriptionDefinition operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateSubscriptionDefinition for more information on using the UpdateSubscriptionDefinition
+// API call, and error handling.
+//
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6294,7 +6724,7 @@ const opUpdateSubscriptionDefinition = "UpdateSubscriptionDefinition"
 //        fmt.Println(resp)
 //    }
 //
-// See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateSubscriptionDefinition
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateSubscriptionDefinition
 func (c *Greengrass) UpdateSubscriptionDefinitionRequest(input *UpdateSubscriptionDefinitionInput) (req *request.Request, output *UpdateSubscriptionDefinitionOutput) {
 	op := &request.Operation{
 		Name:       opUpdateSubscriptionDefinition,
@@ -7867,7 +8297,11 @@ func (s *CreateLoggerDefinitionVersionOutput) SetVersion(v string) *CreateLogger
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionRequest
+>>>>>>> Working on getting compiling
 type CreateResourceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7907,7 +8341,11 @@ func (s *CreateResourceDefinitionInput) SetName(v string) *CreateResourceDefinit
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionResponse
+>>>>>>> Working on getting compiling
 type CreateResourceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7978,7 +8416,11 @@ func (s *CreateResourceDefinitionOutput) SetName(v string) *CreateResourceDefini
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersionRequest
+>>>>>>> Working on getting compiling
 type CreateResourceDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8031,7 +8473,11 @@ func (s *CreateResourceDefinitionVersionInput) SetResources(v []*Resource) *Crea
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersionResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateResourceDefinitionVersionResponse
+>>>>>>> Working on getting compiling
 type CreateResourceDefinitionVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8079,7 +8525,11 @@ func (s *CreateResourceDefinitionVersionOutput) SetVersion(v string) *CreateReso
 }
 
 // Request for the CreateSoftwareUpdateJob API
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJobRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJobRequest
+>>>>>>> Working on getting compiling
 type CreateSoftwareUpdateJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8158,7 +8608,11 @@ func (s *CreateSoftwareUpdateJobInput) SetUpdateTargetsOperatingSystem(v string)
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJobResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJobResponse
+>>>>>>> Working on getting compiling
 type CreateSoftwareUpdateJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8191,7 +8645,11 @@ func (s *CreateSoftwareUpdateJobOutput) SetIotJobId(v string) *CreateSoftwareUpd
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionRequest
+>>>>>>> Working on getting compiling
 type CreateSubscriptionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8231,7 +8689,11 @@ func (s *CreateSubscriptionDefinitionInput) SetName(v string) *CreateSubscriptio
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionResponse
+>>>>>>> Working on getting compiling
 type CreateSubscriptionDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8257,6 +8719,334 @@ func (s CreateSubscriptionDefinitionOutput) String() string {
 
 // GoString returns the string representation
 func (s CreateSubscriptionDefinitionOutput) GoString() string {
+<<<<<<< HEAD
+=======
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+func (s *CreateSubscriptionDefinitionOutput) SetArn(v string) *CreateSubscriptionDefinitionOutput {
+	s.Arn = &v
+	return s
+}
+
+// SetCreationTimestamp sets the CreationTimestamp field's value.
+func (s *CreateSubscriptionDefinitionOutput) SetCreationTimestamp(v string) *CreateSubscriptionDefinitionOutput {
+	s.CreationTimestamp = &v
+	return s
+}
+
+// SetId sets the Id field's value.
+func (s *CreateSubscriptionDefinitionOutput) SetId(v string) *CreateSubscriptionDefinitionOutput {
+	s.Id = &v
+	return s
+}
+
+// SetLastUpdatedTimestamp sets the LastUpdatedTimestamp field's value.
+func (s *CreateSubscriptionDefinitionOutput) SetLastUpdatedTimestamp(v string) *CreateSubscriptionDefinitionOutput {
+	s.LastUpdatedTimestamp = &v
+	return s
+}
+
+// SetLatestVersion sets the LatestVersion field's value.
+func (s *CreateSubscriptionDefinitionOutput) SetLatestVersion(v string) *CreateSubscriptionDefinitionOutput {
+	s.LatestVersion = &v
+	return s
+}
+
+// SetLatestVersionArn sets the LatestVersionArn field's value.
+func (s *CreateSubscriptionDefinitionOutput) SetLatestVersionArn(v string) *CreateSubscriptionDefinitionOutput {
+	s.LatestVersionArn = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *CreateSubscriptionDefinitionOutput) SetName(v string) *CreateSubscriptionDefinitionOutput {
+	s.Name = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionVersionRequest
+type CreateSubscriptionDefinitionVersionInput struct {
+	_ struct{} `type:"structure"`
+
+	AmznClientToken *string `location:"header" locationName:"X-Amzn-Client-Token" type:"string"`
+
+	// SubscriptionDefinitionId is a required field
+	SubscriptionDefinitionId *string `location:"uri" locationName:"SubscriptionDefinitionId" type:"string" required:"true"`
+
+	Subscriptions []*Subscription `type:"list"`
+}
+
+// String returns the string representation
+func (s CreateSubscriptionDefinitionVersionInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CreateSubscriptionDefinitionVersionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *CreateSubscriptionDefinitionVersionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "CreateSubscriptionDefinitionVersionInput"}
+	if s.SubscriptionDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("SubscriptionDefinitionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAmznClientToken sets the AmznClientToken field's value.
+func (s *CreateSubscriptionDefinitionVersionInput) SetAmznClientToken(v string) *CreateSubscriptionDefinitionVersionInput {
+	s.AmznClientToken = &v
+	return s
+}
+
+// SetSubscriptionDefinitionId sets the SubscriptionDefinitionId field's value.
+func (s *CreateSubscriptionDefinitionVersionInput) SetSubscriptionDefinitionId(v string) *CreateSubscriptionDefinitionVersionInput {
+	s.SubscriptionDefinitionId = &v
+	return s
+}
+
+// SetSubscriptions sets the Subscriptions field's value.
+func (s *CreateSubscriptionDefinitionVersionInput) SetSubscriptions(v []*Subscription) *CreateSubscriptionDefinitionVersionInput {
+	s.Subscriptions = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSubscriptionDefinitionVersionResponse
+type CreateSubscriptionDefinitionVersionOutput struct {
+	_ struct{} `type:"structure"`
+
+	Arn *string `type:"string"`
+
+	CreationTimestamp *string `type:"string"`
+
+	Id *string `type:"string"`
+
+	Version *string `type:"string"`
+}
+
+// String returns the string representation
+func (s CreateSubscriptionDefinitionVersionOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CreateSubscriptionDefinitionVersionOutput) GoString() string {
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+func (s *CreateSubscriptionDefinitionVersionOutput) SetArn(v string) *CreateSubscriptionDefinitionVersionOutput {
+	s.Arn = &v
+	return s
+}
+
+// SetCreationTimestamp sets the CreationTimestamp field's value.
+func (s *CreateSubscriptionDefinitionVersionOutput) SetCreationTimestamp(v string) *CreateSubscriptionDefinitionVersionOutput {
+	s.CreationTimestamp = &v
+	return s
+}
+
+// SetId sets the Id field's value.
+func (s *CreateSubscriptionDefinitionVersionOutput) SetId(v string) *CreateSubscriptionDefinitionVersionOutput {
+	s.Id = &v
+	return s
+}
+
+// SetVersion sets the Version field's value.
+func (s *CreateSubscriptionDefinitionVersionOutput) SetVersion(v string) *CreateSubscriptionDefinitionVersionOutput {
+	s.Version = &v
+	return s
+}
+
+// Information on the Definition
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DefinitionInformation
+type DefinitionInformation struct {
+	_ struct{} `type:"structure"`
+
+	// Arn of the definition.
+	Arn *string `type:"string"`
+
+	// Timestamp of when the definition was created.
+	CreationTimestamp *string `type:"string"`
+
+	// Id of the definition.
+	Id *string `type:"string"`
+
+	// Last updated timestamp of the definition.
+	LastUpdatedTimestamp *string `type:"string"`
+
+	// Last version of the definition.
+	LatestVersion *string `type:"string"`
+
+	// Latest version arn of the definition.
+	LatestVersionArn *string `type:"string"`
+
+	// Name of the definition.
+	Name *string `type:"string"`
+}
+
+// String returns the string representation
+func (s DefinitionInformation) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DefinitionInformation) GoString() string {
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+func (s *DefinitionInformation) SetArn(v string) *DefinitionInformation {
+	s.Arn = &v
+	return s
+}
+
+// SetCreationTimestamp sets the CreationTimestamp field's value.
+func (s *DefinitionInformation) SetCreationTimestamp(v string) *DefinitionInformation {
+	s.CreationTimestamp = &v
+	return s
+}
+
+// SetId sets the Id field's value.
+func (s *DefinitionInformation) SetId(v string) *DefinitionInformation {
+	s.Id = &v
+	return s
+}
+
+// SetLastUpdatedTimestamp sets the LastUpdatedTimestamp field's value.
+func (s *DefinitionInformation) SetLastUpdatedTimestamp(v string) *DefinitionInformation {
+	s.LastUpdatedTimestamp = &v
+	return s
+}
+
+// SetLatestVersion sets the LatestVersion field's value.
+func (s *DefinitionInformation) SetLatestVersion(v string) *DefinitionInformation {
+	s.LatestVersion = &v
+	return s
+}
+
+// SetLatestVersionArn sets the LatestVersionArn field's value.
+func (s *DefinitionInformation) SetLatestVersionArn(v string) *DefinitionInformation {
+	s.LatestVersionArn = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *DefinitionInformation) SetName(v string) *DefinitionInformation {
+	s.Name = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteCoreDefinitionRequest
+type DeleteCoreDefinitionInput struct {
+	_ struct{} `type:"structure"`
+
+	// CoreDefinitionId is a required field
+	CoreDefinitionId *string `location:"uri" locationName:"CoreDefinitionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteCoreDefinitionInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteCoreDefinitionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteCoreDefinitionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteCoreDefinitionInput"}
+	if s.CoreDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("CoreDefinitionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetCoreDefinitionId sets the CoreDefinitionId field's value.
+func (s *DeleteCoreDefinitionInput) SetCoreDefinitionId(v string) *DeleteCoreDefinitionInput {
+	s.CoreDefinitionId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteCoreDefinitionResponse
+type DeleteCoreDefinitionOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteCoreDefinitionOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteCoreDefinitionOutput) GoString() string {
+	return s.String()
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteDeviceDefinitionRequest
+type DeleteDeviceDefinitionInput struct {
+	_ struct{} `type:"structure"`
+
+	// DeviceDefinitionId is a required field
+	DeviceDefinitionId *string `location:"uri" locationName:"DeviceDefinitionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteDeviceDefinitionInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteDeviceDefinitionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteDeviceDefinitionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteDeviceDefinitionInput"}
+	if s.DeviceDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("DeviceDefinitionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetDeviceDefinitionId sets the DeviceDefinitionId field's value.
+func (s *DeleteDeviceDefinitionInput) SetDeviceDefinitionId(v string) *DeleteDeviceDefinitionInput {
+	s.DeviceDefinitionId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteDeviceDefinitionResponse
+type DeleteDeviceDefinitionOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteDeviceDefinitionOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteDeviceDefinitionOutput) GoString() string {
+>>>>>>> Working on getting compiling
 	return s.String()
 }
 
@@ -9592,6 +10382,7 @@ func (s *GetCoreDefinitionVersionInput) SetCoreDefinitionId(v string) *GetCoreDe
 	return s
 }
 
+<<<<<<< HEAD
 // SetCoreDefinitionVersionId sets the CoreDefinitionVersionId field's value.
 func (s *GetCoreDefinitionVersionInput) SetCoreDefinitionVersionId(v string) *GetCoreDefinitionVersionInput {
 	s.CoreDefinitionVersionId = &v
@@ -9600,6 +10391,62 @@ func (s *GetCoreDefinitionVersionInput) SetCoreDefinitionVersionId(v string) *Ge
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetCoreDefinitionVersionResponse
 type GetCoreDefinitionVersionOutput struct {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteGroupResponse
+type DeleteGroupOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteGroupOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteGroupOutput) GoString() string {
+	return s.String()
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteLoggerDefinitionRequest
+type DeleteLoggerDefinitionInput struct {
+	_ struct{} `type:"structure"`
+
+	// LoggerDefinitionId is a required field
+	LoggerDefinitionId *string `location:"uri" locationName:"LoggerDefinitionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteLoggerDefinitionInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteLoggerDefinitionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteLoggerDefinitionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteLoggerDefinitionInput"}
+	if s.LoggerDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("LoggerDefinitionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetLoggerDefinitionId sets the LoggerDefinitionId field's value.
+func (s *DeleteLoggerDefinitionInput) SetLoggerDefinitionId(v string) *DeleteLoggerDefinitionInput {
+	s.LoggerDefinitionId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteLoggerDefinitionResponse
+type DeleteLoggerDefinitionOutput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// Arn of the core definition version.
@@ -9619,11 +10466,16 @@ type GetCoreDefinitionVersionOutput struct {
 }
 
 // String returns the string representation
+<<<<<<< HEAD
 func (s GetCoreDefinitionVersionOutput) String() string {
+=======
+func (s DeleteLoggerDefinitionOutput) String() string {
+>>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s GetCoreDefinitionVersionOutput) GoString() string {
 	return s.String()
 }
@@ -9671,15 +10523,36 @@ type GetDeploymentStatusInput struct {
 
 // String returns the string representation
 func (s GetDeploymentStatusInput) String() string {
+=======
+func (s DeleteLoggerDefinitionOutput) GoString() string {
+	return s.String()
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteResourceDefinitionRequest
+type DeleteResourceDefinitionInput struct {
+	_ struct{} `type:"structure"`
+
+	// ResourceDefinitionId is a required field
+	ResourceDefinitionId *string `location:"uri" locationName:"ResourceDefinitionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteResourceDefinitionInput) String() string {
+>>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s GetDeploymentStatusInput) GoString() string {
+=======
+func (s DeleteResourceDefinitionInput) GoString() string {
+>>>>>>> Working on getting compiling
 	return s.String()
 }
 
 // Validate inspects the fields of the type to determine if they are valid.
+<<<<<<< HEAD
 func (s *GetDeploymentStatusInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "GetDeploymentStatusInput"}
 	if s.DeploymentId == nil {
@@ -9687,6 +10560,12 @@ func (s *GetDeploymentStatusInput) Validate() error {
 	}
 	if s.GroupId == nil {
 		invalidParams.Add(request.NewErrParamRequired("GroupId"))
+=======
+func (s *DeleteResourceDefinitionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteResourceDefinitionInput"}
+	if s.ResourceDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("ResourceDefinitionId"))
+>>>>>>> Working on getting compiling
 	}
 
 	if invalidParams.Len() > 0 {
@@ -9695,6 +10574,7 @@ func (s *GetDeploymentStatusInput) Validate() error {
 	return nil
 }
 
+<<<<<<< HEAD
 // SetDeploymentId sets the DeploymentId field's value.
 func (s *GetDeploymentStatusInput) SetDeploymentId(v string) *GetDeploymentStatusInput {
 	s.DeploymentId = &v
@@ -9766,6 +10646,27 @@ func (s *GetDeploymentStatusOutput) SetErrorMessage(v string) *GetDeploymentStat
 func (s *GetDeploymentStatusOutput) SetUpdatedAt(v string) *GetDeploymentStatusOutput {
 	s.UpdatedAt = &v
 	return s
+=======
+// SetResourceDefinitionId sets the ResourceDefinitionId field's value.
+func (s *DeleteResourceDefinitionInput) SetResourceDefinitionId(v string) *DeleteResourceDefinitionInput {
+	s.ResourceDefinitionId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/DeleteResourceDefinitionResponse
+type DeleteResourceDefinitionOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteResourceDefinitionOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteResourceDefinitionOutput) GoString() string {
+	return s.String()
+>>>>>>> Working on getting compiling
 }
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetDeviceDefinitionRequest
@@ -10165,11 +11066,21 @@ func (s *GetFunctionDefinitionOutput) SetName(v string) *GetFunctionDefinitionOu
 type GetFunctionDefinitionVersionInput struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// FunctionDefinitionId is a required field
 	FunctionDefinitionId *string `location:"uri" locationName:"FunctionDefinitionId" type:"string" required:"true"`
 
 	// FunctionDefinitionVersionId is a required field
 	FunctionDefinitionVersionId *string `location:"uri" locationName:"FunctionDefinitionVersionId" type:"string" required:"true"`
+=======
+	// Flag to allow lambda access sys filesystem.
+	AccessSysfs *bool `type:"boolean"`
+
+	// Policies for the function to access resources.
+	ResourceAccessPolicies []*ResourceAccessPolicy `type:"list"`
+
+	Variables map[string]*string `type:"map"`
+>>>>>>> Working on getting compiling
 }
 
 // String returns the string representation
@@ -10182,6 +11093,7 @@ func (s GetFunctionDefinitionVersionInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // Validate inspects the fields of the type to determine if they are valid.
 func (s *GetFunctionDefinitionVersionInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "GetFunctionDefinitionVersionInput"}
@@ -10201,6 +11113,23 @@ func (s *GetFunctionDefinitionVersionInput) Validate() error {
 // SetFunctionDefinitionId sets the FunctionDefinitionId field's value.
 func (s *GetFunctionDefinitionVersionInput) SetFunctionDefinitionId(v string) *GetFunctionDefinitionVersionInput {
 	s.FunctionDefinitionId = &v
+=======
+// SetAccessSysfs sets the AccessSysfs field's value.
+func (s *FunctionConfigurationEnvironment) SetAccessSysfs(v bool) *FunctionConfigurationEnvironment {
+	s.AccessSysfs = &v
+	return s
+}
+
+// SetResourceAccessPolicies sets the ResourceAccessPolicies field's value.
+func (s *FunctionConfigurationEnvironment) SetResourceAccessPolicies(v []*ResourceAccessPolicy) *FunctionConfigurationEnvironment {
+	s.ResourceAccessPolicies = v
+	return s
+}
+
+// SetVariables sets the Variables field's value.
+func (s *FunctionConfigurationEnvironment) SetVariables(v map[string]*string) *FunctionConfigurationEnvironment {
+	s.Variables = v
+>>>>>>> Working on getting compiling
 	return s
 }
 
@@ -10411,9 +11340,14 @@ type GetGroupCertificateConfigurationOutput struct {
 	ConnectivityInfo []*ConnectivityInfo `type:"list"`
 >>>>>>> Initial dep workover
 
+<<<<<<< HEAD
 	CertificateExpiryInMilliseconds *string `type:"string"`
 
 	GroupId *string `type:"string"`
+=======
+	// Response Text
+	Message *string `locationName:"message" type:"string"`
+>>>>>>> Working on getting compiling
 }
 
 // String returns the string representation
@@ -11163,8 +12097,13 @@ type GetResourceDefinitionVersionOutput struct {
 	// Timestamp of when the resource definition version was created.
 	CreationTimestamp *string `type:"string"`
 
+<<<<<<< HEAD
 	// Information on definition.
 	Definition *ResourceDefinitionVersion `type:"structure"`
+=======
+	// Information on the definition.
+	Definition *FunctionDefinitionVersion `type:"structure"`
+>>>>>>> Working on getting compiling
 
 	// Id of the resource definition the version belongs to.
 	Id *string `type:"string"`
@@ -11426,6 +12365,7 @@ type GetSubscriptionDefinitionVersionOutput struct {
 	// Arn of the subscription definition version.
 	Arn *string `type:"string"`
 
+<<<<<<< HEAD
 	// Timestamp of when the subscription definition version was created.
 	CreationTimestamp *string `type:"string"`
 
@@ -11436,49 +12376,308 @@ type GetSubscriptionDefinitionVersionOutput struct {
 	Id *string `type:"string"`
 
 	// Version of the subscription definition version.
+=======
+	// Timestamp when the group version was created.
+	CreationTimestamp *string `type:"string"`
+
+	// Information on the definition
+	Definition *GroupVersion `type:"structure"`
+
+	// Id of the group version.
+	Id *string `type:"string"`
+
+	// Unique Id for a version of the Group.
 	Version *string `type:"string"`
 }
 
 // String returns the string representation
-func (s GetSubscriptionDefinitionVersionOutput) String() string {
+func (s GetGroupVersionOutput) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s GetSubscriptionDefinitionVersionOutput) GoString() string {
+func (s GetGroupVersionOutput) GoString() string {
 	return s.String()
 }
 
 // SetArn sets the Arn field's value.
-func (s *GetSubscriptionDefinitionVersionOutput) SetArn(v string) *GetSubscriptionDefinitionVersionOutput {
+func (s *GetGroupVersionOutput) SetArn(v string) *GetGroupVersionOutput {
 	s.Arn = &v
 	return s
 }
 
 // SetCreationTimestamp sets the CreationTimestamp field's value.
-func (s *GetSubscriptionDefinitionVersionOutput) SetCreationTimestamp(v string) *GetSubscriptionDefinitionVersionOutput {
+func (s *GetGroupVersionOutput) SetCreationTimestamp(v string) *GetGroupVersionOutput {
 	s.CreationTimestamp = &v
 	return s
 }
 
 // SetDefinition sets the Definition field's value.
-func (s *GetSubscriptionDefinitionVersionOutput) SetDefinition(v *SubscriptionDefinitionVersion) *GetSubscriptionDefinitionVersionOutput {
+func (s *GetGroupVersionOutput) SetDefinition(v *GroupVersion) *GetGroupVersionOutput {
 	s.Definition = v
 	return s
 }
 
 // SetId sets the Id field's value.
-func (s *GetSubscriptionDefinitionVersionOutput) SetId(v string) *GetSubscriptionDefinitionVersionOutput {
+func (s *GetGroupVersionOutput) SetId(v string) *GetGroupVersionOutput {
 	s.Id = &v
 	return s
 }
 
 // SetVersion sets the Version field's value.
-func (s *GetSubscriptionDefinitionVersionOutput) SetVersion(v string) *GetSubscriptionDefinitionVersionOutput {
+func (s *GetGroupVersionOutput) SetVersion(v string) *GetGroupVersionOutput {
 	s.Version = &v
 	return s
 }
 
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionRequest
+type GetLoggerDefinitionInput struct {
+	_ struct{} `type:"structure"`
+
+	// LoggerDefinitionId is a required field
+	LoggerDefinitionId *string `location:"uri" locationName:"LoggerDefinitionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s GetLoggerDefinitionInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetLoggerDefinitionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *GetLoggerDefinitionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GetLoggerDefinitionInput"}
+	if s.LoggerDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("LoggerDefinitionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetLoggerDefinitionId sets the LoggerDefinitionId field's value.
+func (s *GetLoggerDefinitionInput) SetLoggerDefinitionId(v string) *GetLoggerDefinitionInput {
+	s.LoggerDefinitionId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionResponse
+type GetLoggerDefinitionOutput struct {
+	_ struct{} `type:"structure"`
+
+	Arn *string `type:"string"`
+
+	CreationTimestamp *string `type:"string"`
+
+	Id *string `type:"string"`
+
+	LastUpdatedTimestamp *string `type:"string"`
+
+	LatestVersion *string `type:"string"`
+
+	LatestVersionArn *string `type:"string"`
+
+	Name *string `type:"string"`
+}
+
+// String returns the string representation
+func (s GetLoggerDefinitionOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetLoggerDefinitionOutput) GoString() string {
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+func (s *GetLoggerDefinitionOutput) SetArn(v string) *GetLoggerDefinitionOutput {
+	s.Arn = &v
+	return s
+}
+
+// SetCreationTimestamp sets the CreationTimestamp field's value.
+func (s *GetLoggerDefinitionOutput) SetCreationTimestamp(v string) *GetLoggerDefinitionOutput {
+	s.CreationTimestamp = &v
+	return s
+}
+
+// SetId sets the Id field's value.
+func (s *GetLoggerDefinitionOutput) SetId(v string) *GetLoggerDefinitionOutput {
+	s.Id = &v
+	return s
+}
+
+// SetLastUpdatedTimestamp sets the LastUpdatedTimestamp field's value.
+func (s *GetLoggerDefinitionOutput) SetLastUpdatedTimestamp(v string) *GetLoggerDefinitionOutput {
+	s.LastUpdatedTimestamp = &v
+	return s
+}
+
+// SetLatestVersion sets the LatestVersion field's value.
+func (s *GetLoggerDefinitionOutput) SetLatestVersion(v string) *GetLoggerDefinitionOutput {
+	s.LatestVersion = &v
+	return s
+}
+
+// SetLatestVersionArn sets the LatestVersionArn field's value.
+func (s *GetLoggerDefinitionOutput) SetLatestVersionArn(v string) *GetLoggerDefinitionOutput {
+	s.LatestVersionArn = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *GetLoggerDefinitionOutput) SetName(v string) *GetLoggerDefinitionOutput {
+	s.Name = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionVersionRequest
+type GetLoggerDefinitionVersionInput struct {
+	_ struct{} `type:"structure"`
+
+	// LoggerDefinitionId is a required field
+	LoggerDefinitionId *string `location:"uri" locationName:"LoggerDefinitionId" type:"string" required:"true"`
+
+	// LoggerDefinitionVersionId is a required field
+	LoggerDefinitionVersionId *string `location:"uri" locationName:"LoggerDefinitionVersionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s GetLoggerDefinitionVersionInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetLoggerDefinitionVersionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *GetLoggerDefinitionVersionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GetLoggerDefinitionVersionInput"}
+	if s.LoggerDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("LoggerDefinitionId"))
+	}
+	if s.LoggerDefinitionVersionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("LoggerDefinitionVersionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetLoggerDefinitionId sets the LoggerDefinitionId field's value.
+func (s *GetLoggerDefinitionVersionInput) SetLoggerDefinitionId(v string) *GetLoggerDefinitionVersionInput {
+	s.LoggerDefinitionId = &v
+	return s
+}
+
+// SetLoggerDefinitionVersionId sets the LoggerDefinitionVersionId field's value.
+func (s *GetLoggerDefinitionVersionInput) SetLoggerDefinitionVersionId(v string) *GetLoggerDefinitionVersionInput {
+	s.LoggerDefinitionVersionId = &v
+	return s
+}
+
+// Information on logger definition version response
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetLoggerDefinitionVersionResponse
+type GetLoggerDefinitionVersionOutput struct {
+	_ struct{} `type:"structure"`
+
+	// Arn of the logger definition version.
+	Arn *string `type:"string"`
+
+	// Timestamp of when the logger definition version was created.
+	CreationTimestamp *string `type:"string"`
+
+	// Information on definition
+	Definition *LoggerDefinitionVersion `type:"structure"`
+
+	// Id of the logger definition the version belongs to.
+	Id *string `type:"string"`
+
+	// Version of the logger definition version.
+>>>>>>> Working on getting compiling
+	Version *string `type:"string"`
+}
+
+// String returns the string representation
+<<<<<<< HEAD
+func (s GetSubscriptionDefinitionVersionOutput) String() string {
+=======
+func (s GetLoggerDefinitionVersionOutput) String() string {
+>>>>>>> Working on getting compiling
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+<<<<<<< HEAD
+func (s GetSubscriptionDefinitionVersionOutput) GoString() string {
+=======
+func (s GetLoggerDefinitionVersionOutput) GoString() string {
+>>>>>>> Working on getting compiling
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+<<<<<<< HEAD
+func (s *GetSubscriptionDefinitionVersionOutput) SetArn(v string) *GetSubscriptionDefinitionVersionOutput {
+=======
+func (s *GetLoggerDefinitionVersionOutput) SetArn(v string) *GetLoggerDefinitionVersionOutput {
+>>>>>>> Working on getting compiling
+	s.Arn = &v
+	return s
+}
+
+// SetCreationTimestamp sets the CreationTimestamp field's value.
+<<<<<<< HEAD
+func (s *GetSubscriptionDefinitionVersionOutput) SetCreationTimestamp(v string) *GetSubscriptionDefinitionVersionOutput {
+=======
+func (s *GetLoggerDefinitionVersionOutput) SetCreationTimestamp(v string) *GetLoggerDefinitionVersionOutput {
+>>>>>>> Working on getting compiling
+	s.CreationTimestamp = &v
+	return s
+}
+
+// SetDefinition sets the Definition field's value.
+<<<<<<< HEAD
+func (s *GetSubscriptionDefinitionVersionOutput) SetDefinition(v *SubscriptionDefinitionVersion) *GetSubscriptionDefinitionVersionOutput {
+=======
+func (s *GetLoggerDefinitionVersionOutput) SetDefinition(v *LoggerDefinitionVersion) *GetLoggerDefinitionVersionOutput {
+>>>>>>> Working on getting compiling
+	s.Definition = v
+	return s
+}
+
+// SetId sets the Id field's value.
+<<<<<<< HEAD
+func (s *GetSubscriptionDefinitionVersionOutput) SetId(v string) *GetSubscriptionDefinitionVersionOutput {
+=======
+func (s *GetLoggerDefinitionVersionOutput) SetId(v string) *GetLoggerDefinitionVersionOutput {
+>>>>>>> Working on getting compiling
+	s.Id = &v
+	return s
+}
+
+// SetVersion sets the Version field's value.
+<<<<<<< HEAD
+func (s *GetSubscriptionDefinitionVersionOutput) SetVersion(v string) *GetSubscriptionDefinitionVersionOutput {
+=======
+func (s *GetLoggerDefinitionVersionOutput) SetVersion(v string) *GetLoggerDefinitionVersionOutput {
+>>>>>>> Working on getting compiling
+	s.Version = &v
+	return s
+}
+
+<<<<<<< HEAD
 // Information on group certificate authority properties
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GroupCertificateAuthorityProperties
 type GroupCertificateAuthorityProperties struct {
@@ -11493,10 +12692,23 @@ type GroupCertificateAuthorityProperties struct {
 
 // String returns the string representation
 func (s GroupCertificateAuthorityProperties) String() string {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionRequest
+type GetResourceDefinitionInput struct {
+	_ struct{} `type:"structure"`
+
+	// ResourceDefinitionId is a required field
+	ResourceDefinitionId *string `location:"uri" locationName:"ResourceDefinitionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s GetResourceDefinitionInput) String() string {
+>>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s GroupCertificateAuthorityProperties) GoString() string {
 	return s.String()
 }
@@ -11516,6 +12728,33 @@ func (s *GroupCertificateAuthorityProperties) SetGroupCertificateAuthorityId(v s
 // Information on the group
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GroupInformation
 type GroupInformation struct {
+=======
+func (s GetResourceDefinitionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *GetResourceDefinitionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GetResourceDefinitionInput"}
+	if s.ResourceDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("ResourceDefinitionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetResourceDefinitionId sets the ResourceDefinitionId field's value.
+func (s *GetResourceDefinitionInput) SetResourceDefinitionId(v string) *GetResourceDefinitionInput {
+	s.ResourceDefinitionId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionResponse
+type GetResourceDefinitionOutput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// Arn of a group.
@@ -11541,27 +12780,166 @@ type GroupInformation struct {
 }
 
 // String returns the string representation
+<<<<<<< HEAD
 func (s GroupInformation) String() string {
+=======
+func (s GetResourceDefinitionOutput) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s GroupInformation) GoString() string {
+func (s GetResourceDefinitionOutput) GoString() string {
 	return s.String()
 }
 
 // SetArn sets the Arn field's value.
-func (s *GroupInformation) SetArn(v string) *GroupInformation {
+func (s *GetResourceDefinitionOutput) SetArn(v string) *GetResourceDefinitionOutput {
 	s.Arn = &v
 	return s
 }
 
 // SetCreationTimestamp sets the CreationTimestamp field's value.
-func (s *GroupInformation) SetCreationTimestamp(v string) *GroupInformation {
+func (s *GetResourceDefinitionOutput) SetCreationTimestamp(v string) *GetResourceDefinitionOutput {
 	s.CreationTimestamp = &v
 	return s
 }
 
+// SetId sets the Id field's value.
+func (s *GetResourceDefinitionOutput) SetId(v string) *GetResourceDefinitionOutput {
+	s.Id = &v
+	return s
+}
+
+// SetLastUpdatedTimestamp sets the LastUpdatedTimestamp field's value.
+func (s *GetResourceDefinitionOutput) SetLastUpdatedTimestamp(v string) *GetResourceDefinitionOutput {
+	s.LastUpdatedTimestamp = &v
+	return s
+}
+
+// SetLatestVersion sets the LatestVersion field's value.
+func (s *GetResourceDefinitionOutput) SetLatestVersion(v string) *GetResourceDefinitionOutput {
+	s.LatestVersion = &v
+	return s
+}
+
+// SetLatestVersionArn sets the LatestVersionArn field's value.
+func (s *GetResourceDefinitionOutput) SetLatestVersionArn(v string) *GetResourceDefinitionOutput {
+	s.LatestVersionArn = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *GetResourceDefinitionOutput) SetName(v string) *GetResourceDefinitionOutput {
+	s.Name = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionVersionRequest
+type GetResourceDefinitionVersionInput struct {
+	_ struct{} `type:"structure"`
+
+	// ResourceDefinitionId is a required field
+	ResourceDefinitionId *string `location:"uri" locationName:"ResourceDefinitionId" type:"string" required:"true"`
+
+	// ResourceDefinitionVersionId is a required field
+	ResourceDefinitionVersionId *string `location:"uri" locationName:"ResourceDefinitionVersionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s GetResourceDefinitionVersionInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetResourceDefinitionVersionInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *GetResourceDefinitionVersionInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GetResourceDefinitionVersionInput"}
+	if s.ResourceDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("ResourceDefinitionId"))
+	}
+	if s.ResourceDefinitionVersionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("ResourceDefinitionVersionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetResourceDefinitionId sets the ResourceDefinitionId field's value.
+func (s *GetResourceDefinitionVersionInput) SetResourceDefinitionId(v string) *GetResourceDefinitionVersionInput {
+	s.ResourceDefinitionId = &v
+	return s
+}
+
+// SetResourceDefinitionVersionId sets the ResourceDefinitionVersionId field's value.
+func (s *GetResourceDefinitionVersionInput) SetResourceDefinitionVersionId(v string) *GetResourceDefinitionVersionInput {
+	s.ResourceDefinitionVersionId = &v
+	return s
+}
+
+// Information on resource definition version response
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GetResourceDefinitionVersionResponse
+type GetResourceDefinitionVersionOutput struct {
+	_ struct{} `type:"structure"`
+
+	// Arn of the resource definition version.
+	Arn *string `type:"string"`
+
+	// Timestamp of when the resource definition version was created.
+	CreationTimestamp *string `type:"string"`
+
+	// Information on definition.
+	Definition *ResourceDefinitionVersion `type:"structure"`
+
+	// Id of the resource definition the version belongs to.
+	Id *string `type:"string"`
+
+	// Version of the resource definition version.
+	Version *string `type:"string"`
+}
+
+// String returns the string representation
+func (s GetResourceDefinitionVersionOutput) String() string {
+>>>>>>> Working on getting compiling
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+<<<<<<< HEAD
+func (s GroupInformation) GoString() string {
+=======
+func (s GetResourceDefinitionVersionOutput) GoString() string {
+>>>>>>> Working on getting compiling
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+<<<<<<< HEAD
+func (s *GroupInformation) SetArn(v string) *GroupInformation {
+=======
+func (s *GetResourceDefinitionVersionOutput) SetArn(v string) *GetResourceDefinitionVersionOutput {
+>>>>>>> Working on getting compiling
+	s.Arn = &v
+	return s
+}
+
+// SetCreationTimestamp sets the CreationTimestamp field's value.
+<<<<<<< HEAD
+func (s *GroupInformation) SetCreationTimestamp(v string) *GroupInformation {
+=======
+func (s *GetResourceDefinitionVersionOutput) SetCreationTimestamp(v string) *GetResourceDefinitionVersionOutput {
+>>>>>>> Working on getting compiling
+	s.CreationTimestamp = &v
+	return s
+}
+
+<<<<<<< HEAD
 // SetId sets the Id field's value.
 func (s *GroupInformation) SetId(v string) *GroupInformation {
 	s.Id = &v
@@ -11577,6 +12955,23 @@ func (s *GroupInformation) SetLastUpdatedTimestamp(v string) *GroupInformation {
 // SetLatestVersion sets the LatestVersion field's value.
 func (s *GroupInformation) SetLatestVersion(v string) *GroupInformation {
 	s.LatestVersion = &v
+=======
+// SetDefinition sets the Definition field's value.
+func (s *GetResourceDefinitionVersionOutput) SetDefinition(v *ResourceDefinitionVersion) *GetResourceDefinitionVersionOutput {
+	s.Definition = v
+	return s
+}
+
+// SetId sets the Id field's value.
+func (s *GetResourceDefinitionVersionOutput) SetId(v string) *GetResourceDefinitionVersionOutput {
+	s.Id = &v
+	return s
+}
+
+// SetVersion sets the Version field's value.
+func (s *GetResourceDefinitionVersionOutput) SetVersion(v string) *GetResourceDefinitionVersionOutput {
+	s.Version = &v
+>>>>>>> Working on getting compiling
 	return s
 }
 
@@ -12019,6 +13414,7 @@ func (s *ListDeviceDefinitionVersionsOutput) SetVersions(v []*VersionInformation
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListDeviceDefinitionsRequest
 type ListDeviceDefinitionsInput struct {
 	_ struct{} `type:"structure"`
@@ -12026,6 +13422,64 @@ type ListDeviceDefinitionsInput struct {
 	MaxResults *string `location:"querystring" locationName:"MaxResults" type:"string"`
 
 	NextToken *string `location:"querystring" locationName:"NextToken" type:"string"`
+=======
+// Group owner related settings for local resources.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GroupOwnerSetting
+type GroupOwnerSetting struct {
+	_ struct{} `type:"structure"`
+
+	// Eanble the auto added group owner.
+	AutoAddGroupOwner *bool `type:"boolean"`
+
+	// Name of the group owner.
+	GroupOwner *string `type:"string"`
+}
+
+// String returns the string representation
+func (s GroupOwnerSetting) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GroupOwnerSetting) GoString() string {
+	return s.String()
+}
+
+// SetAutoAddGroupOwner sets the AutoAddGroupOwner field's value.
+func (s *GroupOwnerSetting) SetAutoAddGroupOwner(v bool) *GroupOwnerSetting {
+	s.AutoAddGroupOwner = &v
+	return s
+}
+
+// SetGroupOwner sets the GroupOwner field's value.
+func (s *GroupOwnerSetting) SetGroupOwner(v string) *GroupOwnerSetting {
+	s.GroupOwner = &v
+	return s
+}
+
+// Information on group version
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/GroupVersion
+type GroupVersion struct {
+	_ struct{} `type:"structure"`
+
+	// Core definition version arn for this group.
+	CoreDefinitionVersionArn *string `type:"string"`
+
+	// Device definition version arn for this group.
+	DeviceDefinitionVersionArn *string `type:"string"`
+
+	// Function definition version arn for this group.
+	FunctionDefinitionVersionArn *string `type:"string"`
+
+	// Logger definition version arn for this group.
+	LoggerDefinitionVersionArn *string `type:"string"`
+
+	// Resource definition version arn for this group.
+	ResourceDefinitionVersionArn *string `type:"string"`
+
+	// Subscription definition version arn for this group.
+	SubscriptionDefinitionVersionArn *string `type:"string"`
+>>>>>>> Working on getting compiling
 }
 
 // String returns the string representation
@@ -12075,9 +13529,21 @@ func (s *ListDeviceDefinitionsOutput) SetDefinitions(v []*DefinitionInformation)
 	return s
 }
 
+<<<<<<< HEAD
 // SetNextToken sets the NextToken field's value.
 func (s *ListDeviceDefinitionsOutput) SetNextToken(v string) *ListDeviceDefinitionsOutput {
 	s.NextToken = &v
+=======
+// SetResourceDefinitionVersionArn sets the ResourceDefinitionVersionArn field's value.
+func (s *GroupVersion) SetResourceDefinitionVersionArn(v string) *GroupVersion {
+	s.ResourceDefinitionVersionArn = &v
+	return s
+}
+
+// SetSubscriptionDefinitionVersionArn sets the SubscriptionDefinitionVersionArn field's value.
+func (s *GroupVersion) SetSubscriptionDefinitionVersionArn(v string) *GroupVersion {
+	s.SubscriptionDefinitionVersionArn = &v
+>>>>>>> Working on getting compiling
 	return s
 }
 
@@ -12849,8 +14315,162 @@ func (s *ListSubscriptionDefinitionsInput) SetNextToken(v string) *ListSubscript
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListSubscriptionDefinitionsResponse
 type ListSubscriptionDefinitionsOutput struct {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListGroupsResponse
+type ListGroupsOutput struct {
+	_ struct{} `type:"structure"`
+
+	// Groups
+	Groups []*GroupInformation `type:"list"`
+
+	// The token for the next set of results, or ''null'' if there are no additional
+	// results.
+	NextToken *string `type:"string"`
+}
+
+// String returns the string representation
+func (s ListGroupsOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListGroupsOutput) GoString() string {
+	return s.String()
+}
+
+// SetGroups sets the Groups field's value.
+func (s *ListGroupsOutput) SetGroups(v []*GroupInformation) *ListGroupsOutput {
+	s.Groups = v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListGroupsOutput) SetNextToken(v string) *ListGroupsOutput {
+	s.NextToken = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionVersionsRequest
+type ListLoggerDefinitionVersionsInput struct {
+	_ struct{} `type:"structure"`
+
+	// LoggerDefinitionId is a required field
+	LoggerDefinitionId *string `location:"uri" locationName:"LoggerDefinitionId" type:"string" required:"true"`
+
+	MaxResults *string `location:"querystring" locationName:"MaxResults" type:"string"`
+
+	NextToken *string `location:"querystring" locationName:"NextToken" type:"string"`
+}
+
+// String returns the string representation
+func (s ListLoggerDefinitionVersionsInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListLoggerDefinitionVersionsInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ListLoggerDefinitionVersionsInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ListLoggerDefinitionVersionsInput"}
+	if s.LoggerDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("LoggerDefinitionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetLoggerDefinitionId sets the LoggerDefinitionId field's value.
+func (s *ListLoggerDefinitionVersionsInput) SetLoggerDefinitionId(v string) *ListLoggerDefinitionVersionsInput {
+	s.LoggerDefinitionId = &v
+	return s
+}
+
+// SetMaxResults sets the MaxResults field's value.
+func (s *ListLoggerDefinitionVersionsInput) SetMaxResults(v string) *ListLoggerDefinitionVersionsInput {
+	s.MaxResults = &v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListLoggerDefinitionVersionsInput) SetNextToken(v string) *ListLoggerDefinitionVersionsInput {
+	s.NextToken = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionVersionsResponse
+type ListLoggerDefinitionVersionsOutput struct {
+	_ struct{} `type:"structure"`
+
+	NextToken *string `type:"string"`
+
+	Versions []*VersionInformation `type:"list"`
+}
+
+// String returns the string representation
+func (s ListLoggerDefinitionVersionsOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListLoggerDefinitionVersionsOutput) GoString() string {
+	return s.String()
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListLoggerDefinitionVersionsOutput) SetNextToken(v string) *ListLoggerDefinitionVersionsOutput {
+	s.NextToken = &v
+	return s
+}
+
+// SetVersions sets the Versions field's value.
+func (s *ListLoggerDefinitionVersionsOutput) SetVersions(v []*VersionInformation) *ListLoggerDefinitionVersionsOutput {
+	s.Versions = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionsRequest
+type ListLoggerDefinitionsInput struct {
+	_ struct{} `type:"structure"`
+
+	MaxResults *string `location:"querystring" locationName:"MaxResults" type:"string"`
+
+	NextToken *string `location:"querystring" locationName:"NextToken" type:"string"`
+}
+
+// String returns the string representation
+func (s ListLoggerDefinitionsInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListLoggerDefinitionsInput) GoString() string {
+	return s.String()
+}
+
+// SetMaxResults sets the MaxResults field's value.
+func (s *ListLoggerDefinitionsInput) SetMaxResults(v string) *ListLoggerDefinitionsInput {
+	s.MaxResults = &v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListLoggerDefinitionsInput) SetNextToken(v string) *ListLoggerDefinitionsInput {
+	s.NextToken = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListLoggerDefinitionsResponse
+type ListLoggerDefinitionsOutput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	Definitions []*DefinitionInformation `type:"list"`
@@ -12859,27 +14479,44 @@ type ListSubscriptionDefinitionsOutput struct {
 }
 
 // String returns the string representation
+<<<<<<< HEAD
 func (s ListSubscriptionDefinitionsOutput) String() string {
+=======
+func (s ListLoggerDefinitionsOutput) String() string {
+>>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s ListSubscriptionDefinitionsOutput) GoString() string {
+=======
+func (s ListLoggerDefinitionsOutput) GoString() string {
+>>>>>>> Working on getting compiling
 	return s.String()
 }
 
 // SetDefinitions sets the Definitions field's value.
+<<<<<<< HEAD
 func (s *ListSubscriptionDefinitionsOutput) SetDefinitions(v []*DefinitionInformation) *ListSubscriptionDefinitionsOutput {
+=======
+func (s *ListLoggerDefinitionsOutput) SetDefinitions(v []*DefinitionInformation) *ListLoggerDefinitionsOutput {
+>>>>>>> Working on getting compiling
 	s.Definitions = v
 	return s
 }
 
 // SetNextToken sets the NextToken field's value.
+<<<<<<< HEAD
 func (s *ListSubscriptionDefinitionsOutput) SetNextToken(v string) *ListSubscriptionDefinitionsOutput {
+=======
+func (s *ListLoggerDefinitionsOutput) SetNextToken(v string) *ListLoggerDefinitionsOutput {
+>>>>>>> Working on getting compiling
 	s.NextToken = &v
 	return s
 }
 
+<<<<<<< HEAD
 // Attributes that define the Local Device Resource.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/LocalDeviceResourceData
 type LocalDeviceResourceData struct {
@@ -12894,10 +14531,27 @@ type LocalDeviceResourceData struct {
 
 // String returns the string representation
 func (s LocalDeviceResourceData) String() string {
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersionsRequest
+type ListResourceDefinitionVersionsInput struct {
+	_ struct{} `type:"structure"`
+
+	MaxResults *string `location:"querystring" locationName:"MaxResults" type:"string"`
+
+	NextToken *string `location:"querystring" locationName:"NextToken" type:"string"`
+
+	// ResourceDefinitionId is a required field
+	ResourceDefinitionId *string `location:"uri" locationName:"ResourceDefinitionId" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s ListResourceDefinitionVersionsInput) String() string {
+>>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s LocalDeviceResourceData) GoString() string {
 	return s.String()
 }
@@ -12917,6 +14571,45 @@ func (s *LocalDeviceResourceData) SetSourcePath(v string) *LocalDeviceResourceDa
 // Attributes that define the Local Volume Resource.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/LocalVolumeResourceData
 type LocalVolumeResourceData struct {
+=======
+func (s ListResourceDefinitionVersionsInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ListResourceDefinitionVersionsInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ListResourceDefinitionVersionsInput"}
+	if s.ResourceDefinitionId == nil {
+		invalidParams.Add(request.NewErrParamRequired("ResourceDefinitionId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetMaxResults sets the MaxResults field's value.
+func (s *ListResourceDefinitionVersionsInput) SetMaxResults(v string) *ListResourceDefinitionVersionsInput {
+	s.MaxResults = &v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListResourceDefinitionVersionsInput) SetNextToken(v string) *ListResourceDefinitionVersionsInput {
+	s.NextToken = &v
+	return s
+}
+
+// SetResourceDefinitionId sets the ResourceDefinitionId field's value.
+func (s *ListResourceDefinitionVersionsInput) SetResourceDefinitionId(v string) *ListResourceDefinitionVersionsInput {
+	s.ResourceDefinitionId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionVersionsResponse
+type ListResourceDefinitionVersionsOutput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// Local destination path of the resource.
@@ -12930,11 +14623,16 @@ type LocalVolumeResourceData struct {
 }
 
 // String returns the string representation
+<<<<<<< HEAD
 func (s LocalVolumeResourceData) String() string {
+=======
+func (s ListResourceDefinitionVersionsOutput) String() string {
+>>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s LocalVolumeResourceData) GoString() string {
 	return s.String()
 }
@@ -12960,6 +14658,26 @@ func (s *LocalVolumeResourceData) SetSourcePath(v string) *LocalVolumeResourceDa
 // Information on the Logger
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Logger
 type Logger struct {
+=======
+func (s ListResourceDefinitionVersionsOutput) GoString() string {
+	return s.String()
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListResourceDefinitionVersionsOutput) SetNextToken(v string) *ListResourceDefinitionVersionsOutput {
+	s.NextToken = &v
+	return s
+}
+
+// SetVersions sets the Versions field's value.
+func (s *ListResourceDefinitionVersionsOutput) SetVersions(v []*VersionInformation) *ListResourceDefinitionVersionsOutput {
+	s.Versions = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionsRequest
+type ListResourceDefinitionsInput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// The component that will be subject to logs
@@ -12980,11 +14698,16 @@ type Logger struct {
 }
 
 // String returns the string representation
+<<<<<<< HEAD
 func (s Logger) String() string {
+=======
+func (s ListResourceDefinitionsInput) String() string {
+>>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s Logger) GoString() string {
 	return s.String()
 }
@@ -13022,6 +14745,26 @@ func (s *Logger) SetType(v string) *Logger {
 // Information on logger definition version
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/LoggerDefinitionVersion
 type LoggerDefinitionVersion struct {
+=======
+func (s ListResourceDefinitionsInput) GoString() string {
+	return s.String()
+}
+
+// SetMaxResults sets the MaxResults field's value.
+func (s *ListResourceDefinitionsInput) SetMaxResults(v string) *ListResourceDefinitionsInput {
+	s.MaxResults = &v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListResourceDefinitionsInput) SetNextToken(v string) *ListResourceDefinitionsInput {
+	s.NextToken = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ListResourceDefinitionsResponse
+type ListResourceDefinitionsOutput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// List of loggers.
@@ -13029,11 +14772,16 @@ type LoggerDefinitionVersion struct {
 }
 
 // String returns the string representation
+<<<<<<< HEAD
 func (s LoggerDefinitionVersion) String() string {
+=======
+func (s ListResourceDefinitionsOutput) String() string {
+>>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
+<<<<<<< HEAD
 func (s LoggerDefinitionVersion) GoString() string {
 	return s.String()
 }
@@ -13041,6 +14789,21 @@ func (s LoggerDefinitionVersion) GoString() string {
 // SetLoggers sets the Loggers field's value.
 func (s *LoggerDefinitionVersion) SetLoggers(v []*Logger) *LoggerDefinitionVersion {
 	s.Loggers = v
+=======
+func (s ListResourceDefinitionsOutput) GoString() string {
+	return s.String()
+}
+
+// SetDefinitions sets the Definitions field's value.
+func (s *ListResourceDefinitionsOutput) SetDefinitions(v []*DefinitionInformation) *ListResourceDefinitionsOutput {
+	s.Definitions = v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListResourceDefinitionsOutput) SetNextToken(v string) *ListResourceDefinitionsOutput {
+	s.NextToken = &v
+>>>>>>> Working on getting compiling
 	return s
 }
 
@@ -13209,9 +14972,92 @@ func (s *ResourceAccessPolicy) SetResourceId(v string) *ResourceAccessPolicy {
 	return s
 }
 
+<<<<<<< HEAD
 // A container of data for all resource types.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResourceDataContainer
 type ResourceDataContainer struct {
+=======
+// Attributes that define the Local Device Resource.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/LocalDeviceResourceData
+type LocalDeviceResourceData struct {
+	_ struct{} `type:"structure"`
+
+	// Group owner related settings for local resources.
+	GroupOwnerSetting *GroupOwnerSetting `type:"structure"`
+
+	// Local source path of the resource.
+	SourcePath *string `type:"string"`
+}
+
+// String returns the string representation
+func (s LocalDeviceResourceData) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LocalDeviceResourceData) GoString() string {
+	return s.String()
+}
+
+// SetGroupOwnerSetting sets the GroupOwnerSetting field's value.
+func (s *LocalDeviceResourceData) SetGroupOwnerSetting(v *GroupOwnerSetting) *LocalDeviceResourceData {
+	s.GroupOwnerSetting = v
+	return s
+}
+
+// SetSourcePath sets the SourcePath field's value.
+func (s *LocalDeviceResourceData) SetSourcePath(v string) *LocalDeviceResourceData {
+	s.SourcePath = &v
+	return s
+}
+
+// Attributes that define the Local Volume Resource.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/LocalVolumeResourceData
+type LocalVolumeResourceData struct {
+	_ struct{} `type:"structure"`
+
+	// Local destination path of the resource.
+	DestinationPath *string `type:"string"`
+
+	// Group owner related settings for local resources.
+	GroupOwnerSetting *GroupOwnerSetting `type:"structure"`
+
+	// Local source path of the resource.
+	SourcePath *string `type:"string"`
+}
+
+// String returns the string representation
+func (s LocalVolumeResourceData) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LocalVolumeResourceData) GoString() string {
+	return s.String()
+}
+
+// SetDestinationPath sets the DestinationPath field's value.
+func (s *LocalVolumeResourceData) SetDestinationPath(v string) *LocalVolumeResourceData {
+	s.DestinationPath = &v
+	return s
+}
+
+// SetGroupOwnerSetting sets the GroupOwnerSetting field's value.
+func (s *LocalVolumeResourceData) SetGroupOwnerSetting(v *GroupOwnerSetting) *LocalVolumeResourceData {
+	s.GroupOwnerSetting = v
+	return s
+}
+
+// SetSourcePath sets the SourcePath field's value.
+func (s *LocalVolumeResourceData) SetSourcePath(v string) *LocalVolumeResourceData {
+	s.SourcePath = &v
+	return s
+}
+
+// Information on the Logger
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Logger
+type Logger struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// Attributes that define the Local Device Resource.
@@ -13353,6 +15199,142 @@ func (s *ResetDeploymentsOutput) SetDeploymentArn(v string) *ResetDeploymentsOut
 // SetDeploymentId sets the DeploymentId field's value.
 func (s *ResetDeploymentsOutput) SetDeploymentId(v string) *ResetDeploymentsOutput {
 	s.DeploymentId = &v
+	return s
+}
+
+// Information on the resource.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/Resource
+type Resource struct {
+	_ struct{} `type:"structure"`
+
+	// Resource Id.
+	Id *string `type:"string"`
+
+	// A descriptive resource name.
+	Name *string `type:"string"`
+
+	// A container of data for all resource types.
+	ResourceDataContainer *ResourceDataContainer `type:"structure"`
+}
+
+// String returns the string representation
+func (s Resource) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s Resource) GoString() string {
+	return s.String()
+}
+
+// SetId sets the Id field's value.
+func (s *Resource) SetId(v string) *Resource {
+	s.Id = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *Resource) SetName(v string) *Resource {
+	s.Name = &v
+	return s
+}
+
+// SetResourceDataContainer sets the ResourceDataContainer field's value.
+func (s *Resource) SetResourceDataContainer(v *ResourceDataContainer) *Resource {
+	s.ResourceDataContainer = v
+	return s
+}
+
+// Policy for the function to access a resource.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResourceAccessPolicy
+type ResourceAccessPolicy struct {
+	_ struct{} `type:"structure"`
+
+	// The function's access permission to the resource.
+	Permission *string `type:"string" enum:"Permission"`
+
+	// Id of the resource. A reference to the resource definiton.
+	ResourceId *string `type:"string"`
+}
+
+// String returns the string representation
+func (s ResourceAccessPolicy) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ResourceAccessPolicy) GoString() string {
+	return s.String()
+}
+
+// SetPermission sets the Permission field's value.
+func (s *ResourceAccessPolicy) SetPermission(v string) *ResourceAccessPolicy {
+	s.Permission = &v
+	return s
+}
+
+// SetResourceId sets the ResourceId field's value.
+func (s *ResourceAccessPolicy) SetResourceId(v string) *ResourceAccessPolicy {
+	s.ResourceId = &v
+	return s
+}
+
+// A container of data for all resource types.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResourceDataContainer
+type ResourceDataContainer struct {
+	_ struct{} `type:"structure"`
+
+	// Attributes that define the Local Device Resource.
+	LocalDeviceResourceData *LocalDeviceResourceData `type:"structure"`
+
+	// Attributes that define the Local Volume Resource.
+	LocalVolumeResourceData *LocalVolumeResourceData `type:"structure"`
+}
+
+// String returns the string representation
+func (s ResourceDataContainer) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ResourceDataContainer) GoString() string {
+	return s.String()
+}
+
+// SetLocalDeviceResourceData sets the LocalDeviceResourceData field's value.
+func (s *ResourceDataContainer) SetLocalDeviceResourceData(v *LocalDeviceResourceData) *ResourceDataContainer {
+	s.LocalDeviceResourceData = v
+	return s
+}
+
+// SetLocalVolumeResourceData sets the LocalVolumeResourceData field's value.
+func (s *ResourceDataContainer) SetLocalVolumeResourceData(v *LocalVolumeResourceData) *ResourceDataContainer {
+	s.LocalVolumeResourceData = v
+	return s
+}
+
+// Information on resource definition version
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/ResourceDefinitionVersion
+type ResourceDefinitionVersion struct {
+	_ struct{} `type:"structure"`
+
+	// List of resources.
+	Resources []*Resource `type:"list"`
+}
+
+// String returns the string representation
+func (s ResourceDefinitionVersion) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ResourceDefinitionVersion) GoString() string {
+	return s.String()
+}
+
+// SetResources sets the Resources field's value.
+func (s *ResourceDefinitionVersion) SetResources(v []*Resource) *ResourceDefinitionVersion {
+	s.Resources = v
 	return s
 }
 
@@ -13898,7 +15880,11 @@ func (s UpdateLoggerDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinitionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinitionRequest
+>>>>>>> Working on getting compiling
 type UpdateResourceDefinitionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13943,7 +15929,11 @@ func (s *UpdateResourceDefinitionInput) SetResourceDefinitionId(v string) *Updat
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinitionResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateResourceDefinitionResponse
+>>>>>>> Working on getting compiling
 type UpdateResourceDefinitionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -13958,7 +15948,11 @@ func (s UpdateResourceDefinitionOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateSubscriptionDefinitionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/UpdateSubscriptionDefinitionRequest
+>>>>>>> Working on getting compiling
 type UpdateSubscriptionDefinitionInput struct {
 	_ struct{} `type:"structure"`
 

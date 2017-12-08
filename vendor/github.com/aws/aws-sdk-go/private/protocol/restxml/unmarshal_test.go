@@ -3089,3 +3089,103 @@ func TestOutputService14ProtocolTestXMLAttributesCase1(t *testing.T) {
 >>>>>>> Initial dep workover
 
 }
+
+func TestOutputService13ProtocolTestEnumCase1(t *testing.T) {
+	svc := NewOutputService13ProtocolTest(unit.Session, &aws.Config{Endpoint: aws.String("https://test")})
+
+	buf := bytes.NewReader([]byte("<OperationNameResponse><FooEnum>foo</FooEnum><ListEnums><member>0</member><member>1</member></ListEnums></OperationNameResponse>"))
+	req, out := svc.OutputService13TestCaseOperation1Request(nil)
+	req.HTTPResponse = &http.Response{StatusCode: 200, Body: ioutil.NopCloser(buf), Header: http.Header{}}
+
+	// set headers
+	req.HTTPResponse.Header.Set("x-amz-enum", "baz")
+
+	// unmarshal response
+	restxml.UnmarshalMeta(req)
+	restxml.Unmarshal(req)
+	if req.Error != nil {
+		t.Errorf("expect not error, got %v", req.Error)
+	}
+
+	// assert response
+	if out == nil {
+		t.Errorf("expect not to be nil")
+	}
+	if e, a := "foo", *out.FooEnum; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "baz", *out.HeaderEnum; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "0", *out.ListEnums[0]; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "1", *out.ListEnums[1]; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+
+}
+
+func TestOutputService13ProtocolTestEnumCase2(t *testing.T) {
+	svc := NewOutputService13ProtocolTest(unit.Session, &aws.Config{Endpoint: aws.String("https://test")})
+
+	buf := bytes.NewReader([]byte(""))
+	req, out := svc.OutputService13TestCaseOperation2Request(nil)
+	req.HTTPResponse = &http.Response{StatusCode: 200, Body: ioutil.NopCloser(buf), Header: http.Header{}}
+
+	// set headers
+
+	// unmarshal response
+	restxml.UnmarshalMeta(req)
+	restxml.Unmarshal(req)
+	if req.Error != nil {
+		t.Errorf("expect not error, got %v", req.Error)
+	}
+
+	// assert response
+	if out == nil {
+		t.Errorf("expect not to be nil")
+	}
+
+}
+
+func TestOutputService14ProtocolTestXMLAttributesCase1(t *testing.T) {
+	svc := NewOutputService14ProtocolTest(unit.Session, &aws.Config{Endpoint: aws.String("https://test")})
+
+	buf := bytes.NewReader([]byte("<SomeOutputDoc xmlns=\"http://s3.amazonaws.com/doc/2006-03-01/\"><ItemsList><Item><ItemDetail xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"Type1\"><ID>id1</ID></ItemDetail></Item><Item><ItemDetail xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"Type2\"><ID>id2</ID></ItemDetail></Item><Item><ItemDetail xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"Type3\"><ID>id3</ID></ItemDetail></Item></ItemsList></SomeOutputDoc>"))
+	req, out := svc.OutputService14TestCaseOperation1Request(nil)
+	req.HTTPResponse = &http.Response{StatusCode: 200, Body: ioutil.NopCloser(buf), Header: http.Header{}}
+
+	// set headers
+
+	// unmarshal response
+	restxml.UnmarshalMeta(req)
+	restxml.Unmarshal(req)
+	if req.Error != nil {
+		t.Errorf("expect not error, got %v", req.Error)
+	}
+
+	// assert response
+	if out == nil {
+		t.Errorf("expect not to be nil")
+	}
+	if e, a := "id1", *out.ListItems[0].ItemDetail.ID; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "Type1", *out.ListItems[0].ItemDetail.Type; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "id2", *out.ListItems[1].ItemDetail.ID; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "Type2", *out.ListItems[1].ItemDetail.Type; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "id3", *out.ListItems[2].ItemDetail.ID; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "Type3", *out.ListItems[2].ItemDetail.Type; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+
+}

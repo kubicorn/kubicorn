@@ -1,4 +1,7 @@
 import: ../../../../fossene/db/schema/thing.yml
 fields:
     site: string
+<<<<<<< HEAD
     author: root
+=======
+>>>>>>> Working on getting compiling

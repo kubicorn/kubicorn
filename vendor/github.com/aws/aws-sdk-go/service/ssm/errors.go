@@ -70,6 +70,9 @@ const (
 	ErrCodeAutomationExecutionNotFoundException = "AutomationExecutionNotFoundException"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// ErrCodeAutomationStepNotFoundException for service response error code
 	// "AutomationStepNotFoundException".
 	//
@@ -77,8 +80,11 @@ const (
 	// and try again.
 	ErrCodeAutomationStepNotFoundException = "AutomationStepNotFoundException"
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// ErrCodeComplianceTypeCountLimitExceededException for service response error code
 	// "ComplianceTypeCountLimitExceededException".
 	//

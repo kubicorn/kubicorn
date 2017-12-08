@@ -375,6 +375,55 @@ func (s *GooglePrivacyDlpV2beta1AuxiliaryTable) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+// GooglePrivacyDlpV2beta1AuxiliaryTable: An auxiliary table contains
+// statistical information on the relative
+// frequency of different quasi-identifiers values. It has one or
+// several
+// quasi-identifiers columns, and one column that indicates the
+// relative
+// frequency of each quasi-identifier tuple.
+// If a tuple is present in the data but not in the auxiliary table,
+// the
+// corresponding relative frequency is assumed to be zero (and thus,
+// the
+// tuple is highly reidentifiable).
+type GooglePrivacyDlpV2beta1AuxiliaryTable struct {
+	// QuasiIds: Quasi-identifier columns. [required]
+	QuasiIds []*GooglePrivacyDlpV2beta1QuasiIdField `json:"quasiIds,omitempty"`
+
+	// RelativeFrequency: The relative frequency column must contain a
+	// floating-point number
+	// between 0 and 1 (inclusive). Null values are assumed to be
+	// zero.
+	// [required]
+	RelativeFrequency *GooglePrivacyDlpV2beta1FieldId `json:"relativeFrequency,omitempty"`
+
+	// Table: Auxiliary table location. [required]
+	Table *GooglePrivacyDlpV2beta1BigQueryTable `json:"table,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "QuasiIds") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "QuasiIds") to include in
+	// API requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *GooglePrivacyDlpV2beta1AuxiliaryTable) MarshalJSON() ([]byte, error) {
+	type NoMethod GooglePrivacyDlpV2beta1AuxiliaryTable
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
 // GooglePrivacyDlpV2beta1BigQueryOptions: Options defining BigQuery
 // table and row identifiers.
 type GooglePrivacyDlpV2beta1BigQueryOptions struct {
@@ -1253,6 +1302,9 @@ type GooglePrivacyDlpV2beta1CryptoReplaceFfxFpeConfig struct {
 	Radix int64 `json:"radix,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// SurrogateInfoType: The custom info type to annotate the surrogate
 	// with.
 	// This annotation will be applied to the surrogate by prefixing it
@@ -1296,8 +1348,11 @@ type GooglePrivacyDlpV2beta1CryptoReplaceFfxFpeConfig struct {
 	// ⧝MY_TOKEN_TYPE
 	SurrogateInfoType *GooglePrivacyDlpV2beta1InfoType `json:"surrogateInfoType,omitempty"`
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// ForceSendFields is a list of field names (e.g. "CommonAlphabet") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
@@ -1336,11 +1391,17 @@ type GooglePrivacyDlpV2beta1CustomInfoType struct {
 	InfoType *GooglePrivacyDlpV2beta1InfoType `json:"infoType,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// SurrogateType: Surrogate info type.
 	SurrogateType *GooglePrivacyDlpV2beta1SurrogateType `json:"surrogateType,omitempty"`
 
 =======
 >>>>>>> Initial dep workover
+=======
+	// SurrogateType: Surrogate info type.
+	SurrogateType *GooglePrivacyDlpV2beta1SurrogateType `json:"surrogateType,omitempty"`
+
+>>>>>>> Working on getting compiling
 	// ForceSendFields is a list of field names (e.g. "Dictionary") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
@@ -3115,15 +3176,20 @@ func (s *GooglePrivacyDlpV2beta1InspectResult) MarshalJSON() ([]byte, error) {
 // analysis of reidentification risk.
 type GooglePrivacyDlpV2beta1KAnonymityConfig struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// EntityId: Optional message indicating that each distinct entity_id
 =======
 	// EntityId: Optional message indicating that each distinct `EntityId`
 >>>>>>> Initial dep workover
+=======
+	// EntityId: Optional message indicating that each distinct entity_id
+>>>>>>> Working on getting compiling
 	// should not
 	// contribute to the k-anonymity count more than once per equivalence
 	// class.
 	// If an entity_id appears on several rows with different
 	// quasi-identifier
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// tuples, it will contribute to each count exactly once.
 	//
@@ -3152,6 +3218,21 @@ type GooglePrivacyDlpV2beta1KAnonymityConfig struct {
 	// is
 	// the only entity_id to be associated to both values "foo" and "bar".
 >>>>>>> Initial dep workover
+=======
+	// tuples, it will contribute to each count exactly once.
+	//
+	// This can lead to unexpected results. Consider a table where ID 1
+	// is
+	// associated to quasi-identifier "foo", ID 2 to "bar", and ID 3 to
+	// *both*
+	// quasi-identifiers "foo" and "bar" (on separate rows), and where this
+	// ID
+	// is used as entity_id. Then, the anonymity value associated to ID 3
+	// will
+	// be 2, even if it is the only ID to be associated to both values "foo"
+	// and
+	// "bar".
+>>>>>>> Working on getting compiling
 	EntityId *GooglePrivacyDlpV2beta1EntityId `json:"entityId,omitempty"`
 
 	// QuasiIds: Set of fields to compute k-anonymity over. When multiple
@@ -3720,6 +3801,188 @@ func (s *GooglePrivacyDlpV2beta1ListInfoTypesResponse) MarshalJSON() ([]byte, er
 }
 
 <<<<<<< HEAD
+// GooglePrivacyDlpV2beta1KMapEstimationQuasiIdValues: A tuple of values
+// for the quasi-identifier columns.
+type GooglePrivacyDlpV2beta1KMapEstimationQuasiIdValues struct {
+	// EstimatedAnonymity: The estimated anonymity for these
+	// quasi-identifier values.
+	EstimatedAnonymity int64 `json:"estimatedAnonymity,omitempty,string"`
+
+	// QuasiIdsValues: The quasi-identifier values.
+	QuasiIdsValues []*GooglePrivacyDlpV2beta1Value `json:"quasiIdsValues,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "EstimatedAnonymity")
+	// to unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "EstimatedAnonymity") to
+	// include in API requests with the JSON null value. By default, fields
+	// with empty values are omitted from API requests. However, any field
+	// with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *GooglePrivacyDlpV2beta1KMapEstimationQuasiIdValues) MarshalJSON() ([]byte, error) {
+	type NoMethod GooglePrivacyDlpV2beta1KMapEstimationQuasiIdValues
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// GooglePrivacyDlpV2beta1KMapEstimationResult: Result of the
+// reidentifiability analysis. Note that these results are
+// an
+// estimation, not exact values.
+type GooglePrivacyDlpV2beta1KMapEstimationResult struct {
+	// KMapEstimationHistogram: The intervals [min_anonymity, max_anonymity]
+	// do not overlap. If a value
+	// doesn't correspond to any such interval, the associated frequency
+	// is
+	// zero. For example, the following records:
+	//   {min_anonymity: 1, max_anonymity: 1, frequency: 17}
+	//   {min_anonymity: 2, max_anonymity: 3, frequency: 42}
+	//   {min_anonymity: 5, max_anonymity: 10, frequency: 99}
+	// mean that there are no record with an estimated anonymity of 4, 5,
+	// or
+	// larger than 10.
+	KMapEstimationHistogram []*GooglePrivacyDlpV2beta1KMapEstimationHistogramBucket `json:"kMapEstimationHistogram,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g.
+	// "KMapEstimationHistogram") to unconditionally include in API
+	// requests. By default, fields with empty values are omitted from API
+	// requests. However, any non-pointer, non-interface field appearing in
+	// ForceSendFields will be sent to the server regardless of whether the
+	// field is empty or not. This may be used to include empty fields in
+	// Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "KMapEstimationHistogram")
+	// to include in API requests with the JSON null value. By default,
+	// fields with empty values are omitted from API requests. However, any
+	// field with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *GooglePrivacyDlpV2beta1KMapEstimationResult) MarshalJSON() ([]byte, error) {
+	type NoMethod GooglePrivacyDlpV2beta1KMapEstimationResult
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// GooglePrivacyDlpV2beta1KMapEstimationConfig: Reidentifiability
+// metric. This corresponds to a risk model similar to what
+// is called "journalist risk" in the literature, except the attack
+// dataset is
+// statistically modeled instead of being perfectly known. This can be
+// done
+// using publicly available data (like the US Census), or using a
+// custom
+// statistical model (indicated as one or several BigQuery tables), or
+// by
+// extrapolating from the distribution of values in the input dataset.
+type GooglePrivacyDlpV2beta1KMapEstimationConfig struct {
+	// AuxiliaryTables: Several auxiliary tables can be used in the
+	// analysis. Each custom_tag
+	// used to tag a quasi-identifiers column must appear in exactly one
+	// column
+	// of one auxiliary table.
+	AuxiliaryTables []*GooglePrivacyDlpV2beta1AuxiliaryTable `json:"auxiliaryTables,omitempty"`
+
+	// QuasiIds: Fields considered to be quasi-identifiers. No two columns
+	// can have the
+	// same tag. [required]
+	QuasiIds []*GooglePrivacyDlpV2beta1TaggedField `json:"quasiIds,omitempty"`
+
+	// RegionCode: ISO 3166-1 alpha-2 region code to use in the statistical
+	// modeling.
+	// Required if no column is tagged with a region-specific InfoType
+	// (like
+	// US_ZIP_5) or a region code.
+	RegionCode string `json:"regionCode,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "AuxiliaryTables") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "AuxiliaryTables") to
+	// include in API requests with the JSON null value. By default, fields
+	// with empty values are omitted from API requests. However, any field
+	// with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *GooglePrivacyDlpV2beta1KMapEstimationConfig) MarshalJSON() ([]byte, error) {
+	type NoMethod GooglePrivacyDlpV2beta1KMapEstimationConfig
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// GooglePrivacyDlpV2beta1KMapEstimationHistogramBucket: A
+// KMapEstimationHistogramBucket message with the following values:
+//   min_anonymity: 3
+//   max_anonymity: 5
+//   frequency: 42
+// means that there are 42 records whose quasi-identifier values
+// correspond
+// to 3, 4 or 5 people in the overlying population. An important
+// particular
+// case is when min_anonymity = max_anonymity = 1: the frequency field
+// then
+// corresponds to the number of uniquely identifiable records.
+type GooglePrivacyDlpV2beta1KMapEstimationHistogramBucket struct {
+	// BucketSize: Number of records within these anonymity bounds.
+	BucketSize int64 `json:"bucketSize,omitempty,string"`
+
+	// BucketValues: Sample of quasi-identifier tuple values in this bucket.
+	// The total
+	// number of classes returned per bucket is capped at 20.
+	BucketValues []*GooglePrivacyDlpV2beta1KMapEstimationQuasiIdValues `json:"bucketValues,omitempty"`
+
+	// MaxAnonymity: Always greater than or equal to min_anonymity.
+	MaxAnonymity int64 `json:"maxAnonymity,omitempty,string"`
+
+	// MinAnonymity: Always positive.
+	MinAnonymity int64 `json:"minAnonymity,omitempty,string"`
+
+	// ForceSendFields is a list of field names (e.g. "BucketSize") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "BucketSize") to include in
+	// API requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *GooglePrivacyDlpV2beta1KMapEstimationHistogramBucket) MarshalJSON() ([]byte, error) {
+	type NoMethod GooglePrivacyDlpV2beta1KMapEstimationHistogramBucket
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
 // GooglePrivacyDlpV2beta1KMapEstimationQuasiIdValues: A tuple of values
 // for the quasi-identifier columns.
 type GooglePrivacyDlpV2beta1KMapEstimationQuasiIdValues struct {
@@ -4570,10 +4833,15 @@ type GooglePrivacyDlpV2beta1PrivacyMetric struct {
 	KAnonymityConfig *GooglePrivacyDlpV2beta1KAnonymityConfig `json:"kAnonymityConfig,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	KMapEstimationConfig *GooglePrivacyDlpV2beta1KMapEstimationConfig `json:"kMapEstimationConfig,omitempty"`
 
 =======
 >>>>>>> Initial dep workover
+=======
+	KMapEstimationConfig *GooglePrivacyDlpV2beta1KMapEstimationConfig `json:"kMapEstimationConfig,omitempty"`
+
+>>>>>>> Working on getting compiling
 	LDiversityConfig *GooglePrivacyDlpV2beta1LDiversityConfig `json:"lDiversityConfig,omitempty"`
 
 	NumericalStatsConfig *GooglePrivacyDlpV2beta1NumericalStatsConfig `json:"numericalStatsConfig,omitempty"`
@@ -4663,6 +4931,9 @@ func (s *GooglePrivacyDlpV2beta1PropertyReference) MarshalJSON() ([]byte, error)
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // GooglePrivacyDlpV2beta1QuasiIdField: A quasi-identifier column has a
 // custom_tag, used to know which column
 // in the data corresponds to which column in the statistical model.
@@ -4694,8 +4965,11 @@ func (s *GooglePrivacyDlpV2beta1QuasiIdField) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // GooglePrivacyDlpV2beta1Range: Generic half-open interval [start, end)
 type GooglePrivacyDlpV2beta1Range struct {
 	// End: Index of the last character of the range (exclusive).
@@ -5061,10 +5335,15 @@ type GooglePrivacyDlpV2beta1RiskAnalysisOperationResult struct {
 	KAnonymityResult *GooglePrivacyDlpV2beta1KAnonymityResult `json:"kAnonymityResult,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	KMapEstimationResult *GooglePrivacyDlpV2beta1KMapEstimationResult `json:"kMapEstimationResult,omitempty"`
 
 =======
 >>>>>>> Initial dep workover
+=======
+	KMapEstimationResult *GooglePrivacyDlpV2beta1KMapEstimationResult `json:"kMapEstimationResult,omitempty"`
+
+>>>>>>> Working on getting compiling
 	LDiversityResult *GooglePrivacyDlpV2beta1LDiversityResult `json:"lDiversityResult,omitempty"`
 
 	NumericalStatsResult *GooglePrivacyDlpV2beta1NumericalStatsResult `json:"numericalStatsResult,omitempty"`
@@ -5197,6 +5476,9 @@ func (s *GooglePrivacyDlpV2beta1SummaryResult) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // GooglePrivacyDlpV2beta1SurrogateType: Message for detecting output
 // from deidentification transformations
 // such
@@ -5212,8 +5494,11 @@ func (s *GooglePrivacyDlpV2beta1SummaryResult) MarshalJSON() ([]byte, error) {
 type GooglePrivacyDlpV2beta1SurrogateType struct {
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // GooglePrivacyDlpV2beta1Table: Structured content to inspect. Up to
 // 50,000 `Value`s per request allowed.
 type GooglePrivacyDlpV2beta1Table struct {
@@ -5275,6 +5560,9 @@ func (s *GooglePrivacyDlpV2beta1TableLocation) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // GooglePrivacyDlpV2beta1TaggedField: A column with a semantic tag
 // attached.
 type GooglePrivacyDlpV2beta1TaggedField struct {
@@ -5323,8 +5611,11 @@ func (s *GooglePrivacyDlpV2beta1TaggedField) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // GooglePrivacyDlpV2beta1TimePartConfig: For use with `Date`,
 // `Timestamp`, and `TimeOfDay`, extract or preserve a
 // portion of the value.

@@ -13,7 +13,6 @@
 package unix
 
 import (
-	"sort"
 	"syscall"
 	"unsafe"
 )
@@ -33,11 +32,23 @@ type SockaddrDatalink struct {
 func Syscall9(trap, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err syscall.Errno)
 
 func nametomib(name string) (mib []_C_int, err error) {
-	i := sort.Search(len(sysctlMib), func(i int) bool {
-		return sysctlMib[i].ctlname >= name
-	})
-	if i < len(sysctlMib) && sysctlMib[i].ctlname == name {
-		return sysctlMib[i].ctloid, nil
+
+	// Perform lookup via a binary search
+	left := 0
+	right := len(sysctlMib) - 1
+	for {
+		idx := left + (right-left)/2
+		switch {
+		case name == sysctlMib[idx].ctlname:
+			return sysctlMib[idx].ctloid, nil
+		case name > sysctlMib[idx].ctlname:
+			left = idx + 1
+		default:
+			right = idx - 1
+		}
+		if left > right {
+			break
+		}
 	}
 	return nil, EINVAL
 }
@@ -91,6 +102,7 @@ func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 	return
 }
 
+<<<<<<< HEAD
 func setattrlistTimes(path string, times []Timespec, flags int) error {
 	// used on Darwin for UtimesNano
 	return ENOSYS
@@ -184,6 +196,8 @@ func Uname(uname *Utsname) error {
 
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 /*
  * Exposed directly
  */
@@ -304,6 +318,7 @@ func Uname(uname *Utsname) error {
 // getresuid
 // getrtable
 // getthrid
+// ioctl
 // ktrace
 // lfs_bmapv
 // lfs_markv
@@ -324,6 +339,7 @@ func Uname(uname *Utsname) error {
 // nfssvc
 // nnpfspioctl
 // openat
+// poll
 // preadv
 // profil
 // pwritev

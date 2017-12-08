@@ -80,9 +80,13 @@
         "ElasticsearchDomainStatus$Deleted": "<p>The domain deletion status. <code>True</code> if a delete request has been received for the domain but resource cleanup is still in progress. <code>False</code> if the domain has not been deleted. Once domain deletion is complete, the status of the domain is no longer returned.</p>",
         "ElasticsearchDomainStatus$Processing": "<p>The status of the Elasticsearch domain configuration. <code>True</code> if Amazon Elasticsearch Service is processing configuration changes. <code>False</code> if the configuration is active.</p>",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "EncryptionAtRestOptions$Enabled": "<p>Specifies the option to enable Encryption At Rest.</p>",
 =======
 >>>>>>> Initial dep workover
+=======
+        "EncryptionAtRestOptions$Enabled": "<p>Specifies the option to enable Encryption At Rest.</p>",
+>>>>>>> Working on getting compiling
         "LogPublishingOption$Enabled": "<p> Specifies whether given log publishing option is enabled or not.</p>",
         "OptionStatus$PendingDeletion": "<p>Indicates whether the Elasticsearch domain is being deleted.</p>"
       }
@@ -288,6 +292,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "EncryptionAtRestOptions": {
       "base": "<p>Specifies the Encryption At Rest Options.</p>",
       "refs": {
@@ -302,8 +309,11 @@
         "ElasticsearchDomainConfig$EncryptionAtRestOptions": "<p>Specifies the <code>EncryptionAtRestOptions</code> for the Elasticsearch domain.</p>"
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "EndpointsMap": {
       "base": null,
       "refs": {
@@ -502,9 +512,13 @@
         "ElasticsearchClusterConfigStatus$Status": "<p> Specifies the status of the configuration for the specified Elasticsearch domain.</p>",
         "ElasticsearchVersionStatus$Status": "<p> Specifies the status of the Elasticsearch version options for the specified Elasticsearch domain.</p>",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "EncryptionAtRestOptionsStatus$Status": "<p> Specifies the status of the Encryption At Rest options for the specified Elasticsearch domain.</p>",
 =======
 >>>>>>> Initial dep workover
+=======
+        "EncryptionAtRestOptionsStatus$Status": "<p> Specifies the status of the Encryption At Rest options for the specified Elasticsearch domain.</p>",
+>>>>>>> Working on getting compiling
         "LogPublishingOptionsStatus$Status": "<p>The status of the log publishing options for the Elasticsearch domain. See <code>OptionStatus</code> for the status information that's included. </p>",
         "SnapshotOptionsStatus$Status": "<p>Specifies the status of a daily automated snapshot.</p>",
         "VPCDerivedInfoStatus$Status": "<p> Specifies the status of the VPC options for the specified Elasticsearch domain.</p>"

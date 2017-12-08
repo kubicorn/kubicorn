@@ -1,0 +1,82 @@
+package: github.com/kris-nova/kubicorn
+import:
+- package: github.com/Azure/azure-sdk-for-go
+  version: v11.2.2-beta
+  subpackages:
+  - arm/examples/helpers
+  - arm/network
+  - arm/resources/resources
+- package: github.com/Azure/go-autorest
+  version: v9.5.0
+  subpackages:
+  - autorest
+  - autorest/adal
+  - autorest/azure
+- package: github.com/aws/aws-sdk-go
+  version: v1.12.43
+  subpackages:
+  - aws
+  - aws/awserr
+  - aws/credentials/stscreds
+  - aws/session
+  - service/autoscaling
+  - service/ec2
+  - service/iam
+  - service/s3
+- package: github.com/c-bata/go-prompt
+  version: v0.1.1
+- package: github.com/digitalocean/godo
+  version: v1.1.1
+- package: github.com/fatih/color
+  version: v1.5.0
+- package: github.com/ghodss/yaml
+  version: v1.0.0
+- package: github.com/golang/glog
+- package: github.com/kris-nova/klone
+  version: v1.2.0
+  subpackages:
+  - pkg/local
+- package: github.com/kris-nova/lolgopher
+- package: github.com/pkg/errors
+  version: v0.8.0
+- package: github.com/pkg/sftp
+  version: 1.0.0
+- package: github.com/spf13/cobra
+  version: v0.0.1
+- package: github.com/spf13/pflag
+  version: v1.0.0
+- package: github.com/yuroyoro/swalker
+- package: golang.org/x/crypto
+  subpackages:
+  - ssh
+  - ssh/agent
+  - ssh/terminal
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: golang.org/x/oauth2
+  subpackages:
+  - google
+- package: google.golang.org/api
+  subpackages:
+  - compute/v1
+- package: k8s.io/apimachinery
+  version: 019ae5ada31de202164b118aee88ee2d14075c31
+  subpackages:
+  - pkg/apis/meta/v1
+  - pkg/conversion
+  - pkg/runtime
+  - pkg/runtime/schema
+- package: k8s.io/client-go
+  version: v5.0.1
+  subpackages:
+  - tools/clientcmd
+- package: k8s.io/kube-deploy
+  subpackages:
+  - cluster-api/api/cluster/v1alpha1
+  - cluster-api/client
+  - cluster-api/deploy
+testImport:
+- package: github.com/kris-nova/charlie
+  subpackages:
+  - network

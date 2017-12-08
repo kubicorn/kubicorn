@@ -289,9 +289,13 @@
         "SnapshotOptions":{"shape":"SnapshotOptions"},
         "VPCOptions":{"shape":"VPCOptions"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptions"},
 =======
 >>>>>>> Initial dep workover
+=======
+        "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptions"},
+>>>>>>> Working on getting compiling
         "AdvancedOptions":{"shape":"AdvancedOptions"},
         "LogPublishingOptions":{"shape":"LogPublishingOptions"}
       }
@@ -528,9 +532,13 @@
         "SnapshotOptions":{"shape":"SnapshotOptionsStatus"},
         "VPCOptions":{"shape":"VPCDerivedInfoStatus"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptionsStatus"},
 =======
 >>>>>>> Initial dep workover
+=======
+        "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptionsStatus"},
+>>>>>>> Working on getting compiling
         "AdvancedOptions":{"shape":"AdvancedOptionsStatus"},
         "LogPublishingOptions":{"shape":"LogPublishingOptionsStatus"}
       }
@@ -559,9 +567,13 @@
         "SnapshotOptions":{"shape":"SnapshotOptions"},
         "VPCOptions":{"shape":"VPCDerivedInfo"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptions"},
 =======
 >>>>>>> Initial dep workover
+=======
+        "EncryptionAtRestOptions":{"shape":"EncryptionAtRestOptions"},
+>>>>>>> Working on getting compiling
         "AdvancedOptions":{"shape":"AdvancedOptions"},
         "LogPublishingOptions":{"shape":"LogPublishingOptions"}
       }
@@ -591,6 +603,9 @@
     },
     "ElasticsearchVersionString":{"type":"string"},
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "EncryptionAtRestOptions":{
       "type":"structure",
       "members":{
@@ -609,8 +624,11 @@
         "Status":{"shape":"OptionStatus"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "EndpointsMap":{
       "type":"map",
       "key":{"shape":"String"},

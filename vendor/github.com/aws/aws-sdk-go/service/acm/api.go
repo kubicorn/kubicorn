@@ -346,12 +346,16 @@ func (c *ACM) GetCertificateRequest(input *GetCertificateInput) (req *request.Re
 // GetCertificate API operation for AWS Certificate Manager.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // Retrieves a certificate specified by an ARN and its certificate chain . The
 // chain is an ordered list of certificates that contains the end entity ertificate,
 // intermediate certificates of subordinate CAs, and the root certificate in
 // that order. The certificate and certificate chain are base64 encoded. If
 // you want to decode the certificate to see the individual fields, you can
 // use OpenSSL.
+<<<<<<< HEAD
 =======
 // Retrieves an ACM Certificate and certificate chain for the certificate specified
 // by an ARN. The chain is an ordered list of certificates that contains the
@@ -360,6 +364,8 @@ func (c *ACM) GetCertificateRequest(input *GetCertificateInput) (req *request.Re
 // encoded. If you want to decode the certificate chain to see the individual
 // certificate fields, you can use OpenSSL.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -455,7 +461,7 @@ func (c *ACM) ImportCertificateRequest(input *ImportCertificateInput) (req *requ
 //
 // For more information about importing certificates into ACM, including the
 // differences between certificates that you import and those that ACM provides,
-// see  Importing Certificates (http://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)
+// see Importing Certificates (http://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)
 // in the AWS Certificate Manager User Guide.
 //
 // In general, you can import almost any valid certificate. However, services
@@ -478,6 +484,7 @@ func (c *ACM) ImportCertificateRequest(input *ImportCertificateInput) (req *requ
 //
 //    * The current time must be between the Not Before and Not After certificate
 //    fields.
+<<<<<<< HEAD
 //
 //    * The Issuer field must not be empty.
 //
@@ -492,12 +499,22 @@ func (c *ACM) ImportCertificateRequest(input *ImportCertificateInput) (req *requ
 //    saved in the C:\temp folder as C:\temp\certificate_to_import.pem. If you
 //    are making an HTTP or HTTPS Query request, include these parameters as
 //    BLOBs.
+=======
 //
-// When you import a certificate by using the CLI or one of the SDKs, you must
-// specify the certificate, chain, and private key parameters as file names
-// preceded by file://. For example, you can specify a certificate saved in
-// the C:\temp folder as C:\temp\certificate_to_import.pem. If you are making
-// an HTTP or HTTPS Query request, include these parameters as BLOBs.
+//    * The Issuer field must not be empty.
+>>>>>>> Working on getting compiling
+//
+//    * The OCSP authority URL must not exceed 1000 characters.
+//
+//    * To import a new certificate, omit the CertificateArn field. Include
+//    this field only when you want to replace a previously imported certificate.
+//
+//    * When you import a certificate by using the CLI or one of the SDKs, you
+//    must specify the certificate, certificate chain, and private key parameters
+//    as file names preceded by file://. For example, you can specify a certificate
+//    saved in the C:\temp folder as C:\temp\certificate_to_import.pem. If you
+//    are making an HTTP or HTTPS Query request, include these parameters as
+//    BLOBs.
 //
 // This operation returns the Amazon Resource Name (ARN) (http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
 // of the imported certificate.
@@ -1694,7 +1711,11 @@ func (s *DomainValidation) SetValidationStatus(v string) *DomainValidation {
 
 // Contains information about the domain names that you want ACM to use to send
 // you emails that enable you to validate domain ownership.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/DomainValidationOption
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/DomainValidationOption
+>>>>>>> Working on getting compiling
 type DomainValidationOption struct {
 	_ struct{} `type:"structure"`
 
@@ -1771,7 +1792,11 @@ func (s *DomainValidationOption) SetValidationDomain(v string) *DomainValidation
 // The Extended Key Usage X.509 v3 extension defines one or more purposes for
 // which the public key can be used. This is in addition to or in place of the
 // basic purposes specified by the Key Usage extension.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ExtendedKeyUsage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ExtendedKeyUsage
+>>>>>>> Working on getting compiling
 type ExtendedKeyUsage struct {
 	_ struct{} `type:"structure"`
 
@@ -1826,7 +1851,11 @@ func (s *ExtendedKeyUsage) SetOID(v string) *ExtendedKeyUsage {
 
 // This structure can be used in the ListCertificates action to filter the output
 // of the certificate list.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/Filters
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/Filters
+>>>>>>> Working on getting compiling
 type Filters struct {
 	_ struct{} `type:"structure"`
 
@@ -1868,7 +1897,11 @@ func (s *Filters) SetKeyUsage(v []*string) *Filters {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/GetCertificateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/GetCertificateRequest
+>>>>>>> Working on getting compiling
 type GetCertificateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2068,7 +2101,11 @@ func (s *ImportCertificateOutput) SetCertificateArn(v string) *ImportCertificate
 
 // The Key Usage X.509 v3 extension defines the purpose of the public key contained
 // in the certificate.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/KeyUsage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/KeyUsage
+>>>>>>> Working on getting compiling
 type KeyUsage struct {
 	_ struct{} `type:"structure"`
 
@@ -2092,7 +2129,11 @@ func (s *KeyUsage) SetName(v string) *KeyUsage {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ListCertificatesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ListCertificatesRequest
+>>>>>>> Working on getting compiling
 type ListCertificatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2543,7 +2584,11 @@ func (s *RequestCertificateInput) SetValidationMethod(v string) *RequestCertific
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/RequestCertificateResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/RequestCertificateResponse
+>>>>>>> Working on getting compiling
 type RequestCertificateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2685,7 +2730,11 @@ func (s ResendValidationEmailOutput) GoString() string {
 
 // Contains a DNS record value that you can use to can use to validate ownership
 // or control of a domain. This is used by the DescribeCertificate action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ResourceRecord
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/ResourceRecord
+>>>>>>> Working on getting compiling
 type ResourceRecord struct {
 	_ struct{} `type:"structure"`
 

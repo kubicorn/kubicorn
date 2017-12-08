@@ -4576,17 +4576,26 @@ const (
 	MetricTypeDynamoDbwriteCapacityUtilization = "DynamoDBWriteCapacityUtilization"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// MetricTypeAlbrequestCountPerTarget is a MetricType enum value
 	MetricTypeAlbrequestCountPerTarget = "ALBRequestCountPerTarget"
 
 =======
 >>>>>>> Initial dep workover
+=======
+	// MetricTypeAlbrequestCountPerTarget is a MetricType enum value
+	MetricTypeAlbrequestCountPerTarget = "ALBRequestCountPerTarget"
+
+>>>>>>> Working on getting compiling
 	// MetricTypeRdsreaderAverageCpuutilization is a MetricType enum value
 	MetricTypeRdsreaderAverageCpuutilization = "RDSReaderAverageCPUUtilization"
 
 	// MetricTypeRdsreaderAverageDatabaseConnections is a MetricType enum value
 	MetricTypeRdsreaderAverageDatabaseConnections = "RDSReaderAverageDatabaseConnections"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 
 	// MetricTypeEc2spotFleetRequestAverageCpuutilization is a MetricType enum value
 	MetricTypeEc2spotFleetRequestAverageCpuutilization = "EC2SpotFleetRequestAverageCPUUtilization"
@@ -4596,8 +4605,11 @@ const (
 
 	// MetricTypeEc2spotFleetRequestAverageNetworkOut is a MetricType enum value
 	MetricTypeEc2spotFleetRequestAverageNetworkOut = "EC2SpotFleetRequestAverageNetworkOut"
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 )
 
 const (

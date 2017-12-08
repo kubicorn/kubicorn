@@ -424,12 +424,17 @@ func (c *ServiceCatalog) CopyProductRequest(input *CopyProductInput) (req *reque
 // new product.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 // You can copy a product to the same account or another account. You can copy
 // a product to the same region or another region.
 =======
 // You can copy the product to the same account or another account. You can
 // copy the product to the same region or another region.
 >>>>>>> Initial dep workover
+=======
+// You can copy a product to the same account or another account. You can copy
+// a product to the same region or another region.
+>>>>>>> Working on getting compiling
 //
 // This operation is performed asynchronously. To track the progress of the
 // operation, use DescribeCopyProductStatus.
@@ -447,11 +452,15 @@ func (c *ServiceCatalog) CopyProductRequest(input *CopyProductInput) (req *reque
 //
 //   * ErrCodeInvalidParametersException "InvalidParametersException"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //   One or more parameters provided to the operation are not valid.
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CopyProduct
 =======
 //   One or more parameters provided to the operation are invalid.
+=======
+//   One or more parameters provided to the operation are not valid.
+>>>>>>> Working on getting compiling
 //
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/CopyProduct
 >>>>>>> Initial dep workover
@@ -899,6 +908,9 @@ func (c *ServiceCatalog) CreateProvisioningArtifactRequest(input *CreateProvisio
 // product.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // You cannot create a provisioning artifact for a product that was shared with
 // you.
 //
@@ -1612,10 +1624,14 @@ func (c *ServiceCatalog) DescribeCopyProductStatusRequest(input *DescribeCopyPro
 // DescribeCopyProductStatus API operation for AWS Service Catalog.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Gets the status of the specified copy product operation.
 =======
 // Describes the status of the specified copy product operation.
 >>>>>>> Initial dep workover
+=======
+// Gets the status of the specified copy product operation.
+>>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -4203,12 +4219,21 @@ func (c *ServiceCatalog) ProvisionProductRequest(input *ProvisionProductInput) (
 // ProvisionProduct API operation for AWS Service Catalog.
 //
 // Provisions the specified product.
+<<<<<<< HEAD
 //
 // A provisioned product is a resourced instance of a product. For example,
 // provisioning a product based on a CloudFormation template launches a CloudFormation
 // stack and its underlying resources. You can check the status of this request
 // using DescribeRecord.
 //
+=======
+//
+// A provisioned product is a resourced instance of a product. For example,
+// provisioning a product based on a CloudFormation template launches a CloudFormation
+// stack and its underlying resources. You can check the status of this request
+// using DescribeRecord.
+//
+>>>>>>> Working on getting compiling
 // If the request contains a tag key with an empty list of values, there is
 // a tag conflict for that key. Do not include conflicted keys as tags, or this
 // will cause the error "Parameter validation failed: Missing required parameter
@@ -5409,7 +5434,11 @@ func (s AcceptPortfolioShareOutput) GoString() string {
 }
 
 // The access level to use to filter results.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/AccessLevelFilter
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/AccessLevelFilter
+>>>>>>> Working on getting compiling
 type AccessLevelFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -5724,7 +5753,11 @@ func (s AssociateTagOptionWithResourceOutput) GoString() string {
 }
 
 // Information about a constraint.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ConstraintDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ConstraintDetail
+>>>>>>> Working on getting compiling
 type ConstraintDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -5782,7 +5815,11 @@ func (s *ConstraintDetail) SetType(v string) *ConstraintDetail {
 }
 
 // Summary information about a constraint.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ConstraintSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ConstraintSummary
+>>>>>>> Working on getting compiling
 type ConstraintSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -5978,6 +6015,7 @@ type CopyProductInput struct {
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
+<<<<<<< HEAD
 	// The copy options. If the value is CopyTags, the tags from the source product
 	// are copied to the target product.
 	CopyOptions []*string `type:"list"`
@@ -6133,15 +6171,27 @@ type CreateConstraintInput struct {
 	// multiple requests, provided that you also specify a different idempotency
 	// token for each request.
 >>>>>>> Initial dep workover
+=======
+	// The description of the constraint.
+	Description *string `type:"string"`
+
+	// A unique identifier that you provide to ensure idempotency. If multiple requests
+	// differ only by the idempotency token, the same response is returned for each
+	// repeated request.
+>>>>>>> Working on getting compiling
 	//
 	// IdempotencyToken is a required field
 	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// The constraint parameters, in JSON format. The syntax depends on the constraint
 	// type as follows:
 	//
 	// LAUNCHSpecify the RoleArn property as follows:
+<<<<<<< HEAD
 	//
 	// \"RoleArn\" : \"arn:aws:iam::123456789012:role/LaunchRole\"
 =======
@@ -6153,6 +6203,15 @@ type CreateConstraintInput struct {
 	//
 	// \"NotificationArns\" : [\"arn:aws:sns:us-east-1:123456789012:Topic\"]
 	//
+=======
+	//
+	// \"RoleArn\" : \"arn:aws:iam::123456789012:role/LaunchRole\"
+	//
+	// NOTIFICATIONSpecify the NotificationArns property as follows:
+	//
+	// \"NotificationArns\" : [\"arn:aws:sns:us-east-1:123456789012:Topic\"]
+	//
+>>>>>>> Working on getting compiling
 	// TEMPLATESpecify the Rules property. For more information, see Template Constraint
 	// Rules (http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html).
 	//
@@ -6342,6 +6401,7 @@ type CreatePortfolioInput struct {
 	DisplayName *string `min:"1" type:"string" required:"true"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// A unique identifier that you provide to ensure idempotency. If multiple requests
 	// differ only by the idempotency token, the same response is returned for each
 	// repeated request.
@@ -6350,6 +6410,11 @@ type CreatePortfolioInput struct {
 	// multiple requests, provided that you also specify a different idempotency
 	// token for each request.
 >>>>>>> Initial dep workover
+=======
+	// A unique identifier that you provide to ensure idempotency. If multiple requests
+	// differ only by the idempotency token, the same response is returned for each
+	// repeated request.
+>>>>>>> Working on getting compiling
 	//
 	// IdempotencyToken is a required field
 	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
@@ -6602,6 +6667,7 @@ type CreateProductInput struct {
 	Distributor *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// A unique identifier that you provide to ensure idempotency. If multiple requests
 	// differ only by the idempotency token, the same response is returned for each
 	// repeated request.
@@ -6610,6 +6676,11 @@ type CreateProductInput struct {
 	// multiple requests, provided that you also specify a different idempotency
 	// token for each request.
 >>>>>>> Initial dep workover
+=======
+	// A unique identifier that you provide to ensure idempotency. If multiple requests
+	// differ only by the idempotency token, the same response is returned for each
+	// repeated request.
+>>>>>>> Working on getting compiling
 	//
 	// IdempotencyToken is a required field
 	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
@@ -6840,10 +6911,16 @@ type CreateProvisioningArtifactInput struct {
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
+<<<<<<< HEAD
 	// A token to disambiguate duplicate requests. You can use the same input in
 	// multiple requests, provided that you also specify a different idempotency
 	// token for each request.
 >>>>>>> Initial dep workover
+=======
+	// A unique identifier that you provide to ensure idempotency. If multiple requests
+	// differ only by the idempotency token, the same response is returned for each
+	// repeated request.
+>>>>>>> Working on getting compiling
 	//
 	// IdempotencyToken is a required field
 	IdempotencyToken *string `min:"1" type:"string" required:"true" idempotencyToken:"true"`
@@ -7689,7 +7766,7 @@ type DescribeCopyProductStatusInput struct {
 	//    * zh - Chinese
 	AcceptLanguage *string `type:"string"`
 
-	// The token returned from the call to CopyProduct that initiated the operation.
+	// The token for the copy product operation. This token is returned by CopyProduct.
 	//
 	// CopyProductToken is a required field
 	CopyProductToken *string `min:"1" type:"string" required:"true"`
@@ -7743,7 +7820,7 @@ type DescribeCopyProductStatusOutput struct {
 	// The status message.
 	StatusDetail *string `type:"string"`
 
-	// The ID of the copied product.
+	// The identifier of the copied product.
 	TargetProductId *string `min:"1" type:"string"`
 }
 
@@ -8980,7 +9057,11 @@ func (s DisassociateTagOptionFromResourceOutput) GoString() string {
 }
 
 // Summary information about a product path for a user.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/LaunchPathSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/LaunchPathSummary
+>>>>>>> Working on getting compiling
 type LaunchPathSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -10005,7 +10086,11 @@ func (s *ListRecordHistoryOutput) SetRecordDetails(v []*RecordDetail) *ListRecor
 }
 
 // The search filter to use when listing history records.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ListRecordHistorySearchFilter
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ListRecordHistorySearchFilter
+>>>>>>> Working on getting compiling
 type ListRecordHistorySearchFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -10152,7 +10237,11 @@ func (s *ListResourcesForTagOptionOutput) SetResourceDetails(v []*ResourceDetail
 }
 
 // Filters to use when listing TagOptions.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ListTagOptionsFilters
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ListTagOptionsFilters
+>>>>>>> Working on getting compiling
 type ListTagOptionsFilters struct {
 	_ struct{} `type:"structure"`
 
@@ -10329,7 +10418,11 @@ func (s *ParameterConstraints) SetAllowedValues(v []*string) *ParameterConstrain
 }
 
 // Information about a portfolio.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/PortfolioDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/PortfolioDetail
+>>>>>>> Working on getting compiling
 type PortfolioDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -10399,7 +10492,11 @@ func (s *PortfolioDetail) SetProviderName(v string) *PortfolioDetail {
 }
 
 // Information about a principal.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/Principal
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/Principal
+>>>>>>> Working on getting compiling
 type Principal struct {
 	_ struct{} `type:"structure"`
 
@@ -10468,7 +10565,11 @@ func (s *ProductViewAggregationValue) SetValue(v string) *ProductViewAggregation
 }
 
 // Information about a product view.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProductViewDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProductViewDetail
+>>>>>>> Working on getting compiling
 type ProductViewDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -10527,7 +10628,11 @@ func (s *ProductViewDetail) SetStatus(v string) *ProductViewDetail {
 }
 
 // Summary information about a product view.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProductViewSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProductViewSummary
+>>>>>>> Working on getting compiling
 type ProductViewSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -10853,7 +10958,11 @@ func (s *ProvisionProductOutput) SetRecordDetail(v *RecordDetail) *ProvisionProd
 }
 
 // Information about a provisioned product.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisionedProductDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisionedProductDetail
+>>>>>>> Working on getting compiling
 type ProvisionedProductDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -10867,6 +10976,7 @@ type ProvisionedProductDetail struct {
 	Id *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// A unique identifier that you provide to ensure idempotency. If multiple requests
 	// differ only by the idempotency token, the same response is returned for each
 	// repeated request.
@@ -10875,6 +10985,11 @@ type ProvisionedProductDetail struct {
 	// multiple requests, provided that you also specify a different idempotency
 	// token for each request.
 >>>>>>> Initial dep workover
+=======
+	// A unique identifier that you provide to ensure idempotency. If multiple requests
+	// differ only by the idempotency token, the same response is returned for each
+	// repeated request.
+>>>>>>> Working on getting compiling
 	IdempotencyToken *string `min:"1" type:"string"`
 
 	// The record identifier of the last request performed on this provisioned product.
@@ -10974,7 +11089,11 @@ func (s *ProvisionedProductDetail) SetType(v string) *ProvisionedProductDetail {
 
 // Information about a provisioning artifact. A provisioning artifact is also
 // known as a product version.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifact
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifact
+>>>>>>> Working on getting compiling
 type ProvisioningArtifact struct {
 	_ struct{} `type:"structure"`
 
@@ -11027,7 +11146,11 @@ func (s *ProvisioningArtifact) SetName(v string) *ProvisioningArtifact {
 
 // Information about a provisioning artifact (also known as a version) for a
 // product.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifactDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifactDetail
+>>>>>>> Working on getting compiling
 type ProvisioningArtifactDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -11103,7 +11226,11 @@ func (s *ProvisioningArtifactDetail) SetType(v string) *ProvisioningArtifactDeta
 }
 
 // Information about a parameter used to provision a product.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifactParameter
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifactParameter
+>>>>>>> Working on getting compiling
 type ProvisioningArtifactParameter struct {
 	_ struct{} `type:"structure"`
 
@@ -11176,7 +11303,11 @@ func (s *ProvisioningArtifactParameter) SetParameterType(v string) *Provisioning
 
 // Information about a provisioning artifact (also known as a version) for a
 // product.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifactProperties
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifactProperties
+>>>>>>> Working on getting compiling
 type ProvisioningArtifactProperties struct {
 	_ struct{} `type:"structure"`
 
@@ -11197,11 +11328,19 @@ type ProvisioningArtifactProperties struct {
 	Name *string `type:"string"`
 
 	// The type of provisioning artifact.
+<<<<<<< HEAD
 	//
 	//    * CLOUD_FORMATION_TEMPLATE - AWS CloudFormation template
 	//
 	//    * MARKETPLACE_AMI - AWS Marketplace AMI
 	//
+=======
+	//
+	//    * CLOUD_FORMATION_TEMPLATE - AWS CloudFormation template
+	//
+	//    * MARKETPLACE_AMI - AWS Marketplace AMI
+	//
+>>>>>>> Working on getting compiling
 	//    * MARKETPLACE_CAR - AWS Marketplace Clusters and AWS Resources
 	Type *string `type:"string" enum:"ProvisioningArtifactType"`
 }
@@ -11258,7 +11397,11 @@ func (s *ProvisioningArtifactProperties) SetType(v string) *ProvisioningArtifact
 
 // Summary information about a provisioning artifact (also known as a version)
 // for a product.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifactSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningArtifactSummary
+>>>>>>> Working on getting compiling
 type ProvisioningArtifactSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -11320,7 +11463,11 @@ func (s *ProvisioningArtifactSummary) SetProvisioningArtifactMetadata(v map[stri
 }
 
 // Information about a parameter used to provision a product.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningParameter
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ProvisioningParameter
+>>>>>>> Working on getting compiling
 type ProvisioningParameter struct {
 	_ struct{} `type:"structure"`
 
@@ -11367,7 +11514,11 @@ func (s *ProvisioningParameter) SetValue(v string) *ProvisioningParameter {
 }
 
 // Information about a request operation.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/RecordDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/RecordDetail
+>>>>>>> Working on getting compiling
 type RecordDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -11555,7 +11706,11 @@ func (s *RecordError) SetDescription(v string) *RecordError {
 // The output for the product created as the result of a request. For example,
 // the output for a CloudFormation-backed product that creates an S3 bucket
 // would include the S3 bucket URL.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/RecordOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/RecordOutput
+>>>>>>> Working on getting compiling
 type RecordOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11712,7 +11867,11 @@ func (s RejectPortfolioShareOutput) GoString() string {
 }
 
 // Information about a resource.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ResourceDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/ResourceDetail
+>>>>>>> Working on getting compiling
 type ResourceDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -12152,7 +12311,11 @@ func (s *SearchProductsOutput) SetProductViewSummaries(v []*ProductViewSummary) 
 
 // Information about a tag. A tag is a key-value pair. Tags are entirely discretionary
 // and are propagated to the resources created when provisioning a product.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/Tag
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/Tag
+>>>>>>> Working on getting compiling
 type Tag struct {
 	_ struct{} `type:"structure"`
 
@@ -12212,7 +12375,11 @@ func (s *Tag) SetValue(v string) *Tag {
 }
 
 // Information about a TagOption.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/TagOptionDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/TagOptionDetail
+>>>>>>> Working on getting compiling
 type TagOptionDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -12264,7 +12431,11 @@ func (s *TagOptionDetail) SetValue(v string) *TagOptionDetail {
 }
 
 // Summary information about a TagOption.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/TagOptionSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/TagOptionSummary
+>>>>>>> Working on getting compiling
 type TagOptionSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -13180,7 +13351,11 @@ func (s *UpdateProvisioningArtifactOutput) SetStatus(v string) *UpdateProvisioni
 }
 
 // The parameter key-value pair used to update a provisioned product.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/UpdateProvisioningParameter
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicecatalog-2015-12-10/UpdateProvisioningParameter
+>>>>>>> Working on getting compiling
 type UpdateProvisioningParameter struct {
 	_ struct{} `type:"structure"`
 

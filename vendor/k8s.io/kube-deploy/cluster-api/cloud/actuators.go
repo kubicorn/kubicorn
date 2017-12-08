@@ -20,7 +20,9 @@ import (
 	"fmt"
 
 	"github.com/golang/glog"
+
 	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
+	"k8s.io/kube-deploy/cluster-api/client"
 	"k8s.io/kube-deploy/cluster-api/cloud/google"
 )
 
@@ -33,10 +35,10 @@ kind: config
 preferences: {}
 `
 
-func NewMachineActuator(cloud string, kubeadmToken string) (MachineActuator, error) {
+func NewMachineActuator(cloud string, kubeadmToken string, machineClient client.MachinesInterface) (MachineActuator, error) {
 	switch cloud {
 	case "google":
-		return google.NewMachineActuator(kubeadmToken)
+		return google.NewMachineActuator(kubeadmToken, machineClient)
 	case "test", "aws", "azure":
 		return &loggingMachineActuator{}, nil
 	default:
@@ -74,12 +76,12 @@ func (a loggingMachineActuator) GetKubeConfig(master *clusterv1.Machine) (string
 	return config, nil
 }
 
-func (a loggingMachineActuator) CreateMachineController(machines []*clusterv1.Machine) error {
+func (a loggingMachineActuator) CreateMachineController(cluster *clusterv1.Cluster, machines []*clusterv1.Machine) error {
 	glog.Infof("actuator received CreateMachineController: %q\n", machines)
 	return nil
 }
 
-func (a loggingMachineActuator) PostDelete(machines []*clusterv1.Machine) error {
+func (a loggingMachineActuator) PostDelete(cluster *clusterv1.Cluster, machines []*clusterv1.Machine) error {
 	glog.Infof("actuator received PostDelete: %q\n", machines)
 	return nil
 }

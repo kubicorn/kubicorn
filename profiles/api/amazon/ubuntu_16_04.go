@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 	"github.com/kris-nova/kubicorn/cutil/uuid"
+	//"k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // NewUbuntuCluster creates a basic Azure cluster profile, to bootstrap Kubernetes.
@@ -17,7 +18,6 @@ func NewUbuntuCluster(name string) apis.KubicornCluster {
 	providerConfig, _ := profiles.SerializeProviderConfig(NewUbuntuControlPlane(name))
 
 	cluster := v1alpha1.Cluster{
-
 		ObjectMeta: metav1.ObjectMeta{
 			// ------------------------------------------------------------------
 			Name: name,
@@ -210,7 +210,6 @@ func NewUbuntuControlPlane(name string) apis.KubicornCluster {
 						},
 					},
 				},
-			},
 			},
 
 		},

@@ -2622,12 +2622,18 @@ func (c *ElasticBeanstalk) ListTagsForResourceRequest(input *ListTagsForResource
 // contains a list of tag key-value pairs.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk environments.
 // For details about environment tagging, see Tagging Resources in Your Elastic
 // Beanstalk Environment (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
 =======
 // Currently, Elastic Beanstalk only supports tagging Elastic Beanstalk environments.
 >>>>>>> Initial dep workover
+=======
+// Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk environments.
+// For details about environment tagging, see Tagging Resources in Your Elastic
+// Beanstalk Environment (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
+>>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -3721,6 +3727,9 @@ func (c *ElasticBeanstalk) UpdateTagsForResourceRequest(input *UpdateTagsForReso
 //
 // Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk environments.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // For details about environment tagging, see Tagging Resources in Your Elastic
 // Beanstalk Environment (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
 //
@@ -3736,8 +3745,11 @@ func (c *ElasticBeanstalk) UpdateTagsForResourceRequest(input *UpdateTagsForReso
 //
 // For details about creating a custom user policy, see Creating a Custom User
 // Policy (http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies).
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about

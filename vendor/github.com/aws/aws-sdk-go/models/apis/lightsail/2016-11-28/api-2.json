@@ -49,6 +49,9 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "AttachInstancesToLoadBalancer":{
       "name":"AttachInstancesToLoadBalancer",
       "http":{
@@ -85,8 +88,11 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "AttachStaticIp":{
       "name":"AttachStaticIp",
       "http":{
@@ -286,6 +292,9 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "CreateLoadBalancer":{
       "name":"CreateLoadBalancer",
       "http":{
@@ -322,8 +331,11 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "DeleteDisk":{
       "name":"DeleteDisk",
       "http":{
@@ -451,6 +463,9 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "DeleteLoadBalancer":{
       "name":"DeleteLoadBalancer",
       "http":{
@@ -487,8 +502,11 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "DetachDisk":{
       "name":"DetachDisk",
       "http":{
@@ -508,6 +526,9 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "DetachInstancesFromLoadBalancer":{
       "name":"DetachInstancesFromLoadBalancer",
       "http":{
@@ -526,8 +547,11 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "DetachStaticIp":{
       "name":"DetachStaticIp",
       "http":{
@@ -1364,6 +1388,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "AttachInstancesToLoadBalancerRequest":{
       "type":"structure",
       "required":[
@@ -1398,8 +1425,11 @@
         "operations":{"shape":"OperationList"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "AttachStaticIpRequest":{
       "type":"structure",
       "required":[
@@ -1671,6 +1701,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "CreateLoadBalancerRequest":{
       "type":"structure",
       "required":[
@@ -1712,8 +1745,11 @@
         "operations":{"shape":"OperationList"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "DeleteDiskRequest":{
       "type":"structure",
       "required":["diskName"],
@@ -1810,6 +1846,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "DeleteLoadBalancerRequest":{
       "type":"structure",
       "required":["loadBalancerName"],
@@ -1841,8 +1880,11 @@
         "operations":{"shape":"OperationList"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "DetachDiskRequest":{
       "type":"structure",
       "required":["diskName"],
@@ -1857,6 +1899,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "DetachInstancesFromLoadBalancerRequest":{
       "type":"structure",
       "required":[
@@ -1874,8 +1919,11 @@
         "operations":{"shape":"OperationList"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "DetachStaticIpRequest":{
       "type":"structure",
       "required":["staticIpName"],
@@ -3143,6 +3191,9 @@
         "DeleteInstanceSnapshot",
         "CreateInstancesFromSnapshot",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
         "CreateLoadBalancer",
         "DeleteLoadBalancer",
         "AttachInstancesToLoadBalancer",
@@ -3151,8 +3202,11 @@
         "CreateLoadBalancerTlsCertificate",
         "DeleteLoadBalancerTlsCertificate",
         "AttachLoadBalancerTlsCertificate",
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
         "CreateDisk",
         "DeleteDisk",
         "AttachDisk",
@@ -3313,10 +3367,15 @@
         "Domain",
         "PeeredVpc",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "LoadBalancer",
         "LoadBalancerTlsCertificate",
 =======
 >>>>>>> Initial dep workover
+=======
+        "LoadBalancer",
+        "LoadBalancerTlsCertificate",
+>>>>>>> Working on getting compiling
         "Disk",
         "DiskSnapshot"
       ]

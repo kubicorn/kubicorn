@@ -23,16 +23,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/ghodss/yaml"
 	"github.com/golang/glog"
-	"k8s.io/api/core/v1"
-	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
-	restclient "k8s.io/client-go/rest"
-	"k8s.io/client-go/tools/clientcmd"
 	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
-	"k8s.io/kube-deploy/cluster-api/client"
 	"k8s.io/kube-deploy/cluster-api/util"
 )
 
@@ -44,8 +38,82 @@ const (
 	DeleteSleepSeconds     = 5
 )
 
+func (d *deployer) createCluster(c *clusterv1.Cluster, machines []*clusterv1.Machine, vmCreated *bool) error {
+	if c.GetName() == "" {
+		return fmt.Errorf("cluster name must be specified for cluster creation")
+	}
+	master := util.GetMaster(machines)
+	if master == nil {
+		return fmt.Errorf("master spec must be provided for cluster creation")
+	}
+
+	if master.GetName() == "" && master.GetGenerateName() == "" {
+		return fmt.Errorf("master name must be specified for cluster creation")
+	}
+
+	if master.GetName() == "" {
+		master.Name = master.GetGenerateName() + c.GetName()
+	}
+
+	glog.Infof("Starting cluster creation %s", c.GetName())
+
+	glog.Infof("Starting master creation %s", master.GetName())
+
+	if err := d.actuator.Create(c, master); err != nil {
+		return err
+	}
+
+	*vmCreated = true
+	glog.Infof("Created master %s", master.GetName())
+
+	masterIP, err := d.getMasterIP(master)
+	if err != nil {
+		return fmt.Errorf("unable to get master IP: %v", err)
+	}
+
+	c.Status.APIEndpoints = append(c.Status.APIEndpoints,
+		clusterv1.APIEndpoint{
+			Host: masterIP,
+			Port: 443,
+		})
+
+	if err := d.copyKubeConfig(master); err != nil {
+		return fmt.Errorf("unable to write kubeconfig: %v", err)
+	}
+
+	glog.Info("Waiting for apiserver to become healthy...")
+	if err := d.waitForApiserver(masterIP, 1*time.Minute); err != nil {
+		return fmt.Errorf("apiserver never came up: %v", err)
+	}
+
+	if err := d.initApiClient(); err != nil {
+		return err
+	}
+	glog.Info("Starting the machine controller...")
+	if err := d.actuator.CreateMachineController(c, machines); err != nil {
+		return fmt.Errorf("can't create machine controller: %v", err)
+	}
+
+	if err := d.createClusterCRD(); err != nil {
+		return err
+	}
+
+	if _, err := d.client.Clusters().Create(c); err != nil {
+		return err
+	}
+
+	if err := d.createMachineCRD(); err != nil {
+		return err
+	}
+
+	if err := d.createMachines(machines); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (d *deployer) createClusterCRD() error {
-	cs, err := d.newClientSet()
+	cs, err := util.NewClientSet(d.configPath)
 	if err != nil {
 		return err
 	}
@@ -69,7 +137,7 @@ func (d *deployer) createClusterCRD() error {
 }
 
 func (d *deployer) createMachineCRD() error {
-	cs, err := d.newClientSet()
+	cs, err := util.NewClientSet(d.configPath)
 	if err != nil {
 		return err
 	}
@@ -92,24 +160,9 @@ func (d *deployer) createMachineCRD() error {
 	return nil
 }
 
-func (d *deployer) createCluster(cluster *clusterv1.Cluster) error {
-	c, err := d.newApiClient()
-	if err != nil {
-		return err
-	}
-
-	_, err = c.Clusters().Create(cluster)
-	return err
-}
-
 func (d *deployer) createMachines(machines []*clusterv1.Machine) error {
-	c, err := d.newApiClient()
-	if err != nil {
-		return err
-	}
-
 	for _, machine := range machines {
-		m, err := c.Machines().Create(machine)
+		m, err := d.client.Machines().Create(machine)
 		if err != nil {
 			return err
 		}
@@ -123,16 +176,12 @@ func (d *deployer) createMachine(m *clusterv1.Machine) error {
 }
 
 func (d *deployer) deleteAllMachines() error {
-	c, err := d.newApiClient()
-	if err != nil {
-		return err
-	}
-	machines, err := c.Machines().List(metav1.ListOptions{})
+	machines, err := d.client.Machines().List(metav1.ListOptions{})
 	if err != nil {
 		return err
 	}
 	for _, m := range machines.Items {
-		if err := d.delete(c, m.Name); err != nil {
+		if err := d.delete(m.Name); err != nil {
 			return err
 		}
 		glog.Infof("Deleted machine object %s", m.Name)
@@ -140,54 +189,28 @@ func (d *deployer) deleteAllMachines() error {
 	return nil
 }
 
-func (d *deployer) deleteMachine(name string) error {
-	c, err := d.newApiClient()
-	if err != nil {
-		return err
-	}
-	return d.delete(c, name)
-}
-
-func (d *deployer) delete(c *client.ClusterAPIV1Alpha1Client, name string) error {
+func (d *deployer) delete(name string) error {
 	// TODO  https://github.com/kubernetes/kube-deploy/issues/390
-	return c.Machines().Delete(name, &metav1.DeleteOptions{})
-}
-
-func (d *deployer) getMachine(name string) (*clusterv1.Machine, error) {
-	c, err := d.newApiClient()
-	if err != nil {
-		return nil, err
-	}
-	machine, err := c.Machines().Get(name, metav1.GetOptions{})
-	if err != nil {
-		return nil, err
-	}
-	return machine, nil
-}
-
-func (d *deployer) updateMachine(machine *clusterv1.Machine) error {
-	c, err := d.newApiClient()
-	if err != nil {
-		return err
-	}
-
-	if _, err := c.Machines().Update(machine); err != nil {
-		return err
-	}
-	return nil
+	return d.client.Machines().Delete(name, &metav1.DeleteOptions{})
 }
 
 func (d *deployer) listMachines() ([]*clusterv1.Machine, error) {
-	c, err := d.newApiClient()
-	if err != nil {
-		return nil, err
-	}
-
-	machines, err := c.Machines().List(metav1.ListOptions{})
+	machines, err := d.client.Machines().List(metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
 	return util.MachineP(machines.Items), nil
+}
+
+func (d *deployer) getCluster() (*clusterv1.Cluster, error) {
+	clusters, err := d.client.Clusters().List(metav1.ListOptions{})
+	if err != nil {
+		return nil, err
+	}
+	if len(clusters.Items) != 1 {
+		return nil, fmt.Errorf("cluster object count != 1")
+	}
+	return &clusters.Items[0], nil
 }
 
 func (d *deployer) getMasterIP(master *clusterv1.Machine) (string, error) {
@@ -201,29 +224,6 @@ func (d *deployer) getMasterIP(master *clusterv1.Machine) (string, error) {
 		return ip, nil
 	}
 	return "", fmt.Errorf("unable to find Master IP after defined wait")
-}
-
-func (d *deployer) getUnhealthyNodes() ([]string, error) {
-	nodeList := &v1.NodeList{}
-	out := util.ExecCommand("kubectl", "get", "nodes", "-o=yaml")
-	err := yaml.Unmarshal([]byte(out), nodeList)
-	if err != nil {
-		return nil, err
-	}
-
-	var healthy []string
-	var unhealthy []string
-
-	for _, node := range nodeList.Items {
-		if util.IsNodeReady(&node) {
-			healthy = append(healthy, node.Name)
-		} else {
-			unhealthy = append(unhealthy, node.Name)
-		}
-	}
-	glog.Infof("healthy nodes: %v", healthy)
-	glog.Infof("unhealthy nodes: %v", unhealthy)
-	return unhealthy, nil
 }
 
 func (d *deployer) copyKubeConfig(master *clusterv1.Machine) error {
@@ -241,6 +241,15 @@ func (d *deployer) copyKubeConfig(master *clusterv1.Machine) error {
 	return fmt.Errorf("timedout writing kubeconfig")
 }
 
+func (d *deployer) initApiClient() error {
+	c, err := util.NewApiClient(d.configPath)
+	if err != nil {
+		return err
+	}
+	d.client = c
+	return nil
+
+}
 func (d *deployer) writeConfigToDisk(config string) error {
 	file, err := os.Create(d.configPath)
 	if err != nil {
@@ -254,41 +263,6 @@ func (d *deployer) writeConfigToDisk(config string) error {
 	file.Sync() // flush
 	glog.Infof("wrote kubeconfig to [%s]", d.configPath)
 	return nil
-}
-
-func (d *deployer) newClientSet() (*apiextensionsclient.Clientset, error) {
-	config, err := d.getConfig()
-	if err != nil {
-		return nil, err
-	}
-
-	cs, err := apiextensionsclient.NewForConfig(config)
-	if err != nil {
-		return nil, err
-	}
-
-	return cs, nil
-}
-
-func (d *deployer) newApiClient() (*client.ClusterAPIV1Alpha1Client, error) {
-	config, err := d.getConfig()
-	if err != nil {
-		return nil, err
-	}
-
-	c, err := client.NewForConfig(config)
-	if err != nil {
-		return nil, err
-	}
-	return c, nil
-}
-
-func (d *deployer) getConfig() (*restclient.Config, error) {
-	config, err := clientcmd.BuildConfigFromFlags("", d.configPath)
-	if err != nil {
-		return nil, err
-	}
-	return config, nil
 }
 
 // Make sure you successfully call setMasterIp first.
@@ -313,6 +287,5 @@ func (d *deployer) waitForApiserver(master string, timeout time.Duration) error 
 		}
 		time.Sleep(1 * time.Second)
 	}
-
 	return err
 }

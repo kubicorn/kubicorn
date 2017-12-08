@@ -1148,14 +1148,20 @@
         "endpoints" : {
           "ap-northeast-1" : { },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
           "ap-northeast-2" : { },
           "ap-south-1" : { },
           "ap-southeast-1" : { },
           "ap-southeast-2" : { },
           "ca-central-1" : { },
           "eu-central-1" : { },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
           "eu-west-1" : { },
           "eu-west-2" : { },
           "sa-east-1" : { },
@@ -1974,6 +1980,7 @@
       },
       "dms" : {
         "endpoints" : {
+<<<<<<< HEAD
           "us-gov-west-1" : { },
           "us-gov-west-1-fips" : {
             "credentialScope" : {
@@ -1981,6 +1988,9 @@
             },
             "hostname" : "dynamodb.us-gov-west-1.amazonaws.com"
           }
+=======
+          "us-gov-west-1" : { }
+>>>>>>> Working on getting compiling
         }
       },
       "dynamodb" : {

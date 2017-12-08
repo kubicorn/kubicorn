@@ -1682,11 +1682,17 @@ type CreateElasticsearchDomainInput struct {
 	ElasticsearchVersion *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Specifies the Encryption At Rest Options.
 	EncryptionAtRestOptions *EncryptionAtRestOptions `type:"structure"`
 
 =======
 >>>>>>> Initial dep workover
+=======
+	// Specifies the Encryption At Rest Options.
+	EncryptionAtRestOptions *EncryptionAtRestOptions `type:"structure"`
+
+>>>>>>> Working on getting compiling
 	// Map of LogType and LogPublishingOption, each containing options to publish
 	// a given type of Elasticsearch log.
 	LogPublishingOptions map[string]*LogPublishingOption `type:"map"`
@@ -1769,14 +1775,20 @@ func (s *CreateElasticsearchDomainInput) SetElasticsearchVersion(v string) *Crea
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // SetEncryptionAtRestOptions sets the EncryptionAtRestOptions field's value.
 func (s *CreateElasticsearchDomainInput) SetEncryptionAtRestOptions(v *EncryptionAtRestOptions) *CreateElasticsearchDomainInput {
 	s.EncryptionAtRestOptions = v
 	return s
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // SetLogPublishingOptions sets the LogPublishingOptions field's value.
 func (s *CreateElasticsearchDomainInput) SetLogPublishingOptions(v map[string]*LogPublishingOption) *CreateElasticsearchDomainInput {
 	s.LogPublishingOptions = v
@@ -2466,11 +2478,17 @@ type ElasticsearchDomainConfig struct {
 	ElasticsearchVersion *ElasticsearchVersionStatus `type:"structure"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Specifies the EncryptionAtRestOptions for the Elasticsearch domain.
 	EncryptionAtRestOptions *EncryptionAtRestOptionsStatus `type:"structure"`
 
 =======
 >>>>>>> Initial dep workover
+=======
+	// Specifies the EncryptionAtRestOptions for the Elasticsearch domain.
+	EncryptionAtRestOptions *EncryptionAtRestOptionsStatus `type:"structure"`
+
+>>>>>>> Working on getting compiling
 	// Log publishing options for the given domain.
 	LogPublishingOptions *LogPublishingOptionsStatus `type:"structure"`
 
@@ -2523,14 +2541,20 @@ func (s *ElasticsearchDomainConfig) SetElasticsearchVersion(v *ElasticsearchVers
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // SetEncryptionAtRestOptions sets the EncryptionAtRestOptions field's value.
 func (s *ElasticsearchDomainConfig) SetEncryptionAtRestOptions(v *EncryptionAtRestOptionsStatus) *ElasticsearchDomainConfig {
 	s.EncryptionAtRestOptions = v
 	return s
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // SetLogPublishingOptions sets the LogPublishingOptions field's value.
 func (s *ElasticsearchDomainConfig) SetLogPublishingOptions(v *LogPublishingOptionsStatus) *ElasticsearchDomainConfig {
 	s.LogPublishingOptions = v

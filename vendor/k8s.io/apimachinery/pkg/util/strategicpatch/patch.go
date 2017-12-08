@@ -527,9 +527,6 @@ func normalizeSliceOrder(toSort, order []interface{}, mergeKey string, kind refl
 			return nil, err
 		}
 		toSort, toDelete, err = extractToDeleteItems(toSort)
-		if err != nil {
-			return nil, err
-		}
 	}
 
 	sort.SliceStable(toSort, func(i, j int) bool {
@@ -572,14 +569,14 @@ func diffLists(original, modified []interface{}, schema LookupPatchMeta, mergeKe
 		patchList, deleteList, err = diffListsOfMaps(original, modified, schema, mergeKey, diffOptions)
 =======
 		patchList, deleteList, err = diffListsOfMaps(original, modified, t, mergeKey, diffOptions)
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
 		if err != nil {
 			return nil, nil, nil, err
 		}
+=======
+>>>>>>> Working on getting compiling
 		patchList, err = normalizeSliceOrder(patchList, modified, mergeKey, kind)
-		if err != nil {
-			return nil, nil, nil, err
-		}
 		orderSame, err := isOrderSame(original, modified, mergeKey)
 		if err != nil {
 			return nil, nil, nil, err
@@ -605,9 +602,6 @@ func diffLists(original, modified []interface{}, schema LookupPatchMeta, mergeKe
 		return nil, nil, nil, mergepatch.ErrNoListOfLists
 	default:
 		patchList, deleteList, err = diffListsOfScalars(original, modified, diffOptions)
-		if err != nil {
-			return nil, nil, nil, err
-		}
 		patchList, err = normalizeSliceOrder(patchList, modified, mergeKey, kind)
 		// generate the setElementOrder list when there are content changes or order changes
 		if diffOptions.SetElementOrder && ((!diffOptions.IgnoreDeletions && len(deleteList) > 0) ||
@@ -1088,10 +1082,14 @@ func applyRetainKeysDirective(original, patch map[string]interface{}, options Me
 // Then, sort them by the relative order in setElementOrder, patch list and live list.
 // The precedence is $setElementOrder > order in patch list > order in live list.
 // This function will delete the item after merging it to prevent process it again in the future.
+<<<<<<< HEAD
 // Ref: https://git.k8s.io/community/contributors/design-proposals/cli/preserve-order-in-strategic-merge-patch.md
 <<<<<<< HEAD
 func mergePatchIntoOriginal(original, patch map[string]interface{}, schema LookupPatchMeta, mergeOptions MergeOptions) error {
 =======
+=======
+// Ref: https://git.k8s.io/community/contributors/design-proposals/preserve-order-in-strategic-merge-patch.md
+>>>>>>> Working on getting compiling
 func mergePatchIntoOriginal(original, patch map[string]interface{}, t reflect.Type, mergeOptions MergeOptions) error {
 >>>>>>> Initial dep workover
 	for key, patchV := range patch {

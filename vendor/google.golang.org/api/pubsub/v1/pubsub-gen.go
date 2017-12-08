@@ -285,6 +285,45 @@ func (s *CreateSnapshotRequest) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+// CreateSnapshotRequest: Request for the `CreateSnapshot` method.
+type CreateSnapshotRequest struct {
+	// Subscription: The subscription whose backlog the snapshot
+	// retains.
+	// Specifically, the created snapshot is guaranteed to retain:
+	//  (a) The existing backlog on the subscription. More precisely, this
+	// is
+	//      defined as the messages in the subscription's backlog that are
+	//      unacknowledged upon the successful completion of the
+	//      `CreateSnapshot` request; as well as:
+	//  (b) Any messages published to the subscription's topic following
+	// the
+	//      successful completion of the CreateSnapshot request.
+	// Format is `projects/{project}/subscriptions/{sub}`.
+	Subscription string `json:"subscription,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Subscription") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Subscription") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *CreateSnapshotRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod CreateSnapshotRequest
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
 // Empty: A generic empty message that you can re-use to avoid defining
 // duplicated
 // empty messages in your APIs. A typical example is to use it as the
@@ -420,6 +459,46 @@ func (s *ListTopicSnapshotsResponse) MarshalJSON() ([]byte, error) {
 	raw := NoMethod(*s)
 =======
 >>>>>>> Initial dep workover
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// ListTopicSnapshotsResponse: Response for the `ListTopicSnapshots`
+// method.
+type ListTopicSnapshotsResponse struct {
+	// NextPageToken: If not empty, indicates that there may be more
+	// snapshots that match
+	// the request; this value should be passed in a
+	// new
+	// `ListTopicSnapshotsRequest` to get more snapshots.
+	NextPageToken string `json:"nextPageToken,omitempty"`
+
+	// Snapshots: The names of the snapshots that match the request.
+	Snapshots []string `json:"snapshots,omitempty"`
+
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+
+	// ForceSendFields is a list of field names (e.g. "NextPageToken") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "NextPageToken") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *ListTopicSnapshotsResponse) MarshalJSON() ([]byte, error) {
+	type NoMethod ListTopicSnapshotsResponse
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1012,6 +1091,61 @@ func (s *SeekRequest) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
+=======
+// SeekRequest: Request for the `Seek` method.
+type SeekRequest struct {
+	// Snapshot: The snapshot to seek to. The snapshot's topic must be the
+	// same as that of
+	// the provided subscription.
+	// Format is `projects/{project}/snapshots/{snap}`.
+	Snapshot string `json:"snapshot,omitempty"`
+
+	// Time: The time to seek to.
+	// Messages retained in the subscription that were published before
+	// this
+	// time are marked as acknowledged, and messages retained in
+	// the
+	// subscription that were published after this time are marked
+	// as
+	// unacknowledged. Note that this operation affects only those
+	// messages
+	// retained in the subscription (configured by the combination
+	// of
+	// `message_retention_duration` and `retain_acked_messages`). For
+	// example,
+	// if `time` corresponds to a point before the message retention
+	// window (or to a point before the system's notion of the
+	// subscription
+	// creation time), only retained messages will be marked as
+	// unacknowledged,
+	// and already-expunged messages will not be restored.
+	Time string `json:"time,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Snapshot") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Snapshot") to include in
+	// API requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *SeekRequest) MarshalJSON() ([]byte, error) {
+	type NoMethod SeekRequest
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+>>>>>>> Working on getting compiling
 type SeekResponse struct {
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
@@ -1107,6 +1241,62 @@ func (s *Snapshot) MarshalJSON() ([]byte, error) {
 	raw := NoMethod(*s)
 =======
 >>>>>>> Initial dep workover
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// Snapshot: A snapshot resource.
+type Snapshot struct {
+	// ExpireTime: The snapshot is guaranteed to exist up until this time.
+	// A newly-created snapshot expires no later than 7 days from the time
+	// of its
+	// creation. Its exact lifetime is determined at creation by the
+	// existing
+	// backlog in the source subscription. Specifically, the lifetime of
+	// the
+	// snapshot is `7 days - (age of oldest unacked message in the
+	// subscription)`.
+	// For example, consider a subscription whose oldest unacked message is
+	// 3 days
+	// old. If a snapshot is created from this subscription, the snapshot --
+	// which
+	// will always capture this 3-day-old backlog as long as the
+	// snapshot
+	// exists -- will expire in 4 days. The service will refuse to create
+	// a
+	// snapshot that would expire in less than 1 hour after creation.
+	ExpireTime string `json:"expireTime,omitempty"`
+
+	// Name: The name of the snapshot.
+	Name string `json:"name,omitempty"`
+
+	// Topic: The name of the topic from which this snapshot is retaining
+	// messages.
+	Topic string `json:"topic,omitempty"`
+
+	// ServerResponse contains the HTTP response code and headers from the
+	// server.
+	googleapi.ServerResponse `json:"-"`
+
+	// ForceSendFields is a list of field names (e.g. "ExpireTime") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "ExpireTime") to include in
+	// API requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *Snapshot) MarshalJSON() ([]byte, error) {
+	type NoMethod Snapshot
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 

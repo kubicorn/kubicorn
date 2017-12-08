@@ -1648,6 +1648,34 @@ func (s *PackageNameList) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+// PackageNameList: A list of package names.
+type PackageNameList struct {
+	// PackageNames: A list of package names.
+	PackageNames []string `json:"packageNames,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "PackageNames") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "PackageNames") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *PackageNameList) MarshalJSON() ([]byte, error) {
+	type NoMethod PackageNameList
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
 // PasswordRequirements: Requirements for the password used to unlock a
 // device.
 type PasswordRequirements struct {
@@ -1998,13 +2026,19 @@ type Policy struct {
 	ModifyAccountsDisabled bool `json:"modifyAccountsDisabled,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// MountPhysicalMediaDisabled: Whether the user mounting physical
 	// external media is disabled. <i>Requires the beta version of the
 	// Android Device Policy app.</i>
 	MountPhysicalMediaDisabled bool `json:"mountPhysicalMediaDisabled,omitempty"`
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// Name: The name of the policy in the form
 	// enterprises/{enterpriseId}/policies/{policyId}
 	Name string `json:"name,omitempty"`
@@ -2021,12 +2055,18 @@ type Policy struct {
 	NetworkEscapeHatchEnabled bool `json:"networkEscapeHatchEnabled,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// NetworkResetDisabled: Whether resetting network settings is disabled.
 	// <i>Requires the beta version of the Android Device Policy app.</i>
 	NetworkResetDisabled bool `json:"networkResetDisabled,omitempty"`
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// OpenNetworkConfiguration: Network configuration for the device. See
 	// configure networks for more information.
 	OpenNetworkConfiguration googleapi.RawMessage `json:"openNetworkConfiguration,omitempty"`
@@ -2137,12 +2177,18 @@ type Policy struct {
 	Version int64 `json:"version,omitempty,string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// VpnConfigDisabled: Whether configuring VPN is disabled. <i>Requires
 	// the beta version of the Android Device Policy app.</i>
 	VpnConfigDisabled bool `json:"vpnConfigDisabled,omitempty"`
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// WifiConfigDisabled: Whether configuring WiFi access points is
 	// disabled.
 	WifiConfigDisabled bool `json:"wifiConfigDisabled,omitempty"`

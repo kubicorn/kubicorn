@@ -1920,3 +1920,35 @@ func TestOutputService10ProtocolTestEnumOutputCase1(t *testing.T) {
 >>>>>>> Initial dep workover
 
 }
+
+func TestOutputService10ProtocolTestEnumOutputCase1(t *testing.T) {
+	svc := NewOutputService10ProtocolTest(unit.Session, &aws.Config{Endpoint: aws.String("https://test")})
+
+	buf := bytes.NewReader([]byte("<OperationNameResponse><FooEnum>foo</FooEnum><ListEnums><member>foo</member><member>bar</member></ListEnums></OperationNameResponse>"))
+	req, out := svc.OutputService10TestCaseOperation1Request(nil)
+	req.HTTPResponse = &http.Response{StatusCode: 200, Body: ioutil.NopCloser(buf), Header: http.Header{}}
+
+	// set headers
+
+	// unmarshal response
+	ec2query.UnmarshalMeta(req)
+	ec2query.Unmarshal(req)
+	if req.Error != nil {
+		t.Errorf("expect not error, got %v", req.Error)
+	}
+
+	// assert response
+	if out == nil {
+		t.Errorf("expect not to be nil")
+	}
+	if e, a := "foo", *out.FooEnum; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "foo", *out.ListEnums[0]; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+	if e, a := "bar", *out.ListEnums[1]; e != a {
+		t.Errorf("expect %v, got %v", e, a)
+	}
+
+}

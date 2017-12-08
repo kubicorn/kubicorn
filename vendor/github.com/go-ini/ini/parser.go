@@ -277,6 +277,10 @@ func (f *File) parse(reader io.Reader) (err error) {
 =======
 >>>>>>> Initial dep workover
 
+	// This "last" is not strictly equivalent to "previous one" if current key is not the first nested key
+	var isLastValueEmpty bool
+	var lastRegularKey *Key
+
 	var line []byte
 	var inUnparseableSection bool
 	for !p.isEOF {

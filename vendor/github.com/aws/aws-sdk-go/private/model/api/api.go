@@ -104,12 +104,21 @@ func (a *API) StructName() string {
 	if len(a.name) != 0 {
 		return a.name
 	}
+<<<<<<< HEAD
 
 	name := a.Metadata.ServiceAbbreviation
 	if len(name) == 0 {
 		name = a.Metadata.ServiceFullName
 	}
 
+=======
+
+	name := a.Metadata.ServiceAbbreviation
+	if len(name) == 0 {
+		name = a.Metadata.ServiceFullName
+	}
+
+>>>>>>> Working on getting compiling
 	name = strings.TrimSpace(name)
 
 	// Strip out prefix names not reflected in service client symbol names.

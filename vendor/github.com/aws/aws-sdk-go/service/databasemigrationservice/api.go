@@ -2691,7 +2691,11 @@ const opDescribeReplicationTaskAssessmentResults = "DescribeReplicationTaskAsses
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults
+>>>>>>> Working on getting compiling
 func (c *DatabaseMigrationService) DescribeReplicationTaskAssessmentResultsRequest(input *DescribeReplicationTaskAssessmentResultsInput) (req *request.Request, output *DescribeReplicationTaskAssessmentResultsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeReplicationTaskAssessmentResults,
@@ -2730,7 +2734,11 @@ func (c *DatabaseMigrationService) DescribeReplicationTaskAssessmentResultsReque
 //   * ErrCodeResourceNotFoundFault "ResourceNotFoundFault"
 //   The resource could not be found.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults
+>>>>>>> Working on getting compiling
 func (c *DatabaseMigrationService) DescribeReplicationTaskAssessmentResults(input *DescribeReplicationTaskAssessmentResultsInput) (*DescribeReplicationTaskAssessmentResultsOutput, error) {
 	req, out := c.DescribeReplicationTaskAssessmentResultsRequest(input)
 	return out, req.Send()
@@ -4343,6 +4351,90 @@ func (c *DatabaseMigrationService) StartReplicationTaskAssessmentRequest(input *
 //   The resource could not be found.
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessment
+func (c *DatabaseMigrationService) StartReplicationTaskAssessment(input *StartReplicationTaskAssessmentInput) (*StartReplicationTaskAssessmentOutput, error) {
+	req, out := c.StartReplicationTaskAssessmentRequest(input)
+	return out, req.Send()
+}
+
+// StartReplicationTaskAssessmentWithContext is the same as StartReplicationTaskAssessment with the addition of
+// the ability to pass a context and additional request options.
+//
+// See StartReplicationTaskAssessment for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *DatabaseMigrationService) StartReplicationTaskAssessmentWithContext(ctx aws.Context, input *StartReplicationTaskAssessmentInput, opts ...request.Option) (*StartReplicationTaskAssessmentOutput, error) {
+	req, out := c.StartReplicationTaskAssessmentRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opStartReplicationTaskAssessment = "StartReplicationTaskAssessment"
+
+// StartReplicationTaskAssessmentRequest generates a "aws/request.Request" representing the
+// client's request for the StartReplicationTaskAssessment operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See StartReplicationTaskAssessment for more information on using the StartReplicationTaskAssessment
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the StartReplicationTaskAssessmentRequest method.
+//    req, resp := client.StartReplicationTaskAssessmentRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessment
+func (c *DatabaseMigrationService) StartReplicationTaskAssessmentRequest(input *StartReplicationTaskAssessmentInput) (req *request.Request, output *StartReplicationTaskAssessmentOutput) {
+	op := &request.Operation{
+		Name:       opStartReplicationTaskAssessment,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &StartReplicationTaskAssessmentInput{}
+	}
+
+	output = &StartReplicationTaskAssessmentOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// StartReplicationTaskAssessment API operation for AWS Database Migration Service.
+//
+// Starts the replication task assessment for unsupported data types in the
+// source database.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for AWS Database Migration Service's
+// API operation StartReplicationTaskAssessment for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeInvalidResourceStateFault "InvalidResourceStateFault"
+//   The resource is in a state that prevents it from being used for database
+//   migration.
+//
+//   * ErrCodeResourceNotFoundFault "ResourceNotFoundFault"
+//   The resource could not be found.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessment
 func (c *DatabaseMigrationService) StartReplicationTaskAssessment(input *StartReplicationTaskAssessmentInput) (*StartReplicationTaskAssessmentOutput, error) {
 	req, out := c.StartReplicationTaskAssessmentRequest(input)
 	return out, req.Send()
@@ -7285,7 +7377,11 @@ func (s *DescribeReplicationSubnetGroupsOutput) SetReplicationSubnetGroups(v []*
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResultsMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResultsMessage
+>>>>>>> Working on getting compiling
 type DescribeReplicationTaskAssessmentResultsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7337,7 +7433,11 @@ func (s *DescribeReplicationTaskAssessmentResultsInput) SetReplicationTaskArn(v 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResultsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResultsResponse
+>>>>>>> Working on getting compiling
 type DescribeReplicationTaskAssessmentResultsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7381,7 +7481,11 @@ func (s *DescribeReplicationTaskAssessmentResultsOutput) SetReplicationTaskAsses
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTasksMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTasksMessage
+>>>>>>> Working on getting compiling
 type DescribeReplicationTasksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7600,10 +7704,14 @@ type DescribeTableStatisticsInput struct {
 	// A combination of filters creates an AND condition where each record matches
 	// all specified filters.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	Filters []*Filter `type:"list"`
 =======
 	Filters []*Filter `locationNameList:"Filter" type:"list"`
 >>>>>>> Initial dep workover
+=======
+	Filters []*Filter `type:"list"`
+>>>>>>> Working on getting compiling
 
 	// An optional pagination token provided by a previous request. If this parameter
 	// is specified, the response includes only records beyond the marker, up to
@@ -10080,7 +10188,11 @@ func (s *ReplicationTask) SetTargetEndpointArn(v string) *ReplicationTask {
 }
 
 // The task assessment report in JSON format.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTaskAssessmentResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTaskAssessmentResult
+>>>>>>> Working on getting compiling
 type ReplicationTaskAssessmentResult struct {
 	_ struct{} `type:"structure"`
 
@@ -10159,7 +10271,11 @@ func (s *ReplicationTaskAssessmentResult) SetS3ObjectUrl(v string) *ReplicationT
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTaskStats
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTaskStats
+>>>>>>> Working on getting compiling
 type ReplicationTaskStats struct {
 	_ struct{} `type:"structure"`
 
@@ -10311,7 +10427,11 @@ func (s *S3Settings) SetServiceAccessRoleArn(v string) *S3Settings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentMessage
+>>>>>>> Working on getting compiling
 type StartReplicationTaskAssessmentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10350,7 +10470,11 @@ func (s *StartReplicationTaskAssessmentInput) SetReplicationTaskArn(v string) *S
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentResponse
+>>>>>>> Working on getting compiling
 type StartReplicationTaskAssessmentOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10374,7 +10498,11 @@ func (s *StartReplicationTaskAssessmentOutput) SetReplicationTask(v *Replication
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskMessage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskMessage
+>>>>>>> Working on getting compiling
 type StartReplicationTaskInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10789,7 +10917,11 @@ func (s *TableStatistics) SetValidationSuspendedRecords(v int64) *TableStatistic
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/TableToReload
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/TableToReload
+>>>>>>> Working on getting compiling
 type TableToReload struct {
 	_ struct{} `type:"structure"`
 

@@ -4776,6 +4776,8 @@ type InputService22TestShapeInputService22TestCaseOperation1Output struct {
 }
 
 type InputService22TestShapeInputService22TestCaseOperation2Input struct {
+<<<<<<< HEAD
+=======
 	_ struct{} `type:"structure"`
 
 	FooEnum *string `type:"string" enum:"InputService22TestShapeEnumType"`
@@ -4820,9 +4822,57 @@ func (s *InputService22TestShapeInputService22TestCaseOperation2Input) SetQueryL
 }
 
 type InputService22TestShapeInputService22TestCaseOperation2Output struct {
+>>>>>>> Working on getting compiling
+	_ struct{} `type:"structure"`
+
+	FooEnum *string `type:"string" enum:"InputService22TestShapeEnumType"`
+
+	HeaderEnum *string `location:"header" locationName:"x-amz-enum" type:"string" enum:"InputService22TestShapeEnumType"`
+
+	ListEnums []*string `type:"list"`
+
+	QueryFooEnum *string `location:"querystring" locationName:"Enum" type:"string" enum:"InputService22TestShapeEnumType"`
+
+	QueryListEnums []*string `location:"querystring" locationName:"List" type:"list"`
+}
+
+// SetFooEnum sets the FooEnum field's value.
+func (s *InputService22TestShapeInputService22TestCaseOperation2Input) SetFooEnum(v string) *InputService22TestShapeInputService22TestCaseOperation2Input {
+	s.FooEnum = &v
+	return s
+}
+
+// SetHeaderEnum sets the HeaderEnum field's value.
+func (s *InputService22TestShapeInputService22TestCaseOperation2Input) SetHeaderEnum(v string) *InputService22TestShapeInputService22TestCaseOperation2Input {
+	s.HeaderEnum = &v
+	return s
+}
+
+<<<<<<< HEAD
+// SetListEnums sets the ListEnums field's value.
+func (s *InputService22TestShapeInputService22TestCaseOperation2Input) SetListEnums(v []*string) *InputService22TestShapeInputService22TestCaseOperation2Input {
+	s.ListEnums = v
+	return s
+}
+
+// SetQueryFooEnum sets the QueryFooEnum field's value.
+func (s *InputService22TestShapeInputService22TestCaseOperation2Input) SetQueryFooEnum(v string) *InputService22TestShapeInputService22TestCaseOperation2Input {
+	s.QueryFooEnum = &v
+	return s
+}
+
+// SetQueryListEnums sets the QueryListEnums field's value.
+func (s *InputService22TestShapeInputService22TestCaseOperation2Input) SetQueryListEnums(v []*string) *InputService22TestShapeInputService22TestCaseOperation2Input {
+	s.QueryListEnums = v
+	return s
+}
+
+type InputService22TestShapeInputService22TestCaseOperation2Output struct {
 	_ struct{} `type:"structure"`
 }
 
+=======
+>>>>>>> Working on getting compiling
 const (
 	// EnumTypeFoo is a InputService22TestShapeEnumType enum value
 	EnumTypeFoo = "foo"
@@ -5729,6 +5779,13 @@ func TestInputService21ProtocolTestJSONValueTraitCase1(t *testing.T) {
 =======
 >>>>>>> Initial dep workover
 
+	// assert body
+	if r.Body == nil {
+		t.Errorf("expect body not to be nil")
+	}
+	body, _ := ioutil.ReadAll(r.Body)
+	awstesting.AssertJSON(t, `{"BodyField":"{\"Foo\":\"Bar\"}"}`, util.Trim(string(body)))
+
 	// assert URL
 	awstesting.AssertURL(t, "https://test/?Bar=%7B%22Foo%22%3A%22Bar%22%7D", r.URL.String())
 
@@ -5791,6 +5848,32 @@ func TestInputService21ProtocolTestJSONValueTraitCase3(t *testing.T) {
 	}
 =======
 >>>>>>> Initial dep workover
+
+	// assert body
+	if r.Body == nil {
+		t.Errorf("expect body not to be nil")
+	}
+	body, _ := ioutil.ReadAll(r.Body)
+	awstesting.AssertJSON(t, `{"BodyListField":["{\"Foo\":\"Bar\"}"]}`, util.Trim(string(body)))
+
+	// assert URL
+	awstesting.AssertURL(t, "https://test/", r.URL.String())
+
+	// assert headers
+
+}
+
+func TestInputService21ProtocolTestJSONValueTraitCase3(t *testing.T) {
+	svc := NewInputService21ProtocolTest(unit.Session, &aws.Config{Endpoint: aws.String("https://test")})
+	input := &InputService21TestShapeInputService21TestCaseOperation3Input{}
+	req, _ := svc.InputService21TestCaseOperation3Request(input)
+	r := req.HTTPRequest
+
+	// build request
+	restjson.Build(req)
+	if req.Error != nil {
+		t.Errorf("expect no error, got %v", req.Error)
+	}
 
 	// assert URL
 	awstesting.AssertURL(t, "https://test/", r.URL.String())

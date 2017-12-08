@@ -19,18 +19,11 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"os"
 	"k8s.io/client-go/tools/clientcmd"
-	"github.com/golang/glog"
-	"time"
-	"fmt"
 	"k8s.io/kube-deploy/cluster-api/client"
-	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
-)
-
-
-import (
 	//clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
+	"github.com/aws/aws-sdk-go/service/autoscaling"
 )
 
 type ControllerOptions struct {
@@ -80,21 +73,36 @@ func RunController(options *ControllerOptions) error {
 		return err
 	}
 
+	cachedCount := -1
 
 
 	// Loop indefinitely
 	for {
 
 		// Hard code AWS for demo
-		sdk := awsSdkGo.NewSdk("us-west-2", "default")
+		sdk, err := awsSdkGo.NewSdk("us-west-2", "default")
+		if err != nil {
+			logger.Critical(err.Error())
+			continue
+		}
 		machineCount := len(machines.Items)
-		
+		name := ""
+		m := int64(machineCount)
+		if machineCount != cachedCount {
+			input := &autoscaling.UpdateAutoScalingGroupInput{
+				MaxSize: &m,
+				MinSize: &m,
+				LaunchConfigurationName: &name,
+			}
+			asg, err := sdk.ASG.UpdateAutoScalingGroup(input)
+			if err != nil {
+				logger.Critical("unable to update ASG: %v", err)
 
-		//for _, machine := range machines.Items {
-		//	// Take action for node
-		//
-		//}
-
+			}else {
+				cachedCount = machineCount
+				logger.Info("updated machine count [%d]", machineCount)
+			}
+		}
 	}
 
 

@@ -253,12 +253,18 @@ type CognitoIdentityProviderAPI interface {
 	DescribeResourceServerRequest(*cognitoidentityprovider.DescribeResourceServerInput) (*request.Request, *cognitoidentityprovider.DescribeResourceServerOutput)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	DescribeRiskConfiguration(*cognitoidentityprovider.DescribeRiskConfigurationInput) (*cognitoidentityprovider.DescribeRiskConfigurationOutput, error)
 	DescribeRiskConfigurationWithContext(aws.Context, *cognitoidentityprovider.DescribeRiskConfigurationInput, ...request.Option) (*cognitoidentityprovider.DescribeRiskConfigurationOutput, error)
 	DescribeRiskConfigurationRequest(*cognitoidentityprovider.DescribeRiskConfigurationInput) (*request.Request, *cognitoidentityprovider.DescribeRiskConfigurationOutput)
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	DescribeUserImportJob(*cognitoidentityprovider.DescribeUserImportJobInput) (*cognitoidentityprovider.DescribeUserImportJobOutput, error)
 	DescribeUserImportJobWithContext(aws.Context, *cognitoidentityprovider.DescribeUserImportJobInput, ...request.Option) (*cognitoidentityprovider.DescribeUserImportJobOutput, error)
 	DescribeUserImportJobRequest(*cognitoidentityprovider.DescribeUserImportJobInput) (*request.Request, *cognitoidentityprovider.DescribeUserImportJobOutput)
@@ -368,17 +374,26 @@ type CognitoIdentityProviderAPI interface {
 	RespondToAuthChallengeRequest(*cognitoidentityprovider.RespondToAuthChallengeInput) (*request.Request, *cognitoidentityprovider.RespondToAuthChallengeOutput)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	SetRiskConfiguration(*cognitoidentityprovider.SetRiskConfigurationInput) (*cognitoidentityprovider.SetRiskConfigurationOutput, error)
 	SetRiskConfigurationWithContext(aws.Context, *cognitoidentityprovider.SetRiskConfigurationInput, ...request.Option) (*cognitoidentityprovider.SetRiskConfigurationOutput, error)
 	SetRiskConfigurationRequest(*cognitoidentityprovider.SetRiskConfigurationInput) (*request.Request, *cognitoidentityprovider.SetRiskConfigurationOutput)
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	SetUICustomization(*cognitoidentityprovider.SetUICustomizationInput) (*cognitoidentityprovider.SetUICustomizationOutput, error)
 	SetUICustomizationWithContext(aws.Context, *cognitoidentityprovider.SetUICustomizationInput, ...request.Option) (*cognitoidentityprovider.SetUICustomizationOutput, error)
 	SetUICustomizationRequest(*cognitoidentityprovider.SetUICustomizationInput) (*request.Request, *cognitoidentityprovider.SetUICustomizationOutput)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	SetUserMFAPreference(*cognitoidentityprovider.SetUserMFAPreferenceInput) (*cognitoidentityprovider.SetUserMFAPreferenceOutput, error)
 	SetUserMFAPreferenceWithContext(aws.Context, *cognitoidentityprovider.SetUserMFAPreferenceInput, ...request.Option) (*cognitoidentityprovider.SetUserMFAPreferenceOutput, error)
 	SetUserMFAPreferenceRequest(*cognitoidentityprovider.SetUserMFAPreferenceInput) (*request.Request, *cognitoidentityprovider.SetUserMFAPreferenceOutput)
@@ -387,8 +402,11 @@ type CognitoIdentityProviderAPI interface {
 	SetUserPoolMfaConfigWithContext(aws.Context, *cognitoidentityprovider.SetUserPoolMfaConfigInput, ...request.Option) (*cognitoidentityprovider.SetUserPoolMfaConfigOutput, error)
 	SetUserPoolMfaConfigRequest(*cognitoidentityprovider.SetUserPoolMfaConfigInput) (*request.Request, *cognitoidentityprovider.SetUserPoolMfaConfigOutput)
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	SetUserSettings(*cognitoidentityprovider.SetUserSettingsInput) (*cognitoidentityprovider.SetUserSettingsOutput, error)
 	SetUserSettingsWithContext(aws.Context, *cognitoidentityprovider.SetUserSettingsInput, ...request.Option) (*cognitoidentityprovider.SetUserSettingsOutput, error)
 	SetUserSettingsRequest(*cognitoidentityprovider.SetUserSettingsInput) (*request.Request, *cognitoidentityprovider.SetUserSettingsOutput)

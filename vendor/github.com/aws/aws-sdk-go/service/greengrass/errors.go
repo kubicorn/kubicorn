@@ -14,9 +14,13 @@ const (
 	// "InternalServerErrorException".
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The server encountered an unexpected error.
 =======
 	// Server Error
 >>>>>>> Initial dep workover
+=======
+	// The server encountered an unexpected error.
+>>>>>>> Working on getting compiling
 	ErrCodeInternalServerErrorException = "InternalServerErrorException"
 )

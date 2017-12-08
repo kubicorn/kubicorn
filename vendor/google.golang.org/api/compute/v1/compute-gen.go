@@ -1292,12 +1292,17 @@ type Address struct {
 	Address string `json:"address,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// AddressType: The type of address to reserve, either INTERNAL or
 	// EXTERNAL. If unspecified, defaults to EXTERNAL.
 =======
 	// AddressType: The type of address to reserve. If unspecified, defaults
 	// to EXTERNAL.
 >>>>>>> Initial dep workover
+=======
+	// AddressType: The type of address to reserve, either INTERNAL or
+	// EXTERNAL. If unspecified, defaults to EXTERNAL.
+>>>>>>> Working on getting compiling
 	//
 	// Possible values:
 	//   "EXTERNAL"
@@ -1359,10 +1364,14 @@ type Address struct {
 	Status string `json:"status,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// Subnetwork: The URL of the subnetwork in which to reserve the
 	// address. If an IP address is specified, it must be within the
 	// subnetwork's IP range. This field can only be used with INTERNAL type
 	// with GCE_ENDPOINT/DNS_RESOLVER purposes.
+<<<<<<< HEAD
 =======
 	// Subnetwork: For external addresses, this field should not be
 	// used.
@@ -1370,6 +1379,8 @@ type Address struct {
 	// The URL of the subnetwork in which to reserve the address. If an IP
 	// address is specified, it must be within the subnetwork's IP range.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	Subnetwork string `json:"subnetwork,omitempty"`
 
 	// Users: [Output Only] The URLs of the resources that are using this
@@ -7098,6 +7109,7 @@ func (s *GlobalSetLabelsRequest) MarshalJSON() ([]byte, error) {
 // GuestOsFeature: Guest OS features.
 type GuestOsFeature struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Type: The ID of a supported feature. Read  Enabling guest operating
 	// system features to see a list of available options.
 =======
@@ -7106,6 +7118,10 @@ type GuestOsFeature struct {
 	// server might also populate this property with the value WINDOWS to
 	// indicate that this is a Windows image.
 >>>>>>> Initial dep workover
+=======
+	// Type: The ID of a supported feature. Read  Enabling guest operating
+	// system features to see a list of available options.
+>>>>>>> Working on getting compiling
 	//
 	// Possible values:
 	//   "FEATURE_TYPE_UNSPECIFIED"
@@ -8094,6 +8110,7 @@ func (s *HttpsHealthCheckListWarningData) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+<<<<<<< HEAD
 // HttpsHealthCheckListWarning: [Output Only] Informational warning
 // message.
 type HttpsHealthCheckListWarning struct {
@@ -8196,6 +8213,8 @@ func (s *HttpsHealthCheckListWarningData) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+=======
+>>>>>>> Working on getting compiling
 // Image: An Image resource. (== resource_for beta.images ==) (==
 // resource_for v1.images ==)
 type Image struct {
@@ -8226,6 +8245,7 @@ type Image struct {
 	Family string `json:"family,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// GuestOsFeatures: A list of features to enable on the guest operating
 	// system. Applicable only for bootable images. Read  Enabling guest
 	// operating system features to see a list of available options.
@@ -8242,6 +8262,11 @@ type Image struct {
 	// property with the value WINDOWS to indicate that this is a Windows
 	// image.
 >>>>>>> Initial dep workover
+=======
+	// GuestOsFeatures: A list of features to enable on the guest operating
+	// system. Applicable only for bootable images. Read  Enabling guest
+	// operating system features to see a list of available options.
+>>>>>>> Working on getting compiling
 	GuestOsFeatures []*GuestOsFeature `json:"guestOsFeatures,omitempty"`
 
 	// Id: [Output Only] The unique identifier for the resource. This
@@ -11447,11 +11472,15 @@ func (s *InstancesStartWithEncryptionKeyRequest) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // Interconnect: Represents an Interconnects resource. The Interconnects
 // resource is a dedicated connection between Google's network and your
 // on-premises network. For more information, see the  Dedicated
 // overview page. (== resource_for v1.interconnects ==) (== resource_for
 // beta.interconnects ==)
+<<<<<<< HEAD
 type Interconnect struct {
 	// AdminEnabled: Administrative status of the interconnect. When this is
 	// set to true, the Interconnect is functional and can carry traffic.
@@ -11469,6 +11498,14 @@ type Interconnect struct {
 	// carried over this Interconnect and no BGP routes will be exchanged
 	// over it. By default, it is set to ?true?.
 >>>>>>> Initial dep workover
+=======
+type Interconnect struct {
+	// AdminEnabled: Administrative status of the interconnect. When this is
+	// set to true, the Interconnect is functional and can carry traffic.
+	// When set to false, no packets can be carried over the interconnect
+	// and no BGP routes are exchanged over it. By default, the status is
+	// set to true.
+>>>>>>> Working on getting compiling
 	AdminEnabled bool `json:"adminEnabled,omitempty"`
 
 	// CircuitInfos: [Output Only] List of CircuitInfo objects, that
@@ -11509,11 +11546,17 @@ type Interconnect struct {
 	InterconnectAttachments []string `json:"interconnectAttachments,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// InterconnectType: Type of interconnect. Note that "IT_PRIVATE" has
 	// been deprecated in favor of "DEDICATED"
 	//
 =======
 >>>>>>> Initial dep workover
+=======
+	// InterconnectType: Type of interconnect. Note that "IT_PRIVATE" has
+	// been deprecated in favor of "DEDICATED"
+	//
+>>>>>>> Working on getting compiling
 	// Possible values:
 	//   "DEDICATED"
 	//   "IT_PRIVATE"
@@ -11524,12 +11567,18 @@ type Interconnect struct {
 	Kind string `json:"kind,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// LinkType: Type of link requested. This field indicates speed of each
 	// of the links in the bundle, not the entire bundle. Only 10G per link
 	// is allowed for a dedicated interconnect. Options: Ethernet_10G_LR
 	//
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// Possible values:
 	//   "LINK_TYPE_ETHERNET_10G_LR"
 	LinkType string `json:"linkType,omitempty"`
@@ -11559,6 +11608,7 @@ type Interconnect struct {
 	//
 	// Possible values:
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "OS_ACTIVE"
 	//   "OS_UNPROVISIONED"
 =======
@@ -11567,6 +11617,10 @@ type Interconnect struct {
 	//   "OS_UNPROVISIONED"
 	//   "UNPROVISIONED"
 >>>>>>> Initial dep workover
+=======
+	//   "OS_ACTIVE"
+	//   "OS_UNPROVISIONED"
+>>>>>>> Working on getting compiling
 	OperationalStatus string `json:"operationalStatus,omitempty"`
 
 	// PeerIpAddress: [Output Only] IP address configured on the customer
@@ -11614,14 +11668,20 @@ func (s *Interconnect) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // InterconnectAttachment: Represents an InterconnectAttachment (VLAN
 // attachment) resource. For more information, see  Creating VLAN
 // Attachments. (== resource_for beta.interconnectAttachments ==) (==
 // resource_for v1.interconnectAttachments ==)
+<<<<<<< HEAD
 =======
 // InterconnectAttachment: Protocol definitions for Mixer API to support
 // InterconnectAttachment. Next available tag: 23
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 type InterconnectAttachment struct {
 	// CloudRouterIpAddress: [Output Only] IPv4 address + prefix length to
 	// be configured on Cloud Router Interface for this interconnect
@@ -11638,11 +11698,15 @@ type InterconnectAttachment struct {
 	CustomerRouterIpAddress string `json:"customerRouterIpAddress,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Description: An optional description of this resource.
 =======
 	// Description: An optional description of this resource. Provide this
 	// property when you create the resource.
 >>>>>>> Initial dep workover
+=======
+	// Description: An optional description of this resource.
+>>>>>>> Working on getting compiling
 	Description string `json:"description,omitempty"`
 
 	// GoogleReferenceId: [Output Only] Google reference ID, to be used when
@@ -11695,15 +11759,13 @@ type InterconnectAttachment struct {
 	// this interconnect attachment is functional.
 	//
 	// Possible values:
-	//   "ACTIVE"
 	//   "OS_ACTIVE"
 	//   "OS_UNPROVISIONED"
-	//   "UNPROVISIONED"
 	OperationalStatus string `json:"operationalStatus,omitempty"`
 
-	// PrivateInterconnectInfo: [Output Only] Information specific to a
-	// Private InterconnectAttachment. Only populated if the interconnect
-	// that this is attached is of type IT_PRIVATE.
+	// PrivateInterconnectInfo: [Output Only] Information specific to an
+	// InterconnectAttachment. This property is populated if the
+	// interconnect that this is attached to is of type DEDICATED.
 	PrivateInterconnectInfo *InterconnectAttachmentPrivateInfo `json:"privateInterconnectInfo,omitempty"`
 
 	// Region: [Output Only] URL of the region where the regional
@@ -12064,6 +12126,7 @@ func (s *InterconnectAttachmentListWarningData) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // InterconnectAttachmentPrivateInfo: Information for an interconnect
 // attachment when this belongs to an interconnect of type DEDICATED.
 =======
@@ -12071,6 +12134,10 @@ func (s *InterconnectAttachmentListWarningData) MarshalJSON() ([]byte, error) {
 // interconnect attachment when this belongs to an interconnect of type
 // IT_PRIVATE.
 >>>>>>> Initial dep workover
+=======
+// InterconnectAttachmentPrivateInfo: Information for an interconnect
+// attachment when this belongs to an interconnect of type DEDICATED.
+>>>>>>> Working on getting compiling
 type InterconnectAttachmentPrivateInfo struct {
 	// Tag8021q: [Output Only] 802.1q encapsulation tag to be used for
 	// traffic between Google and the customer, going to and from this
@@ -12273,12 +12340,16 @@ func (s *InterconnectAttachmentsScopedListWarningData) MarshalJSON() ([]byte, er
 // so all fields are output only. Next id: 4
 type InterconnectCircuitInfo struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// CustomerDemarcId: Customer-side demarc ID for this circuit.
 =======
 	// CustomerDemarcId: Customer-side demarc ID for this circuit. This will
 	// only be set if it was provided by the Customer to Google during
 	// circuit turn-up.
 >>>>>>> Initial dep workover
+=======
+	// CustomerDemarcId: Customer-side demarc ID for this circuit.
+>>>>>>> Working on getting compiling
 	CustomerDemarcId string `json:"customerDemarcId,omitempty"`
 
 	// GoogleCircuitId: Google-assigned unique ID for this circuit. Assigned
@@ -12470,24 +12541,34 @@ func (s *InterconnectListWarningData) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // InterconnectLocation: Represents an InterconnectLocations resource.
 // The InterconnectLocations resource describes the locations where you
 // can connect to Google's networks. For more information, see
 // Colocation Facilities.
+<<<<<<< HEAD
 =======
 // InterconnectLocation: Protocol definitions for Mixer API to support
 // InterconnectLocation.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 type InterconnectLocation struct {
 	// Address: [Output Only] The postal address of the Point of Presence,
 	// each line in the address is separated by a newline character.
 	Address string `json:"address,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// AvailabilityZone: [Output Only] Availability zone for this location.
 	// Within a metropolitan area (metro), maintenance will not be
 	// simultaneously scheduled in more than one availability zone. Example:
 	// "zone1" or "zone2".
+<<<<<<< HEAD
 	AvailabilityZone string `json:"availabilityZone,omitempty"`
 
 	// City: [Output Only] Metropolitan area designator that indicates which
@@ -12500,16 +12581,22 @@ type InterconnectLocation struct {
 	// AvailabilityZone: Availability zone for this location. Within a city,
 	// maintenance will not be simultaneously scheduled in more than one
 	// availability zone. Example: "zone1" or "zone2".
+=======
+>>>>>>> Working on getting compiling
 	AvailabilityZone string `json:"availabilityZone,omitempty"`
 
-	// City: City designator used by the Interconnect UI to locate this
-	// InterconnectLocation within the Continent. For example: "Chicago,
-	// IL", "Amsterdam, Netherlands".
+	// City: [Output Only] Metropolitan area designator that indicates which
+	// city an interconnect is located. For example: "Chicago, IL",
+	// "Amsterdam, Netherlands".
 	City string `json:"city,omitempty"`
 
+<<<<<<< HEAD
 	// Continent: Continent for this location. Used by the location picker
 	// in the Interconnect UI.
 >>>>>>> Initial dep workover
+=======
+	// Continent: [Output Only] Continent for this location.
+>>>>>>> Working on getting compiling
 	//
 	// Possible values:
 	//   "AFRICA"
@@ -12797,6 +12884,7 @@ type InterconnectOutageNotification struct {
 	AffectedCircuits []string `json:"affectedCircuits,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Description: A description about the purpose of the outage.
 	Description string `json:"description,omitempty"`
 
@@ -12811,11 +12899,23 @@ type InterconnectOutageNotification struct {
 =======
 	// Description: Short user-visible description of the purpose of the
 	// outage.
+=======
+	// Description: A description about the purpose of the outage.
+>>>>>>> Working on getting compiling
 	Description string `json:"description,omitempty"`
 
+	// EndTime: Scheduled end time for the outage (milliseconds since Unix
+	// epoch).
 	EndTime int64 `json:"endTime,omitempty,string"`
 
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
+=======
+	// IssueType: Form this outage is expected to take. Note that the "IT_"
+	// versions of this enum have been deprecated in favor of the unprefixed
+	// values.
+	//
+>>>>>>> Working on getting compiling
 	// Possible values:
 	//   "IT_OUTAGE"
 	//   "IT_PARTIAL_OUTAGE"
@@ -12827,16 +12927,23 @@ type InterconnectOutageNotification struct {
 	Name string `json:"name,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Source: The party that generated this notification. Note that
 	// "NSRC_GOOGLE" has been deprecated in favor of "GOOGLE"
 	//
 =======
 >>>>>>> Initial dep workover
+=======
+	// Source: The party that generated this notification. Note that
+	// "NSRC_GOOGLE" has been deprecated in favor of "GOOGLE"
+	//
+>>>>>>> Working on getting compiling
 	// Possible values:
 	//   "GOOGLE"
 	//   "NSRC_GOOGLE"
 	Source string `json:"source,omitempty"`
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// StartTime: Scheduled start time for the outage (milliseconds since
 	// Unix epoch).
@@ -12851,6 +12958,15 @@ type InterconnectOutageNotification struct {
 	StartTime int64 `json:"startTime,omitempty,string"`
 
 >>>>>>> Initial dep workover
+=======
+	// StartTime: Scheduled start time for the outage (milliseconds since
+	// Unix epoch).
+	StartTime int64 `json:"startTime,omitempty,string"`
+
+	// State: State of this notification. Note that the "NS_" versions of
+	// this enum have been deprecated in favor of the unprefixed values.
+	//
+>>>>>>> Working on getting compiling
 	// Possible values:
 	//   "ACTIVE"
 	//   "CANCELLED"
@@ -12927,11 +13043,16 @@ func (s *License) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // MachineType: A Machine Type resource. (== resource_for
 // v1.machineTypes ==) (== resource_for beta.machineTypes ==)
 =======
 // MachineType: A Machine Type resource.
 >>>>>>> Initial dep workover
+=======
+// MachineType: A Machine Type resource. (== resource_for
+// v1.machineTypes ==) (== resource_for beta.machineTypes ==)
+>>>>>>> Working on getting compiling
 type MachineType struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -13781,11 +13902,16 @@ func (s *NamedPort) MarshalJSON() ([]byte, error) {
 
 // Network: Represents a Network resource. Read Networks and Firewalls
 <<<<<<< HEAD
+<<<<<<< HEAD
 // for more information. (== resource_for v1.networks ==) (==
 // resource_for beta.networks ==)
 =======
 // for more information.
 >>>>>>> Initial dep workover
+=======
+// for more information. (== resource_for v1.networks ==) (==
+// resource_for beta.networks ==)
+>>>>>>> Working on getting compiling
 type Network struct {
 	// IPv4Range: The range of internal addresses that are legal on this
 	// network. This range is a CIDR specification, for example:
@@ -14297,13 +14423,19 @@ func (s *NetworksRemovePeeringRequest) MarshalJSON() ([]byte, error) {
 
 // Operation: An Operation resource, used to manage asynchronous API
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // requests. (== resource_for v1.globalOperations ==) (== resource_for
 // beta.globalOperations ==) (== resource_for v1.regionOperations ==)
 // (== resource_for beta.regionOperations ==) (== resource_for
 // v1.zoneOperations ==) (== resource_for beta.zoneOperations ==)
+<<<<<<< HEAD
 =======
 // requests.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 type Operation struct {
 	// ClientOperationId: [Output Only] Reserved for future use.
 	ClientOperationId string `json:"clientOperationId,omitempty"`
@@ -15126,11 +15258,16 @@ func (s *PathRule) MarshalJSON() ([]byte, error) {
 // Project: A Project resource. Projects can only be created in the
 // Google Cloud Platform Console. Unless marked otherwise, values can
 <<<<<<< HEAD
+<<<<<<< HEAD
 // only be modified in the console. (== resource_for v1.projects ==) (==
 // resource_for beta.projects ==)
 =======
 // only be modified in the console.
 >>>>>>> Initial dep workover
+=======
+// only be modified in the console. (== resource_for v1.projects ==) (==
+// resource_for beta.projects ==)
+>>>>>>> Working on getting compiling
 type Project struct {
 	// CommonInstanceMetadata: Metadata key/value pairs available to all
 	// instances contained in this project. See Custom metadata for more
@@ -15372,10 +15509,15 @@ type Quota struct {
 	//   "PREEMPTIBLE_CPUS"
 	//   "PREEMPTIBLE_LOCAL_SSD_GB"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "PREEMPTIBLE_NVIDIA_K80_GPUS"
 	//   "PREEMPTIBLE_NVIDIA_P100_GPUS"
 =======
 >>>>>>> Initial dep workover
+=======
+	//   "PREEMPTIBLE_NVIDIA_K80_GPUS"
+	//   "PREEMPTIBLE_NVIDIA_P100_GPUS"
+>>>>>>> Working on getting compiling
 	//   "REGIONAL_AUTOSCALERS"
 	//   "REGIONAL_INSTANCE_GROUP_MANAGERS"
 	//   "ROUTERS"
@@ -15441,11 +15583,16 @@ func (s *Quota) UnmarshalJSON(data []byte) error {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Region: Region resource. (== resource_for beta.regions ==) (==
 // resource_for v1.regions ==)
 =======
 // Region: Region resource.
 >>>>>>> Initial dep workover
+=======
+// Region: Region resource. (== resource_for beta.regions ==) (==
+// resource_for v1.regions ==)
+>>>>>>> Working on getting compiling
 type Region struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -16879,7 +17026,8 @@ type RegionList struct {
 // Compute Engine-operated gateway.
 //
 // Packets that do not match any route in the sending instance's routing
-// table are dropped.
+// table are dropped. (== resource_for beta.routes ==) (== resource_for
+// v1.routes ==)
 type Route struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -18896,11 +19044,16 @@ func (s *ServiceAccount) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Snapshot: A persistent disk snapshot resource. (== resource_for
 // beta.snapshots ==) (== resource_for v1.snapshots ==)
 =======
 // Snapshot: A persistent disk snapshot resource.
 >>>>>>> Initial dep workover
+=======
+// Snapshot: A persistent disk snapshot resource. (== resource_for
+// beta.snapshots ==) (== resource_for v1.snapshots ==)
+>>>>>>> Working on getting compiling
 type Snapshot struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -19196,11 +19349,16 @@ func (s *SnapshotListWarningData) MarshalJSON() ([]byte, error) {
 // SslCertificate: An SslCertificate resource. This resource provides a
 // mechanism to upload an SSL key and certificate to the load balancer
 <<<<<<< HEAD
+<<<<<<< HEAD
 // to serve secure connections from the user. (== resource_for
 // beta.sslCertificates ==) (== resource_for v1.sslCertificates ==)
 =======
 // to serve secure connections from the user.
 >>>>>>> Initial dep workover
+=======
+// to serve secure connections from the user. (== resource_for
+// beta.sslCertificates ==) (== resource_for v1.sslCertificates ==)
+>>>>>>> Working on getting compiling
 type SslCertificate struct {
 	// Certificate: A local certificate file. The certificate must be in PEM
 	// format. The certificate chain must be no greater than 5 certs long.
@@ -19422,11 +19580,16 @@ func (s *SslCertificateListWarningData) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Subnetwork: A Subnetwork resource. (== resource_for beta.subnetworks
 // ==) (== resource_for v1.subnetworks ==)
 =======
 // Subnetwork: A Subnetwork resource.
 >>>>>>> Initial dep workover
+=======
+// Subnetwork: A Subnetwork resource. (== resource_for beta.subnetworks
+// ==) (== resource_for v1.subnetworks ==)
+>>>>>>> Working on getting compiling
 type Subnetwork struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -20303,11 +20466,16 @@ func (s *Tags) MarshalJSON() ([]byte, error) {
 
 // TargetHttpProxy: A TargetHttpProxy resource. This resource defines an
 <<<<<<< HEAD
+<<<<<<< HEAD
 // HTTP proxy. (== resource_for beta.targetHttpProxies ==) (==
 // resource_for v1.targetHttpProxies ==)
 =======
 // HTTP proxy.
 >>>>>>> Initial dep workover
+=======
+// HTTP proxy. (== resource_for beta.targetHttpProxies ==) (==
+// resource_for v1.targetHttpProxies ==)
+>>>>>>> Working on getting compiling
 type TargetHttpProxy struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -20558,7 +20726,8 @@ func (s *TargetHttpsProxiesSetSslCertificatesRequest) MarshalJSON() ([]byte, err
 }
 
 // TargetHttpsProxy: A TargetHttpsProxy resource. This resource defines
-// an HTTPS proxy.
+// an HTTPS proxy. (== resource_for beta.targetHttpsProxies ==) (==
+// resource_for v1.targetHttpsProxies ==)
 type TargetHttpsProxy struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -20975,12 +21144,18 @@ func (s *TargetHttpsProxyListWarningData) MarshalJSON() ([]byte, error) {
 
 // TargetInstance: A TargetInstance resource. This resource defines an
 <<<<<<< HEAD
+<<<<<<< HEAD
 // endpoint instance that terminates traffic of certain protocols. (==
 // resource_for beta.targetInstances ==) (== resource_for
 // v1.targetInstances ==)
 =======
 // endpoint instance that terminates traffic of certain protocols.
 >>>>>>> Initial dep workover
+=======
+// endpoint instance that terminates traffic of certain protocols. (==
+// resource_for beta.targetInstances ==) (== resource_for
+// v1.targetInstances ==)
+>>>>>>> Working on getting compiling
 type TargetInstance struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -21505,11 +21680,16 @@ func (s *TargetInstancesScopedListWarningData) MarshalJSON() ([]byte, error) {
 // TargetPool: A TargetPool resource. This resource defines a pool of
 // instances, an associated HttpHealthCheck resource, and the fallback
 <<<<<<< HEAD
+<<<<<<< HEAD
 // target pool. (== resource_for beta.targetPools ==) (== resource_for
 // v1.targetPools ==)
 =======
 // target pool.
 >>>>>>> Initial dep workover
+=======
+// target pool. (== resource_for beta.targetPools ==) (== resource_for
+// v1.targetPools ==)
+>>>>>>> Working on getting compiling
 type TargetPool struct {
 	// BackupPool: This field is applicable only when the containing target
 	// pool is serving a forwarding rule as the primary pool, and its
@@ -22366,11 +22546,16 @@ func (s *TargetSslProxiesSetSslCertificatesRequest) MarshalJSON() ([]byte, error
 
 // TargetSslProxy: A TargetSslProxy resource. This resource defines an
 <<<<<<< HEAD
+<<<<<<< HEAD
 // SSL proxy. (== resource_for beta.targetSslProxies ==) (==
 // resource_for v1.targetSslProxies ==)
 =======
 // SSL proxy.
 >>>>>>> Initial dep workover
+=======
+// SSL proxy. (== resource_for beta.targetSslProxies ==) (==
+// resource_for v1.targetSslProxies ==)
+>>>>>>> Working on getting compiling
 type TargetSslProxy struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -22662,11 +22847,16 @@ func (s *TargetTcpProxiesSetProxyHeaderRequest) MarshalJSON() ([]byte, error) {
 
 // TargetTcpProxy: A TargetTcpProxy resource. This resource defines a
 <<<<<<< HEAD
+<<<<<<< HEAD
 // TCP proxy. (== resource_for beta.targetTcpProxies ==) (==
 // resource_for v1.targetTcpProxies ==)
 =======
 // TCP proxy.
 >>>>>>> Initial dep workover
+=======
+// TCP proxy. (== resource_for beta.targetTcpProxies ==) (==
+// resource_for v1.targetTcpProxies ==)
+>>>>>>> Working on getting compiling
 type TargetTcpProxy struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -22892,12 +23082,18 @@ func (s *TargetTcpProxyListWarningData) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // TargetVpnGateway: Represents a Target VPN gateway resource. (==
 // resource_for beta.targetVpnGateways ==) (== resource_for
 // v1.targetVpnGateways ==)
 =======
 // TargetVpnGateway: Represents a Target VPN gateway resource.
 >>>>>>> Initial dep workover
+=======
+// TargetVpnGateway: Represents a Target VPN gateway resource. (==
+// resource_for beta.targetVpnGateways ==) (== resource_for
+// v1.targetVpnGateways ==)
+>>>>>>> Working on getting compiling
 type TargetVpnGateway struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -23898,10 +24094,15 @@ func (s *UsageExportLocation) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // VpnTunnel: VPN tunnel resource. (== resource_for beta.vpnTunnels ==)
 // (== resource_for v1.vpnTunnels ==)
 =======
 >>>>>>> Initial dep workover
+=======
+// VpnTunnel: VPN tunnel resource. (== resource_for beta.vpnTunnels ==)
+// (== resource_for v1.vpnTunnels ==)
+>>>>>>> Working on getting compiling
 type VpnTunnel struct {
 	// CreationTimestamp: [Output Only] Creation timestamp in RFC3339 text
 	// format.
@@ -24652,11 +24853,16 @@ func (s *XpnResourceId) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Zone: A Zone resource. (== resource_for beta.zones ==) (==
 // resource_for v1.zones ==)
 =======
 // Zone: A Zone resource.
 >>>>>>> Initial dep workover
+=======
+// Zone: A Zone resource. (== resource_for beta.zones ==) (==
+// resource_for v1.zones ==)
+>>>>>>> Working on getting compiling
 type Zone struct {
 	// AvailableCpuPlatforms: [Output Only] Available cpu/platform
 	// selections for the zone.
@@ -32553,11 +32759,16 @@ type DisksResizeCall struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Resize: Resizes the specified persistent disk. You can only increase
 // the size of the disk.
 =======
 // Resize: Resizes the specified persistent disk.
 >>>>>>> Initial dep workover
+=======
+// Resize: Resizes the specified persistent disk. You can only increase
+// the size of the disk.
+>>>>>>> Working on getting compiling
 func (r *DisksService) Resize(project string, zone string, disk string, disksresizerequest *DisksResizeRequest) *DisksResizeCall {
 	c := &DisksResizeCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.project = project
@@ -32675,10 +32886,14 @@ func (c *DisksResizeCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Resizes the specified persistent disk. You can only increase the size of the disk.",
 =======
 	//   "description": "Resizes the specified persistent disk.",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Resizes the specified persistent disk. You can only increase the size of the disk.",
+>>>>>>> Working on getting compiling
 	//   "httpMethod": "POST",
 	//   "id": "compute.disks.resize",
 	//   "parameterOrder": [
@@ -41864,12 +42079,17 @@ type ImagesListCall struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // List: Retrieves the list of custom images available to the specified
 // project. Custom images are images you create that belong to your
 =======
 // List: Retrieves the list of private images available to the specified
 // project. Private images are images you create that belong to your
 >>>>>>> Initial dep workover
+=======
+// List: Retrieves the list of custom images available to the specified
+// project. Custom images are images you create that belong to your
+>>>>>>> Working on getting compiling
 // project. This method does not get any images that belong to other
 // projects, including publicly-available images, like Debian 8. If you
 // want to get a list of publicly-available images, use this method to
@@ -42044,10 +42264,14 @@ func (c *ImagesListCall) Do(opts ...googleapi.CallOption) (*ImageList, error) {
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Retrieves the list of custom images available to the specified project. Custom images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.",
 =======
 	//   "description": "Retrieves the list of private images available to the specified project. Private images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Retrieves the list of custom images available to the specified project. Custom images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.",
+>>>>>>> Working on getting compiling
 	//   "httpMethod": "GET",
 	//   "id": "compute.images.list",
 	//   "parameterOrder": [
@@ -56014,11 +56238,16 @@ type NetworksPatchCall struct {
 
 // Patch: Patches the specified network with the data included in the
 <<<<<<< HEAD
+<<<<<<< HEAD
 // request. Only the following fields can be modified:
 // routingConfig.routingMode.
 =======
 // request.
 >>>>>>> Initial dep workover
+=======
+// request. Only the following fields can be modified:
+// routingConfig.routingMode.
+>>>>>>> Working on getting compiling
 func (r *NetworksService) Patch(project string, network string, network2 *Network) *NetworksPatchCall {
 	c := &NetworksPatchCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.project = project
@@ -56134,10 +56363,14 @@ func (c *NetworksPatchCall) Do(opts ...googleapi.CallOption) (*Operation, error)
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Patches the specified network with the data included in the request. Only the following fields can be modified: routingConfig.routingMode.",
 =======
 	//   "description": "Patches the specified network with the data included in the request.",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Patches the specified network with the data included in the request. Only the following fields can be modified: routingConfig.routingMode.",
+>>>>>>> Working on getting compiling
 	//   "httpMethod": "PATCH",
 	//   "id": "compute.networks.patch",
 	//   "parameterOrder": [

@@ -1,19 +1,27 @@
 {
  "kind": "discovery#restDescription",
 <<<<<<< HEAD
+<<<<<<< HEAD
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/BzHLXiml7t9ltKStcz-Ic74UmRU\"",
 =======
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/6u6GTzkgrL3v_nGEqRMuN5RHEoA\"",
 >>>>>>> Initial dep workover
+=======
+ "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/BzHLXiml7t9ltKStcz-Ic74UmRU\"",
+>>>>>>> Working on getting compiling
  "discoveryVersion": "v1",
  "id": "compute:v1",
  "name": "compute",
  "version": "v1",
 <<<<<<< HEAD
+<<<<<<< HEAD
  "revision": "20171122",
 =======
  "revision": "20171114",
 >>>>>>> Initial dep workover
+=======
+ "revision": "20171122",
+>>>>>>> Working on getting compiling
  "title": "Compute Engine API",
  "description": "Creates and runs virtual machines on Google Cloud Platform.",
  "ownerDomain": "google.com",
@@ -523,10 +531,14 @@
     "addressType": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "The type of address to reserve, either INTERNAL or EXTERNAL. If unspecified, defaults to EXTERNAL.",
 =======
      "description": "The type of address to reserve. If unspecified, defaults to EXTERNAL.",
 >>>>>>> Initial dep workover
+=======
+     "description": "The type of address to reserve, either INTERNAL or EXTERNAL. If unspecified, defaults to EXTERNAL.",
+>>>>>>> Working on getting compiling
      "enum": [
       "EXTERNAL",
       "INTERNAL",
@@ -603,10 +615,14 @@
     "subnetwork": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "The URL of the subnetwork in which to reserve the address. If an IP address is specified, it must be within the subnetwork's IP range. This field can only be used with INTERNAL type with GCE_ENDPOINT/DNS_RESOLVER purposes."
 =======
      "description": "For external addresses, this field should not be used.\n\nThe URL of the subnetwork in which to reserve the address. If an IP address is specified, it must be within the subnetwork's IP range."
 >>>>>>> Initial dep workover
+=======
+     "description": "The URL of the subnetwork in which to reserve the address. If an IP address is specified, it must be within the subnetwork's IP range. This field can only be used with INTERNAL type with GCE_ENDPOINT/DNS_RESOLVER purposes."
+>>>>>>> Working on getting compiling
     },
     "users": {
      "type": "array",
@@ -1055,10 +1071,14 @@
     "sourceImage": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "The source image to create this disk. When creating a new instance, one of initializeParams.sourceImage or disks.source is required except for local SSD.\n\nTo create a disk with one of the public operating system images, specify the image by its family name. For example, specify family/debian-8 to use the latest Debian 8 image:\n\nprojects/debian-cloud/global/images/family/debian-8 \n\nAlternatively, use a specific version of a public operating system image:\n\nprojects/debian-cloud/global/images/debian-8-jessie-vYYYYMMDD \n\nTo create a disk with a custom image that you created, specify the image name in the following format:\n\nglobal/images/my-custom-image \n\nYou can also specify a custom image by its image family, which returns the latest version of the image in that family. Replace the image name with family/family-name:\n\nglobal/images/family/my-image-family \n\nIf the source image is deleted later, this field will not be set."
 =======
      "description": "The source image to create this disk. When creating a new instance, one of initializeParams.sourceImage or disks.source is required except for local SSD.\n\nTo create a disk with one of the public operating system images, specify the image by its family name. For example, specify family/debian-8 to use the latest Debian 8 image:\n\nprojects/debian-cloud/global/images/family/debian-8 \n\nAlternatively, use a specific version of a public operating system image:\n\nprojects/debian-cloud/global/images/debian-8-jessie-vYYYYMMDD \n\nTo create a disk with a private image that you created, specify the image name in the following format:\n\nglobal/images/my-private-image \n\nYou can also specify a private image by its image family, which returns the latest version of the image in that family. Replace the image name with family/family-name:\n\nglobal/images/family/my-private-family \n\nIf the source image is deleted later, this field will not be set."
 >>>>>>> Initial dep workover
+=======
+     "description": "The source image to create this disk. When creating a new instance, one of initializeParams.sourceImage or disks.source is required except for local SSD.\n\nTo create a disk with one of the public operating system images, specify the image by its family name. For example, specify family/debian-8 to use the latest Debian 8 image:\n\nprojects/debian-cloud/global/images/family/debian-8 \n\nAlternatively, use a specific version of a public operating system image:\n\nprojects/debian-cloud/global/images/debian-8-jessie-vYYYYMMDD \n\nTo create a disk with a custom image that you created, specify the image name in the following format:\n\nglobal/images/my-custom-image \n\nYou can also specify a custom image by its image family, which returns the latest version of the image in that family. Replace the image name with family/family-name:\n\nglobal/images/family/my-image-family \n\nIf the source image is deleted later, this field will not be set."
+>>>>>>> Working on getting compiling
     },
     "sourceImageEncryptionKey": {
      "$ref": "CustomerEncryptionKey",
@@ -1818,10 +1838,14 @@
    "id": "BackendService",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A BackendService resource. This resource defines a group of backend virtual machines and their serving capacity. (== resource_for v1.backendService ==) (== resource_for beta.backendService ==)",
 =======
    "description": "A BackendService resource. This resource defines a group of backend virtual machines and their serving capacity.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A BackendService resource. This resource defines a group of backend virtual machines and their serving capacity. (== resource_for v1.backendService ==) (== resource_for beta.backendService ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "affinityCookieTtlSec": {
      "type": "integer",
@@ -3237,7 +3261,7 @@
    "id": "DiskType",
 >>>>>>> Initial dep workover
    "type": "object",
-   "description": "A DiskType resource.",
+   "description": "A DiskType resource. (== resource_for beta.diskTypes ==) (== resource_for v1.diskTypes ==)",
    "properties": {
 <<<<<<< HEAD
     "destinationZone": {
@@ -4446,10 +4470,14 @@
     "type": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "The ID of a supported feature. Read  Enabling guest operating system features to see a list of available options.",
 =======
      "description": "The type of supported feature. Currently only VIRTIO_SCSI_MULTIQUEUE is supported. For newer Windows images, the server might also populate this property with the value WINDOWS to indicate that this is a Windows image.",
 >>>>>>> Initial dep workover
+=======
+     "description": "The ID of a supported feature. Read  Enabling guest operating system features to see a list of available options.",
+>>>>>>> Working on getting compiling
      "enum": [
       "FEATURE_TYPE_UNSPECIFIED",
       "VIRTIO_SCSI_MULTIQUEUE",
@@ -5184,10 +5212,14 @@
     "guestOsFeatures": {
      "type": "array",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "A list of features to enable on the guest operating system. Applicable only for bootable images. Read  Enabling guest operating system features to see a list of available options.",
 =======
      "description": "A list of features to enable on the guest OS. Applicable for bootable images only. Currently, only one feature can be enabled, VIRTIO_SCSI_MULTIQUEUE, which allows each virtual CPU to have its own queue. For Windows images, you can only enable VIRTIO_SCSI_MULTIQUEUE on images with driver version 1.2.0.1621 or higher. Linux images with kernel versions 3.17 and higher will support VIRTIO_SCSI_MULTIQUEUE.\n\nFor newer Windows images, the server might also populate this property with the value WINDOWS to indicate that this is a Windows image.",
 >>>>>>> Initial dep workover
+=======
+     "description": "A list of features to enable on the guest operating system. Applicable only for bootable images. Read  Enabling guest operating system features to see a list of available options.",
+>>>>>>> Working on getting compiling
      "items": {
       "$ref": "GuestOsFeature"
      }
@@ -5997,7 +6029,7 @@
   "InstanceGroupManager": {
    "id": "InstanceGroupManager",
    "type": "object",
-   "description": "An Instance Group Manager resource.",
+   "description": "An Instance Group Manager resource. (== resource_for beta.instanceGroupManagers ==) (== resource_for v1.instanceGroupManagers ==) (== resource_for beta.regionInstanceGroupManagers ==) (== resource_for v1.regionInstanceGroupManagers ==)",
    "properties": {
     "baseInstanceName": {
      "type": "string",
@@ -7497,6 +7529,7 @@
    "id": "Interconnect",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "Represents an Interconnects resource. The Interconnects resource is a dedicated connection between Google's network and your on-premises network. For more information, see the  Dedicated overview page. (== resource_for v1.interconnects ==) (== resource_for beta.interconnects ==)",
    "properties": {
     "adminEnabled": {
@@ -7509,6 +7542,13 @@
      "type": "boolean",
      "description": "Administrative status of the interconnect. When this is set to ?true?, the Interconnect is functional and may carry traffic (assuming there are functional InterconnectAttachments and other requirements are satisfied). When set to ?false?, no packets will be carried over this Interconnect and no BGP routes will be exchanged over it. By default, it is set to ?true?."
 >>>>>>> Initial dep workover
+=======
+   "description": "Represents an Interconnects resource. The Interconnects resource is a dedicated connection between Google's network and your on-premises network. For more information, see the  Dedicated overview page. (== resource_for v1.interconnects ==) (== resource_for beta.interconnects ==)",
+   "properties": {
+    "adminEnabled": {
+     "type": "boolean",
+     "description": "Administrative status of the interconnect. When this is set to true, the Interconnect is functional and can carry traffic. When set to false, no packets can be carried over the interconnect and no BGP routes are exchanged over it. By default, the status is set to true."
+>>>>>>> Working on getting compiling
     },
     "circuitInfos": {
      "type": "array",
@@ -7559,9 +7599,13 @@
     "interconnectType": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "Type of interconnect. Note that \"IT_PRIVATE\" has been deprecated in favor of \"DEDICATED\"",
 =======
 >>>>>>> Initial dep workover
+=======
+     "description": "Type of interconnect. Note that \"IT_PRIVATE\" has been deprecated in favor of \"DEDICATED\"",
+>>>>>>> Working on getting compiling
      "enum": [
       "DEDICATED",
       "IT_PRIVATE"
@@ -7579,9 +7623,13 @@
     "linkType": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "Type of link requested. This field indicates speed of each of the links in the bundle, not the entire bundle. Only 10G per link is allowed for a dedicated interconnect. Options: Ethernet_10G_LR",
 =======
 >>>>>>> Initial dep workover
+=======
+     "description": "Type of link requested. This field indicates speed of each of the links in the bundle, not the entire bundle. Only 10G per link is allowed for a dedicated interconnect. Options: Ethernet_10G_LR",
+>>>>>>> Working on getting compiling
      "enum": [
       "LINK_TYPE_ETHERNET_10G_LR"
      ],
@@ -7612,6 +7660,7 @@
      "description": "[Output Only] The current status of whether or not this Interconnect is functional.",
      "enum": [
 <<<<<<< HEAD
+<<<<<<< HEAD
       "OS_ACTIVE",
       "OS_UNPROVISIONED"
      ],
@@ -7619,15 +7668,19 @@
       "",
 =======
       "ACTIVE",
+=======
+>>>>>>> Working on getting compiling
       "OS_ACTIVE",
-      "OS_UNPROVISIONED",
-      "UNPROVISIONED"
+      "OS_UNPROVISIONED"
      ],
      "enumDescriptions": [
       "",
+<<<<<<< HEAD
       "",
       "",
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
       ""
      ]
     },
@@ -7655,10 +7708,14 @@
    "id": "InterconnectAttachment",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "Represents an InterconnectAttachment (VLAN attachment) resource. For more information, see  Creating VLAN Attachments. (== resource_for beta.interconnectAttachments ==) (== resource_for v1.interconnectAttachments ==)",
 =======
    "description": "Protocol definitions for Mixer API to support InterconnectAttachment. Next available tag: 23",
 >>>>>>> Initial dep workover
+=======
+   "description": "Represents an InterconnectAttachment (VLAN attachment) resource. For more information, see  Creating VLAN Attachments. (== resource_for beta.interconnectAttachments ==) (== resource_for v1.interconnectAttachments ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "cloudRouterIpAddress": {
      "type": "string",
@@ -7675,10 +7732,14 @@
     "description": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "An optional description of this resource."
 =======
      "description": "An optional description of this resource. Provide this property when you create the resource."
 >>>>>>> Initial dep workover
+=======
+     "description": "An optional description of this resource."
+>>>>>>> Working on getting compiling
     },
     "googleReferenceId": {
      "type": "string",
@@ -7708,6 +7769,7 @@
      "description": "[Output Only] The current status of whether or not this interconnect attachment is functional.",
      "enum": [
 <<<<<<< HEAD
+<<<<<<< HEAD
       "OS_ACTIVE",
       "OS_UNPROVISIONED"
      ],
@@ -7715,25 +7777,33 @@
       "",
 =======
       "ACTIVE",
+=======
+>>>>>>> Working on getting compiling
       "OS_ACTIVE",
-      "OS_UNPROVISIONED",
-      "UNPROVISIONED"
+      "OS_UNPROVISIONED"
      ],
      "enumDescriptions": [
       "",
+<<<<<<< HEAD
       "",
       "",
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
       ""
      ]
     },
     "privateInterconnectInfo": {
      "$ref": "InterconnectAttachmentPrivateInfo",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "[Output Only] Information specific to an InterconnectAttachment. This property is populated if the interconnect that this is attached to is of type DEDICATED."
 =======
      "description": "[Output Only] Information specific to a Private InterconnectAttachment. Only populated if the interconnect that this is attached is of type IT_PRIVATE."
 >>>>>>> Initial dep workover
+=======
+     "description": "[Output Only] Information specific to an InterconnectAttachment. This property is populated if the interconnect that this is attached to is of type DEDICATED."
+>>>>>>> Working on getting compiling
     },
     "region": {
      "type": "string",
@@ -7977,10 +8047,14 @@
    "id": "InterconnectAttachmentPrivateInfo",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "Information for an interconnect attachment when this belongs to an interconnect of type DEDICATED.",
 =======
    "description": "Private information for an interconnect attachment when this belongs to an interconnect of type IT_PRIVATE.",
 >>>>>>> Initial dep workover
+=======
+   "description": "Information for an interconnect attachment when this belongs to an interconnect of type DEDICATED.",
+>>>>>>> Working on getting compiling
    "properties": {
     "tag8021q": {
      "type": "integer",
@@ -8091,10 +8165,14 @@
     "customerDemarcId": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "Customer-side demarc ID for this circuit."
 =======
      "description": "Customer-side demarc ID for this circuit. This will only be set if it was provided by the Customer to Google during circuit turn-up."
 >>>>>>> Initial dep workover
+=======
+     "description": "Customer-side demarc ID for this circuit."
+>>>>>>> Working on getting compiling
     },
     "googleCircuitId": {
      "type": "string",
@@ -8222,10 +8300,14 @@
    "id": "InterconnectLocation",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "Represents an InterconnectLocations resource. The InterconnectLocations resource describes the locations where you can connect to Google's networks. For more information, see  Colocation Facilities.",
 =======
    "description": "Protocol definitions for Mixer API to support InterconnectLocation.",
 >>>>>>> Initial dep workover
+=======
+   "description": "Represents an InterconnectLocations resource. The InterconnectLocations resource describes the locations where you can connect to Google's networks. For more information, see  Colocation Facilities.",
+>>>>>>> Working on getting compiling
    "properties": {
     "address": {
      "type": "string",
@@ -8233,6 +8315,7 @@
     },
     "availabilityZone": {
      "type": "string",
+<<<<<<< HEAD
 <<<<<<< HEAD
      "description": "[Output Only] Availability zone for this location. Within a metropolitan area (metro), maintenance will not be simultaneously scheduled in more than one availability zone. Example: \"zone1\" or \"zone2\"."
     },
@@ -8245,15 +8328,22 @@
      "description": "[Output Only] Continent for this location.",
 =======
      "description": "Availability zone for this location. Within a city, maintenance will not be simultaneously scheduled in more than one availability zone. Example: \"zone1\" or \"zone2\"."
+=======
+     "description": "[Output Only] Availability zone for this location. Within a metropolitan area (metro), maintenance will not be simultaneously scheduled in more than one availability zone. Example: \"zone1\" or \"zone2\"."
+>>>>>>> Working on getting compiling
     },
     "city": {
      "type": "string",
-     "description": "City designator used by the Interconnect UI to locate this InterconnectLocation within the Continent. For example: \"Chicago, IL\", \"Amsterdam, Netherlands\"."
+     "description": "[Output Only] Metropolitan area designator that indicates which city an interconnect is located. For example: \"Chicago, IL\", \"Amsterdam, Netherlands\"."
     },
     "continent": {
      "type": "string",
+<<<<<<< HEAD
      "description": "Continent for this location. Used by the location picker in the Interconnect UI.",
 >>>>>>> Initial dep workover
+=======
+     "description": "[Output Only] Continent for this location.",
+>>>>>>> Working on getting compiling
      "enum": [
       "AFRICA",
       "ASIA_PAC",
@@ -8485,6 +8575,7 @@
     "description": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "A description about the purpose of the outage."
     },
     "endTime": {
@@ -8496,14 +8587,25 @@
     "endTime": {
      "type": "string",
 >>>>>>> Initial dep workover
+=======
+     "description": "A description about the purpose of the outage."
+    },
+    "endTime": {
+     "type": "string",
+     "description": "Scheduled end time for the outage (milliseconds since Unix epoch).",
+>>>>>>> Working on getting compiling
      "format": "int64"
     },
     "issueType": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "Form this outage is expected to take. Note that the \"IT_\" versions of this enum have been deprecated in favor of the unprefixed values.",
 =======
 >>>>>>> Initial dep workover
+=======
+     "description": "Form this outage is expected to take. Note that the \"IT_\" versions of this enum have been deprecated in favor of the unprefixed values.",
+>>>>>>> Working on getting compiling
      "enum": [
       "IT_OUTAGE",
       "IT_PARTIAL_OUTAGE",
@@ -8524,9 +8626,13 @@
     "source": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "The party that generated this notification. Note that \"NSRC_GOOGLE\" has been deprecated in favor of \"GOOGLE\"",
 =======
 >>>>>>> Initial dep workover
+=======
+     "description": "The party that generated this notification. Note that \"NSRC_GOOGLE\" has been deprecated in favor of \"GOOGLE\"",
+>>>>>>> Working on getting compiling
      "enum": [
       "GOOGLE",
       "NSRC_GOOGLE"
@@ -8539,18 +8645,26 @@
     "startTime": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "Scheduled start time for the outage (milliseconds since Unix epoch).",
 =======
      "description": "Scheduled start and end times for the outage (milliseconds since Unix epoch).",
 >>>>>>> Initial dep workover
+=======
+     "description": "Scheduled start time for the outage (milliseconds since Unix epoch).",
+>>>>>>> Working on getting compiling
      "format": "int64"
     },
     "state": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "State of this notification. Note that the \"NS_\" versions of this enum have been deprecated in favor of the unprefixed values.",
 =======
 >>>>>>> Initial dep workover
+=======
+     "description": "State of this notification. Note that the \"NS_\" versions of this enum have been deprecated in favor of the unprefixed values.",
+>>>>>>> Working on getting compiling
      "enum": [
       "ACTIVE",
       "CANCELLED",
@@ -8600,10 +8714,14 @@
    "id": "MachineType",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A Machine Type resource. (== resource_for v1.machineTypes ==) (== resource_for beta.machineTypes ==)",
 =======
    "description": "A Machine Type resource.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A Machine Type resource. (== resource_for v1.machineTypes ==) (== resource_for beta.machineTypes ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -9205,10 +9323,14 @@
    "id": "Network",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "Represents a Network resource. Read Networks and Firewalls for more information. (== resource_for v1.networks ==) (== resource_for beta.networks ==)",
 =======
    "description": "Represents a Network resource. Read Networks and Firewalls for more information.",
 >>>>>>> Initial dep workover
+=======
+   "description": "Represents a Network resource. Read Networks and Firewalls for more information. (== resource_for v1.networks ==) (== resource_for beta.networks ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "IPv4Range": {
      "type": "string",
@@ -9495,15 +9617,21 @@
     "name": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
      "description": "Name of the peering, which should conform to RFC1035.",
      "annotations": {
       "required": [
        "compute.networks.addPeering"
       ]
      }
+<<<<<<< HEAD
 =======
      "description": "Name of the peering, which should conform to RFC1035."
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     },
     "peerNetwork": {
      "type": "string",
@@ -9525,10 +9653,14 @@
    "id": "Operation",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "An Operation resource, used to manage asynchronous API requests. (== resource_for v1.globalOperations ==) (== resource_for beta.globalOperations ==) (== resource_for v1.regionOperations ==) (== resource_for beta.regionOperations ==) (== resource_for v1.zoneOperations ==) (== resource_for beta.zoneOperations ==)",
 =======
    "description": "An Operation resource, used to manage asynchronous API requests.",
 >>>>>>> Initial dep workover
+=======
+   "description": "An Operation resource, used to manage asynchronous API requests. (== resource_for v1.globalOperations ==) (== resource_for beta.globalOperations ==) (== resource_for v1.regionOperations ==) (== resource_for beta.regionOperations ==) (== resource_for v1.zoneOperations ==) (== resource_for beta.zoneOperations ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "clientOperationId": {
      "type": "string",
@@ -10108,10 +10240,14 @@
    "id": "Project",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A Project resource. Projects can only be created in the Google Cloud Platform Console. Unless marked otherwise, values can only be modified in the console. (== resource_for v1.projects ==) (== resource_for beta.projects ==)",
 =======
    "description": "A Project resource. Projects can only be created in the Google Cloud Platform Console. Unless marked otherwise, values can only be modified in the console.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A Project resource. Projects can only be created in the Google Cloud Platform Console. Unless marked otherwise, values can only be modified in the console. (== resource_for v1.projects ==) (== resource_for beta.projects ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "commonInstanceMetadata": {
      "$ref": "Metadata",
@@ -10385,6 +10521,8 @@
       "NVIDIA_P100_GPUS",
       "PREEMPTIBLE_CPUS",
       "PREEMPTIBLE_LOCAL_SSD_GB",
+      "PREEMPTIBLE_NVIDIA_K80_GPUS",
+      "PREEMPTIBLE_NVIDIA_P100_GPUS",
       "REGIONAL_AUTOSCALERS",
       "REGIONAL_INSTANCE_GROUP_MANAGERS",
       "ROUTERS",
@@ -10450,6 +10588,8 @@
       "",
       "",
       "",
+      "",
+      "",
       ""
      ]
     },
@@ -10463,7 +10603,7 @@
   "Region": {
    "id": "Region",
    "type": "object",
-   "description": "Region resource.",
+   "description": "Region resource. (== resource_for beta.regions ==) (== resource_for v1.regions ==)",
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -11278,10 +11418,14 @@
    "id": "Route",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "Represents a Route resource. A route specifies how certain packets should be handled by the network. Routes are associated with instances by tags and the set of routes for a particular instance is called its routing table.\n\nFor each packet leaving an instance, the system searches that instance's routing table for a single best matching route. Routes match packets by destination IP address, preferring smaller or more specific ranges over larger ones. If there is a tie, the system selects the route with the smallest priority value. If there is still a tie, it uses the layer three and four packet headers to select just one of the remaining matching routes. The packet is then forwarded as specified by the nextHop field of the winning route - either to another instance destination, an instance gateway, or a Google Compute Engine-operated gateway.\n\nPackets that do not match any route in the sending instance's routing table are dropped. (== resource_for beta.routes ==) (== resource_for v1.routes ==)",
 =======
    "description": "Represents a Route resource. A route specifies how certain packets should be handled by the network. Routes are associated with instances by tags and the set of routes for a particular instance is called its routing table.\n\nFor each packet leaving an instance, the system searches that instance's routing table for a single best matching route. Routes match packets by destination IP address, preferring smaller or more specific ranges over larger ones. If there is a tie, the system selects the route with the smallest priority value. If there is still a tie, it uses the layer three and four packet headers to select just one of the remaining matching routes. The packet is then forwarded as specified by the nextHop field of the winning route - either to another instance destination, an instance gateway, or a Google Compute Engine-operated gateway.\n\nPackets that do not match any route in the sending instance's routing table are dropped.",
 >>>>>>> Initial dep workover
+=======
+   "description": "Represents a Route resource. A route specifies how certain packets should be handled by the network. Routes are associated with instances by tags and the set of routes for a particular instance is called its routing table.\n\nFor each packet leaving an instance, the system searches that instance's routing table for a single best matching route. Routes match packets by destination IP address, preferring smaller or more specific ranges over larger ones. If there is a tie, the system selects the route with the smallest priority value. If there is still a tie, it uses the layer three and four packet headers to select just one of the remaining matching routes. The packet is then forwarded as specified by the nextHop field of the winning route - either to another instance destination, an instance gateway, or a Google Compute Engine-operated gateway.\n\nPackets that do not match any route in the sending instance's routing table are dropped. (== resource_for beta.routes ==) (== resource_for v1.routes ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -12357,10 +12501,14 @@
    "id": "Snapshot",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A persistent disk snapshot resource. (== resource_for beta.snapshots ==) (== resource_for v1.snapshots ==)",
 =======
    "description": "A persistent disk snapshot resource.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A persistent disk snapshot resource. (== resource_for beta.snapshots ==) (== resource_for v1.snapshots ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -12582,10 +12730,14 @@
    "id": "SslCertificate",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "An SslCertificate resource. This resource provides a mechanism to upload an SSL key and certificate to the load balancer to serve secure connections from the user. (== resource_for beta.sslCertificates ==) (== resource_for v1.sslCertificates ==)",
 =======
    "description": "An SslCertificate resource. This resource provides a mechanism to upload an SSL key and certificate to the load balancer to serve secure connections from the user.",
 >>>>>>> Initial dep workover
+=======
+   "description": "An SslCertificate resource. This resource provides a mechanism to upload an SSL key and certificate to the load balancer to serve secure connections from the user. (== resource_for beta.sslCertificates ==) (== resource_for v1.sslCertificates ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "certificate": {
      "type": "string",
@@ -12740,10 +12892,14 @@
    "id": "Subnetwork",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A Subnetwork resource. (== resource_for beta.subnetworks ==) (== resource_for v1.subnetworks ==)",
 =======
    "description": "A Subnetwork resource.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A Subnetwork resource. (== resource_for beta.subnetworks ==) (== resource_for v1.subnetworks ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -13211,10 +13367,14 @@
    "id": "TargetHttpProxy",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A TargetHttpProxy resource. This resource defines an HTTP proxy. (== resource_for beta.targetHttpProxies ==) (== resource_for v1.targetHttpProxies ==)",
 =======
    "description": "A TargetHttpProxy resource. This resource defines an HTTP proxy.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A TargetHttpProxy resource. This resource defines an HTTP proxy. (== resource_for beta.targetHttpProxies ==) (== resource_for v1.targetHttpProxies ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -13378,10 +13538,14 @@
    "id": "TargetHttpsProxy",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A TargetHttpsProxy resource. This resource defines an HTTPS proxy. (== resource_for beta.targetHttpsProxies ==) (== resource_for v1.targetHttpsProxies ==)",
 =======
    "description": "A TargetHttpsProxy resource. This resource defines an HTTPS proxy.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A TargetHttpsProxy resource. This resource defines an HTTPS proxy. (== resource_for beta.targetHttpsProxies ==) (== resource_for v1.targetHttpsProxies ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -13539,10 +13703,14 @@
    "id": "TargetInstance",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A TargetInstance resource. This resource defines an endpoint instance that terminates traffic of certain protocols. (== resource_for beta.targetInstances ==) (== resource_for v1.targetInstances ==)",
 =======
    "description": "A TargetInstance resource. This resource defines an endpoint instance that terminates traffic of certain protocols.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A TargetInstance resource. This resource defines an endpoint instance that terminates traffic of certain protocols. (== resource_for beta.targetInstances ==) (== resource_for v1.targetInstances ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -13913,10 +14081,14 @@
    "id": "TargetPool",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A TargetPool resource. This resource defines a pool of instances, an associated HttpHealthCheck resource, and the fallback target pool. (== resource_for beta.targetPools ==) (== resource_for v1.targetPools ==)",
 =======
    "description": "A TargetPool resource. This resource defines a pool of instances, an associated HttpHealthCheck resource, and the fallback target pool.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A TargetPool resource. This resource defines a pool of instances, an associated HttpHealthCheck resource, and the fallback target pool. (== resource_for beta.targetPools ==) (== resource_for v1.targetPools ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "backupPool": {
      "type": "string",
@@ -14433,10 +14605,14 @@
    "id": "TargetSslProxy",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A TargetSslProxy resource. This resource defines an SSL proxy. (== resource_for beta.targetSslProxies ==) (== resource_for v1.targetSslProxies ==)",
 =======
    "description": "A TargetSslProxy resource. This resource defines an SSL proxy.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A TargetSslProxy resource. This resource defines an SSL proxy. (== resource_for beta.targetSslProxies ==) (== resource_for v1.targetSslProxies ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -14634,10 +14810,14 @@
    "id": "TargetTcpProxy",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A TargetTcpProxy resource. This resource defines a TCP proxy. (== resource_for beta.targetTcpProxies ==) (== resource_for v1.targetTcpProxies ==)",
 =======
    "description": "A TargetTcpProxy resource. This resource defines a TCP proxy.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A TargetTcpProxy resource. This resource defines a TCP proxy. (== resource_for beta.targetTcpProxies ==) (== resource_for v1.targetTcpProxies ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -14800,10 +14980,14 @@
    "id": "TargetVpnGateway",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "Represents a Target VPN gateway resource. (== resource_for beta.targetVpnGateways ==) (== resource_for v1.targetVpnGateways ==)",
 =======
    "description": "Represents a Target VPN gateway resource.",
 >>>>>>> Initial dep workover
+=======
+   "description": "Represents a Target VPN gateway resource. (== resource_for beta.targetVpnGateways ==) (== resource_for v1.targetVpnGateways ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -15491,9 +15675,13 @@
    "id": "VpnTunnel",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "VPN tunnel resource. (== resource_for beta.vpnTunnels ==) (== resource_for v1.vpnTunnels ==)",
 =======
 >>>>>>> Initial dep workover
+=======
+   "description": "VPN tunnel resource. (== resource_for beta.vpnTunnels ==) (== resource_for v1.vpnTunnels ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "creationTimestamp": {
      "type": "string",
@@ -16069,10 +16257,14 @@
    "id": "Zone",
    "type": "object",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "A Zone resource. (== resource_for beta.zones ==) (== resource_for v1.zones ==)",
 =======
    "description": "A Zone resource.",
 >>>>>>> Initial dep workover
+=======
+   "description": "A Zone resource. (== resource_for beta.zones ==) (== resource_for v1.zones ==)",
+>>>>>>> Working on getting compiling
    "properties": {
     "availableCpuPlatforms": {
      "type": "array",
@@ -18001,10 +18193,14 @@
      "path": "{project}/zones/{zone}/disks/{disk}/resize",
      "httpMethod": "POST",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "Resizes the specified persistent disk. You can only increase the size of the disk.",
 =======
      "description": "Resizes the specified persistent disk.",
 >>>>>>> Initial dep workover
+=======
+     "description": "Resizes the specified persistent disk. You can only increase the size of the disk.",
+>>>>>>> Working on getting compiling
      "parameters": {
       "disk": {
        "type": "string",
@@ -20066,10 +20262,14 @@
      "path": "{project}/global/images",
      "httpMethod": "GET",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "Retrieves the list of custom images available to the specified project. Custom images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.",
 =======
      "description": "Retrieves the list of private images available to the specified project. Private images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.",
 >>>>>>> Initial dep workover
+=======
+     "description": "Retrieves the list of custom images available to the specified project. Custom images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud.",
+>>>>>>> Working on getting compiling
      "parameters": {
       "filter": {
        "type": "string",
@@ -23452,10 +23652,14 @@
      "path": "{project}/global/networks/{network}",
      "httpMethod": "PATCH",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "Patches the specified network with the data included in the request. Only the following fields can be modified: routingConfig.routingMode.",
 =======
      "description": "Patches the specified network with the data included in the request.",
 >>>>>>> Initial dep workover
+=======
+     "description": "Patches the specified network with the data included in the request. Only the following fields can be modified: routingConfig.routingMode.",
+>>>>>>> Working on getting compiling
      "parameters": {
       "network": {
        "type": "string",

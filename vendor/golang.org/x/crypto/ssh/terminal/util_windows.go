@@ -18,10 +18,15 @@ package terminal
 
 import (
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"os"
 
 =======
 >>>>>>> Initial dep workover
+=======
+	"os"
+
+>>>>>>> Working on getting compiling
 	"golang.org/x/sys/windows"
 )
 
@@ -78,6 +83,7 @@ func GetSize(fd int) (width, height int, err error) {
 =======
 }
 
+<<<<<<< HEAD
 // passwordReader is an io.Reader that reads from a specific Windows HANDLE.
 type passwordReader int
 
@@ -86,6 +92,8 @@ func (r passwordReader) Read(buf []byte) (int, error) {
 >>>>>>> Initial dep workover
 }
 
+=======
+>>>>>>> Working on getting compiling
 // ReadPassword reads a line of input from a terminal without local echo.  This
 // is commonly used for inputting passwords and other sensitive data. The slice
 // returned does not include the \n.

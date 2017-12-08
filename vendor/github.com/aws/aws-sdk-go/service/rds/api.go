@@ -414,12 +414,17 @@ func (c *RDS) AuthorizeDBSecurityGroupIngressRequest(input *AuthorizeDBSecurityG
 // or EC2SecurityGroupId for non-VPC).
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 // You can't authorize ingress from an EC2 security group in one AWS Region
 // to an Amazon RDS DB instance in another. You can't authorize ingress from
 =======
 // You cannot authorize ingress from an EC2 security group in one AWS Region
 // to an Amazon RDS DB instance in another. You cannot authorize ingress from
 >>>>>>> Initial dep workover
+=======
+// You can't authorize ingress from an EC2 security group in one AWS Region
+// to an Amazon RDS DB instance in another. You can't authorize ingress from
+>>>>>>> Working on getting compiling
 // a VPC security group in one VPC to an Amazon RDS DB instance in another.
 //
 // For an overview of CIDR ranges, go to the Wikipedia Tutorial (http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
@@ -609,12 +614,17 @@ func (c *RDS) CopyDBClusterSnapshotRequest(input *CopyDBClusterSnapshotInput) (r
 // you must provide the following values:
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 //    * KmsKeyId - The AWS Key Management System (AWS KMS) key identifier for
 //    the key to use to encrypt the copy of the DB cluster snapshot in the destination
 =======
 //    * KmsKeyId - The AWS Key Management System (KMS) key identifier for the
 //    key to use to encrypt the copy of the DB cluster snapshot in the destination
 >>>>>>> Initial dep workover
+=======
+//    * KmsKeyId - The AWS Key Management System (AWS KMS) key identifier for
+//    the key to use to encrypt the copy of the DB cluster snapshot in the destination
+>>>>>>> Working on getting compiling
 //    AWS Region.
 //
 //    * PreSignedUrl - A URL that contains a Signature Version 4 signed request
@@ -640,12 +650,17 @@ func (c *RDS) CopyDBClusterSnapshotRequest(input *CopyDBClusterSnapshotInput) (r
 //    in the Amazon Resource Name (ARN) format for the source AWS Region. For
 //    example, if you are copying an encrypted DB cluster snapshot from the
 <<<<<<< HEAD
+<<<<<<< HEAD
 //    us-west-2 AWS Region, then your SourceDBClusterSnapshotIdentifier looks
 //    like the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
 =======
 //    us-west-2 region, then your SourceDBClusterSnapshotIdentifier looks like
 //    the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
 >>>>>>> Initial dep workover
+=======
+//    us-west-2 AWS Region, then your SourceDBClusterSnapshotIdentifier looks
+//    like the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
+>>>>>>> Working on getting compiling
 //
 // To learn how to generate a Signature Version 4 signed request, see  Authenticating
 //    Requests: Using Query Parameters (AWS Signature Version 4) (http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
@@ -857,10 +872,14 @@ func (c *RDS) CopyDBSnapshotRequest(input *CopyDBSnapshotInput) (req *request.Re
 // Region for the DB snapshot copy.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 // You can't copy an encrypted, shared DB snapshot from one AWS Region to another.
 =======
 // You cannot copy an encrypted, shared DB snapshot from one AWS Region to another.
 >>>>>>> Initial dep workover
+=======
+// You can't copy an encrypted, shared DB snapshot from one AWS Region to another.
+>>>>>>> Working on getting compiling
 //
 // For more information about copying snapshots, see Copying a DB Snapshot (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopyDBSnapshot.html)
 // in the Amazon RDS User Guide.
@@ -2630,10 +2649,14 @@ func (c *RDS) DeleteDBInstanceRequest(input *DeleteDBInstanceInput) (req *reques
 //
 // If the specified DB instance is part of an Amazon Aurora DB cluster, you
 <<<<<<< HEAD
+<<<<<<< HEAD
 // can't delete the DB instance if both of the following conditions are true:
 =======
 // cannot delete the DB instance if both of the following conditions are true:
 >>>>>>> Initial dep workover
+=======
+// can't delete the DB instance if both of the following conditions are true:
+>>>>>>> Working on getting compiling
 //
 //    * The DB cluster is a Read Replica of another Amazon Aurora DB cluster.
 //
@@ -6646,10 +6669,14 @@ func (c *RDS) DescribeSourceRegionsRequest(input *DescribeSourceRegionsInput) (r
 // DescribeSourceRegions API operation for Amazon Relational Database Service.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Returns a list of the source AWS Regions where the current AWS Region can
 =======
 // Returns a list of the source AWS regions where the current AWS Region can
 >>>>>>> Initial dep workover
+=======
+// Returns a list of the source AWS Regions where the current AWS Region can
+>>>>>>> Working on getting compiling
 // create a Read Replica or copy a DB snapshot from. This API action supports
 // pagination.
 //
@@ -9752,6 +9779,149 @@ func (c *RDS) RestoreDBInstanceFromDBSnapshotWithContext(ctx aws.Context, input 
 }
 
 const opRestoreDBInstanceFromS3 = "RestoreDBInstanceFromS3"
+<<<<<<< HEAD
+=======
+
+// RestoreDBInstanceFromS3Request generates a "aws/request.Request" representing the
+// client's request for the RestoreDBInstanceFromS3 operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See RestoreDBInstanceFromS3 for more information on using the RestoreDBInstanceFromS3
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the RestoreDBInstanceFromS3Request method.
+//    req, resp := client.RestoreDBInstanceFromS3Request(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromS3
+func (c *RDS) RestoreDBInstanceFromS3Request(input *RestoreDBInstanceFromS3Input) (req *request.Request, output *RestoreDBInstanceFromS3Output) {
+	op := &request.Operation{
+		Name:       opRestoreDBInstanceFromS3,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &RestoreDBInstanceFromS3Input{}
+	}
+
+	output = &RestoreDBInstanceFromS3Output{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// RestoreDBInstanceFromS3 API operation for Amazon Relational Database Service.
+//
+// Amazon Relational Database Service (Amazon RDS) supports importing MySQL
+// databases by using backup files. You can create a backup of your on-premises
+// database, store it on Amazon Simple Storage Service (Amazon S3), and then
+// restore the backup file onto a new Amazon RDS DB instance running MySQL.
+// For more information, see Importing Data into an Amazon RDS MySQL DB Instance
+// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html).
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Relational Database Service's
+// API operation RestoreDBInstanceFromS3 for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeDBInstanceAlreadyExistsFault "DBInstanceAlreadyExists"
+//   User already has a DB instance with the given identifier.
+//
+//   * ErrCodeInsufficientDBInstanceCapacityFault "InsufficientDBInstanceCapacity"
+//   Specified DB instance class is not available in the specified Availability
+//   Zone.
+//
+//   * ErrCodeDBParameterGroupNotFoundFault "DBParameterGroupNotFound"
+//   DBParameterGroupName does not refer to an existing DB parameter group.
+//
+//   * ErrCodeDBSecurityGroupNotFoundFault "DBSecurityGroupNotFound"
+//   DBSecurityGroupName does not refer to an existing DB security group.
+//
+//   * ErrCodeInstanceQuotaExceededFault "InstanceQuotaExceeded"
+//   Request would result in user exceeding the allowed number of DB instances.
+//
+//   * ErrCodeStorageQuotaExceededFault "StorageQuotaExceeded"
+//   Request would result in user exceeding the allowed amount of storage available
+//   across all DB instances.
+//
+//   * ErrCodeDBSubnetGroupNotFoundFault "DBSubnetGroupNotFoundFault"
+//   DBSubnetGroupName does not refer to an existing DB subnet group.
+//
+//   * ErrCodeDBSubnetGroupDoesNotCoverEnoughAZs "DBSubnetGroupDoesNotCoverEnoughAZs"
+//   Subnets in the DB subnet group should cover at least two Availability Zones
+//   unless there is only one Availability Zone.
+//
+//   * ErrCodeInvalidSubnet "InvalidSubnet"
+//   The requested subnet is invalid, or multiple subnets were requested that
+//   are not all in a common VPC.
+//
+//   * ErrCodeInvalidVPCNetworkStateFault "InvalidVPCNetworkStateFault"
+//   DB subnet group does not cover all Availability Zones after it is created
+//   because users' change.
+//
+//   * ErrCodeInvalidS3BucketFault "InvalidS3BucketFault"
+//   The specified Amazon S3 bucket name could not be found or Amazon RDS is not
+//   authorized to access the specified Amazon S3 bucket. Verify the SourceS3BucketName
+//   and S3IngestionRoleArn values and try again.
+//
+//   * ErrCodeProvisionedIopsNotAvailableInAZFault "ProvisionedIopsNotAvailableInAZFault"
+//   Provisioned IOPS not available in the specified Availability Zone.
+//
+//   * ErrCodeOptionGroupNotFoundFault "OptionGroupNotFoundFault"
+//   The specified option group could not be found.
+//
+//   * ErrCodeStorageTypeNotSupportedFault "StorageTypeNotSupported"
+//   StorageType specified cannot be associated with the DB Instance.
+//
+//   * ErrCodeAuthorizationNotFoundFault "AuthorizationNotFound"
+//   Specified CIDRIP or EC2 security group is not authorized for the specified
+//   DB security group.
+//
+//   RDS may not also be authorized via IAM to perform necessary actions on your
+//   behalf.
+//
+//   * ErrCodeKMSKeyNotAccessibleFault "KMSKeyNotAccessibleFault"
+//   Error accessing KMS key.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromS3
+func (c *RDS) RestoreDBInstanceFromS3(input *RestoreDBInstanceFromS3Input) (*RestoreDBInstanceFromS3Output, error) {
+	req, out := c.RestoreDBInstanceFromS3Request(input)
+	return out, req.Send()
+}
+
+// RestoreDBInstanceFromS3WithContext is the same as RestoreDBInstanceFromS3 with the addition of
+// the ability to pass a context and additional request options.
+//
+// See RestoreDBInstanceFromS3 for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *RDS) RestoreDBInstanceFromS3WithContext(ctx aws.Context, input *RestoreDBInstanceFromS3Input, opts ...request.Option) (*RestoreDBInstanceFromS3Output, error) {
+	req, out := c.RestoreDBInstanceFromS3Request(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opRestoreDBInstanceToPointInTime = "RestoreDBInstanceToPointInTime"
+>>>>>>> Working on getting compiling
 
 <<<<<<< HEAD
 // RestoreDBInstanceFromS3Request generates a "aws/request.Request" representing the
@@ -11165,10 +11335,14 @@ type CopyDBClusterSnapshotInput struct {
 	// set KmsKeyId to the KMS key ID you want to use to encrypt the copy of the
 	// DB cluster snapshot in the destination AWS Region. KMS encryption keys are
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// specific to the AWS Region that they are created in, and you can't use encryption
 =======
 	// specific to the AWS Region that they are created in, and you cannot use encryption
 >>>>>>> Initial dep workover
+=======
+	// specific to the AWS Region that they are created in, and you can't use encryption
+>>>>>>> Working on getting compiling
 	// keys from one AWS Region in another AWS Region.
 	KmsKeyId *string `type:"string"`
 
@@ -11183,16 +11357,22 @@ type CopyDBClusterSnapshotInput struct {
 	// contain the following parameter values:
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	//    * KmsKeyId - The AWS KMS key identifier for the key to use to encrypt
 	//    the copy of the DB cluster snapshot in the destination AWS Region. This
 	//    is the same identifier for both the CopyDBClusterSnapshot action that
 	//    is called in the destination AWS Region, and the action contained in the
+<<<<<<< HEAD
 =======
 	//    * KmsKeyId - The KMS key identifier for the key to use to encrypt the
 	//    copy of the DB cluster snapshot in the destination AWS Region. This is
 	//    the same identifier for both the CopyDBClusterSnapshot action that is
 	//    called in the destination AWS Region, and the action contained in the
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	//    pre-signed URL.
 	//
 	//    * DestinationRegion - The name of the AWS Region that the DB cluster snapshot
@@ -11203,12 +11383,17 @@ type CopyDBClusterSnapshotInput struct {
 	//    be in the Amazon Resource Name (ARN) format for the source AWS Region.
 	//    For example, if you are copying an encrypted DB cluster snapshot from
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    the us-west-2 AWS Region, then your SourceDBClusterSnapshotIdentifier
 	//    looks like the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
 =======
 	//    the us-west-2 region, then your SourceDBClusterSnapshotIdentifier looks
 	//    like the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
 >>>>>>> Initial dep workover
+=======
+	//    the us-west-2 AWS Region, then your SourceDBClusterSnapshotIdentifier
+	//    looks like the following example: arn:aws:rds:us-west-2:123456789012:cluster-snapshot:aurora-cluster1-snapshot-20161115.
+>>>>>>> Working on getting compiling
 	//
 	// To learn how to generate a Signature Version 4 signed request, see  Authenticating
 	// Requests: Using Query Parameters (AWS Signature Version 4) (http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
@@ -11219,10 +11404,14 @@ type CopyDBClusterSnapshotInput struct {
 	// case-sensitive.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// You can't copy an encrypted, shared DB cluster snapshot from one AWS Region
 =======
 	// You cannot copy an encrypted, shared DB cluster snapshot from one AWS Region
 >>>>>>> Initial dep workover
+=======
+	// You can't copy an encrypted, shared DB cluster snapshot from one AWS Region
+>>>>>>> Working on getting compiling
 	// to another.
 	//
 	// Constraints:
@@ -11520,10 +11709,14 @@ type CopyDBSnapshotInput struct {
 	// If you copy an encrypted snapshot to a different AWS Region, then you must
 	// specify a KMS key for the destination AWS Region. KMS encryption keys are
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// specific to the AWS Region that they are created in, and you can't use encryption
 =======
 	// specific to the AWS Region that they are created in, and you cannot use encryption
 >>>>>>> Initial dep workover
+=======
+	// specific to the AWS Region that they are created in, and you can't use encryption
+>>>>>>> Working on getting compiling
 	// keys from one AWS Region in another AWS Region.
 	KmsKeyId *string `type:"string"`
 
@@ -11542,6 +11735,7 @@ type CopyDBSnapshotInput struct {
 	//
 	// You must specify this parameter when you copy an encrypted DB snapshot from
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// another AWS Region by using the Amazon RDS API. You can specify the --source-region
 	// option instead of this parameter when you copy an encrypted DB snapshot from
 	// another AWS Region by using the AWS CLI.
@@ -11550,6 +11744,11 @@ type CopyDBSnapshotInput struct {
 	// region option instead of this parameter when you copy an encrypted DB snapshot
 	// from another AWS Region by using the AWS CLI.
 >>>>>>> Initial dep workover
+=======
+	// another AWS Region by using the Amazon RDS API. You can specify the --source-region
+	// option instead of this parameter when you copy an encrypted DB snapshot from
+	// another AWS Region by using the AWS CLI.
+>>>>>>> Working on getting compiling
 	//
 	// The presigned URL must be a valid request for the CopyDBSnapshot API action
 	// that can be executed in the source AWS Region that contains the encrypted
@@ -11561,6 +11760,9 @@ type CopyDBSnapshotInput struct {
 	//    is called that contains this presigned URL.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// For example, if you copy an encrypted DB snapshot from the us-west-2 AWS
 	//    Region to the us-east-1 AWS Region, then you call the CopyDBSnapshot action
 	//    in the us-east-1 AWS Region and provide a presigned URL that contains
@@ -11572,6 +11774,7 @@ type CopyDBSnapshotInput struct {
 	//    the copy of the DB snapshot in the destination AWS Region. This is the
 	//    same identifier for both the CopyDBSnapshot action that is called in the
 	//    destination AWS Region, and the action contained in the presigned URL.
+<<<<<<< HEAD
 	//
 =======
 	// For example, if you copy an encrypted DB snapshot from the us-west-2 region
@@ -11585,15 +11788,22 @@ type CopyDBSnapshotInput struct {
 	//    identifier for both the CopyDBSnapshot action that is called in the destination
 	//    AWS Region, and the action contained in the presigned URL.
 >>>>>>> Initial dep workover
+=======
+	//
+>>>>>>> Working on getting compiling
 	//
 	//    * SourceDBSnapshotIdentifier - The DB snapshot identifier for the encrypted
 	//    snapshot to be copied. This identifier must be in the Amazon Resource
 	//    Name (ARN) format for the source AWS Region. For example, if you are copying
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    an encrypted DB snapshot from the us-west-2 AWS Region, then your SourceDBSnapshotIdentifier
 =======
 	//    an encrypted DB snapshot from the us-west-2 region, then your SourceDBSnapshotIdentifier
 >>>>>>> Initial dep workover
+=======
+	//    an encrypted DB snapshot from the us-west-2 AWS Region, then your SourceDBSnapshotIdentifier
+>>>>>>> Working on getting compiling
 	//    looks like the following example: arn:aws:rds:us-west-2:123456789012:snapshot:mysql-instance1-snapshot-20161115.
 	//
 	//
@@ -12030,11 +12240,15 @@ type CreateDBClusterInput struct {
 	// The pre-signed URL request must contain the following parameter values:
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	//    * KmsKeyId - The AWS KMS key identifier for the key to use to encrypt
 	//    the copy of the DB cluster in the destination AWS Region. This should
 	//    refer to the same KMS key for both the CreateDBCluster action that is
 	//    called in the destination AWS Region, and the action contained in the
 	//    pre-signed URL.
+<<<<<<< HEAD
 =======
 	//    * KmsKeyId - The KMS key identifier for the key to use to encrypt the
 	//    copy of the DB cluster in the destination AWS Region. This should refer
@@ -12042,6 +12256,8 @@ type CreateDBClusterInput struct {
 	//    in the destination AWS Region, and the action contained in the pre-signed
 	//    URL.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	//
 	//    * DestinationRegion - The name of the AWS Region that Aurora Read Replica
 	//    will be created in.
@@ -12050,10 +12266,14 @@ type CreateDBClusterInput struct {
 	//    DB cluster to be copied. This identifier must be in the Amazon Resource
 	//    Name (ARN) format for the source AWS Region. For example, if you are copying
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    an encrypted DB cluster from the us-west-2 AWS Region, then your ReplicationSourceIdentifier
 =======
 	//    an encrypted DB cluster from the us-west-2 region, then your ReplicationSourceIdentifier
 >>>>>>> Initial dep workover
+=======
+	//    an encrypted DB cluster from the us-west-2 AWS Region, then your ReplicationSourceIdentifier
+>>>>>>> Working on getting compiling
 	//    would look like Example: arn:aws:rds:us-west-2:123456789012:cluster:aurora-cluster1.
 	//
 	// To learn how to generate a Signature Version 4 signed request, see  Authenticating
@@ -12065,6 +12285,7 @@ type CreateDBClusterInput struct {
 	// backups are enabled using the BackupRetentionPeriod parameter.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
@@ -12073,6 +12294,11 @@ type CreateDBClusterInput struct {
 	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
 	// Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
 >>>>>>> Initial dep workover
+=======
+	// The default is a 30-minute window selected at random from an 8-hour block
+	// of time for each AWS Region. To see the time blocks available, see  Adjusting
+	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Constraints:
@@ -12092,15 +12318,21 @@ type CreateDBClusterInput struct {
 	// Format: ddd:hh24:mi-ddd:hh24:mi
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region, occurring on a random day of the week. To see
 	// the time blocks available, see  Adjusting the Preferred Maintenance Window
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+<<<<<<< HEAD
 =======
 	// Default: A 30-minute window selected at random from an 8-hour block of time
 	// per AWS Region, occurring on a random day of the week. To see the time blocks
 	// available, see  Adjusting the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -12627,6 +12859,7 @@ type CreateDBInstanceInput struct {
 	AutoMinorVersionUpgrade *bool `type:"boolean"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The EC2 Availability Zone that the DB instance is created in. For information
 	// on AWS Regions and Availability Zones, see Regions and Availability Zones
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
@@ -12634,6 +12867,11 @@ type CreateDBInstanceInput struct {
 	// The EC2 Availability Zone that the database instance is created in. For information
 	// on regions and Availability Zones, see Regions and Availability Zones (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
 >>>>>>> Initial dep workover
+=======
+	// The EC2 Availability Zone that the DB instance is created in. For information
+	// on AWS Regions and Availability Zones, see Regions and Availability Zones
+	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+>>>>>>> Working on getting compiling
 	//
 	// Default: A random, system-chosen Availability Zone in the endpoint's AWS
 	// Region.
@@ -12685,6 +12923,7 @@ type CreateDBInstanceInput struct {
 
 	// The compute and memory capacity of the DB instance, for example, db.m4.large.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Not all DB instance classes are available in all AWS Regions, or for all
 	// database engines. For the full list of DB instance classes, and availability
 	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
@@ -12693,6 +12932,11 @@ type CreateDBInstanceInput struct {
 	// engines. For the full list of DB instance classes, and availability for your
 	// engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
 >>>>>>> Initial dep workover
+=======
+	// Not all DB instance classes are available in all AWS Regions, or for all
+	// database engines. For the full list of DB instance classes, and availability
+	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// DBInstanceClass is a required field
@@ -12834,10 +13078,14 @@ type CreateDBInstanceInput struct {
 	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// True to enable Performance Insights for the DB instance, and otherwise false.
 =======
 	// True to enable Performance Insights for the DB instance; otherwise false.
 >>>>>>> Initial dep workover
+=======
+	// True to enable Performance Insights for the DB instance, and otherwise false.
+>>>>>>> Working on getting compiling
 	EnablePerformanceInsights *bool `type:"boolean"`
 
 	// The name of the database engine to be used for this instance.
@@ -12889,6 +13137,7 @@ type CreateDBInstanceInput struct {
 	// MariaDB
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    * 10.1.23 (supported in all AWS Regions)
 	//
 	//    * 10.1.19 (supported in all AWS Regions)
@@ -12909,6 +13158,17 @@ type CreateDBInstanceInput struct {
 	//
 	//    * 10.0.28 (supported in all AWS regions)
 >>>>>>> Initial dep workover
+=======
+	//    * 10.1.23 (supported in all AWS Regions)
+	//
+	//    * 10.1.19 (supported in all AWS Regions)
+	//
+	//    * 10.1.14 (supported in all AWS Regions except us-east-2)
+	//
+	// 10.0.31 (supported in all AWS Regions)
+	//
+	//    * 10.0.28 (supported in all AWS Regions)
+>>>>>>> Working on getting compiling
 	//
 	//    * 10.0.24 (supported in all AWS Regions)
 	//
@@ -12964,6 +13224,7 @@ type CreateDBInstanceInput struct {
 	//    * 5.7.16 (supported in all AWS regions)
 >>>>>>> Initial dep workover
 	//
+<<<<<<< HEAD
 	//    * 5.7.17 (supported in all AWS regions)
 	//
 <<<<<<< HEAD
@@ -12993,6 +13254,25 @@ type CreateDBInstanceInput struct {
 	//
 	// 5.5.53(supported in all AWS Regions)
 	//
+=======
+	//    * 5.6.37 (supported in all AWS Regions)
+	//
+	//    * 5.6.35 (supported in all AWS Regions)
+	//
+	//    * 5.6.34 (supported in all AWS Regions)
+	//
+	//    * 5.6.29 (supported in all AWS Regions)
+	//
+	//    * 5.6.27 (supported in all AWS Regions except us-east-2, ca-central-1,
+	//    eu-west-2)
+	//
+	// 5.5.57(supported in all AWS Regions)
+	//
+	// 5.5.54(supported in all AWS Regions)
+	//
+	// 5.5.53(supported in all AWS Regions)
+	//
+>>>>>>> Working on getting compiling
 	// 5.5.46(supported in all AWS Regions)
 	//
 	// Oracle 12c
@@ -13087,12 +13367,17 @@ type CreateDBInstanceInput struct {
 	LicenseModel *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The password for the master user. The password can include any printable
 	// ASCII character except "/", """, or "@".
 =======
 	// The password for the master user. Can be any printable ASCII character except
 	// "/", """, or "@".
 >>>>>>> Initial dep workover
+=======
+	// The password for the master user. The password can include any printable
+	// ASCII character except "/", """, or "@".
+>>>>>>> Working on getting compiling
 	//
 	// Amazon Aurora
 	//
@@ -13218,6 +13503,7 @@ type CreateDBInstanceInput struct {
 	OptionGroupName *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The AWS KMS key identifier for encryption of Performance Insights data. The
 	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
 	// KMS key alias for the KMS encryption key.
@@ -13226,6 +13512,11 @@ type CreateDBInstanceInput struct {
 	// key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS
 	// key alias for the KMS encryption key.
 >>>>>>> Initial dep workover
+=======
+	// The AWS KMS key identifier for encryption of Performance Insights data. The
+	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
+	// KMS key alias for the KMS encryption key.
+>>>>>>> Working on getting compiling
 	PerformanceInsightsKMSKeyId *string `type:"string"`
 
 	// The port number on which the database accepts connections.
@@ -13279,11 +13570,14 @@ type CreateDBInstanceInput struct {
 	// The daily time range during which automated backups are created if automated
 	// backups are enabled, using the BackupRetentionPeriod parameter. For more
 	// information, see The Backup Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow).
+<<<<<<< HEAD
 	//
 	// Amazon Aurora
 	//
 	// Not applicable. The daily time range for creating automated backups is managed
 	// by the DB cluster. For more information, see CreateDBCluster.
+=======
+>>>>>>> Working on getting compiling
 	//
 <<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
@@ -13295,10 +13589,16 @@ type CreateDBInstanceInput struct {
 	// Not applicable. The daily time range for creating automated backups is managed
 	// by the DB cluster. For more information, see CreateDBCluster.
 	//
+<<<<<<< HEAD
 	// Default: A 30-minute window selected at random from an 8-hour block of time
 	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
 	// DB Instance Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow).
 >>>>>>> Initial dep workover
+=======
+	// The default is a 30-minute window selected at random from an 8-hour block
+	// of time for each AWS Region. To see the time blocks available, see  Adjusting
+	// the Preferred DB Instance Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow).
+>>>>>>> Working on getting compiling
 	//
 	// Constraints:
 	//
@@ -13318,6 +13618,7 @@ type CreateDBInstanceInput struct {
 	// Format: ddd:hh24:mi-ddd:hh24:mi
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region, occurring on a random day of the week.
 =======
@@ -13326,6 +13627,10 @@ type CreateDBInstanceInput struct {
 	// available, see  Adjusting the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
 	// in the Amazon RDS User Guide.
 >>>>>>> Initial dep workover
+=======
+	// The default is a 30-minute window selected at random from an 8-hour block
+	// of time for each AWS Region, occurring on a random day of the week.
+>>>>>>> Working on getting compiling
 	//
 	// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
 	//
@@ -13728,6 +14033,7 @@ type CreateDBInstanceReadReplicaInput struct {
 
 	// The compute and memory capacity of the Read Replica, for example, db.m4.large.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Not all DB instance classes are available in all AWS Regions, or for all
 	// database engines. For the full list of DB instance classes, and availability
 	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
@@ -13736,6 +14042,11 @@ type CreateDBInstanceReadReplicaInput struct {
 	// engines. For the full list of DB instance classes, and availability for your
 	// engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
 >>>>>>> Initial dep workover
+=======
+	// Not all DB instance classes are available in all AWS Regions, or for all
+	// database engines. For the full list of DB instance classes, and availability
+	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Default: Inherits from the source DB instance.
@@ -13801,10 +14112,14 @@ type CreateDBInstanceReadReplicaInput struct {
 	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// True to enable Performance Insights for the read replica, and otherwise false.
 =======
 	// True to enable Performance Insights for the read replica; otherwise false.
 >>>>>>> Initial dep workover
+=======
+	// True to enable Performance Insights for the read replica, and otherwise false.
+>>>>>>> Working on getting compiling
 	EnablePerformanceInsights *bool `type:"boolean"`
 
 	// The amount of Provisioned IOPS (input/output operations per second) to be
@@ -13825,10 +14140,14 @@ type CreateDBInstanceReadReplicaInput struct {
 	// If you create an encrypted Read Replica in a different AWS Region, then you
 	// must specify a KMS key for the destination AWS Region. KMS encryption keys
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// are specific to the AWS Region that they are created in, and you can't use
 =======
 	// are specific to the AWS Region that they are created in, and you cannot use
 >>>>>>> Initial dep workover
+=======
+	// are specific to the AWS Region that they are created in, and you can't use
+>>>>>>> Working on getting compiling
 	// encryption keys from one AWS Region in another AWS Region.
 	KmsKeyId *string `type:"string"`
 
@@ -13856,6 +14175,7 @@ type CreateDBInstanceReadReplicaInput struct {
 	OptionGroupName *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The AWS KMS key identifier for encryption of Performance Insights data. The
 	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
 	// KMS key alias for the KMS encryption key.
@@ -13864,6 +14184,11 @@ type CreateDBInstanceReadReplicaInput struct {
 	// key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS
 	// key alias for the KMS encryption key.
 >>>>>>> Initial dep workover
+=======
+	// The AWS KMS key identifier for encryption of Performance Insights data. The
+	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
+	// KMS key alias for the KMS encryption key.
+>>>>>>> Working on getting compiling
 	PerformanceInsightsKMSKeyId *string `type:"string"`
 
 	// The port number that the DB instance uses for connections.
@@ -13879,10 +14204,14 @@ type CreateDBInstanceReadReplicaInput struct {
 	// You must specify this parameter when you create an encrypted Read Replica
 	// from another AWS Region by using the Amazon RDS API. You can specify the
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// --source-region option instead of this parameter when you create an encrypted
 =======
 	// source region option instead of this parameter when you create an encrypted
 >>>>>>> Initial dep workover
+=======
+	// --source-region option instead of this parameter when you create an encrypted
+>>>>>>> Working on getting compiling
 	// Read Replica from another AWS Region by using the AWS CLI.
 	//
 	// The presigned URL must be a valid request for the CreateDBInstanceReadReplica
@@ -13895,12 +14224,16 @@ type CreateDBInstanceReadReplicaInput struct {
 	//    action is called that contains this presigned URL.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// For example, if you create an encrypted DB instance in the us-west-1 AWS
 	//    Region, from a source DB instance in the us-east-2 AWS Region, then you
 	//    call the CreateDBInstanceReadReplica action in the us-east-1 AWS Region
 	//    and provide a presigned URL that contains a call to the CreateDBInstanceReadReplica
 	//    action in the us-west-2 AWS Region. For this example, the DestinationRegion
 	//    in the presigned URL must be set to the us-east-1 AWS Region.
+<<<<<<< HEAD
 	//
 	//    * KmsKeyId - The AWS KMS key identifier for the key to use to encrypt
 	//    the Read Replica in the destination AWS Region. This is the same identifier
@@ -13914,9 +14247,11 @@ type CreateDBInstanceReadReplicaInput struct {
 	//    a call to the CreateDBInstanceReadReplica action in the us-west-2 region.
 	//    For this example, the DestinationRegion in the presigned URL must be set
 	//    to the us-east-1 region.
+=======
+>>>>>>> Working on getting compiling
 	//
-	//    * KmsKeyId - The KMS key identifier for the key to use to encrypt the
-	//    Read Replica in the destination AWS Region. This is the same identifier
+	//    * KmsKeyId - The AWS KMS key identifier for the key to use to encrypt
+	//    the Read Replica in the destination AWS Region. This is the same identifier
 	//    for both the CreateDBInstanceReadReplica action that is called in the
 	//    destination AWS Region, and the action contained in the presigned URL.
 	//
@@ -13926,10 +14261,14 @@ type CreateDBInstanceReadReplicaInput struct {
 	//    DB instance to be replicated. This identifier must be in the Amazon Resource
 	//    Name (ARN) format for the source AWS Region. For example, if you are creating
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    an encrypted Read Replica from a DB instance in the us-west-2 AWS Region,
 =======
 	//    an encrypted Read Replica from a DB instance in the us-west-2 region,
 >>>>>>> Initial dep workover
+=======
+	//    an encrypted Read Replica from a DB instance in the us-west-2 AWS Region,
+>>>>>>> Working on getting compiling
 	//    then your SourceDBInstanceIdentifier looks like the following example:
 	//    arn:aws:rds:us-west-2:123456789012:instance:mysql-instance1-20161115.
 	//
@@ -13970,12 +14309,17 @@ type CreateDBInstanceReadReplicaInput struct {
 	//
 	//    * Can specify a DB instance that is a PostgreSQL DB instance only if the
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    source is running PostgreSQL 9.3.5 or later (9.4.7 and higher for cross-region
 	//    replication).
 =======
 	//    source is running PostgreSQL 9.3.5 or later (9.4.7 and higher for cross
 	//    region replication).
 >>>>>>> Initial dep workover
+=======
+	//    source is running PostgreSQL 9.3.5 or later (9.4.7 and higher for cross-region
+	//    replication).
+>>>>>>> Working on getting compiling
 	//
 	//    * The specified DB instance must have automatic backups enabled, its backup
 	//    retention period must be greater than 0.
@@ -16046,6 +16390,7 @@ type DBInstance struct {
 	PendingModifiedValues *PendingModifiedValues `type:"structure"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// True if Performance Insights is enabled for the DB instance, and otherwise
 	// false.
 	PerformanceInsightsEnabled *bool `type:"boolean"`
@@ -16061,6 +16406,15 @@ type DBInstance struct {
 	// key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS
 	// key alias for the KMS encryption key.
 >>>>>>> Initial dep workover
+=======
+	// True if Performance Insights is enabled for the DB instance, and otherwise
+	// false.
+	PerformanceInsightsEnabled *bool `type:"boolean"`
+
+	// The AWS KMS key identifier for encryption of Performance Insights data. The
+	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
+	// KMS key alias for the KMS encryption key.
+>>>>>>> Working on getting compiling
 	PerformanceInsightsKMSKeyId *string `type:"string"`
 
 	// Specifies the daily time range during which automated backups are created
@@ -16509,7 +16863,11 @@ func (s *DBInstanceStatusInfo) SetStatusType(v string) *DBInstanceStatusInfo {
 //
 // This data type is used as a response element in the DescribeDBParameterGroups
 // action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBParameterGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBParameterGroup
+>>>>>>> Working on getting compiling
 type DBParameterGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -22628,6 +22986,7 @@ type ModifyDBClusterInput struct {
 	// backups are enabled, using the BackupRetentionPeriod parameter.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
@@ -22636,6 +22995,11 @@ type ModifyDBClusterInput struct {
 	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
 	// Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
 >>>>>>> Initial dep workover
+=======
+	// The default is a 30-minute window selected at random from an 8-hour block
+	// of time for each AWS Region. To see the time blocks available, see  Adjusting
+	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Constraints:
@@ -22655,15 +23019,21 @@ type ModifyDBClusterInput struct {
 	// Format: ddd:hh24:mi-ddd:hh24:mi
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region, occurring on a random day of the week. To see
 	// the time blocks available, see  Adjusting the Preferred Maintenance Window
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+<<<<<<< HEAD
 =======
 	// Default: A 30-minute window selected at random from an 8-hour block of time
 	// per AWS Region, occurring on a random day of the week. To see the time blocks
 	// available, see  Adjusting the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -23111,6 +23481,7 @@ type ModifyDBInstanceInput struct {
 
 	// The new compute and memory capacity of the DB instance, for example, db.m4.large.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Not all DB instance classes are available in all AWS Regions, or for all
 	// database engines. For the full list of DB instance classes, and availability
 	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
@@ -23119,6 +23490,11 @@ type ModifyDBInstanceInput struct {
 	// engines. For the full list of DB instance classes, and availability for your
 	// engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
 >>>>>>> Initial dep workover
+=======
+	// Not all DB instance classes are available in all AWS Regions, or for all
+	// database engines. For the full list of DB instance classes, and availability
+	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// If you modify the DB instance class, an outage occurs during the change.
@@ -23250,10 +23626,14 @@ type ModifyDBInstanceInput struct {
 	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// True to enable Performance Insights for the DB instance, and otherwise false.
 =======
 	// True to enable Performance Insights for the DB instance; otherwise false.
 >>>>>>> Initial dep workover
+=======
+	// True to enable Performance Insights for the DB instance, and otherwise false.
+>>>>>>> Working on getting compiling
 	EnablePerformanceInsights *bool `type:"boolean"`
 
 	// The version number of the database engine to upgrade to. Changing this parameter
@@ -23308,12 +23688,17 @@ type ModifyDBInstanceInput struct {
 	LicenseModel *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The new password for the master user. The password can include any printable
 	// ASCII character except "/", """, or "@".
 =======
 	// The new password for the master user. Can be any printable ASCII character
 	// except "/", """, or "@".
 >>>>>>> Initial dep workover
+=======
+	// The new password for the master user. The password can include any printable
+	// ASCII character except "/", """, or "@".
+>>>>>>> Working on getting compiling
 	//
 	// Changing this parameter does not result in an outage and the change is asynchronously
 	// applied as soon as possible. Between the time of the request and the completion
@@ -23409,6 +23794,7 @@ type ModifyDBInstanceInput struct {
 	OptionGroupName *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The AWS KMS key identifier for encryption of Performance Insights data. The
 	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
 	// KMS key alias for the KMS encryption key.
@@ -23417,6 +23803,11 @@ type ModifyDBInstanceInput struct {
 	// key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS
 	// key alias for the KMS encryption key.
 >>>>>>> Initial dep workover
+=======
+	// The AWS KMS key identifier for encryption of Performance Insights data. The
+	// KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the
+	// KMS key alias for the KMS encryption key.
+>>>>>>> Working on getting compiling
 	PerformanceInsightsKMSKeyId *string `type:"string"`
 
 	// The daily time range during which automated backups are created if automated
@@ -25696,6 +26087,7 @@ type PromoteReadReplicaInput struct {
 	// backups are enabled, using the BackupRetentionPeriod parameter.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
@@ -25704,6 +26096,11 @@ type PromoteReadReplicaInput struct {
 	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
 	// Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
 >>>>>>> Initial dep workover
+=======
+	// The default is a 30-minute window selected at random from an 8-hour block
+	// of time for each AWS Region. To see the time blocks available, see  Adjusting
+	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Constraints:
@@ -26840,6 +27237,7 @@ type RestoreDBClusterFromS3Input struct {
 	// backups are enabled using the BackupRetentionPeriod parameter.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region. To see the time blocks available, see  Adjusting
 	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
@@ -26848,6 +27246,11 @@ type RestoreDBClusterFromS3Input struct {
 	// per AWS Region. To see the time blocks available, see  Adjusting the Preferred
 	// Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
 >>>>>>> Initial dep workover
+=======
+	// The default is a 30-minute window selected at random from an 8-hour block
+	// of time for each AWS Region. To see the time blocks available, see  Adjusting
+	// the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Constraints:
@@ -26867,15 +27270,21 @@ type RestoreDBClusterFromS3Input struct {
 	// Format: ddd:hh24:mi-ddd:hh24:mi
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// The default is a 30-minute window selected at random from an 8-hour block
 	// of time for each AWS Region, occurring on a random day of the week. To see
 	// the time blocks available, see  Adjusting the Preferred Maintenance Window
 	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+<<<<<<< HEAD
 =======
 	// Default: A 30-minute window selected at random from an 8-hour block of time
 	// per AWS Region, occurring on a random day of the week. To see the time blocks
 	// available, see  Adjusting the Preferred Maintenance Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -27202,12 +27611,17 @@ type RestoreDBClusterFromSnapshotInput struct {
 	EngineVersion *string `type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The AWS KMS key identifier to use when restoring an encrypted DB cluster
 	// from a DB snapshot or DB cluster snapshot.
 =======
 	// The KMS key identifier to use when restoring an encrypted DB cluster from
 	// a DB snapshot or DB cluster snapshot.
 >>>>>>> Initial dep workover
+=======
+	// The AWS KMS key identifier to use when restoring an encrypted DB cluster
+	// from a DB snapshot or DB cluster snapshot.
+>>>>>>> Working on getting compiling
 	//
 	// The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption
 	// key. If you are restoring a DB cluster with the same AWS account that owns
@@ -27644,10 +28058,14 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	AutoMinorVersionUpgrade *bool `type:"boolean"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The EC2 Availability Zone that the DB instance is created in.
 =======
 	// The EC2 Availability Zone that the database instance is created in.
 >>>>>>> Initial dep workover
+=======
+	// The EC2 Availability Zone that the DB instance is created in.
+>>>>>>> Working on getting compiling
 	//
 	// Default: A random, system-chosen Availability Zone.
 	//
@@ -27663,6 +28081,7 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 
 	// The compute and memory capacity of the Amazon RDS DB instance, for example,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// db.m4.large. Not all DB instance classes are available in all AWS Regions,
 	// or for all database engines. For the full list of DB instance classes, and
 	// availability for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
@@ -27671,6 +28090,11 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	// for all database engines. For the full list of DB instance classes, and availability
 	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
 >>>>>>> Initial dep workover
+=======
+	// db.m4.large. Not all DB instance classes are available in all AWS Regions,
+	// or for all database engines. For the full list of DB instance classes, and
+	// availability for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Working on getting compiling
 	// in the Amazon RDS User Guide.
 	//
 	// Default: The same DBInstanceClass as the original DB instance.
@@ -27749,10 +28173,15 @@ type RestoreDBInstanceFromDBSnapshotInput struct {
 	//    * aurora
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    * aurora-postgresql
 	//
 =======
 >>>>>>> Initial dep workover
+=======
+	//    * aurora-postgresql
+	//
+>>>>>>> Working on getting compiling
 	//    * mariadb
 	//
 	//    * mysql
@@ -28018,6 +28447,8 @@ type RestoreDBInstanceFromDBSnapshotOutput struct {
 	_ struct{} `type:"structure"`
 
 	// Contains the details of an Amazon RDS DB instance.
+<<<<<<< HEAD
+=======
 	//
 	// This data type is used as a response element in the DescribeDBInstances action.
 	DBInstance *DBInstance `type:"structure"`
@@ -28039,7 +28470,7 @@ func (s *RestoreDBInstanceFromDBSnapshotOutput) SetDBInstance(v *DBInstance) *Re
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromS3Message
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromS3Message
 type RestoreDBInstanceFromS3Input struct {
 	_ struct{} `type:"structure"`
 
@@ -28212,6 +28643,641 @@ type RestoreDBInstanceFromS3Input struct {
 	// The name of the option group to associate with this DB instance. If this
 	// argument is omitted, the default option group for the specified engine is
 	// used.
+	OptionGroupName *string `type:"string"`
+
+	// The AWS KMS key identifier for encryption of Performance Insights data. The
+	// KMS key ID is the Amazon Resource Name (ARN), the KMS key identifier, or
+	// the KMS key alias for the KMS encryption key.
+	PerformanceInsightsKMSKeyId *string `type:"string"`
+
+	// The port number on which the database accepts connections.
+	//
+	// Type: Integer
+	//
+	// Valid Values: 1150-65535
+	//
+	// Default: 3306
+	Port *int64 `type:"integer"`
+
+	// The time range each day during which automated backups are created if automated
+	// backups are enabled. For more information, see The Backup Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow).
+	//
+	// Constraints:
+	//
+	//    * Must be in the format hh24:mi-hh24:mi.
+	//
+	//    * Must be in Universal Coordinated Time (UTC).
+	//
+	//    * Must not conflict with the preferred maintenance window.
+	//
+	//    * Must be at least 30 minutes.
+	PreferredBackupWindow *string `type:"string"`
+
+	// The time range each week during which system maintenance can occur, in Universal
+	// Coordinated Time (UTC). For more information, see Amazon RDS Maintenance
+	// Window (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#Concepts.DBMaintenance).
+	//
+	// Constraints:
+	//
+	//    * Must be in the format ddd:hh24:mi-ddd:hh24:mi.
+	//
+	//    * Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+	//
+	//    * Must be in Universal Coordinated Time (UTC).
+	//
+	//    * Must not conflict with the preferred backup window.
+	//
+	//    * Must be at least 30 minutes.
+	PreferredMaintenanceWindow *string `type:"string"`
+
+	// Specifies whether the DB instance is publicly accessible or not. For more
+	// information, see CreateDBInstance.
+	PubliclyAccessible *bool `type:"boolean"`
+
+	// The name of your Amazon S3 bucket that contains your database backup file.
+	//
+	// S3BucketName is a required field
+	S3BucketName *string `type:"string" required:"true"`
+
+	// An AWS Identity and Access Management (IAM) role to allow Amazon RDS to access
+	// your Amazon S3 bucket.
+	//
+	// S3IngestionRoleArn is a required field
+	S3IngestionRoleArn *string `type:"string" required:"true"`
+
+	// The prefix of your Amazon S3 bucket.
+	S3Prefix *string `type:"string"`
+
+	// The name of the engine of your source database.
+	//
+	// Valid Values: mysql
+	//
+	// SourceEngine is a required field
+	SourceEngine *string `type:"string" required:"true"`
+
+	// The engine version of your source database.
+	//
+	// Valid Values: 5.6
+	//
+	// SourceEngineVersion is a required field
+	SourceEngineVersion *string `type:"string" required:"true"`
+
+	// Specifies whether the new DB instance is encrypted or not.
+	StorageEncrypted *bool `type:"boolean"`
+
+	// Specifies the storage type to be associated with the DB instance.
+	//
+	// Valid values: standard | gp2 | io1
+	//
+	// If you specify io1, you must also include a value for the Iops parameter.
+	//
+	// Default: io1 if the Iops parameter is specified; otherwise standard
+	StorageType *string `type:"string"`
+
+	// A list of tags to associate with this DB instance. For more information,
+	// see Tagging Amazon RDS Resources (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html).
+	Tags []*Tag `locationNameList:"Tag" type:"list"`
+
+	// A list of VPC security groups to associate with this DB instance.
+	VpcSecurityGroupIds []*string `locationNameList:"VpcSecurityGroupId" type:"list"`
+}
+
+// String returns the string representation
+func (s RestoreDBInstanceFromS3Input) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s RestoreDBInstanceFromS3Input) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *RestoreDBInstanceFromS3Input) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "RestoreDBInstanceFromS3Input"}
+	if s.DBInstanceClass == nil {
+		invalidParams.Add(request.NewErrParamRequired("DBInstanceClass"))
+	}
+	if s.DBInstanceIdentifier == nil {
+		invalidParams.Add(request.NewErrParamRequired("DBInstanceIdentifier"))
+	}
+	if s.Engine == nil {
+		invalidParams.Add(request.NewErrParamRequired("Engine"))
+	}
+	if s.S3BucketName == nil {
+		invalidParams.Add(request.NewErrParamRequired("S3BucketName"))
+	}
+	if s.S3IngestionRoleArn == nil {
+		invalidParams.Add(request.NewErrParamRequired("S3IngestionRoleArn"))
+	}
+	if s.SourceEngine == nil {
+		invalidParams.Add(request.NewErrParamRequired("SourceEngine"))
+	}
+	if s.SourceEngineVersion == nil {
+		invalidParams.Add(request.NewErrParamRequired("SourceEngineVersion"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAllocatedStorage sets the AllocatedStorage field's value.
+func (s *RestoreDBInstanceFromS3Input) SetAllocatedStorage(v int64) *RestoreDBInstanceFromS3Input {
+	s.AllocatedStorage = &v
+	return s
+}
+
+// SetAutoMinorVersionUpgrade sets the AutoMinorVersionUpgrade field's value.
+func (s *RestoreDBInstanceFromS3Input) SetAutoMinorVersionUpgrade(v bool) *RestoreDBInstanceFromS3Input {
+	s.AutoMinorVersionUpgrade = &v
+	return s
+}
+
+// SetAvailabilityZone sets the AvailabilityZone field's value.
+func (s *RestoreDBInstanceFromS3Input) SetAvailabilityZone(v string) *RestoreDBInstanceFromS3Input {
+	s.AvailabilityZone = &v
+	return s
+}
+
+// SetBackupRetentionPeriod sets the BackupRetentionPeriod field's value.
+func (s *RestoreDBInstanceFromS3Input) SetBackupRetentionPeriod(v int64) *RestoreDBInstanceFromS3Input {
+	s.BackupRetentionPeriod = &v
+	return s
+}
+
+// SetCopyTagsToSnapshot sets the CopyTagsToSnapshot field's value.
+func (s *RestoreDBInstanceFromS3Input) SetCopyTagsToSnapshot(v bool) *RestoreDBInstanceFromS3Input {
+	s.CopyTagsToSnapshot = &v
+	return s
+}
+
+// SetDBInstanceClass sets the DBInstanceClass field's value.
+func (s *RestoreDBInstanceFromS3Input) SetDBInstanceClass(v string) *RestoreDBInstanceFromS3Input {
+	s.DBInstanceClass = &v
+	return s
+}
+
+// SetDBInstanceIdentifier sets the DBInstanceIdentifier field's value.
+func (s *RestoreDBInstanceFromS3Input) SetDBInstanceIdentifier(v string) *RestoreDBInstanceFromS3Input {
+	s.DBInstanceIdentifier = &v
+	return s
+}
+
+// SetDBName sets the DBName field's value.
+func (s *RestoreDBInstanceFromS3Input) SetDBName(v string) *RestoreDBInstanceFromS3Input {
+	s.DBName = &v
+	return s
+}
+
+// SetDBParameterGroupName sets the DBParameterGroupName field's value.
+func (s *RestoreDBInstanceFromS3Input) SetDBParameterGroupName(v string) *RestoreDBInstanceFromS3Input {
+	s.DBParameterGroupName = &v
+	return s
+}
+
+// SetDBSecurityGroups sets the DBSecurityGroups field's value.
+func (s *RestoreDBInstanceFromS3Input) SetDBSecurityGroups(v []*string) *RestoreDBInstanceFromS3Input {
+	s.DBSecurityGroups = v
+	return s
+}
+
+// SetDBSubnetGroupName sets the DBSubnetGroupName field's value.
+func (s *RestoreDBInstanceFromS3Input) SetDBSubnetGroupName(v string) *RestoreDBInstanceFromS3Input {
+	s.DBSubnetGroupName = &v
+	return s
+}
+
+// SetEnableIAMDatabaseAuthentication sets the EnableIAMDatabaseAuthentication field's value.
+func (s *RestoreDBInstanceFromS3Input) SetEnableIAMDatabaseAuthentication(v bool) *RestoreDBInstanceFromS3Input {
+	s.EnableIAMDatabaseAuthentication = &v
+	return s
+}
+
+// SetEnablePerformanceInsights sets the EnablePerformanceInsights field's value.
+func (s *RestoreDBInstanceFromS3Input) SetEnablePerformanceInsights(v bool) *RestoreDBInstanceFromS3Input {
+	s.EnablePerformanceInsights = &v
+	return s
+}
+
+// SetEngine sets the Engine field's value.
+func (s *RestoreDBInstanceFromS3Input) SetEngine(v string) *RestoreDBInstanceFromS3Input {
+	s.Engine = &v
+	return s
+}
+
+// SetEngineVersion sets the EngineVersion field's value.
+func (s *RestoreDBInstanceFromS3Input) SetEngineVersion(v string) *RestoreDBInstanceFromS3Input {
+	s.EngineVersion = &v
+	return s
+}
+
+// SetIops sets the Iops field's value.
+func (s *RestoreDBInstanceFromS3Input) SetIops(v int64) *RestoreDBInstanceFromS3Input {
+	s.Iops = &v
+	return s
+}
+
+// SetKmsKeyId sets the KmsKeyId field's value.
+func (s *RestoreDBInstanceFromS3Input) SetKmsKeyId(v string) *RestoreDBInstanceFromS3Input {
+	s.KmsKeyId = &v
+	return s
+}
+
+// SetLicenseModel sets the LicenseModel field's value.
+func (s *RestoreDBInstanceFromS3Input) SetLicenseModel(v string) *RestoreDBInstanceFromS3Input {
+	s.LicenseModel = &v
+	return s
+}
+
+// SetMasterUserPassword sets the MasterUserPassword field's value.
+func (s *RestoreDBInstanceFromS3Input) SetMasterUserPassword(v string) *RestoreDBInstanceFromS3Input {
+	s.MasterUserPassword = &v
+	return s
+}
+
+// SetMasterUsername sets the MasterUsername field's value.
+func (s *RestoreDBInstanceFromS3Input) SetMasterUsername(v string) *RestoreDBInstanceFromS3Input {
+	s.MasterUsername = &v
+	return s
+}
+
+// SetMonitoringInterval sets the MonitoringInterval field's value.
+func (s *RestoreDBInstanceFromS3Input) SetMonitoringInterval(v int64) *RestoreDBInstanceFromS3Input {
+	s.MonitoringInterval = &v
+	return s
+}
+
+// SetMonitoringRoleArn sets the MonitoringRoleArn field's value.
+func (s *RestoreDBInstanceFromS3Input) SetMonitoringRoleArn(v string) *RestoreDBInstanceFromS3Input {
+	s.MonitoringRoleArn = &v
+	return s
+}
+
+// SetMultiAZ sets the MultiAZ field's value.
+func (s *RestoreDBInstanceFromS3Input) SetMultiAZ(v bool) *RestoreDBInstanceFromS3Input {
+	s.MultiAZ = &v
+	return s
+}
+
+// SetOptionGroupName sets the OptionGroupName field's value.
+func (s *RestoreDBInstanceFromS3Input) SetOptionGroupName(v string) *RestoreDBInstanceFromS3Input {
+	s.OptionGroupName = &v
+	return s
+}
+
+// SetPerformanceInsightsKMSKeyId sets the PerformanceInsightsKMSKeyId field's value.
+func (s *RestoreDBInstanceFromS3Input) SetPerformanceInsightsKMSKeyId(v string) *RestoreDBInstanceFromS3Input {
+	s.PerformanceInsightsKMSKeyId = &v
+	return s
+}
+
+// SetPort sets the Port field's value.
+func (s *RestoreDBInstanceFromS3Input) SetPort(v int64) *RestoreDBInstanceFromS3Input {
+	s.Port = &v
+	return s
+}
+
+// SetPreferredBackupWindow sets the PreferredBackupWindow field's value.
+func (s *RestoreDBInstanceFromS3Input) SetPreferredBackupWindow(v string) *RestoreDBInstanceFromS3Input {
+	s.PreferredBackupWindow = &v
+	return s
+}
+
+// SetPreferredMaintenanceWindow sets the PreferredMaintenanceWindow field's value.
+func (s *RestoreDBInstanceFromS3Input) SetPreferredMaintenanceWindow(v string) *RestoreDBInstanceFromS3Input {
+	s.PreferredMaintenanceWindow = &v
+	return s
+}
+
+// SetPubliclyAccessible sets the PubliclyAccessible field's value.
+func (s *RestoreDBInstanceFromS3Input) SetPubliclyAccessible(v bool) *RestoreDBInstanceFromS3Input {
+	s.PubliclyAccessible = &v
+	return s
+}
+
+// SetS3BucketName sets the S3BucketName field's value.
+func (s *RestoreDBInstanceFromS3Input) SetS3BucketName(v string) *RestoreDBInstanceFromS3Input {
+	s.S3BucketName = &v
+	return s
+}
+
+// SetS3IngestionRoleArn sets the S3IngestionRoleArn field's value.
+func (s *RestoreDBInstanceFromS3Input) SetS3IngestionRoleArn(v string) *RestoreDBInstanceFromS3Input {
+	s.S3IngestionRoleArn = &v
+	return s
+}
+
+// SetS3Prefix sets the S3Prefix field's value.
+func (s *RestoreDBInstanceFromS3Input) SetS3Prefix(v string) *RestoreDBInstanceFromS3Input {
+	s.S3Prefix = &v
+	return s
+}
+
+// SetSourceEngine sets the SourceEngine field's value.
+func (s *RestoreDBInstanceFromS3Input) SetSourceEngine(v string) *RestoreDBInstanceFromS3Input {
+	s.SourceEngine = &v
+	return s
+}
+
+// SetSourceEngineVersion sets the SourceEngineVersion field's value.
+func (s *RestoreDBInstanceFromS3Input) SetSourceEngineVersion(v string) *RestoreDBInstanceFromS3Input {
+	s.SourceEngineVersion = &v
+	return s
+}
+
+// SetStorageEncrypted sets the StorageEncrypted field's value.
+func (s *RestoreDBInstanceFromS3Input) SetStorageEncrypted(v bool) *RestoreDBInstanceFromS3Input {
+	s.StorageEncrypted = &v
+	return s
+}
+
+// SetStorageType sets the StorageType field's value.
+func (s *RestoreDBInstanceFromS3Input) SetStorageType(v string) *RestoreDBInstanceFromS3Input {
+	s.StorageType = &v
+	return s
+}
+
+// SetTags sets the Tags field's value.
+func (s *RestoreDBInstanceFromS3Input) SetTags(v []*Tag) *RestoreDBInstanceFromS3Input {
+	s.Tags = v
+	return s
+}
+
+// SetVpcSecurityGroupIds sets the VpcSecurityGroupIds field's value.
+func (s *RestoreDBInstanceFromS3Input) SetVpcSecurityGroupIds(v []*string) *RestoreDBInstanceFromS3Input {
+	s.VpcSecurityGroupIds = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromS3Result
+type RestoreDBInstanceFromS3Output struct {
+	_ struct{} `type:"structure"`
+
+	// Contains the details of an Amazon RDS DB instance.
+>>>>>>> Working on getting compiling
+	//
+	// This data type is used as a response element in the DescribeDBInstances action.
+	DBInstance *DBInstance `type:"structure"`
+}
+
+// String returns the string representation
+func (s RestoreDBInstanceFromS3Output) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s RestoreDBInstanceFromS3Output) GoString() string {
+	return s.String()
+}
+
+// SetDBInstance sets the DBInstance field's value.
+func (s *RestoreDBInstanceFromS3Output) SetDBInstance(v *DBInstance) *RestoreDBInstanceFromS3Output {
+	s.DBInstance = v
+	return s
+}
+
+// See also, https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceFromS3Message
+type RestoreDBInstanceFromS3Input struct {
+	_ struct{} `type:"structure"`
+
+	// The amount of storage (in gigabytes) to allocate initially for the DB instance.
+	// Follow the allocation rules specified in CreateDBInstance.
+	//
+	// Be sure to allocate enough memory for your new DB instance so that the restore
+	// operation can succeed. You can also allocate additional memory for future
+	// growth.
+	AllocatedStorage *int64 `type:"integer"`
+
+	// True to indicate that minor engine upgrades are applied automatically to
+	// the DB instance during the maintenance window, and otherwise false.
+	//
+	// Default: true
+	AutoMinorVersionUpgrade *bool `type:"boolean"`
+
+<<<<<<< HEAD
+	// The Availability Zone that the DB instance is created in. For information
+	// about AWS Regions and Availability Zones, see Regions and Availability Zones
+	// (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+=======
+	// The EC2 Availability Zone that the DB instance is created in.
+>>>>>>> Working on getting compiling
+	//
+	// Default: A random, system-chosen Availability Zone in the endpoint's AWS
+	// Region.
+	//
+<<<<<<< HEAD
+	// Example: us-east-1d
+=======
+	// Constraint: You can't specify the AvailabilityZone parameter if the MultiAZ
+	// parameter is set to true.
+>>>>>>> Working on getting compiling
+	//
+	// Constraint: The AvailabilityZone parameter can't be specified if the MultiAZ
+	// parameter is set to true. The specified Availability Zone must be in the
+	// same AWS Region as the current endpoint.
+	AvailabilityZone *string `type:"string"`
+
+<<<<<<< HEAD
+	// The number of days for which automated backups are retained. Setting this
+	// parameter to a positive number enables backups. For more information, see
+	// CreateDBInstance.
+	BackupRetentionPeriod *int64 `type:"integer"`
+
+	// True to copy all tags from the DB instance to snapshots of the DB instance,
+	// and otherwise false.
+	//
+	// Default: false.
+	CopyTagsToSnapshot *bool `type:"boolean"`
+
+	// The compute and memory capacity of the DB instance, for example, db.m4.large.
+	// Not all DB instance classes are available in all AWS Regions, or for all
+	// database engines. For the full list of DB instance classes, and availability
+	// for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+=======
+	// True to copy all tags from the restored DB instance to snapshots of the DB
+	// instance, and otherwise false. The default is false.
+	CopyTagsToSnapshot *bool `type:"boolean"`
+
+	// The compute and memory capacity of the Amazon RDS DB instance, for example,
+	// db.m4.large. Not all DB instance classes are available in all AWS Regions,
+	// or for all database engines. For the full list of DB instance classes, and
+	// availability for your engine, see DB Instance Class (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+>>>>>>> Working on getting compiling
+	// in the Amazon RDS User Guide.
+	//
+	// Importing from Amazon S3 is not supported on the db.t2.micro DB instance
+	// class.
+	//
+	// DBInstanceClass is a required field
+	DBInstanceClass *string `type:"string" required:"true"`
+
+	// The DB instance identifier. This parameter is stored as a lowercase string.
+	//
+	// Constraints:
+	//
+<<<<<<< HEAD
+	//    * Must contain from 1 to 63 letters, numbers, or hyphens.
+=======
+	// Example: mySubnetgroup
+	DBSubnetGroupName *string `type:"string"`
+
+	// Specify the Active Directory Domain to restore the instance in.
+	Domain *string `type:"string"`
+
+	// Specify the name of the IAM role to be used when making API calls to the
+	// Directory Service.
+	DomainIAMRoleName *string `type:"string"`
+
+	// True to enable mapping of AWS Identity and Access Management (IAM) accounts
+	// to database accounts, and otherwise false.
+>>>>>>> Working on getting compiling
+	//
+	//    * First character must be a letter.
+	//
+	//    * Cannot end with a hyphen or contain two consecutive hyphens.
+	//
+	// Example: mydbinstance
+	//
+	// DBInstanceIdentifier is a required field
+	DBInstanceIdentifier *string `type:"string" required:"true"`
+
+	// The name of the database to create when the DB instance is created. Follow
+	// the naming rules specified in CreateDBInstance.
+	DBName *string `type:"string"`
+
+	// The name of the DB parameter group to associate with this DB instance. If
+	// this argument is omitted, the default parameter group for the specified engine
+	// is used.
+	DBParameterGroupName *string `type:"string"`
+
+	// A list of DB security groups to associate with this DB instance.
+	//
+	// Default: The default DB security group for the database engine.
+	DBSecurityGroups []*string `locationNameList:"DBSecurityGroupName" type:"list"`
+
+	// A DB subnet group to associate with this DB instance.
+	DBSubnetGroupName *string `type:"string"`
+
+	// True to enable mapping of AWS Identity and Access Management (IAM) accounts
+	// to database accounts, and otherwise false.
+	//
+	// Default: false
+	EnableIAMDatabaseAuthentication *bool `type:"boolean"`
+
+<<<<<<< HEAD
+	// True to enable Performance Insights for the DB instance, and otherwise false.
+	EnablePerformanceInsights *bool `type:"boolean"`
+
+	// The name of the database engine to be used for this instance.
+=======
+	// The database engine to use for the new instance.
+	//
+	// Default: The same as source
+	//
+	// Constraint: Must be compatible with the engine of the source
+	//
+	// Valid Values:
+	//
+	//    * aurora
+	//
+	//    * aurora-postgresql
+	//
+	//    * mariadb
+	//
+	//    * mysql
+>>>>>>> Working on getting compiling
+	//
+	// Valid Values: mysql
+	//
+	// Engine is a required field
+	Engine *string `type:"string" required:"true"`
+
+	// The version number of the database engine to use. Choose the latest minor
+	// version of your database engine as specified in CreateDBInstance.
+	EngineVersion *string `type:"string"`
+
+	// The amount of Provisioned IOPS (input/output operations per second) to allocate
+	// initially for the DB instance. For information about valid Iops values, see
+	// see Amazon RDS Provisioned IOPS Storage to Improve Performance (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS).
+	Iops *int64 `type:"integer"`
+
+	// The AWS KMS key identifier for an encrypted DB instance.
+	//
+	// The KMS key identifier is the Amazon Resource Name (ARN) for the KMS encryption
+	// key. If you are creating a DB instance with the same AWS account that owns
+	// the KMS encryption key used to encrypt the new DB instance, then you can
+	// use the KMS key alias instead of the ARN for the KM encryption key.
+	//
+	// If the StorageEncrypted parameter is true, and you do not specify a value
+	// for the KmsKeyId parameter, then Amazon RDS will use your default encryption
+	// key. AWS KMS creates the default encryption key for your AWS account. Your
+	// AWS account has a different default encryption key for each AWS Region.
+	KmsKeyId *string `type:"string"`
+
+	// The license model for this DB instance. Use general-public-license.
+	LicenseModel *string `type:"string"`
+
+	// The password for the master user. The password can include any printable
+	// ASCII character except "/", """, or "@".
+	//
+	// Constraints: Must contain from 8 to 41 characters.
+	MasterUserPassword *string `type:"string"`
+
+	// The name for the master user.
+	//
+	// Constraints:
+	//
+	//    * Must be 1 to 16 letters or numbers.
+	//
+	//    * First character must be a letter.
+	//
+	//    * Cannot be a reserved word for the chosen database engine.
+	MasterUsername *string `type:"string"`
+
+	// The interval, in seconds, between points when Enhanced Monitoring metrics
+	// are collected for the DB instance. To disable collecting Enhanced Monitoring
+	// metrics, specify 0.
+	//
+	// If MonitoringRoleArn is specified, then you must also set MonitoringInterval
+	// to a value other than 0.
+	//
+	// Valid Values: 0, 1, 5, 10, 15, 30, 60
+	//
+	// Default: 0
+	MonitoringInterval *int64 `type:"integer"`
+
+	// The ARN for the IAM role that permits RDS to send enhanced monitoring metrics
+	// to Amazon CloudWatch Logs. For example, arn:aws:iam:123456789012:role/emaccess.
+	// For information on creating a monitoring role, see Setting Up and Enabling
+	// Enhanced Monitoring (http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html#USER_Monitoring.OS.Enabling).
+	//
+	// If MonitoringInterval is set to a value other than 0, then you must supply
+	// a MonitoringRoleArn value.
+	MonitoringRoleArn *string `type:"string"`
+
+<<<<<<< HEAD
+	// Specifies whether the DB instance is a Multi-AZ deployment. If MultiAZ is
+	// set to true, you can't set the AvailabilityZone parameter.
+	MultiAZ *bool `type:"boolean"`
+
+	// The name of the option group to associate with this DB instance. If this
+	// argument is omitted, the default option group for the specified engine is
+	// used.
+=======
+	// Specifies if the DB instance is a Multi-AZ deployment.
+	//
+	// Constraint: You can't specify the AvailabilityZone parameter if the MultiAZ
+	// parameter is set to true.
+	MultiAZ *bool `type:"boolean"`
+
+	// The name of the option group to be used for the restored DB instance.
+	//
+	// Permanent options, such as the TDE option for Oracle Advanced Security TDE,
+	// can't be removed from an option group, and that option group can't be removed
+	// from a DB instance once it is associated with a DB instance
+>>>>>>> Working on getting compiling
 	OptionGroupName *string `type:"string"`
 
 	// The AWS KMS key identifier for encryption of Performance Insights data. The

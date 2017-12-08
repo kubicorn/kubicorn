@@ -24,8 +24,6 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/aws/aws-sdk-go/service/ec2"
-	"time"
 )
 
 var _ cloud.Resource = &Asg{}

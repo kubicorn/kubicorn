@@ -26,7 +26,6 @@ import (
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
-	"k8s.io/client-go/tools/clientcmd"
 	clusterapiclient "k8s.io/kube-deploy/cluster-api/client"
 )
 
@@ -66,34 +65,6 @@ func NewNodeWatcher(kubeconfig string) (*NodeWatcher, error) {
 	}, nil
 }
 
-func nodeClient(kubeconfig string) (*kubernetes.Clientset, error) {
-	config, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
-	if err != nil {
-		return nil, err
-	}
-
-	clientset, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		return nil, err
-	}
-
-	return clientset, nil
-}
-
-func machineClient(kubeconfig string) (clusterapiclient.MachinesInterface, error) {
-	cfg, err := clientcmd.BuildConfigFromFlags("", kubeconfig)
-	if err != nil {
-		return nil, err
-	}
-
-	client, err := clusterapiclient.NewForConfig(cfg)
-	if err != nil {
-		return nil, err
-	}
-
-	return client.Machines(), nil
-}
-
 func (c *NodeWatcher) Run() error {
 	glog.Infof("Running node watcher...")
 
@@ -126,7 +97,7 @@ func (c *NodeWatcher) onAdd(obj interface{}) {
 
 func (c *NodeWatcher) onUpdate(oldObj, newObj interface{}) {
 	newNode := newObj.(*corev1.Node)
-	glog.Infof("node updated: %s\n", newNode.ObjectMeta.Name)
+	glog.V(2).Infof("node updated: %s\n", newNode.ObjectMeta.Name)
 	c.link(newNode)
 }
 
@@ -145,6 +116,7 @@ func (c *NodeWatcher) link(node *corev1.Node) {
 		machine, err := c.machineClient.Get(val, metav1.GetOptions{})
 		if err != nil {
 			glog.Errorf("Error getting machine %v: %v\n", val, err)
+			return
 		}
 
 		machine.Status.NodeRef = objectRef(node)
@@ -152,7 +124,8 @@ func (c *NodeWatcher) link(node *corev1.Node) {
 		if _, err := c.machineClient.Update(machine); err != nil {
 			glog.Errorf("Error updating machine to link to node: %v\n", err)
 		} else {
-			glog.Infof("Successfully linked machine to node\n")
+			glog.Infof("Successfully linked machine %s to node %s\n",
+				machine.ObjectMeta.Name, node.ObjectMeta.Name)
 			c.linkedNodes[node.ObjectMeta.Name] = true
 		}
 	}
@@ -163,6 +136,7 @@ func (c *NodeWatcher) unlink(node *corev1.Node) {
 		machine, err := c.machineClient.Get(val, metav1.GetOptions{})
 		if err != nil {
 			glog.Errorf("Error getting machine %v: %v\n", val, err)
+			return
 		}
 
 		// This machine has no link to remove

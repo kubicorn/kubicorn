@@ -15,6 +15,7 @@
 package ini_test
 
 import (
+	"bytes"
 	"fmt"
 	"strings"
 	"testing"
@@ -507,11 +508,14 @@ s3                    =
   max_queue_size=1000
 
 `)
+<<<<<<< HEAD
 =======
 
 		k.SetValue("ini.v1")
 		So(k.Value(), ShouldEqual, "ini.v1")
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	})
 }
 

@@ -7019,7 +7019,11 @@ func (s *CORSRule) SetMaxAgeSeconds(v int64) *CORSRule {
 }
 
 // Describes how a CSV-formatted input object is formatted.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CSVInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CSVInput
+>>>>>>> Working on getting compiling
 type CSVInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7091,7 +7095,11 @@ func (s *CSVInput) SetRecordDelimiter(v string) *CSVInput {
 }
 
 // Describes how CSV-formatted results are formatted.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CSVOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CSVOutput
+>>>>>>> Working on getting compiling
 type CSVOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7152,7 +7160,11 @@ func (s *CSVOutput) SetRecordDelimiter(v string) *CSVOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CloudFunctionConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CloudFunctionConfiguration
+>>>>>>> Working on getting compiling
 type CloudFunctionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -10006,9 +10018,15 @@ func (s *Destination) SetStorageClass(v string) *Destination {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Describes the server-side encryption that will be applied to the restore
 // results.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Encryption
+=======
+// Describes the server-side encryption that will be applied to the restore
+// results.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Encryption
+>>>>>>> Working on getting compiling
 type Encryption struct {
 	_ struct{} `type:"structure"`
 
@@ -10068,9 +10086,12 @@ func (s *Encryption) SetKMSKeyId(v string) *Encryption {
 	return s
 }
 
+<<<<<<< HEAD
 // Container for information regarding encryption based configuration for replicas.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/EncryptionConfiguration
 =======
+=======
+>>>>>>> Working on getting compiling
 // Container for information regarding encryption based configuration for replicas.
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/EncryptionConfiguration
 >>>>>>> Initial dep workover
@@ -13112,7 +13133,11 @@ func (s *Initiator) SetID(v string) *Initiator {
 }
 
 // Describes the serialization format of the object.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InputSerialization
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InputSerialization
+>>>>>>> Working on getting compiling
 type InputSerialization struct {
 	_ struct{} `type:"structure"`
 
@@ -13136,7 +13161,11 @@ func (s *InputSerialization) SetCSV(v *CSVInput) *InputSerialization {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryConfiguration
+>>>>>>> Working on getting compiling
 type InventoryConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -15562,7 +15591,11 @@ func (s *ListPartsOutput) SetUploadId(v string) *ListPartsOutput {
 }
 
 // Describes an S3 location that will receive the results of the restore request.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/S3Location
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/S3Location
+>>>>>>> Working on getting compiling
 type Location struct {
 	_ struct{} `type:"structure"`
 
@@ -15690,7 +15723,11 @@ func (s *Location) SetUserMetadata(v []*MetadataEntry) *Location {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/LoggingEnabled
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/LoggingEnabled
+>>>>>>> Working on getting compiling
 type LoggingEnabled struct {
 	_ struct{} `type:"structure"`
 
@@ -15758,7 +15795,11 @@ func (s *LoggingEnabled) SetTargetPrefix(v string) *LoggingEnabled {
 }
 
 // A metadata key-value pair to store with an object.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/MetadataEntry
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/MetadataEntry
+>>>>>>> Working on getting compiling
 type MetadataEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -15789,7 +15830,11 @@ func (s *MetadataEntry) SetValue(v string) *MetadataEntry {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/MetricsAndOperator
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/MetricsAndOperator
+>>>>>>> Working on getting compiling
 type MetricsAndOperator struct {
 	_ struct{} `type:"structure"`
 
@@ -16450,7 +16495,11 @@ func (s *ObjectVersion) SetVersionId(v string) *ObjectVersion {
 }
 
 // Describes the location where the restore job's output is stored.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/OutputLocation
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/OutputLocation
+>>>>>>> Working on getting compiling
 type OutputLocation struct {
 	_ struct{} `type:"structure"`
 
@@ -16490,7 +16539,11 @@ func (s *OutputLocation) SetS3(v *Location) *OutputLocation {
 }
 
 // Describes how results of the Select job are serialized.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/OutputSerialization
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/OutputSerialization
+>>>>>>> Working on getting compiling
 type OutputSerialization struct {
 	_ struct{} `type:"structure"`
 
@@ -16514,7 +16567,11 @@ func (s *OutputSerialization) SetCSV(v *CSVOutput) *OutputSerialization {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Owner
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Owner
+>>>>>>> Working on getting compiling
 type Owner struct {
 	_ struct{} `type:"structure"`
 
@@ -19350,17 +19407,28 @@ func (s *RestoreObjectOutput) SetRestoreOutputPath(v string) *RestoreObjectOutpu
 }
 
 // Container for restore job parameters.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/RestoreRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/RestoreRequest
+>>>>>>> Working on getting compiling
 type RestoreRequest struct {
 	_ struct{} `type:"structure"`
 
 	// Lifetime of the active copy in days. Do not use with restores that specify
 	// OutputLocation.
 	Days *int64 `type:"integer"`
+<<<<<<< HEAD
 
 	// The optional description for the job.
 	Description *string `type:"string"`
 
+=======
+
+	// The optional description for the job.
+	Description *string `type:"string"`
+
+>>>>>>> Working on getting compiling
 	// Glacier related parameters pertaining to this job. Do not use with restores
 	// that specify OutputLocation.
 	GlacierJobParameters *GlacierJobParameters `type:"structure"`
@@ -19455,7 +19523,11 @@ func (s *RestoreRequest) SetType(v string) *RestoreRequest {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/RoutingRule
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/RoutingRule
+>>>>>>> Working on getting compiling
 type RoutingRule struct {
 	_ struct{} `type:"structure"`
 
@@ -19689,8 +19761,13 @@ func (s SSES3) GoString() string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Describes the parameters for Select job types.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SelectParameters
+=======
+// Describes the parameters for Select job types.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SelectParameters
+>>>>>>> Working on getting compiling
 type SelectParameters struct {
 	_ struct{} `type:"structure"`
 
@@ -19771,11 +19848,14 @@ func (s *SelectParameters) SetOutputSerialization(v *OutputSerialization) *Selec
 	return s
 }
 
+<<<<<<< HEAD
 // Describes the default server-side encryption to apply to new objects in the
 // bucket. If Put Object request does not specify any server-side encryption,
 // this default encryption will be applied.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ServerSideEncryptionByDefault
 =======
+=======
+>>>>>>> Working on getting compiling
 // Describes the default server-side encryption to apply to new objects in the
 // bucket. If Put Object request does not specify any server-side encryption,
 // this default encryption will be applied.

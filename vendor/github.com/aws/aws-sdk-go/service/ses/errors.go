@@ -47,6 +47,9 @@ const (
 	ErrCodeConfigurationSetSendingPausedException = "ConfigurationSetSendingPausedException"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// ErrCodeCustomVerificationEmailInvalidContentException for service response error code
 	// "CustomVerificationEmailInvalidContent".
 	//
@@ -67,8 +70,11 @@ const (
 	// does not exist.
 	ErrCodeCustomVerificationEmailTemplateDoesNotExistException = "CustomVerificationEmailTemplateDoesNotExist"
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// ErrCodeEventDestinationAlreadyExistsException for service response error code
 	// "EventDestinationAlreadyExists".
 	//
@@ -208,14 +214,20 @@ const (
 	ErrCodeMissingRenderingAttributeException = "MissingRenderingAttribute"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// ErrCodeProductionAccessNotGrantedException for service response error code
 	// "ProductionAccessNotGranted".
 	//
 	// Indicates that the account has not been granted production access.
 	ErrCodeProductionAccessNotGrantedException = "ProductionAccessNotGranted"
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// ErrCodeRuleDoesNotExistException for service response error code
 	// "RuleDoesNotExist".
 	//

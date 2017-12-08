@@ -8,6 +8,7 @@ Also a lovely [comune](http://en.wikipedia.org/wiki/Mergo) (municipality) in the
 
 ## Status
 
+<<<<<<< HEAD
 It is ready for production use. It works fine after extensive use in the wild.
 
 [![Build Status][1]][2]
@@ -33,6 +34,10 @@ If you were using Mergo **before** April 6th 2015, please check your project wor
 - [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes)
 - [imdario/zas](https://github.com/imdario/zas)
 - [soniah/dnsmadeeasy](https://github.com/soniah/dnsmadeeasy)
+=======
+It is ready for production use. It works fine although it may use more of testing. Here some projects in the wild using Mergo:
+
+>>>>>>> Working on getting compiling
 - [EagerIO/Stout](https://github.com/EagerIO/Stout)
 - [lynndylanhurley/defsynth-api](https://github.com/lynndylanhurley/defsynth-api)
 - [russross/canvasassignments](https://github.com/russross/canvasassignments)
@@ -40,6 +45,7 @@ If you were using Mergo **before** April 6th 2015, please check your project wor
 - [casualjim/exeggutor](https://github.com/casualjim/exeggutor)
 - [divshot/gitling](https://github.com/divshot/gitling)
 - [RWJMurphy/gorl](https://github.com/RWJMurphy/gorl)
+<<<<<<< HEAD
 - [andrerocker/deploy42](https://github.com/andrerocker/deploy42)
 - [elwinar/rambler](https://github.com/elwinar/rambler)
 - [tmaiaroto/gopartman](https://github.com/tmaiaroto/gopartman)
@@ -51,6 +57,14 @@ If you were using Mergo **before** April 6th 2015, please check your project wor
 - [mantasmatelis/whooplist-server](https://github.com/mantasmatelis/whooplist-server)
 - [jnuthong/item_search](https://github.com/jnuthong/item_search)
 - [Iris Web Framework](https://github.com/kataras/iris)
+=======
+
+[![Build Status][1]][2]
+[![GoDoc](https://godoc.org/github.com/imdario/mergo?status.svg)](https://godoc.org/github.com/imdario/mergo)
+
+[1]: https://travis-ci.org/imdario/mergo.png
+[2]: https://travis-ci.org/imdario/mergo
+>>>>>>> Working on getting compiling
 
 ## Installation
 
@@ -65,6 +79,7 @@ If you were using Mergo **before** April 6th 2015, please check your project wor
 
 You can only merge same-type structs with exported fields initialized as zero value of their type and same-types maps. Mergo won't merge unexported (private) fields but will do recursively any exported one. Also maps will be merged recursively except for structs inside maps (because they are not addressable using Go reflection).
 
+<<<<<<< HEAD
 ```go
 if err := mergo.Merge(&dst, src); err != nil {
     // ...
@@ -171,6 +186,25 @@ func main() {
 }
 ```
 
+=======
+    if err := mergo.Merge(&dst, src); err != nil {
+        // ...
+    }
+
+Additionally, you can map a map[string]interface{} to a struct (and otherwise, from struct to map), following the same restrictions as in Merge(). Keys are capitalized to find each corresponding exported field.
+
+    if err := mergo.Map(&dst, srcMap); err != nil {
+        // ...
+    }
+
+Warning: if you map a struct to map, it won't do it recursively. Don't expect Mergo to map struct members of your struct as map[string]interface{}. They will be just assigned as values.
+
+More information and examples in [godoc documentation](http://godoc.org/github.com/imdario/mergo).
+
+Note: if test are failing due missing package, please execute:
+
+    go get gopkg.in/yaml.v1
+>>>>>>> Working on getting compiling
 
 ## Contact me
 

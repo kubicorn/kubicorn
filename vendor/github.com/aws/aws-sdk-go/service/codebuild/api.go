@@ -645,6 +645,9 @@ func (c *CodeBuild) DeleteWebhookWithContext(ctx aws.Context, input *DeleteWebho
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 const opInvalidateProjectCache = "InvalidateProjectCache"
 
 // InvalidateProjectCacheRequest generates a "aws/request.Request" representing the
@@ -670,7 +673,11 @@ const opInvalidateProjectCache = "InvalidateProjectCache"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/InvalidateProjectCache
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/InvalidateProjectCache
+>>>>>>> Working on getting compiling
 func (c *CodeBuild) InvalidateProjectCacheRequest(input *InvalidateProjectCacheInput) (req *request.Request, output *InvalidateProjectCacheOutput) {
 	op := &request.Operation{
 		Name:       opInvalidateProjectCache,
@@ -705,7 +712,11 @@ func (c *CodeBuild) InvalidateProjectCacheRequest(input *InvalidateProjectCacheI
 //   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
 //   The specified AWS resource cannot be found.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/InvalidateProjectCache
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/InvalidateProjectCache
+>>>>>>> Working on getting compiling
 func (c *CodeBuild) InvalidateProjectCache(input *InvalidateProjectCacheInput) (*InvalidateProjectCacheOutput, error) {
 	req, out := c.InvalidateProjectCacheRequest(input)
 	return out, req.Send()
@@ -727,8 +738,11 @@ func (c *CodeBuild) InvalidateProjectCacheWithContext(ctx aws.Context, input *In
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 const opListBuilds = "ListBuilds"
 
 // ListBuildsRequest generates a "aws/request.Request" representing the
@@ -2205,7 +2219,11 @@ func (s *CreateProjectInput) SetVpcConfig(v *VpcConfig) *CreateProjectInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateProjectOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateProjectOutput
+>>>>>>> Working on getting compiling
 type CreateProjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2725,7 +2743,11 @@ func (s *EnvironmentVariable) SetValue(v string) *EnvironmentVariable {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/InvalidateProjectCacheInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/InvalidateProjectCacheInput
+>>>>>>> Working on getting compiling
 type InvalidateProjectCacheInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2767,7 +2789,11 @@ func (s *InvalidateProjectCacheInput) SetProjectName(v string) *InvalidateProjec
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/InvalidateProjectCacheOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/InvalidateProjectCacheOutput
+>>>>>>> Working on getting compiling
 type InvalidateProjectCacheOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2782,7 +2808,11 @@ func (s InvalidateProjectCacheOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/ListBuildsForProjectInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/ListBuildsForProjectInput
+>>>>>>> Working on getting compiling
 type ListBuildsForProjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3164,7 +3194,11 @@ func (s *LogsLocation) SetStreamName(v string) *LogsLocation {
 }
 
 // Describes a network interface.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/NetworkInterface
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/NetworkInterface
+>>>>>>> Working on getting compiling
 type NetworkInterface struct {
 	_ struct{} `type:"structure"`
 
@@ -3293,14 +3327,20 @@ type Project struct {
 	TimeoutInMinutes *int64 `locationName:"timeoutInMinutes" min:"5" type:"integer"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide
 	// this parameter that identifies the VPC ID and the list of security group
 	// IDs and subnet IDs. The security groups and subnets must belong to the same
 	// VPC. You must provide at least one security group and one subnet ID.
 	VpcConfig *VpcConfig `locationName:"vpcConfig" type:"structure"`
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// Information about a webhook in GitHub that connects repository events to
 	// a build project in AWS CodeBuild.
 	Webhook *Webhook `locationName:"webhook" type:"structure"`
@@ -3401,14 +3441,20 @@ func (s *Project) SetTimeoutInMinutes(v int64) *Project {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // SetVpcConfig sets the VpcConfig field's value.
 func (s *Project) SetVpcConfig(v *VpcConfig) *Project {
 	s.VpcConfig = v
 	return s
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // SetWebhook sets the Webhook field's value.
 func (s *Project) SetWebhook(v *Webhook) *Project {
 	s.Webhook = v
@@ -3581,7 +3627,11 @@ func (s *ProjectArtifacts) SetType(v string) *ProjectArtifacts {
 }
 
 // Information about the build badge for the build project.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/ProjectBadge
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/ProjectBadge
+>>>>>>> Working on getting compiling
 type ProjectBadge struct {
 	_ struct{} `type:"structure"`
 
@@ -3617,7 +3667,11 @@ func (s *ProjectBadge) SetBadgeRequestUrl(v string) *ProjectBadge {
 }
 
 // Information about the cache for the build project.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/ProjectCache
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/ProjectCache
+>>>>>>> Working on getting compiling
 type ProjectCache struct {
 	_ struct{} `type:"structure"`
 
@@ -4454,7 +4508,11 @@ func (s *UpdateProjectInput) SetVpcConfig(v *VpcConfig) *UpdateProjectInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/UpdateProjectOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/UpdateProjectOutput
+>>>>>>> Working on getting compiling
 type UpdateProjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4479,11 +4537,18 @@ func (s *UpdateProjectOutput) SetProject(v *Project) *UpdateProjectOutput {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // If your AWS CodeBuild project accesses resources in an Amazon VPC, you provide
 // this parameter that identifies the VPC ID and the list of security group
 // IDs and subnet IDs. The security groups and subnets must belong to the same
 // VPC. You must provide at least one security group and one subnet ID.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/VpcConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/VpcConfig
+>>>>>>> Working on getting compiling
 type VpcConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -4538,10 +4603,13 @@ func (s *VpcConfig) SetVpcId(v string) *VpcConfig {
 	return s
 }
 
+<<<<<<< HEAD
 // Information about a webhook in GitHub that connects repository events to
 // a build project in AWS CodeBuild.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/Webhook
 =======
+=======
+>>>>>>> Working on getting compiling
 // Information about a webhook in GitHub that connects repository events to
 // a build project in AWS CodeBuild.
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/Webhook

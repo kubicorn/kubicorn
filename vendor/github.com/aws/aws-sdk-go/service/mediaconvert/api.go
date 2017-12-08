@@ -35,7 +35,11 @@ const opCancelJob = "CancelJob"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CancelJob
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CancelJob
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CancelJobRequest(input *CancelJobInput) (req *request.Request, output *CancelJobOutput) {
 	op := &request.Operation{
 		Name:       opCancelJob,
@@ -77,7 +81,11 @@ func (c *MediaConvert) CancelJobRequest(input *CancelJobInput) (req *request.Req
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CancelJob
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CancelJob
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CancelJob(input *CancelJobInput) (*CancelJobOutput, error) {
 	req, out := c.CancelJobRequest(input)
 	return out, req.Send()
@@ -124,7 +132,11 @@ const opCreateJob = "CreateJob"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJob
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJob
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CreateJobRequest(input *CreateJobInput) (req *request.Request, output *CreateJobOutput) {
 	op := &request.Operation{
 		Name:       opCreateJob,
@@ -166,7 +178,11 @@ func (c *MediaConvert) CreateJobRequest(input *CreateJobInput) (req *request.Req
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJob
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJob
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CreateJob(input *CreateJobInput) (*CreateJobOutput, error) {
 	req, out := c.CreateJobRequest(input)
 	return out, req.Send()
@@ -213,7 +229,11 @@ const opCreateJobTemplate = "CreateJobTemplate"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobTemplate
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CreateJobTemplateRequest(input *CreateJobTemplateInput) (req *request.Request, output *CreateJobTemplateOutput) {
 	op := &request.Operation{
 		Name:       opCreateJobTemplate,
@@ -255,7 +275,11 @@ func (c *MediaConvert) CreateJobTemplateRequest(input *CreateJobTemplateInput) (
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobTemplate
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CreateJobTemplate(input *CreateJobTemplateInput) (*CreateJobTemplateOutput, error) {
 	req, out := c.CreateJobTemplateRequest(input)
 	return out, req.Send()
@@ -302,7 +326,11 @@ const opCreatePreset = "CreatePreset"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreatePreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreatePreset
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CreatePresetRequest(input *CreatePresetInput) (req *request.Request, output *CreatePresetOutput) {
 	op := &request.Operation{
 		Name:       opCreatePreset,
@@ -344,7 +372,11 @@ func (c *MediaConvert) CreatePresetRequest(input *CreatePresetInput) (req *reque
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreatePreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreatePreset
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CreatePreset(input *CreatePresetInput) (*CreatePresetOutput, error) {
 	req, out := c.CreatePresetRequest(input)
 	return out, req.Send()
@@ -391,7 +423,11 @@ const opCreateQueue = "CreateQueue"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateQueue
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CreateQueueRequest(input *CreateQueueInput) (req *request.Request, output *CreateQueueOutput) {
 	op := &request.Operation{
 		Name:       opCreateQueue,
@@ -433,7 +469,11 @@ func (c *MediaConvert) CreateQueueRequest(input *CreateQueueInput) (req *request
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateQueue
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) CreateQueue(input *CreateQueueInput) (*CreateQueueOutput, error) {
 	req, out := c.CreateQueueRequest(input)
 	return out, req.Send()
@@ -480,7 +520,11 @@ const opDeleteJobTemplate = "DeleteJobTemplate"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteJobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteJobTemplate
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) DeleteJobTemplateRequest(input *DeleteJobTemplateInput) (req *request.Request, output *DeleteJobTemplateOutput) {
 	op := &request.Operation{
 		Name:       opDeleteJobTemplate,
@@ -521,7 +565,11 @@ func (c *MediaConvert) DeleteJobTemplateRequest(input *DeleteJobTemplateInput) (
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteJobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteJobTemplate
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) DeleteJobTemplate(input *DeleteJobTemplateInput) (*DeleteJobTemplateOutput, error) {
 	req, out := c.DeleteJobTemplateRequest(input)
 	return out, req.Send()
@@ -568,7 +616,11 @@ const opDeletePreset = "DeletePreset"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePreset
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) DeletePresetRequest(input *DeletePresetInput) (req *request.Request, output *DeletePresetOutput) {
 	op := &request.Operation{
 		Name:       opDeletePreset,
@@ -609,7 +661,11 @@ func (c *MediaConvert) DeletePresetRequest(input *DeletePresetInput) (req *reque
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePreset
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) DeletePreset(input *DeletePresetInput) (*DeletePresetOutput, error) {
 	req, out := c.DeletePresetRequest(input)
 	return out, req.Send()
@@ -656,7 +712,11 @@ const opDeleteQueue = "DeleteQueue"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteQueue
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) DeleteQueueRequest(input *DeleteQueueInput) (req *request.Request, output *DeleteQueueOutput) {
 	op := &request.Operation{
 		Name:       opDeleteQueue,
@@ -697,7 +757,11 @@ func (c *MediaConvert) DeleteQueueRequest(input *DeleteQueueInput) (req *request
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteQueue
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) DeleteQueue(input *DeleteQueueInput) (*DeleteQueueOutput, error) {
 	req, out := c.DeleteQueueRequest(input)
 	return out, req.Send()
@@ -744,7 +808,11 @@ const opDescribeEndpoints = "DescribeEndpoints"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpoints
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpoints
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) DescribeEndpointsRequest(input *DescribeEndpointsInput) (req *request.Request, output *DescribeEndpointsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeEndpoints,
@@ -786,7 +854,11 @@ func (c *MediaConvert) DescribeEndpointsRequest(input *DescribeEndpointsInput) (
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpoints
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpoints
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) DescribeEndpoints(input *DescribeEndpointsInput) (*DescribeEndpointsOutput, error) {
 	req, out := c.DescribeEndpointsRequest(input)
 	return out, req.Send()
@@ -833,7 +905,11 @@ const opGetJob = "GetJob"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJob
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJob
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) GetJobRequest(input *GetJobInput) (req *request.Request, output *GetJobOutput) {
 	op := &request.Operation{
 		Name:       opGetJob,
@@ -874,7 +950,11 @@ func (c *MediaConvert) GetJobRequest(input *GetJobInput) (req *request.Request, 
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJob
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJob
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) GetJob(input *GetJobInput) (*GetJobOutput, error) {
 	req, out := c.GetJobRequest(input)
 	return out, req.Send()
@@ -921,7 +1001,11 @@ const opGetJobTemplate = "GetJobTemplate"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobTemplate
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) GetJobTemplateRequest(input *GetJobTemplateInput) (req *request.Request, output *GetJobTemplateOutput) {
 	op := &request.Operation{
 		Name:       opGetJobTemplate,
@@ -962,7 +1046,11 @@ func (c *MediaConvert) GetJobTemplateRequest(input *GetJobTemplateInput) (req *r
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobTemplate
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) GetJobTemplate(input *GetJobTemplateInput) (*GetJobTemplateOutput, error) {
 	req, out := c.GetJobTemplateRequest(input)
 	return out, req.Send()
@@ -1009,7 +1097,11 @@ const opGetPreset = "GetPreset"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPreset
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) GetPresetRequest(input *GetPresetInput) (req *request.Request, output *GetPresetOutput) {
 	op := &request.Operation{
 		Name:       opGetPreset,
@@ -1050,7 +1142,11 @@ func (c *MediaConvert) GetPresetRequest(input *GetPresetInput) (req *request.Req
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPreset
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) GetPreset(input *GetPresetInput) (*GetPresetOutput, error) {
 	req, out := c.GetPresetRequest(input)
 	return out, req.Send()
@@ -1097,7 +1193,11 @@ const opGetQueue = "GetQueue"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetQueue
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) GetQueueRequest(input *GetQueueInput) (req *request.Request, output *GetQueueOutput) {
 	op := &request.Operation{
 		Name:       opGetQueue,
@@ -1138,7 +1238,11 @@ func (c *MediaConvert) GetQueueRequest(input *GetQueueInput) (req *request.Reque
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetQueue
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) GetQueue(input *GetQueueInput) (*GetQueueOutput, error) {
 	req, out := c.GetQueueRequest(input)
 	return out, req.Send()
@@ -1185,7 +1289,11 @@ const opListJobTemplates = "ListJobTemplates"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobTemplates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobTemplates
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) ListJobTemplatesRequest(input *ListJobTemplatesInput) (req *request.Request, output *ListJobTemplatesOutput) {
 	op := &request.Operation{
 		Name:       opListJobTemplates,
@@ -1228,7 +1336,11 @@ func (c *MediaConvert) ListJobTemplatesRequest(input *ListJobTemplatesInput) (re
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobTemplates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobTemplates
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) ListJobTemplates(input *ListJobTemplatesInput) (*ListJobTemplatesOutput, error) {
 	req, out := c.ListJobTemplatesRequest(input)
 	return out, req.Send()
@@ -1275,7 +1387,11 @@ const opListJobs = "ListJobs"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobs
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobs
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) ListJobsRequest(input *ListJobsInput) (req *request.Request, output *ListJobsOutput) {
 	op := &request.Operation{
 		Name:       opListJobs,
@@ -1319,7 +1435,11 @@ func (c *MediaConvert) ListJobsRequest(input *ListJobsInput) (req *request.Reque
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobs
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobs
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) ListJobs(input *ListJobsInput) (*ListJobsOutput, error) {
 	req, out := c.ListJobsRequest(input)
 	return out, req.Send()
@@ -1366,7 +1486,11 @@ const opListPresets = "ListPresets"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListPresets
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListPresets
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) ListPresetsRequest(input *ListPresetsInput) (req *request.Request, output *ListPresetsOutput) {
 	op := &request.Operation{
 		Name:       opListPresets,
@@ -1409,7 +1533,11 @@ func (c *MediaConvert) ListPresetsRequest(input *ListPresetsInput) (req *request
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListPresets
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListPresets
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) ListPresets(input *ListPresetsInput) (*ListPresetsOutput, error) {
 	req, out := c.ListPresetsRequest(input)
 	return out, req.Send()
@@ -1456,7 +1584,11 @@ const opListQueues = "ListQueues"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListQueues
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListQueues
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) ListQueuesRequest(input *ListQueuesInput) (req *request.Request, output *ListQueuesOutput) {
 	op := &request.Operation{
 		Name:       opListQueues,
@@ -1499,7 +1631,11 @@ func (c *MediaConvert) ListQueuesRequest(input *ListQueuesInput) (req *request.R
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListQueues
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListQueues
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) ListQueues(input *ListQueuesInput) (*ListQueuesOutput, error) {
 	req, out := c.ListQueuesRequest(input)
 	return out, req.Send()
@@ -1546,7 +1682,11 @@ const opUpdateJobTemplate = "UpdateJobTemplate"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateJobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateJobTemplate
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) UpdateJobTemplateRequest(input *UpdateJobTemplateInput) (req *request.Request, output *UpdateJobTemplateOutput) {
 	op := &request.Operation{
 		Name:       opUpdateJobTemplate,
@@ -1587,7 +1727,11 @@ func (c *MediaConvert) UpdateJobTemplateRequest(input *UpdateJobTemplateInput) (
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateJobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateJobTemplate
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) UpdateJobTemplate(input *UpdateJobTemplateInput) (*UpdateJobTemplateOutput, error) {
 	req, out := c.UpdateJobTemplateRequest(input)
 	return out, req.Send()
@@ -1634,7 +1778,11 @@ const opUpdatePreset = "UpdatePreset"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdatePreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdatePreset
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) UpdatePresetRequest(input *UpdatePresetInput) (req *request.Request, output *UpdatePresetOutput) {
 	op := &request.Operation{
 		Name:       opUpdatePreset,
@@ -1675,7 +1823,11 @@ func (c *MediaConvert) UpdatePresetRequest(input *UpdatePresetInput) (req *reque
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdatePreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdatePreset
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) UpdatePreset(input *UpdatePresetInput) (*UpdatePresetOutput, error) {
 	req, out := c.UpdatePresetRequest(input)
 	return out, req.Send()
@@ -1722,7 +1874,11 @@ const opUpdateQueue = "UpdateQueue"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateQueue
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) UpdateQueueRequest(input *UpdateQueueInput) (req *request.Request, output *UpdateQueueOutput) {
 	op := &request.Operation{
 		Name:       opUpdateQueue,
@@ -1763,7 +1919,11 @@ func (c *MediaConvert) UpdateQueueRequest(input *UpdateQueueInput) (req *request
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateQueue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateQueue
+>>>>>>> Working on getting compiling
 func (c *MediaConvert) UpdateQueue(input *UpdateQueueInput) (*UpdateQueueOutput, error) {
 	req, out := c.UpdateQueueRequest(input)
 	return out, req.Send()
@@ -1787,7 +1947,11 @@ func (c *MediaConvert) UpdateQueueWithContext(ctx aws.Context, input *UpdateQueu
 
 // Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
 // the value AAC.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AacSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AacSettings
+>>>>>>> Working on getting compiling
 type AacSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -1900,7 +2064,11 @@ func (s *AacSettings) SetVbrQuality(v string) *AacSettings {
 
 // Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
 // the value AC3.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Ac3Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Ac3Settings
+>>>>>>> Working on getting compiling
 type Ac3Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -1995,7 +2163,11 @@ func (s *Ac3Settings) SetSampleRate(v int64) *Ac3Settings {
 
 // Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
 // the value AIFF.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AiffSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AiffSettings
+>>>>>>> Working on getting compiling
 type AiffSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2041,7 +2213,11 @@ func (s *AiffSettings) SetSampleRate(v int64) *AiffSettings {
 }
 
 // Settings for ancillary captions source.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AncillarySourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AncillarySourceSettings
+>>>>>>> Working on getting compiling
 type AncillarySourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2072,7 +2248,11 @@ func (s *AncillarySourceSettings) SetSourceAncillaryChannelNumber(v int64) *Anci
 // enum you choose, define the corresponding settings object. The following
 // lists the codec enum, settings object pairs. * AAC, AacSettings * MP2, Mp2Settings
 // * WAV, WavSettings * AIFF, AiffSettings * AC3, Ac3Settings * EAC3, Eac3Settings
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioCodecSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioCodecSettings
+>>>>>>> Working on getting compiling
 type AudioCodecSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2157,7 +2337,11 @@ func (s *AudioCodecSettings) SetWavSettings(v *WavSettings) *AudioCodecSettings 
 }
 
 // Description of audio output
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioDescription
+>>>>>>> Working on getting compiling
 type AudioDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -2283,7 +2467,11 @@ func (s *AudioDescription) SetStreamName(v string) *AudioDescription {
 }
 
 // Advanced audio normalization settings.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioNormalizationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioNormalizationSettings
+>>>>>>> Working on getting compiling
 type AudioNormalizationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2361,7 +2549,11 @@ func (s *AudioNormalizationSettings) SetTargetLkfs(v float64) *AudioNormalizatio
 }
 
 // Selector for Audio
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioSelector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioSelector
+>>>>>>> Working on getting compiling
 type AudioSelector struct {
 	_ struct{} `type:"structure"`
 
@@ -2471,7 +2663,11 @@ func (s *AudioSelector) SetTracks(v []*int64) *AudioSelector {
 }
 
 // Group of Audio Selectors
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioSelectorGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioSelectorGroup
+>>>>>>> Working on getting compiling
 type AudioSelectorGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -2499,7 +2695,11 @@ func (s *AudioSelectorGroup) SetAudioSelectorNames(v []*string) *AudioSelectorGr
 }
 
 // Settings for Avail Blanking
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AvailBlanking
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AvailBlanking
+>>>>>>> Working on getting compiling
 type AvailBlanking struct {
 	_ struct{} `type:"structure"`
 
@@ -2525,7 +2725,11 @@ func (s *AvailBlanking) SetAvailBlankingImage(v string) *AvailBlanking {
 }
 
 // Burn-In Destination Settings.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/BurninDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/BurninDestinationSettings
+>>>>>>> Working on getting compiling
 type BurninDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2729,7 +2933,11 @@ func (s *BurninDestinationSettings) SetYPosition(v int64) *BurninDestinationSett
 }
 
 // Cancel a job by sending a request with the job ID
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CancelJobRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CancelJobRequest
+>>>>>>> Working on getting compiling
 type CancelJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2769,7 +2977,11 @@ func (s *CancelJobInput) SetId(v string) *CancelJobInput {
 }
 
 // A cancel job request will receive a response with an empty body.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CancelJobResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CancelJobResponse
+>>>>>>> Working on getting compiling
 type CancelJobOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2785,7 +2997,11 @@ func (s CancelJobOutput) GoString() string {
 }
 
 // Description of Caption output
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionDescription
+>>>>>>> Working on getting compiling
 type CaptionDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -2843,7 +3059,11 @@ func (s *CaptionDescription) SetLanguageDescription(v string) *CaptionDescriptio
 }
 
 // Caption Description for preset
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionDescriptionPreset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionDescriptionPreset
+>>>>>>> Working on getting compiling
 type CaptionDescriptionPreset struct {
 	_ struct{} `type:"structure"`
 
@@ -2890,7 +3110,11 @@ func (s *CaptionDescriptionPreset) SetLanguageDescription(v string) *CaptionDesc
 
 // Specific settings required by destination type. Note that burnin_destination_settings
 // are not available if the source of the caption data is Embedded or Teletext.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionDestinationSettings
+>>>>>>> Working on getting compiling
 type CaptionDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2962,7 +3186,11 @@ func (s *CaptionDestinationSettings) SetTtmlDestinationSettings(v *TtmlDestinati
 }
 
 // Caption inputs to be mapped to caption outputs.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionSelector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionSelector
+>>>>>>> Working on getting compiling
 type CaptionSelector struct {
 	_ struct{} `type:"structure"`
 
@@ -3003,7 +3231,11 @@ func (s *CaptionSelector) SetSourceSettings(v *CaptionSourceSettings) *CaptionSe
 
 // Source settings (SourceSettings) contains the group of settings for captions
 // in the input.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CaptionSourceSettings
+>>>>>>> Working on getting compiling
 type CaptionSourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -3077,7 +3309,11 @@ func (s *CaptionSourceSettings) SetTeletextSourceSettings(v *TeletextSourceSetti
 // remixing value for each channel. Units are in dB. Acceptable values are within
 // the range from -60 (mute) through 6. A setting of 0 passes the input channel
 // unchanged to the output channel (no attenuation or amplification).
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ChannelMapping
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ChannelMapping
+>>>>>>> Working on getting compiling
 type ChannelMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -3102,7 +3338,11 @@ func (s *ChannelMapping) SetOutputChannels(v []*OutputChannelMapping) *ChannelMa
 }
 
 // Settings for color correction.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ColorCorrector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ColorCorrector
+>>>>>>> Working on getting compiling
 type ColorCorrector struct {
 	_ struct{} `type:"structure"`
 
@@ -3179,7 +3419,11 @@ func (s *ColorCorrector) SetSaturation(v int64) *ColorCorrector {
 }
 
 // Container specific settings.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ContainerSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ContainerSettings
+>>>>>>> Working on getting compiling
 type ContainerSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -3251,7 +3495,11 @@ func (s *ContainerSettings) SetMp4Settings(v *Mp4Settings) *ContainerSettings {
 
 // Send your create job request with your job settings and IAM role. Optionally,
 // include user metadata and the ARN for the queue.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobRequest
+>>>>>>> Working on getting compiling
 type CreateJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3326,7 +3574,11 @@ func (s *CreateJobInput) SetUserMetadata(v map[string]*string) *CreateJobInput {
 }
 
 // Successful create job requests will return the job JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobResponse
+>>>>>>> Working on getting compiling
 type CreateJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3354,7 +3606,11 @@ func (s *CreateJobOutput) SetJob(v *Job) *CreateJobOutput {
 // Send your create job template request with the name of the template and the
 // JSON for the template. The template JSON should include everything in a valid
 // job, except for input location and filename, IAM role, and user metadata.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobTemplateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobTemplateRequest
+>>>>>>> Working on getting compiling
 type CreateJobTemplateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3417,7 +3673,11 @@ func (s *CreateJobTemplateInput) SetSettings(v *JobTemplateSettings) *CreateJobT
 }
 
 // Successful create job template requests will return the template JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobTemplateResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateJobTemplateResponse
+>>>>>>> Working on getting compiling
 type CreateJobTemplateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3444,7 +3704,11 @@ func (s *CreateJobTemplateOutput) SetJobTemplate(v *JobTemplate) *CreateJobTempl
 
 // Send your create preset request with the name of the preset and the JSON
 // for the output settings specified by the preset.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreatePresetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreatePresetRequest
+>>>>>>> Working on getting compiling
 type CreatePresetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3496,7 +3760,11 @@ func (s *CreatePresetInput) SetSettings(v *PresetSettings) *CreatePresetInput {
 }
 
 // Successful create preset requests will return the preset JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreatePresetResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreatePresetResponse
+>>>>>>> Working on getting compiling
 type CreatePresetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3522,7 +3790,11 @@ func (s *CreatePresetOutput) SetPreset(v *Preset) *CreatePresetOutput {
 }
 
 // Send your create queue request with the name of the queue.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateQueueRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateQueueRequest
+>>>>>>> Working on getting compiling
 type CreateQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3557,7 +3829,11 @@ func (s *CreateQueueInput) SetName(v string) *CreateQueueInput {
 
 // Successful create queue requests will return the name of the queue you just
 // created and information about it.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateQueueResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/CreateQueueResponse
+>>>>>>> Working on getting compiling
 type CreateQueueOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3584,7 +3860,11 @@ func (s *CreateQueueOutput) SetQueue(v *Queue) *CreateQueueOutput {
 }
 
 // Specifies DRM settings for DASH outputs.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DashIsoEncryptionSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DashIsoEncryptionSettings
+>>>>>>> Working on getting compiling
 type DashIsoEncryptionSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -3610,7 +3890,11 @@ func (s *DashIsoEncryptionSettings) SetSpekeKeyProvider(v *SpekeKeyProvider) *Da
 
 // Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
 // DASH_ISO_GROUP_SETTINGS.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DashIsoGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DashIsoGroupSettings
+>>>>>>> Working on getting compiling
 type DashIsoGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -3716,7 +4000,11 @@ func (s *DashIsoGroupSettings) SetSegmentLength(v int64) *DashIsoGroupSettings {
 }
 
 // Settings for deinterlacer
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Deinterlacer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Deinterlacer
+>>>>>>> Working on getting compiling
 type Deinterlacer struct {
 	_ struct{} `type:"structure"`
 
@@ -3773,7 +4061,11 @@ func (s *Deinterlacer) SetMode(v string) *Deinterlacer {
 }
 
 // Delete a job template by sending a request with the job template name
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteJobTemplateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteJobTemplateRequest
+>>>>>>> Working on getting compiling
 type DeleteJobTemplateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3814,7 +4106,11 @@ func (s *DeleteJobTemplateInput) SetName(v string) *DeleteJobTemplateInput {
 
 // Delete job template requests will return an OK message or error message with
 // an empty body.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteJobTemplateResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteJobTemplateResponse
+>>>>>>> Working on getting compiling
 type DeleteJobTemplateOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3830,7 +4126,11 @@ func (s DeleteJobTemplateOutput) GoString() string {
 }
 
 // Delete a preset by sending a request with the preset name
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePresetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePresetRequest
+>>>>>>> Working on getting compiling
 type DeletePresetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3871,7 +4171,11 @@ func (s *DeletePresetInput) SetName(v string) *DeletePresetInput {
 
 // Delete preset requests will return an OK message or error message with an
 // empty body.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePresetResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeletePresetResponse
+>>>>>>> Working on getting compiling
 type DeletePresetOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3887,7 +4191,11 @@ func (s DeletePresetOutput) GoString() string {
 }
 
 // Delete a queue by sending a request with the queue name
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteQueueRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteQueueRequest
+>>>>>>> Working on getting compiling
 type DeleteQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3928,7 +4236,11 @@ func (s *DeleteQueueInput) SetName(v string) *DeleteQueueInput {
 
 // Delete queue requests will return an OK message or error message with an
 // empty body.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteQueueResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DeleteQueueResponse
+>>>>>>> Working on getting compiling
 type DeleteQueueOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3945,7 +4257,11 @@ func (s DeleteQueueOutput) GoString() string {
 
 // Send an request with an empty body to the regional API endpoint to get your
 // account API endpoint.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpointsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpointsRequest
+>>>>>>> Working on getting compiling
 type DescribeEndpointsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3981,7 +4297,11 @@ func (s *DescribeEndpointsInput) SetNextToken(v string) *DescribeEndpointsInput 
 }
 
 // Successful describe endpoints requests will return your account API endpoint.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpointsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DescribeEndpointsResponse
+>>>>>>> Working on getting compiling
 type DescribeEndpointsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4016,7 +4336,11 @@ func (s *DescribeEndpointsOutput) SetNextToken(v string) *DescribeEndpointsOutpu
 
 // Inserts DVB Network Information Table (NIT) at the specified table repetition
 // interval.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbNitSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbNitSettings
+>>>>>>> Working on getting compiling
 type DvbNitSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4062,7 +4386,11 @@ func (s *DvbNitSettings) SetNitInterval(v int64) *DvbNitSettings {
 
 // Inserts DVB Service Description Table (NIT) at the specified table repetition
 // interval.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbSdtSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbSdtSettings
+>>>>>>> Working on getting compiling
 type DvbSdtSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4122,7 +4450,11 @@ func (s *DvbSdtSettings) SetServiceProviderName(v string) *DvbSdtSettings {
 }
 
 // DVB-Sub Destination Settings
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbSubDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbSubDestinationSettings
+>>>>>>> Working on getting compiling
 type DvbSubDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4326,7 +4658,11 @@ func (s *DvbSubDestinationSettings) SetYPosition(v int64) *DvbSubDestinationSett
 }
 
 // DVB Sub Source Settings
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbSubSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbSubSourceSettings
+>>>>>>> Working on getting compiling
 type DvbSubSourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4353,7 +4689,11 @@ func (s *DvbSubSourceSettings) SetPid(v int64) *DvbSubSourceSettings {
 }
 
 // Inserts DVB Time and Date Table (TDT) at the specified table repetition interval.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbTdtSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/DvbTdtSettings
+>>>>>>> Working on getting compiling
 type DvbTdtSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4380,7 +4720,11 @@ func (s *DvbTdtSettings) SetTdtInterval(v int64) *DvbTdtSettings {
 
 // Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
 // the value EAC3.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Eac3Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Eac3Settings
+>>>>>>> Working on getting compiling
 type Eac3Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -4603,7 +4947,11 @@ func (s *Eac3Settings) SetSurroundMode(v string) *Eac3Settings {
 }
 
 // Settings for embedded captions Source
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/EmbeddedSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/EmbeddedSourceSettings
+>>>>>>> Working on getting compiling
 type EmbeddedSourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4650,7 +4998,11 @@ func (s *EmbeddedSourceSettings) SetSource608TrackNumber(v int64) *EmbeddedSourc
 }
 
 // Describes account specific API endpoint
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Endpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Endpoint
+>>>>>>> Working on getting compiling
 type Endpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -4675,7 +5027,11 @@ func (s *Endpoint) SetUrl(v string) *Endpoint {
 }
 
 // Settings for F4v container
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/F4vSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/F4vSettings
+>>>>>>> Working on getting compiling
 type F4vSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4703,7 +5059,11 @@ func (s *F4vSettings) SetMoovPlacement(v string) *F4vSettings {
 
 // Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
 // FILE_GROUP_SETTINGS.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/FileGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/FileGroupSettings
+>>>>>>> Working on getting compiling
 type FileGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4732,7 +5092,11 @@ func (s *FileGroupSettings) SetDestination(v string) *FileGroupSettings {
 }
 
 // Settings for File-based Captions in Source
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/FileSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/FileSourceSettings
+>>>>>>> Working on getting compiling
 type FileSourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4781,7 +5145,11 @@ func (s *FileSourceSettings) SetTimeDelta(v int64) *FileSourceSettings {
 
 // Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
 // the value FRAME_CAPTURE.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/FrameCaptureSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/FrameCaptureSettings
+>>>>>>> Working on getting compiling
 type FrameCaptureSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4843,7 +5211,11 @@ func (s *FrameCaptureSettings) SetQuality(v int64) *FrameCaptureSettings {
 }
 
 // Query a job by sending a request with the job ID.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobRequest
+>>>>>>> Working on getting compiling
 type GetJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4883,7 +5255,11 @@ func (s *GetJobInput) SetId(v string) *GetJobInput {
 }
 
 // Successful get job requests will return an OK message and the job JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobResponse
+>>>>>>> Working on getting compiling
 type GetJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4909,7 +5285,11 @@ func (s *GetJobOutput) SetJob(v *Job) *GetJobOutput {
 }
 
 // Query a job template by sending a request with the job template name.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobTemplateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobTemplateRequest
+>>>>>>> Working on getting compiling
 type GetJobTemplateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4950,7 +5330,11 @@ func (s *GetJobTemplateInput) SetName(v string) *GetJobTemplateInput {
 
 // Successful get job template requests will return an OK message and the job
 // template JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobTemplateResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetJobTemplateResponse
+>>>>>>> Working on getting compiling
 type GetJobTemplateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4976,7 +5360,11 @@ func (s *GetJobTemplateOutput) SetJobTemplate(v *JobTemplate) *GetJobTemplateOut
 }
 
 // Query a preset by sending a request with the preset name.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPresetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPresetRequest
+>>>>>>> Working on getting compiling
 type GetPresetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5016,7 +5404,11 @@ func (s *GetPresetInput) SetName(v string) *GetPresetInput {
 }
 
 // Successful get preset requests will return an OK message and the preset JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPresetResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetPresetResponse
+>>>>>>> Working on getting compiling
 type GetPresetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5042,7 +5434,11 @@ func (s *GetPresetOutput) SetPreset(v *Preset) *GetPresetOutput {
 }
 
 // Query a queue by sending a request with the queue name.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetQueueRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetQueueRequest
+>>>>>>> Working on getting compiling
 type GetQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5082,7 +5478,11 @@ func (s *GetQueueInput) SetName(v string) *GetQueueInput {
 }
 
 // Successful get queue requests will return an OK message and the queue JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetQueueResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/GetQueueResponse
+>>>>>>> Working on getting compiling
 type GetQueueOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5110,7 +5510,11 @@ func (s *GetQueueOutput) SetQueue(v *Queue) *GetQueueOutput {
 
 // Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
 // the value H_264.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/H264Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/H264Settings
+>>>>>>> Working on getting compiling
 type H264Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -5514,7 +5918,11 @@ func (s *H264Settings) SetUnregisteredSeiTimecode(v string) *H264Settings {
 }
 
 // Settings for H265 codec
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/H265Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/H265Settings
+>>>>>>> Working on getting compiling
 type H265Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -5917,7 +6325,11 @@ func (s *H265Settings) SetUnregisteredSeiTimecode(v string) *H265Settings {
 // HDR color. These values vary depending on the input video and must be provided
 // by a color grader. Range is 0 to 50,000, each increment represents 0.00002
 // in CIE1931 color coordinate.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Hdr10Metadata
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Hdr10Metadata
+>>>>>>> Working on getting compiling
 type Hdr10Metadata struct {
 	_ struct{} `type:"structure"`
 
@@ -6061,7 +6473,11 @@ func (s *Hdr10Metadata) SetWhitePointY(v int64) *Hdr10Metadata {
 }
 
 // Caption Language Mapping
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/HlsCaptionLanguageMapping
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/HlsCaptionLanguageMapping
+>>>>>>> Working on getting compiling
 type HlsCaptionLanguageMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -6105,7 +6521,11 @@ func (s *HlsCaptionLanguageMapping) SetLanguageDescription(v string) *HlsCaption
 }
 
 // Settings for HLS encryption
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/HlsEncryptionSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/HlsEncryptionSettings
+>>>>>>> Working on getting compiling
 type HlsEncryptionSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -6181,7 +6601,11 @@ func (s *HlsEncryptionSettings) SetType(v string) *HlsEncryptionSettings {
 
 // Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
 // HLS_GROUP_SETTINGS.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/HlsGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/HlsGroupSettings
+>>>>>>> Working on getting compiling
 type HlsGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -6424,7 +6848,11 @@ func (s *HlsGroupSettings) SetTimestampDeltaMilliseconds(v int64) *HlsGroupSetti
 }
 
 // Settings for HLS output groups
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/HlsSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/HlsSettings
+>>>>>>> Working on getting compiling
 type HlsSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -6500,7 +6928,11 @@ func (s *HlsSettings) SetSegmentModifier(v string) *HlsSettings {
 // to specify the base 64 encoded string and use Timecode (TimeCode) to specify
 // the time when the tag should be inserted. To insert multiple ID3 tags in
 // your output, create mulitple instances of ID3 insertion (Id3Insertion).
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Id3Insertion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Id3Insertion
+>>>>>>> Working on getting compiling
 type Id3Insertion struct {
 	_ struct{} `type:"structure"`
 
@@ -6536,7 +6968,11 @@ func (s *Id3Insertion) SetTimecode(v string) *Id3Insertion {
 // Enable the Image inserter (ImageInserter) feature to include a graphic overlay
 // on your video. Enable or disable this feature for each output individually.
 // This setting is disabled by default.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ImageInserter
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ImageInserter
+>>>>>>> Working on getting compiling
 type ImageInserter struct {
 	_ struct{} `type:"structure"`
 
@@ -6562,7 +6998,11 @@ func (s *ImageInserter) SetInsertableImages(v []*InsertableImage) *ImageInserter
 }
 
 // Specifies media input
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Input
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Input
+>>>>>>> Working on getting compiling
 type Input struct {
 	_ struct{} `type:"structure"`
 
@@ -6730,7 +7170,11 @@ func (s *Input) SetVideoSelector(v *VideoSelector) *Input {
 }
 
 // Include one instance of (InputClipping) for each input clip.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/InputClipping
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/InputClipping
+>>>>>>> Working on getting compiling
 type InputClipping struct {
 	_ struct{} `type:"structure"`
 
@@ -6775,7 +7219,11 @@ func (s *InputClipping) SetStartTimecode(v string) *InputClipping {
 }
 
 // Specified video input in a template.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/InputTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/InputTemplate
+>>>>>>> Working on getting compiling
 type InputTemplate struct {
 	_ struct{} `type:"structure"`
 
@@ -6932,7 +7380,11 @@ func (s *InputTemplate) SetVideoSelector(v *VideoSelector) *InputTemplate {
 }
 
 // Settings for Insertable Image
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/InsertableImage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/InsertableImage
+>>>>>>> Working on getting compiling
 type InsertableImage struct {
 	_ struct{} `type:"structure"`
 
@@ -7066,7 +7518,11 @@ func (s *InsertableImage) SetWidth(v int64) *InsertableImage {
 
 // Each job converts an input file into an output file or files. For more information,
 // see the User Guide at http://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Job
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Job
+>>>>>>> Working on getting compiling
 type Job struct {
 	_ struct{} `type:"structure"`
 
@@ -7206,7 +7662,11 @@ func (s *Job) SetUserMetadata(v map[string]*string) *Job {
 }
 
 // JobSettings contains all the transcode settings for a job.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/JobSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/JobSettings
+>>>>>>> Working on getting compiling
 type JobSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -7301,7 +7761,11 @@ func (s *JobSettings) SetTimedMetadataInsertion(v *TimedMetadataInsertion) *JobS
 
 // A job template is a pre-made set of encoding instructions that you can use
 // to quickly create a job.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/JobTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/JobTemplate
+>>>>>>> Working on getting compiling
 type JobTemplate struct {
 	_ struct{} `type:"structure"`
 
@@ -7403,7 +7867,11 @@ func (s *JobTemplate) SetType(v string) *JobTemplate {
 
 // JobTemplateSettings contains all the transcode settings saved in the template
 // that will be applied to jobs created from it.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/JobTemplateSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/JobTemplateSettings
+>>>>>>> Working on getting compiling
 type JobTemplateSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -7500,7 +7968,11 @@ func (s *JobTemplateSettings) SetTimedMetadataInsertion(v *TimedMetadataInsertio
 // you can filter the response by category by specifying it in your request
 // body. You can also optionally specify the maximum number, up to twenty, of
 // job templates to be returned.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobTemplatesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobTemplatesRequest
+>>>>>>> Working on getting compiling
 type ListJobTemplatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7569,7 +8041,11 @@ func (s *ListJobTemplatesInput) SetOrder(v string) *ListJobTemplatesInput {
 // Successful list job templates requests return a JSON array of job templates.
 // If you do not specify how they are ordered, you will receive them in alphabetical
 // order by name.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobTemplatesResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobTemplatesResponse
+>>>>>>> Working on getting compiling
 type ListJobTemplatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7606,7 +8082,11 @@ func (s *ListJobTemplatesOutput) SetNextToken(v string) *ListJobTemplatesOutput 
 // the response by queue and/or job status by specifying them in your request
 // body. You can also optionally specify the maximum number, up to twenty, of
 // jobs to be returned.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobsRequest
+>>>>>>> Working on getting compiling
 type ListJobsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7671,7 +8151,11 @@ func (s *ListJobsInput) SetStatus(v string) *ListJobsInput {
 // Successful list jobs requests return a JSON array of jobs. If you do not
 // specify how they are ordered, you will receive the most recently created
 // first.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListJobsResponse
+>>>>>>> Working on getting compiling
 type ListJobsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7708,7 +8192,11 @@ func (s *ListJobsOutput) SetNextToken(v string) *ListJobsOutput {
 // filter the response by category by specifying it in your request body. You
 // can also optionally specify the maximum number, up to twenty, of queues to
 // be returned.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListPresetsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListPresetsRequest
+>>>>>>> Working on getting compiling
 type ListPresetsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7776,7 +8264,11 @@ func (s *ListPresetsInput) SetOrder(v string) *ListPresetsInput {
 // Successful list presets requests return a JSON array of presets. If you do
 // not specify how they are ordered, you will receive them alphabetically by
 // name.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListPresetsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListPresetsResponse
+>>>>>>> Working on getting compiling
 type ListPresetsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7811,7 +8303,11 @@ func (s *ListPresetsOutput) SetPresets(v []*Preset) *ListPresetsOutput {
 
 // You can send list queues requests with an empty body. You can optionally
 // specify the maximum number, up to twenty, of queues to be returned.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListQueuesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListQueuesRequest
+>>>>>>> Working on getting compiling
 type ListQueuesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7868,7 +8364,11 @@ func (s *ListQueuesInput) SetOrder(v string) *ListQueuesInput {
 
 // Successful list queues return a JSON array of queues. If you do not specify
 // how they are ordered, you will receive them alphabetically by name.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListQueuesResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ListQueuesResponse
+>>>>>>> Working on getting compiling
 type ListQueuesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7902,7 +8402,11 @@ func (s *ListQueuesOutput) SetQueues(v []*Queue) *ListQueuesOutput {
 }
 
 // Settings for M2TS Container.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/M2tsSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/M2tsSettings
+>>>>>>> Working on getting compiling
 type M2tsSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8263,7 +8767,11 @@ func (s *M2tsSettings) SetVideoPid(v int64) *M2tsSettings {
 }
 
 // Settings for TS segments in HLS
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/M3u8Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/M3u8Settings
+>>>>>>> Working on getting compiling
 type M3u8Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -8429,7 +8937,11 @@ func (s *M3u8Settings) SetVideoPid(v int64) *M3u8Settings {
 }
 
 // Settings for MOV Container.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/MovSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/MovSettings
+>>>>>>> Working on getting compiling
 type MovSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8499,7 +9011,11 @@ func (s *MovSettings) SetReference(v string) *MovSettings {
 
 // Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
 // the value MP2.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Mp2Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Mp2Settings
+>>>>>>> Working on getting compiling
 type Mp2Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -8544,7 +9060,11 @@ func (s *Mp2Settings) SetSampleRate(v int64) *Mp2Settings {
 }
 
 // Settings for MP4 Container
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Mp4Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Mp4Settings
+>>>>>>> Working on getting compiling
 type Mp4Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -8603,7 +9123,11 @@ func (s *Mp4Settings) SetMp4MajorBrand(v string) *Mp4Settings {
 
 // Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
 // the value MPEG2.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Mpeg2Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Mpeg2Settings
+>>>>>>> Working on getting compiling
 type Mpeg2Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -8934,7 +9458,11 @@ func (s *Mpeg2Settings) SetTemporalAdaptiveQuantization(v string) *Mpeg2Settings
 
 // If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to specify
 // the value SpekeKeyProvider.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/MsSmoothEncryptionSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/MsSmoothEncryptionSettings
+>>>>>>> Working on getting compiling
 type MsSmoothEncryptionSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8960,7 +9488,11 @@ func (s *MsSmoothEncryptionSettings) SetSpekeKeyProvider(v *SpekeKeyProvider) *M
 
 // Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
 // MS_SMOOTH_GROUP_SETTINGS.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/MsSmoothGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/MsSmoothGroupSettings
+>>>>>>> Working on getting compiling
 type MsSmoothGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9029,7 +9561,11 @@ func (s *MsSmoothGroupSettings) SetManifestEncoding(v string) *MsSmoothGroupSett
 }
 
 // Settings for Nielsen Configuration
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/NielsenConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/NielsenConfiguration
+>>>>>>> Working on getting compiling
 type NielsenConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -9069,7 +9605,11 @@ func (s *NielsenConfiguration) SetDistributorId(v string) *NielsenConfiguration 
 // individually. This setting is disabled by default. When you enable Noise
 // reducer (NoiseReducer), you must also select a value for Noise reducer filter
 // (NoiseReducerFilter).
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/NoiseReducer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/NoiseReducer
+>>>>>>> Working on getting compiling
 type NoiseReducer struct {
 	_ struct{} `type:"structure"`
 
@@ -9117,7 +9657,11 @@ func (s *NoiseReducer) SetSpatialFilterSettings(v *NoiseReducerSpatialFilterSett
 }
 
 // Settings for a noise reducer filter
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/NoiseReducerFilterSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/NoiseReducerFilterSettings
+>>>>>>> Working on getting compiling
 type NoiseReducerFilterSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9143,7 +9687,11 @@ func (s *NoiseReducerFilterSettings) SetStrength(v int64) *NoiseReducerFilterSet
 }
 
 // Noise reducer filter settings for spatial filter.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/NoiseReducerSpatialFilterSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/NoiseReducerSpatialFilterSettings
+>>>>>>> Working on getting compiling
 type NoiseReducerSpatialFilterSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9190,7 +9738,11 @@ func (s *NoiseReducerSpatialFilterSettings) SetStrength(v int64) *NoiseReducerSp
 
 // An output object describes the settings for a single output file or stream
 // in an output group.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Output
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Output
+>>>>>>> Working on getting compiling
 type Output struct {
 	_ struct{} `type:"structure"`
 
@@ -9296,7 +9848,11 @@ func (s *Output) SetVideoDescription(v *VideoDescription) *Output {
 }
 
 // OutputChannel mapping settings.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputChannelMapping
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputChannelMapping
+>>>>>>> Working on getting compiling
 type OutputChannelMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -9321,7 +9877,11 @@ func (s *OutputChannelMapping) SetInputChannels(v []*int64) *OutputChannelMappin
 }
 
 // Details regarding output
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputDetail
+>>>>>>> Working on getting compiling
 type OutputDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -9355,7 +9915,11 @@ func (s *OutputDetail) SetVideoDetails(v *VideoDetail) *OutputDetail {
 }
 
 // Group of outputs
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputGroup
+>>>>>>> Working on getting compiling
 type OutputGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -9411,7 +9975,11 @@ func (s *OutputGroup) SetOutputs(v []*Output) *OutputGroup {
 }
 
 // Contains details about the output groups specified in the job settings.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputGroupDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputGroupDetail
+>>>>>>> Working on getting compiling
 type OutputGroupDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -9436,7 +10004,11 @@ func (s *OutputGroupDetail) SetOutputDetails(v []*OutputDetail) *OutputGroupDeta
 }
 
 // Output Group settings, including type
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputGroupSettings
+>>>>>>> Working on getting compiling
 type OutputGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9501,7 +10073,11 @@ func (s *OutputGroupSettings) SetType(v string) *OutputGroupSettings {
 }
 
 // Specific settings for this type of output.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/OutputSettings
+>>>>>>> Working on getting compiling
 type OutputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9527,7 +10103,11 @@ func (s *OutputSettings) SetHlsSettings(v *HlsSettings) *OutputSettings {
 
 // A preset is a collection of preconfigured media conversion settings that
 // you want MediaConvert to apply to the output during the conversion process.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Preset
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Preset
+>>>>>>> Working on getting compiling
 type Preset struct {
 	_ struct{} `type:"structure"`
 
@@ -9616,7 +10196,11 @@ func (s *Preset) SetType(v string) *Preset {
 }
 
 // Settings for preset
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/PresetSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/PresetSettings
+>>>>>>> Working on getting compiling
 type PresetSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9674,7 +10258,11 @@ func (s *PresetSettings) SetVideoDescription(v *VideoDescription) *PresetSetting
 
 // Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
 // the value PRORES.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ProresSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/ProresSettings
+>>>>>>> Working on getting compiling
 type ProresSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9815,7 +10403,11 @@ func (s *ProresSettings) SetTelecine(v string) *ProresSettings {
 // MediaConvert jobs are submitted to a queue. Unless specified otherwise jobs
 // are submitted to a built-in default queue. User can create additional queues
 // to separate the jobs of different categories or priority.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Queue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Queue
+>>>>>>> Working on getting compiling
 type Queue struct {
 	_ struct{} `type:"structure"`
 
@@ -9897,7 +10489,11 @@ func (s *Queue) SetType(v string) *Queue {
 }
 
 // Use Rectangle to identify a specific area of the video frame.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Rectangle
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Rectangle
+>>>>>>> Working on getting compiling
 type Rectangle struct {
 	_ struct{} `type:"structure"`
 
@@ -9953,7 +10549,11 @@ func (s *Rectangle) SetY(v int64) *Rectangle {
 // Use Manual audio remixing (RemixSettings) to adjust audio levels for each
 // output channel. With audio remixing, you can output more or fewer audio channels
 // than your input audio source provides.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/RemixSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/RemixSettings
+>>>>>>> Working on getting compiling
 type RemixSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -10002,7 +10602,11 @@ func (s *RemixSettings) SetChannelsOut(v int64) *RemixSettings {
 }
 
 // Settings for SCC caption output.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/SccDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/SccDestinationSettings
+>>>>>>> Working on getting compiling
 type SccDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -10031,7 +10635,11 @@ func (s *SccDestinationSettings) SetFramerate(v string) *SccDestinationSettings 
 }
 
 // Settings for use with a SPEKE key provider
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/SpekeKeyProvider
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/SpekeKeyProvider
+>>>>>>> Working on getting compiling
 type SpekeKeyProvider struct {
 	_ struct{} `type:"structure"`
 
@@ -10076,7 +10684,11 @@ func (s *SpekeKeyProvider) SetUrl(v string) *SpekeKeyProvider {
 }
 
 // Settings for use with a SPEKE key provider.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/StaticKeyProvider
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/StaticKeyProvider
+>>>>>>> Working on getting compiling
 type StaticKeyProvider struct {
 	_ struct{} `type:"structure"`
 
@@ -10133,7 +10745,11 @@ func (s *StaticKeyProvider) SetUrl(v string) *StaticKeyProvider {
 }
 
 // Settings for Teletext caption output
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TeletextDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TeletextDestinationSettings
+>>>>>>> Working on getting compiling
 type TeletextDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -10161,7 +10777,11 @@ func (s *TeletextDestinationSettings) SetPageNumber(v string) *TeletextDestinati
 }
 
 // Settings specific to Teletext caption sources, including Page number.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TeletextSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TeletextSourceSettings
+>>>>>>> Working on getting compiling
 type TeletextSourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -10189,7 +10809,11 @@ func (s *TeletextSourceSettings) SetPageNumber(v string) *TeletextSourceSettings
 
 // Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified
 // prefix into the output.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TimecodeBurnin
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TimecodeBurnin
+>>>>>>> Working on getting compiling
 type TimecodeBurnin struct {
 	_ struct{} `type:"structure"`
 
@@ -10238,7 +10862,11 @@ func (s *TimecodeBurnin) SetPrefix(v string) *TimecodeBurnin {
 }
 
 // Contains settings used to acquire and adjust timecode information from inputs.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TimecodeConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TimecodeConfig
+>>>>>>> Working on getting compiling
 type TimecodeConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -10321,7 +10949,11 @@ func (s *TimecodeConfig) SetTimestampOffset(v string) *TimecodeConfig {
 // in your job. To include timed metadata, you must enable it here, enable it
 // in each output container, and specify tags and timecodes in ID3 insertion
 // (Id3Insertion) objects.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TimedMetadataInsertion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TimedMetadataInsertion
+>>>>>>> Working on getting compiling
 type TimedMetadataInsertion struct {
 	_ struct{} `type:"structure"`
 
@@ -10347,7 +10979,11 @@ func (s *TimedMetadataInsertion) SetId3Insertions(v []*Id3Insertion) *TimedMetad
 
 // Information about when jobs are submitted, started, and finished is specified
 // in Unix epoch format in seconds.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Timing
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/Timing
+>>>>>>> Working on getting compiling
 type Timing struct {
 	_ struct{} `type:"structure"`
 
@@ -10390,7 +11026,11 @@ func (s *Timing) SetSubmitTime(v time.Time) *Timing {
 }
 
 // Settings for TTML caption output
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TtmlDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TtmlDestinationSettings
+>>>>>>> Working on getting compiling
 type TtmlDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -10418,7 +11058,11 @@ func (s *TtmlDestinationSettings) SetStylePassthrough(v string) *TtmlDestination
 // Modify a job template by sending a request with the job template name and
 // any of the following that you wish to change: description, category, and
 // queue.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateJobTemplateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateJobTemplateRequest
+>>>>>>> Working on getting compiling
 type UpdateJobTemplateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10496,7 +11140,11 @@ func (s *UpdateJobTemplateInput) SetSettings(v *JobTemplateSettings) *UpdateJobT
 
 // Successful update job template requests will return the new job template
 // JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateJobTemplateResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateJobTemplateResponse
+>>>>>>> Working on getting compiling
 type UpdateJobTemplateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10524,7 +11172,11 @@ func (s *UpdateJobTemplateOutput) SetJobTemplate(v *JobTemplate) *UpdateJobTempl
 // Modify a preset by sending a request with the preset name and any of the
 // following that you wish to change: description, category, and transcoding
 // settings.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdatePresetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdatePresetRequest
+>>>>>>> Working on getting compiling
 type UpdatePresetInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10591,7 +11243,11 @@ func (s *UpdatePresetInput) SetSettings(v *PresetSettings) *UpdatePresetInput {
 }
 
 // Successful update preset requests will return the new preset JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdatePresetResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdatePresetResponse
+>>>>>>> Working on getting compiling
 type UpdatePresetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10619,7 +11275,11 @@ func (s *UpdatePresetOutput) SetPreset(v *Preset) *UpdatePresetOutput {
 // Modify a queue by sending a request with the queue name and any of the following
 // that you wish to change - description, status. You pause or activate a queue
 // by changing its status between ACTIVE and PAUSED.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateQueueRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateQueueRequest
+>>>>>>> Working on getting compiling
 type UpdateQueueInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10679,7 +11339,11 @@ func (s *UpdateQueueInput) SetStatus(v string) *UpdateQueueInput {
 }
 
 // Successful update queue requests will return the new queue JSON.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateQueueResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/UpdateQueueResponse
+>>>>>>> Working on getting compiling
 type UpdateQueueOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10712,7 +11376,11 @@ func (s *UpdateQueueOutput) SetQueue(v *Queue) *UpdateQueueOutput {
 // lists the codec enum, settings object pairs. * H_264, H264Settings * H_265,
 // H265Settings * MPEG2, Mpeg2Settings * PRORES, ProresSettings * FRAME_CAPTURE,
 // FrameCaptureSettings
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoCodecSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoCodecSettings
+>>>>>>> Working on getting compiling
 type VideoCodecSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -10786,7 +11454,11 @@ func (s *VideoCodecSettings) SetProresSettings(v *ProresSettings) *VideoCodecSet
 }
 
 // Settings for video outputs
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoDescription
+>>>>>>> Working on getting compiling
 type VideoDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -10987,7 +11659,11 @@ func (s *VideoDescription) SetWidth(v int64) *VideoDescription {
 }
 
 // Contains details about the output's video stream
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoDetail
+>>>>>>> Working on getting compiling
 type VideoDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -11023,7 +11699,11 @@ func (s *VideoDetail) SetWidthInPx(v int64) *VideoDetail {
 // Find additional transcoding features under Preprocessors (VideoPreprocessors).
 // Enable the features at each output individually. These features are disabled
 // by default.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoPreprocessor
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoPreprocessor
+>>>>>>> Working on getting compiling
 type VideoPreprocessor struct {
 	_ struct{} `type:"structure"`
 
@@ -11092,7 +11772,11 @@ func (s *VideoPreprocessor) SetTimecodeBurnin(v *TimecodeBurnin) *VideoPreproces
 }
 
 // Selector for video.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoSelector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoSelector
+>>>>>>> Working on getting compiling
 type VideoSelector struct {
 	_ struct{} `type:"structure"`
 
@@ -11168,7 +11852,11 @@ func (s *VideoSelector) SetProgramNumber(v int64) *VideoSelector {
 
 // Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
 // the value WAV.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/WavSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/WavSettings
+>>>>>>> Working on getting compiling
 type WavSettings struct {
 	_ struct{} `type:"structure"`
 

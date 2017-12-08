@@ -911,7 +911,11 @@ func (c *ELBV2) DeleteLoadBalancerRequest(input *DeleteLoadBalancerInput) (req *
 //   * ErrCodeResourceInUseException "ResourceInUse"
 //   A specified resource is in use.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DeleteLoadBalancer
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DeleteLoadBalancer
+>>>>>>> Working on getting compiling
 func (c *ELBV2) DeleteLoadBalancer(input *DeleteLoadBalancerInput) (*DeleteLoadBalancerOutput, error) {
 	req, out := c.DeleteLoadBalancerRequest(input)
 	return out, req.Send()
@@ -7996,6 +8000,7 @@ type TargetGroupAttribute struct {
 	//    is 300 seconds.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    * proxy_protocol_v2.enabled - [Network Load Balancers] Indicates whether
 	//    Proxy Protocol version 2 is enabled.
 	//
@@ -8006,6 +8011,11 @@ type TargetGroupAttribute struct {
 	//    The possible value is lb_cookie.
 	//
 =======
+=======
+	//    * proxy_protocol_v2.enabled - [Network Load Balancers] Indicates whether
+	//    Proxy Protocol version 2 is enabled.
+	//
+>>>>>>> Working on getting compiling
 	//    * stickiness.enabled - [Application Load Balancers] Indicates whether
 	//    sticky sessions are enabled. The value is true or false.
 	//

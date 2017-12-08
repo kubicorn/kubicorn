@@ -580,6 +580,9 @@ func (s *OperationMetadata) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // ReimageNodeRequest: Request for ReimageNode.
 type ReimageNodeRequest struct {
 	// TensorflowVersion: The version for reimage to create.
@@ -613,8 +616,11 @@ func (s *ReimageNodeRequest) MarshalJSON() ([]byte, error) {
 type ResetNodeRequest struct {
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // Status: The `Status` type defines a logical error model that is
 // suitable for different
 // programming environments, including REST APIs and RPC APIs. It is
@@ -1671,12 +1677,16 @@ func (c *ProjectsLocationsNodesListCall) Pages(ctx context.Context, f func(*List
 
 type ProjectsLocationsNodesReimageCall struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	s                  *Service
 	name               string
 	reimagenoderequest *ReimageNodeRequest
 	urlParams_         gensupport.URLParams
 	ctx_               context.Context
 	header_            http.Header
+<<<<<<< HEAD
 }
 
 // Reimage: Reimage a node's OS.
@@ -1690,12 +1700,15 @@ func (r *ProjectsLocationsNodesService) Reimage(name string, reimagenoderequest 
 	urlParams_ gensupport.URLParams
 	ctx_       context.Context
 	header_    http.Header
+=======
+>>>>>>> Working on getting compiling
 }
 
 // Reimage: Reimage a node's OS.
-func (r *ProjectsLocationsNodesService) Reimage(name string) *ProjectsLocationsNodesReimageCall {
+func (r *ProjectsLocationsNodesService) Reimage(name string, reimagenoderequest *ReimageNodeRequest) *ProjectsLocationsNodesReimageCall {
 	c := &ProjectsLocationsNodesReimageCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
+<<<<<<< HEAD
 	return c
 }
 
@@ -1704,6 +1717,9 @@ func (r *ProjectsLocationsNodesService) Reimage(name string) *ProjectsLocationsN
 func (c *ProjectsLocationsNodesReimageCall) TensorflowVersion(tensorflowVersion string) *ProjectsLocationsNodesReimageCall {
 	c.urlParams_.Set("tensorflowVersion", tensorflowVersion)
 >>>>>>> Initial dep workover
+=======
+	c.reimagenoderequest = reimagenoderequest
+>>>>>>> Working on getting compiling
 	return c
 }
 
@@ -1740,13 +1756,19 @@ func (c *ProjectsLocationsNodesReimageCall) doRequest(alt string) (*http.Respons
 	reqHeaders.Set("User-Agent", c.s.userAgent())
 	var body io.Reader = nil
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	body, err := googleapi.WithoutDataWrapper.JSONReader(c.reimagenoderequest)
 	if err != nil {
 		return nil, err
 	}
 	reqHeaders.Set("Content-Type", "application/json")
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	c.urlParams_.Set("alt", alt)
 	urls := googleapi.ResolveRelative(c.s.BasePath, "v1alpha1/{+name}:reimage")
 	urls += "?" + c.urlParams_.Encode()
@@ -1811,6 +1833,7 @@ func (c *ProjectsLocationsNodesReimageCall) Do(opts ...googleapi.CallOption) (*O
 	//       "required": true,
 	//       "type": "string"
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//     }
 	//   },
 	//   "path": "v1alpha1/{+name}:reimage",
@@ -1827,6 +1850,14 @@ func (c *ProjectsLocationsNodesReimageCall) Do(opts ...googleapi.CallOption) (*O
 	//   },
 	//   "path": "v1alpha1/{+name}:reimage",
 >>>>>>> Initial dep workover
+=======
+	//     }
+	//   },
+	//   "path": "v1alpha1/{+name}:reimage",
+	//   "request": {
+	//     "$ref": "ReimageNodeRequest"
+	//   },
+>>>>>>> Working on getting compiling
 	//   "response": {
 	//     "$ref": "Operation"
 	//   },
@@ -1841,12 +1872,16 @@ func (c *ProjectsLocationsNodesReimageCall) Do(opts ...googleapi.CallOption) (*O
 
 type ProjectsLocationsNodesResetCall struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	s                *Service
 	name             string
 	resetnoderequest *ResetNodeRequest
 	urlParams_       gensupport.URLParams
 	ctx_             context.Context
 	header_          http.Header
+<<<<<<< HEAD
 }
 
 // Reset: Resets a node, which stops and starts the VM.
@@ -1860,13 +1895,19 @@ func (r *ProjectsLocationsNodesService) Reset(name string, resetnoderequest *Res
 	urlParams_ gensupport.URLParams
 	ctx_       context.Context
 	header_    http.Header
+=======
+>>>>>>> Working on getting compiling
 }
 
 // Reset: Resets a node, which stops and starts the VM.
-func (r *ProjectsLocationsNodesService) Reset(name string) *ProjectsLocationsNodesResetCall {
+func (r *ProjectsLocationsNodesService) Reset(name string, resetnoderequest *ResetNodeRequest) *ProjectsLocationsNodesResetCall {
 	c := &ProjectsLocationsNodesResetCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
+=======
+	c.resetnoderequest = resetnoderequest
+>>>>>>> Working on getting compiling
 	return c
 }
 
@@ -1903,13 +1944,19 @@ func (c *ProjectsLocationsNodesResetCall) doRequest(alt string) (*http.Response,
 	reqHeaders.Set("User-Agent", c.s.userAgent())
 	var body io.Reader = nil
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	body, err := googleapi.WithoutDataWrapper.JSONReader(c.resetnoderequest)
 	if err != nil {
 		return nil, err
 	}
 	reqHeaders.Set("Content-Type", "application/json")
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	c.urlParams_.Set("alt", alt)
 	urls := googleapi.ResolveRelative(c.s.BasePath, "v1alpha1/{+name}:reset")
 	urls += "?" + c.urlParams_.Encode()
@@ -1977,11 +2024,17 @@ func (c *ProjectsLocationsNodesResetCall) Do(opts ...googleapi.CallOption) (*Ope
 	//   },
 	//   "path": "v1alpha1/{+name}:reset",
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "request": {
 	//     "$ref": "ResetNodeRequest"
 	//   },
 =======
 >>>>>>> Initial dep workover
+=======
+	//   "request": {
+	//     "$ref": "ResetNodeRequest"
+	//   },
+>>>>>>> Working on getting compiling
 	//   "response": {
 	//     "$ref": "Operation"
 	//   },

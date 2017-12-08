@@ -34,19 +34,6 @@ const (
 	//DeleteSleepSeconds     = 5
 )
 
-import (
-	"os"
-
-	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/spf13/cobra"
-	"github.com/kris-nova/kubicorn/crd"
-	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
-	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/kube-deploy/cluster-api/client"
-	"github.com/golang/glog"
-	"time"
-	"fmt"
-)
 
 type CRDOptions struct {
 	KubeConfigPath string

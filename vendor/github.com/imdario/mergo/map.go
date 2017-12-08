@@ -31,8 +31,12 @@ func isExported(field reflect.StructField) bool {
 // Traverses recursively both values, assigning src's fields values to dst.
 // The map argument tracks comparisons that have already been seen, which allows
 // short circuiting on recursive types.
+<<<<<<< HEAD
 func deepMap(dst, src reflect.Value, visited map[uintptr]*visit, depth int, config *config) (err error) {
 	overwrite := config.overwrite
+=======
+func deepMap(dst, src reflect.Value, visited map[uintptr]*visit, depth int) (err error) {
+>>>>>>> Working on getting compiling
 	if dst.CanAddr() {
 		addr := dst.UnsafeAddr()
 		h := 17 * addr
@@ -58,6 +62,7 @@ func deepMap(dst, src reflect.Value, visited map[uintptr]*visit, depth int, conf
 			}
 			fieldName := field.Name
 			fieldName = changeInitialCase(fieldName, unicode.ToLower)
+<<<<<<< HEAD
 			if v, ok := dstMap[fieldName]; !ok || (isEmptyValue(reflect.ValueOf(v)) || overwrite) {
 				dstMap[fieldName] = src.Field(i).Interface()
 			}
@@ -69,6 +74,12 @@ func deepMap(dst, src reflect.Value, visited map[uintptr]*visit, depth int, conf
 		}
 		dst = dst.Elem()
 		fallthrough
+=======
+			if v, ok := dstMap[fieldName]; !ok || isEmptyValue(reflect.ValueOf(v)) {
+				dstMap[fieldName] = src.Field(i).Interface()
+			}
+		}
+>>>>>>> Working on getting compiling
 	case reflect.Struct:
 		srcMap := src.Interface().(map[string]interface{})
 		for key := range srcMap {
@@ -93,11 +104,15 @@ func deepMap(dst, src reflect.Value, visited map[uintptr]*visit, depth int, conf
 					srcKind = reflect.Ptr
 				}
 			}
+<<<<<<< HEAD
 
+=======
+>>>>>>> Working on getting compiling
 			if !srcElement.IsValid() {
 				continue
 			}
 			if srcKind == dstKind {
+<<<<<<< HEAD
 				if err = deepMerge(dstElement, srcElement, visited, depth+1, config); err != nil {
 					return
 				}
@@ -111,6 +126,19 @@ func deepMap(dst, src reflect.Value, visited map[uintptr]*visit, depth int, conf
 				}
 			} else {
 				return fmt.Errorf("type mismatch on %s field: found %v, expected %v", fieldName, srcKind, dstKind)
+=======
+				if err = deepMerge(dstElement, srcElement, visited, depth+1); err != nil {
+					return
+				}
+			} else {
+				if srcKind == reflect.Map {
+					if err = deepMap(dstElement, srcElement, visited, depth+1); err != nil {
+						return
+					}
+				} else {
+					return fmt.Errorf("type mismatch on %s field: found %v, expected %v", fieldName, srcKind, dstKind)
+				}
+>>>>>>> Working on getting compiling
 			}
 		}
 	}
@@ -128,6 +156,7 @@ func deepMap(dst, src reflect.Value, visited map[uintptr]*visit, depth int, conf
 // doesn't apply if dst is a map.
 // This is separated method from Merge because it is cleaner and it keeps sane
 // semantics: merging equal types, mapping different (restricted) types.
+<<<<<<< HEAD
 func Map(dst, src interface{}, opts ...func(*config)) error {
 	return _map(dst, src, opts...)
 }
@@ -140,23 +169,33 @@ func MapWithOverwrite(dst, src interface{}, opts ...func(*config)) error {
 }
 
 func _map(dst, src interface{}, opts ...func(*config)) error {
+=======
+func Map(dst, src interface{}) error {
+>>>>>>> Working on getting compiling
 	var (
 		vDst, vSrc reflect.Value
 		err        error
 	)
+<<<<<<< HEAD
 	config := &config{}
 
 	for _, opt := range opts {
 		opt(config)
 	}
 
+=======
+>>>>>>> Working on getting compiling
 	if vDst, vSrc, err = resolveValues(dst, src); err != nil {
 		return err
 	}
 	// To be friction-less, we redirect equal-type arguments
 	// to deepMerge. Only because arguments can be anything.
 	if vSrc.Kind() == vDst.Kind() {
+<<<<<<< HEAD
 		return deepMerge(vDst, vSrc, make(map[uintptr]*visit), 0, config)
+=======
+		return deepMerge(vDst, vSrc, make(map[uintptr]*visit), 0)
+>>>>>>> Working on getting compiling
 	}
 	switch vSrc.Kind() {
 	case reflect.Struct:
@@ -170,5 +209,9 @@ func _map(dst, src interface{}, opts ...func(*config)) error {
 	default:
 		return ErrNotSupported
 	}
+<<<<<<< HEAD
 	return deepMap(vDst, vSrc, make(map[uintptr]*visit), 0, config)
+=======
+	return deepMap(vDst, vSrc, make(map[uintptr]*visit), 0)
+>>>>>>> Working on getting compiling
 }

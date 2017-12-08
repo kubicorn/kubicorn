@@ -350,11 +350,16 @@ userAuthLoop:
 		s.user = userAuthReq.User
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if !displayedBanner && config.BannerCallback != nil {
 			displayedBanner = true
 =======
 		if authFailures == 0 && config.BannerCallback != nil {
 >>>>>>> Initial dep workover
+=======
+		if !displayedBanner && config.BannerCallback != nil {
+			displayedBanner = true
+>>>>>>> Working on getting compiling
 			msg := config.BannerCallback(s)
 			if msg != "" {
 				bannerMsg := &userAuthBannerMsg{

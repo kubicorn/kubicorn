@@ -896,16 +896,22 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "Description": {
       "base": null,
       "refs": {
         "RestoreRequest$Description": "The optional description for the job."
       }
     },
+<<<<<<< HEAD
     "Destination": {
       "base": "Container for replication destination information.",
       "refs": {
 =======
+=======
+>>>>>>> Working on getting compiling
     "Destination": {
       "base": "Container for replication destination information.",
       "refs": {
@@ -957,14 +963,20 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "Encryption": {
       "base": "Describes the server-side encryption that will be applied to the restore results.",
       "refs": {
         "S3Location$Encryption": null
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "EncryptionConfiguration": {
       "base": "Container for information regarding encryption based configuration for replicas.",
       "refs": {
@@ -2836,14 +2848,20 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "SelectParameters": {
       "base": "Describes the parameters for Select job types.",
       "refs": {
         "RestoreRequest$SelectParameters": "Describes the parameters for Select job types."
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "ServerSideEncryption": {
       "base": null,
       "refs": {

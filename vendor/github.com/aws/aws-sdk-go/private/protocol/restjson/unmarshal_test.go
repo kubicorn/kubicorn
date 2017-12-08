@@ -2353,6 +2353,7 @@ type OutputService13TestShapeOutputService13TestCaseOperation2Input struct {
 	HeaderEnum *string `location:"header" locationName:"x-amz-enum" type:"string" enum:"OutputService13TestShapeRESTJSONEnumType"`
 
 	ListEnums []*string `type:"list"`
+<<<<<<< HEAD
 }
 
 // SetFooEnum sets the FooEnum field's value.
@@ -2367,6 +2368,22 @@ func (s *OutputService13TestShapeOutputService13TestCaseOperation2Input) SetHead
 	return s
 }
 
+=======
+}
+
+// SetFooEnum sets the FooEnum field's value.
+func (s *OutputService13TestShapeOutputService13TestCaseOperation2Input) SetFooEnum(v string) *OutputService13TestShapeOutputService13TestCaseOperation2Input {
+	s.FooEnum = &v
+	return s
+}
+
+// SetHeaderEnum sets the HeaderEnum field's value.
+func (s *OutputService13TestShapeOutputService13TestCaseOperation2Input) SetHeaderEnum(v string) *OutputService13TestShapeOutputService13TestCaseOperation2Input {
+	s.HeaderEnum = &v
+	return s
+}
+
+>>>>>>> Working on getting compiling
 // SetListEnums sets the ListEnums field's value.
 func (s *OutputService13TestShapeOutputService13TestCaseOperation2Input) SetListEnums(v []*string) *OutputService13TestShapeOutputService13TestCaseOperation2Input {
 	s.ListEnums = v
@@ -2803,6 +2820,34 @@ func TestOutputService12ProtocolTestJSONValueTraitCase2(t *testing.T) {
 		t.Errorf("expect not to be nil")
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+	reflect.DeepEqual(out.BodyField, map[string]interface{}{"Foo": "Bar"})
+	reflect.DeepEqual(out.HeaderField, map[string]interface{}{"Foo": "Bar"})
+
+}
+
+func TestOutputService12ProtocolTestJSONValueTraitCase2(t *testing.T) {
+	svc := NewOutputService12ProtocolTest(unit.Session, &aws.Config{Endpoint: aws.String("https://test")})
+
+	buf := bytes.NewReader([]byte("{\"BodyListField\":[\"{\\\"Foo\\\":\\\"Bar\\\"}\"]}"))
+	req, out := svc.OutputService12TestCaseOperation2Request(nil)
+	req.HTTPResponse = &http.Response{StatusCode: 200, Body: ioutil.NopCloser(buf), Header: http.Header{}}
+
+	// set headers
+
+	// unmarshal response
+	restjson.UnmarshalMeta(req)
+	restjson.Unmarshal(req)
+	if req.Error != nil {
+		t.Errorf("expect not error, got %v", req.Error)
+	}
+
+	// assert response
+	if out == nil {
+		t.Errorf("expect not to be nil")
+	}
+>>>>>>> Working on getting compiling
 	reflect.DeepEqual(out.BodyListField[0], map[string]interface{}{"Foo": "Bar"})
 
 }
@@ -2887,7 +2932,10 @@ func TestOutputService13ProtocolTestEnumCase2(t *testing.T) {
 		t.Errorf("expect not to be nil")
 	}
 
+<<<<<<< HEAD
 =======
 	reflect.DeepEqual(out.Attr, map[string]interface{}{"Foo": "Bar"})
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 }

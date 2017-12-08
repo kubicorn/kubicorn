@@ -727,7 +727,11 @@ const opDescribeStreamSummary = "DescribeStreamSummary"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary
+>>>>>>> Working on getting compiling
 func (c *Kinesis) DescribeStreamSummaryRequest(input *DescribeStreamSummaryInput) (req *request.Request, output *DescribeStreamSummaryOutput) {
 	op := &request.Operation{
 		Name:       opDescribeStreamSummary,
@@ -769,7 +773,11 @@ func (c *Kinesis) DescribeStreamSummaryRequest(input *DescribeStreamSummaryInput
 //   The requested resource exceeds the maximum number allowed, or the number
 //   of concurrent stream requests exceeds the maximum number allowed.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary
+>>>>>>> Working on getting compiling
 func (c *Kinesis) DescribeStreamSummary(input *DescribeStreamSummaryInput) (*DescribeStreamSummaryOutput, error) {
 	req, out := c.DescribeStreamSummaryRequest(input)
 	return out, req.Send()
@@ -3194,7 +3202,11 @@ func (s *DescribeStreamOutput) SetStreamDescription(v *StreamDescription) *Descr
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummaryInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummaryInput
+>>>>>>> Working on getting compiling
 type DescribeStreamSummaryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3236,7 +3248,11 @@ func (s *DescribeStreamSummaryInput) SetStreamName(v string) *DescribeStreamSumm
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummaryOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummaryOutput
+>>>>>>> Working on getting compiling
 type DescribeStreamSummaryOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4609,7 +4625,11 @@ func (s *PutRecordsResultEntry) SetShardId(v string) *PutRecordsResultEntry {
 
 // The unit of data of the Kinesis stream, which is composed of a sequence number,
 // a partition key, and a data blob.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/Record
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/Record
+>>>>>>> Working on getting compiling
 type Record struct {
 	_ struct{} `type:"structure"`
 
@@ -4800,7 +4820,11 @@ func (s *SequenceNumberRange) SetStartingSequenceNumber(v string) *SequenceNumbe
 }
 
 // A uniquely identified group of data records in a Kinesis stream.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/Shard
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/Shard
+>>>>>>> Working on getting compiling
 type Shard struct {
 	_ struct{} `type:"structure"`
 
@@ -5321,7 +5345,11 @@ func (s *StreamDescription) SetStreamStatus(v string) *StreamDescription {
 }
 
 // Represents the output for DescribeStreamSummary
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/StreamDescriptionSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/StreamDescriptionSummary
+>>>>>>> Working on getting compiling
 type StreamDescriptionSummary struct {
 	_ struct{} `type:"structure"`
 

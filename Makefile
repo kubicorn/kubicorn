@@ -10,6 +10,11 @@ GIT_SHA=$(shell git rev-parse --verify HEAD)
 VERSION=$(shell cat VERSION)
 PWD=$(shell pwd)
 
+
+VERSION=$(shell cat VERSION)
+IMAGE=krisnova/kubicorn:latest
+IMAG_SHA=krisnova/kubicorn:${GIT_SHA}
+
 default: authorsfile compile ## Parse Bootstrap scripts and create kubicorn executable in the ./bin directory and the AUTHORS file.
 
 all: default install
@@ -138,3 +143,13 @@ endif
 .PHONY: help
 help:  ## Show help messages for make targets
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}'
+
+
+cbuild: ## Build the docker container locally
+	docker build -t ${IMAGE} .
+	docker tag ${IMAGE} ${IMAG_SHA}
+
+.PHONY: cpush
+cpush: ## Push the docker container up to a docker registry
+	docker push ${IMAGE}
+	#docker push ${IMAG_SHA}

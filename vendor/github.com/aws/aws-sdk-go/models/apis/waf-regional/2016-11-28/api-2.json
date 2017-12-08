@@ -986,9 +986,13 @@
         {"shape":"WAFInternalErrorException"},
         {"shape":"WAFLimitsExceededException"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         {"shape":"WAFNonexistentItemException"},
 =======
 >>>>>>> Initial dep workover
+=======
+        {"shape":"WAFNonexistentItemException"},
+>>>>>>> Working on getting compiling
         {"shape":"WAFNonexistentContainerException"},
         {"shape":"WAFInvalidOperationException"},
         {"shape":"WAFInvalidAccountException"},
@@ -1379,6 +1383,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "CreateRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -1399,8 +1406,11 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "CreateRuleRequest":{
       "type":"structure",
       "required":[
@@ -1600,6 +1610,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "DeleteRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -1617,8 +1630,11 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "DeleteRuleRequest":{
       "type":"structure",
       "required":[
@@ -2158,6 +2174,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "GetRuleGroupRequest":{
       "type":"structure",
       "required":["RuleGroupId"],
@@ -2171,8 +2190,11 @@
         "RuleGroup":{"shape":"RuleGroup"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "GetRuleRequest":{
       "type":"structure",
       "required":["RuleId"],
@@ -3221,6 +3243,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "UpdateRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -3240,8 +3265,11 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "UpdateRuleRequest":{
       "type":"structure",
       "required":[

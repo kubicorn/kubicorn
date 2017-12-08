@@ -36,6 +36,7 @@
 //
 //    * DeleteBranch, which deletes the specified branch in a repository unless
 <<<<<<< HEAD
+<<<<<<< HEAD
 //    it is the default branch.
 =======
 //    it is the default branch
@@ -47,6 +48,14 @@
 //
 //    * ListBranches, which lists all branches for a specified repository.
 //
+=======
+//    it is the default branch.
+//
+//    * GetBranch, which returns information about a specified branch.
+//
+//    * ListBranches, which lists all branches for a specified repository.
+//
+>>>>>>> Working on getting compiling
 //    * UpdateDefaultBranch, which changes the default branch for a repository.
 //
 // Information about committed code in a repository, by calling the following:

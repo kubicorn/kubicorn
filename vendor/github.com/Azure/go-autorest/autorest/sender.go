@@ -222,6 +222,7 @@ func DoRetryForStatusCodes(attempts int, backoff time.Duration, codes ...int) Se
 				}
 				resp, err = s.Do(rr.Request())
 <<<<<<< HEAD
+<<<<<<< HEAD
 				// we want to retry if err is not nil (e.g. transient network failure).  note that for failed authentication
 				// resp and err will both have a value, so in this case we don't want to retry as it will never succeed.
 				if err == nil && !ResponseHasStatusCode(resp, codes...) || IsTokenRefreshError(err) {
@@ -229,6 +230,11 @@ func DoRetryForStatusCodes(attempts int, backoff time.Duration, codes ...int) Se
 				// we want to retry if err is not nil (e.g. transient network failure)
 				if err == nil && !ResponseHasStatusCode(resp, codes...) {
 >>>>>>> Initial dep workover
+=======
+				// we want to retry if err is not nil (e.g. transient network failure).  note that for failed authentication
+				// resp and err will both have a value, so in this case we don't want to retry as it will never succeed.
+				if err == nil && !ResponseHasStatusCode(resp, codes...) || IsTokenRefreshError(err) {
+>>>>>>> Working on getting compiling
 					return resp, err
 				}
 				delayed := DelayWithRetryAfter(resp, r.Cancel)

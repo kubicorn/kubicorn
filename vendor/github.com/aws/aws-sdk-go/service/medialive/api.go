@@ -33,7 +33,11 @@ const opCreateChannel = "CreateChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) CreateChannelRequest(input *CreateChannelInput) (req *request.Request, output *CreateChannelOutput) {
 	op := &request.Operation{
 		Name:       opCreateChannel,
@@ -78,7 +82,11 @@ func (c *MediaLive) CreateChannelRequest(input *CreateChannelInput) (req *reques
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) CreateChannel(input *CreateChannelInput) (*CreateChannelOutput, error) {
 	req, out := c.CreateChannelRequest(input)
 	return out, req.Send()
@@ -125,7 +133,11 @@ const opCreateInput = "CreateInput"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInput
+>>>>>>> Working on getting compiling
 func (c *MediaLive) CreateInputRequest(input *CreateInputInput) (req *request.Request, output *CreateInputOutput) {
 	op := &request.Operation{
 		Name:       opCreateInput,
@@ -166,7 +178,11 @@ func (c *MediaLive) CreateInputRequest(input *CreateInputInput) (req *request.Re
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInput
+>>>>>>> Working on getting compiling
 func (c *MediaLive) CreateInput(input *CreateInputInput) (*CreateInputOutput, error) {
 	req, out := c.CreateInputRequest(input)
 	return out, req.Send()
@@ -213,7 +229,11 @@ const opCreateInputSecurityGroup = "CreateInputSecurityGroup"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputSecurityGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputSecurityGroup
+>>>>>>> Working on getting compiling
 func (c *MediaLive) CreateInputSecurityGroupRequest(input *CreateInputSecurityGroupInput) (req *request.Request, output *CreateInputSecurityGroupOutput) {
 	op := &request.Operation{
 		Name:       opCreateInputSecurityGroup,
@@ -254,7 +274,11 @@ func (c *MediaLive) CreateInputSecurityGroupRequest(input *CreateInputSecurityGr
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputSecurityGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputSecurityGroup
+>>>>>>> Working on getting compiling
 func (c *MediaLive) CreateInputSecurityGroup(input *CreateInputSecurityGroupInput) (*CreateInputSecurityGroupOutput, error) {
 	req, out := c.CreateInputSecurityGroupRequest(input)
 	return out, req.Send()
@@ -301,7 +325,11 @@ const opDeleteChannel = "DeleteChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DeleteChannelRequest(input *DeleteChannelInput) (req *request.Request, output *DeleteChannelOutput) {
 	op := &request.Operation{
 		Name:       opDeleteChannel,
@@ -346,7 +374,11 @@ func (c *MediaLive) DeleteChannelRequest(input *DeleteChannelInput) (req *reques
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DeleteChannel(input *DeleteChannelInput) (*DeleteChannelOutput, error) {
 	req, out := c.DeleteChannelRequest(input)
 	return out, req.Send()
@@ -393,7 +425,11 @@ const opDeleteInput = "DeleteInput"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInput
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DeleteInputRequest(input *DeleteInputInput) (req *request.Request, output *DeleteInputOutput) {
 	op := &request.Operation{
 		Name:       opDeleteInput,
@@ -438,7 +474,11 @@ func (c *MediaLive) DeleteInputRequest(input *DeleteInputInput) (req *request.Re
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInput
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DeleteInput(input *DeleteInputInput) (*DeleteInputOutput, error) {
 	req, out := c.DeleteInputRequest(input)
 	return out, req.Send()
@@ -485,7 +525,11 @@ const opDeleteInputSecurityGroup = "DeleteInputSecurityGroup"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputSecurityGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputSecurityGroup
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DeleteInputSecurityGroupRequest(input *DeleteInputSecurityGroupInput) (req *request.Request, output *DeleteInputSecurityGroupOutput) {
 	op := &request.Operation{
 		Name:       opDeleteInputSecurityGroup,
@@ -526,7 +570,11 @@ func (c *MediaLive) DeleteInputSecurityGroupRequest(input *DeleteInputSecurityGr
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputSecurityGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputSecurityGroup
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DeleteInputSecurityGroup(input *DeleteInputSecurityGroupInput) (*DeleteInputSecurityGroupOutput, error) {
 	req, out := c.DeleteInputSecurityGroupRequest(input)
 	return out, req.Send()
@@ -573,7 +621,11 @@ const opDescribeChannel = "DescribeChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DescribeChannelRequest(input *DescribeChannelInput) (req *request.Request, output *DescribeChannelOutput) {
 	op := &request.Operation{
 		Name:       opDescribeChannel,
@@ -616,7 +668,11 @@ func (c *MediaLive) DescribeChannelRequest(input *DescribeChannelInput) (req *re
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DescribeChannel(input *DescribeChannelInput) (*DescribeChannelOutput, error) {
 	req, out := c.DescribeChannelRequest(input)
 	return out, req.Send()
@@ -663,7 +719,11 @@ const opDescribeInput = "DescribeInput"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInput
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DescribeInputRequest(input *DescribeInputInput) (req *request.Request, output *DescribeInputOutput) {
 	op := &request.Operation{
 		Name:       opDescribeInput,
@@ -706,7 +766,11 @@ func (c *MediaLive) DescribeInputRequest(input *DescribeInputInput) (req *reques
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInput
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DescribeInput(input *DescribeInputInput) (*DescribeInputOutput, error) {
 	req, out := c.DescribeInputRequest(input)
 	return out, req.Send()
@@ -753,7 +817,11 @@ const opDescribeInputSecurityGroup = "DescribeInputSecurityGroup"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputSecurityGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputSecurityGroup
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DescribeInputSecurityGroupRequest(input *DescribeInputSecurityGroupInput) (req *request.Request, output *DescribeInputSecurityGroupOutput) {
 	op := &request.Operation{
 		Name:       opDescribeInputSecurityGroup,
@@ -796,7 +864,11 @@ func (c *MediaLive) DescribeInputSecurityGroupRequest(input *DescribeInputSecuri
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputSecurityGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputSecurityGroup
+>>>>>>> Working on getting compiling
 func (c *MediaLive) DescribeInputSecurityGroup(input *DescribeInputSecurityGroupInput) (*DescribeInputSecurityGroupOutput, error) {
 	req, out := c.DescribeInputSecurityGroupRequest(input)
 	return out, req.Send()
@@ -843,7 +915,11 @@ const opListChannels = "ListChannels"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListChannels
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListChannels
+>>>>>>> Working on getting compiling
 func (c *MediaLive) ListChannelsRequest(input *ListChannelsInput) (req *request.Request, output *ListChannelsOutput) {
 	op := &request.Operation{
 		Name:       opListChannels,
@@ -890,7 +966,11 @@ func (c *MediaLive) ListChannelsRequest(input *ListChannelsInput) (req *request.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListChannels
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListChannels
+>>>>>>> Working on getting compiling
 func (c *MediaLive) ListChannels(input *ListChannelsInput) (*ListChannelsOutput, error) {
 	req, out := c.ListChannelsRequest(input)
 	return out, req.Send()
@@ -987,7 +1067,11 @@ const opListInputSecurityGroups = "ListInputSecurityGroups"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputSecurityGroups
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputSecurityGroups
+>>>>>>> Working on getting compiling
 func (c *MediaLive) ListInputSecurityGroupsRequest(input *ListInputSecurityGroupsInput) (req *request.Request, output *ListInputSecurityGroupsOutput) {
 	op := &request.Operation{
 		Name:       opListInputSecurityGroups,
@@ -1034,7 +1118,11 @@ func (c *MediaLive) ListInputSecurityGroupsRequest(input *ListInputSecurityGroup
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputSecurityGroups
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputSecurityGroups
+>>>>>>> Working on getting compiling
 func (c *MediaLive) ListInputSecurityGroups(input *ListInputSecurityGroupsInput) (*ListInputSecurityGroupsOutput, error) {
 	req, out := c.ListInputSecurityGroupsRequest(input)
 	return out, req.Send()
@@ -1131,7 +1219,11 @@ const opListInputs = "ListInputs"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputs
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputs
+>>>>>>> Working on getting compiling
 func (c *MediaLive) ListInputsRequest(input *ListInputsInput) (req *request.Request, output *ListInputsOutput) {
 	op := &request.Operation{
 		Name:       opListInputs,
@@ -1178,7 +1270,11 @@ func (c *MediaLive) ListInputsRequest(input *ListInputsInput) (req *request.Requ
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputs
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputs
+>>>>>>> Working on getting compiling
 func (c *MediaLive) ListInputs(input *ListInputsInput) (*ListInputsOutput, error) {
 	req, out := c.ListInputsRequest(input)
 	return out, req.Send()
@@ -1275,7 +1371,11 @@ const opStartChannel = "StartChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StartChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StartChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) StartChannelRequest(input *StartChannelInput) (req *request.Request, output *StartChannelOutput) {
 	op := &request.Operation{
 		Name:       opStartChannel,
@@ -1320,7 +1420,11 @@ func (c *MediaLive) StartChannelRequest(input *StartChannelInput) (req *request.
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StartChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StartChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) StartChannel(input *StartChannelInput) (*StartChannelOutput, error) {
 	req, out := c.StartChannelRequest(input)
 	return out, req.Send()
@@ -1367,7 +1471,11 @@ const opStopChannel = "StopChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StopChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StopChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) StopChannelRequest(input *StopChannelInput) (req *request.Request, output *StopChannelOutput) {
 	op := &request.Operation{
 		Name:       opStopChannel,
@@ -1412,7 +1520,11 @@ func (c *MediaLive) StopChannelRequest(input *StopChannelInput) (req *request.Re
 //
 //   * ErrCodeConflictException "ConflictException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StopChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StopChannel
+>>>>>>> Working on getting compiling
 func (c *MediaLive) StopChannel(input *StopChannelInput) (*StopChannelOutput, error) {
 	req, out := c.StopChannelRequest(input)
 	return out, req.Send()
@@ -1434,7 +1546,11 @@ func (c *MediaLive) StopChannelWithContext(ctx aws.Context, input *StopChannelIn
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AacSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AacSettings
+>>>>>>> Working on getting compiling
 type AacSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -1542,7 +1658,11 @@ func (s *AacSettings) SetVbrQuality(v string) *AacSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Ac3Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Ac3Settings
+>>>>>>> Working on getting compiling
 type Ac3Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -1626,7 +1746,11 @@ func (s *Ac3Settings) SetMetadataControl(v string) *Ac3Settings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ArchiveContainerSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ArchiveContainerSettings
+>>>>>>> Working on getting compiling
 type ArchiveContainerSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -1649,7 +1773,11 @@ func (s *ArchiveContainerSettings) SetM2tsSettings(v *M2tsSettings) *ArchiveCont
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ArchiveGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ArchiveGroupSettings
+>>>>>>> Working on getting compiling
 type ArchiveGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -1685,7 +1813,11 @@ func (s *ArchiveGroupSettings) SetRolloverInterval(v int64) *ArchiveGroupSetting
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ArchiveOutputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ArchiveOutputSettings
+>>>>>>> Working on getting compiling
 type ArchiveOutputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -1729,7 +1861,11 @@ func (s *ArchiveOutputSettings) SetNameModifier(v string) *ArchiveOutputSettings
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AribDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AribDestinationSettings
+>>>>>>> Working on getting compiling
 type AribDestinationSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -1744,7 +1880,11 @@ func (s AribDestinationSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AribSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AribSourceSettings
+>>>>>>> Working on getting compiling
 type AribSourceSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -1759,7 +1899,11 @@ func (s AribSourceSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioChannelMapping
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioChannelMapping
+>>>>>>> Working on getting compiling
 type AudioChannelMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -1793,7 +1937,11 @@ func (s *AudioChannelMapping) SetOutputChannel(v int64) *AudioChannelMapping {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioCodecSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioCodecSettings
+>>>>>>> Working on getting compiling
 type AudioCodecSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -1848,7 +1996,11 @@ func (s *AudioCodecSettings) SetPassThroughSettings(v *PassThroughSettings) *Aud
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioDescription
+>>>>>>> Working on getting compiling
 type AudioDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -1967,7 +2119,11 @@ func (s *AudioDescription) SetStreamName(v string) *AudioDescription {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioLanguageSelection
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioLanguageSelection
+>>>>>>> Working on getting compiling
 type AudioLanguageSelection struct {
 	_ struct{} `type:"structure"`
 
@@ -2005,7 +2161,11 @@ func (s *AudioLanguageSelection) SetLanguageSelectionPolicy(v string) *AudioLang
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioNormalizationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioNormalizationSettings
+>>>>>>> Working on getting compiling
 type AudioNormalizationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2052,7 +2212,11 @@ func (s *AudioNormalizationSettings) SetTargetLkfs(v float64) *AudioNormalizatio
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioOnlyHlsSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioOnlyHlsSettings
+>>>>>>> Working on getting compiling
 type AudioOnlyHlsSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2110,7 +2274,11 @@ func (s *AudioOnlyHlsSettings) SetAudioTrackType(v string) *AudioOnlyHlsSettings
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioPidSelection
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioPidSelection
+>>>>>>> Working on getting compiling
 type AudioPidSelection struct {
 	_ struct{} `type:"structure"`
 
@@ -2134,7 +2302,11 @@ func (s *AudioPidSelection) SetPid(v int64) *AudioPidSelection {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioSelector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioSelector
+>>>>>>> Working on getting compiling
 type AudioSelector struct {
 	_ struct{} `type:"structure"`
 
@@ -2168,7 +2340,11 @@ func (s *AudioSelector) SetSelectorSettings(v *AudioSelectorSettings) *AudioSele
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioSelectorSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AudioSelectorSettings
+>>>>>>> Working on getting compiling
 type AudioSelectorSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2199,7 +2375,11 @@ func (s *AudioSelectorSettings) SetAudioPidSelection(v *AudioPidSelection) *Audi
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailBlanking
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailBlanking
+>>>>>>> Working on getting compiling
 type AvailBlanking struct {
 	_ struct{} `type:"structure"`
 
@@ -2234,7 +2414,11 @@ func (s *AvailBlanking) SetState(v string) *AvailBlanking {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailConfiguration
+>>>>>>> Working on getting compiling
 type AvailConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -2258,7 +2442,11 @@ func (s *AvailConfiguration) SetAvailSettings(v *AvailSettings) *AvailConfigurat
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/AvailSettings
+>>>>>>> Working on getting compiling
 type AvailSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2289,7 +2477,11 @@ func (s *AvailSettings) SetScte35TimeSignalApos(v *Scte35TimeSignalApos) *AvailS
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/BlackoutSlate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/BlackoutSlate
+>>>>>>> Working on getting compiling
 type BlackoutSlate struct {
 	_ struct{} `type:"structure"`
 
@@ -2357,7 +2549,11 @@ func (s *BlackoutSlate) SetState(v string) *BlackoutSlate {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/BurnInDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/BurnInDestinationSettings
+>>>>>>> Working on getting compiling
 type BurnInDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2569,7 +2765,11 @@ func (s *BurnInDestinationSettings) SetYPosition(v int64) *BurnInDestinationSett
 
 // Output groups for this Live Event. Output groups contain information about
 // where streams should be distributed.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionDescription
+>>>>>>> Working on getting compiling
 type CaptionDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -2633,7 +2833,11 @@ func (s *CaptionDescription) SetName(v string) *CaptionDescription {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionDestinationSettings
+>>>>>>> Working on getting compiling
 type CaptionDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2738,7 +2942,11 @@ func (s *CaptionDestinationSettings) SetWebvttDestinationSettings(v *WebvttDesti
 
 // Maps a caption channel to an ISO 693-2 language code (http://www.loc.gov/standards/iso639-2),
 // with an optional description.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionLanguageMapping
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionLanguageMapping
+>>>>>>> Working on getting compiling
 type CaptionLanguageMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -2783,7 +2991,11 @@ func (s *CaptionLanguageMapping) SetLanguageDescription(v string) *CaptionLangua
 
 // Output groups for this Live Event. Output groups contain information about
 // where streams should be distributed.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionSelector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionSelector
+>>>>>>> Working on getting compiling
 type CaptionSelector struct {
 	_ struct{} `type:"structure"`
 
@@ -2828,7 +3040,11 @@ func (s *CaptionSelector) SetSelectorSettings(v *CaptionSelectorSettings) *Capti
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionSelectorSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CaptionSelectorSettings
+>>>>>>> Working on getting compiling
 type CaptionSelectorSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -2891,7 +3107,11 @@ func (s *CaptionSelectorSettings) SetTeletextSourceSettings(v *TeletextSourceSet
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Channel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Channel
+>>>>>>> Working on getting compiling
 type Channel struct {
 	_ struct{} `type:"structure"`
 
@@ -2996,7 +3216,11 @@ func (s *Channel) SetState(v string) *Channel {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ChannelEgressEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ChannelEgressEndpoint
+>>>>>>> Working on getting compiling
 type ChannelEgressEndpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -3020,7 +3244,11 @@ func (s *ChannelEgressEndpoint) SetSourceIp(v string) *ChannelEgressEndpoint {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ChannelSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ChannelSummary
+>>>>>>> Working on getting compiling
 type ChannelSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -3117,7 +3345,11 @@ func (s *ChannelSummary) SetState(v string) *ChannelSummary {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateChannelRequest
+>>>>>>> Working on getting compiling
 type CreateChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3188,7 +3420,11 @@ func (s *CreateChannelInput) SetRoleArn(v string) *CreateChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateChannelResponse
+>>>>>>> Working on getting compiling
 type CreateChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3211,7 +3447,11 @@ func (s *CreateChannelOutput) SetChannel(v *Channel) *CreateChannelOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputRequest
+>>>>>>> Working on getting compiling
 type CreateInputInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3274,7 +3514,11 @@ func (s *CreateInputInput) SetType(v string) *CreateInputInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputResponse
+>>>>>>> Working on getting compiling
 type CreateInputOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3297,7 +3541,11 @@ func (s *CreateInputOutput) SetInput(v *Input) *CreateInputOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputSecurityGroupRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputSecurityGroupRequest
+>>>>>>> Working on getting compiling
 type CreateInputSecurityGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3320,7 +3568,11 @@ func (s *CreateInputSecurityGroupInput) SetWhitelistRules(v []*InputWhitelistRul
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputSecurityGroupResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/CreateInputSecurityGroupResponse
+>>>>>>> Working on getting compiling
 type CreateInputSecurityGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3344,7 +3596,11 @@ func (s *CreateInputSecurityGroupOutput) SetSecurityGroup(v *InputSecurityGroup)
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteChannelRequest
+>>>>>>> Working on getting compiling
 type DeleteChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3381,7 +3637,11 @@ func (s *DeleteChannelInput) SetChannelId(v string) *DeleteChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteChannelResponse
+>>>>>>> Working on getting compiling
 type DeleteChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3476,7 +3736,11 @@ func (s *DeleteChannelOutput) SetState(v string) *DeleteChannelOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputRequest
+>>>>>>> Working on getting compiling
 type DeleteInputInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3513,7 +3777,11 @@ func (s *DeleteInputInput) SetInputId(v string) *DeleteInputInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputResponse
+>>>>>>> Working on getting compiling
 type DeleteInputOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3528,7 +3796,11 @@ func (s DeleteInputOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputSecurityGroupRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputSecurityGroupRequest
+>>>>>>> Working on getting compiling
 type DeleteInputSecurityGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3565,7 +3837,11 @@ func (s *DeleteInputSecurityGroupInput) SetInputSecurityGroupId(v string) *Delet
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputSecurityGroupResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DeleteInputSecurityGroupResponse
+>>>>>>> Working on getting compiling
 type DeleteInputSecurityGroupOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3580,7 +3856,11 @@ func (s DeleteInputSecurityGroupOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeChannelRequest
+>>>>>>> Working on getting compiling
 type DescribeChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3617,7 +3897,11 @@ func (s *DescribeChannelInput) SetChannelId(v string) *DescribeChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeChannelResponse
+>>>>>>> Working on getting compiling
 type DescribeChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3712,7 +3996,11 @@ func (s *DescribeChannelOutput) SetState(v string) *DescribeChannelOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputRequest
+>>>>>>> Working on getting compiling
 type DescribeInputInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3749,7 +4037,11 @@ func (s *DescribeInputInput) SetInputId(v string) *DescribeInputInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputResponse
+>>>>>>> Working on getting compiling
 type DescribeInputOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3836,7 +4128,11 @@ func (s *DescribeInputOutput) SetType(v string) *DescribeInputOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputSecurityGroupRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputSecurityGroupRequest
+>>>>>>> Working on getting compiling
 type DescribeInputSecurityGroupInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3873,7 +4169,11 @@ func (s *DescribeInputSecurityGroupInput) SetInputSecurityGroupId(v string) *Des
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputSecurityGroupResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DescribeInputSecurityGroupResponse
+>>>>>>> Working on getting compiling
 type DescribeInputSecurityGroupOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3913,7 +4213,11 @@ func (s *DescribeInputSecurityGroupOutput) SetWhitelistRules(v []*InputWhitelist
 }
 
 // DVB Network Information Table (NIT)
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbNitSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbNitSettings
+>>>>>>> Working on getting compiling
 type DvbNitSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -3958,7 +4262,11 @@ func (s *DvbNitSettings) SetRepInterval(v int64) *DvbNitSettings {
 }
 
 // DVB Service Description Table (SDT)
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbSdtSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbSdtSettings
+>>>>>>> Working on getting compiling
 type DvbSdtSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4017,7 +4325,11 @@ func (s *DvbSdtSettings) SetServiceProviderName(v string) *DvbSdtSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbSubDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbSubDestinationSettings
+>>>>>>> Working on getting compiling
 type DvbSubDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4233,7 +4545,11 @@ func (s *DvbSubDestinationSettings) SetYPosition(v int64) *DvbSubDestinationSett
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbSubSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbSubSourceSettings
+>>>>>>> Working on getting compiling
 type DvbSubSourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4260,7 +4576,11 @@ func (s *DvbSubSourceSettings) SetPid(v int64) *DvbSubSourceSettings {
 }
 
 // DVB Time and Date Table (SDT)
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbTdtSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbTdtSettings
+>>>>>>> Working on getting compiling
 type DvbTdtSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4285,7 +4605,11 @@ func (s *DvbTdtSettings) SetRepInterval(v int64) *DvbTdtSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Eac3Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Eac3Settings
+>>>>>>> Working on getting compiling
 type Eac3Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -4493,7 +4817,11 @@ func (s *Eac3Settings) SetSurroundMode(v string) *Eac3Settings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EmbeddedDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EmbeddedDestinationSettings
+>>>>>>> Working on getting compiling
 type EmbeddedDestinationSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -4508,7 +4836,11 @@ func (s EmbeddedDestinationSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EmbeddedPlusScte20DestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EmbeddedPlusScte20DestinationSettings
+>>>>>>> Working on getting compiling
 type EmbeddedPlusScte20DestinationSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -4523,7 +4855,11 @@ func (s EmbeddedPlusScte20DestinationSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EmbeddedSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EmbeddedSourceSettings
+>>>>>>> Working on getting compiling
 type EmbeddedSourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4578,7 +4914,11 @@ func (s *EmbeddedSourceSettings) SetSource608TrackNumber(v int64) *EmbeddedSourc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EncoderSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/EncoderSettings
+>>>>>>> Working on getting compiling
 type EncoderSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4671,7 +5011,11 @@ func (s *EncoderSettings) SetVideoDescriptions(v []*VideoDescription) *EncoderSe
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/FecOutputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/FecOutputSettings
+>>>>>>> Working on getting compiling
 type FecOutputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -4720,7 +5064,11 @@ func (s *FecOutputSettings) SetRowLength(v int64) *FecOutputSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/GlobalConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/GlobalConfiguration
+>>>>>>> Working on getting compiling
 type GlobalConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -4790,7 +5138,11 @@ func (s *GlobalConfiguration) SetSupportLowFramerateInputs(v string) *GlobalConf
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/H264Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/H264Settings
+>>>>>>> Working on getting compiling
 type H264Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -5159,7 +5511,11 @@ func (s *H264Settings) SetTimecodeInsertion(v string) *H264Settings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsAkamaiSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsAkamaiSettings
+>>>>>>> Working on getting compiling
 type HlsAkamaiSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5241,7 +5597,11 @@ func (s *HlsAkamaiSettings) SetToken(v string) *HlsAkamaiSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsBasicPutSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsBasicPutSettings
+>>>>>>> Working on getting compiling
 type HlsBasicPutSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5295,7 +5655,11 @@ func (s *HlsBasicPutSettings) SetRestartDelay(v int64) *HlsBasicPutSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsCdnSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsCdnSettings
+>>>>>>> Working on getting compiling
 type HlsCdnSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5342,7 +5706,11 @@ func (s *HlsCdnSettings) SetHlsWebdavSettings(v *HlsWebdavSettings) *HlsCdnSetti
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsGroupSettings
+>>>>>>> Working on getting compiling
 type HlsGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5721,7 +6089,11 @@ func (s *HlsGroupSettings) SetTsFileMode(v string) *HlsGroupSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsInputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsInputSettings
+>>>>>>> Working on getting compiling
 type HlsInputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5779,7 +6151,11 @@ func (s *HlsInputSettings) SetRetryInterval(v int64) *HlsInputSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsMediaStoreSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsMediaStoreSettings
+>>>>>>> Working on getting compiling
 type HlsMediaStoreSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5843,7 +6219,11 @@ func (s *HlsMediaStoreSettings) SetRestartDelay(v int64) *HlsMediaStoreSettings 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsOutputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsOutputSettings
+>>>>>>> Working on getting compiling
 type HlsOutputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5887,7 +6267,11 @@ func (s *HlsOutputSettings) SetSegmentModifier(v string) *HlsOutputSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsSettings
+>>>>>>> Working on getting compiling
 type HlsSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5918,7 +6302,11 @@ func (s *HlsSettings) SetStandardHlsSettings(v *StandardHlsSettings) *HlsSetting
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsWebdavSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/HlsWebdavSettings
+>>>>>>> Working on getting compiling
 type HlsWebdavSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -5981,7 +6369,11 @@ func (s *HlsWebdavSettings) SetRestartDelay(v int64) *HlsWebdavSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Input
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Input
+>>>>>>> Working on getting compiling
 type Input struct {
 	_ struct{} `type:"structure"`
 
@@ -6076,7 +6468,11 @@ func (s *Input) SetType(v string) *Input {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputAttachment
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputAttachment
+>>>>>>> Working on getting compiling
 type InputAttachment struct {
 	_ struct{} `type:"structure"`
 
@@ -6109,7 +6505,11 @@ func (s *InputAttachment) SetInputSettings(v *InputSettings) *InputAttachment {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputChannelLevel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputChannelLevel
+>>>>>>> Working on getting compiling
 type InputChannelLevel struct {
 	_ struct{} `type:"structure"`
 
@@ -6144,7 +6544,11 @@ func (s *InputChannelLevel) SetInputChannel(v int64) *InputChannelLevel {
 }
 
 // Settings for a PUSH type input
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputDestination
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputDestination
+>>>>>>> Working on getting compiling
 type InputDestination struct {
 	_ struct{} `type:"structure"`
 
@@ -6188,7 +6592,11 @@ func (s *InputDestination) SetUrl(v string) *InputDestination {
 }
 
 // Endpoint settings for a PUSH type input
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputDestinationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputDestinationRequest
+>>>>>>> Working on getting compiling
 type InputDestinationRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -6212,7 +6620,11 @@ func (s *InputDestinationRequest) SetStreamName(v string) *InputDestinationReque
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputLocation
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputLocation
+>>>>>>> Working on getting compiling
 type InputLocation struct {
 	_ struct{} `type:"structure"`
 
@@ -6259,7 +6671,11 @@ func (s *InputLocation) SetUsername(v string) *InputLocation {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputLossBehavior
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputLossBehavior
+>>>>>>> Working on getting compiling
 type InputLossBehavior struct {
 	_ struct{} `type:"structure"`
 
@@ -6328,7 +6744,11 @@ func (s *InputLossBehavior) SetRepeatFrameMsec(v int64) *InputLossBehavior {
 }
 
 // An Input Security Group
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputSecurityGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputSecurityGroup
+>>>>>>> Working on getting compiling
 type InputSecurityGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -6372,7 +6792,11 @@ func (s *InputSecurityGroup) SetWhitelistRules(v []*InputWhitelistRule) *InputSe
 
 // Live Event input parameters. There can be multiple inputs in a single Live
 // Event.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputSettings
+>>>>>>> Working on getting compiling
 type InputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -6473,7 +6897,11 @@ func (s *InputSettings) SetVideoSelector(v *VideoSelector) *InputSettings {
 }
 
 // Settings for a PULL type input
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputSource
+>>>>>>> Working on getting compiling
 type InputSource struct {
 	_ struct{} `type:"structure"`
 
@@ -6516,7 +6944,11 @@ func (s *InputSource) SetUsername(v string) *InputSource {
 }
 
 // Settings for for a PULL type input
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputSourceRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputSourceRequest
+>>>>>>> Working on getting compiling
 type InputSourceRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -6559,7 +6991,11 @@ func (s *InputSourceRequest) SetUsername(v string) *InputSourceRequest {
 }
 
 // Whitelist rule
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputWhitelistRule
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputWhitelistRule
+>>>>>>> Working on getting compiling
 type InputWhitelistRule struct {
 	_ struct{} `type:"structure"`
 
@@ -6584,7 +7020,11 @@ func (s *InputWhitelistRule) SetCidr(v string) *InputWhitelistRule {
 }
 
 // An IPv4 CIDR to whitelist.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputWhitelistRuleCidr
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/InputWhitelistRuleCidr
+>>>>>>> Working on getting compiling
 type InputWhitelistRuleCidr struct {
 	_ struct{} `type:"structure"`
 
@@ -6608,7 +7048,11 @@ func (s *InputWhitelistRuleCidr) SetCidr(v string) *InputWhitelistRuleCidr {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/KeyProviderSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/KeyProviderSettings
+>>>>>>> Working on getting compiling
 type KeyProviderSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -6631,7 +7075,11 @@ func (s *KeyProviderSettings) SetStaticKeySettings(v *StaticKeySettings) *KeyPro
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListChannelsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListChannelsRequest
+>>>>>>> Working on getting compiling
 type ListChannelsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6675,7 +7123,11 @@ func (s *ListChannelsInput) SetNextToken(v string) *ListChannelsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListChannelsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListChannelsResponse
+>>>>>>> Working on getting compiling
 type ListChannelsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6706,7 +7158,11 @@ func (s *ListChannelsOutput) SetNextToken(v string) *ListChannelsOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputSecurityGroupsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputSecurityGroupsRequest
+>>>>>>> Working on getting compiling
 type ListInputSecurityGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6750,7 +7206,11 @@ func (s *ListInputSecurityGroupsInput) SetNextToken(v string) *ListInputSecurity
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputSecurityGroupsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputSecurityGroupsResponse
+>>>>>>> Working on getting compiling
 type ListInputSecurityGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6781,7 +7241,11 @@ func (s *ListInputSecurityGroupsOutput) SetNextToken(v string) *ListInputSecurit
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputsRequest
+>>>>>>> Working on getting compiling
 type ListInputsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6825,7 +7289,11 @@ func (s *ListInputsInput) SetNextToken(v string) *ListInputsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ListInputsResponse
+>>>>>>> Working on getting compiling
 type ListInputsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6856,7 +7324,11 @@ func (s *ListInputsOutput) SetNextToken(v string) *ListInputsOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/M2tsSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/M2tsSettings
+>>>>>>> Working on getting compiling
 type M2tsSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -7371,7 +7843,11 @@ func (s *M2tsSettings) SetVideoPid(v string) *M2tsSettings {
 }
 
 // Settings information for the .m3u8 container
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/M3u8Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/M3u8Settings
+>>>>>>> Working on getting compiling
 type M3u8Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -7537,7 +8013,11 @@ func (s *M3u8Settings) SetVideoPid(v string) *M3u8Settings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Mp2Settings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Mp2Settings
+>>>>>>> Working on getting compiling
 type Mp2Settings struct {
 	_ struct{} `type:"structure"`
 
@@ -7580,7 +8060,11 @@ func (s *Mp2Settings) SetSampleRate(v float64) *Mp2Settings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/MsSmoothGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/MsSmoothGroupSettings
+>>>>>>> Working on getting compiling
 type MsSmoothGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -7797,7 +8281,11 @@ func (s *MsSmoothGroupSettings) SetTimestampOffsetMode(v string) *MsSmoothGroupS
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/MsSmoothOutputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/MsSmoothOutputSettings
+>>>>>>> Working on getting compiling
 type MsSmoothOutputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -7824,7 +8312,11 @@ func (s *MsSmoothOutputSettings) SetNameModifier(v string) *MsSmoothOutputSettin
 
 // Network source to transcode. Must be accessible to the Elemental Live node
 // that is running the live event through a network connection.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/NetworkInputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/NetworkInputSettings
+>>>>>>> Working on getting compiling
 type NetworkInputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -7863,7 +8355,11 @@ func (s *NetworkInputSettings) SetServerValidation(v string) *NetworkInputSettin
 }
 
 // Output settings. There can be multiple outputs within a group.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Output
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Output
+>>>>>>> Working on getting compiling
 type Output struct {
 	_ struct{} `type:"structure"`
 
@@ -7923,7 +8419,11 @@ func (s *Output) SetVideoDescriptionName(v string) *Output {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputDestination
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputDestination
+>>>>>>> Working on getting compiling
 type OutputDestination struct {
 	_ struct{} `type:"structure"`
 
@@ -7956,7 +8456,11 @@ func (s *OutputDestination) SetSettings(v []*OutputDestinationSettings) *OutputD
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputDestinationSettings
+>>>>>>> Working on getting compiling
 type OutputDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8000,7 +8504,11 @@ func (s *OutputDestinationSettings) SetUsername(v string) *OutputDestinationSett
 
 // Output groups for this Live Event. Output groups contain information about
 // where streams should be distributed.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputGroup
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputGroup
+>>>>>>> Working on getting compiling
 type OutputGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -8042,7 +8550,11 @@ func (s *OutputGroup) SetOutputs(v []*Output) *OutputGroup {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputGroupSettings
+>>>>>>> Working on getting compiling
 type OutputGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8090,7 +8602,11 @@ func (s *OutputGroupSettings) SetUdpGroupSettings(v *UdpGroupSettings) *OutputGr
 }
 
 // Reference to an OutputDestination ID defined in the channel
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputLocationRef
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputLocationRef
+>>>>>>> Working on getting compiling
 type OutputLocationRef struct {
 	_ struct{} `type:"structure"`
 
@@ -8113,7 +8629,11 @@ func (s *OutputLocationRef) SetDestinationRefId(v string) *OutputLocationRef {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/OutputSettings
+>>>>>>> Working on getting compiling
 type OutputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8160,7 +8680,11 @@ func (s *OutputSettings) SetUdpOutputSettings(v *UdpOutputSettings) *OutputSetti
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/PassThroughSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/PassThroughSettings
+>>>>>>> Working on getting compiling
 type PassThroughSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -8175,7 +8699,11 @@ func (s PassThroughSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/RemixSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/RemixSettings
+>>>>>>> Working on getting compiling
 type RemixSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8217,7 +8745,11 @@ func (s *RemixSettings) SetChannelsOut(v int64) *RemixSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte20PlusEmbeddedDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte20PlusEmbeddedDestinationSettings
+>>>>>>> Working on getting compiling
 type Scte20PlusEmbeddedDestinationSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -8232,7 +8764,11 @@ func (s Scte20PlusEmbeddedDestinationSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte20SourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte20SourceSettings
+>>>>>>> Working on getting compiling
 type Scte20SourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8268,7 +8804,11 @@ func (s *Scte20SourceSettings) SetSource608ChannelNumber(v int64) *Scte20SourceS
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte27DestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte27DestinationSettings
+>>>>>>> Working on getting compiling
 type Scte27DestinationSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -8283,7 +8823,11 @@ func (s Scte27DestinationSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte27SourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte27SourceSettings
+>>>>>>> Working on getting compiling
 type Scte27SourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8313,7 +8857,11 @@ func (s *Scte27SourceSettings) SetPid(v int64) *Scte27SourceSettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte35SpliceInsert
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte35SpliceInsert
+>>>>>>> Working on getting compiling
 type Scte35SpliceInsert struct {
 	_ struct{} `type:"structure"`
 
@@ -8359,7 +8907,11 @@ func (s *Scte35SpliceInsert) SetWebDeliveryAllowedFlag(v string) *Scte35SpliceIn
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte35TimeSignalApos
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/Scte35TimeSignalApos
+>>>>>>> Working on getting compiling
 type Scte35TimeSignalApos struct {
 	_ struct{} `type:"structure"`
 
@@ -8405,7 +8957,11 @@ func (s *Scte35TimeSignalApos) SetWebDeliveryAllowedFlag(v string) *Scte35TimeSi
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/SmpteTtDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/SmpteTtDestinationSettings
+>>>>>>> Working on getting compiling
 type SmpteTtDestinationSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -8420,7 +8976,11 @@ func (s SmpteTtDestinationSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StandardHlsSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StandardHlsSettings
+>>>>>>> Working on getting compiling
 type StandardHlsSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8454,7 +9014,11 @@ func (s *StandardHlsSettings) SetM3u8Settings(v *M3u8Settings) *StandardHlsSetti
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StartChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StartChannelRequest
+>>>>>>> Working on getting compiling
 type StartChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8491,7 +9055,11 @@ func (s *StartChannelInput) SetChannelId(v string) *StartChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StartChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StartChannelResponse
+>>>>>>> Working on getting compiling
 type StartChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8586,7 +9154,11 @@ func (s *StartChannelOutput) SetState(v string) *StartChannelOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StaticKeySettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StaticKeySettings
+>>>>>>> Working on getting compiling
 type StaticKeySettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8619,7 +9191,11 @@ func (s *StaticKeySettings) SetStaticKeyValue(v string) *StaticKeySettings {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StopChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StopChannelRequest
+>>>>>>> Working on getting compiling
 type StopChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8656,7 +9232,11 @@ func (s *StopChannelInput) SetChannelId(v string) *StopChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StopChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/StopChannelResponse
+>>>>>>> Working on getting compiling
 type StopChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -8751,7 +9331,11 @@ func (s *StopChannelOutput) SetState(v string) *StopChannelOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TeletextDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TeletextDestinationSettings
+>>>>>>> Working on getting compiling
 type TeletextDestinationSettings struct {
 	_ struct{} `type:"structure"`
 }
@@ -8766,7 +9350,11 @@ func (s TeletextDestinationSettings) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TeletextSourceSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TeletextSourceSettings
+>>>>>>> Working on getting compiling
 type TeletextSourceSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8792,7 +9380,11 @@ func (s *TeletextSourceSettings) SetPageNumber(v string) *TeletextSourceSettings
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TimecodeConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TimecodeConfig
+>>>>>>> Working on getting compiling
 type TimecodeConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -8833,7 +9425,11 @@ func (s *TimecodeConfig) SetSyncThreshold(v int64) *TimecodeConfig {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TtmlDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/TtmlDestinationSettings
+>>>>>>> Working on getting compiling
 type TtmlDestinationSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8859,7 +9455,11 @@ func (s *TtmlDestinationSettings) SetStyleControl(v string) *TtmlDestinationSett
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/UdpContainerSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/UdpContainerSettings
+>>>>>>> Working on getting compiling
 type UdpContainerSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8882,7 +9482,11 @@ func (s *UdpContainerSettings) SetM2tsSettings(v *M2tsSettings) *UdpContainerSet
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/UdpGroupSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/UdpGroupSettings
+>>>>>>> Working on getting compiling
 type UdpGroupSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8930,7 +9534,11 @@ func (s *UdpGroupSettings) SetTimedMetadataId3Period(v int64) *UdpGroupSettings 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/UdpOutputSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/UdpOutputSettings
+>>>>>>> Working on getting compiling
 type UdpOutputSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -8984,7 +9592,11 @@ func (s *UdpOutputSettings) SetFecOutputSettings(v *FecOutputSettings) *UdpOutpu
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ValidationError
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/ValidationError
+>>>>>>> Working on getting compiling
 type ValidationError struct {
 	_ struct{} `type:"structure"`
 
@@ -9015,7 +9627,11 @@ func (s *ValidationError) SetErrorMessage(v string) *ValidationError {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoCodecSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoCodecSettings
+>>>>>>> Working on getting compiling
 type VideoCodecSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9039,7 +9655,11 @@ func (s *VideoCodecSettings) SetH264Settings(v *H264Settings) *VideoCodecSetting
 }
 
 // Video settings for this stream.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoDescription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoDescription
+>>>>>>> Working on getting compiling
 type VideoDescription struct {
 	_ struct{} `type:"structure"`
 
@@ -9130,7 +9750,11 @@ func (s *VideoDescription) SetWidth(v int64) *VideoDescription {
 
 // Specifies a particular video stream within an input source. An input may
 // have only a single video selector.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelector
+>>>>>>> Working on getting compiling
 type VideoSelector struct {
 	_ struct{} `type:"structure"`
 
@@ -9180,7 +9804,11 @@ func (s *VideoSelector) SetSelectorSettings(v *VideoSelectorSettings) *VideoSele
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelectorPid
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelectorPid
+>>>>>>> Working on getting compiling
 type VideoSelectorPid struct {
 	_ struct{} `type:"structure"`
 
@@ -9204,7 +9832,11 @@ func (s *VideoSelectorPid) SetPid(v int64) *VideoSelectorPid {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelectorProgramId
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelectorProgramId
+>>>>>>> Working on getting compiling
 type VideoSelectorProgramId struct {
 	_ struct{} `type:"structure"`
 
@@ -9230,7 +9862,11 @@ func (s *VideoSelectorProgramId) SetProgramId(v int64) *VideoSelectorProgramId {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelectorSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/VideoSelectorSettings
+>>>>>>> Working on getting compiling
 type VideoSelectorSettings struct {
 	_ struct{} `type:"structure"`
 
@@ -9261,7 +9897,11 @@ func (s *VideoSelectorSettings) SetVideoSelectorProgramId(v *VideoSelectorProgra
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/WebvttDestinationSettings
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/WebvttDestinationSettings
+>>>>>>> Working on getting compiling
 type WebvttDestinationSettings struct {
 	_ struct{} `type:"structure"`
 }

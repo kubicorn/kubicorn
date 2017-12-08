@@ -3071,7 +3071,11 @@ const opGetAppliedSchemaVersion = "GetAppliedSchemaVersion"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetAppliedSchemaVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetAppliedSchemaVersion
+>>>>>>> Working on getting compiling
 func (c *CloudDirectory) GetAppliedSchemaVersionRequest(input *GetAppliedSchemaVersionInput) (req *request.Request, output *GetAppliedSchemaVersionOutput) {
 	op := &request.Operation{
 		Name:       opGetAppliedSchemaVersion,
@@ -3132,7 +3136,11 @@ func (c *CloudDirectory) GetAppliedSchemaVersionRequest(input *GetAppliedSchemaV
 //   * ErrCodeResourceNotFoundException "ResourceNotFoundException"
 //   The specified resource could not be found.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetAppliedSchemaVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetAppliedSchemaVersion
+>>>>>>> Working on getting compiling
 func (c *CloudDirectory) GetAppliedSchemaVersion(input *GetAppliedSchemaVersionInput) (*GetAppliedSchemaVersionOutput, error) {
 	req, out := c.GetAppliedSchemaVersionRequest(input)
 	return out, req.Send()
@@ -8244,7 +8252,11 @@ const opUpgradeAppliedSchema = "UpgradeAppliedSchema"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradeAppliedSchema
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradeAppliedSchema
+>>>>>>> Working on getting compiling
 func (c *CloudDirectory) UpgradeAppliedSchemaRequest(input *UpgradeAppliedSchemaInput) (req *request.Request, output *UpgradeAppliedSchemaOutput) {
 	op := &request.Operation{
 		Name:       opUpgradeAppliedSchema,
@@ -8315,7 +8327,11 @@ func (c *CloudDirectory) UpgradeAppliedSchemaRequest(input *UpgradeAppliedSchema
 //   to apply a schema with the same name has occurred. Rename the link or the
 //   schema and then try again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradeAppliedSchema
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradeAppliedSchema
+>>>>>>> Working on getting compiling
 func (c *CloudDirectory) UpgradeAppliedSchema(input *UpgradeAppliedSchemaInput) (*UpgradeAppliedSchemaOutput, error) {
 	req, out := c.UpgradeAppliedSchemaRequest(input)
 	return out, req.Send()
@@ -8362,7 +8378,11 @@ const opUpgradePublishedSchema = "UpgradePublishedSchema"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradePublishedSchema
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradePublishedSchema
+>>>>>>> Working on getting compiling
 func (c *CloudDirectory) UpgradePublishedSchemaRequest(input *UpgradePublishedSchemaInput) (req *request.Request, output *UpgradePublishedSchemaOutput) {
 	op := &request.Operation{
 		Name:       opUpgradePublishedSchema,
@@ -8433,7 +8453,11 @@ func (c *CloudDirectory) UpgradePublishedSchemaRequest(input *UpgradePublishedSc
 //   Indicates that limits are exceeded. See Limits (http://docs.aws.amazon.com/directoryservice/latest/admin-guide/limits.html)
 //   for more information.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradePublishedSchema
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradePublishedSchema
+>>>>>>> Working on getting compiling
 func (c *CloudDirectory) UpgradePublishedSchema(input *UpgradePublishedSchemaInput) (*UpgradePublishedSchemaOutput, error) {
 	req, out := c.UpgradePublishedSchemaRequest(input)
 	return out, req.Send()
@@ -8455,7 +8479,11 @@ func (c *CloudDirectory) UpgradePublishedSchemaWithContext(ctx aws.Context, inpu
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/AddFacetToObjectRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/AddFacetToObjectRequest
+>>>>>>> Working on getting compiling
 type AddFacetToObjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10310,8 +10338,8 @@ func (s *BatchDetachObjectResponse) SetDetachedObjectIdentifier(v string) *Batch
 	return s
 }
 
-// Detaches the specified policy from the specified directory inside a BatchRead
-// operation. For more information, see DetachPolicy and BatchReadRequest$Operations.
+// Detaches the specified policy from the specified directory inside a BatchWrite
+// operation. For more information, see DetachPolicy and BatchWriteRequest$Operations.
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/BatchDetachPolicy
 type BatchDetachPolicy struct {
 	_ struct{} `type:"structure"`
@@ -14506,7 +14534,11 @@ func (s *FacetAttributeUpdate) SetAttribute(v *FacetAttribute) *FacetAttributeUp
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetAppliedSchemaVersionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetAppliedSchemaVersionRequest
+>>>>>>> Working on getting compiling
 type GetAppliedSchemaVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -14545,7 +14577,11 @@ func (s *GetAppliedSchemaVersionInput) SetSchemaArn(v string) *GetAppliedSchemaV
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetAppliedSchemaVersionResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetAppliedSchemaVersionResponse
+>>>>>>> Working on getting compiling
 type GetAppliedSchemaVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14570,7 +14606,11 @@ func (s *GetAppliedSchemaVersionOutput) SetAppliedSchemaArn(v string) *GetApplie
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetDirectoryRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/GetDirectoryRequest
+>>>>>>> Working on getting compiling
 type GetDirectoryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15077,7 +15117,11 @@ func (s *ListAppliedSchemaArnsInput) SetSchemaArn(v string) *ListAppliedSchemaAr
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/ListAppliedSchemaArnsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/ListAppliedSchemaArnsResponse
+>>>>>>> Working on getting compiling
 type ListAppliedSchemaArnsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16824,7 +16868,11 @@ func (s *ListPublishedSchemaArnsInput) SetSchemaArn(v string) *ListPublishedSche
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/ListPublishedSchemaArnsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/ListPublishedSchemaArnsResponse
+>>>>>>> Working on getting compiling
 type ListPublishedSchemaArnsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19082,7 +19130,11 @@ func (s UpdateTypedLinkFacetOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradeAppliedSchemaRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradeAppliedSchemaRequest
+>>>>>>> Working on getting compiling
 type UpgradeAppliedSchemaInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19146,7 +19198,11 @@ func (s *UpgradeAppliedSchemaInput) SetPublishedSchemaArn(v string) *UpgradeAppl
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradeAppliedSchemaResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradeAppliedSchemaResponse
+>>>>>>> Working on getting compiling
 type UpgradeAppliedSchemaOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19179,7 +19235,11 @@ func (s *UpgradeAppliedSchemaOutput) SetUpgradedSchemaArn(v string) *UpgradeAppl
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradePublishedSchemaRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradePublishedSchemaRequest
+>>>>>>> Working on getting compiling
 type UpgradePublishedSchemaInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19262,7 +19322,11 @@ func (s *UpgradePublishedSchemaInput) SetPublishedSchemaArn(v string) *UpgradePu
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradePublishedSchemaResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2016-05-10/UpgradePublishedSchemaResponse
+>>>>>>> Working on getting compiling
 type UpgradePublishedSchemaOutput struct {
 	_ struct{} `type:"structure"`
 

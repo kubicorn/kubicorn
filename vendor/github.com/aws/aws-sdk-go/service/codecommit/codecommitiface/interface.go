@@ -81,12 +81,18 @@ type CodeCommitAPI interface {
 	DeleteBranchRequest(*codecommit.DeleteBranchInput) (*request.Request, *codecommit.DeleteBranchOutput)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	DeleteCommentContent(*codecommit.DeleteCommentContentInput) (*codecommit.DeleteCommentContentOutput, error)
 	DeleteCommentContentWithContext(aws.Context, *codecommit.DeleteCommentContentInput, ...request.Option) (*codecommit.DeleteCommentContentOutput, error)
 	DeleteCommentContentRequest(*codecommit.DeleteCommentContentInput) (*request.Request, *codecommit.DeleteCommentContentOutput)
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	DeleteRepository(*codecommit.DeleteRepositoryInput) (*codecommit.DeleteRepositoryOutput, error)
 	DeleteRepositoryWithContext(aws.Context, *codecommit.DeleteRepositoryInput, ...request.Option) (*codecommit.DeleteRepositoryOutput, error)
 	DeleteRepositoryRequest(*codecommit.DeleteRepositoryInput) (*request.Request, *codecommit.DeleteRepositoryOutput)

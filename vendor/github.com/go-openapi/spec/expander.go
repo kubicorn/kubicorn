@@ -370,12 +370,14 @@ func normalizeFileRef(ref *Ref, relativeBase string) *Ref {
 }
 =======
 func (r *schemaLoader) resolveRef(currentRef, ref *Ref, node, target interface{}) error {
+
 	tgt := reflect.ValueOf(target)
 	if tgt.Kind() != reflect.Ptr {
 		return fmt.Errorf("resolve ref: target needs to be a pointer")
 	}
 
 	oldRef := currentRef
+
 	if currentRef != nil {
 		debugLog("resolve ref current %s new %s", currentRef.String(), ref.String())
 		nextRef := nextRef(node, ref, currentRef.GetPointer())
@@ -441,7 +443,12 @@ func (r *schemaLoader) resolveRef(ref *Ref, target interface{}, basePath string)
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
+=======
+	r.currentRef = currentRef
+
+>>>>>>> Working on getting compiling
 	return nil
 }
 
@@ -645,6 +652,7 @@ func basePathFromSchemaID(oldBasePath, id string) string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, basePath string) (*Schema, error) {
 	if target.Ref.String() == "" && target.Ref.IsRoot() {
 		// normalizing is important
@@ -665,18 +673,16 @@ func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, ba
 			// path.Clean here would not work correctly if basepath is http
 			refPath = fmt.Sprintf("%s%s", refPath, "placeholder.json")
 =======
+=======
+	// t is the new expanded schema
+>>>>>>> Working on getting compiling
 	var t *Schema
-	var basePath string
-	b, _ := json.Marshal(target)
-	debugLog("Target is: %s", string(b))
+
 	for target.Ref.String() != "" {
 		if swag.ContainsStringsCI(parentRefs, target.Ref.String()) {
 			return &target, nil
 		}
-		basePath = target.Ref.RemoteURI()
-		debugLog("\n\n\n\n\nbasePath: %s", basePath)
-		b, _ := json.Marshal(target)
-		debugLog("calling Resolve with target: %s", string(b))
+
 		if err := resolver.Resolve(&target.Ref, &t); shouldStopOnError(err, resolver.options) {
 			return &target, err
 >>>>>>> Initial dep workover
@@ -712,6 +718,7 @@ func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, ba
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 	t, err := expandItems(target, parentRefs, resolver, basePath)
 =======
@@ -722,6 +729,9 @@ func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, ba
 		b, _ = json.Marshal(target)
 		debugLog("after: %s", string(b))
 	}
+=======
+
+>>>>>>> Working on getting compiling
 	t, err := expandItems(target, parentRefs, resolver)
 >>>>>>> Initial dep workover
 	if shouldStopOnError(err, resolver.options) {
@@ -730,8 +740,6 @@ func expandSchema(target Schema, parentRefs []string, resolver *schemaLoader, ba
 	if t != nil {
 		target = *t
 	}
-
-	resolver.reset()
 
 	for i := range target.AllOf {
 		t, err := expandSchema(target.AllOf[i], parentRefs, resolver, basePath)

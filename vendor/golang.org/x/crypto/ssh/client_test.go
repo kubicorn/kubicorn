@@ -90,12 +90,18 @@ func TestBannerCallback(t *testing.T) {
 
 	serverConf := &ServerConfig{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		PasswordCallback: func(conn ConnMetadata, password []byte) (*Permissions, error) {
 			return &Permissions{}, nil
 		},
 =======
 		NoClientAuth: true,
 >>>>>>> Initial dep workover
+=======
+		PasswordCallback: func(conn ConnMetadata, password []byte) (*Permissions, error) {
+			return &Permissions{}, nil
+		},
+>>>>>>> Working on getting compiling
 		BannerCallback: func(conn ConnMetadata) string {
 			return "Hello World"
 		},
@@ -104,6 +110,7 @@ func TestBannerCallback(t *testing.T) {
 	go NewServerConn(c1, serverConf)
 
 	var receivedBanner string
+<<<<<<< HEAD
 <<<<<<< HEAD
 	var bannerCount int
 	clientConf := ClientConfig{
@@ -115,11 +122,21 @@ func TestBannerCallback(t *testing.T) {
 		BannerCallback: func(message string) error {
 			bannerCount++
 =======
+=======
+	var bannerCount int
+>>>>>>> Working on getting compiling
 	clientConf := ClientConfig{
+		Auth: []AuthMethod{
+			Password("123"),
+		},
 		User:            "user",
 		HostKeyCallback: InsecureIgnoreHostKey(),
 		BannerCallback: func(message string) error {
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
+=======
+			bannerCount++
+>>>>>>> Working on getting compiling
 			receivedBanner = message
 			return nil
 		},
@@ -131,12 +148,18 @@ func TestBannerCallback(t *testing.T) {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	if bannerCount != 1 {
 		t.Errorf("got %d banners; want 1", bannerCount)
 	}
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	expected := "Hello World"
 	if receivedBanner != expected {
 		t.Fatalf("got %s; want %s", receivedBanner, expected)

@@ -150,12 +150,17 @@ func (c *Batch) CreateComputeEnvironmentRequest(input *CreateComputeEnvironmentI
 // Instances launched into a managed compute environment use a recent, approved
 // version of the Amazon ECS-optimized AMI. You can choose to use Amazon EC2
 <<<<<<< HEAD
+<<<<<<< HEAD
 // On-Demand Instances in your managed compute environment, or you can use Amazon
 // EC2 Spot Instances that only launch when the Spot bid price is below a specified
 =======
 // On-Demand instances in your managed compute environment, or you can use Amazon
 // EC2 Spot instances that only launch when the Spot bid price is below a specified
 >>>>>>> Initial dep workover
+=======
+// On-Demand Instances in your managed compute environment, or you can use Amazon
+// EC2 Spot Instances that only launch when the Spot bid price is below a specified
+>>>>>>> Working on getting compiling
 // percentage of the On-Demand price.
 //
 // In an unmanaged compute environment, you can manage your own compute resources.
@@ -1512,7 +1517,11 @@ func (c *Batch) UpdateJobQueueWithContext(ctx aws.Context, input *UpdateJobQueue
 }
 
 // An object representing an AWS Batch array job.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ArrayProperties
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ArrayProperties
+>>>>>>> Working on getting compiling
 type ArrayProperties struct {
 	_ struct{} `type:"structure"`
 
@@ -1537,7 +1546,11 @@ func (s *ArrayProperties) SetSize(v int64) *ArrayProperties {
 }
 
 // An object representing the array properties of a job.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ArrayPropertiesDetail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ArrayPropertiesDetail
+>>>>>>> Working on getting compiling
 type ArrayPropertiesDetail struct {
 	_ struct{} `type:"structure"`
 
@@ -1582,7 +1595,11 @@ func (s *ArrayPropertiesDetail) SetStatusSummary(v map[string]*int64) *ArrayProp
 }
 
 // An object representing the array properties of a job.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ArrayPropertiesSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ArrayPropertiesSummary
+>>>>>>> Working on getting compiling
 type ArrayPropertiesSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -2470,12 +2487,17 @@ type ContainerProperties struct {
 	// and the --env option to docker run (https://docs.docker.com/engine/reference/run/).
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// We do not recommend using plaintext environment variables for sensitive information,
 	// such as credential data.
 =======
 	// We do not recommend using plain text environment variables for sensitive
 	// information, such as credential data.
 >>>>>>> Initial dep workover
+=======
+	// We do not recommend using plaintext environment variables for sensitive information,
+	// such as credential data.
+>>>>>>> Working on getting compiling
 	//
 	// Environment variables must not start with AWS_BATCH; this naming convention
 	// is reserved for variables that are set by the AWS Batch service.
@@ -2557,10 +2579,14 @@ type ContainerProperties struct {
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.23/)
 	// and the --cpu-shares option to docker run (https://docs.docker.com/engine/reference/run/).
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one
 =======
 	// Each vCPU is equivalent to 1,024 CPU shares. You must specify at least 1
 >>>>>>> Initial dep workover
+=======
+	// Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one
+>>>>>>> Working on getting compiling
 	// vCPU.
 	//
 	// Vcpus is a required field
@@ -2682,7 +2708,11 @@ func (s *ContainerProperties) SetVolumes(v []*Volume) *ContainerProperties {
 }
 
 // An object representing summary details of a container within a job.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ContainerSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ContainerSummary
+>>>>>>> Working on getting compiling
 type ContainerSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -2716,7 +2746,11 @@ func (s *ContainerSummary) SetReason(v string) *ContainerSummary {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/CreateComputeEnvironmentRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/CreateComputeEnvironmentRequest
+>>>>>>> Working on getting compiling
 type CreateComputeEnvironmentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4429,16 +4463,22 @@ type SubmitJobInput struct {
 	ContainerOverrides *ContainerOverrides `locationName:"containerOverrides" type:"structure"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// A list of dependencies for the job. A job can depend upon a maximum of 20
 	// jobs. You can specify a SEQUENTIAL type dependency without specifying a job
 	// ID for array jobs so that each child array job completes sequentially, starting
 	// at index 0. You can also specify an N_TO_N type dependency with a job ID
 	// for array jobs so that each index child of this job must wait for the corresponding
 	// index child of each dependency to complete before it can begin.
+<<<<<<< HEAD
 =======
 	// A list of job IDs on which this job depends. A job can depend upon a maximum
 	// of 20 jobs.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	DependsOn []*JobDependency `locationName:"dependsOn" type:"list"`
 
 	// The job definition used by this job. This value can be either a name:revision

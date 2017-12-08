@@ -255,6 +255,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	logger.Success("Created Launch Configuration [%s]", r.Name)
 =======
 	logger.Info("Created Launch Configuration [%s]", r.Name)
@@ -315,6 +316,9 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 =======
 	logger.Success("Created Launch Configuration [%s]", r.Name)
 >>>>>>> Adding files
+=======
+	logger.Info("Created Launch Configuration [%s]", r.Name)
+>>>>>>> Working on getting compiling
 	newResource.Image = expected.(*Lc).Image
 	newResource.InstanceType = expected.(*Lc).InstanceType
 	newResource.Name = expected.(*Lc).Name
@@ -339,7 +343,7 @@ func (r *Lc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Deleted Launch Configuration [%s]", actual.(*Lc).Name)
+	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).Name)
 
 	// Kubernetes API
 	// Todo (@kris-nova) this obviously isn't immutable

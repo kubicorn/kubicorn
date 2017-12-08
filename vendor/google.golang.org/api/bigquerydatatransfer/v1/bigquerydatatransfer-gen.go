@@ -1058,13 +1058,19 @@ type TransferConfig struct {
 	// Applicable only to data sources that do not support service
 	// accounts.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// When set to 0, the data source service account credentials are
 	// used.
 	// May be negative. Note, that this identifier is not stable.
 	// It may change over time even for the same user.
+<<<<<<< HEAD
 =======
 	// When set to 0, the data source service account credentials are used.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	UserId int64 `json:"userId,omitempty,string"`
 
 	// ServerResponse contains the HTTP response code and headers from the
@@ -1139,10 +1145,14 @@ func (s *TransferMessage) MarshalJSON() ([]byte, error) {
 
 // TransferRun: Represents a data transfer run.
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Next id: 25
 =======
 // Next id: 23
 >>>>>>> Initial dep workover
+=======
+// Next id: 25
+>>>>>>> Working on getting compiling
 type TransferRun struct {
 	// DataSourceId: Output only. Data source id.
 	DataSourceId string `json:"dataSourceId,omitempty"`
@@ -1214,11 +1224,16 @@ type TransferRun struct {
 	// When set to 0, the data source service account credentials are
 	// used.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// May be negative. Note, that this identifier is not stable.
 	// It may change over time even for the same user.
 =======
 	// May be negative.
 >>>>>>> Initial dep workover
+=======
+	// May be negative. Note, that this identifier is not stable.
+	// It may change over time even for the same user.
+>>>>>>> Working on getting compiling
 	UserId int64 `json:"userId,omitempty,string"`
 
 	// ServerResponse contains the HTTP response code and headers from the

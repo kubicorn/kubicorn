@@ -504,6 +504,9 @@
       ]
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "AssignPublicIp":{
       "type":"string",
       "enum":[
@@ -511,8 +514,11 @@
         "DISABLED"
       ]
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "Attachment":{
       "type":"structure",
       "members":{
@@ -571,6 +577,7 @@
       "members":{
         "subnets":{"shape":"StringList"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "securityGroups":{"shape":"StringList"},
         "assignPublicIp":{"shape":"AssignPublicIp"}
       }
@@ -586,6 +593,18 @@
       }
     },
 >>>>>>> Initial dep workover
+=======
+        "securityGroups":{"shape":"StringList"},
+        "assignPublicIp":{"shape":"AssignPublicIp"}
+      }
+    },
+    "BlockedException":{
+      "type":"structure",
+      "members":{
+      },
+      "exception":true
+    },
+>>>>>>> Working on getting compiling
     "Boolean":{"type":"boolean"},
     "BoxedBoolean":{
       "type":"boolean",
@@ -875,10 +894,15 @@
         "createdAt":{"shape":"Timestamp"},
         "updatedAt":{"shape":"Timestamp"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "launchType":{"shape":"LaunchType"},
         "platformVersion":{"shape":"String"},
 =======
 >>>>>>> Initial dep workover
+=======
+        "launchType":{"shape":"LaunchType"},
+        "platformVersion":{"shape":"String"},
+>>>>>>> Working on getting compiling
         "networkConfiguration":{"shape":"NetworkConfiguration"}
       }
     },
@@ -1104,6 +1128,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "LaunchType":{
       "type":"string",
       "enum":[
@@ -1111,8 +1138,11 @@
         "FARGATE"
       ]
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "LinuxParameters":{
       "type":"structure",
       "members":{
@@ -1494,10 +1524,15 @@
         "placementConstraints":{"shape":"PlacementConstraints"},
         "placementStrategy":{"shape":"PlacementStrategies"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "launchType":{"shape":"LaunchType"},
         "platformVersion":{"shape":"String"},
 =======
 >>>>>>> Initial dep workover
+=======
+        "launchType":{"shape":"LaunchType"},
+        "platformVersion":{"shape":"String"},
+>>>>>>> Working on getting compiling
         "networkConfiguration":{"shape":"NetworkConfiguration"}
       }
     },
@@ -1649,13 +1684,19 @@
         "reason":{"shape":"String"},
         "containers":{"shape":"ContainerStateChanges"},
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
         "attachments":{"shape":"AttachmentStateChanges"},
         "pullStartedAt":{"shape":"Timestamp"},
         "pullStoppedAt":{"shape":"Timestamp"},
         "executionStoppedAt":{"shape":"Timestamp"}
+<<<<<<< HEAD
 =======
         "attachments":{"shape":"AttachmentStateChanges"}
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
       }
     },
     "SubmitTaskStateChangeResponse":{
@@ -1701,10 +1742,15 @@
         "stoppedAt":{"shape":"Timestamp"},
         "group":{"shape":"String"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "launchType":{"shape":"LaunchType"},
         "platformVersion":{"shape":"String"},
 =======
 >>>>>>> Initial dep workover
+=======
+        "launchType":{"shape":"LaunchType"},
+        "platformVersion":{"shape":"String"},
+>>>>>>> Working on getting compiling
         "attachments":{"shape":"Attachments"}
       }
     },
@@ -1870,12 +1916,18 @@
         "taskDefinition":{"shape":"String"},
         "deploymentConfiguration":{"shape":"DeploymentConfiguration"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "networkConfiguration":{"shape":"NetworkConfiguration"},
         "platformVersion":{"shape":"String"},
         "forceNewDeployment":{"shape":"Boolean"}
 =======
         "networkConfiguration":{"shape":"NetworkConfiguration"}
 >>>>>>> Initial dep workover
+=======
+        "networkConfiguration":{"shape":"NetworkConfiguration"},
+        "platformVersion":{"shape":"String"},
+        "forceNewDeployment":{"shape":"Boolean"}
+>>>>>>> Working on getting compiling
       }
     },
     "UpdateServiceResponse":{

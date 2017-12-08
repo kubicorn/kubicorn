@@ -8,6 +8,7 @@
 
 package mergo
 
+<<<<<<< HEAD
 import "reflect"
 
 func hasExportedField(dst reflect.Value) (exported bool) {
@@ -30,13 +31,22 @@ type config struct {
 type transformers interface {
 	Transformer(reflect.Type) func(dst, src reflect.Value) error
 }
+=======
+import (
+	"reflect"
+)
+>>>>>>> Working on getting compiling
 
 // Traverses recursively both values, assigning src's fields values to dst.
 // The map argument tracks comparisons that have already been seen, which allows
 // short circuiting on recursive types.
+<<<<<<< HEAD
 func deepMerge(dst, src reflect.Value, visited map[uintptr]*visit, depth int, config *config) (err error) {
 	overwrite := config.overwrite
 
+=======
+func deepMerge(dst, src reflect.Value, visited map[uintptr]*visit, depth int) (err error) {
+>>>>>>> Working on getting compiling
 	if !src.IsValid() {
 		return
 	}
@@ -53,6 +63,7 @@ func deepMerge(dst, src reflect.Value, visited map[uintptr]*visit, depth int, co
 		// Remember, remember...
 		visited[h] = &visit{addr, typ, seen}
 	}
+<<<<<<< HEAD
 
 	if config.transformers != nil {
 		if fn := config.transformers.Transformer(dst.Type()); fn != nil {
@@ -79,12 +90,23 @@ func deepMerge(dst, src reflect.Value, visited map[uintptr]*visit, depth int, co
 			dst.Set(reflect.MakeMap(dst.Type()))
 			return
 		}
+=======
+	switch dst.Kind() {
+	case reflect.Struct:
+		for i, n := 0, dst.NumField(); i < n; i++ {
+			if err = deepMerge(dst.Field(i), src.Field(i), visited, depth+1); err != nil {
+				return
+			}
+		}
+	case reflect.Map:
+>>>>>>> Working on getting compiling
 		for _, key := range src.MapKeys() {
 			srcElement := src.MapIndex(key)
 			if !srcElement.IsValid() {
 				continue
 			}
 			dstElement := dst.MapIndex(key)
+<<<<<<< HEAD
 			switch srcElement.Kind() {
 			case reflect.Chan, reflect.Func, reflect.Map, reflect.Ptr, reflect.Interface, reflect.Slice:
 				if srcElement.IsNil() {
@@ -131,11 +153,26 @@ func deepMerge(dst, src reflect.Value, visited map[uintptr]*visit, depth int, co
 		}
 	case reflect.Slice:
 		dst.Set(reflect.AppendSlice(dst, src))
+=======
+			switch reflect.TypeOf(srcElement.Interface()).Kind() {
+			case reflect.Struct:
+				fallthrough
+			case reflect.Map:
+				if err = deepMerge(dstElement, srcElement, visited, depth+1); err != nil {
+					return
+				}
+			}
+			if !dstElement.IsValid() {
+				dst.SetMapIndex(key, srcElement)
+			}
+		}
+>>>>>>> Working on getting compiling
 	case reflect.Ptr:
 		fallthrough
 	case reflect.Interface:
 		if src.IsNil() {
 			break
+<<<<<<< HEAD
 		}
 		if src.Kind() != reflect.Interface {
 			if dst.IsNil() || overwrite {
@@ -164,12 +201,24 @@ func deepMerge(dst, src reflect.Value, visited map[uintptr]*visit, depth int, co
 		}
 	default:
 		if dst.CanSet() && !isEmptyValue(src) && (overwrite || isEmptyValue(dst)) {
+=======
+		} else if dst.IsNil() {
+			if dst.CanSet() && isEmptyValue(dst) {
+				dst.Set(src)
+			}
+		} else if err = deepMerge(dst.Elem(), src.Elem(), visited, depth+1); err != nil {
+			return
+		}
+	default:
+		if dst.CanSet() && !isEmptyValue(src) {
+>>>>>>> Working on getting compiling
 			dst.Set(src)
 		}
 	}
 	return
 }
 
+<<<<<<< HEAD
 // Merge will fill any empty for value type attributes on the dst struct using corresponding
 // src attributes if they themselves are not empty. dst and src must be valid same-type structs
 // and dst must be a pointer to struct.
@@ -198,10 +247,20 @@ func WithOverride(config *config) {
 }
 
 func merge(dst, src interface{}, opts ...func(*config)) error {
+=======
+// Merge sets fields' values in dst from src if they have a zero
+// value of their type.
+// dst and src must be valid same-type structs and dst must be
+// a pointer to struct.
+// It won't merge unexported (private) fields and will do recursively
+// any exported field.
+func Merge(dst, src interface{}) error {
+>>>>>>> Working on getting compiling
 	var (
 		vDst, vSrc reflect.Value
 		err        error
 	)
+<<<<<<< HEAD
 
 	config := &config{}
 
@@ -209,11 +268,17 @@ func merge(dst, src interface{}, opts ...func(*config)) error {
 		opt(config)
 	}
 
+=======
+>>>>>>> Working on getting compiling
 	if vDst, vSrc, err = resolveValues(dst, src); err != nil {
 		return err
 	}
 	if vDst.Type() != vSrc.Type() {
 		return ErrDifferentArgumentsTypes
 	}
+<<<<<<< HEAD
 	return deepMerge(vDst, vSrc, make(map[uintptr]*visit), 0, config)
+=======
+	return deepMerge(vDst, vSrc, make(map[uintptr]*visit), 0)
+>>>>>>> Working on getting compiling
 }

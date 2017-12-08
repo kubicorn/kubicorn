@@ -36,7 +36,11 @@ const opGetMediaForFragmentList = "GetMediaForFragmentList"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentList
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentList
+>>>>>>> Working on getting compiling
 func (c *KinesisVideoArchivedMedia) GetMediaForFragmentListRequest(input *GetMediaForFragmentListInput) (req *request.Request, output *GetMediaForFragmentListOutput) {
 	op := &request.Operation{
 		Name:       opGetMediaForFragmentList,
@@ -93,7 +97,11 @@ func (c *KinesisVideoArchivedMedia) GetMediaForFragmentListRequest(input *GetMed
 //   Status Code: 403, The caller is not authorized to perform an operation on
 //   the given stream, or the token has expired.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentList
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentList
+>>>>>>> Working on getting compiling
 func (c *KinesisVideoArchivedMedia) GetMediaForFragmentList(input *GetMediaForFragmentListInput) (*GetMediaForFragmentListOutput, error) {
 	req, out := c.GetMediaForFragmentListRequest(input)
 	return out, req.Send()
@@ -140,7 +148,11 @@ const opListFragments = "ListFragments"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragments
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragments
+>>>>>>> Working on getting compiling
 func (c *KinesisVideoArchivedMedia) ListFragmentsRequest(input *ListFragmentsInput) (req *request.Request, output *ListFragmentsOutput) {
 	op := &request.Operation{
 		Name:       opListFragments,
@@ -185,7 +197,11 @@ func (c *KinesisVideoArchivedMedia) ListFragmentsRequest(input *ListFragmentsInp
 //   Status Code: 403, The caller is not authorized to perform an operation on
 //   the given stream, or the token has expired.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragments
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragments
+>>>>>>> Working on getting compiling
 func (c *KinesisVideoArchivedMedia) ListFragments(input *ListFragmentsInput) (*ListFragmentsOutput, error) {
 	req, out := c.ListFragmentsRequest(input)
 	return out, req.Send()
@@ -208,7 +224,11 @@ func (c *KinesisVideoArchivedMedia) ListFragmentsWithContext(ctx aws.Context, in
 }
 
 // Represents a segment of video or other time-delimited data.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/Fragment
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/Fragment
+>>>>>>> Working on getting compiling
 type Fragment struct {
 	_ struct{} `type:"structure"`
 
@@ -270,7 +290,11 @@ func (s *Fragment) SetServerTimestamp(v time.Time) *Fragment {
 }
 
 // Describes the time stamp range and time stamp origin of a range of fragments.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/FragmentSelector
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/FragmentSelector
+>>>>>>> Working on getting compiling
 type FragmentSelector struct {
 	_ struct{} `type:"structure"`
 
@@ -328,7 +352,11 @@ func (s *FragmentSelector) SetTimestampRange(v *TimestampRange) *FragmentSelecto
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentListInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentListInput
+>>>>>>> Working on getting compiling
 type GetMediaForFragmentListInput struct {
 	_ struct{} `type:"structure"`
 
@@ -385,7 +413,11 @@ func (s *GetMediaForFragmentListInput) SetStreamName(v string) *GetMediaForFragm
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentListOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/GetMediaForFragmentListOutput
+>>>>>>> Working on getting compiling
 type GetMediaForFragmentListOutput struct {
 	_ struct{} `type:"structure" payload:"Payload"`
 
@@ -438,7 +470,11 @@ func (s *GetMediaForFragmentListOutput) SetPayload(v io.ReadCloser) *GetMediaFor
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragmentsInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragmentsInput
+>>>>>>> Working on getting compiling
 type ListFragmentsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -522,7 +558,11 @@ func (s *ListFragmentsInput) SetStreamName(v string) *ListFragmentsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragmentsOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/ListFragmentsOutput
+>>>>>>> Working on getting compiling
 type ListFragmentsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -558,7 +598,11 @@ func (s *ListFragmentsOutput) SetNextToken(v string) *ListFragmentsOutput {
 }
 
 // The range of time stamps for which to return fragments.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/TimestampRange
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-archived-media-2017-09-30/TimestampRange
+>>>>>>> Working on getting compiling
 type TimestampRange struct {
 	_ struct{} `type:"structure"`
 

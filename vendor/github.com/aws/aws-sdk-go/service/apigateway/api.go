@@ -3393,6 +3393,98 @@ func (c *APIGateway) DeleteUsagePlanKeyWithContext(ctx aws.Context, input *Delet
 }
 
 const opDeleteVpcLink = "DeleteVpcLink"
+<<<<<<< HEAD
+=======
+
+// DeleteVpcLinkRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteVpcLink operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteVpcLink for more information on using the DeleteVpcLink
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the DeleteVpcLinkRequest method.
+//    req, resp := client.DeleteVpcLinkRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+func (c *APIGateway) DeleteVpcLinkRequest(input *DeleteVpcLinkInput) (req *request.Request, output *DeleteVpcLinkOutput) {
+	op := &request.Operation{
+		Name:       opDeleteVpcLink,
+		HTTPMethod: "DELETE",
+		HTTPPath:   "/vpclinks/{vpclink_id}",
+	}
+
+	if input == nil {
+		input = &DeleteVpcLinkInput{}
+	}
+
+	output = &DeleteVpcLinkOutput{}
+	req = c.newRequest(op, input, output)
+	req.Handlers.Unmarshal.Remove(restjson.UnmarshalHandler)
+	req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler)
+	return
+}
+
+// DeleteVpcLink API operation for Amazon API Gateway.
+//
+// Deletes an existing VpcLink of a specified identifier.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon API Gateway's
+// API operation DeleteVpcLink for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeUnauthorizedException "UnauthorizedException"
+//   The request is denied because the caller has insufficient permissions.
+//
+//   * ErrCodeNotFoundException "NotFoundException"
+//   The requested resource is not found. Make sure that the request URI is correct.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   The request has reached its throttling limit. Retry after the specified time
+//   period.
+//
+//   * ErrCodeBadRequestException "BadRequestException"
+//   The submitted request is not valid, for example, the input is incomplete
+//   or incorrect. See the accompanying error message for details.
+//
+func (c *APIGateway) DeleteVpcLink(input *DeleteVpcLinkInput) (*DeleteVpcLinkOutput, error) {
+	req, out := c.DeleteVpcLinkRequest(input)
+	return out, req.Send()
+}
+
+// DeleteVpcLinkWithContext is the same as DeleteVpcLink with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DeleteVpcLink for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *APIGateway) DeleteVpcLinkWithContext(ctx aws.Context, input *DeleteVpcLinkInput, opts ...request.Option) (*DeleteVpcLinkOutput, error) {
+	req, out := c.DeleteVpcLinkRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opFlushStageAuthorizersCache = "FlushStageAuthorizersCache"
+>>>>>>> Working on getting compiling
 
 // DeleteVpcLinkRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteVpcLink operation. The "output" return
@@ -8505,6 +8597,229 @@ func (c *APIGateway) GetVpcLinksPagesWithContext(ctx aws.Context, input *GetVpcL
 	return p.Err()
 }
 
+const opGetVpcLink = "GetVpcLink"
+
+// GetVpcLinkRequest generates a "aws/request.Request" representing the
+// client's request for the GetVpcLink operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetVpcLink for more information on using the GetVpcLink
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the GetVpcLinkRequest method.
+//    req, resp := client.GetVpcLinkRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+func (c *APIGateway) GetVpcLinkRequest(input *GetVpcLinkInput) (req *request.Request, output *UpdateVpcLinkOutput) {
+	op := &request.Operation{
+		Name:       opGetVpcLink,
+		HTTPMethod: "GET",
+		HTTPPath:   "/vpclinks/{vpclink_id}",
+	}
+
+	if input == nil {
+		input = &GetVpcLinkInput{}
+	}
+
+	output = &UpdateVpcLinkOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetVpcLink API operation for Amazon API Gateway.
+//
+// Gets a specified VPC link under the caller's account in a region.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon API Gateway's
+// API operation GetVpcLink for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeUnauthorizedException "UnauthorizedException"
+//   The request is denied because the caller has insufficient permissions.
+//
+//   * ErrCodeNotFoundException "NotFoundException"
+//   The requested resource is not found. Make sure that the request URI is correct.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   The request has reached its throttling limit. Retry after the specified time
+//   period.
+//
+func (c *APIGateway) GetVpcLink(input *GetVpcLinkInput) (*UpdateVpcLinkOutput, error) {
+	req, out := c.GetVpcLinkRequest(input)
+	return out, req.Send()
+}
+
+// GetVpcLinkWithContext is the same as GetVpcLink with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetVpcLink for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *APIGateway) GetVpcLinkWithContext(ctx aws.Context, input *GetVpcLinkInput, opts ...request.Option) (*UpdateVpcLinkOutput, error) {
+	req, out := c.GetVpcLinkRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opGetVpcLinks = "GetVpcLinks"
+
+// GetVpcLinksRequest generates a "aws/request.Request" representing the
+// client's request for the GetVpcLinks operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetVpcLinks for more information on using the GetVpcLinks
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the GetVpcLinksRequest method.
+//    req, resp := client.GetVpcLinksRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+func (c *APIGateway) GetVpcLinksRequest(input *GetVpcLinksInput) (req *request.Request, output *GetVpcLinksOutput) {
+	op := &request.Operation{
+		Name:       opGetVpcLinks,
+		HTTPMethod: "GET",
+		HTTPPath:   "/vpclinks",
+		Paginator: &request.Paginator{
+			InputTokens:     []string{"position"},
+			OutputTokens:    []string{"position"},
+			LimitToken:      "limit",
+			TruncationToken: "",
+		},
+	}
+
+	if input == nil {
+		input = &GetVpcLinksInput{}
+	}
+
+	output = &GetVpcLinksOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetVpcLinks API operation for Amazon API Gateway.
+//
+// Gets the VpcLinks collection under the caller's account in a selected region.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon API Gateway's
+// API operation GetVpcLinks for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeBadRequestException "BadRequestException"
+//   The submitted request is not valid, for example, the input is incomplete
+//   or incorrect. See the accompanying error message for details.
+//
+//   * ErrCodeUnauthorizedException "UnauthorizedException"
+//   The request is denied because the caller has insufficient permissions.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   The request has reached its throttling limit. Retry after the specified time
+//   period.
+//
+func (c *APIGateway) GetVpcLinks(input *GetVpcLinksInput) (*GetVpcLinksOutput, error) {
+	req, out := c.GetVpcLinksRequest(input)
+	return out, req.Send()
+}
+
+// GetVpcLinksWithContext is the same as GetVpcLinks with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetVpcLinks for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *APIGateway) GetVpcLinksWithContext(ctx aws.Context, input *GetVpcLinksInput, opts ...request.Option) (*GetVpcLinksOutput, error) {
+	req, out := c.GetVpcLinksRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+// GetVpcLinksPages iterates over the pages of a GetVpcLinks operation,
+// calling the "fn" function with the response data for each page. To stop
+// iterating, return false from the fn function.
+//
+// See GetVpcLinks method for more information on how to use this operation.
+//
+// Note: This operation can generate multiple requests to a service.
+//
+//    // Example iterating over at most 3 pages of a GetVpcLinks operation.
+//    pageNum := 0
+//    err := client.GetVpcLinksPages(params,
+//        func(page *GetVpcLinksOutput, lastPage bool) bool {
+//            pageNum++
+//            fmt.Println(page)
+//            return pageNum <= 3
+//        })
+//
+func (c *APIGateway) GetVpcLinksPages(input *GetVpcLinksInput, fn func(*GetVpcLinksOutput, bool) bool) error {
+	return c.GetVpcLinksPagesWithContext(aws.BackgroundContext(), input, fn)
+}
+
+// GetVpcLinksPagesWithContext same as GetVpcLinksPages except
+// it takes a Context and allows setting request options on the pages.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *APIGateway) GetVpcLinksPagesWithContext(ctx aws.Context, input *GetVpcLinksInput, fn func(*GetVpcLinksOutput, bool) bool, opts ...request.Option) error {
+	p := request.Pagination{
+		NewRequest: func() (*request.Request, error) {
+			var inCpy *GetVpcLinksInput
+			if input != nil {
+				tmp := *input
+				inCpy = &tmp
+			}
+			req, _ := c.GetVpcLinksRequest(inCpy)
+			req.SetContext(ctx)
+			req.ApplyOptions(opts...)
+			return req, nil
+		},
+	}
+
+	cont := true
+	for p.Next() && cont {
+		cont = fn(p.Page().(*GetVpcLinksOutput), !p.HasNextPage())
+	}
+	return p.Err()
+}
+
 const opImportApiKeys = "ImportApiKeys"
 
 // ImportApiKeysRequest generates a "aws/request.Request" representing the
@@ -11671,6 +11986,100 @@ func (c *APIGateway) UpdateVpcLinkWithContext(ctx aws.Context, input *UpdateVpcL
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
+=======
+const opUpdateVpcLink = "UpdateVpcLink"
+
+// UpdateVpcLinkRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateVpcLink operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateVpcLink for more information on using the UpdateVpcLink
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the UpdateVpcLinkRequest method.
+//    req, resp := client.UpdateVpcLinkRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+func (c *APIGateway) UpdateVpcLinkRequest(input *UpdateVpcLinkInput) (req *request.Request, output *UpdateVpcLinkOutput) {
+	op := &request.Operation{
+		Name:       opUpdateVpcLink,
+		HTTPMethod: "PATCH",
+		HTTPPath:   "/vpclinks/{vpclink_id}",
+	}
+
+	if input == nil {
+		input = &UpdateVpcLinkInput{}
+	}
+
+	output = &UpdateVpcLinkOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// UpdateVpcLink API operation for Amazon API Gateway.
+//
+// Updates an existing VpcLink of a specified identifier.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon API Gateway's
+// API operation UpdateVpcLink for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeUnauthorizedException "UnauthorizedException"
+//   The request is denied because the caller has insufficient permissions.
+//
+//   * ErrCodeNotFoundException "NotFoundException"
+//   The requested resource is not found. Make sure that the request URI is correct.
+//
+//   * ErrCodeBadRequestException "BadRequestException"
+//   The submitted request is not valid, for example, the input is incomplete
+//   or incorrect. See the accompanying error message for details.
+//
+//   * ErrCodeConflictException "ConflictException"
+//   The request configuration has conflicts. For details, see the accompanying
+//   error message.
+//
+//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
+//   The request has reached its throttling limit. Retry after the specified time
+//   period.
+//
+func (c *APIGateway) UpdateVpcLink(input *UpdateVpcLinkInput) (*UpdateVpcLinkOutput, error) {
+	req, out := c.UpdateVpcLinkRequest(input)
+	return out, req.Send()
+}
+
+// UpdateVpcLinkWithContext is the same as UpdateVpcLink with the addition of
+// the ability to pass a context and additional request options.
+//
+// See UpdateVpcLink for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *APIGateway) UpdateVpcLinkWithContext(ctx aws.Context, input *UpdateVpcLinkInput, opts ...request.Option) (*UpdateVpcLinkOutput, error) {
+	req, out := c.UpdateVpcLinkRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+>>>>>>> Working on getting compiling
 // Access log settings, including the access log format and access log destination
 // ARN.
 type AccessLogSettings struct {
@@ -11941,16 +12350,22 @@ type Authorizer struct {
 	AuthType *string `locationName:"authType" type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// Specifies the required credentials as an IAM role for API Gateway to invoke
 	// the authorizer. To specify an IAM role for API Gateway to assume, use the
 	// role's Amazon Resource Name (ARN). To use resource-based permissions on the
 	// Lambda function, specify null.
+<<<<<<< HEAD
 =======
 	// Specifies the required credentials as an IAM role for Amazon API Gateway
 	// to invoke the authorizer. To specify an IAM role for Amazon API Gateway to
 	// assume, use the role's Amazon Resource Name (ARN). To use resource-based
 	// permissions on the Lambda function, specify null.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	AuthorizerCredentials *string `locationName:"authorizerCredentials" type:"string"`
 
 	// The TTL in seconds of cached authorizer results. If it equals 0, authorization
@@ -11995,12 +12410,17 @@ type Authorizer struct {
 
 	// A validation expression for the incoming identity token. For TOKEN authorizers,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// this value is a regular expression. API Gateway will match the incoming token
 	// from the client against the specified regular expression. It will invoke
 =======
 	// this value is a regular expression. Amazon API Gateway will match the incoming
 	// token from the client against the specified regular expression. It will invoke
 >>>>>>> Initial dep workover
+=======
+	// this value is a regular expression. API Gateway will match the incoming token
+	// from the client against the specified regular expression. It will invoke
+>>>>>>> Working on getting compiling
 	// the authorizer's Lambda function there is a match. Otherwise, it will return
 	// a 401 Unauthorized response without calling the Lambda function. The validation
 	// expression does not apply to the REQUEST authorizer.
@@ -12349,16 +12769,22 @@ type CreateAuthorizerInput struct {
 	AuthType *string `locationName:"authType" type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// Specifies the required credentials as an IAM role for API Gateway to invoke
 	// the authorizer. To specify an IAM role for API Gateway to assume, use the
 	// role's Amazon Resource Name (ARN). To use resource-based permissions on the
 	// Lambda function, specify null.
+<<<<<<< HEAD
 =======
 	// Specifies the required credentials as an IAM role for Amazon API Gateway
 	// to invoke the authorizer. To specify an IAM role for Amazon API Gateway to
 	// assume, use the role's Amazon Resource Name (ARN). To use resource-based
 	// permissions on the Lambda function, specify null.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	AuthorizerCredentials *string `locationName:"authorizerCredentials" type:"string"`
 
 	// The TTL in seconds of cached authorizer results. If it equals 0, authorization
@@ -12400,12 +12826,17 @@ type CreateAuthorizerInput struct {
 
 	// A validation expression for the incoming identity token. For TOKEN authorizers,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// this value is a regular expression. API Gateway will match the incoming token
 	// from the client against the specified regular expression. It will invoke
 =======
 	// this value is a regular expression. Amazon API Gateway will match the incoming
 	// token from the client against the specified regular expression. It will invoke
 >>>>>>> Initial dep workover
+=======
+	// this value is a regular expression. API Gateway will match the incoming token
+	// from the client against the specified regular expression. It will invoke
+>>>>>>> Working on getting compiling
 	// the authorizer's Lambda function there is a match. Otherwise, it will return
 	// a 401 Unauthorized response without calling the Lambda function. The validation
 	// expression does not apply to the REQUEST authorizer.
@@ -15052,6 +15483,60 @@ func (s DeleteVpcLinkOutput) GoString() string {
 	return s.String()
 }
 
+// Deletes an existing VpcLink of a specified identifier.
+type DeleteVpcLinkInput struct {
+	_ struct{} `type:"structure"`
+
+	// [Required] The identifier of the VpcLink. It is used in an Integration to
+	// reference this VpcLink.
+	//
+	// VpcLinkId is a required field
+	VpcLinkId *string `location:"uri" locationName:"vpclink_id" type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteVpcLinkInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteVpcLinkInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteVpcLinkInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteVpcLinkInput"}
+	if s.VpcLinkId == nil {
+		invalidParams.Add(request.NewErrParamRequired("VpcLinkId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetVpcLinkId sets the VpcLinkId field's value.
+func (s *DeleteVpcLinkInput) SetVpcLinkId(v string) *DeleteVpcLinkInput {
+	s.VpcLinkId = &v
+	return s
+}
+
+type DeleteVpcLinkOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteVpcLinkOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteVpcLinkOutput) GoString() string {
+	return s.String()
+}
+
 // An immutable representation of a RestApi resource that can be called by users
 // using Stages. A deployment must be associated with a Stage for it to be callable
 // over the Internet.
@@ -15378,12 +15863,17 @@ func (s *DocumentationVersion) SetVersion(v string) *DocumentationVersion {
 // Represents a custom domain name as a user-friendly host name of an API (RestApi).
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 // When you deploy an API, API Gateway creates a default host name for the API.
 // This default API host name is of the {restapi-id}.execute-api.{region}.amazonaws.com
 =======
 // When you deploy an API, Amazon API Gateway creates a default host name for
 // the API. This default API host name is of the {restapi-id}.execute-api.{region}.amazonaws.com
 >>>>>>> Initial dep workover
+=======
+// When you deploy an API, API Gateway creates a default host name for the API.
+// This default API host name is of the {restapi-id}.execute-api.{region}.amazonaws.com
+>>>>>>> Working on getting compiling
 // format. With the default host name, you can access the API's root resource
 // with the URL of https://{restapi-id}.execute-api.{region}.amazonaws.com/{stage}/.
 // When you set up a custom domain name of apis.example.com for this API, you
@@ -15440,10 +15930,14 @@ type DomainName struct {
 	// name. You set up this association by adding a DNS record that points the
 	// custom domain name to this regional domain name. The regional domain name
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// is returned by API Gateway when you create a regional endpoint.
 =======
 	// is returned by Amazon API Gateway when you create a regional endpoint.
 >>>>>>> Initial dep workover
+=======
+	// is returned by API Gateway when you create a regional endpoint.
+>>>>>>> Working on getting compiling
 	RegionalDomainName *string `locationName:"regionalDomainName" type:"string"`
 
 	// The region-specific Amazon Route 53 Hosted Zone ID of the regional endpoint.
@@ -18401,10 +18895,14 @@ type GetSdkInput struct {
 
 	// The language for the generated SDK. Currently java, javascript, android,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// objectivec (for iOS), swift (for iOS), and ruby are supported.
 =======
 	// objectivec and swift (for iOS) are supported.
 >>>>>>> Initial dep workover
+=======
+	// objectivec (for iOS), swift (for iOS), and ruby are supported.
+>>>>>>> Working on getting compiling
 	//
 	// SdkType is a required field
 	SdkType *string `location:"uri" locationName:"sdk_type" type:"string" required:"true"`

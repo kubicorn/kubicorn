@@ -753,6 +753,7 @@ type GetIamPolicyRequest struct {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // HttpDeviceConfig: The device configuration obtained from Cloud IoT
 // Core.
@@ -887,6 +888,8 @@ func (s *HttpSetDeviceStateRequest) MarshalJSON() ([]byte, error) {
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // ListDeviceConfigVersionsResponse: Response for
 // `ListDeviceConfigVersions`.
 type ListDeviceConfigVersionsResponse struct {
@@ -3061,6 +3064,7 @@ func (c *ProjectsLocationsRegistriesDevicesGetCall) Do(opts ...googleapi.CallOpt
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // method id "cloudiot.projects.locations.registries.devices.getConfig":
 
@@ -3220,6 +3224,8 @@ func (c *ProjectsLocationsRegistriesDevicesGetConfigCall) Do(opts ...googleapi.C
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // method id "cloudiot.projects.locations.registries.devices.list":
 
 type ProjectsLocationsRegistriesDevicesListCall struct {
@@ -3758,6 +3764,7 @@ func (c *ProjectsLocationsRegistriesDevicesPatchCall) Do(opts ...googleapi.CallO
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // method id "cloudiot.projects.locations.registries.devices.publishEvent":
 
@@ -4024,6 +4031,8 @@ func (c *ProjectsLocationsRegistriesDevicesSetStateCall) Do(opts ...googleapi.Ca
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // method id "cloudiot.projects.locations.registries.devices.configVersions.list":
 
 type ProjectsLocationsRegistriesDevicesConfigVersionsListCall struct {

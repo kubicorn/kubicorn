@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "discoveryVersion": "v1",
   "ownerName": "Google",
 =======
@@ -7,11 +8,13 @@
   "description": "Provides tools for running validation tests against single URLs",
   "servicePath": "",
   "rootUrl": "https://searchconsole.googleapis.com/",
+=======
+>>>>>>> Working on getting compiling
   "basePath": "",
   "ownerDomain": "google.com",
   "name": "searchconsole",
   "batchPath": "batch",
-  "revision": "20171114",
+  "revision": "20171204",
   "documentationLink": "https://developers.google.com/webmaster-tools/search-console-api/",
   "id": "searchconsole:v1",
   "title": "Google Search Console URL Testing Tools API",
@@ -25,6 +28,7 @@
         "mobileFriendlyTest": {
           "methods": {
             "run": {
+<<<<<<< HEAD
 <<<<<<< HEAD
               "httpMethod": "POST",
               "parameterOrder": [],
@@ -46,14 +50,26 @@
               "parameterOrder": [],
               "httpMethod": "POST",
               "parameters": {},
+=======
+>>>>>>> Working on getting compiling
               "flatPath": "v1/urlTestingTools/mobileFriendlyTest:run",
               "path": "v1/urlTestingTools/mobileFriendlyTest:run",
               "id": "searchconsole.urlTestingTools.mobileFriendlyTest.run",
-              "description": "Runs Mobile-Friendly Test for a given URL.",
               "request": {
                 "$ref": "RunMobileFriendlyTestRequest"
+<<<<<<< HEAD
               }
 >>>>>>> Initial dep workover
+=======
+              },
+              "description": "Runs Mobile-Friendly Test for a given URL.",
+              "response": {
+                "$ref": "RunMobileFriendlyTestResponse"
+              },
+              "parameterOrder": [],
+              "httpMethod": "POST",
+              "parameters": {}
+>>>>>>> Working on getting compiling
             }
           }
         }
@@ -62,18 +78,31 @@
   },
   "parameters": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "upload_protocol": {
 =======
+=======
+    "access_token": {
+      "description": "OAuth access token.",
+      "type": "string",
+      "location": "query"
+    },
+    "key": {
+      "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+      "type": "string",
+      "location": "query"
+    },
+    "quotaUser": {
+      "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
+      "type": "string",
+      "location": "query"
+    },
+>>>>>>> Working on getting compiling
     "pp": {
       "location": "query",
       "description": "Pretty-print response.",
       "type": "boolean",
       "default": "true"
-    },
-    "bearer_token": {
-      "type": "string",
-      "location": "query",
-      "description": "OAuth bearer token."
     },
     "oauth_token": {
       "description": "OAuth 2.0 token for the current user.",
@@ -81,6 +110,11 @@
       "type": "string",
       "location": "query",
       "description": "Upload protocol for media (e.g. \"raw\", \"multipart\")."
+    },
+    "bearer_token": {
+      "location": "query",
+      "description": "OAuth bearer token.",
+      "type": "string"
     },
     "upload_protocol": {
       "location": "query",
@@ -100,20 +134,20 @@
       "location": "query"
     },
     "fields": {
+      "location": "query",
       "description": "Selector specifying which fields to include in a partial response.",
+<<<<<<< HEAD
       "type": "string",
       "location": "query"
 >>>>>>> Initial dep workover
+=======
+      "type": "string"
+>>>>>>> Working on getting compiling
     },
     "uploadType": {
-      "location": "query",
       "description": "Legacy upload protocol for media (e.g. \"media\", \"multipart\").",
-      "type": "string"
-    },
-    "callback": {
       "type": "string",
-      "location": "query",
-      "description": "JSONP"
+      "location": "query"
     },
     "$.xgafv": {
 <<<<<<< HEAD
@@ -142,6 +176,11 @@
       "type": "string"
 >>>>>>> Initial dep workover
     },
+    "callback": {
+      "description": "JSONP",
+      "type": "string",
+      "location": "query"
+    },
     "alt": {
       "location": "query",
       "description": "Data format for response.",
@@ -156,6 +195,7 @@
         "Responses with Content-Type of application/json",
         "Media download with context-dependent Content-Type",
         "Responses with Content-Type of application/x-protobuf"
+<<<<<<< HEAD
       ]
     },
     "key": {
@@ -209,17 +249,97 @@
 =======
     "ResourceIssue": {
       "description": "Information about a resource with issue.",
-      "type": "object",
+=======
+      ],
+      "location": "query"
+    }
+  },
+  "schemas": {
+    "MobileFriendlyIssue": {
       "properties": {
-        "blockedResource": {
-          "$ref": "BlockedResource",
-          "description": "Describes a blocked resource issue."
+        "rule": {
+          "enum": [
+            "MOBILE_FRIENDLY_RULE_UNSPECIFIED",
+            "USES_INCOMPATIBLE_PLUGINS",
+            "CONFIGURE_VIEWPORT",
+            "FIXED_WIDTH_VIEWPORT",
+            "SIZE_CONTENT_TO_VIEWPORT",
+            "USE_LEGIBLE_FONT_SIZES",
+            "TAP_TARGETS_TOO_CLOSE"
+          ],
+          "description": "Rule violated.",
+          "type": "string",
+          "enumDescriptions": [
+            "Unknown rule. Sorry, we don't have any description for the rule that was\nbroken.",
+            "Plugins incompatible with mobile devices are being used. [Learn more]\n(https://support.google.com/webmasters/answer/6352293#flash_usage).",
+            "Viewsport is not specified using the meta viewport tag. [Learn more]\n(https://support.google.com/webmasters/answer/6352293#viewport_not_configured).",
+            "Viewport defined to a fixed width. [Learn more]\n(https://support.google.com/webmasters/answer/6352293#fixed-width_viewport).",
+            "Content not sized to viewport. [Learn more]\n(https://support.google.com/webmasters/answer/6352293#content_not_sized_to_viewport).",
+            "Font size is too small for easy reading on a small screen. [Learn More]\n(https://support.google.com/webmasters/answer/6352293#small_font_size).",
+            "Touch elements are too close to each other. [Learn more]\n(https://support.google.com/webmasters/answer/6352293#touch_elements_too_close)."
+          ]
         }
       },
-      "id": "ResourceIssue"
+      "id": "MobileFriendlyIssue",
+      "description": "Mobile-friendly issue.",
+      "type": "object"
+    },
+    "RunMobileFriendlyTestResponse": {
+      "description": "Mobile-friendly test response, including mobile-friendly issues and resource\nissues.",
+>>>>>>> Working on getting compiling
+      "type": "object",
+      "properties": {
+        "mobileFriendliness": {
+          "description": "Test verdict, whether the page is mobile friendly or not.",
+          "type": "string",
+          "enumDescriptions": [
+            "Internal error when running this test. Please try running the test again.",
+            "The page is mobile friendly.",
+            "The page is not mobile friendly."
+          ],
+          "enum": [
+            "MOBILE_FRIENDLY_TEST_RESULT_UNSPECIFIED",
+            "MOBILE_FRIENDLY",
+            "NOT_MOBILE_FRIENDLY"
+          ]
+        },
+        "mobileFriendlyIssues": {
+          "description": "List of mobile-usability issues.",
+          "type": "array",
+          "items": {
+            "$ref": "MobileFriendlyIssue"
+          }
+        },
+        "screenshot": {
+          "$ref": "Image",
+          "description": "Screenshot of the requested URL."
+        },
+        "testStatus": {
+          "$ref": "TestStatus",
+          "description": "Final state of the test, can be either complete or an error."
+        },
+        "resourceIssues": {
+          "description": "Information about embedded resources issues.",
+          "type": "array",
+          "items": {
+            "$ref": "ResourceIssue"
+          }
+        }
+      },
+      "id": "RunMobileFriendlyTestResponse"
+    },
+    "ResourceIssue": {
+      "properties": {
+        "blockedResource": {
+          "description": "Describes a blocked resource issue.",
+          "$ref": "BlockedResource"
+        }
+      },
+      "id": "ResourceIssue",
+      "description": "Information about a resource with issue.",
+      "type": "object"
     },
     "BlockedResource": {
-      "id": "BlockedResource",
       "description": "Blocked resource.",
       "type": "object",
       "properties": {
@@ -227,12 +347,18 @@
           "description": "URL of the blocked resource.",
           "type": "string"
         }
-      }
+      },
+      "id": "BlockedResource"
     },
     "TestStatus": {
-      "type": "object",
       "properties": {
         "status": {
+          "enumDescriptions": [
+            "Internal error when running this test. Please try running the test again.",
+            "Inspection has completed without errors.",
+            "Inspection terminated in an error state. This indicates a problem in\nGoogle's infrastructure, not a user error. Please try again later.",
+            "Google can not access the URL because of a user error such as a robots.txt\nblockage, a 403 or 500 code etc. Please make sure that the URL provided is\naccessible by Googlebot and is not password protected."
+          ],
           "enum": [
             "TEST_STATUS_UNSPECIFIED",
             "COMPLETE",
@@ -240,13 +366,7 @@
             "PAGE_UNREACHABLE"
           ],
           "description": "Status of the test.",
-          "type": "string",
-          "enumDescriptions": [
-            "Internal error when running this test. Please try running the test again.",
-            "Inspection has completed without errors.",
-            "Inspection terminated in an error state. This indicates a problem in\nGoogle's infrastructure, not a user error. Please try again later.",
-            "Google can not access the URL because of a user error such as a robots.txt\nblockage, a 403 or 500 code etc. Please make sure that the URL provided is\naccessible by Googlebot and is not password protected."
-          ]
+          "type": "string"
         },
         "details": {
           "description": "Error details if applicable.",
@@ -254,7 +374,8 @@
         }
       },
       "id": "TestStatus",
-      "description": "Final state of the test, including error details if necessary."
+      "description": "Final state of the test, including error details if necessary.",
+      "type": "object"
     },
     "RunMobileFriendlyTestRequest": {
       "description": "Mobile-friendly test request.",
@@ -272,15 +393,14 @@
       "id": "RunMobileFriendlyTestRequest"
     },
     "Image": {
+      "description": "Describe image data.",
+      "type": "object",
       "properties": {
-        "mimeType": {
-          "description": "The mime-type of the image data.",
-          "type": "string"
-        },
         "data": {
           "description": "Image data in format determined by the mime type. Currently, the format\nwill always be \"image/png\", but this might change in the future.",
           "format": "byte",
           "type": "string"
+<<<<<<< HEAD
         }
       },
       "id": "Image",
@@ -490,12 +610,21 @@
       },
       "id": "RunMobileFriendlyTestResponse"
 >>>>>>> Initial dep workover
+=======
+        },
+        "mimeType": {
+          "description": "The mime-type of the image data.",
+          "type": "string"
+        }
+      },
+      "id": "Image"
+>>>>>>> Working on getting compiling
     }
   },
   "protocol": "rest",
   "icons": {
-    "x16": "http://www.google.com/images/icons/product/search-16.gif",
-    "x32": "http://www.google.com/images/icons/product/search-32.gif"
+    "x32": "http://www.google.com/images/icons/product/search-32.gif",
+    "x16": "http://www.google.com/images/icons/product/search-16.gif"
   },
 <<<<<<< HEAD
   "protocol": "rest",
@@ -517,6 +646,14 @@
 =======
   "version": "v1",
   "baseUrl": "https://searchconsole.googleapis.com/",
+<<<<<<< HEAD
   "canonicalName": "Search Console"
 >>>>>>> Initial dep workover
+=======
+  "canonicalName": "Search Console",
+  "kind": "discovery#restDescription",
+  "description": "Provides tools for running validation tests against single URLs",
+  "servicePath": "",
+  "rootUrl": "https://searchconsole.googleapis.com/"
+>>>>>>> Working on getting compiling
 }

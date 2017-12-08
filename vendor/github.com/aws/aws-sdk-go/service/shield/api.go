@@ -690,7 +690,11 @@ const opGetSubscriptionState = "GetSubscriptionState"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionState
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionState
+>>>>>>> Working on getting compiling
 func (c *Shield) GetSubscriptionStateRequest(input *GetSubscriptionStateInput) (req *request.Request, output *GetSubscriptionStateOutput) {
 	op := &request.Operation{
 		Name:       opGetSubscriptionState,
@@ -723,7 +727,11 @@ func (c *Shield) GetSubscriptionStateRequest(input *GetSubscriptionStateInput) (
 //   Exception that indicates that a problem occurred with the service infrastructure.
 //   You can retry the request.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionState
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionState
+>>>>>>> Working on getting compiling
 func (c *Shield) GetSubscriptionState(input *GetSubscriptionStateInput) (*GetSubscriptionStateOutput, error) {
 	req, out := c.GetSubscriptionStateRequest(input)
 	return out, req.Send()
@@ -1018,7 +1026,11 @@ func (s *AttackDetail) SetSubResources(v []*SubResourceSummary) *AttackDetail {
 }
 
 // Details of the described attack.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/AttackProperty
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/AttackProperty
+>>>>>>> Working on getting compiling
 type AttackProperty struct {
 	_ struct{} `type:"structure"`
 
@@ -1202,7 +1214,11 @@ func (s *AttackVectorDescription) SetVectorType(v string) *AttackVectorDescripti
 }
 
 // A contributor to the attack and their contribution.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/Contributor
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/Contributor
+>>>>>>> Working on getting compiling
 type Contributor struct {
 	_ struct{} `type:"structure"`
 
@@ -1238,7 +1254,11 @@ func (s *Contributor) SetValue(v int64) *Contributor {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateProtectionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateProtectionRequest
+>>>>>>> Working on getting compiling
 type CreateProtectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1621,7 +1641,11 @@ func (s *DescribeSubscriptionOutput) SetSubscription(v *Subscription) *DescribeS
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateRequest
+>>>>>>> Working on getting compiling
 type GetSubscriptionStateInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1636,7 +1660,11 @@ func (s GetSubscriptionStateInput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateResponse
+>>>>>>> Working on getting compiling
 type GetSubscriptionStateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1662,7 +1690,11 @@ func (s *GetSubscriptionStateOutput) SetSubscriptionState(v string) *GetSubscrip
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/ListAttacksRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/ListAttacksRequest
+>>>>>>> Working on getting compiling
 type ListAttacksInput struct {
 	_ struct{} `type:"structure"`
 

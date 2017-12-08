@@ -5191,6 +5191,55 @@ func (s *DescribeVaultOutput) SetVaultName(v string) *DescribeVaultOutput {
 // Contains information about the encryption used to store the job results in
 // Amazon S3.
 type Encryption struct {
+<<<<<<< HEAD
+=======
+	_ struct{} `type:"structure"`
+
+	// The server-side encryption algorithm used when storing job results in Amazon
+	// S3, for example AES256 or aws:kms.
+	EncryptionType *string `type:"string" enum:"EncryptionType"`
+
+	// Optional. If the encryption type is aws:kms, you can use this value to specify
+	// the encryption context for the restore results.
+	KMSContext *string `type:"string"`
+
+	// The AWS KMS key ID to use for object encryption. All GET and PUT requests
+	// for an object protected by AWS KMS fail if not made by using Secure Sockets
+	// Layer (SSL) or Signature Version 4.
+	KMSKeyId *string `type:"string"`
+}
+
+// String returns the string representation
+func (s Encryption) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s Encryption) GoString() string {
+	return s.String()
+}
+
+// SetEncryptionType sets the EncryptionType field's value.
+func (s *Encryption) SetEncryptionType(v string) *Encryption {
+	s.EncryptionType = &v
+	return s
+}
+
+// SetKMSContext sets the KMSContext field's value.
+func (s *Encryption) SetKMSContext(v string) *Encryption {
+	s.KMSContext = &v
+	return s
+}
+
+// SetKMSKeyId sets the KMSKeyId field's value.
+func (s *Encryption) SetKMSKeyId(v string) *Encryption {
+	s.KMSKeyId = &v
+	return s
+}
+
+// Input for GetDataRetrievalPolicy.
+type GetDataRetrievalPolicyInput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// The server-side encryption algorithm used when storing job results in Amazon
@@ -6447,6 +6496,7 @@ type JobDescription struct {
 	// The SHA256 tree hash value for the requested range of an archive. If the
 	// InitiateJob request for an archive specified a tree-hash aligned range, then
 	// this field returns a value.
+<<<<<<< HEAD
 	//
 	// If the whole archive is retrieved, this value is the same as the ArchiveSHA256TreeHash
 	// value.
@@ -6460,6 +6510,21 @@ type JobDescription struct {
 	//
 	//    * Inventory jobs
 	//
+=======
+	//
+	// If the whole archive is retrieved, this value is the same as the ArchiveSHA256TreeHash
+	// value.
+	//
+	// This field is null for the following:
+	//
+	//    * Archive retrieval jobs that specify a range that is not tree-hash aligned
+	//
+	//    * Archival jobs that specify a range that is equal to the whole archive,
+	//    when the job status is InProgress
+	//
+	//    * Inventory jobs
+	//
+>>>>>>> Working on getting compiling
 	//    * Select jobs
 	SHA256TreeHash *string `type:"string"`
 

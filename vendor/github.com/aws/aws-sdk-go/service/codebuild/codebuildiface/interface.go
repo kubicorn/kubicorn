@@ -89,12 +89,18 @@ type CodeBuildAPI interface {
 	DeleteWebhookRequest(*codebuild.DeleteWebhookInput) (*request.Request, *codebuild.DeleteWebhookOutput)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	InvalidateProjectCache(*codebuild.InvalidateProjectCacheInput) (*codebuild.InvalidateProjectCacheOutput, error)
 	InvalidateProjectCacheWithContext(aws.Context, *codebuild.InvalidateProjectCacheInput, ...request.Option) (*codebuild.InvalidateProjectCacheOutput, error)
 	InvalidateProjectCacheRequest(*codebuild.InvalidateProjectCacheInput) (*request.Request, *codebuild.InvalidateProjectCacheOutput)
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	ListBuilds(*codebuild.ListBuildsInput) (*codebuild.ListBuildsOutput, error)
 	ListBuildsWithContext(aws.Context, *codebuild.ListBuildsInput, ...request.Option) (*codebuild.ListBuildsOutput, error)
 	ListBuildsRequest(*codebuild.ListBuildsInput) (*request.Request, *codebuild.ListBuildsOutput)

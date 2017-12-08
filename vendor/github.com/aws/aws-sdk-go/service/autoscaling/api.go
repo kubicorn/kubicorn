@@ -5973,12 +5973,18 @@ type CreateAutoScalingGroupInput struct {
 	LaunchConfigurationName *string `min:"1" type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// The launch template to use to launch instances. You must specify one of the
 	// following: a launch template, a launch configuration, or an EC2 instance.
 	LaunchTemplate *LaunchTemplateSpecification `type:"structure"`
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// One or more lifecycle hooks.
 	LifecycleHookSpecificationList []*LifecycleHookSpecification `type:"list"`
 
@@ -6081,13 +6087,19 @@ func (s *CreateAutoScalingGroupInput) Validate() error {
 		invalidParams.Add(request.NewErrParamMinLen("VPCZoneIdentifier", 1))
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	if s.LaunchTemplate != nil {
 		if err := s.LaunchTemplate.Validate(); err != nil {
 			invalidParams.AddNested("LaunchTemplate", err.(request.ErrInvalidParams))
 		}
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	if s.LifecycleHookSpecificationList != nil {
 		for i, v := range s.LifecycleHookSpecificationList {
 			if v == nil {
@@ -6164,14 +6176,20 @@ func (s *CreateAutoScalingGroupInput) SetLaunchConfigurationName(v string) *Crea
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // SetLaunchTemplate sets the LaunchTemplate field's value.
 func (s *CreateAutoScalingGroupInput) SetLaunchTemplate(v *LaunchTemplateSpecification) *CreateAutoScalingGroupInput {
 	s.LaunchTemplate = v
 	return s
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // SetLifecycleHookSpecificationList sets the LifecycleHookSpecificationList field's value.
 func (s *CreateAutoScalingGroupInput) SetLifecycleHookSpecificationList(v []*LifecycleHookSpecification) *CreateAutoScalingGroupInput {
 	s.LifecycleHookSpecificationList = v
@@ -10329,7 +10347,11 @@ func (s *LaunchConfiguration) SetUserData(v string) *LaunchConfiguration {
 }
 
 // Describes a launch template.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchTemplateSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/LaunchTemplateSpecification
+>>>>>>> Working on getting compiling
 type LaunchTemplateSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -10521,10 +10543,14 @@ type LifecycleHookSpecification struct {
 	// Defines the action the Auto Scaling group should take when the lifecycle
 	// hook timeout elapses or if an unexpected failure occurs. The valid values
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// are CONTINUE and ABANDON.
 =======
 	// are CONTINUE and ABANDON. The default value is CONTINUE.
 >>>>>>> Initial dep workover
+=======
+	// are CONTINUE and ABANDON.
+>>>>>>> Working on getting compiling
 	DefaultResult *string `type:"string"`
 
 	// The maximum time, in seconds, that can elapse before the lifecycle hook times
@@ -10540,12 +10566,18 @@ type LifecycleHookSpecification struct {
 	// The state of the EC2 instance to which you want to attach the lifecycle hook.
 	// For a list of lifecycle hook types, see DescribeLifecycleHookTypes.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//
 	// LifecycleTransition is a required field
 	LifecycleTransition *string `type:"string" required:"true"`
 =======
 	LifecycleTransition *string `type:"string"`
 >>>>>>> Initial dep workover
+=======
+	//
+	// LifecycleTransition is a required field
+	LifecycleTransition *string `type:"string" required:"true"`
+>>>>>>> Working on getting compiling
 
 	// Additional information that you want to include any time Auto Scaling sends
 	// a message to the notification target.
@@ -10581,11 +10613,17 @@ func (s *LifecycleHookSpecification) Validate() error {
 		invalidParams.Add(request.NewErrParamMinLen("LifecycleHookName", 1))
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if s.LifecycleTransition == nil {
 		invalidParams.Add(request.NewErrParamRequired("LifecycleTransition"))
 	}
 =======
 >>>>>>> Initial dep workover
+=======
+	if s.LifecycleTransition == nil {
+		invalidParams.Add(request.NewErrParamRequired("LifecycleTransition"))
+	}
+>>>>>>> Working on getting compiling
 	if s.NotificationMetadata != nil && len(*s.NotificationMetadata) < 1 {
 		invalidParams.Add(request.NewErrParamMinLen("NotificationMetadata", 1))
 	}
@@ -10960,10 +10998,14 @@ type PredefinedMetricSpecification struct {
 	//    an Application Load Balancer target group
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// For predefined metric types ASGAverageCPUUtilization, ASGAverageNetworkIn,
 =======
 	// For predefined metric types ASGAverageCPUUtilization, ASGAverageNetworkIn
 >>>>>>> Initial dep workover
+=======
+	// For predefined metric types ASGAverageCPUUtilization, ASGAverageNetworkIn,
+>>>>>>> Working on getting compiling
 	// and ASGAverageNetworkOut, the parameter must not be specified as the resource
 	// associated with the metric type is the Auto Scaling group. For predefined
 	// metric type ALBRequestCountPerTarget, the parameter must be specified in

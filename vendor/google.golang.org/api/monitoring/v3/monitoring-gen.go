@@ -2215,6 +2215,7 @@ type UptimeCheckConfig struct {
 
 	// InternalCheckers: The internal checkers that this check will egress
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// from. If is_internal is true and this list is empty, the check will
 	// egress from all InternalCheckers configured for the project that owns
 	// this CheckConfig.
@@ -2229,6 +2230,17 @@ type UptimeCheckConfig struct {
 	InternalCheckers []*InternalChecker `json:"internalCheckers,omitempty"`
 
 >>>>>>> Initial dep workover
+=======
+	// from. If is_internal is true and this list is empty, the check will
+	// egress from all InternalCheckers configured for the project that owns
+	// this CheckConfig.
+	InternalCheckers []*InternalChecker `json:"internalCheckers,omitempty"`
+
+	// IsInternal: Denotes whether this check is a check that egresses from
+	// InternalCheckers.
+	IsInternal bool `json:"isInternal,omitempty"`
+
+>>>>>>> Working on getting compiling
 	// MonitoredResource: The monitored resource associated with the
 	// configuration.
 	MonitoredResource *MonitoredResource `json:"monitoredResource,omitempty"`

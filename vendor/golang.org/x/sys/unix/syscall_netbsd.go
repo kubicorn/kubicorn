@@ -55,6 +55,7 @@ func sysctlNodes(mib []_C_int) (nodes []Sysctlnode, err error) {
 }
 
 func nametomib(name string) (mib []_C_int, err error) {
+
 	// Split name into components.
 	var parts []string
 	last := 0
@@ -123,6 +124,7 @@ func sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 	return -1, ENOSYS
 }
 
+<<<<<<< HEAD
 func setattrlistTimes(path string, times []Timespec, flags int) error {
 	// used on Darwin for UtimesNano
 	return ENOSYS
@@ -216,6 +218,8 @@ func Uname(uname *Utsname) error {
 
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 /*
  * Exposed directly
  */
@@ -476,6 +480,7 @@ func Uname(uname *Utsname) error {
 // getitimer
 // getvfsstat
 // getxattr
+// ioctl
 // ktrace
 // lchflags
 // lchmod
@@ -513,6 +518,7 @@ func Uname(uname *Utsname) error {
 // ntp_adjtime
 // pmc_control
 // pmc_get_info
+// poll
 // pollts
 // preadv
 // profil

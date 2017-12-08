@@ -415,6 +415,9 @@ func (c *SES) CreateConfigurationSetTrackingOptionsWithContext(ctx aws.Context, 
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 const opCreateCustomVerificationEmailTemplate = "CreateCustomVerificationEmailTemplate"
 
 // CreateCustomVerificationEmailTemplateRequest generates a "aws/request.Request" representing the
@@ -440,7 +443,11 @@ const opCreateCustomVerificationEmailTemplate = "CreateCustomVerificationEmailTe
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/CreateCustomVerificationEmailTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/CreateCustomVerificationEmailTemplate
+>>>>>>> Working on getting compiling
 func (c *SES) CreateCustomVerificationEmailTemplateRequest(input *CreateCustomVerificationEmailTemplateInput) (req *request.Request, output *CreateCustomVerificationEmailTemplateOutput) {
 	op := &request.Operation{
 		Name:       opCreateCustomVerificationEmailTemplate,
@@ -493,7 +500,11 @@ func (c *SES) CreateCustomVerificationEmailTemplateRequest(input *CreateCustomVe
 //   Indicates that a resource could not be created because of service limits.
 //   For a list of Amazon SES limits, see the Amazon SES Developer Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/limits.html).
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/CreateCustomVerificationEmailTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/CreateCustomVerificationEmailTemplate
+>>>>>>> Working on getting compiling
 func (c *SES) CreateCustomVerificationEmailTemplate(input *CreateCustomVerificationEmailTemplateInput) (*CreateCustomVerificationEmailTemplateOutput, error) {
 	req, out := c.CreateCustomVerificationEmailTemplateRequest(input)
 	return out, req.Send()
@@ -515,8 +526,11 @@ func (c *SES) CreateCustomVerificationEmailTemplateWithContext(ctx aws.Context, 
 	return out, req.Send()
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 const opCreateReceiptFilter = "CreateReceiptFilter"
 
 // CreateReceiptFilterRequest generates a "aws/request.Request" representing the
@@ -1216,6 +1230,88 @@ func (c *SES) DeleteConfigurationSetTrackingOptions(input *DeleteConfigurationSe
 // for more information on using Contexts.
 func (c *SES) DeleteConfigurationSetTrackingOptionsWithContext(ctx aws.Context, input *DeleteConfigurationSetTrackingOptionsInput, opts ...request.Option) (*DeleteConfigurationSetTrackingOptionsOutput, error) {
 	req, out := c.DeleteConfigurationSetTrackingOptionsRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opDeleteCustomVerificationEmailTemplate = "DeleteCustomVerificationEmailTemplate"
+
+// DeleteCustomVerificationEmailTemplateRequest generates a "aws/request.Request" representing the
+// client's request for the DeleteCustomVerificationEmailTemplate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See DeleteCustomVerificationEmailTemplate for more information on using the DeleteCustomVerificationEmailTemplate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the DeleteCustomVerificationEmailTemplateRequest method.
+//    req, resp := client.DeleteCustomVerificationEmailTemplateRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/DeleteCustomVerificationEmailTemplate
+func (c *SES) DeleteCustomVerificationEmailTemplateRequest(input *DeleteCustomVerificationEmailTemplateInput) (req *request.Request, output *DeleteCustomVerificationEmailTemplateOutput) {
+	op := &request.Operation{
+		Name:       opDeleteCustomVerificationEmailTemplate,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &DeleteCustomVerificationEmailTemplateInput{}
+	}
+
+	output = &DeleteCustomVerificationEmailTemplateOutput{}
+	req = c.newRequest(op, input, output)
+	req.Handlers.Unmarshal.Remove(query.UnmarshalHandler)
+	req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler)
+	return
+}
+
+// DeleteCustomVerificationEmailTemplate API operation for Amazon Simple Email Service.
+//
+// Deletes an existing custom verification email template.
+//
+// For more information about custom verification email templates, see Using
+// Custom Verification Email Templates (https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html)
+// in the Amazon SES Developer Guide.
+//
+// You can execute this operation no more than once per second.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Simple Email Service's
+// API operation DeleteCustomVerificationEmailTemplate for usage and error information.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/DeleteCustomVerificationEmailTemplate
+func (c *SES) DeleteCustomVerificationEmailTemplate(input *DeleteCustomVerificationEmailTemplateInput) (*DeleteCustomVerificationEmailTemplateOutput, error) {
+	req, out := c.DeleteCustomVerificationEmailTemplateRequest(input)
+	return out, req.Send()
+}
+
+// DeleteCustomVerificationEmailTemplateWithContext is the same as DeleteCustomVerificationEmailTemplate with the addition of
+// the ability to pass a context and additional request options.
+//
+// See DeleteCustomVerificationEmailTemplate for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *SES) DeleteCustomVerificationEmailTemplateWithContext(ctx aws.Context, input *DeleteCustomVerificationEmailTemplateInput, opts ...request.Option) (*DeleteCustomVerificationEmailTemplateOutput, error) {
+	req, out := c.DeleteCustomVerificationEmailTemplateRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -2500,6 +2596,93 @@ func (c *SES) GetAccountSendingEnabledWithContext(ctx aws.Context, input *GetAcc
 	return out, req.Send()
 }
 
+const opGetCustomVerificationEmailTemplate = "GetCustomVerificationEmailTemplate"
+
+// GetCustomVerificationEmailTemplateRequest generates a "aws/request.Request" representing the
+// client's request for the GetCustomVerificationEmailTemplate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See GetCustomVerificationEmailTemplate for more information on using the GetCustomVerificationEmailTemplate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the GetCustomVerificationEmailTemplateRequest method.
+//    req, resp := client.GetCustomVerificationEmailTemplateRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/GetCustomVerificationEmailTemplate
+func (c *SES) GetCustomVerificationEmailTemplateRequest(input *GetCustomVerificationEmailTemplateInput) (req *request.Request, output *GetCustomVerificationEmailTemplateOutput) {
+	op := &request.Operation{
+		Name:       opGetCustomVerificationEmailTemplate,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &GetCustomVerificationEmailTemplateInput{}
+	}
+
+	output = &GetCustomVerificationEmailTemplateOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// GetCustomVerificationEmailTemplate API operation for Amazon Simple Email Service.
+//
+// Returns the custom email verification template for the template name you
+// specify.
+//
+// For more information about custom verification email templates, see Using
+// Custom Verification Email Templates (https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html)
+// in the Amazon SES Developer Guide.
+//
+// You can execute this operation no more than once per second.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Simple Email Service's
+// API operation GetCustomVerificationEmailTemplate for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeCustomVerificationEmailTemplateDoesNotExistException "CustomVerificationEmailTemplateDoesNotExist"
+//   Indicates that a custom verification email template with the name you specified
+//   does not exist.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/GetCustomVerificationEmailTemplate
+func (c *SES) GetCustomVerificationEmailTemplate(input *GetCustomVerificationEmailTemplateInput) (*GetCustomVerificationEmailTemplateOutput, error) {
+	req, out := c.GetCustomVerificationEmailTemplateRequest(input)
+	return out, req.Send()
+}
+
+// GetCustomVerificationEmailTemplateWithContext is the same as GetCustomVerificationEmailTemplate with the addition of
+// the ability to pass a context and additional request options.
+//
+// See GetCustomVerificationEmailTemplate for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *SES) GetCustomVerificationEmailTemplateWithContext(ctx aws.Context, input *GetCustomVerificationEmailTemplateInput, opts ...request.Option) (*GetCustomVerificationEmailTemplateOutput, error) {
+	req, out := c.GetCustomVerificationEmailTemplateRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
 const opGetIdentityDkimAttributes = "GetIdentityDkimAttributes"
 
 // GetIdentityDkimAttributesRequest generates a "aws/request.Request" representing the
@@ -3472,6 +3655,145 @@ func (c *SES) ListConfigurationSetsWithContext(ctx aws.Context, input *ListConfi
 }
 
 const opListCustomVerificationEmailTemplates = "ListCustomVerificationEmailTemplates"
+<<<<<<< HEAD
+=======
+
+// ListCustomVerificationEmailTemplatesRequest generates a "aws/request.Request" representing the
+// client's request for the ListCustomVerificationEmailTemplates operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See ListCustomVerificationEmailTemplates for more information on using the ListCustomVerificationEmailTemplates
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the ListCustomVerificationEmailTemplatesRequest method.
+//    req, resp := client.ListCustomVerificationEmailTemplatesRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/ListCustomVerificationEmailTemplates
+func (c *SES) ListCustomVerificationEmailTemplatesRequest(input *ListCustomVerificationEmailTemplatesInput) (req *request.Request, output *ListCustomVerificationEmailTemplatesOutput) {
+	op := &request.Operation{
+		Name:       opListCustomVerificationEmailTemplates,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+		Paginator: &request.Paginator{
+			InputTokens:     []string{"NextToken"},
+			OutputTokens:    []string{"NextToken"},
+			LimitToken:      "MaxResults",
+			TruncationToken: "",
+		},
+	}
+
+	if input == nil {
+		input = &ListCustomVerificationEmailTemplatesInput{}
+	}
+
+	output = &ListCustomVerificationEmailTemplatesOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// ListCustomVerificationEmailTemplates API operation for Amazon Simple Email Service.
+//
+// Lists the existing custom verification email templates for your account.
+//
+// For more information about custom verification email templates, see Using
+// Custom Verification Email Templates (https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html)
+// in the Amazon SES Developer Guide.
+//
+// You can execute this operation no more than once per second.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Simple Email Service's
+// API operation ListCustomVerificationEmailTemplates for usage and error information.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/ListCustomVerificationEmailTemplates
+func (c *SES) ListCustomVerificationEmailTemplates(input *ListCustomVerificationEmailTemplatesInput) (*ListCustomVerificationEmailTemplatesOutput, error) {
+	req, out := c.ListCustomVerificationEmailTemplatesRequest(input)
+	return out, req.Send()
+}
+
+// ListCustomVerificationEmailTemplatesWithContext is the same as ListCustomVerificationEmailTemplates with the addition of
+// the ability to pass a context and additional request options.
+//
+// See ListCustomVerificationEmailTemplates for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *SES) ListCustomVerificationEmailTemplatesWithContext(ctx aws.Context, input *ListCustomVerificationEmailTemplatesInput, opts ...request.Option) (*ListCustomVerificationEmailTemplatesOutput, error) {
+	req, out := c.ListCustomVerificationEmailTemplatesRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+// ListCustomVerificationEmailTemplatesPages iterates over the pages of a ListCustomVerificationEmailTemplates operation,
+// calling the "fn" function with the response data for each page. To stop
+// iterating, return false from the fn function.
+//
+// See ListCustomVerificationEmailTemplates method for more information on how to use this operation.
+//
+// Note: This operation can generate multiple requests to a service.
+//
+//    // Example iterating over at most 3 pages of a ListCustomVerificationEmailTemplates operation.
+//    pageNum := 0
+//    err := client.ListCustomVerificationEmailTemplatesPages(params,
+//        func(page *ListCustomVerificationEmailTemplatesOutput, lastPage bool) bool {
+//            pageNum++
+//            fmt.Println(page)
+//            return pageNum <= 3
+//        })
+//
+func (c *SES) ListCustomVerificationEmailTemplatesPages(input *ListCustomVerificationEmailTemplatesInput, fn func(*ListCustomVerificationEmailTemplatesOutput, bool) bool) error {
+	return c.ListCustomVerificationEmailTemplatesPagesWithContext(aws.BackgroundContext(), input, fn)
+}
+
+// ListCustomVerificationEmailTemplatesPagesWithContext same as ListCustomVerificationEmailTemplatesPages except
+// it takes a Context and allows setting request options on the pages.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *SES) ListCustomVerificationEmailTemplatesPagesWithContext(ctx aws.Context, input *ListCustomVerificationEmailTemplatesInput, fn func(*ListCustomVerificationEmailTemplatesOutput, bool) bool, opts ...request.Option) error {
+	p := request.Pagination{
+		NewRequest: func() (*request.Request, error) {
+			var inCpy *ListCustomVerificationEmailTemplatesInput
+			if input != nil {
+				tmp := *input
+				inCpy = &tmp
+			}
+			req, _ := c.ListCustomVerificationEmailTemplatesRequest(inCpy)
+			req.SetContext(ctx)
+			req.ApplyOptions(opts...)
+			return req, nil
+		},
+	}
+
+	cont := true
+	for p.Next() && cont {
+		cont = fn(p.Page().(*ListCustomVerificationEmailTemplatesOutput), !p.HasNextPage())
+	}
+	return p.Err()
+}
+
+const opListIdentities = "ListIdentities"
+>>>>>>> Working on getting compiling
 
 <<<<<<< HEAD
 // ListCustomVerificationEmailTemplatesRequest generates a "aws/request.Request" representing the
@@ -4621,11 +4943,7 @@ func (c *SES) SendBulkTemplatedEmailRequest(input *SendBulkTemplatedEmailInput) 
 //   You can enable or disable email sending for your Amazon SES account using
 //   UpdateAccountSendingEnabled.
 //
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendBulkTemplatedEmail
-=======
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendBulkTemplatedEmail
->>>>>>> Initial dep workover
 func (c *SES) SendBulkTemplatedEmail(input *SendBulkTemplatedEmailInput) (*SendBulkTemplatedEmailOutput, error) {
 	req, out := c.SendBulkTemplatedEmailRequest(input)
 	return out, req.Send()
@@ -4642,6 +4960,117 @@ func (c *SES) SendBulkTemplatedEmail(input *SendBulkTemplatedEmailInput) (*SendB
 // for more information on using Contexts.
 func (c *SES) SendBulkTemplatedEmailWithContext(ctx aws.Context, input *SendBulkTemplatedEmailInput, opts ...request.Option) (*SendBulkTemplatedEmailOutput, error) {
 	req, out := c.SendBulkTemplatedEmailRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opSendCustomVerificationEmail = "SendCustomVerificationEmail"
+
+// SendCustomVerificationEmailRequest generates a "aws/request.Request" representing the
+// client's request for the SendCustomVerificationEmail operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See SendCustomVerificationEmail for more information on using the SendCustomVerificationEmail
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the SendCustomVerificationEmailRequest method.
+//    req, resp := client.SendCustomVerificationEmailRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendCustomVerificationEmail
+func (c *SES) SendCustomVerificationEmailRequest(input *SendCustomVerificationEmailInput) (req *request.Request, output *SendCustomVerificationEmailOutput) {
+	op := &request.Operation{
+		Name:       opSendCustomVerificationEmail,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &SendCustomVerificationEmailInput{}
+	}
+
+	output = &SendCustomVerificationEmailOutput{}
+	req = c.newRequest(op, input, output)
+	return
+}
+
+// SendCustomVerificationEmail API operation for Amazon Simple Email Service.
+//
+// Sends a custom verification email to a specified recipient. Verification
+// emails sent using this operation are counted against your 24-hour sending
+// quota and per-second sending rate.
+//
+// For more information about custom verification email templates, see Using
+// Custom Verification Email Templates (https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html)
+// in the Amazon SES Developer Guide.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Simple Email Service's
+// API operation SendCustomVerificationEmail for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeMessageRejected "MessageRejected"
+//   Indicates that the action failed, and the message could not be sent. Check
+//   the error stack for more information about what caused the error.
+//
+//   * ErrCodeConfigurationSetDoesNotExistException "ConfigurationSetDoesNotExist"
+//   Indicates that the configuration set does not exist.
+//
+//   * ErrCodeCustomVerificationEmailTemplateDoesNotExistException "CustomVerificationEmailTemplateDoesNotExist"
+//   Indicates that a custom verification email template with the name you specified
+//   does not exist.
+//
+//   * ErrCodeFromEmailAddressNotVerifiedException "FromEmailAddressNotVerified"
+//   Indicates that the sender address specified for a custom verification email
+//   is not verified, and is therefore not eligible to send the custom verification
+//   email.
+//
+//   * ErrCodeProductionAccessNotGrantedException "ProductionAccessNotGranted"
+//   Indicates that the account has not been granted production access.
+//
+<<<<<<< HEAD
+<<<<<<< HEAD
+// See also, https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendBulkTemplatedEmail
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendBulkTemplatedEmail
+>>>>>>> Initial dep workover
+func (c *SES) SendBulkTemplatedEmail(input *SendBulkTemplatedEmailInput) (*SendBulkTemplatedEmailOutput, error) {
+	req, out := c.SendBulkTemplatedEmailRequest(input)
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendCustomVerificationEmail
+func (c *SES) SendCustomVerificationEmail(input *SendCustomVerificationEmailInput) (*SendCustomVerificationEmailOutput, error) {
+	req, out := c.SendCustomVerificationEmailRequest(input)
+>>>>>>> Working on getting compiling
+	return out, req.Send()
+}
+
+// SendCustomVerificationEmailWithContext is the same as SendCustomVerificationEmail with the addition of
+// the ability to pass a context and additional request options.
+//
+// See SendCustomVerificationEmail for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *SES) SendCustomVerificationEmailWithContext(ctx aws.Context, input *SendCustomVerificationEmailInput, opts ...request.Option) (*SendCustomVerificationEmailOutput, error) {
+	req, out := c.SendCustomVerificationEmailRequest(input)
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -6521,7 +6950,107 @@ func (c *SES) TestRenderTemplateWithContext(ctx aws.Context, input *TestRenderTe
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const opUpdateConfigurationSetReputationMetricsEnabled = "UpdateConfigurationSetReputationMetricsEnabled"
+=======
+const opUpdateCustomVerificationEmailTemplate = "UpdateCustomVerificationEmailTemplate"
+
+// UpdateCustomVerificationEmailTemplateRequest generates a "aws/request.Request" representing the
+// client's request for the UpdateCustomVerificationEmailTemplate operation. The "output" return
+// value will be populated with the request's response once the request complets
+// successfuly.
+//
+// Use "Send" method on the returned Request to send the API call to the service.
+// the "output" return value is not valid until after Send returns without error.
+//
+// See UpdateCustomVerificationEmailTemplate for more information on using the UpdateCustomVerificationEmailTemplate
+// API call, and error handling.
+//
+// This method is useful when you want to inject custom logic or configuration
+// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//
+//
+//    // Example sending a request using the UpdateCustomVerificationEmailTemplateRequest method.
+//    req, resp := client.UpdateCustomVerificationEmailTemplateRequest(params)
+//
+//    err := req.Send()
+//    if err == nil { // resp is now filled
+//        fmt.Println(resp)
+//    }
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/UpdateCustomVerificationEmailTemplate
+func (c *SES) UpdateCustomVerificationEmailTemplateRequest(input *UpdateCustomVerificationEmailTemplateInput) (req *request.Request, output *UpdateCustomVerificationEmailTemplateOutput) {
+	op := &request.Operation{
+		Name:       opUpdateCustomVerificationEmailTemplate,
+		HTTPMethod: "POST",
+		HTTPPath:   "/",
+	}
+
+	if input == nil {
+		input = &UpdateCustomVerificationEmailTemplateInput{}
+	}
+
+	output = &UpdateCustomVerificationEmailTemplateOutput{}
+	req = c.newRequest(op, input, output)
+	req.Handlers.Unmarshal.Remove(query.UnmarshalHandler)
+	req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler)
+	return
+}
+
+// UpdateCustomVerificationEmailTemplate API operation for Amazon Simple Email Service.
+//
+// Updates an existing custom verification email template.
+//
+// For more information about custom verification email templates, see Using
+// Custom Verification Email Templates (https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html)
+// in the Amazon SES Developer Guide.
+//
+// You can execute this operation no more than once per second.
+//
+// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
+// with awserr.Error's Code and Message methods to get detailed information about
+// the error.
+//
+// See the AWS API reference guide for Amazon Simple Email Service's
+// API operation UpdateCustomVerificationEmailTemplate for usage and error information.
+//
+// Returned Error Codes:
+//   * ErrCodeCustomVerificationEmailTemplateDoesNotExistException "CustomVerificationEmailTemplateDoesNotExist"
+//   Indicates that a custom verification email template with the name you specified
+//   does not exist.
+//
+//   * ErrCodeFromEmailAddressNotVerifiedException "FromEmailAddressNotVerified"
+//   Indicates that the sender address specified for a custom verification email
+//   is not verified, and is therefore not eligible to send the custom verification
+//   email.
+//
+//   * ErrCodeCustomVerificationEmailInvalidContentException "CustomVerificationEmailInvalidContent"
+//   Indicates that custom verification email template provided content is invalid.
+//
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/UpdateCustomVerificationEmailTemplate
+func (c *SES) UpdateCustomVerificationEmailTemplate(input *UpdateCustomVerificationEmailTemplateInput) (*UpdateCustomVerificationEmailTemplateOutput, error) {
+	req, out := c.UpdateCustomVerificationEmailTemplateRequest(input)
+	return out, req.Send()
+}
+
+// UpdateCustomVerificationEmailTemplateWithContext is the same as UpdateCustomVerificationEmailTemplate with the addition of
+// the ability to pass a context and additional request options.
+//
+// See UpdateCustomVerificationEmailTemplate for details on how to use this API operation.
+//
+// The context must be non-nil and will be used for request cancellation. If
+// the context is nil a panic will occur. In the future the SDK may create
+// sub-contexts for http.Requests. See https://golang.org/pkg/context/
+// for more information on using Contexts.
+func (c *SES) UpdateCustomVerificationEmailTemplateWithContext(ctx aws.Context, input *UpdateCustomVerificationEmailTemplateInput, opts ...request.Option) (*UpdateCustomVerificationEmailTemplateOutput, error) {
+	req, out := c.UpdateCustomVerificationEmailTemplateRequest(input)
+	req.SetContext(ctx)
+	req.ApplyOptions(opts...)
+	return out, req.Send()
+}
+
+const opUpdateReceiptRule = "UpdateReceiptRule"
+>>>>>>> Working on getting compiling
 
 // UpdateConfigurationSetReputationMetricsEnabledRequest generates a "aws/request.Request" representing the
 // client's request for the UpdateConfigurationSetReputationMetricsEnabled operation. The "output" return
@@ -11255,8 +11784,21 @@ func (s DescribeReceiptRuleOutput) GoString() string {
 type DeleteConfigurationSetTrackingOptionsInput struct {
 	_ struct{} `type:"structure"`
 
+<<<<<<< HEAD
 	// The name of the configuration set from which you want to delete the tracking
 	// options.
+=======
+	// Represents the destination of the message, consisting of To:, CC:, and BCC:
+	// fields.
+	//
+	// Amazon SES does not support the SMTPUTF8 extension, as described in RFC6531
+	// (https://tools.ietf.org/html/rfc6531). For this reason, the local part of
+	// a destination email address (the part of the email address that precedes
+	// the @ sign) may only contain 7-bit ASCII characters (https://en.wikipedia.org/wiki/Email_address#Local-part).
+	// If the domain part of an address (the part after the @ sign) contains non-ASCII
+	// characters, they must be encoded using Punycode, as described in RFC3492
+	// (https://tools.ietf.org/html/rfc3492.html).
+>>>>>>> Working on getting compiling
 	//
 	// ConfigurationSetName is a required field
 	ConfigurationSetName *string `type:"string" required:"true"`
@@ -11966,6 +12508,7 @@ func (s GetIdentityDkimAttributesOutput) GoString() string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Represents a request to return the metadata and receipt rules for the receipt
 // rule set that is currently active. You use receipt rule sets to receive email
 // with Amazon SES. For more information, see the Amazon SES Developer Guide
@@ -11985,6 +12528,144 @@ func (s *GetIdentityDkimAttributesOutput) SetDkimAttributes(v map[string]*Identi
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/GetIdentityMailFromDomainAttributesRequest
 type GetIdentityMailFromDomainAttributesInput struct {
 >>>>>>> Initial dep workover
+=======
+// Represents a request to create a custom verification email template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/CreateCustomVerificationEmailTemplateRequest
+type CreateCustomVerificationEmailTemplateInput struct {
+	_ struct{} `type:"structure"`
+
+	// The URL that the recipient of the verification email is sent to if his or
+	// her address is not successfully verified.
+	//
+	// FailureRedirectionURL is a required field
+	FailureRedirectionURL *string `type:"string" required:"true"`
+
+	// The email address that the custom verification email is sent from.
+	//
+	// FromEmailAddress is a required field
+	FromEmailAddress *string `type:"string" required:"true"`
+
+	// The URL that the recipient of the verification email is sent to if his or
+	// her address is successfully verified.
+	//
+	// SuccessRedirectionURL is a required field
+	SuccessRedirectionURL *string `type:"string" required:"true"`
+
+	// The content of the custom verification email. The total size of the email
+	// must be less than 10 MB. The message body may contain HTML, with some limitations.
+	// For more information, see Custom Verification Email Frequently Asked Questions
+	// (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html#custom-verification-emails-faq)
+	// in the Amazon SES Developer Guide.
+	//
+	// TemplateContent is a required field
+	TemplateContent *string `type:"string" required:"true"`
+
+	// The name of the custom verification email template.
+	//
+	// TemplateName is a required field
+	TemplateName *string `type:"string" required:"true"`
+
+	// The subject line of the custom verification email.
+	//
+	// TemplateSubject is a required field
+	TemplateSubject *string `type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s CreateCustomVerificationEmailTemplateInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CreateCustomVerificationEmailTemplateInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *CreateCustomVerificationEmailTemplateInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "CreateCustomVerificationEmailTemplateInput"}
+	if s.FailureRedirectionURL == nil {
+		invalidParams.Add(request.NewErrParamRequired("FailureRedirectionURL"))
+	}
+	if s.FromEmailAddress == nil {
+		invalidParams.Add(request.NewErrParamRequired("FromEmailAddress"))
+	}
+	if s.SuccessRedirectionURL == nil {
+		invalidParams.Add(request.NewErrParamRequired("SuccessRedirectionURL"))
+	}
+	if s.TemplateContent == nil {
+		invalidParams.Add(request.NewErrParamRequired("TemplateContent"))
+	}
+	if s.TemplateName == nil {
+		invalidParams.Add(request.NewErrParamRequired("TemplateName"))
+	}
+	if s.TemplateSubject == nil {
+		invalidParams.Add(request.NewErrParamRequired("TemplateSubject"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetFailureRedirectionURL sets the FailureRedirectionURL field's value.
+func (s *CreateCustomVerificationEmailTemplateInput) SetFailureRedirectionURL(v string) *CreateCustomVerificationEmailTemplateInput {
+	s.FailureRedirectionURL = &v
+	return s
+}
+
+// SetFromEmailAddress sets the FromEmailAddress field's value.
+func (s *CreateCustomVerificationEmailTemplateInput) SetFromEmailAddress(v string) *CreateCustomVerificationEmailTemplateInput {
+	s.FromEmailAddress = &v
+	return s
+}
+
+// SetSuccessRedirectionURL sets the SuccessRedirectionURL field's value.
+func (s *CreateCustomVerificationEmailTemplateInput) SetSuccessRedirectionURL(v string) *CreateCustomVerificationEmailTemplateInput {
+	s.SuccessRedirectionURL = &v
+	return s
+}
+
+// SetTemplateContent sets the TemplateContent field's value.
+func (s *CreateCustomVerificationEmailTemplateInput) SetTemplateContent(v string) *CreateCustomVerificationEmailTemplateInput {
+	s.TemplateContent = &v
+	return s
+}
+
+// SetTemplateName sets the TemplateName field's value.
+func (s *CreateCustomVerificationEmailTemplateInput) SetTemplateName(v string) *CreateCustomVerificationEmailTemplateInput {
+	s.TemplateName = &v
+	return s
+}
+
+// SetTemplateSubject sets the TemplateSubject field's value.
+func (s *CreateCustomVerificationEmailTemplateInput) SetTemplateSubject(v string) *CreateCustomVerificationEmailTemplateInput {
+	s.TemplateSubject = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/CreateCustomVerificationEmailTemplateOutput
+type CreateCustomVerificationEmailTemplateOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s CreateCustomVerificationEmailTemplateOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CreateCustomVerificationEmailTemplateOutput) GoString() string {
+	return s.String()
+}
+
+// Represents a request to create a new IP address filter. You use IP address
+// filters when you receive email with Amazon SES. For more information, see
+// the Amazon SES Developer Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email-concepts.html).
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/CreateReceiptFilterRequest
+type CreateReceiptFilterInput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// A list of one or more identities.
@@ -12358,11 +13039,89 @@ func (s GetIdentityVerificationAttributesOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // SetVerificationAttributes sets the VerificationAttributes field's value.
 func (s *GetIdentityVerificationAttributesOutput) SetVerificationAttributes(v map[string]*IdentityVerificationAttributes) *GetIdentityVerificationAttributesOutput {
 	s.VerificationAttributes = v
 	return s
 }
+=======
+// Contains information about a custom verification email template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/CustomVerificationEmailTemplate
+type CustomVerificationEmailTemplate struct {
+	_ struct{} `type:"structure"`
+
+	// The URL that the recipient of the verification email is sent to if his or
+	// her address is not successfully verified.
+	FailureRedirectionURL *string `type:"string"`
+
+	// The email address that the custom verification email is sent from.
+	FromEmailAddress *string `type:"string"`
+
+	// The URL that the recipient of the verification email is sent to if his or
+	// her address is successfully verified.
+	SuccessRedirectionURL *string `type:"string"`
+
+	// The name of the custom verification email template.
+	TemplateName *string `type:"string"`
+
+	// The subject line of the custom verification email.
+	TemplateSubject *string `type:"string"`
+}
+
+// String returns the string representation
+func (s CustomVerificationEmailTemplate) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s CustomVerificationEmailTemplate) GoString() string {
+	return s.String()
+}
+
+// SetFailureRedirectionURL sets the FailureRedirectionURL field's value.
+func (s *CustomVerificationEmailTemplate) SetFailureRedirectionURL(v string) *CustomVerificationEmailTemplate {
+	s.FailureRedirectionURL = &v
+	return s
+}
+
+// SetFromEmailAddress sets the FromEmailAddress field's value.
+func (s *CustomVerificationEmailTemplate) SetFromEmailAddress(v string) *CustomVerificationEmailTemplate {
+	s.FromEmailAddress = &v
+	return s
+}
+
+// SetSuccessRedirectionURL sets the SuccessRedirectionURL field's value.
+func (s *CustomVerificationEmailTemplate) SetSuccessRedirectionURL(v string) *CustomVerificationEmailTemplate {
+	s.SuccessRedirectionURL = &v
+	return s
+}
+
+// SetTemplateName sets the TemplateName field's value.
+func (s *CustomVerificationEmailTemplate) SetTemplateName(v string) *CustomVerificationEmailTemplate {
+	s.TemplateName = &v
+	return s
+}
+
+// SetTemplateSubject sets the TemplateSubject field's value.
+func (s *CustomVerificationEmailTemplate) SetTemplateSubject(v string) *CustomVerificationEmailTemplate {
+	s.TemplateSubject = &v
+	return s
+}
+
+// Represents a request to delete a configuration set event destination. Configuration
+// set event destinations are associated with configuration sets, which enable
+// you to publish email sending events. For information about using configuration
+// sets, see the Amazon SES Developer Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html).
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/DeleteConfigurationSetEventDestinationRequest
+type DeleteConfigurationSetEventDestinationInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the configuration set from which to delete the event destination.
+	//
+	// ConfigurationSetName is a required field
+	ConfigurationSetName *string `type:"string" required:"true"`
+>>>>>>> Working on getting compiling
 
 <<<<<<< HEAD
 // Represents the destination of the message, consisting of To:, CC:, and BCC:
@@ -12535,10 +13294,81 @@ type GetAccountSendingEnabledInput struct {
 }
 
 // String returns the string representation
+<<<<<<< HEAD
 func (s GetAccountSendingEnabledInput) String() string {
 =======
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/GetTemplateRequest
 type GetTemplateInput struct {
+=======
+func (s DeleteConfigurationSetTrackingOptionsOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteConfigurationSetTrackingOptionsOutput) GoString() string {
+	return s.String()
+}
+
+// Represents a request to delete an existing custom verification email template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/DeleteCustomVerificationEmailTemplateRequest
+type DeleteCustomVerificationEmailTemplateInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the custom verification email template that you want to delete.
+	//
+	// TemplateName is a required field
+	TemplateName *string `type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s DeleteCustomVerificationEmailTemplateInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteCustomVerificationEmailTemplateInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *DeleteCustomVerificationEmailTemplateInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "DeleteCustomVerificationEmailTemplateInput"}
+	if s.TemplateName == nil {
+		invalidParams.Add(request.NewErrParamRequired("TemplateName"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetTemplateName sets the TemplateName field's value.
+func (s *DeleteCustomVerificationEmailTemplateInput) SetTemplateName(v string) *DeleteCustomVerificationEmailTemplateInput {
+	s.TemplateName = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/DeleteCustomVerificationEmailTemplateOutput
+type DeleteCustomVerificationEmailTemplateOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s DeleteCustomVerificationEmailTemplateOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s DeleteCustomVerificationEmailTemplateOutput) GoString() string {
+	return s.String()
+}
+
+// Represents a request to delete one of your Amazon SES identities (an email
+// address or domain).
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/DeleteIdentityRequest
+type DeleteIdentityInput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// The name of the template you want to retrieve.
@@ -13533,9 +14363,24 @@ func (s *GetTemplateOutput) SetTemplate(v *Template) *GetTemplateOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // Represents the DKIM attributes of a verified email address or a domain.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/IdentityDkimAttributes
 type IdentityDkimAttributes struct {
+=======
+// Represents the destination of the message, consisting of To:, CC:, and BCC:
+// fields.
+//
+// Amazon SES does not support the SMTPUTF8 extension, as described in RFC6531
+// (https://tools.ietf.org/html/rfc6531). For this reason, the local part of
+// a destination email address (the part of the email address that precedes
+// the @ sign) may only contain 7-bit ASCII characters (https://en.wikipedia.org/wiki/Email_address#Local-part).
+// If the domain part of an address (the part after the @ sign) contains non-ASCII
+// characters, they must be encoded using Punycode, as described in RFC3492
+// (https://tools.ietf.org/html/rfc3492.html).
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/Destination
+type Destination struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 =======
 // SetNextToken sets the NextToken field's value.
@@ -13777,6 +14622,7 @@ func (s *ListReceiptRuleSetsOutput) SetNextToken(v string) *ListReceiptRuleSetsO
 	return s
 }
 
+<<<<<<< HEAD
 // SetRuleSets sets the RuleSets field's value.
 func (s *ListReceiptRuleSetsOutput) SetRuleSets(v []*ReceiptRuleSetMetadata) *ListReceiptRuleSetsOutput {
 	s.RuleSets = v
@@ -13793,6 +14639,127 @@ func (s *ListReceiptRuleSetsOutput) SetRuleSets(v []*ReceiptRuleSetMetadata) *Li
 // Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/monitor-sending-activity.html).
 // See also, https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/KinesisFirehoseDestination
 type KinesisFirehoseDestination struct {
+=======
+// Represents a request to retrieve an existing custom verification email template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/GetCustomVerificationEmailTemplateRequest
+type GetCustomVerificationEmailTemplateInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the custom verification email template that you want to retrieve.
+	//
+	// TemplateName is a required field
+	TemplateName *string `type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s GetCustomVerificationEmailTemplateInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetCustomVerificationEmailTemplateInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *GetCustomVerificationEmailTemplateInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "GetCustomVerificationEmailTemplateInput"}
+	if s.TemplateName == nil {
+		invalidParams.Add(request.NewErrParamRequired("TemplateName"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetTemplateName sets the TemplateName field's value.
+func (s *GetCustomVerificationEmailTemplateInput) SetTemplateName(v string) *GetCustomVerificationEmailTemplateInput {
+	s.TemplateName = &v
+	return s
+}
+
+// The content of the custom verification email template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/GetCustomVerificationEmailTemplateResponse
+type GetCustomVerificationEmailTemplateOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The URL that the recipient of the verification email is sent to if his or
+	// her address is not successfully verified.
+	FailureRedirectionURL *string `type:"string"`
+
+	// The email address that the custom verification email is sent from.
+	FromEmailAddress *string `type:"string"`
+
+	// The URL that the recipient of the verification email is sent to if his or
+	// her address is successfully verified.
+	SuccessRedirectionURL *string `type:"string"`
+
+	// The content of the custom verification email.
+	TemplateContent *string `type:"string"`
+
+	// The name of the custom verification email template.
+	TemplateName *string `type:"string"`
+
+	// The subject line of the custom verification email.
+	TemplateSubject *string `type:"string"`
+}
+
+// String returns the string representation
+func (s GetCustomVerificationEmailTemplateOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s GetCustomVerificationEmailTemplateOutput) GoString() string {
+	return s.String()
+}
+
+// SetFailureRedirectionURL sets the FailureRedirectionURL field's value.
+func (s *GetCustomVerificationEmailTemplateOutput) SetFailureRedirectionURL(v string) *GetCustomVerificationEmailTemplateOutput {
+	s.FailureRedirectionURL = &v
+	return s
+}
+
+// SetFromEmailAddress sets the FromEmailAddress field's value.
+func (s *GetCustomVerificationEmailTemplateOutput) SetFromEmailAddress(v string) *GetCustomVerificationEmailTemplateOutput {
+	s.FromEmailAddress = &v
+	return s
+}
+
+// SetSuccessRedirectionURL sets the SuccessRedirectionURL field's value.
+func (s *GetCustomVerificationEmailTemplateOutput) SetSuccessRedirectionURL(v string) *GetCustomVerificationEmailTemplateOutput {
+	s.SuccessRedirectionURL = &v
+	return s
+}
+
+// SetTemplateContent sets the TemplateContent field's value.
+func (s *GetCustomVerificationEmailTemplateOutput) SetTemplateContent(v string) *GetCustomVerificationEmailTemplateOutput {
+	s.TemplateContent = &v
+	return s
+}
+
+// SetTemplateName sets the TemplateName field's value.
+func (s *GetCustomVerificationEmailTemplateOutput) SetTemplateName(v string) *GetCustomVerificationEmailTemplateOutput {
+	s.TemplateName = &v
+	return s
+}
+
+// SetTemplateSubject sets the TemplateSubject field's value.
+func (s *GetCustomVerificationEmailTemplateOutput) SetTemplateSubject(v string) *GetCustomVerificationEmailTemplateOutput {
+	s.TemplateSubject = &v
+	return s
+}
+
+// Represents a request for the status of Amazon SES Easy DKIM signing for an
+// identity. For domain identities, this request also returns the DKIM tokens
+// that are required for Easy DKIM signing, and whether Amazon SES successfully
+// verified that these tokens were published. For more information about Easy
+// DKIM, see the Amazon SES Developer Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html).
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/GetIdentityDkimAttributesRequest
+type GetIdentityDkimAttributesInput struct {
+>>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// The ARN of the Amazon Kinesis Firehose stream that email sending events should
@@ -14969,10 +15936,121 @@ func (s *ReceiptRule) Validate() error {
 	return nil
 }
 
+<<<<<<< HEAD
 // SetActions sets the Actions field's value.
 func (s *ReceiptRule) SetActions(v []*ReceiptAction) *ReceiptRule {
 	s.Actions = v
 	return s
+=======
+// Represents a request to list the existing custom verification email templates
+// for your account.
+//
+// For more information about custom verification email templates, see Using
+// Custom Verification Email Templates (https://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html)
+// in the Amazon SES Developer Guide.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/ListCustomVerificationEmailTemplatesRequest
+type ListCustomVerificationEmailTemplatesInput struct {
+	_ struct{} `type:"structure"`
+
+	// The maximum number of custom verification email templates to return. This
+	// value must be at least 1 and less than or equal to 50. If you do not specify
+	// a value, or if you specify a value less than 1 or greater than 50, the operation
+	// will return up to 50 results.
+	MaxResults *int64 `min:"1" type:"integer"`
+
+	// A token returned from a previous call to ListCustomVerificationEmailTemplates
+	// to indicate the position in the list of email templates.
+	NextToken *string `type:"string"`
+}
+
+// String returns the string representation
+func (s ListCustomVerificationEmailTemplatesInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListCustomVerificationEmailTemplatesInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ListCustomVerificationEmailTemplatesInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ListCustomVerificationEmailTemplatesInput"}
+	if s.MaxResults != nil && *s.MaxResults < 1 {
+		invalidParams.Add(request.NewErrParamMinValue("MaxResults", 1))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetMaxResults sets the MaxResults field's value.
+func (s *ListCustomVerificationEmailTemplatesInput) SetMaxResults(v int64) *ListCustomVerificationEmailTemplatesInput {
+	s.MaxResults = &v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListCustomVerificationEmailTemplatesInput) SetNextToken(v string) *ListCustomVerificationEmailTemplatesInput {
+	s.NextToken = &v
+	return s
+}
+
+// A paginated list of custom verification email templates.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/ListCustomVerificationEmailTemplatesResponse
+type ListCustomVerificationEmailTemplatesOutput struct {
+	_ struct{} `type:"structure"`
+
+	// A list of the custom verification email templates that exist in your account.
+	CustomVerificationEmailTemplates []*CustomVerificationEmailTemplate `type:"list"`
+
+	// A token indicating that there are additional custom verification email templates
+	// available to be listed. Pass this token to a subsequent call to ListCustomVerificationEmailTemplates
+	// to retrieve the next 50 custom verification email templates.
+	NextToken *string `type:"string"`
+}
+
+// String returns the string representation
+func (s ListCustomVerificationEmailTemplatesOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ListCustomVerificationEmailTemplatesOutput) GoString() string {
+	return s.String()
+}
+
+// SetCustomVerificationEmailTemplates sets the CustomVerificationEmailTemplates field's value.
+func (s *ListCustomVerificationEmailTemplatesOutput) SetCustomVerificationEmailTemplates(v []*CustomVerificationEmailTemplate) *ListCustomVerificationEmailTemplatesOutput {
+	s.CustomVerificationEmailTemplates = v
+	return s
+}
+
+// SetNextToken sets the NextToken field's value.
+func (s *ListCustomVerificationEmailTemplatesOutput) SetNextToken(v string) *ListCustomVerificationEmailTemplatesOutput {
+	s.NextToken = &v
+	return s
+}
+
+// Represents a request to return a list of all identities (email addresses
+// and domains) that you have attempted to verify under your AWS account, regardless
+// of verification status.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/ListIdentitiesRequest
+type ListIdentitiesInput struct {
+	_ struct{} `type:"structure"`
+
+	// The type of the identities to list. Possible values are "EmailAddress" and
+	// "Domain". If this parameter is omitted, then all identities will be listed.
+	IdentityType *string `type:"string" enum:"IdentityType"`
+
+	// The maximum number of identities per page. Possible values are 1-1000 inclusive.
+	MaxItems *int64 `type:"integer"`
+
+	// The token to use for pagination.
+	NextToken *string `type:"string"`
+>>>>>>> Working on getting compiling
 }
 
 // SetEnabled sets the Enabled field's value.
@@ -16878,6 +17956,7 @@ type SendEmailInput struct {
 	// with Amazon SES. For information about verifying identities, see the Amazon
 	// SES Developer Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html).
 	//
+<<<<<<< HEAD
 	// If you are sending on behalf of another user and have been permitted to do
 	// so by a sending authorization policy, then you must also specify the SourceArn
 	// parameter. For more information about sending authorization, see the Amazon
@@ -16896,6 +17975,18 @@ type SendEmailInput struct {
 	//
 	// Source is a required field
 	Source *string `type:"string" required:"true"`
+=======
+	// Your mail is encrypted by Amazon SES using the Amazon S3 encryption client
+	// before the mail is submitted to Amazon S3 for storage. It is not encrypted
+	// using Amazon S3 server-side encryption. This means that you must use the
+	// Amazon S3 encryption client to decrypt the email after retrieving it from
+	// Amazon S3, as the service has no access to use your AWS KMS keys for decryption.
+	// This encryption client is currently available with the AWS Java SDK (http://aws.amazon.com/sdk-for-java/)
+	// and AWS Ruby SDK (http://aws.amazon.com/sdk-for-ruby/) only. For more information
+	// about client-side encryption using AWS KMS master keys, see the Amazon S3
+	// Developer Guide (http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html).
+	KmsKeyArn *string `type:"string"`
+>>>>>>> Working on getting compiling
 
 	// This parameter is used only for sending authorization. It is the ARN of the
 	// identity that is associated with the sending authorization policy that permits
@@ -17456,6 +18547,9 @@ type SendBulkTemplatedEmailInput struct {
 	// SES Developer Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html).
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// Amazon SES does not support the SMTPUTF8 extension, as described in RFC6531
 	// (https://tools.ietf.org/html/rfc6531). For this reason, the local part of
 	// a source email address (the part of the email address that precedes the @
@@ -17464,6 +18558,7 @@ type SendBulkTemplatedEmailInput struct {
 	// characters, they must be encoded using Punycode, as described in RFC3492
 	// (https://tools.ietf.org/html/rfc3492.html). The sender name (also known as
 	// the friendly name) may contain non-ASCII characters. These characters must
+<<<<<<< HEAD
 	// be encoded using MIME encoded-word syntax, as described inRFC 2047 (https://tools.ietf.org/html/rfc2047).
 	// MIME encoded-word syntax uses the following form: =?charset?encoding?encoded-text?=.
 =======
@@ -17473,6 +18568,10 @@ type SendBulkTemplatedEmailInput struct {
 	// form: =?charset?encoding?encoded-text?=. For more information, see RFC 2047
 	// (https://tools.ietf.org/html/rfc2047).
 >>>>>>> Initial dep workover
+=======
+	// be encoded using MIME encoded-word syntax, as described in RFC 2047 (https://tools.ietf.org/html/rfc2047).
+	// MIME encoded-word syntax uses the following form: =?charset?encoding?encoded-text?=.
+>>>>>>> Working on getting compiling
 	//
 	// Source is a required field
 	Source *string `type:"string" required:"true"`
@@ -17788,6 +18887,96 @@ func (s *SendBulkTemplatedEmailOutput) SetStatus(v []*BulkEmailDestinationStatus
 	return s
 }
 
+// Represents a request to send a custom verification email to a specified recipient.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendCustomVerificationEmailRequest
+type SendCustomVerificationEmailInput struct {
+	_ struct{} `type:"structure"`
+
+	// Name of a configuration set to use when sending the verification email.
+	ConfigurationSetName *string `type:"string"`
+
+	// The email address to verify.
+	//
+	// EmailAddress is a required field
+	EmailAddress *string `type:"string" required:"true"`
+
+	// The name of the custom verification email template to use when sending the
+	// verification email.
+	//
+	// TemplateName is a required field
+	TemplateName *string `type:"string" required:"true"`
+}
+
+// String returns the string representation
+func (s SendCustomVerificationEmailInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s SendCustomVerificationEmailInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *SendCustomVerificationEmailInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "SendCustomVerificationEmailInput"}
+	if s.EmailAddress == nil {
+		invalidParams.Add(request.NewErrParamRequired("EmailAddress"))
+	}
+	if s.TemplateName == nil {
+		invalidParams.Add(request.NewErrParamRequired("TemplateName"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetConfigurationSetName sets the ConfigurationSetName field's value.
+func (s *SendCustomVerificationEmailInput) SetConfigurationSetName(v string) *SendCustomVerificationEmailInput {
+	s.ConfigurationSetName = &v
+	return s
+}
+
+// SetEmailAddress sets the EmailAddress field's value.
+func (s *SendCustomVerificationEmailInput) SetEmailAddress(v string) *SendCustomVerificationEmailInput {
+	s.EmailAddress = &v
+	return s
+}
+
+// SetTemplateName sets the TemplateName field's value.
+func (s *SendCustomVerificationEmailInput) SetTemplateName(v string) *SendCustomVerificationEmailInput {
+	s.TemplateName = &v
+	return s
+}
+
+// The response received when attempting to send the custom verification email.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendCustomVerificationEmailResponse
+type SendCustomVerificationEmailOutput struct {
+	_ struct{} `type:"structure"`
+
+	// The unique message identifier returned from the SendCustomVerificationEmail
+	// operation.
+	MessageId *string `type:"string"`
+}
+
+// String returns the string representation
+func (s SendCustomVerificationEmailOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s SendCustomVerificationEmailOutput) GoString() string {
+	return s.String()
+}
+
+// SetMessageId sets the MessageId field's value.
+func (s *SendCustomVerificationEmailOutput) SetMessageId(v string) *SendCustomVerificationEmailOutput {
+	s.MessageId = &v
+	return s
+}
+
 // Represents sending statistics data. Each SendDataPoint contains statistics
 // for a 15-minute period of sending activity.
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendDataPoint
@@ -17905,11 +19094,16 @@ type SendEmailInput struct {
 	// parameter. For more information about sending authorization, see the Amazon
 	// SES Developer Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html).
 	//
-	// In all cases, the email address must be 7-bit ASCII. If the text must contain
-	// any other characters, then you must use MIME encoded-word syntax (RFC 2047)
-	// instead of a literal string. MIME encoded-word syntax uses the following
-	// form: =?charset?encoding?encoded-text?=. For more information, see RFC 2047
-	// (https://tools.ietf.org/html/rfc2047).
+	// Amazon SES does not support the SMTPUTF8 extension, as described in RFC6531
+	// (https://tools.ietf.org/html/rfc6531). For this reason, the local part of
+	// a source email address (the part of the email address that precedes the @
+	// sign) may only contain 7-bit ASCII characters (https://en.wikipedia.org/wiki/Email_address#Local-part).
+	// If the domain part of an address (the part after the @ sign) contains non-ASCII
+	// characters, they must be encoded using Punycode, as described in RFC3492
+	// (https://tools.ietf.org/html/rfc3492.html). The sender name (also known as
+	// the friendly name) may contain non-ASCII characters. These characters must
+	// be encoded using MIME encoded-word syntax, as described in RFC 2047 (https://tools.ietf.org/html/rfc2047).
+	// MIME encoded-word syntax uses the following form: =?charset?encoding?encoded-text?=.
 	//
 	// Source is a required field
 	Source *string `type:"string" required:"true"`
@@ -18175,10 +19369,16 @@ type SendRawEmailInput struct {
 	// you must specify a "From" address in the raw text of the message. (You can
 	// also specify both.)
 	//
-	// By default, the string must be 7-bit ASCII. If the text must contain any
-	// other characters, then you must use MIME encoded-word syntax (RFC 2047) instead
-	// of a literal string. MIME encoded-word syntax uses the following form: =?charset?encoding?encoded-text?=.
-	// For more information, see RFC 2047 (https://tools.ietf.org/html/rfc2047).
+	// Amazon SES does not support the SMTPUTF8 extension, as described inRFC6531
+	// (https://tools.ietf.org/html/rfc6531). For this reason, the local part of
+	// a source email address (the part of the email address that precedes the @
+	// sign) may only contain 7-bit ASCII characters (https://en.wikipedia.org/wiki/Email_address#Local-part).
+	// If the domain part of an address (the part after the @ sign) contains non-ASCII
+	// characters, they must be encoded using Punycode, as described in RFC3492
+	// (https://tools.ietf.org/html/rfc3492.html). The sender name (also known as
+	// the friendly name) may contain non-ASCII characters. These characters must
+	// be encoded using MIME encoded-word syntax, as described in RFC 2047 (https://tools.ietf.org/html/rfc2047).
+	// MIME encoded-word syntax uses the following form: =?charset?encoding?encoded-text?=.
 	//
 	// If you specify the Source parameter and have feedback forwarding enabled,
 	// then bounces and complaints will be sent to this email address. This takes
@@ -18530,11 +19730,16 @@ func (s SetIdentityHeadersInNotificationsEnabledInput) String() string {
 	// parameter. For more information about sending authorization, see the Amazon
 	// SES Developer Guide (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html).
 	//
-	// In all cases, the email address must be 7-bit ASCII. If the text must contain
-	// any other characters, then you must use MIME encoded-word syntax (RFC 2047)
-	// instead of a literal string. MIME encoded-word syntax uses the following
-	// form: =?charset?encoding?encoded-text?=. For more information, see RFC 2047
-	// (https://tools.ietf.org/html/rfc2047).
+	// Amazon SES does not support the SMTPUTF8 extension, as described in RFC6531
+	// (https://tools.ietf.org/html/rfc6531). For this reason, the local part of
+	// a source email address (the part of the email address that precedes the @
+	// sign) may only contain 7-bit ASCII characters (https://en.wikipedia.org/wiki/Email_address#Local-part).
+	// If the domain part of an address (the part after the @ sign) contains non-ASCII
+	// characters, they must be encoded using Punycode, as described in RFC3492
+	// (https://tools.ietf.org/html/rfc3492.html). The sender name (also known as
+	// the friendly name) may contain non-ASCII characters. These characters must
+	// be encoded using MIME encoded-word syntax, as described inRFC 2047 (https://tools.ietf.org/html/rfc2047).
+	// MIME encoded-word syntax uses the following form: =?charset?encoding?encoded-text?=.
 	//
 	// Source is a required field
 	Source *string `type:"string" required:"true"`
@@ -20804,6 +22009,112 @@ func (s UpdateCustomVerificationEmailTemplateOutput) GoString() string {
 =======
 func (s UpdateConfigurationSetTrackingOptionsOutput) GoString() string {
 >>>>>>> Initial dep workover
+	return s.String()
+}
+
+// Represents a request to update an existing custom verification email template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/UpdateCustomVerificationEmailTemplateRequest
+type UpdateCustomVerificationEmailTemplateInput struct {
+	_ struct{} `type:"structure"`
+
+	// The URL that the recipient of the verification email is sent to if his or
+	// her address is not successfully verified.
+	FailureRedirectionURL *string `type:"string"`
+
+	// The email address that the custom verification email is sent from.
+	FromEmailAddress *string `type:"string"`
+
+	// The URL that the recipient of the verification email is sent to if his or
+	// her address is successfully verified.
+	SuccessRedirectionURL *string `type:"string"`
+
+	// The content of the custom verification email. The total size of the email
+	// must be less than 10 MB. The message body may contain HTML, with some limitations.
+	// For more information, see Custom Verification Email Frequently Asked Questions
+	// (http://docs.aws.amazon.com/ses/latest/DeveloperGuide/custom-verification-emails.html#custom-verification-emails-faq)
+	// in the Amazon SES Developer Guide.
+	TemplateContent *string `type:"string"`
+
+	// The name of the custom verification email template that you want to update.
+	//
+	// TemplateName is a required field
+	TemplateName *string `type:"string" required:"true"`
+
+	// The subject line of the custom verification email.
+	TemplateSubject *string `type:"string"`
+}
+
+// String returns the string representation
+func (s UpdateCustomVerificationEmailTemplateInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s UpdateCustomVerificationEmailTemplateInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *UpdateCustomVerificationEmailTemplateInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "UpdateCustomVerificationEmailTemplateInput"}
+	if s.TemplateName == nil {
+		invalidParams.Add(request.NewErrParamRequired("TemplateName"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetFailureRedirectionURL sets the FailureRedirectionURL field's value.
+func (s *UpdateCustomVerificationEmailTemplateInput) SetFailureRedirectionURL(v string) *UpdateCustomVerificationEmailTemplateInput {
+	s.FailureRedirectionURL = &v
+	return s
+}
+
+// SetFromEmailAddress sets the FromEmailAddress field's value.
+func (s *UpdateCustomVerificationEmailTemplateInput) SetFromEmailAddress(v string) *UpdateCustomVerificationEmailTemplateInput {
+	s.FromEmailAddress = &v
+	return s
+}
+
+// SetSuccessRedirectionURL sets the SuccessRedirectionURL field's value.
+func (s *UpdateCustomVerificationEmailTemplateInput) SetSuccessRedirectionURL(v string) *UpdateCustomVerificationEmailTemplateInput {
+	s.SuccessRedirectionURL = &v
+	return s
+}
+
+// SetTemplateContent sets the TemplateContent field's value.
+func (s *UpdateCustomVerificationEmailTemplateInput) SetTemplateContent(v string) *UpdateCustomVerificationEmailTemplateInput {
+	s.TemplateContent = &v
+	return s
+}
+
+// SetTemplateName sets the TemplateName field's value.
+func (s *UpdateCustomVerificationEmailTemplateInput) SetTemplateName(v string) *UpdateCustomVerificationEmailTemplateInput {
+	s.TemplateName = &v
+	return s
+}
+
+// SetTemplateSubject sets the TemplateSubject field's value.
+func (s *UpdateCustomVerificationEmailTemplateInput) SetTemplateSubject(v string) *UpdateCustomVerificationEmailTemplateInput {
+	s.TemplateSubject = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/UpdateCustomVerificationEmailTemplateOutput
+type UpdateCustomVerificationEmailTemplateOutput struct {
+	_ struct{} `type:"structure"`
+}
+
+// String returns the string representation
+func (s UpdateCustomVerificationEmailTemplateOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s UpdateCustomVerificationEmailTemplateOutput) GoString() string {
 	return s.String()
 }
 

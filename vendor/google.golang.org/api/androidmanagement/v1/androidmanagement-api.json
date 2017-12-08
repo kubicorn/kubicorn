@@ -1318,6 +1318,7 @@
       "type": "object",
       "properties": {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "outgoingCallsDisabled": {
           "description": "Whether outgoing calls are disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
 =======
@@ -1332,6 +1333,10 @@
         "adjustVolumeDisabled": {
           "description": "Whether adjusting the master volume is disabled.",
 >>>>>>> Initial dep workover
+=======
+        "outgoingCallsDisabled": {
+          "description": "Whether outgoing calls are disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+>>>>>>> Working on getting compiling
           "type": "boolean"
         },
         "screenCaptureDisabled": {
@@ -1343,16 +1348,22 @@
           "type": "boolean"
         },
 <<<<<<< HEAD
+<<<<<<< HEAD
         "installAppsDisabled": {
           "description": "Whether user installation of apps is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
 =======
         "funDisabled": {
           "description": "Whether the user is allowed to have fun. Controls whether the Easter egg game in Settings is disabled.",
 >>>>>>> Initial dep workover
+=======
+        "installAppsDisabled": {
+          "description": "Whether user installation of apps is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+>>>>>>> Working on getting compiling
           "type": "boolean"
         },
         "factoryResetDisabled": {
           "description": "Whether factory resetting from settings is disabled.",
+<<<<<<< HEAD
           "type": "boolean"
         },
 <<<<<<< HEAD
@@ -1377,6 +1388,12 @@
         "unmuteMicrophoneDisabled": {
           "description": "Whether the microphone is muted and adjusting microphone volume is disabled.",
 >>>>>>> Initial dep workover
+=======
+          "type": "boolean"
+        },
+        "modifyAccountsDisabled": {
+          "description": "Whether adding or removing accounts is disabled.",
+>>>>>>> Working on getting compiling
           "type": "boolean"
         },
         "installUnknownSourcesAllowed": {
@@ -1385,6 +1402,7 @@
 =======
           "type": "boolean"
         },
+<<<<<<< HEAD
         "autoTimeRequired": {
           "description": "Whether auto time is required, which prevents the user from manually setting the date and time.",
           "type": "boolean"
@@ -1398,6 +1416,8 @@
 >>>>>>> Initial dep workover
           "type": "boolean"
         },
+=======
+>>>>>>> Working on getting compiling
         "stayOnPluggedModes": {
           "description": "The battery plugged in modes for which the device stays on. When using this setting, it is recommended to clear maximum_time_to_lock so that the device doesn't lock itself while it stays on.",
           "enumDescriptions": [
@@ -1421,6 +1441,7 @@
           "description": "Whether resetting network settings is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
           "type": "boolean"
         },
+<<<<<<< HEAD
 <<<<<<< HEAD
         "shortSupportMessage": {
           "description": "A message displayed to the user in the settings screen wherever functionality has been disabled by the admin. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
@@ -1476,6 +1497,46 @@
           "description": "The name of the policy in the form enterprises/{enterpriseId}/policies/{policyId}",
           "type": "string"
 >>>>>>> Initial dep workover
+=======
+        "shortSupportMessage": {
+          "description": "A message displayed to the user in the settings screen wherever functionality has been disabled by the admin. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "$ref": "UserFacingMessage"
+        },
+        "wifiConfigDisabled": {
+          "description": "Whether configuring WiFi access points is disabled.",
+          "type": "boolean"
+        },
+        "networkEscapeHatchEnabled": {
+          "description": "Whether the network escape hatch is enabled. If a network connection can't be made at boot time, the escape hatch prompts the user to temporarily connect to a network in order to refresh the device policy. After applying policy, the temporary network will be forgotten and the device will continue booting. This prevents being unable to connect to a network if there is no suitable network in the last policy and the device boots into an app in lock task mode, or the user is otherwise unable to reach device settings.",
+          "type": "boolean"
+        },
+        "keyguardDisabledFeatures": {
+          "description": "Disabled keyguard customizations, such as widgets. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "enumDescriptions": [
+            "This value is ignored.",
+            "Disable the camera on secure keyguard screens (e.g. PIN).",
+            "Disable showing all notifications on secure keyguard screens.",
+            "Disable unredacted notifications on secure keyguard screens.",
+            "Ignore trust agent state on secure keyguard screens.",
+            "Disable fingerprint sensor on keyguard secure screens.",
+            "Disable text entry into notifications on secure keyguard screens.",
+            "Disable all current and future keyguard customizations."
+          ],
+          "type": "array",
+          "items": {
+            "enum": [
+              "KEYGUARD_DISABLED_FEATURE_UNSPECIFIED",
+              "CAMERA",
+              "NOTIFICATIONS",
+              "UNREDACTED_NOTIFICATIONS",
+              "TRUST_AGENTS",
+              "DISABLE_FINGERPRINT",
+              "DISABLE_REMOTE_INPUT",
+              "ALL_FEATURES"
+            ],
+            "type": "string"
+          }
+>>>>>>> Working on getting compiling
         },
         "defaultPermissionPolicy": {
           "description": "The default permission policy for requests for runtime permissions.",
@@ -1517,6 +1578,7 @@
             "$ref": "ApplicationPolicy"
           }
         },
+<<<<<<< HEAD
 <<<<<<< HEAD
         "outgoingBeamDisabled": {
           "description": "Whether using NFC to beam out data from apps is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
@@ -1561,6 +1623,42 @@
           "description": "The system update policy, which controls how OS updates are applied. If the update type is WINDOWED, the update window will automatically apply to Play app updates as well.",
           "$ref": "SystemUpdate"
 >>>>>>> Initial dep workover
+=======
+        "outgoingBeamDisabled": {
+          "description": "Whether using NFC to beam out data from apps is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "type": "boolean"
+        },
+        "credentialsConfigDisabled": {
+          "description": "Whether configuring user credentials is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "type": "boolean"
+        },
+        "autoTimeRequired": {
+          "description": "Whether auto time is required, which prevents the user from manually setting the date and time.",
+          "type": "boolean"
+        },
+        "smsDisabled": {
+          "description": "Whether sending or receiving SMS messages is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "type": "boolean"
+        },
+        "permittedInputMethods": {
+          "description": "If present, only input methods provided by packages in this list are permitted. If this field is present, but the list is empty, then only system input methods are permitted. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "$ref": "PackageNameList"
+        },
+        "adjustVolumeDisabled": {
+          "description": "Whether adjusting the master volume is disabled.",
+          "type": "boolean"
+        },
+        "accountTypesWithManagementDisabled": {
+          "description": "Account types that cannot be managed by the user. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "vpnConfigDisabled": {
+          "description": "Whether configuring VPN is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "type": "boolean"
+>>>>>>> Working on getting compiling
         },
         "frpAdminEmails": {
           "description": "Email addresses of device administrators for factory reset protection. When the device is factory reset, it will require one of these admins to log in with the Google account email and password to unlock the device. If no admins are specified, the device will not provide factory reset protection.",
@@ -1569,6 +1667,7 @@
             "type": "string"
           }
         },
+<<<<<<< HEAD
 <<<<<<< HEAD
         "alwaysOnVpnPackage": {
           "description": "Configuration for an always-on VPN connection. Use with vpn_config_disabled to prevent modification of this setting. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
@@ -1579,6 +1678,11 @@
           "type": "string",
           "format": "int64"
 >>>>>>> Initial dep workover
+=======
+        "alwaysOnVpnPackage": {
+          "description": "Configuration for an always-on VPN connection. Use with vpn_config_disabled to prevent modification of this setting. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+          "$ref": "AlwaysOnVpnPackage"
+>>>>>>> Working on getting compiling
         },
         "tetheringConfigDisabled": {
           "description": "Whether configuring tethering and portable hotspots is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
@@ -1590,12 +1694,21 @@
         },
         "uninstallAppsDisabled": {
           "description": "Whether user uninstallation of applications is disabled. \u003ci\u003eRequires the beta version of the Android Device Policy app.\u003c/i\u003e",
+<<<<<<< HEAD
           "type": "boolean"
         },
         "funDisabled": {
           "description": "Whether the user is allowed to have fun. Controls whether the Easter egg game in Settings is disabled.",
           "type": "boolean"
         },
+=======
+          "type": "boolean"
+        },
+        "funDisabled": {
+          "description": "Whether the user is allowed to have fun. Controls whether the Easter egg game in Settings is disabled.",
+          "type": "boolean"
+        },
+>>>>>>> Working on getting compiling
         "openNetworkConfiguration": {
           "description": "Network configuration for the device. See configure networks for more information.",
           "additionalProperties": {
@@ -2536,10 +2649,14 @@
     }
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
   "revision": "20171127",
 =======
   "revision": "20171030",
 >>>>>>> Initial dep workover
+=======
+  "revision": "20171127",
+>>>>>>> Working on getting compiling
   "basePath": "",
   "icons": {
     "x32": "http://www.google.com/images/icons/product/search-32.gif",

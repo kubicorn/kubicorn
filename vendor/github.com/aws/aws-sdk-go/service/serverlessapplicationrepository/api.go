@@ -33,7 +33,11 @@ const opCreateApplication = "CreateApplication"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplication
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplication
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) CreateApplicationRequest(input *CreateApplicationRequest) (req *request.Request, output *CreateApplicationOutput) {
 	op := &request.Operation{
 		Name:       opCreateApplication,
@@ -79,7 +83,11 @@ func (c *ServerlessApplicationRepository) CreateApplicationRequest(input *Create
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   The client is not authenticated.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplication
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplication
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) CreateApplication(input *CreateApplicationRequest) (*CreateApplicationOutput, error) {
 	req, out := c.CreateApplicationRequest(input)
 	return out, req.Send()
@@ -126,7 +134,11 @@ const opCreateApplicationVersion = "CreateApplicationVersion"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationVersion
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) CreateApplicationVersionRequest(input *CreateApplicationVersionRequest) (req *request.Request, output *CreateApplicationVersionOutput) {
 	op := &request.Operation{
 		Name:       opCreateApplicationVersion,
@@ -171,7 +183,11 @@ func (c *ServerlessApplicationRepository) CreateApplicationVersionRequest(input 
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   The client is not authenticated.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationVersion
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) CreateApplicationVersion(input *CreateApplicationVersionRequest) (*CreateApplicationVersionOutput, error) {
 	req, out := c.CreateApplicationVersionRequest(input)
 	return out, req.Send()
@@ -218,7 +234,11 @@ const opCreateCloudFormationChangeSet = "CreateCloudFormationChangeSet"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateCloudFormationChangeSet
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateCloudFormationChangeSet
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) CreateCloudFormationChangeSetRequest(input *CreateCloudFormationChangeSetRequest) (req *request.Request, output *CreateCloudFormationChangeSetOutput) {
 	op := &request.Operation{
 		Name:       opCreateCloudFormationChangeSet,
@@ -260,7 +280,11 @@ func (c *ServerlessApplicationRepository) CreateCloudFormationChangeSetRequest(i
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   The client is not authenticated.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateCloudFormationChangeSet
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateCloudFormationChangeSet
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) CreateCloudFormationChangeSet(input *CreateCloudFormationChangeSetRequest) (*CreateCloudFormationChangeSetOutput, error) {
 	req, out := c.CreateCloudFormationChangeSetRequest(input)
 	return out, req.Send()
@@ -307,7 +331,11 @@ const opGetApplication = "GetApplication"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplication
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplication
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) GetApplicationRequest(input *GetApplicationInput) (req *request.Request, output *GetApplicationOutput) {
 	op := &request.Operation{
 		Name:       opGetApplication,
@@ -353,7 +381,11 @@ func (c *ServerlessApplicationRepository) GetApplicationRequest(input *GetApplic
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   The client is not authenticated.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplication
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplication
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) GetApplication(input *GetApplicationInput) (*GetApplicationOutput, error) {
 	req, out := c.GetApplicationRequest(input)
 	return out, req.Send()
@@ -400,7 +432,11 @@ const opGetApplicationPolicy = "GetApplicationPolicy"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationPolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationPolicy
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) GetApplicationPolicyRequest(input *GetApplicationPolicyInput) (req *request.Request, output *GetApplicationPolicyOutput) {
 	op := &request.Operation{
 		Name:       opGetApplicationPolicy,
@@ -446,7 +482,11 @@ func (c *ServerlessApplicationRepository) GetApplicationPolicyRequest(input *Get
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   The client is not authenticated.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationPolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationPolicy
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) GetApplicationPolicy(input *GetApplicationPolicyInput) (*GetApplicationPolicyOutput, error) {
 	req, out := c.GetApplicationPolicyRequest(input)
 	return out, req.Send()
@@ -493,7 +533,11 @@ const opListApplicationVersions = "ListApplicationVersions"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationVersions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationVersions
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) ListApplicationVersionsRequest(input *ListApplicationVersionsInput) (req *request.Request, output *ListApplicationVersionsOutput) {
 	op := &request.Operation{
 		Name:       opListApplicationVersions,
@@ -539,7 +583,11 @@ func (c *ServerlessApplicationRepository) ListApplicationVersionsRequest(input *
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   The client is not authenticated.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationVersions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationVersions
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) ListApplicationVersions(input *ListApplicationVersionsInput) (*ListApplicationVersionsOutput, error) {
 	req, out := c.ListApplicationVersionsRequest(input)
 	return out, req.Send()
@@ -586,7 +634,11 @@ const opListApplications = "ListApplications"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplications
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) ListApplicationsRequest(input *ListApplicationsInput) (req *request.Request, output *ListApplicationsOutput) {
 	op := &request.Operation{
 		Name:       opListApplications,
@@ -629,7 +681,11 @@ func (c *ServerlessApplicationRepository) ListApplicationsRequest(input *ListApp
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   The client is not authenticated.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplications
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) ListApplications(input *ListApplicationsInput) (*ListApplicationsOutput, error) {
 	req, out := c.ListApplicationsRequest(input)
 	return out, req.Send()
@@ -676,7 +732,11 @@ const opPutApplicationPolicy = "PutApplicationPolicy"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/PutApplicationPolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/PutApplicationPolicy
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) PutApplicationPolicyRequest(input *PutApplicationPolicyInput) (req *request.Request, output *PutApplicationPolicyOutput) {
 	op := &request.Operation{
 		Name:       opPutApplicationPolicy,
@@ -722,7 +782,11 @@ func (c *ServerlessApplicationRepository) PutApplicationPolicyRequest(input *Put
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   The client is not authenticated.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/PutApplicationPolicy
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/PutApplicationPolicy
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) PutApplicationPolicy(input *PutApplicationPolicyInput) (*PutApplicationPolicyOutput, error) {
 	req, out := c.PutApplicationPolicyRequest(input)
 	return out, req.Send()
@@ -769,7 +833,11 @@ const opUpdateApplication = "UpdateApplication"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UpdateApplication
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UpdateApplication
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) UpdateApplicationRequest(input *UpdateApplicationRequest) (req *request.Request, output *UpdateApplicationOutput) {
 	op := &request.Operation{
 		Name:       opUpdateApplication,
@@ -818,7 +886,11 @@ func (c *ServerlessApplicationRepository) UpdateApplicationRequest(input *Update
 //   * ErrCodeConflictException "ConflictException"
 //   The resource already exists.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UpdateApplication
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UpdateApplication
+>>>>>>> Working on getting compiling
 func (c *ServerlessApplicationRepository) UpdateApplication(input *UpdateApplicationRequest) (*UpdateApplicationOutput, error) {
 	req, out := c.UpdateApplicationRequest(input)
 	return out, req.Send()
@@ -841,7 +913,11 @@ func (c *ServerlessApplicationRepository) UpdateApplicationWithContext(ctx aws.C
 }
 
 // Policy statement applied to the application.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ApplicationPolicyStatement
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ApplicationPolicyStatement
+>>>>>>> Working on getting compiling
 type ApplicationPolicyStatement struct {
 	_ struct{} `type:"structure"`
 
@@ -886,7 +962,11 @@ func (s *ApplicationPolicyStatement) SetStatementId(v string) *ApplicationPolicy
 }
 
 // Summary of details about the application.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ApplicationSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ApplicationSummary
+>>>>>>> Working on getting compiling
 type ApplicationSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -966,7 +1046,11 @@ func (s *ApplicationSummary) SetSpdxLicenseId(v string) *ApplicationSummary {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationResponse
+>>>>>>> Working on getting compiling
 type CreateApplicationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1062,7 +1146,11 @@ func (s *CreateApplicationOutput) SetVersion(v *Version) *CreateApplicationOutpu
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationRequest
+>>>>>>> Working on getting compiling
 type CreateApplicationRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -1181,7 +1269,11 @@ func (s *CreateApplicationRequest) SetTemplateUrl(v string) *CreateApplicationRe
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationVersionResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationVersionResponse
+>>>>>>> Working on getting compiling
 type CreateApplicationVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1244,7 +1336,11 @@ func (s *CreateApplicationVersionOutput) SetTemplateUrl(v string) *CreateApplica
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationVersionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateApplicationVersionRequest
+>>>>>>> Working on getting compiling
 type CreateApplicationVersionRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -1317,7 +1413,11 @@ func (s *CreateApplicationVersionRequest) SetTemplateUrl(v string) *CreateApplic
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateCloudFormationChangeSetResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateCloudFormationChangeSetResponse
+>>>>>>> Working on getting compiling
 type CreateCloudFormationChangeSetOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1364,7 +1464,11 @@ func (s *CreateCloudFormationChangeSetOutput) SetStackId(v string) *CreateCloudF
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateCloudFormationChangeSetRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/CreateCloudFormationChangeSetRequest
+>>>>>>> Working on getting compiling
 type CreateCloudFormationChangeSetRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -1425,7 +1529,11 @@ func (s *CreateCloudFormationChangeSetRequest) SetStackName(v string) *CreateClo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationRequest
+>>>>>>> Working on getting compiling
 type GetApplicationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1470,7 +1578,11 @@ func (s *GetApplicationInput) SetSemanticVersion(v string) *GetApplicationInput 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationResponse
+>>>>>>> Working on getting compiling
 type GetApplicationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1566,7 +1678,11 @@ func (s *GetApplicationOutput) SetVersion(v *Version) *GetApplicationOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationPolicyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationPolicyRequest
+>>>>>>> Working on getting compiling
 type GetApplicationPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1603,7 +1719,11 @@ func (s *GetApplicationPolicyInput) SetApplicationId(v string) *GetApplicationPo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationPolicyResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/GetApplicationPolicyResponse
+>>>>>>> Working on getting compiling
 type GetApplicationPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1626,7 +1746,11 @@ func (s *GetApplicationPolicyOutput) SetStatements(v []*ApplicationPolicyStateme
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationVersionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationVersionsRequest
+>>>>>>> Working on getting compiling
 type ListApplicationVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1682,7 +1806,11 @@ func (s *ListApplicationVersionsInput) SetNextToken(v string) *ListApplicationVe
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationVersionsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationVersionsResponse
+>>>>>>> Working on getting compiling
 type ListApplicationVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1713,7 +1841,11 @@ func (s *ListApplicationVersionsOutput) SetVersions(v []*VersionSummary) *ListAp
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationsRequest
+>>>>>>> Working on getting compiling
 type ListApplicationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1757,7 +1889,11 @@ func (s *ListApplicationsInput) SetNextToken(v string) *ListApplicationsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ListApplicationsResponse
+>>>>>>> Working on getting compiling
 type ListApplicationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1789,7 +1925,11 @@ func (s *ListApplicationsOutput) SetNextToken(v string) *ListApplicationsOutput 
 }
 
 // Parameters supported by the application.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ParameterDefinition
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ParameterDefinition
+>>>>>>> Working on getting compiling
 type ParameterDefinition struct {
 	_ struct{} `type:"structure"`
 
@@ -1951,7 +2091,11 @@ func (s *ParameterDefinition) SetType(v string) *ParameterDefinition {
 }
 
 // Parameter value of the application.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ParameterValue
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/ParameterValue
+>>>>>>> Working on getting compiling
 type ParameterValue struct {
 	_ struct{} `type:"structure"`
 
@@ -1986,7 +2130,11 @@ func (s *ParameterValue) SetValue(v string) *ParameterValue {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/PutApplicationPolicyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/PutApplicationPolicyRequest
+>>>>>>> Working on getting compiling
 type PutApplicationPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2031,7 +2179,11 @@ func (s *PutApplicationPolicyInput) SetStatements(v []*ApplicationPolicyStatemen
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/PutApplicationPolicyResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/PutApplicationPolicyResponse
+>>>>>>> Working on getting compiling
 type PutApplicationPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2054,7 +2206,11 @@ func (s *PutApplicationPolicyOutput) SetStatements(v []*ApplicationPolicyStateme
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UpdateApplicationResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UpdateApplicationResponse
+>>>>>>> Working on getting compiling
 type UpdateApplicationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2150,7 +2306,11 @@ func (s *UpdateApplicationOutput) SetVersion(v *Version) *UpdateApplicationOutpu
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UpdateApplicationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/UpdateApplicationRequest
+>>>>>>> Working on getting compiling
 type UpdateApplicationRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -2228,7 +2388,11 @@ func (s *UpdateApplicationRequest) SetReadmeUrl(v string) *UpdateApplicationRequ
 }
 
 // Application version details.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/Version
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/Version
+>>>>>>> Working on getting compiling
 type Version struct {
 	_ struct{} `type:"structure"`
 
@@ -2298,7 +2462,11 @@ func (s *Version) SetTemplateUrl(v string) *Version {
 }
 
 // Application version summary.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/VersionSummary
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/serverlessrepo-2017-09-08/VersionSummary
+>>>>>>> Working on getting compiling
 type VersionSummary struct {
 	_ struct{} `type:"structure"`
 

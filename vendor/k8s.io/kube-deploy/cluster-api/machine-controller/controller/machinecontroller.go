@@ -43,6 +43,8 @@ type MachineController struct {
 	clusterClient *client.ClusterAPIV1Alpha1Client
 	actuator      cloud.MachineActuator
 	nodeWatcher   *NodeWatcher
+	machineClient client.MachinesInterface
+	runner        *asyncRunner
 }
 
 func NewMachineController(config *Configuration) *MachineController {
@@ -58,8 +60,13 @@ func NewMachineController(config *Configuration) *MachineController {
 
 	clusterClient := client.New(restClient)
 
+	machineClient, err := machineClient(config.Kubeconfig)
+	if err != nil {
+		glog.Fatalf("error creating machine client: %v", err)
+	}
+
 	// Determine cloud type from cluster CRD when available
-	actuator, err := cloud.NewMachineActuator(config.Cloud, config.KubeadmToken)
+	actuator, err := cloud.NewMachineActuator(config.Cloud, config.KubeadmToken, machineClient)
 	if err != nil {
 		glog.Fatalf("error creating machine actuator: %v", err)
 	}
@@ -76,6 +83,8 @@ func NewMachineController(config *Configuration) *MachineController {
 		clusterClient: clusterClient,
 		actuator:      actuator,
 		nodeWatcher:   nodeWatcher,
+		machineClient: machineClient,
+		runner:        newAsyncRunner(),
 	}
 }
 
@@ -117,11 +126,14 @@ func (c *MachineController) onAdd(obj interface{}) {
 		return
 	}
 
-	err := c.create(machine)
-	if err != nil {
-		glog.Errorf("create machine %s failed: %v", machine.ObjectMeta.Name, err)
-	}
-
+	c.runner.runAsync(machine.ObjectMeta.Name, func() {
+		err := c.create(machine)
+		if err != nil {
+			glog.Errorf("create machine %s failed: %v", machine.ObjectMeta.Name, err)
+		} else {
+			glog.Infof("create machine %s succeded.", machine.ObjectMeta.Name)
+		}
+	})
 }
 
 func (c *MachineController) onUpdate(oldObj, newObj interface{}) {
@@ -135,7 +147,14 @@ func (c *MachineController) onUpdate(oldObj, newObj interface{}) {
 		return
 	}
 
-	c.update(oldMachine, newMachine)
+	c.runner.runAsync(newMachine.ObjectMeta.Name, func() {
+		err := c.update(oldMachine, newMachine)
+		if err != nil {
+			glog.Errorf("update machine %s failed: %v", newMachine.ObjectMeta.Name, err)
+		} else {
+			glog.Infof("update machine %s succeded.", newMachine.ObjectMeta.Name)
+		}
+	})
 }
 
 func (c *MachineController) onDelete(obj interface{}) {
@@ -146,10 +165,14 @@ func (c *MachineController) onDelete(obj interface{}) {
 		return
 	}
 
-	err := c.delete(machine)
-	if err != nil {
-		glog.Errorf("delete machine %s failed: %v", machine.ObjectMeta.Name, err)
-	}
+	c.runner.runAsync(machine.ObjectMeta.Name, func() {
+		err := c.delete(machine)
+		if err != nil {
+			glog.Errorf("delete machine %s failed: %v", machine.ObjectMeta.Name, err)
+		} else {
+			glog.Infof("delete machine %s succeded.", machine.ObjectMeta.Name)
+		}
+	})
 }
 
 func ignored(machine *clusterv1.Machine) bool {
@@ -176,17 +199,27 @@ func (c *MachineController) create(machine *clusterv1.Machine) error {
 		return err
 	}
 
-	//TODO: check if the actual machine does not already exist
+	// Sometimes old events get replayed even though they have already been processed by this
+	// controller. Temporarily work around this by checking if the machine CRD actually exists
+	// on create.
+	_, err = c.machineClient.Get(machine.ObjectMeta.Name, metav1.GetOptions{})
+	if err != nil {
+		glog.Errorf("Skipping machine create due to error getting machine %v: %v\n", machine.ObjectMeta.Name, err)
+		return err
+	}
+
 	return c.actuator.Create(cluster, machine)
-	//TODO: wait for machine to become a node
-	//TODO: link node to machine CRD
 }
 
 func (c *MachineController) delete(machine *clusterv1.Machine) error {
-	//TODO: check if the actual machine does not exist
-	//TODO: delink node from machine CRD
 	c.kubeClientSet.CoreV1().Nodes().Delete(machine.ObjectMeta.Name, &metav1.DeleteOptions{})
-	return c.actuator.Delete(machine)
+	if err := c.actuator.Delete(machine); err != nil {
+		return err
+	}
+	// Do a second node cleanup after the delete completes in case the node joined the cluster
+	// while the deletion of the machine was mid-way.
+	c.kubeClientSet.CoreV1().Nodes().Delete(machine.ObjectMeta.Name, &metav1.DeleteOptions{})
+	return nil
 }
 
 func (c *MachineController) update(old_machine *clusterv1.Machine, new_machine *clusterv1.Machine) error {

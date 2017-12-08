@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Release v1.12.44 (2017-12-08)
 ===
 
@@ -10,6 +11,8 @@ Release v1.12.44 (2017-12-08)
 * `service/monitoring`: Updates service API and documentation
   * With this launch, you can now create a CloudWatch alarm that alerts you when M out of N datapoints of a metric are breaching your predefined threshold, such as three out of five times in any given five minutes interval or two out of six times in a thirty minutes interval. When M out of N datapoints are not breaching your threshold in an interval, the alarm will be in OK state. Please note that the M datapoints out of N datapoints in an interval can be of any order and does not need to be consecutive. Consequently, you can now get alerted even when the spikes in your metrics are intermittent over an interval.
 
+=======
+>>>>>>> Working on getting compiling
 Release v1.12.43 (2017-12-07)
 ===
 
@@ -218,8 +221,11 @@ Release v1.12.30 (2017-11-17)
 * `private/protocol/restjson`: Define JSONValue marshaling for body and querystring ([#1640](https://github.com/aws/aws-sdk-go/pull/1640))
   * Adds support for APIs which use JSONValue for body and querystring targets.
   * Fixes [#1636](https://github.com/aws/aws-sdk-go/issues/1636)
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 Release v1.12.29 (2017-11-16)
 ===
 

@@ -49,11 +49,17 @@ const (
 	OAuthGrantTypeRefreshToken = "refresh_token"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// OAuthGrantTypeAuthorizationCode is the "grant_type" identifier used in authorization code flows
 	OAuthGrantTypeAuthorizationCode = "authorization_code"
 
 =======
 >>>>>>> Initial dep workover
+=======
+	// OAuthGrantTypeAuthorizationCode is the "grant_type" identifier used in authorization code flows
+	OAuthGrantTypeAuthorizationCode = "authorization_code"
+
+>>>>>>> Working on getting compiling
 	// metadataHeader is the header required by MSI extension
 	metadataHeader = "Metadata"
 )
@@ -377,6 +383,9 @@ func NewServicePrincipalTokenFromCertificate(oauthConfig OAuthConfig, clientID s
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // NewServicePrincipalTokenFromUsernamePassword creates a ServicePrincipalToken from the username and password.
 func NewServicePrincipalTokenFromUsernamePassword(oauthConfig OAuthConfig, clientID string, username string, password string, resource string, callbacks ...TokenRefreshCallback) (*ServicePrincipalToken, error) {
 	if err := validateOAuthConfig(oauthConfig); err != nil {
@@ -441,8 +450,11 @@ func NewServicePrincipalTokenFromAuthorizationCode(oauthConfig OAuthConfig, clie
 	)
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // GetMSIVMEndpoint gets the MSI endpoint on Virtual Machines.
 func GetMSIVMEndpoint() (string, error) {
 	return getMSIVMEndpoint(msiPath)
@@ -593,6 +605,7 @@ func (spt *ServicePrincipalToken) refreshInternal(resource string) error {
 	if resp.StatusCode != http.StatusOK {
 		if err != nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			return newTokenRefreshError(fmt.Sprintf("adal: Refresh request failed. Status Code = '%d'. Failed reading response body", resp.StatusCode), resp)
 		}
 		return newTokenRefreshError(fmt.Sprintf("adal: Refresh request failed. Status Code = '%d'. Response body: %s", resp.StatusCode, string(rb)), resp)
@@ -601,6 +614,11 @@ func (spt *ServicePrincipalToken) refreshInternal(resource string) error {
 		}
 		return fmt.Errorf("adal: Refresh request failed. Status Code = '%d'. Response body: %s", resp.StatusCode, string(rb))
 >>>>>>> Initial dep workover
+=======
+			return newTokenRefreshError(fmt.Sprintf("adal: Refresh request failed. Status Code = '%d'. Failed reading response body", resp.StatusCode), resp)
+		}
+		return newTokenRefreshError(fmt.Sprintf("adal: Refresh request failed. Status Code = '%d'. Response body: %s", resp.StatusCode, string(rb)), resp)
+>>>>>>> Working on getting compiling
 	}
 
 	if err != nil {

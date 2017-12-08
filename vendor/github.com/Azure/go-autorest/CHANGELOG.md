@@ -1,6 +1,7 @@
 # CHANGELOG
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## v9.5.1
 
 ### Bug Fixes
@@ -8,6 +9,8 @@
 - Don't count http.StatusTooManyRequests (429) against the retry cap.
 - Use retry logic when SkipResourceProviderRegistration is set to true.
 
+=======
+>>>>>>> Working on getting compiling
 ## v9.5.0
 
 ### New Features
@@ -35,8 +38,11 @@
   environment variable is not set, it will fall back to use default path set by Azure CLI.
 - Use case-insensitive string comparison for polling states.
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 ## v9.4.0
 
 ### New Features

@@ -1507,6 +1507,9 @@ type Queue struct {
 	//  `PROJECT_ID` can contain letters ([A-Za-z]), numbers ([0-9]),
 	//    hyphens (-), colons (:), or periods (.).
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	//    For more information, see
 	//    [Identifying
 	// projects](/resource-manager/docs/creating-managing-projects#identifyin
@@ -1516,8 +1519,11 @@ type Queue struct {
 	//    google.cloud.location.Locations.ListLocations.
 	//    For more information, see
 	// https://cloud.google.com/about/locations/.
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// * `QUEUE_ID` can contain letters ([A-Za-z]), numbers ([0-9]), or
 	//   hyphens (-). The maximum length is 100
 	// characters.
@@ -1551,6 +1557,7 @@ type Queue struct {
 	// time will be zero if the queue has never been purged.
 	PurgeTime string `json:"purgeTime,omitempty"`
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	// QueueState: Output only. The state of the queue.
@@ -1593,6 +1600,8 @@ type Queue struct {
 	QueueState string `json:"queueState,omitempty"`
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// RateLimits: Rate limits for task dispatches.
 	//
 	// Queue.rate_limits and Queue.retry_config are related because
@@ -1630,6 +1639,9 @@ type Queue struct {
 	RetryConfig *RetryConfig `json:"retryConfig,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// State: Output only. The state of the queue.
 	//
 	// `state` can only be changed by called
@@ -1669,8 +1681,11 @@ type Queue struct {
 	// CloudTasks.DeleteQueue.
 	State string `json:"state,omitempty"`
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
 	googleapi.ServerResponse `json:"-"`
@@ -1763,12 +1778,18 @@ type RateLimits struct {
 	// * For App Engine queues, this field is 1 by default.
 	// * For pull queues, this field is output only and always 10,000.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	//   In addition to the `max_tasks_dispatched_per_second` limit, a
 	// maximum of
 	//   10 QPS of CloudTasks.PullTasks requests are allowed per
 	// queue.
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	//
 	// This field has the same meaning as
 	// [rate in
@@ -1816,15 +1837,20 @@ func (s *RateLimits) UnmarshalJSON(data []byte) error {
 // CloudTasks.RenewLease.
 type RenewLeaseRequest struct {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// LeaseDuration: Required.
 =======
 	// NewLeaseDuration: Required.
 >>>>>>> Initial dep workover
+=======
+	// LeaseDuration: Required.
+>>>>>>> Working on getting compiling
 	//
 	// The desired new lease duration, starting from now.
 	//
 	//
 	// The maximum lease duration is 1 week.
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// `lease_duration` will be truncated to the nearest second.
 	LeaseDuration string `json:"leaseDuration,omitempty"`
@@ -1832,6 +1858,10 @@ type RenewLeaseRequest struct {
 	// `new_lease_duration` will be truncated to the nearest second.
 	NewLeaseDuration string `json:"newLeaseDuration,omitempty"`
 >>>>>>> Initial dep workover
+=======
+	// `lease_duration` will be truncated to the nearest second.
+	LeaseDuration string `json:"leaseDuration,omitempty"`
+>>>>>>> Working on getting compiling
 
 	// ResponseView: The response_view specifies which subset of the Task
 	// will be
@@ -1878,10 +1908,14 @@ type RenewLeaseRequest struct {
 	ScheduleTime string `json:"scheduleTime,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// ForceSendFields is a list of field names (e.g. "LeaseDuration") to
 =======
 	// ForceSendFields is a list of field names (e.g. "NewLeaseDuration") to
 >>>>>>> Initial dep workover
+=======
+	// ForceSendFields is a list of field names (e.g. "LeaseDuration") to
+>>>>>>> Working on getting compiling
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -1890,12 +1924,16 @@ type RenewLeaseRequest struct {
 	ForceSendFields []string `json:"-"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// NullFields is a list of field names (e.g. "LeaseDuration") to include
 	// in API requests with the JSON null value. By default, fields with
 	// empty values are omitted from API requests. However, any field with
 	// an empty value appearing in NullFields will be sent to the server as
 	// null. It is an error if a field in this list has a non-empty value.
 	// This may be used to include null fields in Patch requests.
+<<<<<<< HEAD
 =======
 	// NullFields is a list of field names (e.g. "NewLeaseDuration") to
 	// include in API requests with the JSON null value. By default, fields
@@ -1905,6 +1943,8 @@ type RenewLeaseRequest struct {
 	// non-empty value. This may be used to include null fields in Patch
 	// requests.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	NullFields []string `json:"-"`
 }
 
@@ -1949,6 +1989,9 @@ type RetryConfig struct {
 	MaxBackoff string `json:"maxBackoff,omitempty"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// MaxDoublings: The time between retries will double `max_doublings`
 	// times.
 	//
@@ -1969,6 +2012,7 @@ type RetryConfig struct {
 	// attempted
 	// `max_attempts` times. Thus, the requests will retry at 10s, 20s,
 	// 40s, 80s, 160s, 240s, 300s, 300s, ....
+<<<<<<< HEAD
 =======
 	// MaxDoublings: The time between retries increases exponentially
 	// `max_doublings` times.
@@ -1980,6 +2024,8 @@ type RetryConfig struct {
 	// be
 	// 2^(max_doublings - 1) * RetryConfig.min_backoff.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	//
 	// * For [App Engine
 	// queues](google.cloud.tasks.v2beta2.AppEngineHttpTarget),
@@ -2309,6 +2355,9 @@ type Task struct {
 	// * `PROJECT_ID` can contain letters ([A-Za-z]), numbers ([0-9]),
 	//    hyphens (-), colons (:), or periods (.).
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	//    For more information, see
 	//    [Identifying
 	// projects](/resource-manager/docs/creating-managing-projects#identifyin
@@ -2318,8 +2367,11 @@ type Task struct {
 	//    google.cloud.location.Locations.ListLocations.
 	//    For more information, see
 	// https://cloud.google.com/about/locations/.
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// * `QUEUE_ID` can contain letters ([A-Za-z]), numbers ([0-9]), or
 	//   hyphens (-). The maximum length is 100 characters.
 	// * `TASK_ID` can contain only letters ([A-Za-z]), numbers ([0-9]),
@@ -2893,11 +2945,15 @@ type ProjectsLocationsQueuesCreateCall struct {
 // Create: Creates a queue.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // WARNING: Using this method may have unintended side effects if you
 // are
 // using an App Engine `queue.yaml` or `queue.xml` file to manage your
 // queues.
 // Read
+<<<<<<< HEAD
 // [Overview of Queue Management and
 // queue.yaml](/cloud-tasks/docs/queue-yaml)
 // carefully before using this method.
@@ -2909,6 +2965,11 @@ type ProjectsLocationsQueuesCreateCall struct {
 // carefully and then sign up for
 // [whitelist access to this method](https://goo.gl/Fe5mUy).
 >>>>>>> Initial dep workover
+=======
+// [Overview of Queue Management and
+// queue.yaml](/cloud-tasks/docs/queue-yaml)
+// carefully before using this method.
+>>>>>>> Working on getting compiling
 func (r *ProjectsLocationsQueuesService) Create(parent string, queue *Queue) *ProjectsLocationsQueuesCreateCall {
 	c := &ProjectsLocationsQueuesCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -3003,10 +3064,14 @@ func (c *ProjectsLocationsQueuesCreateCall) Do(opts ...googleapi.CallOption) (*Q
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Creates a queue.\n\nWARNING: Using this method may have unintended side effects if you are\nusing an App Engine `queue.yaml` or `queue.xml` file to manage your queues.\nRead\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully before using this method.",
 =======
 	//   "description": "Creates a queue.\n\nWARNING: This method is only available to whitelisted\nusers. Using this method carries some risk. Read\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully and then sign up for\n[whitelist access to this method](https://goo.gl/Fe5mUy).",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Creates a queue.\n\nWARNING: Using this method may have unintended side effects if you are\nusing an App Engine `queue.yaml` or `queue.xml` file to manage your queues.\nRead\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully before using this method.",
+>>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta2/projects/{projectsId}/locations/{locationsId}/queues",
 	//   "httpMethod": "POST",
 	//   "id": "cloudtasks.projects.locations.queues.create",
@@ -3055,11 +3120,15 @@ type ProjectsLocationsQueuesDeleteCall struct {
 // for 7 days.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // WARNING: Using this method may have unintended side effects if you
 // are
 // using an App Engine `queue.yaml` or `queue.xml` file to manage your
 // queues.
 // Read
+<<<<<<< HEAD
 // [Overview of Queue Management and
 // queue.yaml](/cloud-tasks/docs/queue-yaml)
 // carefully before using this method.
@@ -3071,6 +3140,11 @@ type ProjectsLocationsQueuesDeleteCall struct {
 // carefully and then sign up for
 // [whitelist access to this method](https://goo.gl/Fe5mUy).
 >>>>>>> Initial dep workover
+=======
+// [Overview of Queue Management and
+// queue.yaml](/cloud-tasks/docs/queue-yaml)
+// carefully before using this method.
+>>>>>>> Working on getting compiling
 func (r *ProjectsLocationsQueuesService) Delete(name string) *ProjectsLocationsQueuesDeleteCall {
 	c := &ProjectsLocationsQueuesDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
@@ -3159,10 +3233,14 @@ func (c *ProjectsLocationsQueuesDeleteCall) Do(opts ...googleapi.CallOption) (*E
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Deletes a queue.\n\nThis command will delete the queue even if it has tasks in it.\n\nNote: If you delete a queue, a queue with the same name can't be created\nfor 7 days.\n\nWARNING: Using this method may have unintended side effects if you are\nusing an App Engine `queue.yaml` or `queue.xml` file to manage your queues.\nRead\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully before using this method.",
 =======
 	//   "description": "Deletes a queue.\n\nThis command will delete the queue even if it has tasks in it.\n\nNote: If you delete a queue, a queue with the same name can't be created\nfor 7 days.\n\nWARNING: This method is only available to whitelisted\nusers. Using this method carries some risk. Read\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully and then sign up for\n[whitelist access to this method](https://goo.gl/Fe5mUy).",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Deletes a queue.\n\nThis command will delete the queue even if it has tasks in it.\n\nNote: If you delete a queue, a queue with the same name can't be created\nfor 7 days.\n\nWARNING: Using this method may have unintended side effects if you are\nusing an App Engine `queue.yaml` or `queue.xml` file to manage your queues.\nRead\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully before using this method.",
+>>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta2/projects/{projectsId}/locations/{locationsId}/queues/{queuesId}",
 	//   "httpMethod": "DELETE",
 	//   "id": "cloudtasks.projects.locations.queues.delete",
@@ -3715,11 +3793,15 @@ type ProjectsLocationsQueuesPatchCall struct {
 // the queue if it does exist.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // WARNING: Using this method may have unintended side effects if you
 // are
 // using an App Engine `queue.yaml` or `queue.xml` file to manage your
 // queues.
 // Read
+<<<<<<< HEAD
 // [Overview of Queue Management and
 // queue.yaml](/cloud-tasks/docs/queue-yaml)
 // carefully before using this method.
@@ -3731,6 +3813,11 @@ type ProjectsLocationsQueuesPatchCall struct {
 // carefully and then sign up for
 // [whitelist access to this method](https://goo.gl/Fe5mUy).
 >>>>>>> Initial dep workover
+=======
+// [Overview of Queue Management and
+// queue.yaml](/cloud-tasks/docs/queue-yaml)
+// carefully before using this method.
+>>>>>>> Working on getting compiling
 func (r *ProjectsLocationsQueuesService) Patch(name string, queue *Queue) *ProjectsLocationsQueuesPatchCall {
 	c := &ProjectsLocationsQueuesPatchCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
@@ -3834,10 +3921,14 @@ func (c *ProjectsLocationsQueuesPatchCall) Do(opts ...googleapi.CallOption) (*Qu
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Updates a queue.\n\nThis method creates the queue if it does not exist and updates\nthe queue if it does exist.\n\nWARNING: Using this method may have unintended side effects if you are\nusing an App Engine `queue.yaml` or `queue.xml` file to manage your queues.\nRead\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully before using this method.",
 =======
 	//   "description": "Updates a queue.\n\nThis method creates the queue if it does not exist and updates\nthe queue if it does exist.\n\nWARNING: This method is only available to whitelisted\nusers. Using this method carries some risk. Read\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully and then sign up for\n[whitelist access to this method](https://goo.gl/Fe5mUy).",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Updates a queue.\n\nThis method creates the queue if it does not exist and updates\nthe queue if it does exist.\n\nWARNING: Using this method may have unintended side effects if you are\nusing an App Engine `queue.yaml` or `queue.xml` file to manage your queues.\nRead\n[Overview of Queue Management and queue.yaml](/cloud-tasks/docs/queue-yaml)\ncarefully before using this method.",
+>>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta2/projects/{projectsId}/locations/{locationsId}/queues/{queuesId}",
 	//   "httpMethod": "PATCH",
 	//   "id": "cloudtasks.projects.locations.queues.patch",
@@ -3847,10 +3938,14 @@ func (c *ProjectsLocationsQueuesPatchCall) Do(opts ...googleapi.CallOption) (*Qu
 	//   "parameters": {
 	//     "name": {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//       "description": "The queue name.\n\nThe queue name must have the following format:\n`projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`\n\n* `PROJECT_ID` can contain letters ([A-Za-z]), numbers ([0-9]),\n   hyphens (-), colons (:), or periods (.).\n   For more information, see\n   [Identifying projects](/resource-manager/docs/creating-managing-projects#identifying_projects)\n* `LOCATION_ID` is the canonical ID for the queue's location.\n   The list of available locations can be obtained by calling\n   google.cloud.location.Locations.ListLocations.\n   For more information, see https://cloud.google.com/about/locations/.\n* `QUEUE_ID` can contain letters ([A-Za-z]), numbers ([0-9]), or\n  hyphens (-). The maximum length is 100 characters.\n\nCaller-specified and required in CreateQueueRequest, after which\nit becomes output only.",
 =======
 	//       "description": "The queue name.\n\nThe queue name must have the following format:\n`projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`\n\n* `PROJECT_ID` can contain letters ([A-Za-z]), numbers ([0-9]),\n   hyphens (-), colons (:), or periods (.).\n* `QUEUE_ID` can contain letters ([A-Za-z]), numbers ([0-9]), or\n  hyphens (-). The maximum length is 100 characters.\n\nCaller-specified and required in CreateQueueRequest, after which\nit becomes output only.",
 >>>>>>> Initial dep workover
+=======
+	//       "description": "The queue name.\n\nThe queue name must have the following format:\n`projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`\n\n* `PROJECT_ID` can contain letters ([A-Za-z]), numbers ([0-9]),\n   hyphens (-), colons (:), or periods (.).\n   For more information, see\n   [Identifying projects](/resource-manager/docs/creating-managing-projects#identifying_projects)\n* `LOCATION_ID` is the canonical ID for the queue's location.\n   The list of available locations can be obtained by calling\n   google.cloud.location.Locations.ListLocations.\n   For more information, see https://cloud.google.com/about/locations/.\n* `QUEUE_ID` can contain letters ([A-Za-z]), numbers ([0-9]), or\n  hyphens (-). The maximum length is 100 characters.\n\nCaller-specified and required in CreateQueueRequest, after which\nit becomes output only.",
+>>>>>>> Working on getting compiling
 	//       "location": "path",
 	//       "pattern": "^projects/[^/]+/locations/[^/]+/queues/[^/]+$",
 	//       "required": true,
@@ -3894,6 +3989,7 @@ type ProjectsLocationsQueuesPauseCall struct {
 // tasks in the queue until it is resumed via
 // CloudTasks.ResumeQueue. Tasks can still be added when the
 <<<<<<< HEAD
+<<<<<<< HEAD
 // queue is paused. The state of the queue is stored in
 // Queue.state; if paused it will be set to
 // Queue.State.PAUSED.
@@ -3904,6 +4000,11 @@ type ProjectsLocationsQueuesPauseCall struct {
 // to
 // Queue.QueueState.PAUSED.
 >>>>>>> Initial dep workover
+=======
+// queue is paused. The state of the queue is stored in
+// Queue.state; if paused it will be set to
+// Queue.State.PAUSED.
+>>>>>>> Working on getting compiling
 func (r *ProjectsLocationsQueuesService) Pause(name string, pausequeuerequest *PauseQueueRequest) *ProjectsLocationsQueuesPauseCall {
 	c := &ProjectsLocationsQueuesPauseCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
@@ -3998,10 +4099,14 @@ func (c *ProjectsLocationsQueuesPauseCall) Do(opts ...googleapi.CallOption) (*Qu
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Pauses the queue.\n\nIf a queue is paused then the system will stop executing the\ntasks in the queue until it is resumed via\nCloudTasks.ResumeQueue. Tasks can still be added when the\nqueue is paused. The state of the queue is stored in\nQueue.state; if paused it will be set to\nQueue.State.PAUSED.",
 =======
 	//   "description": "Pauses the queue.\n\nIf a queue is paused then the system will stop executing the\ntasks in the queue until it is resumed via\nCloudTasks.ResumeQueue. Tasks can still be added when the\nqueue is paused. The state of the queue is stored in\nQueue.queue_state; if paused it will be set to\nQueue.QueueState.PAUSED.",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Pauses the queue.\n\nIf a queue is paused then the system will stop executing the\ntasks in the queue until it is resumed via\nCloudTasks.ResumeQueue. Tasks can still be added when the\nqueue is paused. The state of the queue is stored in\nQueue.state; if paused it will be set to\nQueue.State.PAUSED.",
+>>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta2/projects/{projectsId}/locations/{locationsId}/queues/{queuesId}:pause",
 	//   "httpMethod": "POST",
 	//   "id": "cloudtasks.projects.locations.queues.pause",
@@ -4189,6 +4294,7 @@ type ProjectsLocationsQueuesResumeCall struct {
 //
 // This method resumes a queue after it has been
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Queue.State.PAUSED or Queue.State.DISABLED. The state of
 // a queue is stored in Queue.state; after calling this method it
 // will be set to Queue.State.RUNNING.
@@ -4198,6 +4304,11 @@ type ProjectsLocationsQueuesResumeCall struct {
 // it
 // will be set to Queue.QueueState.RUNNING.
 >>>>>>> Initial dep workover
+=======
+// Queue.State.PAUSED or Queue.State.DISABLED. The state of
+// a queue is stored in Queue.state; after calling this method it
+// will be set to Queue.State.RUNNING.
+>>>>>>> Working on getting compiling
 //
 // WARNING: Resuming many high-QPS queues at the same time can
 // lead to target overloading. If you are resuming high-QPS
@@ -4299,10 +4410,14 @@ func (c *ProjectsLocationsQueuesResumeCall) Do(opts ...googleapi.CallOption) (*Q
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Resume a queue.\n\nThis method resumes a queue after it has been\nQueue.State.PAUSED or Queue.State.DISABLED. The state of\na queue is stored in Queue.state; after calling this method it\nwill be set to Queue.State.RUNNING.\n\nWARNING: Resuming many high-QPS queues at the same time can\nlead to target overloading. If you are resuming high-QPS\nqueues, follow the 500/50/5 pattern described in\n[Managing Cloud Tasks Scaling Risks](/cloud-tasks/pdfs/managing-cloud-tasks-scaling-risks-2017-06-05.pdf).",
 =======
 	//   "description": "Resume a queue.\n\nThis method resumes a queue after it has been\nQueue.QueueState.PAUSED or Queue.QueueState.DISABLED. The state of\na queue is stored in Queue.queue_state; after calling this method it\nwill be set to Queue.QueueState.RUNNING.\n\nWARNING: Resuming many high-QPS queues at the same time can\nlead to target overloading. If you are resuming high-QPS\nqueues, follow the 500/50/5 pattern described in\n[Managing Cloud Tasks Scaling Risks](/cloud-tasks/pdfs/managing-cloud-tasks-scaling-risks-2017-06-05.pdf).",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Resume a queue.\n\nThis method resumes a queue after it has been\nQueue.State.PAUSED or Queue.State.DISABLED. The state of\na queue is stored in Queue.state; after calling this method it\nwill be set to Queue.State.RUNNING.\n\nWARNING: Resuming many high-QPS queues at the same time can\nlead to target overloading. If you are resuming high-QPS\nqueues, follow the 500/50/5 pattern described in\n[Managing Cloud Tasks Scaling Risks](/cloud-tasks/pdfs/managing-cloud-tasks-scaling-risks-2017-06-05.pdf).",
+>>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta2/projects/{projectsId}/locations/{locationsId}/queues/{queuesId}:resume",
 	//   "httpMethod": "POST",
 	//   "id": "cloudtasks.projects.locations.queues.resume",
@@ -5956,10 +6071,14 @@ type ProjectsLocationsQueuesTasksRunCall struct {
 // When this method is called, Cloud Tasks will dispatch the task to
 // its
 <<<<<<< HEAD
+<<<<<<< HEAD
 // target, even if the queue is Queue.State.PAUSED.
 =======
 // target, even if the queue is Queue.QueueState.PAUSED.
 >>>>>>> Initial dep workover
+=======
+// target, even if the queue is Queue.State.PAUSED.
+>>>>>>> Working on getting compiling
 //
 // The dispatched task is returned. That is, the task that is
 // returned
@@ -5982,10 +6101,15 @@ type ProjectsLocationsQueuesTasksRunCall struct {
 // CloudTasks.RunTask is called on task that is dispatched or
 // already running.
 <<<<<<< HEAD
+<<<<<<< HEAD
 //
 // CloudTasks.RunTask cannot be called on pull tasks.
 =======
 >>>>>>> Initial dep workover
+=======
+//
+// CloudTasks.RunTask cannot be called on pull tasks.
+>>>>>>> Working on getting compiling
 func (r *ProjectsLocationsQueuesTasksService) Run(name string, runtaskrequest *RunTaskRequest) *ProjectsLocationsQueuesTasksRunCall {
 	c := &ProjectsLocationsQueuesTasksRunCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.name = name
@@ -6080,10 +6204,14 @@ func (c *ProjectsLocationsQueuesTasksRunCall) Do(opts ...googleapi.CallOption) (
 	return ret, nil
 	// {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "description": "Forces a task to run now.\n\nThis command is meant to be used for manual debugging. For\nexample, CloudTasks.RunTask can be used to retry a failed\ntask after a fix has been made or to manually force a task to be\ndispatched now.\n\nWhen this method is called, Cloud Tasks will dispatch the task to its\ntarget, even if the queue is Queue.State.PAUSED.\n\nThe dispatched task is returned. That is, the task that is returned\ncontains the Task.task_status after the task is dispatched but\nbefore the task is received by its target.\n\nIf Cloud Tasks receives a successful response from the task's\nhandler, then the task will be deleted; otherwise the task's\nTask.schedule_time will be reset to the time that\nCloudTasks.RunTask was called plus the retry delay specified\nin the queue and task's RetryConfig.\n\nCloudTasks.RunTask returns google.rpc.Code.NOT_FOUND when\nit is called on a task that has already succeeded or permanently\nfailed. google.rpc.Code.FAILED_PRECONDITION is returned when\nCloudTasks.RunTask is called on task that is dispatched or\nalready running.\n\nCloudTasks.RunTask cannot be called on pull tasks.",
 =======
 	//   "description": "Forces a task to run now.\n\nThis command is meant to be used for manual debugging. For\nexample, CloudTasks.RunTask can be used to retry a failed\ntask after a fix has been made or to manually force a task to be\ndispatched now.\n\nWhen this method is called, Cloud Tasks will dispatch the task to its\ntarget, even if the queue is Queue.QueueState.PAUSED.\n\nThe dispatched task is returned. That is, the task that is returned\ncontains the Task.task_status after the task is dispatched but\nbefore the task is received by its target.\n\nIf Cloud Tasks receives a successful response from the task's\nhandler, then the task will be deleted; otherwise the task's\nTask.schedule_time will be reset to the time that\nCloudTasks.RunTask was called plus the retry delay specified\nin the queue and task's RetryConfig.\n\nCloudTasks.RunTask returns google.rpc.Code.NOT_FOUND when\nit is called on a task that has already succeeded or permanently\nfailed. google.rpc.Code.FAILED_PRECONDITION is returned when\nCloudTasks.RunTask is called on task that is dispatched or\nalready running.",
 >>>>>>> Initial dep workover
+=======
+	//   "description": "Forces a task to run now.\n\nThis command is meant to be used for manual debugging. For\nexample, CloudTasks.RunTask can be used to retry a failed\ntask after a fix has been made or to manually force a task to be\ndispatched now.\n\nWhen this method is called, Cloud Tasks will dispatch the task to its\ntarget, even if the queue is Queue.State.PAUSED.\n\nThe dispatched task is returned. That is, the task that is returned\ncontains the Task.task_status after the task is dispatched but\nbefore the task is received by its target.\n\nIf Cloud Tasks receives a successful response from the task's\nhandler, then the task will be deleted; otherwise the task's\nTask.schedule_time will be reset to the time that\nCloudTasks.RunTask was called plus the retry delay specified\nin the queue and task's RetryConfig.\n\nCloudTasks.RunTask returns google.rpc.Code.NOT_FOUND when\nit is called on a task that has already succeeded or permanently\nfailed. google.rpc.Code.FAILED_PRECONDITION is returned when\nCloudTasks.RunTask is called on task that is dispatched or\nalready running.\n\nCloudTasks.RunTask cannot be called on pull tasks.",
+>>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta2/projects/{projectsId}/locations/{locationsId}/queues/{queuesId}/tasks/{tasksId}:run",
 	//   "httpMethod": "POST",
 	//   "id": "cloudtasks.projects.locations.queues.tasks.run",

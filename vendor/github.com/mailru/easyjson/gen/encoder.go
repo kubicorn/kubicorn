@@ -33,18 +33,16 @@ var primitiveEncoders = map[reflect.Kind]string{
 }
 
 var primitiveStringEncoders = map[reflect.Kind]string{
-	reflect.String:  "out.String(string(%v))",
-	reflect.Int:     "out.IntStr(int(%v))",
-	reflect.Int8:    "out.Int8Str(int8(%v))",
-	reflect.Int16:   "out.Int16Str(int16(%v))",
-	reflect.Int32:   "out.Int32Str(int32(%v))",
-	reflect.Int64:   "out.Int64Str(int64(%v))",
-	reflect.Uint:    "out.UintStr(uint(%v))",
-	reflect.Uint8:   "out.Uint8Str(uint8(%v))",
-	reflect.Uint16:  "out.Uint16Str(uint16(%v))",
-	reflect.Uint32:  "out.Uint32Str(uint32(%v))",
-	reflect.Uint64:  "out.Uint64Str(uint64(%v))",
-	reflect.Uintptr: "out.UintptrStr(uintptr(%v))",
+	reflect.Int:    "out.IntStr(int(%v))",
+	reflect.Int8:   "out.Int8Str(int8(%v))",
+	reflect.Int16:  "out.Int16Str(int16(%v))",
+	reflect.Int32:  "out.Int32Str(int32(%v))",
+	reflect.Int64:  "out.Int64Str(int64(%v))",
+	reflect.Uint:   "out.UintStr(uint(%v))",
+	reflect.Uint8:  "out.Uint8Str(uint8(%v))",
+	reflect.Uint16: "out.Uint16Str(uint16(%v))",
+	reflect.Uint32: "out.Uint32Str(uint32(%v))",
+	reflect.Uint64: "out.Uint64Str(uint64(%v))",
 }
 
 // fieldTags contains parsed version of json struct field tags.
@@ -144,12 +142,16 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 			fmt.Fprintln(g.out, ws+"    }")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if err := g.genTypeEncoder(elem, vVar, tags, indent+2, false); err != nil {
 =======
 			if err := g.genTypeEncoder(elem, vVar, tags, indent+2); err != nil {
 >>>>>>> Initial dep workover
 				return err
 			}
+=======
+			g.genTypeEncoder(elem, vVar, tags, indent+2)
+>>>>>>> Working on getting compiling
 
 			fmt.Fprintln(g.out, ws+"  }")
 			fmt.Fprintln(g.out, ws+"  out.RawByte(']')")
@@ -170,12 +172,16 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 			fmt.Fprintln(g.out, ws+"  }")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if err := g.genTypeEncoder(elem, in+"["+iVar+"]", tags, indent+1, false); err != nil {
 =======
 			if err := g.genTypeEncoder(elem, in+"["+iVar+"]", tags, indent+1); err != nil {
 >>>>>>> Initial dep workover
 				return err
 			}
+=======
+			g.genTypeEncoder(elem, in+"["+iVar+"]", tags, indent+1)
+>>>>>>> Working on getting compiling
 
 			fmt.Fprintln(g.out, ws+"}")
 			fmt.Fprintln(g.out, ws+"out.RawByte(']')")
@@ -195,12 +201,16 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 		}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if err := g.genTypeEncoder(t.Elem(), "*"+in, tags, indent+1, false); err != nil {
 =======
 		if err := g.genTypeEncoder(t.Elem(), "*"+in, tags, indent+1); err != nil {
 >>>>>>> Initial dep workover
 			return err
 		}
+=======
+		g.genTypeEncoder(t.Elem(), "*"+in, tags, indent+1)
+>>>>>>> Working on getting compiling
 
 		if !assumeNonEmpty {
 			fmt.Fprintln(g.out, ws+"}")
@@ -208,9 +218,8 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 
 	case reflect.Map:
 		key := t.Key()
-		keyEnc, ok := primitiveStringEncoders[key.Kind()]
-		if !ok {
-			return fmt.Errorf("map key type %v not supported: only string and integer keys are allowed", key)
+		if key.Kind() != reflect.String {
+			return fmt.Errorf("map type %v not supported: only string keys are allowed", key)
 		}
 		tmpVar := g.uniqueVarName()
 
@@ -233,13 +242,17 @@ func (g *Generator) genTypeEncoderNoCheck(t reflect.Type, in string, tags fieldT
 =======
 		fmt.Fprintln(g.out, ws+"    if !"+tmpVar+"First { out.RawByte(',') }")
 		fmt.Fprintln(g.out, ws+"    "+tmpVar+"First = false")
-		fmt.Fprintln(g.out, ws+"    "+fmt.Sprintf(keyEnc, tmpVar+"Name"))
+		fmt.Fprintln(g.out, ws+"    out.String(string("+tmpVar+"Name))")
 		fmt.Fprintln(g.out, ws+"    out.RawByte(':')")
 
+<<<<<<< HEAD
 		if err := g.genTypeEncoder(t.Elem(), tmpVar+"Value", tags, indent+2); err != nil {
 >>>>>>> Initial dep workover
 			return err
 		}
+=======
+		g.genTypeEncoder(t.Elem(), tmpVar+"Value", tags, indent+2)
+>>>>>>> Working on getting compiling
 
 		fmt.Fprintln(g.out, ws+"  }")
 		fmt.Fprintln(g.out, ws+"  out.RawByte('}')")

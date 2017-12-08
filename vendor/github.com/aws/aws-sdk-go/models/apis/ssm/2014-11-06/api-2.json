@@ -1280,9 +1280,13 @@
         {"shape":"AutomationDefinitionVersionNotFoundException"},
         {"shape":"IdempotentParameterMismatch"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         {"shape":"InvalidTarget"},
 =======
 >>>>>>> Initial dep workover
+=======
+        {"shape":"InvalidTarget"},
+>>>>>>> Working on getting compiling
         {"shape":"InternalServerError"}
       ]
     },
@@ -3328,10 +3332,15 @@
         "LatestVersion":{"shape":"DocumentVersion"},
         "DefaultVersion":{"shape":"DocumentVersion"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "DocumentFormat":{"shape":"DocumentFormat"},
         "TargetType":{"shape":"TargetType"},
 =======
 >>>>>>> Initial dep workover
+=======
+        "DocumentFormat":{"shape":"DocumentFormat"},
+        "TargetType":{"shape":"TargetType"},
+>>>>>>> Working on getting compiling
         "Tags":{"shape":"TagList"}
       }
     },
@@ -3392,10 +3401,15 @@
         "DocumentType":{"shape":"DocumentType"},
         "SchemaVersion":{"shape":"DocumentSchemaVersion"},
 <<<<<<< HEAD
+<<<<<<< HEAD
         "DocumentFormat":{"shape":"DocumentFormat"},
         "TargetType":{"shape":"TargetType"},
 =======
 >>>>>>> Initial dep workover
+=======
+        "DocumentFormat":{"shape":"DocumentFormat"},
+        "TargetType":{"shape":"TargetType"},
+>>>>>>> Working on getting compiling
         "Tags":{"shape":"TagList"}
       }
     },
@@ -3420,6 +3434,7 @@
       "type":"list",
       "member":{"shape":"DocumentKeyValuesFilter"},
       "max":6,
+<<<<<<< HEAD
       "min":0
     },
     "DocumentKeyValuesFilterValue":{
@@ -3451,6 +3466,8 @@
       "type":"list",
       "member":{"shape":"DocumentKeyValuesFilter"},
       "max":5,
+=======
+>>>>>>> Working on getting compiling
       "min":0
     },
     "DocumentKeyValuesFilterValue":{
@@ -6234,6 +6251,9 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "ResolvedTargets":{
       "type":"structure",
       "members":{
@@ -6241,8 +6261,11 @@
         "Truncated":{"shape":"Boolean"}
       }
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "ResourceComplianceSummaryItem":{
       "type":"structure",
       "members":{
@@ -6524,15 +6547,21 @@
         },
         "Parameters":{"shape":"AutomationParameterMap"},
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
         "ClientToken":{"shape":"IdempotencyToken"},
         "Mode":{"shape":"ExecutionMode"},
         "TargetParameterName":{"shape":"AutomationParameterKey"},
         "Targets":{"shape":"Targets"},
         "MaxConcurrency":{"shape":"MaxConcurrency"},
         "MaxErrors":{"shape":"MaxErrors"}
+<<<<<<< HEAD
 =======
         "ClientToken":{"shape":"IdempotencyToken"}
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
       }
     },
     "StartAutomationExecutionResult":{
@@ -6587,6 +6616,7 @@
         "FailureDetails":{"shape":"FailureDetails"},
         "StepExecutionId":{"shape":"String"},
         "OverriddenParameters":{"shape":"AutomationParameterMap"}
+<<<<<<< HEAD
       }
     },
     "StepExecutionFilter":{
@@ -6600,6 +6630,21 @@
         "Values":{"shape":"StepExecutionFilterValueList"}
       }
     },
+=======
+      }
+    },
+    "StepExecutionFilter":{
+      "type":"structure",
+      "required":[
+        "Key",
+        "Values"
+      ],
+      "members":{
+        "Key":{"shape":"StepExecutionFilterKey"},
+        "Values":{"shape":"StepExecutionFilterValueList"}
+      }
+    },
+>>>>>>> Working on getting compiling
     "StepExecutionFilterKey":{
       "type":"string",
       "enum":[

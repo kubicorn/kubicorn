@@ -825,6 +825,9 @@
   {
    "kind": "discovery#directoryItem",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
    "id": "cloudshell:v1alpha1",
    "name": "cloudshell",
    "version": "v1alpha1",
@@ -855,8 +858,11 @@
   },
   {
    "kind": "discovery#directoryItem",
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
    "id": "cloudtasks:v2beta2",
    "name": "cloudtasks",
    "version": "v2beta2",
@@ -1049,10 +1055,14 @@
    "version": "v1beta1",
    "title": "Google Container Engine API",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "description": "The Google Kubernetes Engine API is used for building and managing container based applications, powered by the open source Kubernetes technology.",
 =======
    "description": "The Google Container Engine API is used for building and managing container based applications, powered by the open source Kubernetes technology.",
 >>>>>>> Initial dep workover
+=======
+   "description": "The Google Kubernetes Engine API is used for building and managing container based applications, powered by the open source Kubernetes technology.",
+>>>>>>> Working on getting compiling
    "discoveryRestUrl": "https://container.googleapis.com/$discovery/rest?version=v1beta1",
    "icons": {
     "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
@@ -1952,6 +1962,7 @@
    },
    "documentationLink": "https://cloud.google.com/compute/docs/oslogin/rest/",
    "preferred": false
+<<<<<<< HEAD
   },
   {
    "kind": "discovery#directoryItem",
@@ -1982,6 +1993,8 @@
    },
    "documentationLink": "https://cloud.google.com/compute/docs/oslogin/rest/",
    "preferred": true
+=======
+>>>>>>> Working on getting compiling
   },
   {
    "kind": "discovery#directoryItem",
@@ -1989,7 +2002,7 @@
    "name": "oslogin",
    "version": "v1beta",
    "title": "Google Cloud OS Login API",
-   "description": "Manages OS login configuration for Directory API users.",
+   "description": "Manages OS login configuration for Google account users.",
    "discoveryRestUrl": "https://oslogin.googleapis.com/$discovery/rest?version=v1beta",
    "icons": {
     "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
@@ -1997,6 +2010,21 @@
    },
    "documentationLink": "https://cloud.google.com/compute/docs/oslogin/rest/",
    "preferred": false
+  },
+  {
+   "kind": "discovery#directoryItem",
+   "id": "oslogin:v1",
+   "name": "oslogin",
+   "version": "v1",
+   "title": "Google Cloud OS Login API",
+   "description": "Manages OS login configuration for Google account users.",
+   "discoveryRestUrl": "https://oslogin.googleapis.com/$discovery/rest?version=v1",
+   "icons": {
+    "x16": "https://www.gstatic.com/images/branding/product/1x/googleg_16dp.png",
+    "x32": "https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
+   },
+   "documentationLink": "https://cloud.google.com/compute/docs/oslogin/rest/",
+   "preferred": true
   },
   {
    "kind": "discovery#directoryItem",
@@ -2428,10 +2456,14 @@
    "name": "script",
    "version": "v1",
 <<<<<<< HEAD
+<<<<<<< HEAD
    "title": "Google Apps Script API",
 =======
    "title": "Google Apps Script Execution API",
 >>>>>>> Initial dep workover
+=======
+   "title": "Google Apps Script API",
+>>>>>>> Working on getting compiling
    "description": "An API for managing and executing Google Apps Script projects.",
    "discoveryRestUrl": "https://script.googleapis.com/$discovery/rest?version=v1",
    "icons": {

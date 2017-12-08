@@ -113,7 +113,11 @@ const opAcceptVpcEndpointConnections = "AcceptVpcEndpointConnections"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AcceptVpcEndpointConnections
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AcceptVpcEndpointConnections
+>>>>>>> Working on getting compiling
 func (c *EC2) AcceptVpcEndpointConnectionsRequest(input *AcceptVpcEndpointConnectionsInput) (req *request.Request, output *AcceptVpcEndpointConnectionsOutput) {
 	op := &request.Operation{
 		Name:       opAcceptVpcEndpointConnections,
@@ -141,7 +145,11 @@ func (c *EC2) AcceptVpcEndpointConnectionsRequest(input *AcceptVpcEndpointConnec
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation AcceptVpcEndpointConnections for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AcceptVpcEndpointConnections
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AcceptVpcEndpointConnections
+>>>>>>> Working on getting compiling
 func (c *EC2) AcceptVpcEndpointConnections(input *AcceptVpcEndpointConnectionsInput) (*AcceptVpcEndpointConnectionsOutput, error) {
 	req, out := c.AcceptVpcEndpointConnectionsRequest(input)
 	return out, req.Send()
@@ -3751,7 +3759,11 @@ const opCreateLaunchTemplate = "CreateLaunchTemplate"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplate
+>>>>>>> Working on getting compiling
 func (c *EC2) CreateLaunchTemplateRequest(input *CreateLaunchTemplateInput) (req *request.Request, output *CreateLaunchTemplateOutput) {
 	op := &request.Operation{
 		Name:       opCreateLaunchTemplate,
@@ -3780,7 +3792,11 @@ func (c *EC2) CreateLaunchTemplateRequest(input *CreateLaunchTemplateInput) (req
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation CreateLaunchTemplate for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplate
+>>>>>>> Working on getting compiling
 func (c *EC2) CreateLaunchTemplate(input *CreateLaunchTemplateInput) (*CreateLaunchTemplateOutput, error) {
 	req, out := c.CreateLaunchTemplateRequest(input)
 	return out, req.Send()
@@ -3827,7 +3843,11 @@ const opCreateLaunchTemplateVersion = "CreateLaunchTemplateVersion"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateVersion
+>>>>>>> Working on getting compiling
 func (c *EC2) CreateLaunchTemplateVersionRequest(input *CreateLaunchTemplateVersionInput) (req *request.Request, output *CreateLaunchTemplateVersionOutput) {
 	op := &request.Operation{
 		Name:       opCreateLaunchTemplateVersion,
@@ -3858,7 +3878,11 @@ func (c *EC2) CreateLaunchTemplateVersionRequest(input *CreateLaunchTemplateVers
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation CreateLaunchTemplateVersion for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateVersion
+>>>>>>> Working on getting compiling
 func (c *EC2) CreateLaunchTemplateVersion(input *CreateLaunchTemplateVersionInput) (*CreateLaunchTemplateVersionOutput, error) {
 	req, out := c.CreateLaunchTemplateVersionRequest(input)
 	return out, req.Send()
@@ -4382,12 +4406,17 @@ func (c *EC2) CreatePlacementGroupRequest(input *CreatePlacementGroupInput) (req
 // CreatePlacementGroup API operation for Amazon Elastic Compute Cloud.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Creates a placement group in which to launch instances. The strategy of the
 // placement group determines how the instances are organized within the group.
 =======
 // Creates a placement group that you launch cluster instances into. Give the
 // group a name that's unique within the scope of your account.
 >>>>>>> Initial dep workover
+=======
+// Creates a placement group in which to launch instances. The strategy of the
+// placement group determines how the instances are organized within the group.
+>>>>>>> Working on getting compiling
 //
 // A cluster placement group is a logical grouping of instances within a single
 // Availability Zone that benefit from low network latency, high network throughput.
@@ -5433,11 +5462,15 @@ func (c *EC2) CreateVpcEndpointRequest(input *CreateVpcEndpointInput) (req *requ
 // CreateVpcEndpoint API operation for Amazon Elastic Compute Cloud.
 //
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // Creates a VPC endpoint for a specified service. An endpoint enables you to
 // create a private connection between your VPC and the service. The service
 // may be provided by AWS, an AWS Marketplace partner, or another AWS account.
 // For more information, see VPC Endpoints (http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html)
 // in the Amazon Virtual Private Cloud User Guide.
+<<<<<<< HEAD
 //
 // A gateway endpoint serves as a target for a route in your route table for
 // traffic destined for the AWS service. You can specify an endpoint policy
@@ -5454,18 +5487,28 @@ func (c *EC2) CreateVpcEndpointRequest(input *CreateVpcEndpointInput) (req *requ
 // Creates a VPC endpoint for a specified AWS service. An endpoint enables you
 // to create a private connection between your VPC and another AWS service in
 // your account. You can create a gateway endpoint or an interface endpoint.
+=======
+>>>>>>> Working on getting compiling
 //
 // A gateway endpoint serves as a target for a route in your route table for
-// traffic destined for the AWS service. You can specify the VPC route tables
-// that use the endpoint, and you can optionally specify an endpoint policy
+// traffic destined for the AWS service. You can specify an endpoint policy
 // to attach to the endpoint that will control access to the service from your
-// VPC.
+// VPC. You can also specify the VPC route tables that use the endpoint.
 //
+<<<<<<< HEAD
 // An interface endpoint is a network interface in your subnet with a private
 // IP address that serves as an entry point for traffic destined to the AWS
 // service. You can specify the subnets in which to create an endpoint, and
 // the security groups to associate with the network interface.
 >>>>>>> Initial dep workover
+=======
+// An interface endpoint is a network interface in your subnet that serves as
+// an endpoint for communicating with the specified service. You can specify
+// the subnets in which to create an endpoint, and the security groups to associate
+// with the endpoint network interface.
+//
+// Use DescribeVpcEndpointServices to get a list of supported services.
+>>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -5520,7 +5563,11 @@ const opCreateVpcEndpointConnectionNotification = "CreateVpcEndpointConnectionNo
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointConnectionNotification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointConnectionNotification
+>>>>>>> Working on getting compiling
 func (c *EC2) CreateVpcEndpointConnectionNotificationRequest(input *CreateVpcEndpointConnectionNotificationInput) (req *request.Request, output *CreateVpcEndpointConnectionNotificationOutput) {
 	op := &request.Operation{
 		Name:       opCreateVpcEndpointConnectionNotification,
@@ -5553,7 +5600,11 @@ func (c *EC2) CreateVpcEndpointConnectionNotificationRequest(input *CreateVpcEnd
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation CreateVpcEndpointConnectionNotification for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointConnectionNotification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointConnectionNotification
+>>>>>>> Working on getting compiling
 func (c *EC2) CreateVpcEndpointConnectionNotification(input *CreateVpcEndpointConnectionNotificationInput) (*CreateVpcEndpointConnectionNotificationOutput, error) {
 	req, out := c.CreateVpcEndpointConnectionNotificationRequest(input)
 	return out, req.Send()
@@ -5600,7 +5651,11 @@ const opCreateVpcEndpointServiceConfiguration = "CreateVpcEndpointServiceConfigu
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointServiceConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointServiceConfiguration
+>>>>>>> Working on getting compiling
 func (c *EC2) CreateVpcEndpointServiceConfigurationRequest(input *CreateVpcEndpointServiceConfigurationInput) (req *request.Request, output *CreateVpcEndpointServiceConfigurationOutput) {
 	op := &request.Operation{
 		Name:       opCreateVpcEndpointServiceConfiguration,
@@ -5634,7 +5689,11 @@ func (c *EC2) CreateVpcEndpointServiceConfigurationRequest(input *CreateVpcEndpo
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation CreateVpcEndpointServiceConfiguration for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointServiceConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointServiceConfiguration
+>>>>>>> Working on getting compiling
 func (c *EC2) CreateVpcEndpointServiceConfiguration(input *CreateVpcEndpointServiceConfigurationInput) (*CreateVpcEndpointServiceConfigurationOutput, error) {
 	req, out := c.CreateVpcEndpointServiceConfigurationRequest(input)
 	return out, req.Send()
@@ -6590,7 +6649,11 @@ const opDeleteLaunchTemplate = "DeleteLaunchTemplate"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplate
+>>>>>>> Working on getting compiling
 func (c *EC2) DeleteLaunchTemplateRequest(input *DeleteLaunchTemplateInput) (req *request.Request, output *DeleteLaunchTemplateOutput) {
 	op := &request.Operation{
 		Name:       opDeleteLaunchTemplate,
@@ -6618,7 +6681,11 @@ func (c *EC2) DeleteLaunchTemplateRequest(input *DeleteLaunchTemplateInput) (req
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DeleteLaunchTemplate for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplate
+>>>>>>> Working on getting compiling
 func (c *EC2) DeleteLaunchTemplate(input *DeleteLaunchTemplateInput) (*DeleteLaunchTemplateOutput, error) {
 	req, out := c.DeleteLaunchTemplateRequest(input)
 	return out, req.Send()
@@ -6665,7 +6732,11 @@ const opDeleteLaunchTemplateVersions = "DeleteLaunchTemplateVersions"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersions
+>>>>>>> Working on getting compiling
 func (c *EC2) DeleteLaunchTemplateVersionsRequest(input *DeleteLaunchTemplateVersionsInput) (req *request.Request, output *DeleteLaunchTemplateVersionsOutput) {
 	op := &request.Operation{
 		Name:       opDeleteLaunchTemplateVersions,
@@ -6695,7 +6766,11 @@ func (c *EC2) DeleteLaunchTemplateVersionsRequest(input *DeleteLaunchTemplateVer
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DeleteLaunchTemplateVersions for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersions
+>>>>>>> Working on getting compiling
 func (c *EC2) DeleteLaunchTemplateVersions(input *DeleteLaunchTemplateVersionsInput) (*DeleteLaunchTemplateVersionsOutput, error) {
 	req, out := c.DeleteLaunchTemplateVersionsRequest(input)
 	return out, req.Send()
@@ -8014,7 +8089,11 @@ const opDeleteVpcEndpointConnectionNotifications = "DeleteVpcEndpointConnectionN
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointConnectionNotifications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointConnectionNotifications
+>>>>>>> Working on getting compiling
 func (c *EC2) DeleteVpcEndpointConnectionNotificationsRequest(input *DeleteVpcEndpointConnectionNotificationsInput) (req *request.Request, output *DeleteVpcEndpointConnectionNotificationsOutput) {
 	op := &request.Operation{
 		Name:       opDeleteVpcEndpointConnectionNotifications,
@@ -8041,7 +8120,11 @@ func (c *EC2) DeleteVpcEndpointConnectionNotificationsRequest(input *DeleteVpcEn
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DeleteVpcEndpointConnectionNotifications for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointConnectionNotifications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointConnectionNotifications
+>>>>>>> Working on getting compiling
 func (c *EC2) DeleteVpcEndpointConnectionNotifications(input *DeleteVpcEndpointConnectionNotificationsInput) (*DeleteVpcEndpointConnectionNotificationsOutput, error) {
 	req, out := c.DeleteVpcEndpointConnectionNotificationsRequest(input)
 	return out, req.Send()
@@ -8088,7 +8171,11 @@ const opDeleteVpcEndpointServiceConfigurations = "DeleteVpcEndpointServiceConfig
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointServiceConfigurations
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointServiceConfigurations
+>>>>>>> Working on getting compiling
 func (c *EC2) DeleteVpcEndpointServiceConfigurationsRequest(input *DeleteVpcEndpointServiceConfigurationsInput) (req *request.Request, output *DeleteVpcEndpointServiceConfigurationsOutput) {
 	op := &request.Operation{
 		Name:       opDeleteVpcEndpointServiceConfigurations,
@@ -8118,7 +8205,11 @@ func (c *EC2) DeleteVpcEndpointServiceConfigurationsRequest(input *DeleteVpcEndp
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DeleteVpcEndpointServiceConfigurations for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointServiceConfigurations
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointServiceConfigurations
+>>>>>>> Working on getting compiling
 func (c *EC2) DeleteVpcEndpointServiceConfigurations(input *DeleteVpcEndpointServiceConfigurationsInput) (*DeleteVpcEndpointServiceConfigurationsOutput, error) {
 	req, out := c.DeleteVpcEndpointServiceConfigurationsRequest(input)
 	return out, req.Send()
@@ -10736,7 +10827,11 @@ const opDescribeInstanceCreditSpecifications = "DescribeInstanceCreditSpecificat
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceCreditSpecifications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceCreditSpecifications
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeInstanceCreditSpecificationsRequest(input *DescribeInstanceCreditSpecificationsInput) (req *request.Request, output *DescribeInstanceCreditSpecificationsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeInstanceCreditSpecifications,
@@ -10781,7 +10876,11 @@ func (c *EC2) DescribeInstanceCreditSpecificationsRequest(input *DescribeInstanc
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DescribeInstanceCreditSpecifications for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceCreditSpecifications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceCreditSpecifications
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeInstanceCreditSpecifications(input *DescribeInstanceCreditSpecificationsInput) (*DescribeInstanceCreditSpecificationsOutput, error) {
 	req, out := c.DescribeInstanceCreditSpecificationsRequest(input)
 	return out, req.Send()
@@ -11285,7 +11384,11 @@ const opDescribeLaunchTemplateVersions = "DescribeLaunchTemplateVersions"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplateVersions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplateVersions
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeLaunchTemplateVersionsRequest(input *DescribeLaunchTemplateVersionsInput) (req *request.Request, output *DescribeLaunchTemplateVersionsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeLaunchTemplateVersions,
@@ -11313,7 +11416,11 @@ func (c *EC2) DescribeLaunchTemplateVersionsRequest(input *DescribeLaunchTemplat
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DescribeLaunchTemplateVersions for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplateVersions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplateVersions
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeLaunchTemplateVersions(input *DescribeLaunchTemplateVersionsInput) (*DescribeLaunchTemplateVersionsOutput, error) {
 	req, out := c.DescribeLaunchTemplateVersionsRequest(input)
 	return out, req.Send()
@@ -11360,7 +11467,11 @@ const opDescribeLaunchTemplates = "DescribeLaunchTemplates"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplates
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeLaunchTemplatesRequest(input *DescribeLaunchTemplatesInput) (req *request.Request, output *DescribeLaunchTemplatesOutput) {
 	op := &request.Operation{
 		Name:       opDescribeLaunchTemplates,
@@ -11387,7 +11498,11 @@ func (c *EC2) DescribeLaunchTemplatesRequest(input *DescribeLaunchTemplatesInput
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DescribeLaunchTemplates for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplates
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplates
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeLaunchTemplates(input *DescribeLaunchTemplatesInput) (*DescribeLaunchTemplatesOutput, error) {
 	req, out := c.DescribeLaunchTemplatesRequest(input)
 	return out, req.Send()
@@ -15067,7 +15182,11 @@ const opDescribeVpcEndpointConnectionNotifications = "DescribeVpcEndpointConnect
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionNotifications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionNotifications
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeVpcEndpointConnectionNotificationsRequest(input *DescribeVpcEndpointConnectionNotificationsInput) (req *request.Request, output *DescribeVpcEndpointConnectionNotificationsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeVpcEndpointConnectionNotifications,
@@ -15095,7 +15214,11 @@ func (c *EC2) DescribeVpcEndpointConnectionNotificationsRequest(input *DescribeV
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DescribeVpcEndpointConnectionNotifications for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionNotifications
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionNotifications
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeVpcEndpointConnectionNotifications(input *DescribeVpcEndpointConnectionNotificationsInput) (*DescribeVpcEndpointConnectionNotificationsOutput, error) {
 	req, out := c.DescribeVpcEndpointConnectionNotificationsRequest(input)
 	return out, req.Send()
@@ -15142,7 +15265,11 @@ const opDescribeVpcEndpointConnections = "DescribeVpcEndpointConnections"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnections
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnections
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeVpcEndpointConnectionsRequest(input *DescribeVpcEndpointConnectionsInput) (req *request.Request, output *DescribeVpcEndpointConnectionsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeVpcEndpointConnections,
@@ -15170,7 +15297,11 @@ func (c *EC2) DescribeVpcEndpointConnectionsRequest(input *DescribeVpcEndpointCo
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DescribeVpcEndpointConnections for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnections
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnections
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeVpcEndpointConnections(input *DescribeVpcEndpointConnectionsInput) (*DescribeVpcEndpointConnectionsOutput, error) {
 	req, out := c.DescribeVpcEndpointConnectionsRequest(input)
 	return out, req.Send()
@@ -15217,7 +15348,11 @@ const opDescribeVpcEndpointServiceConfigurations = "DescribeVpcEndpointServiceCo
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServiceConfigurations
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServiceConfigurations
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeVpcEndpointServiceConfigurationsRequest(input *DescribeVpcEndpointServiceConfigurationsInput) (req *request.Request, output *DescribeVpcEndpointServiceConfigurationsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeVpcEndpointServiceConfigurations,
@@ -15244,7 +15379,11 @@ func (c *EC2) DescribeVpcEndpointServiceConfigurationsRequest(input *DescribeVpc
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DescribeVpcEndpointServiceConfigurations for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServiceConfigurations
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServiceConfigurations
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeVpcEndpointServiceConfigurations(input *DescribeVpcEndpointServiceConfigurationsInput) (*DescribeVpcEndpointServiceConfigurationsOutput, error) {
 	req, out := c.DescribeVpcEndpointServiceConfigurationsRequest(input)
 	return out, req.Send()
@@ -15291,7 +15430,11 @@ const opDescribeVpcEndpointServicePermissions = "DescribeVpcEndpointServicePermi
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServicePermissions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServicePermissions
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeVpcEndpointServicePermissionsRequest(input *DescribeVpcEndpointServicePermissionsInput) (req *request.Request, output *DescribeVpcEndpointServicePermissionsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeVpcEndpointServicePermissions,
@@ -15319,7 +15462,11 @@ func (c *EC2) DescribeVpcEndpointServicePermissionsRequest(input *DescribeVpcEnd
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation DescribeVpcEndpointServicePermissions for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServicePermissions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServicePermissions
+>>>>>>> Working on getting compiling
 func (c *EC2) DescribeVpcEndpointServicePermissions(input *DescribeVpcEndpointServicePermissionsInput) (*DescribeVpcEndpointServicePermissionsOutput, error) {
 	req, out := c.DescribeVpcEndpointServicePermissionsRequest(input)
 	return out, req.Send()
@@ -17555,7 +17702,11 @@ const opGetLaunchTemplateData = "GetLaunchTemplateData"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetLaunchTemplateData
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetLaunchTemplateData
+>>>>>>> Working on getting compiling
 func (c *EC2) GetLaunchTemplateDataRequest(input *GetLaunchTemplateDataInput) (req *request.Request, output *GetLaunchTemplateDataOutput) {
 	op := &request.Operation{
 		Name:       opGetLaunchTemplateData,
@@ -17583,7 +17734,11 @@ func (c *EC2) GetLaunchTemplateDataRequest(input *GetLaunchTemplateDataInput) (r
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation GetLaunchTemplateData for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetLaunchTemplateData
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetLaunchTemplateData
+>>>>>>> Working on getting compiling
 func (c *EC2) GetLaunchTemplateData(input *GetLaunchTemplateDataInput) (*GetLaunchTemplateDataOutput, error) {
 	req, out := c.GetLaunchTemplateDataRequest(input)
 	return out, req.Send()
@@ -18766,7 +18921,11 @@ const opModifyInstanceCreditSpecification = "ModifyInstanceCreditSpecification"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCreditSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCreditSpecification
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyInstanceCreditSpecificationRequest(input *ModifyInstanceCreditSpecificationInput) (req *request.Request, output *ModifyInstanceCreditSpecificationOutput) {
 	op := &request.Operation{
 		Name:       opModifyInstanceCreditSpecification,
@@ -18797,7 +18956,11 @@ func (c *EC2) ModifyInstanceCreditSpecificationRequest(input *ModifyInstanceCred
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation ModifyInstanceCreditSpecification for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCreditSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCreditSpecification
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyInstanceCreditSpecification(input *ModifyInstanceCreditSpecificationInput) (*ModifyInstanceCreditSpecificationOutput, error) {
 	req, out := c.ModifyInstanceCreditSpecificationRequest(input)
 	return out, req.Send()
@@ -18936,7 +19099,11 @@ const opModifyLaunchTemplate = "ModifyLaunchTemplate"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyLaunchTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyLaunchTemplate
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyLaunchTemplateRequest(input *ModifyLaunchTemplateInput) (req *request.Request, output *ModifyLaunchTemplateOutput) {
 	op := &request.Operation{
 		Name:       opModifyLaunchTemplate,
@@ -18965,7 +19132,11 @@ func (c *EC2) ModifyLaunchTemplateRequest(input *ModifyLaunchTemplateInput) (req
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation ModifyLaunchTemplate for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyLaunchTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyLaunchTemplate
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyLaunchTemplate(input *ModifyLaunchTemplateInput) (*ModifyLaunchTemplateOutput, error) {
 	req, out := c.ModifyLaunchTemplateRequest(input)
 	return out, req.Send()
@@ -19863,7 +20034,11 @@ const opModifyVpcEndpointConnectionNotification = "ModifyVpcEndpointConnectionNo
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointConnectionNotification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointConnectionNotification
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyVpcEndpointConnectionNotificationRequest(input *ModifyVpcEndpointConnectionNotificationInput) (req *request.Request, output *ModifyVpcEndpointConnectionNotificationOutput) {
 	op := &request.Operation{
 		Name:       opModifyVpcEndpointConnectionNotification,
@@ -19892,7 +20067,11 @@ func (c *EC2) ModifyVpcEndpointConnectionNotificationRequest(input *ModifyVpcEnd
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation ModifyVpcEndpointConnectionNotification for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointConnectionNotification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointConnectionNotification
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyVpcEndpointConnectionNotification(input *ModifyVpcEndpointConnectionNotificationInput) (*ModifyVpcEndpointConnectionNotificationOutput, error) {
 	req, out := c.ModifyVpcEndpointConnectionNotificationRequest(input)
 	return out, req.Send()
@@ -19939,7 +20118,11 @@ const opModifyVpcEndpointServiceConfiguration = "ModifyVpcEndpointServiceConfigu
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServiceConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServiceConfiguration
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyVpcEndpointServiceConfigurationRequest(input *ModifyVpcEndpointServiceConfigurationInput) (req *request.Request, output *ModifyVpcEndpointServiceConfigurationOutput) {
 	op := &request.Operation{
 		Name:       opModifyVpcEndpointServiceConfiguration,
@@ -19969,7 +20152,11 @@ func (c *EC2) ModifyVpcEndpointServiceConfigurationRequest(input *ModifyVpcEndpo
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation ModifyVpcEndpointServiceConfiguration for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServiceConfiguration
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServiceConfiguration
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyVpcEndpointServiceConfiguration(input *ModifyVpcEndpointServiceConfigurationInput) (*ModifyVpcEndpointServiceConfigurationOutput, error) {
 	req, out := c.ModifyVpcEndpointServiceConfigurationRequest(input)
 	return out, req.Send()
@@ -20016,7 +20203,11 @@ const opModifyVpcEndpointServicePermissions = "ModifyVpcEndpointServicePermissio
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServicePermissions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServicePermissions
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyVpcEndpointServicePermissionsRequest(input *ModifyVpcEndpointServicePermissionsInput) (req *request.Request, output *ModifyVpcEndpointServicePermissionsOutput) {
 	op := &request.Operation{
 		Name:       opModifyVpcEndpointServicePermissions,
@@ -20045,7 +20236,11 @@ func (c *EC2) ModifyVpcEndpointServicePermissionsRequest(input *ModifyVpcEndpoin
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation ModifyVpcEndpointServicePermissions for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServicePermissions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServicePermissions
+>>>>>>> Working on getting compiling
 func (c *EC2) ModifyVpcEndpointServicePermissions(input *ModifyVpcEndpointServicePermissionsInput) (*ModifyVpcEndpointServicePermissionsOutput, error) {
 	req, out := c.ModifyVpcEndpointServicePermissionsRequest(input)
 	return out, req.Send()
@@ -20896,7 +21091,11 @@ const opRejectVpcEndpointConnections = "RejectVpcEndpointConnections"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RejectVpcEndpointConnections
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RejectVpcEndpointConnections
+>>>>>>> Working on getting compiling
 func (c *EC2) RejectVpcEndpointConnectionsRequest(input *RejectVpcEndpointConnectionsInput) (req *request.Request, output *RejectVpcEndpointConnectionsOutput) {
 	op := &request.Operation{
 		Name:       opRejectVpcEndpointConnections,
@@ -20924,7 +21123,11 @@ func (c *EC2) RejectVpcEndpointConnectionsRequest(input *RejectVpcEndpointConnec
 //
 // See the AWS API reference guide for Amazon Elastic Compute Cloud's
 // API operation RejectVpcEndpointConnections for usage and error information.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RejectVpcEndpointConnections
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RejectVpcEndpointConnections
+>>>>>>> Working on getting compiling
 func (c *EC2) RejectVpcEndpointConnections(input *RejectVpcEndpointConnectionsInput) (*RejectVpcEndpointConnectionsOutput, error) {
 	req, out := c.RejectVpcEndpointConnectionsRequest(input)
 	return out, req.Send()
@@ -23591,7 +23794,11 @@ func (s *AcceptReservedInstancesExchangeQuoteOutput) SetExchangeId(v string) *Ac
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AcceptVpcEndpointConnectionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AcceptVpcEndpointConnectionsRequest
+>>>>>>> Working on getting compiling
 type AcceptVpcEndpointConnectionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -23656,7 +23863,11 @@ func (s *AcceptVpcEndpointConnectionsInput) SetVpcEndpointIds(v []*string) *Acce
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AcceptVpcEndpointConnectionsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AcceptVpcEndpointConnectionsResult
+>>>>>>> Working on getting compiling
 type AcceptVpcEndpointConnectionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -23803,7 +24014,11 @@ func (s *AccountAttributeValue) SetAttributeValue(v string) *AccountAttributeVal
 }
 
 // Describes a running instance in a Spot Fleet.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ActiveInstance
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ActiveInstance
+>>>>>>> Working on getting compiling
 type ActiveInstance struct {
 	_ struct{} `type:"structure"`
 
@@ -24161,7 +24376,11 @@ func (s *AllocateHostsOutput) SetHostIds(v []*string) *AllocateHostsOutput {
 }
 
 // Describes a principal.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AllowedPrincipal
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AllowedPrincipal
+>>>>>>> Working on getting compiling
 type AllowedPrincipal struct {
 	_ struct{} `type:"structure"`
 
@@ -24194,7 +24413,11 @@ func (s *AllowedPrincipal) SetPrincipalType(v string) *AllowedPrincipal {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AssignIpv6AddressesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AssignIpv6AddressesRequest
+>>>>>>> Working on getting compiling
 type AssignIpv6AddressesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -26511,7 +26734,11 @@ func (s *CancelReservedInstancesListingOutput) SetReservedInstancesListings(v []
 }
 
 // Describes a Spot Fleet error.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CancelSpotFleetRequestsError
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CancelSpotFleetRequestsError
+>>>>>>> Working on getting compiling
 type CancelSpotFleetRequestsError struct {
 	_ struct{} `type:"structure"`
 
@@ -26549,7 +26776,11 @@ func (s *CancelSpotFleetRequestsError) SetMessage(v string) *CancelSpotFleetRequ
 }
 
 // Describes a Spot Fleet request that was not successfully canceled.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CancelSpotFleetRequestsErrorItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CancelSpotFleetRequestsErrorItem
+>>>>>>> Working on getting compiling
 type CancelSpotFleetRequestsErrorItem struct {
 	_ struct{} `type:"structure"`
 
@@ -26688,7 +26919,11 @@ func (s *CancelSpotFleetRequestsOutput) SetUnsuccessfulFleetRequests(v []*Cancel
 }
 
 // Describes a Spot Fleet request that was successfully canceled.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CancelSpotFleetRequestsSuccessItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CancelSpotFleetRequestsSuccessItem
+>>>>>>> Working on getting compiling
 type CancelSpotFleetRequestsSuccessItem struct {
 	_ struct{} `type:"structure"`
 
@@ -26814,7 +27049,11 @@ func (s *CancelSpotInstanceRequestsOutput) SetCancelledSpotInstanceRequests(v []
 }
 
 // Describes a request to cancel a Spot Instance.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CancelledSpotInstanceRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CancelledSpotInstanceRequest
+>>>>>>> Working on getting compiling
 type CancelledSpotInstanceRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -27007,12 +27246,17 @@ func (s *ClassicLoadBalancer) SetName(v string) *ClassicLoadBalancer {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Describes the Classic Load Balancers to attach to a Spot Fleet. Spot Fleet
 // registers the running Spot Instances with these Classic Load Balancers.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ClassicLoadBalancersConfig
 =======
 // Describes the Classic Load Balancers to attach to a Spot fleet. Spot fleet
 // registers the running Spot instances with these Classic Load Balancers.
+=======
+// Describes the Classic Load Balancers to attach to a Spot Fleet. Spot Fleet
+// registers the running Spot Instances with these Classic Load Balancers.
+>>>>>>> Working on getting compiling
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ClassicLoadBalancersConfig
 >>>>>>> Initial dep workover
 type ClassicLoadBalancersConfig struct {
@@ -27221,7 +27465,11 @@ func (s *ConfirmProductInstanceOutput) SetReturn(v bool) *ConfirmProductInstance
 }
 
 // Describes a connection notification for a VPC endpoint or VPC endpoint service.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ConnectionNotification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ConnectionNotification
+>>>>>>> Working on getting compiling
 type ConnectionNotification struct {
 	_ struct{} `type:"structure"`
 
@@ -28891,7 +29139,11 @@ func (s *CreateKeyPairOutput) SetKeyName(v string) *CreateKeyPairOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateRequest
+>>>>>>> Working on getting compiling
 type CreateLaunchTemplateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -28983,7 +29235,11 @@ func (s *CreateLaunchTemplateInput) SetVersionDescription(v string) *CreateLaunc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateResult
+>>>>>>> Working on getting compiling
 type CreateLaunchTemplateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -29007,7 +29263,11 @@ func (s *CreateLaunchTemplateOutput) SetLaunchTemplate(v *LaunchTemplate) *Creat
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateVersionRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateVersionRequest
+>>>>>>> Working on getting compiling
 type CreateLaunchTemplateVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -29116,7 +29376,11 @@ func (s *CreateLaunchTemplateVersionInput) SetVersionDescription(v string) *Crea
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateVersionResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateLaunchTemplateVersionResult
+>>>>>>> Working on getting compiling
 type CreateLaunchTemplateVersionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -30865,7 +31129,11 @@ func (s *CreateVolumePermissionModifications) SetRemove(v []*CreateVolumePermiss
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointConnectionNotificationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointConnectionNotificationRequest
+>>>>>>> Working on getting compiling
 type CreateVpcEndpointConnectionNotificationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -30959,7 +31227,11 @@ func (s *CreateVpcEndpointConnectionNotificationInput) SetVpcEndpointId(v string
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointConnectionNotificationResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointConnectionNotificationResult
+>>>>>>> Working on getting compiling
 type CreateVpcEndpointConnectionNotificationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -31034,6 +31306,7 @@ type CreateVpcEndpointInput struct {
 
 	// (Interface endpoint) The ID of one or more security groups to associate with
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// the endpoint network interface.
 	SecurityGroupIds []*string `locationName:"SecurityGroupId" locationNameList:"item" type:"list"`
 
@@ -31046,10 +31319,18 @@ type CreateVpcEndpointInput struct {
 	// The AWS service name, in the form com.amazonaws.region.service. To get a
 	// list of available services, use the DescribeVpcEndpointServices request.
 >>>>>>> Initial dep workover
+=======
+	// the endpoint network interface.
+	SecurityGroupIds []*string `locationName:"SecurityGroupId" locationNameList:"item" type:"list"`
+
+	// The service name. To get a list of available services, use the DescribeVpcEndpointServices
+	// request.
+>>>>>>> Working on getting compiling
 	//
 	// ServiceName is a required field
 	ServiceName *string `type:"string" required:"true"`
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// (Interface endpoint) The ID of one or more subnets in which to create an
 	// endpoint network interface.
@@ -31065,6 +31346,15 @@ type CreateVpcEndpointInput struct {
 
 	// The type of endpoint. If not specified, the default is a gateway endpoint.
 >>>>>>> Initial dep workover
+=======
+	// (Interface endpoint) The ID of one or more subnets in which to create an
+	// endpoint network interface.
+	SubnetIds []*string `locationName:"SubnetId" locationNameList:"item" type:"list"`
+
+	// The type of endpoint.
+	//
+	// Default: Gateway
+>>>>>>> Working on getting compiling
 	VpcEndpointType *string `type:"string" enum:"VpcEndpointType"`
 
 	// The ID of the VPC in which the endpoint will be used.
@@ -31194,7 +31484,11 @@ func (s *CreateVpcEndpointOutput) SetVpcEndpoint(v *VpcEndpoint) *CreateVpcEndpo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointServiceConfigurationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointServiceConfigurationRequest
+>>>>>>> Working on getting compiling
 type CreateVpcEndpointServiceConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -31266,7 +31560,11 @@ func (s *CreateVpcEndpointServiceConfigurationInput) SetNetworkLoadBalancerArns(
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointServiceConfigurationResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpcEndpointServiceConfigurationResult
+>>>>>>> Working on getting compiling
 type CreateVpcEndpointServiceConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -31784,7 +32082,11 @@ func (s *CreateVpnGatewayOutput) SetVpnGateway(v *VpnGateway) *CreateVpnGatewayO
 }
 
 // Describes the credit option for CPU usage of a T2 instance.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreditSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreditSpecification
+>>>>>>> Working on getting compiling
 type CreditSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -31809,7 +32111,11 @@ func (s *CreditSpecification) SetCpuCredits(v string) *CreditSpecification {
 }
 
 // The credit option for CPU usage of a T2 instance.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreditSpecificationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreditSpecificationRequest
+>>>>>>> Working on getting compiling
 type CreditSpecificationRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -32412,7 +32718,11 @@ func (s DeleteKeyPairOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateRequest
+>>>>>>> Working on getting compiling
 type DeleteLaunchTemplateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -32472,7 +32782,11 @@ func (s *DeleteLaunchTemplateInput) SetLaunchTemplateName(v string) *DeleteLaunc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateResult
+>>>>>>> Working on getting compiling
 type DeleteLaunchTemplateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -32496,7 +32810,11 @@ func (s *DeleteLaunchTemplateOutput) SetLaunchTemplate(v *LaunchTemplate) *Delet
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersionsRequest
+>>>>>>> Working on getting compiling
 type DeleteLaunchTemplateVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -32570,7 +32888,11 @@ func (s *DeleteLaunchTemplateVersionsInput) SetVersions(v []*string) *DeleteLaun
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersionsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersionsResult
+>>>>>>> Working on getting compiling
 type DeleteLaunchTemplateVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -32604,7 +32926,11 @@ func (s *DeleteLaunchTemplateVersionsOutput) SetUnsuccessfullyDeletedLaunchTempl
 }
 
 // Describes a launch template version that could not be deleted.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersionsResponseErrorItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersionsResponseErrorItem
+>>>>>>> Working on getting compiling
 type DeleteLaunchTemplateVersionsResponseErrorItem struct {
 	_ struct{} `type:"structure"`
 
@@ -32656,7 +32982,11 @@ func (s *DeleteLaunchTemplateVersionsResponseErrorItem) SetVersionNumber(v int64
 }
 
 // Describes a launch template version that was successfully deleted.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersionsResponseSuccessItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteLaunchTemplateVersionsResponseSuccessItem
+>>>>>>> Working on getting compiling
 type DeleteLaunchTemplateVersionsResponseSuccessItem struct {
 	_ struct{} `type:"structure"`
 
@@ -33687,7 +34017,11 @@ func (s DeleteVolumeOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointConnectionNotificationsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointConnectionNotificationsRequest
+>>>>>>> Working on getting compiling
 type DeleteVpcEndpointConnectionNotificationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -33738,7 +34072,11 @@ func (s *DeleteVpcEndpointConnectionNotificationsInput) SetDryRun(v bool) *Delet
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointConnectionNotificationsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointConnectionNotificationsResult
+>>>>>>> Working on getting compiling
 type DeleteVpcEndpointConnectionNotificationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -33762,7 +34100,11 @@ func (s *DeleteVpcEndpointConnectionNotificationsOutput) SetUnsuccessful(v []*Un
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointServiceConfigurationsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointServiceConfigurationsRequest
+>>>>>>> Working on getting compiling
 type DeleteVpcEndpointServiceConfigurationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -33813,7 +34155,11 @@ func (s *DeleteVpcEndpointServiceConfigurationsInput) SetServiceIds(v []*string)
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointServiceConfigurationsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpcEndpointServiceConfigurationsResult
+>>>>>>> Working on getting compiling
 type DeleteVpcEndpointServiceConfigurationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -36991,7 +37337,11 @@ func (s *DescribeInstanceAttributeOutput) SetUserData(v *AttributeValue) *Descri
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceCreditSpecificationsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceCreditSpecificationsRequest
+>>>>>>> Working on getting compiling
 type DescribeInstanceCreditSpecificationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -37063,7 +37413,11 @@ func (s *DescribeInstanceCreditSpecificationsInput) SetNextToken(v string) *Desc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceCreditSpecificationsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceCreditSpecificationsResult
+>>>>>>> Working on getting compiling
 type DescribeInstanceCreditSpecificationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -37763,7 +38117,11 @@ func (s *DescribeKeyPairsOutput) SetKeyPairs(v []*KeyPairInfo) *DescribeKeyPairs
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplateVersionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplateVersionsRequest
+>>>>>>> Working on getting compiling
 type DescribeLaunchTemplateVersionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -37897,7 +38255,11 @@ func (s *DescribeLaunchTemplateVersionsInput) SetVersions(v []*string) *Describe
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplateVersionsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplateVersionsResult
+>>>>>>> Working on getting compiling
 type DescribeLaunchTemplateVersionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -37931,7 +38293,11 @@ func (s *DescribeLaunchTemplateVersionsOutput) SetNextToken(v string) *DescribeL
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplatesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplatesRequest
+>>>>>>> Working on getting compiling
 type DescribeLaunchTemplatesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -38009,7 +38375,11 @@ func (s *DescribeLaunchTemplatesInput) SetNextToken(v string) *DescribeLaunchTem
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplatesResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeLaunchTemplatesResult
+>>>>>>> Working on getting compiling
 type DescribeLaunchTemplatesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -41095,6 +41465,7 @@ type DescribeSpotInstanceRequestsInput struct {
 	//
 	//    * launch.monitoring-enabled - Whether detailed monitoring is enabled for
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    the Spot Instance.
 	//
 	//    * launch.ramdisk-id - The RAM disk ID.
@@ -41107,6 +41478,13 @@ type DescribeSpotInstanceRequestsInput struct {
 	//
 	//    * launched-availability-zone - The Availability Zone in which the bid
 >>>>>>> Initial dep workover
+=======
+	//    the Spot Instance.
+	//
+	//    * launch.ramdisk-id - The RAM disk ID.
+	//
+	//    * launched-availability-zone - The Availability Zone in which the request
+>>>>>>> Working on getting compiling
 	//    is launched.
 	//
 	//    * network-interface.addresses.primary - Indicates whether the IP address
@@ -41167,10 +41545,14 @@ type DescribeSpotInstanceRequestsInput struct {
 	//    is independent of the tag-key filter.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    * type - The type of Spot Instance request (one-time | persistent).
 =======
 	//    * type - The type of Spot instance request (one-time | persistent).
 >>>>>>> Initial dep workover
+=======
+	//    * type - The type of Spot Instance request (one-time | persistent).
+>>>>>>> Working on getting compiling
 	//
 	//    * valid-from - The start date of the request.
 	//
@@ -42525,7 +42907,11 @@ func (s *DescribeVpcClassicLinkOutput) SetVpcs(v []*VpcClassicLink) *DescribeVpc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionNotificationsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionNotificationsRequest
+>>>>>>> Working on getting compiling
 type DescribeVpcEndpointConnectionNotificationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -42602,7 +42988,11 @@ func (s *DescribeVpcEndpointConnectionNotificationsInput) SetNextToken(v string)
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionNotificationsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionNotificationsResult
+>>>>>>> Working on getting compiling
 type DescribeVpcEndpointConnectionNotificationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -42636,7 +43026,11 @@ func (s *DescribeVpcEndpointConnectionNotificationsOutput) SetNextToken(v string
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionsRequest
+>>>>>>> Working on getting compiling
 type DescribeVpcEndpointConnectionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -42703,7 +43097,11 @@ func (s *DescribeVpcEndpointConnectionsInput) SetNextToken(v string) *DescribeVp
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointConnectionsResult
+>>>>>>> Working on getting compiling
 type DescribeVpcEndpointConnectionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -42737,7 +43135,11 @@ func (s *DescribeVpcEndpointConnectionsOutput) SetVpcEndpointConnections(v []*Vp
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServiceConfigurationsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServiceConfigurationsRequest
+>>>>>>> Working on getting compiling
 type DescribeVpcEndpointServiceConfigurationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -42811,7 +43213,11 @@ func (s *DescribeVpcEndpointServiceConfigurationsInput) SetServiceIds(v []*strin
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServiceConfigurationsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServiceConfigurationsResult
+>>>>>>> Working on getting compiling
 type DescribeVpcEndpointServiceConfigurationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -42845,7 +43251,11 @@ func (s *DescribeVpcEndpointServiceConfigurationsOutput) SetServiceConfiguration
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServicePermissionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServicePermissionsRequest
+>>>>>>> Working on getting compiling
 type DescribeVpcEndpointServicePermissionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -42932,7 +43342,11 @@ func (s *DescribeVpcEndpointServicePermissionsInput) SetServiceId(v string) *Des
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServicePermissionsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcEndpointServicePermissionsResult
+>>>>>>> Working on getting compiling
 type DescribeVpcEndpointServicePermissionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -43050,10 +43464,14 @@ type DescribeVpcEndpointServicesOutput struct {
 	ServiceDetails []*ServiceDetail `locationName:"serviceDetailSet" locationNameList:"item" type:"list"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// A list of supported services.
 =======
 	// A list of supported AWS services.
 >>>>>>> Initial dep workover
+=======
+	// A list of supported services.
+>>>>>>> Working on getting compiling
 	ServiceNames []*string `locationName:"serviceNameSet" locationNameList:"item" type:"list"`
 }
 
@@ -45314,7 +45732,11 @@ func (s *ElasticGpuSpecification) SetType(v string) *ElasticGpuSpecification {
 }
 
 // Describes an elastic GPU.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ElasticGpuSpecificationResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ElasticGpuSpecificationResponse
+>>>>>>> Working on getting compiling
 type ElasticGpuSpecificationResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -45672,7 +46094,11 @@ func (s *EnableVpcClassicLinkOutput) SetReturn(v bool) *EnableVpcClassicLinkOutp
 }
 
 // Describes a Spot Fleet event.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/EventInformation
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/EventInformation
+>>>>>>> Working on getting compiling
 type EventInformation struct {
 	_ struct{} `type:"structure"`
 
@@ -45735,6 +46161,7 @@ type EventInformation struct {
 	// The following are the Information events:
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    * launchSpecUnusable - The price in a launch specification is not valid
 	//    because it is below the Spot price or the Spot price is above the On-Demand
 	//    price.
@@ -45750,6 +46177,14 @@ type EventInformation struct {
 	//    not valid. A launch specification might become valid if the market price
 	//    changes.
 >>>>>>> Initial dep workover
+=======
+	//    * launchSpecUnusable - The price in a launch specification is not valid
+	//    because it is below the Spot price or the Spot price is above the On-Demand
+	//    price.
+	//
+	//    * fleetProgressHalted - The price in every launch specification is not
+	//    valid. A launch specification might become valid if the Spot price changes.
+>>>>>>> Working on getting compiling
 	EventSubType *string `locationName:"eventSubType" type:"string"`
 
 	// The ID of the instance. This information is available only for instanceChange
@@ -46001,7 +46436,11 @@ func (s *Filter) SetValues(v []*string) *Filter {
 }
 
 // Describes a launch template.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/FleetLaunchTemplateSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/FleetLaunchTemplateSpecification
+>>>>>>> Working on getting compiling
 type FleetLaunchTemplateSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -46710,7 +47149,11 @@ func (s *GetHostReservationPurchasePreviewOutput) SetTotalUpfrontPrice(v string)
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetLaunchTemplateDataRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetLaunchTemplateDataRequest
+>>>>>>> Working on getting compiling
 type GetLaunchTemplateDataInput struct {
 	_ struct{} `type:"structure"`
 
@@ -46761,7 +47204,11 @@ func (s *GetLaunchTemplateDataInput) SetInstanceId(v string) *GetLaunchTemplateD
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetLaunchTemplateDataResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetLaunchTemplateDataResult
+>>>>>>> Working on getting compiling
 type GetLaunchTemplateDataOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -47085,7 +47532,11 @@ func (s *GroupIdentifier) SetGroupName(v string) *GroupIdentifier {
 }
 
 // Describes an event in the history of the Spot Fleet request.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/HistoryRecord
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/HistoryRecord
+>>>>>>> Working on getting compiling
 type HistoryRecord struct {
 	_ struct{} `type:"structure"`
 
@@ -47097,6 +47548,7 @@ type HistoryRecord struct {
 	// The event type.
 	//
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    * error - An error with the Spot Fleet request.
 	//
 	//    * fleetRequestChange - A change in the status or configuration of the
@@ -47106,9 +47558,12 @@ type HistoryRecord struct {
 	//
 =======
 	//    * error - An error with the Spot fleet request.
+=======
+	//    * error - An error with the Spot Fleet request.
+>>>>>>> Working on getting compiling
 	//
 	//    * fleetRequestChange - A change in the status or configuration of the
-	//    Spot fleet request.
+	//    Spot Fleet request.
 	//
 	//    * instanceChange - An instance was launched or terminated.
 	//
@@ -49819,7 +50274,11 @@ func (s *InstanceCount) SetState(v string) *InstanceCount {
 }
 
 // Describes the credit option for CPU usage of a T2 instance.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceCreditSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceCreditSpecification
+>>>>>>> Working on getting compiling
 type InstanceCreditSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -49854,7 +50313,11 @@ func (s *InstanceCreditSpecification) SetInstanceId(v string) *InstanceCreditSpe
 }
 
 // Describes the credit option for CPU usage of a T2 instance.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceCreditSpecificationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceCreditSpecificationRequest
+>>>>>>> Working on getting compiling
 type InstanceCreditSpecificationRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -49948,7 +50411,11 @@ func (s *InstanceIpv6Address) SetIpv6Address(v string) *InstanceIpv6Address {
 }
 
 // Describes an IPv6 address.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceIpv6AddressRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceIpv6AddressRequest
+>>>>>>> Working on getting compiling
 type InstanceIpv6AddressRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -49973,7 +50440,11 @@ func (s *InstanceIpv6AddressRequest) SetIpv6Address(v string) *InstanceIpv6Addre
 }
 
 // Describes the market (purchasing) option for the instances.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceMarketOptionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceMarketOptionsRequest
+>>>>>>> Working on getting compiling
 type InstanceMarketOptionsRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -51365,7 +51836,11 @@ func (s *LaunchSpecification) SetUserData(v string) *LaunchSpecification {
 }
 
 // Describes a launch template.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplate
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplate
+>>>>>>> Working on getting compiling
 type LaunchTemplate struct {
 	_ struct{} `type:"structure"`
 
@@ -51444,7 +51919,11 @@ func (s *LaunchTemplate) SetTags(v []*Tag) *LaunchTemplate {
 }
 
 // Describes a block device mapping.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateBlockDeviceMapping
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateBlockDeviceMapping
+>>>>>>> Working on getting compiling
 type LaunchTemplateBlockDeviceMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -51497,7 +51976,11 @@ func (s *LaunchTemplateBlockDeviceMapping) SetVirtualName(v string) *LaunchTempl
 }
 
 // Describes a block device mapping.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateBlockDeviceMappingRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateBlockDeviceMappingRequest
+>>>>>>> Working on getting compiling
 type LaunchTemplateBlockDeviceMappingRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -51555,7 +52038,11 @@ func (s *LaunchTemplateBlockDeviceMappingRequest) SetVirtualName(v string) *Laun
 }
 
 // Describes a launch template and overrides.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateConfig
+>>>>>>> Working on getting compiling
 type LaunchTemplateConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -51605,6 +52092,7 @@ func (s *LaunchTemplateConfig) SetOverrides(v []*LaunchTemplateOverrides) *Launc
 }
 
 // Describes a block device for an EBS volume.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateEbsBlockDevice
 type LaunchTemplateEbsBlockDevice struct {
 	_ struct{} `type:"structure"`
@@ -51680,6 +52168,1483 @@ func (s *LaunchTemplateEbsBlockDevice) SetVolumeSize(v int64) *LaunchTemplateEbs
 // SetVolumeType sets the VolumeType field's value.
 func (s *LaunchTemplateEbsBlockDevice) SetVolumeType(v string) *LaunchTemplateEbsBlockDevice {
 	s.VolumeType = &v
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateEbsBlockDevice
+type LaunchTemplateEbsBlockDevice struct {
+	_ struct{} `type:"structure"`
+
+	// Indicates whether the EBS volume is deleted on instance termination.
+	DeleteOnTermination *bool `locationName:"deleteOnTermination" type:"boolean"`
+
+	// Indicates whether the EBS volume is encrypted.
+	Encrypted *bool `locationName:"encrypted" type:"boolean"`
+
+	// The number of I/O operations per second (IOPS) that the volume supports.
+	Iops *int64 `locationName:"iops" type:"integer"`
+
+	// The ARN of the AWS Key Management Service (AWS KMS) CMK used for encryption.
+	KmsKeyId *string `locationName:"kmsKeyId" type:"string"`
+
+	// The ID of the snapshot.
+	SnapshotId *string `locationName:"snapshotId" type:"string"`
+
+	// The size of the volume, in GiB.
+	VolumeSize *int64 `locationName:"volumeSize" type:"integer"`
+
+	// The volume type.
+	VolumeType *string `locationName:"volumeType" type:"string" enum:"VolumeType"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateEbsBlockDevice) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateEbsBlockDevice) GoString() string {
+	return s.String()
+}
+
+// SetDeleteOnTermination sets the DeleteOnTermination field's value.
+func (s *LaunchTemplateEbsBlockDevice) SetDeleteOnTermination(v bool) *LaunchTemplateEbsBlockDevice {
+	s.DeleteOnTermination = &v
+	return s
+}
+
+// SetEncrypted sets the Encrypted field's value.
+func (s *LaunchTemplateEbsBlockDevice) SetEncrypted(v bool) *LaunchTemplateEbsBlockDevice {
+	s.Encrypted = &v
+	return s
+}
+
+// SetIops sets the Iops field's value.
+func (s *LaunchTemplateEbsBlockDevice) SetIops(v int64) *LaunchTemplateEbsBlockDevice {
+	s.Iops = &v
+	return s
+}
+
+// SetKmsKeyId sets the KmsKeyId field's value.
+func (s *LaunchTemplateEbsBlockDevice) SetKmsKeyId(v string) *LaunchTemplateEbsBlockDevice {
+	s.KmsKeyId = &v
+	return s
+}
+
+// SetSnapshotId sets the SnapshotId field's value.
+func (s *LaunchTemplateEbsBlockDevice) SetSnapshotId(v string) *LaunchTemplateEbsBlockDevice {
+	s.SnapshotId = &v
+	return s
+}
+
+// SetVolumeSize sets the VolumeSize field's value.
+func (s *LaunchTemplateEbsBlockDevice) SetVolumeSize(v int64) *LaunchTemplateEbsBlockDevice {
+	s.VolumeSize = &v
+	return s
+}
+
+// SetVolumeType sets the VolumeType field's value.
+func (s *LaunchTemplateEbsBlockDevice) SetVolumeType(v string) *LaunchTemplateEbsBlockDevice {
+	s.VolumeType = &v
+	return s
+}
+
+// The parameters for a block device for an EBS volume.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateEbsBlockDeviceRequest
+type LaunchTemplateEbsBlockDeviceRequest struct {
+	_ struct{} `type:"structure"`
+
+	// Indicates whether the EBS volume is deleted on instance termination.
+	DeleteOnTermination *bool `type:"boolean"`
+
+	// Indicates whether the EBS volume is encrypted. Encrypted volumes can only
+	// be attached to instances that support Amazon EBS encryption. If you are creating
+	// a volume from a snapshot, you can't specify an encryption value.
+	Encrypted *bool `type:"boolean"`
+
+	// The number of I/O operations per second (IOPS) that the volume supports.
+	// For io1, this represents the number of IOPS that are provisioned for the
+	// volume. For gp2, this represents the baseline performance of the volume and
+	// the rate at which the volume accumulates I/O credits for bursting. For more
+	// information about General Purpose SSD baseline performance, I/O credits,
+	// and bursting, see Amazon EBS Volume Types in the Amazon Elastic Compute Cloud
+	// User Guide.
+	//
+	// Condition: This parameter is required for requests to create io1 volumes;
+	// it is not used in requests to create gp2, st1, sc1, or standard volumes.
+	Iops *int64 `type:"integer"`
+
+	// The ARN of the AWS Key Management Service (AWS KMS) CMK used for encryption.
+	KmsKeyId *string `type:"string"`
+
+	// The ID of the snapshot.
+	SnapshotId *string `type:"string"`
+
+	// The size of the volume, in GiB.
+	//
+	// Default: If you're creating the volume from a snapshot and don't specify
+	// a volume size, the default is the snapshot size.
+	VolumeSize *int64 `type:"integer"`
+
+	// The volume type.
+	VolumeType *string `type:"string" enum:"VolumeType"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateEbsBlockDeviceRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateEbsBlockDeviceRequest) GoString() string {
+	return s.String()
+}
+
+// SetDeleteOnTermination sets the DeleteOnTermination field's value.
+func (s *LaunchTemplateEbsBlockDeviceRequest) SetDeleteOnTermination(v bool) *LaunchTemplateEbsBlockDeviceRequest {
+	s.DeleteOnTermination = &v
+	return s
+}
+
+// SetEncrypted sets the Encrypted field's value.
+func (s *LaunchTemplateEbsBlockDeviceRequest) SetEncrypted(v bool) *LaunchTemplateEbsBlockDeviceRequest {
+	s.Encrypted = &v
+	return s
+}
+
+// SetIops sets the Iops field's value.
+func (s *LaunchTemplateEbsBlockDeviceRequest) SetIops(v int64) *LaunchTemplateEbsBlockDeviceRequest {
+	s.Iops = &v
+	return s
+}
+
+// SetKmsKeyId sets the KmsKeyId field's value.
+func (s *LaunchTemplateEbsBlockDeviceRequest) SetKmsKeyId(v string) *LaunchTemplateEbsBlockDeviceRequest {
+	s.KmsKeyId = &v
+	return s
+}
+
+// SetSnapshotId sets the SnapshotId field's value.
+func (s *LaunchTemplateEbsBlockDeviceRequest) SetSnapshotId(v string) *LaunchTemplateEbsBlockDeviceRequest {
+	s.SnapshotId = &v
+	return s
+}
+
+// SetVolumeSize sets the VolumeSize field's value.
+func (s *LaunchTemplateEbsBlockDeviceRequest) SetVolumeSize(v int64) *LaunchTemplateEbsBlockDeviceRequest {
+	s.VolumeSize = &v
+	return s
+}
+
+// SetVolumeType sets the VolumeType field's value.
+func (s *LaunchTemplateEbsBlockDeviceRequest) SetVolumeType(v string) *LaunchTemplateEbsBlockDeviceRequest {
+	s.VolumeType = &v
+	return s
+}
+
+// Describes an IAM instance profile.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateIamInstanceProfileSpecification
+type LaunchTemplateIamInstanceProfileSpecification struct {
+	_ struct{} `type:"structure"`
+
+	// The Amazon Resource Name (ARN) of the instance profile.
+	Arn *string `locationName:"arn" type:"string"`
+
+	// The name of the instance profile.
+	Name *string `locationName:"name" type:"string"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateIamInstanceProfileSpecification) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateIamInstanceProfileSpecification) GoString() string {
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+func (s *LaunchTemplateIamInstanceProfileSpecification) SetArn(v string) *LaunchTemplateIamInstanceProfileSpecification {
+	s.Arn = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *LaunchTemplateIamInstanceProfileSpecification) SetName(v string) *LaunchTemplateIamInstanceProfileSpecification {
+	s.Name = &v
+	return s
+}
+
+// An IAM instance profile.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateIamInstanceProfileSpecificationRequest
+type LaunchTemplateIamInstanceProfileSpecificationRequest struct {
+	_ struct{} `type:"structure"`
+
+	// The Amazon Resource Name (ARN) of the instance profile.
+	Arn *string `type:"string"`
+
+	// The name of the instance profile.
+	Name *string `type:"string"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateIamInstanceProfileSpecificationRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateIamInstanceProfileSpecificationRequest) GoString() string {
+	return s.String()
+}
+
+// SetArn sets the Arn field's value.
+func (s *LaunchTemplateIamInstanceProfileSpecificationRequest) SetArn(v string) *LaunchTemplateIamInstanceProfileSpecificationRequest {
+	s.Arn = &v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *LaunchTemplateIamInstanceProfileSpecificationRequest) SetName(v string) *LaunchTemplateIamInstanceProfileSpecificationRequest {
+	s.Name = &v
+	return s
+}
+
+// The market (purchasing) option for the instances.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateInstanceMarketOptions
+type LaunchTemplateInstanceMarketOptions struct {
+	_ struct{} `type:"structure"`
+
+	// The market type.
+	MarketType *string `locationName:"marketType" type:"string" enum:"MarketType"`
+
+	// The options for Spot Instances.
+	SpotOptions *LaunchTemplateSpotMarketOptions `locationName:"spotOptions" type:"structure"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateInstanceMarketOptions) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateInstanceMarketOptions) GoString() string {
+	return s.String()
+}
+
+// SetMarketType sets the MarketType field's value.
+func (s *LaunchTemplateInstanceMarketOptions) SetMarketType(v string) *LaunchTemplateInstanceMarketOptions {
+	s.MarketType = &v
+	return s
+}
+
+// SetSpotOptions sets the SpotOptions field's value.
+func (s *LaunchTemplateInstanceMarketOptions) SetSpotOptions(v *LaunchTemplateSpotMarketOptions) *LaunchTemplateInstanceMarketOptions {
+	s.SpotOptions = v
+	return s
+}
+
+// The market (purchasing) option for the instances.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateInstanceMarketOptionsRequest
+type LaunchTemplateInstanceMarketOptionsRequest struct {
+	_ struct{} `type:"structure"`
+
+	// The market type.
+	MarketType *string `type:"string" enum:"MarketType"`
+
+	// The options for Spot Instances.
+	SpotOptions *LaunchTemplateSpotMarketOptionsRequest `type:"structure"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateInstanceMarketOptionsRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateInstanceMarketOptionsRequest) GoString() string {
+	return s.String()
+}
+
+// SetMarketType sets the MarketType field's value.
+func (s *LaunchTemplateInstanceMarketOptionsRequest) SetMarketType(v string) *LaunchTemplateInstanceMarketOptionsRequest {
+	s.MarketType = &v
+	return s
+}
+
+// SetSpotOptions sets the SpotOptions field's value.
+func (s *LaunchTemplateInstanceMarketOptionsRequest) SetSpotOptions(v *LaunchTemplateSpotMarketOptionsRequest) *LaunchTemplateInstanceMarketOptionsRequest {
+	s.SpotOptions = v
+	return s
+}
+
+// Describes a network interface.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateInstanceNetworkInterfaceSpecification
+type LaunchTemplateInstanceNetworkInterfaceSpecification struct {
+	_ struct{} `type:"structure"`
+
+	// Indicates whether to associate a public IPv4 address with eth0 for a new
+	// network interface.
+	AssociatePublicIpAddress *bool `locationName:"associatePublicIpAddress" type:"boolean"`
+
+	// Indicates whether the network interface is deleted when the instance is terminated.
+	DeleteOnTermination *bool `locationName:"deleteOnTermination" type:"boolean"`
+
+	// A description for the network interface.
+	Description *string `locationName:"description" type:"string"`
+
+	// The device index for the network interface attachment.
+	DeviceIndex *int64 `locationName:"deviceIndex" type:"integer"`
+
+	// The IDs of one or more security groups.
+	Groups []*string `locationName:"groupSet" locationNameList:"groupId" type:"list"`
+
+	// The number of IPv6 addresses for the network interface.
+	Ipv6AddressCount *int64 `locationName:"ipv6AddressCount" type:"integer"`
+
+	// The IPv6 addresses for the network interface.
+	Ipv6Addresses []*InstanceIpv6Address `locationName:"ipv6AddressesSet" locationNameList:"item" type:"list"`
+
+	// The ID of the network interface.
+	NetworkInterfaceId *string `locationName:"networkInterfaceId" type:"string"`
+
+	// The primary private IPv4 address of the network interface.
+	PrivateIpAddress *string `locationName:"privateIpAddress" type:"string"`
+
+	// One or more private IPv4 addresses.
+	PrivateIpAddresses []*PrivateIpAddressSpecification `locationName:"privateIpAddressesSet" locationNameList:"item" type:"list"`
+
+	// The number of secondary private IPv4 addresses for the network interface.
+	SecondaryPrivateIpAddressCount *int64 `locationName:"secondaryPrivateIpAddressCount" type:"integer"`
+
+	// The ID of the subnet for the network interface.
+	SubnetId *string `locationName:"subnetId" type:"string"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateInstanceNetworkInterfaceSpecification) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateInstanceNetworkInterfaceSpecification) GoString() string {
+	return s.String()
+}
+
+// SetAssociatePublicIpAddress sets the AssociatePublicIpAddress field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetAssociatePublicIpAddress(v bool) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.AssociatePublicIpAddress = &v
+	return s
+}
+
+// SetDeleteOnTermination sets the DeleteOnTermination field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetDeleteOnTermination(v bool) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.DeleteOnTermination = &v
+	return s
+}
+
+// SetDescription sets the Description field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetDescription(v string) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.Description = &v
+	return s
+}
+
+// SetDeviceIndex sets the DeviceIndex field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetDeviceIndex(v int64) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.DeviceIndex = &v
+	return s
+}
+
+// SetGroups sets the Groups field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetGroups(v []*string) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.Groups = v
+	return s
+}
+
+// SetIpv6AddressCount sets the Ipv6AddressCount field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetIpv6AddressCount(v int64) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.Ipv6AddressCount = &v
+	return s
+}
+
+// SetIpv6Addresses sets the Ipv6Addresses field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetIpv6Addresses(v []*InstanceIpv6Address) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.Ipv6Addresses = v
+	return s
+}
+
+// SetNetworkInterfaceId sets the NetworkInterfaceId field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetNetworkInterfaceId(v string) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.NetworkInterfaceId = &v
+	return s
+}
+
+// SetPrivateIpAddress sets the PrivateIpAddress field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetPrivateIpAddress(v string) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.PrivateIpAddress = &v
+	return s
+}
+
+// SetPrivateIpAddresses sets the PrivateIpAddresses field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetPrivateIpAddresses(v []*PrivateIpAddressSpecification) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.PrivateIpAddresses = v
+	return s
+}
+
+// SetSecondaryPrivateIpAddressCount sets the SecondaryPrivateIpAddressCount field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetSecondaryPrivateIpAddressCount(v int64) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.SecondaryPrivateIpAddressCount = &v
+	return s
+}
+
+// SetSubnetId sets the SubnetId field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecification) SetSubnetId(v string) *LaunchTemplateInstanceNetworkInterfaceSpecification {
+	s.SubnetId = &v
+	return s
+}
+
+// The parameters for a network interface.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateInstanceNetworkInterfaceSpecificationRequest
+type LaunchTemplateInstanceNetworkInterfaceSpecificationRequest struct {
+	_ struct{} `type:"structure"`
+
+	// Associates a public IPv4 address with eth0 for a new network interface.
+	AssociatePublicIpAddress *bool `type:"boolean"`
+
+	// Indicates whether the network interface is deleted when the instance is terminated.
+	DeleteOnTermination *bool `type:"boolean"`
+
+	// A description for the network interface.
+	Description *string `type:"string"`
+
+	// The device index for the network interface attachment.
+	DeviceIndex *int64 `type:"integer"`
+
+	// The IDs of one or more security groups.
+	Groups []*string `locationName:"SecurityGroupId" locationNameList:"SecurityGroupId" type:"list"`
+
+	// The number of IPv6 addresses to assign to a network interface. Amazon EC2
+	// automatically selects the IPv6 addresses from the subnet range. You can't
+	// use this option if specifying specific IPv6 addresses.
+	Ipv6AddressCount *int64 `type:"integer"`
+
+	// One or more specific IPv6 addresses from the IPv6 CIDR block range of your
+	// subnet. You can't use this option if you're specifying a number of IPv6 addresses.
+	Ipv6Addresses []*InstanceIpv6AddressRequest `locationNameList:"InstanceIpv6Address" type:"list"`
+
+	// The ID of the network interface.
+	NetworkInterfaceId *string `type:"string"`
+
+	// The primary private IPv4 address of the network interface.
+	PrivateIpAddress *string `type:"string"`
+
+	// One or more private IPv4 addresses.
+	PrivateIpAddresses []*PrivateIpAddressSpecification `locationNameList:"item" type:"list"`
+
+	// The number of secondary private IPv4 addresses to assign to a network interface.
+	SecondaryPrivateIpAddressCount *int64 `type:"integer"`
+
+	// The ID of the subnet for the network interface.
+	SubnetId *string `type:"string"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "LaunchTemplateInstanceNetworkInterfaceSpecificationRequest"}
+	if s.PrivateIpAddresses != nil {
+		for i, v := range s.PrivateIpAddresses {
+			if v == nil {
+				continue
+			}
+			if err := v.Validate(); err != nil {
+				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "PrivateIpAddresses", i), err.(request.ErrInvalidParams))
+			}
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAssociatePublicIpAddress sets the AssociatePublicIpAddress field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetAssociatePublicIpAddress(v bool) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.AssociatePublicIpAddress = &v
+	return s
+}
+
+// SetDeleteOnTermination sets the DeleteOnTermination field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetDeleteOnTermination(v bool) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.DeleteOnTermination = &v
+	return s
+}
+
+// SetDescription sets the Description field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetDescription(v string) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.Description = &v
+	return s
+}
+
+// SetDeviceIndex sets the DeviceIndex field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetDeviceIndex(v int64) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.DeviceIndex = &v
+	return s
+}
+
+// SetGroups sets the Groups field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetGroups(v []*string) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.Groups = v
+	return s
+}
+
+// SetIpv6AddressCount sets the Ipv6AddressCount field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetIpv6AddressCount(v int64) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.Ipv6AddressCount = &v
+	return s
+}
+
+// SetIpv6Addresses sets the Ipv6Addresses field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetIpv6Addresses(v []*InstanceIpv6AddressRequest) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.Ipv6Addresses = v
+	return s
+}
+
+// SetNetworkInterfaceId sets the NetworkInterfaceId field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetNetworkInterfaceId(v string) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.NetworkInterfaceId = &v
+	return s
+}
+
+// SetPrivateIpAddress sets the PrivateIpAddress field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetPrivateIpAddress(v string) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.PrivateIpAddress = &v
+	return s
+}
+
+// SetPrivateIpAddresses sets the PrivateIpAddresses field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetPrivateIpAddresses(v []*PrivateIpAddressSpecification) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.PrivateIpAddresses = v
+	return s
+}
+
+// SetSecondaryPrivateIpAddressCount sets the SecondaryPrivateIpAddressCount field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetSecondaryPrivateIpAddressCount(v int64) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.SecondaryPrivateIpAddressCount = &v
+	return s
+}
+
+// SetSubnetId sets the SubnetId field's value.
+func (s *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest) SetSubnetId(v string) *LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
+	s.SubnetId = &v
+	return s
+}
+
+// Describes overrides for a launch template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateOverrides
+type LaunchTemplateOverrides struct {
+	_ struct{} `type:"structure"`
+
+	// The Availability Zone in which to launch the instances.
+	AvailabilityZone *string `locationName:"availabilityZone" type:"string"`
+
+	// The instance type.
+	InstanceType *string `locationName:"instanceType" type:"string" enum:"InstanceType"`
+
+	// The maximum price per unit hour that you are willing to pay for a Spot Instance.
+	SpotPrice *string `locationName:"spotPrice" type:"string"`
+
+	// The ID of the subnet in which to launch the instances.
+	SubnetId *string `locationName:"subnetId" type:"string"`
+
+	// The number of units provided by the specified instance type.
+	WeightedCapacity *float64 `locationName:"weightedCapacity" type:"double"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateOverrides) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateOverrides) GoString() string {
+	return s.String()
+}
+
+// SetAvailabilityZone sets the AvailabilityZone field's value.
+func (s *LaunchTemplateOverrides) SetAvailabilityZone(v string) *LaunchTemplateOverrides {
+	s.AvailabilityZone = &v
+	return s
+}
+
+// SetInstanceType sets the InstanceType field's value.
+func (s *LaunchTemplateOverrides) SetInstanceType(v string) *LaunchTemplateOverrides {
+	s.InstanceType = &v
+	return s
+}
+
+// SetSpotPrice sets the SpotPrice field's value.
+func (s *LaunchTemplateOverrides) SetSpotPrice(v string) *LaunchTemplateOverrides {
+	s.SpotPrice = &v
+	return s
+}
+
+// SetSubnetId sets the SubnetId field's value.
+func (s *LaunchTemplateOverrides) SetSubnetId(v string) *LaunchTemplateOverrides {
+	s.SubnetId = &v
+	return s
+}
+
+// SetWeightedCapacity sets the WeightedCapacity field's value.
+func (s *LaunchTemplateOverrides) SetWeightedCapacity(v float64) *LaunchTemplateOverrides {
+	s.WeightedCapacity = &v
+	return s
+}
+
+// Describes the placement of an instance.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplatePlacement
+type LaunchTemplatePlacement struct {
+	_ struct{} `type:"structure"`
+
+	// The affinity setting for the instance on the Dedicated Host.
+	Affinity *string `locationName:"affinity" type:"string"`
+
+	// The Availability Zone of the instance.
+	AvailabilityZone *string `locationName:"availabilityZone" type:"string"`
+
+	// The name of the placement group for the instance.
+	GroupName *string `locationName:"groupName" type:"string"`
+
+	// The ID of the Dedicated Host for the instance.
+	HostId *string `locationName:"hostId" type:"string"`
+
+	// Reserved for future use.
+	SpreadDomain *string `locationName:"spreadDomain" type:"string"`
+
+	// The tenancy of the instance (if the instance is running in a VPC). An instance
+	// with a tenancy of dedicated runs on single-tenant hardware.
+	Tenancy *string `locationName:"tenancy" type:"string" enum:"Tenancy"`
+}
+
+// String returns the string representation
+func (s LaunchTemplatePlacement) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplatePlacement) GoString() string {
+	return s.String()
+}
+
+// SetAffinity sets the Affinity field's value.
+func (s *LaunchTemplatePlacement) SetAffinity(v string) *LaunchTemplatePlacement {
+	s.Affinity = &v
+	return s
+}
+
+// SetAvailabilityZone sets the AvailabilityZone field's value.
+func (s *LaunchTemplatePlacement) SetAvailabilityZone(v string) *LaunchTemplatePlacement {
+	s.AvailabilityZone = &v
+	return s
+}
+
+// SetGroupName sets the GroupName field's value.
+func (s *LaunchTemplatePlacement) SetGroupName(v string) *LaunchTemplatePlacement {
+	s.GroupName = &v
+	return s
+}
+
+// SetHostId sets the HostId field's value.
+func (s *LaunchTemplatePlacement) SetHostId(v string) *LaunchTemplatePlacement {
+	s.HostId = &v
+	return s
+}
+
+// SetSpreadDomain sets the SpreadDomain field's value.
+func (s *LaunchTemplatePlacement) SetSpreadDomain(v string) *LaunchTemplatePlacement {
+	s.SpreadDomain = &v
+	return s
+}
+
+// SetTenancy sets the Tenancy field's value.
+func (s *LaunchTemplatePlacement) SetTenancy(v string) *LaunchTemplatePlacement {
+	s.Tenancy = &v
+	return s
+}
+
+// The placement for the instance.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplatePlacementRequest
+type LaunchTemplatePlacementRequest struct {
+	_ struct{} `type:"structure"`
+
+	// The affinity setting for an instance on a Dedicated Host.
+	Affinity *string `type:"string"`
+
+	// The Availability Zone for the instance.
+	AvailabilityZone *string `type:"string"`
+
+	// The name of the placement group for the instance.
+	GroupName *string `type:"string"`
+
+	// The ID of the Dedicated Host for the instance.
+	HostId *string `type:"string"`
+
+	// Reserved for future use.
+	SpreadDomain *string `type:"string"`
+
+	// The tenancy of the instance (if the instance is running in a VPC). An instance
+	// with a tenancy of dedicated runs on single-tenant hardware.
+	Tenancy *string `type:"string" enum:"Tenancy"`
+}
+
+// String returns the string representation
+func (s LaunchTemplatePlacementRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplatePlacementRequest) GoString() string {
+	return s.String()
+}
+
+// SetAffinity sets the Affinity field's value.
+func (s *LaunchTemplatePlacementRequest) SetAffinity(v string) *LaunchTemplatePlacementRequest {
+	s.Affinity = &v
+	return s
+}
+
+// SetAvailabilityZone sets the AvailabilityZone field's value.
+func (s *LaunchTemplatePlacementRequest) SetAvailabilityZone(v string) *LaunchTemplatePlacementRequest {
+	s.AvailabilityZone = &v
+	return s
+}
+
+// SetGroupName sets the GroupName field's value.
+func (s *LaunchTemplatePlacementRequest) SetGroupName(v string) *LaunchTemplatePlacementRequest {
+	s.GroupName = &v
+	return s
+}
+
+// SetHostId sets the HostId field's value.
+func (s *LaunchTemplatePlacementRequest) SetHostId(v string) *LaunchTemplatePlacementRequest {
+	s.HostId = &v
+	return s
+}
+
+// SetSpreadDomain sets the SpreadDomain field's value.
+func (s *LaunchTemplatePlacementRequest) SetSpreadDomain(v string) *LaunchTemplatePlacementRequest {
+	s.SpreadDomain = &v
+	return s
+}
+
+// SetTenancy sets the Tenancy field's value.
+func (s *LaunchTemplatePlacementRequest) SetTenancy(v string) *LaunchTemplatePlacementRequest {
+	s.Tenancy = &v
+	return s
+}
+
+// The launch template to use. You must specify either the launch template ID
+// or launch template name in the request.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateSpecification
+type LaunchTemplateSpecification struct {
+	_ struct{} `type:"structure"`
+
+	// The ID of the launch template.
+	LaunchTemplateId *string `type:"string"`
+
+	// The name of the launch template.
+	LaunchTemplateName *string `type:"string"`
+
+	// The version number of the launch template.
+	//
+	// Default: The default version for the launch template.
+	Version *string `type:"string"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateSpecification) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateSpecification) GoString() string {
+	return s.String()
+}
+
+// SetLaunchTemplateId sets the LaunchTemplateId field's value.
+func (s *LaunchTemplateSpecification) SetLaunchTemplateId(v string) *LaunchTemplateSpecification {
+	s.LaunchTemplateId = &v
+	return s
+}
+
+// SetLaunchTemplateName sets the LaunchTemplateName field's value.
+func (s *LaunchTemplateSpecification) SetLaunchTemplateName(v string) *LaunchTemplateSpecification {
+	s.LaunchTemplateName = &v
+	return s
+}
+
+// SetVersion sets the Version field's value.
+func (s *LaunchTemplateSpecification) SetVersion(v string) *LaunchTemplateSpecification {
+	s.Version = &v
+	return s
+}
+
+// The options for Spot Instances.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateSpotMarketOptions
+type LaunchTemplateSpotMarketOptions struct {
+	_ struct{} `type:"structure"`
+
+	// The required duration for the Spot Instances (also known as Spot blocks),
+	// in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300,
+	// or 360).
+	BlockDurationMinutes *int64 `locationName:"blockDurationMinutes" type:"integer"`
+
+	// The behavior when a Spot Instance is interrupted.
+	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
+
+	// The maximum hourly price you're willing to pay for the Spot Instances.
+	MaxPrice *string `locationName:"maxPrice" type:"string"`
+
+	// The Spot Instance request type.
+	SpotInstanceType *string `locationName:"spotInstanceType" type:"string" enum:"SpotInstanceType"`
+
+	// The end date of the request. For a one-time request, the request remains
+	// active until all instances launch, the request is canceled, or this date
+	// is reached. If the request is persistent, it remains active until it is canceled
+	// or this date and time is reached.
+	ValidUntil *time.Time `locationName:"validUntil" type:"timestamp" timestampFormat:"iso8601"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateSpotMarketOptions) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateSpotMarketOptions) GoString() string {
+	return s.String()
+}
+
+// SetBlockDurationMinutes sets the BlockDurationMinutes field's value.
+func (s *LaunchTemplateSpotMarketOptions) SetBlockDurationMinutes(v int64) *LaunchTemplateSpotMarketOptions {
+	s.BlockDurationMinutes = &v
+	return s
+}
+
+// SetInstanceInterruptionBehavior sets the InstanceInterruptionBehavior field's value.
+func (s *LaunchTemplateSpotMarketOptions) SetInstanceInterruptionBehavior(v string) *LaunchTemplateSpotMarketOptions {
+	s.InstanceInterruptionBehavior = &v
+	return s
+}
+
+// SetMaxPrice sets the MaxPrice field's value.
+func (s *LaunchTemplateSpotMarketOptions) SetMaxPrice(v string) *LaunchTemplateSpotMarketOptions {
+	s.MaxPrice = &v
+	return s
+}
+
+// SetSpotInstanceType sets the SpotInstanceType field's value.
+func (s *LaunchTemplateSpotMarketOptions) SetSpotInstanceType(v string) *LaunchTemplateSpotMarketOptions {
+	s.SpotInstanceType = &v
+	return s
+}
+
+// SetValidUntil sets the ValidUntil field's value.
+func (s *LaunchTemplateSpotMarketOptions) SetValidUntil(v time.Time) *LaunchTemplateSpotMarketOptions {
+	s.ValidUntil = &v
+	return s
+}
+
+// The options for Spot Instances.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateSpotMarketOptionsRequest
+type LaunchTemplateSpotMarketOptionsRequest struct {
+	_ struct{} `type:"structure"`
+
+	// The required duration for the Spot Instances (also known as Spot blocks),
+	// in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300,
+	// or 360).
+	BlockDurationMinutes *int64 `type:"integer"`
+
+	// The behavior when a Spot Instance is interrupted. The default is terminate.
+	InstanceInterruptionBehavior *string `type:"string" enum:"InstanceInterruptionBehavior"`
+
+	// The maximum hourly price you're willing to pay for the Spot Instances.
+	MaxPrice *string `type:"string"`
+
+	// The Spot Instance request type.
+	SpotInstanceType *string `type:"string" enum:"SpotInstanceType"`
+
+	// The end date of the request. For a one-time request, the request remains
+	// active until all instances launch, the request is canceled, or this date
+	// is reached. If the request is persistent, it remains active until it is canceled
+	// or this date and time is reached. The default end date is 7 days from the
+	// current date.
+	ValidUntil *time.Time `type:"timestamp" timestampFormat:"iso8601"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateSpotMarketOptionsRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateSpotMarketOptionsRequest) GoString() string {
+	return s.String()
+}
+
+// SetBlockDurationMinutes sets the BlockDurationMinutes field's value.
+func (s *LaunchTemplateSpotMarketOptionsRequest) SetBlockDurationMinutes(v int64) *LaunchTemplateSpotMarketOptionsRequest {
+	s.BlockDurationMinutes = &v
+	return s
+}
+
+// SetInstanceInterruptionBehavior sets the InstanceInterruptionBehavior field's value.
+func (s *LaunchTemplateSpotMarketOptionsRequest) SetInstanceInterruptionBehavior(v string) *LaunchTemplateSpotMarketOptionsRequest {
+	s.InstanceInterruptionBehavior = &v
+	return s
+}
+
+// SetMaxPrice sets the MaxPrice field's value.
+func (s *LaunchTemplateSpotMarketOptionsRequest) SetMaxPrice(v string) *LaunchTemplateSpotMarketOptionsRequest {
+	s.MaxPrice = &v
+	return s
+}
+
+// SetSpotInstanceType sets the SpotInstanceType field's value.
+func (s *LaunchTemplateSpotMarketOptionsRequest) SetSpotInstanceType(v string) *LaunchTemplateSpotMarketOptionsRequest {
+	s.SpotInstanceType = &v
+	return s
+}
+
+// SetValidUntil sets the ValidUntil field's value.
+func (s *LaunchTemplateSpotMarketOptionsRequest) SetValidUntil(v time.Time) *LaunchTemplateSpotMarketOptionsRequest {
+	s.ValidUntil = &v
+	return s
+}
+
+// The tag specification for the launch template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateTagSpecification
+type LaunchTemplateTagSpecification struct {
+	_ struct{} `type:"structure"`
+
+	// The type of resource.
+	ResourceType *string `locationName:"resourceType" type:"string" enum:"ResourceType"`
+
+	// The tags for the resource.
+	Tags []*Tag `locationName:"tagSet" locationNameList:"item" type:"list"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateTagSpecification) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateTagSpecification) GoString() string {
+	return s.String()
+}
+
+// SetResourceType sets the ResourceType field's value.
+func (s *LaunchTemplateTagSpecification) SetResourceType(v string) *LaunchTemplateTagSpecification {
+	s.ResourceType = &v
+	return s
+}
+
+// SetTags sets the Tags field's value.
+func (s *LaunchTemplateTagSpecification) SetTags(v []*Tag) *LaunchTemplateTagSpecification {
+	s.Tags = v
+	return s
+}
+
+// The tags specification for the launch template.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateTagSpecificationRequest
+type LaunchTemplateTagSpecificationRequest struct {
+	_ struct{} `type:"structure"`
+
+	// The type of resource to tag. Currently, the resource types that support tagging
+	// on creation are instance and volume.
+	ResourceType *string `type:"string" enum:"ResourceType"`
+
+	// The tags to apply to the resource.
+	Tags []*Tag `locationName:"Tag" locationNameList:"item" type:"list"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateTagSpecificationRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateTagSpecificationRequest) GoString() string {
+	return s.String()
+}
+
+// SetResourceType sets the ResourceType field's value.
+func (s *LaunchTemplateTagSpecificationRequest) SetResourceType(v string) *LaunchTemplateTagSpecificationRequest {
+	s.ResourceType = &v
+	return s
+}
+
+// SetTags sets the Tags field's value.
+func (s *LaunchTemplateTagSpecificationRequest) SetTags(v []*Tag) *LaunchTemplateTagSpecificationRequest {
+	s.Tags = v
+	return s
+}
+
+// Describes a launch template version.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplateVersion
+type LaunchTemplateVersion struct {
+	_ struct{} `type:"structure"`
+
+	// The time the version was created.
+	CreateTime *time.Time `locationName:"createTime" type:"timestamp" timestampFormat:"iso8601"`
+
+	// The principal that created the version.
+	CreatedBy *string `locationName:"createdBy" type:"string"`
+
+	// Indicates whether the version is the default version.
+	DefaultVersion *bool `locationName:"defaultVersion" type:"boolean"`
+
+	// Information about the launch template.
+	LaunchTemplateData *ResponseLaunchTemplateData `locationName:"launchTemplateData" type:"structure"`
+
+	// The ID of the launch template.
+	LaunchTemplateId *string `locationName:"launchTemplateId" type:"string"`
+
+	// The name of the launch template.
+	LaunchTemplateName *string `locationName:"launchTemplateName" min:"3" type:"string"`
+
+	// The description for the version.
+	VersionDescription *string `locationName:"versionDescription" type:"string"`
+
+	// The version number.
+	VersionNumber *int64 `locationName:"versionNumber" type:"long"`
+}
+
+// String returns the string representation
+func (s LaunchTemplateVersion) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplateVersion) GoString() string {
+	return s.String()
+}
+
+// SetCreateTime sets the CreateTime field's value.
+func (s *LaunchTemplateVersion) SetCreateTime(v time.Time) *LaunchTemplateVersion {
+	s.CreateTime = &v
+	return s
+}
+
+// SetCreatedBy sets the CreatedBy field's value.
+func (s *LaunchTemplateVersion) SetCreatedBy(v string) *LaunchTemplateVersion {
+	s.CreatedBy = &v
+	return s
+}
+
+// SetDefaultVersion sets the DefaultVersion field's value.
+func (s *LaunchTemplateVersion) SetDefaultVersion(v bool) *LaunchTemplateVersion {
+	s.DefaultVersion = &v
+	return s
+}
+
+// SetLaunchTemplateData sets the LaunchTemplateData field's value.
+func (s *LaunchTemplateVersion) SetLaunchTemplateData(v *ResponseLaunchTemplateData) *LaunchTemplateVersion {
+	s.LaunchTemplateData = v
+	return s
+}
+
+// SetLaunchTemplateId sets the LaunchTemplateId field's value.
+func (s *LaunchTemplateVersion) SetLaunchTemplateId(v string) *LaunchTemplateVersion {
+	s.LaunchTemplateId = &v
+	return s
+}
+
+// SetLaunchTemplateName sets the LaunchTemplateName field's value.
+func (s *LaunchTemplateVersion) SetLaunchTemplateName(v string) *LaunchTemplateVersion {
+	s.LaunchTemplateName = &v
+	return s
+}
+
+// SetVersionDescription sets the VersionDescription field's value.
+func (s *LaunchTemplateVersion) SetVersionDescription(v string) *LaunchTemplateVersion {
+	s.VersionDescription = &v
+	return s
+}
+
+// SetVersionNumber sets the VersionNumber field's value.
+func (s *LaunchTemplateVersion) SetVersionNumber(v int64) *LaunchTemplateVersion {
+	s.VersionNumber = &v
+	return s
+}
+
+// Describes the monitoring for the instance.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplatesMonitoring
+type LaunchTemplatesMonitoring struct {
+	_ struct{} `type:"structure"`
+
+	// Indicates whether detailed monitoring is enabled. Otherwise, basic monitoring
+	// is enabled.
+	Enabled *bool `locationName:"enabled" type:"boolean"`
+}
+
+// String returns the string representation
+func (s LaunchTemplatesMonitoring) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplatesMonitoring) GoString() string {
+	return s.String()
+}
+
+// SetEnabled sets the Enabled field's value.
+func (s *LaunchTemplatesMonitoring) SetEnabled(v bool) *LaunchTemplatesMonitoring {
+	s.Enabled = &v
+	return s
+}
+
+// Describes the monitoring for the instance.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LaunchTemplatesMonitoringRequest
+type LaunchTemplatesMonitoringRequest struct {
+	_ struct{} `type:"structure"`
+
+	// Specify true to enable detailed monitoring. Otherwise, basic monitoring is
+	// enabled.
+	Enabled *bool `type:"boolean"`
+}
+
+// String returns the string representation
+func (s LaunchTemplatesMonitoringRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LaunchTemplatesMonitoringRequest) GoString() string {
+	return s.String()
+}
+
+// SetEnabled sets the Enabled field's value.
+func (s *LaunchTemplatesMonitoringRequest) SetEnabled(v bool) *LaunchTemplatesMonitoringRequest {
+	s.Enabled = &v
+	return s
+}
+
+// Describes the Classic Load Balancers and target groups to attach to a Spot
+// Fleet request.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LoadBalancersConfig
+type LoadBalancersConfig struct {
+	_ struct{} `type:"structure"`
+
+	// The Classic Load Balancers.
+	ClassicLoadBalancersConfig *ClassicLoadBalancersConfig `locationName:"classicLoadBalancersConfig" type:"structure"`
+
+	// The target groups.
+	TargetGroupsConfig *TargetGroupsConfig `locationName:"targetGroupsConfig" type:"structure"`
+}
+
+// String returns the string representation
+func (s LoadBalancersConfig) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LoadBalancersConfig) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *LoadBalancersConfig) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "LoadBalancersConfig"}
+	if s.ClassicLoadBalancersConfig != nil {
+		if err := s.ClassicLoadBalancersConfig.Validate(); err != nil {
+			invalidParams.AddNested("ClassicLoadBalancersConfig", err.(request.ErrInvalidParams))
+		}
+	}
+	if s.TargetGroupsConfig != nil {
+		if err := s.TargetGroupsConfig.Validate(); err != nil {
+			invalidParams.AddNested("TargetGroupsConfig", err.(request.ErrInvalidParams))
+		}
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetClassicLoadBalancersConfig sets the ClassicLoadBalancersConfig field's value.
+func (s *LoadBalancersConfig) SetClassicLoadBalancersConfig(v *ClassicLoadBalancersConfig) *LoadBalancersConfig {
+	s.ClassicLoadBalancersConfig = v
+	return s
+}
+
+// SetTargetGroupsConfig sets the TargetGroupsConfig field's value.
+func (s *LoadBalancersConfig) SetTargetGroupsConfig(v *TargetGroupsConfig) *LoadBalancersConfig {
+	s.TargetGroupsConfig = v
+	return s
+}
+
+// Describes a load permission.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LoadPermission
+type LoadPermission struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the group.
+	Group *string `locationName:"group" type:"string" enum:"PermissionGroup"`
+
+	// The AWS account ID.
+	UserId *string `locationName:"userId" type:"string"`
+}
+
+// String returns the string representation
+func (s LoadPermission) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LoadPermission) GoString() string {
+	return s.String()
+}
+
+// SetGroup sets the Group field's value.
+func (s *LoadPermission) SetGroup(v string) *LoadPermission {
+	s.Group = &v
+	return s
+}
+
+// SetUserId sets the UserId field's value.
+func (s *LoadPermission) SetUserId(v string) *LoadPermission {
+	s.UserId = &v
+	return s
+}
+
+// Describes modifications to the load permissions of an Amazon FPGA image (AFI).
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LoadPermissionModifications
+type LoadPermissionModifications struct {
+	_ struct{} `type:"structure"`
+
+	// The load permissions to add.
+	Add []*LoadPermissionRequest `locationNameList:"item" type:"list"`
+
+	// The load permissions to remove.
+	Remove []*LoadPermissionRequest `locationNameList:"item" type:"list"`
+}
+
+// String returns the string representation
+func (s LoadPermissionModifications) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LoadPermissionModifications) GoString() string {
+	return s.String()
+}
+
+// SetAdd sets the Add field's value.
+func (s *LoadPermissionModifications) SetAdd(v []*LoadPermissionRequest) *LoadPermissionModifications {
+	s.Add = v
+	return s
+}
+
+// SetRemove sets the Remove field's value.
+func (s *LoadPermissionModifications) SetRemove(v []*LoadPermissionRequest) *LoadPermissionModifications {
+	s.Remove = v
+	return s
+}
+
+// Describes a load permission.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/LoadPermissionRequest
+type LoadPermissionRequest struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the group.
+	Group *string `type:"string" enum:"PermissionGroup"`
+
+	// The AWS account ID.
+	UserId *string `type:"string"`
+}
+
+// String returns the string representation
+func (s LoadPermissionRequest) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s LoadPermissionRequest) GoString() string {
+	return s.String()
+}
+
+// SetGroup sets the Group field's value.
+func (s *LoadPermissionRequest) SetGroup(v string) *LoadPermissionRequest {
+	s.Group = &v
+	return s
+}
+
+// SetUserId sets the UserId field's value.
+func (s *LoadPermissionRequest) SetUserId(v string) *LoadPermissionRequest {
+	s.UserId = &v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttributeRequest
+type ModifyFpgaImageAttributeInput struct {
+	_ struct{} `type:"structure"`
+
+	// The name of the attribute.
+	Attribute *string `type:"string" enum:"FpgaImageAttributeName"`
+
+	// A description for the AFI.
+	Description *string `type:"string"`
+
+	// Checks whether you have the required permissions for the action, without
+	// actually making the request, and provides an error response. If you have
+	// the required permissions, the error response is DryRunOperation. Otherwise,
+	// it is UnauthorizedOperation.
+	DryRun *bool `type:"boolean"`
+
+	// The ID of the AFI.
+	//
+	// FpgaImageId is a required field
+	FpgaImageId *string `type:"string" required:"true"`
+
+	// The load permission for the AFI.
+	LoadPermission *LoadPermissionModifications `type:"structure"`
+
+	// A name for the AFI.
+	Name *string `type:"string"`
+
+	// The operation type.
+	OperationType *string `type:"string" enum:"OperationType"`
+
+	// One or more product codes. After you add a product code to an AFI, it can't
+	// be removed. This parameter is valid only when modifying the productCodes
+	// attribute.
+	ProductCodes []*string `locationName:"ProductCode" locationNameList:"ProductCode" type:"list"`
+
+	// One or more user groups. This parameter is valid only when modifying the
+	// loadPermission attribute.
+	UserGroups []*string `locationName:"UserGroup" locationNameList:"UserGroup" type:"list"`
+
+	// One or more AWS account IDs. This parameter is valid only when modifying
+	// the loadPermission attribute.
+	UserIds []*string `locationName:"UserId" locationNameList:"UserId" type:"list"`
+}
+
+// String returns the string representation
+func (s ModifyFpgaImageAttributeInput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ModifyFpgaImageAttributeInput) GoString() string {
+	return s.String()
+}
+
+// Validate inspects the fields of the type to determine if they are valid.
+func (s *ModifyFpgaImageAttributeInput) Validate() error {
+	invalidParams := request.ErrInvalidParams{Context: "ModifyFpgaImageAttributeInput"}
+	if s.FpgaImageId == nil {
+		invalidParams.Add(request.NewErrParamRequired("FpgaImageId"))
+	}
+
+	if invalidParams.Len() > 0 {
+		return invalidParams
+	}
+	return nil
+}
+
+// SetAttribute sets the Attribute field's value.
+func (s *ModifyFpgaImageAttributeInput) SetAttribute(v string) *ModifyFpgaImageAttributeInput {
+	s.Attribute = &v
+	return s
+}
+
+// SetDescription sets the Description field's value.
+func (s *ModifyFpgaImageAttributeInput) SetDescription(v string) *ModifyFpgaImageAttributeInput {
+	s.Description = &v
+	return s
+}
+
+// SetDryRun sets the DryRun field's value.
+func (s *ModifyFpgaImageAttributeInput) SetDryRun(v bool) *ModifyFpgaImageAttributeInput {
+	s.DryRun = &v
+	return s
+}
+
+// SetFpgaImageId sets the FpgaImageId field's value.
+func (s *ModifyFpgaImageAttributeInput) SetFpgaImageId(v string) *ModifyFpgaImageAttributeInput {
+	s.FpgaImageId = &v
+	return s
+}
+
+// SetLoadPermission sets the LoadPermission field's value.
+func (s *ModifyFpgaImageAttributeInput) SetLoadPermission(v *LoadPermissionModifications) *ModifyFpgaImageAttributeInput {
+	s.LoadPermission = v
+	return s
+}
+
+// SetName sets the Name field's value.
+func (s *ModifyFpgaImageAttributeInput) SetName(v string) *ModifyFpgaImageAttributeInput {
+	s.Name = &v
+	return s
+}
+
+// SetOperationType sets the OperationType field's value.
+func (s *ModifyFpgaImageAttributeInput) SetOperationType(v string) *ModifyFpgaImageAttributeInput {
+	s.OperationType = &v
+	return s
+}
+
+// SetProductCodes sets the ProductCodes field's value.
+func (s *ModifyFpgaImageAttributeInput) SetProductCodes(v []*string) *ModifyFpgaImageAttributeInput {
+	s.ProductCodes = v
+	return s
+}
+
+// SetUserGroups sets the UserGroups field's value.
+func (s *ModifyFpgaImageAttributeInput) SetUserGroups(v []*string) *ModifyFpgaImageAttributeInput {
+	s.UserGroups = v
+	return s
+}
+
+// SetUserIds sets the UserIds field's value.
+func (s *ModifyFpgaImageAttributeInput) SetUserIds(v []*string) *ModifyFpgaImageAttributeInput {
+	s.UserIds = v
+	return s
+}
+
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyFpgaImageAttributeResult
+type ModifyFpgaImageAttributeOutput struct {
+	_ struct{} `type:"structure"`
+
+	// Information about the attribute.
+	FpgaImageAttribute *FpgaImageAttribute `locationName:"fpgaImageAttribute" type:"structure"`
+}
+
+// String returns the string representation
+func (s ModifyFpgaImageAttributeOutput) String() string {
+	return awsutil.Prettify(s)
+}
+
+// GoString returns the string representation
+func (s ModifyFpgaImageAttributeOutput) GoString() string {
+	return s.String()
+}
+
+// SetFpgaImageAttribute sets the FpgaImageAttribute field's value.
+func (s *ModifyFpgaImageAttributeOutput) SetFpgaImageAttribute(v *FpgaImageAttribute) *ModifyFpgaImageAttributeOutput {
+	s.FpgaImageAttribute = v
+>>>>>>> Working on getting compiling
 	return s
 }
 
@@ -54055,7 +56020,11 @@ func (s ModifyInstanceAttributeOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCreditSpecificationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCreditSpecificationRequest
+>>>>>>> Working on getting compiling
 type ModifyInstanceCreditSpecificationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -54117,7 +56086,11 @@ func (s *ModifyInstanceCreditSpecificationInput) SetInstanceCreditSpecifications
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCreditSpecificationResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCreditSpecificationResult
+>>>>>>> Working on getting compiling
 type ModifyInstanceCreditSpecificationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -54244,7 +56217,11 @@ func (s *ModifyInstancePlacementOutput) SetReturn(v bool) *ModifyInstancePlaceme
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyLaunchTemplateRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyLaunchTemplateRequest
+>>>>>>> Working on getting compiling
 type ModifyLaunchTemplateInput struct {
 	_ struct{} `type:"structure"`
 
@@ -54323,7 +56300,11 @@ func (s *ModifyLaunchTemplateInput) SetLaunchTemplateName(v string) *ModifyLaunc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyLaunchTemplateResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyLaunchTemplateResult
+>>>>>>> Working on getting compiling
 type ModifyLaunchTemplateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -55106,7 +57087,11 @@ func (s ModifyVpcAttributeOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointConnectionNotificationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointConnectionNotificationRequest
+>>>>>>> Working on getting compiling
 type ModifyVpcEndpointConnectionNotificationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -55176,7 +57161,11 @@ func (s *ModifyVpcEndpointConnectionNotificationInput) SetDryRun(v bool) *Modify
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointConnectionNotificationResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointConnectionNotificationResult
+>>>>>>> Working on getting compiling
 type ModifyVpcEndpointConnectionNotificationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -55366,7 +57355,11 @@ func (s *ModifyVpcEndpointOutput) SetReturn(v bool) *ModifyVpcEndpointOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServiceConfigurationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServiceConfigurationRequest
+>>>>>>> Working on getting compiling
 type ModifyVpcEndpointServiceConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -55446,7 +57439,11 @@ func (s *ModifyVpcEndpointServiceConfigurationInput) SetServiceId(v string) *Mod
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServiceConfigurationResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServiceConfigurationResult
+>>>>>>> Working on getting compiling
 type ModifyVpcEndpointServiceConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -55470,7 +57467,11 @@ func (s *ModifyVpcEndpointServiceConfigurationOutput) SetReturn(v bool) *ModifyV
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServicePermissionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServicePermissionsRequest
+>>>>>>> Working on getting compiling
 type ModifyVpcEndpointServicePermissionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -55541,7 +57542,11 @@ func (s *ModifyVpcEndpointServicePermissionsInput) SetServiceId(v string) *Modif
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServicePermissionsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcEndpointServicePermissionsResult
+>>>>>>> Working on getting compiling
 type ModifyVpcEndpointServicePermissionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -55565,7 +57570,11 @@ func (s *ModifyVpcEndpointServicePermissionsOutput) SetReturnValue(v bool) *Modi
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcPeeringConnectionOptionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpcPeeringConnectionOptionsRequest
+>>>>>>> Working on getting compiling
 type ModifyVpcPeeringConnectionOptionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -58521,7 +60530,11 @@ func (s *RegisterImageOutput) SetImageId(v string) *RegisterImageOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RejectVpcEndpointConnectionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RejectVpcEndpointConnectionsRequest
+>>>>>>> Working on getting compiling
 type RejectVpcEndpointConnectionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -58586,7 +60599,11 @@ func (s *RejectVpcEndpointConnectionsInput) SetVpcEndpointIds(v []*string) *Reje
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RejectVpcEndpointConnectionsResult
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RejectVpcEndpointConnectionsResult
+>>>>>>> Working on getting compiling
 type RejectVpcEndpointConnectionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -59537,7 +61554,11 @@ func (s ReportInstanceStatusOutput) GoString() string {
 }
 
 // The information to include in the launch template.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RequestLaunchTemplateData
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RequestLaunchTemplateData
+>>>>>>> Working on getting compiling
 type RequestLaunchTemplateData struct {
 	_ struct{} `type:"structure"`
 
@@ -59945,6 +61966,7 @@ type RequestSpotInstancesInput struct {
 	InstanceCount *int64 `locationName:"instanceCount" type:"integer"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The behavior when a Spot Instance is interrupted. The default is terminate.
 	InstanceInterruptionBehavior *string `type:"string" enum:"InstanceInterruptionBehavior"`
 
@@ -59955,6 +61977,12 @@ type RequestSpotInstancesInput struct {
 
 	// The instance launch group. Launch groups are Spot instances that launch together
 >>>>>>> Initial dep workover
+=======
+	// The behavior when a Spot Instance is interrupted. The default is terminate.
+	InstanceInterruptionBehavior *string `type:"string" enum:"InstanceInterruptionBehavior"`
+
+	// The instance launch group. Launch groups are Spot Instances that launch together
+>>>>>>> Working on getting compiling
 	// and terminate together.
 	//
 	// Default: Instances are launched and terminated individually
@@ -61573,7 +63601,11 @@ func (s ResetSnapshotAttributeOutput) GoString() string {
 
 // Describes the error that's returned when you cannot delete a launch template
 // version.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResponseError
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResponseError
+>>>>>>> Working on getting compiling
 type ResponseError struct {
 	_ struct{} `type:"structure"`
 
@@ -61607,7 +63639,11 @@ func (s *ResponseError) SetMessage(v string) *ResponseError {
 }
 
 // The information for a launch template.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResponseLaunchTemplateData
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResponseLaunchTemplateData
+>>>>>>> Working on getting compiling
 type ResponseLaunchTemplateData struct {
 	_ struct{} `type:"structure"`
 
@@ -64263,8 +66299,13 @@ func (s *SecurityGroupReference) SetVpcPeeringConnectionId(v string) *SecurityGr
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Describes a service configuration for a VPC endpoint service.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceConfiguration
+=======
+// Describes a service configuration for a VPC endpoint service.
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceConfiguration
+>>>>>>> Working on getting compiling
 type ServiceConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -64362,9 +66403,12 @@ func (s *ServiceConfiguration) SetServiceType(v []*ServiceTypeDetail) *ServiceCo
 }
 
 // Describes a VPC endpoint service.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceDetail
 =======
 // Describes a service.
+=======
+>>>>>>> Working on getting compiling
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ServiceDetail
 >>>>>>> Initial dep workover
 type ServiceDetail struct {
@@ -64991,7 +67035,11 @@ func (s *SnapshotTaskDetail) SetUserBucket(v *UserBucketDetails) *SnapshotTaskDe
 }
 
 // Describes the data feed for a Spot Instance.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotDatafeedSubscription
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotDatafeedSubscription
+>>>>>>> Working on getting compiling
 type SpotDatafeedSubscription struct {
 	_ struct{} `type:"structure"`
 
@@ -65052,7 +67100,11 @@ func (s *SpotDatafeedSubscription) SetState(v string) *SpotDatafeedSubscription 
 }
 
 // Describes the launch specification for one or more Spot Instances.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotFleetLaunchSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotFleetLaunchSpecification
+>>>>>>> Working on getting compiling
 type SpotFleetLaunchSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -65301,7 +67353,11 @@ func (s *SpotFleetMonitoring) SetEnabled(v bool) *SpotFleetMonitoring {
 }
 
 // Describes a Spot Fleet request.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotFleetRequestConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotFleetRequestConfig
+>>>>>>> Working on getting compiling
 type SpotFleetRequestConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -65374,7 +67430,11 @@ func (s *SpotFleetRequestConfig) SetSpotFleetRequestState(v string) *SpotFleetRe
 }
 
 // Describes the configuration of a Spot Fleet request.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotFleetRequestConfigData
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotFleetRequestConfigData
+>>>>>>> Working on getting compiling
 type SpotFleetRequestConfigData struct {
 	_ struct{} `type:"structure"`
 
@@ -65404,6 +67464,7 @@ type SpotFleetRequestConfigData struct {
 	IamFleetRole *string `locationName:"iamFleetRole" type:"string" required:"true"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The behavior when a Spot Instance is interrupted. The default is terminate.
 	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
 
@@ -65427,21 +67488,35 @@ type SpotFleetRequestConfigData struct {
 	// the following instance types: C1, CC1, CC2, CG1, CG2, CR1, CS1, G1, G2, HI1,
 	// HS1, M1, M2, M3, and T1.
 	LoadBalancersConfig *LoadBalancersConfig `locationName:"loadBalancersConfig" type:"structure"`
+=======
+	// The behavior when a Spot Instance is interrupted. The default is terminate.
+	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
+
+	// The launch specifications for the Spot Fleet request.
+	LaunchSpecifications []*SpotFleetLaunchSpecification `locationName:"launchSpecifications" locationNameList:"item" type:"list"`
+
+	// The launch template and overrides.
+	LaunchTemplateConfigs []*LaunchTemplateConfig `locationName:"launchTemplateConfigs" locationNameList:"item" type:"list"`
+>>>>>>> Working on getting compiling
 
 <<<<<<< HEAD
 	// Indicates whether Spot Fleet should replace unhealthy instances.
 =======
 	// One or more Classic Load Balancers and target groups to attach to the Spot
-	// fleet request. Spot fleet registers the running Spot instances with the specified
+	// Fleet request. Spot Fleet registers the running Spot Instances with the specified
 	// Classic Load Balancers and target groups.
 	//
-	// With Network Load Balancers, Spot fleet cannot register instances that have
+	// With Network Load Balancers, Spot Fleet cannot register instances that have
 	// the following instance types: C1, CC1, CC2, CG1, CG2, CR1, CS1, G1, G2, HI1,
 	// HS1, M1, M2, M3, and T1.
 	LoadBalancersConfig *LoadBalancersConfig `locationName:"loadBalancersConfig" type:"structure"`
 
+<<<<<<< HEAD
 	// Indicates whether Spot fleet should replace unhealthy instances.
 >>>>>>> Initial dep workover
+=======
+	// Indicates whether Spot Fleet should replace unhealthy instances.
+>>>>>>> Working on getting compiling
 	ReplaceUnhealthyInstances *bool `locationName:"replaceUnhealthyInstances" type:"boolean"`
 
 	// The maximum price per unit hour that you are willing to pay for a Spot Instance.
@@ -65511,6 +67586,9 @@ func (s *SpotFleetRequestConfigData) Validate() error {
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	if s.LaunchTemplateConfigs != nil {
 		for i, v := range s.LaunchTemplateConfigs {
 			if v == nil {
@@ -65521,8 +67599,11 @@ func (s *SpotFleetRequestConfigData) Validate() error {
 			}
 		}
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	if s.LoadBalancersConfig != nil {
 		if err := s.LoadBalancersConfig.Validate(); err != nil {
 			invalidParams.AddNested("LoadBalancersConfig", err.(request.ErrInvalidParams))
@@ -65578,14 +67659,20 @@ func (s *SpotFleetRequestConfigData) SetLaunchSpecifications(v []*SpotFleetLaunc
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // SetLaunchTemplateConfigs sets the LaunchTemplateConfigs field's value.
 func (s *SpotFleetRequestConfigData) SetLaunchTemplateConfigs(v []*LaunchTemplateConfig) *SpotFleetRequestConfigData {
 	s.LaunchTemplateConfigs = v
 	return s
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 // SetLoadBalancersConfig sets the LoadBalancersConfig field's value.
 func (s *SpotFleetRequestConfigData) SetLoadBalancersConfig(v *LoadBalancersConfig) *SpotFleetRequestConfigData {
 	s.LoadBalancersConfig = v
@@ -65635,7 +67722,11 @@ func (s *SpotFleetRequestConfigData) SetValidUntil(v time.Time) *SpotFleetReques
 }
 
 // The tags for a Spot Fleet resource.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotFleetTagSpecification
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotFleetTagSpecification
+>>>>>>> Working on getting compiling
 type SpotFleetTagSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -65670,7 +67761,11 @@ func (s *SpotFleetTagSpecification) SetTags(v []*Tag) *SpotFleetTagSpecification
 }
 
 // Describes a Spot Instance request.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotInstanceRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotInstanceRequest
+>>>>>>> Working on getting compiling
 type SpotInstanceRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -65698,6 +67793,7 @@ type SpotInstanceRequest struct {
 	InstanceId *string `locationName:"instanceId" type:"string"`
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// The behavior when a Spot Instance is interrupted.
 	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
 
@@ -65708,6 +67804,12 @@ type SpotInstanceRequest struct {
 
 	// The instance launch group. Launch groups are Spot instances that launch together
 >>>>>>> Initial dep workover
+=======
+	// The behavior when a Spot Instance is interrupted.
+	InstanceInterruptionBehavior *string `locationName:"instanceInterruptionBehavior" type:"string" enum:"InstanceInterruptionBehavior"`
+
+	// The instance launch group. Launch groups are Spot Instances that launch together
+>>>>>>> Working on getting compiling
 	// and terminate together.
 	LaunchGroup *string `locationName:"launchGroup" type:"string"`
 
@@ -65878,7 +67980,11 @@ func (s *SpotInstanceRequest) SetValidUntil(v time.Time) *SpotInstanceRequest {
 }
 
 // Describes a Spot Instance state change.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotInstanceStateFault
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotInstanceStateFault
+>>>>>>> Working on getting compiling
 type SpotInstanceStateFault struct {
 	_ struct{} `type:"structure"`
 
@@ -65912,7 +68018,11 @@ func (s *SpotInstanceStateFault) SetMessage(v string) *SpotInstanceStateFault {
 }
 
 // Describes the status of a Spot Instance request.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotInstanceStatus
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotInstanceStatus
+>>>>>>> Working on getting compiling
 type SpotInstanceStatus struct {
 	_ struct{} `type:"structure"`
 
@@ -65957,7 +68067,11 @@ func (s *SpotInstanceStatus) SetUpdateTime(v time.Time) *SpotInstanceStatus {
 }
 
 // The options for Spot Instances.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotMarketOptions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotMarketOptions
+>>>>>>> Working on getting compiling
 type SpotMarketOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -66025,7 +68139,11 @@ func (s *SpotMarketOptions) SetValidUntil(v time.Time) *SpotMarketOptions {
 }
 
 // Describes Spot Instance placement.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotPlacement
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotPlacement
+>>>>>>> Working on getting compiling
 type SpotPlacement struct {
 	_ struct{} `type:"structure"`
 
@@ -66074,7 +68192,11 @@ func (s *SpotPlacement) SetTenancy(v string) *SpotPlacement {
 
 // Describes the maximum price per hour that you are willing to pay for a Spot
 // Instance.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotPrice
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SpotPrice
+>>>>>>> Working on getting compiling
 type SpotPrice struct {
 	_ struct{} `type:"structure"`
 
@@ -66387,10 +68509,14 @@ type StateReason struct {
 	//
 	//    * Server.SpotInstanceTermination: A Spot Instance was terminated due to
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//    an increase in the Spot price.
 =======
 	//    an increase in the market price.
 >>>>>>> Initial dep workover
+=======
+	//    an increase in the Spot price.
+>>>>>>> Working on getting compiling
 	//
 	//    * Client.InternalError: A client error caused the instance to terminate
 	//    on launch.
@@ -66781,7 +68907,11 @@ func (s *SubnetIpv6CidrBlockAssociation) SetIpv6CidrBlockState(v *SubnetCidrBloc
 
 // Describes the T2 instance whose credit option for CPU usage was successfully
 // modified.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SuccessfulInstanceCreditSpecificationItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SuccessfulInstanceCreditSpecificationItem
+>>>>>>> Working on getting compiling
 type SuccessfulInstanceCreditSpecificationItem struct {
 	_ struct{} `type:"structure"`
 
@@ -67062,12 +69192,17 @@ func (s *TargetGroup) SetArn(v string) *TargetGroup {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Describes the target groups to attach to a Spot Fleet. Spot Fleet registers
 // the running Spot Instances with these target groups.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/TargetGroupsConfig
 =======
 // Describes the target groups to attach to a Spot fleet. Spot fleet registers
 // the running Spot instances with these target groups.
+=======
+// Describes the target groups to attach to a Spot Fleet. Spot Fleet registers
+// the running Spot Instances with these target groups.
+>>>>>>> Working on getting compiling
 // Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/TargetGroupsConfig
 >>>>>>> Initial dep workover
 type TargetGroupsConfig struct {
@@ -67472,7 +69607,11 @@ func (s *UnmonitorInstancesOutput) SetInstanceMonitorings(v []*InstanceMonitorin
 }
 
 // Describes the T2 instance whose credit option for CPU usage was not modified.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UnsuccessfulInstanceCreditSpecificationItem
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UnsuccessfulInstanceCreditSpecificationItem
+>>>>>>> Working on getting compiling
 type UnsuccessfulInstanceCreditSpecificationItem struct {
 	_ struct{} `type:"structure"`
 
@@ -67508,7 +69647,11 @@ func (s *UnsuccessfulInstanceCreditSpecificationItem) SetInstanceId(v string) *U
 
 // Information about the error for the T2 instance whose credit option for CPU
 // usage was not modified.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UnsuccessfulInstanceCreditSpecificationItemError
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UnsuccessfulInstanceCreditSpecificationItemError
+>>>>>>> Working on getting compiling
 type UnsuccessfulInstanceCreditSpecificationItemError struct {
 	_ struct{} `type:"structure"`
 
@@ -69084,7 +71227,11 @@ func (s *VpcEndpoint) SetVpcId(v string) *VpcEndpoint {
 }
 
 // Describes a VPC endpoint connection to a service.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpcEndpointConnection
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpcEndpointConnection
+>>>>>>> Working on getting compiling
 type VpcEndpointConnection struct {
 	_ struct{} `type:"structure"`
 
@@ -70303,11 +72450,17 @@ const (
 
 const (
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// InstanceInterruptionBehaviorHibernate is a InstanceInterruptionBehavior enum value
 	InstanceInterruptionBehaviorHibernate = "hibernate"
 
 =======
 >>>>>>> Initial dep workover
+=======
+	// InstanceInterruptionBehaviorHibernate is a InstanceInterruptionBehavior enum value
+	InstanceInterruptionBehaviorHibernate = "hibernate"
+
+>>>>>>> Working on getting compiling
 	// InstanceInterruptionBehaviorStop is a InstanceInterruptionBehavior enum value
 	InstanceInterruptionBehaviorStop = "stop"
 
@@ -71093,6 +73246,9 @@ const (
 
 const (
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 	// ServiceStatePending is a ServiceState enum value
 	ServiceStatePending = "Pending"
 
@@ -71110,8 +73266,11 @@ const (
 )
 
 const (
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
 	// ServiceTypeInterface is a ServiceType enum value
 	ServiceTypeInterface = "Interface"
 

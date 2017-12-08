@@ -33,7 +33,11 @@ const opCreateChannel = "CreateChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannel
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) CreateChannelRequest(input *CreateChannelInput) (req *request.Request, output *CreateChannelOutput) {
 	op := &request.Operation{
 		Name:       opCreateChannel,
@@ -74,7 +78,11 @@ func (c *MediaPackage) CreateChannelRequest(input *CreateChannelInput) (req *req
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannel
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) CreateChannel(input *CreateChannelInput) (*CreateChannelOutput, error) {
 	req, out := c.CreateChannelRequest(input)
 	return out, req.Send()
@@ -121,7 +129,11 @@ const opCreateOriginEndpoint = "CreateOriginEndpoint"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpoint
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) CreateOriginEndpointRequest(input *CreateOriginEndpointInput) (req *request.Request, output *CreateOriginEndpointOutput) {
 	op := &request.Operation{
 		Name:       opCreateOriginEndpoint,
@@ -162,7 +174,11 @@ func (c *MediaPackage) CreateOriginEndpointRequest(input *CreateOriginEndpointIn
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpoint
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) CreateOriginEndpoint(input *CreateOriginEndpointInput) (*CreateOriginEndpointOutput, error) {
 	req, out := c.CreateOriginEndpointRequest(input)
 	return out, req.Send()
@@ -209,7 +225,11 @@ const opDeleteChannel = "DeleteChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannel
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) DeleteChannelRequest(input *DeleteChannelInput) (req *request.Request, output *DeleteChannelOutput) {
 	op := &request.Operation{
 		Name:       opDeleteChannel,
@@ -250,7 +270,11 @@ func (c *MediaPackage) DeleteChannelRequest(input *DeleteChannelInput) (req *req
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannel
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) DeleteChannel(input *DeleteChannelInput) (*DeleteChannelOutput, error) {
 	req, out := c.DeleteChannelRequest(input)
 	return out, req.Send()
@@ -297,7 +321,11 @@ const opDeleteOriginEndpoint = "DeleteOriginEndpoint"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpoint
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) DeleteOriginEndpointRequest(input *DeleteOriginEndpointInput) (req *request.Request, output *DeleteOriginEndpointOutput) {
 	op := &request.Operation{
 		Name:       opDeleteOriginEndpoint,
@@ -338,7 +366,11 @@ func (c *MediaPackage) DeleteOriginEndpointRequest(input *DeleteOriginEndpointIn
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpoint
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) DeleteOriginEndpoint(input *DeleteOriginEndpointInput) (*DeleteOriginEndpointOutput, error) {
 	req, out := c.DeleteOriginEndpointRequest(input)
 	return out, req.Send()
@@ -385,7 +417,11 @@ const opDescribeChannel = "DescribeChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannel
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) DescribeChannelRequest(input *DescribeChannelInput) (req *request.Request, output *DescribeChannelOutput) {
 	op := &request.Operation{
 		Name:       opDescribeChannel,
@@ -426,7 +462,11 @@ func (c *MediaPackage) DescribeChannelRequest(input *DescribeChannelInput) (req 
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannel
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) DescribeChannel(input *DescribeChannelInput) (*DescribeChannelOutput, error) {
 	req, out := c.DescribeChannelRequest(input)
 	return out, req.Send()
@@ -473,7 +513,11 @@ const opDescribeOriginEndpoint = "DescribeOriginEndpoint"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpoint
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) DescribeOriginEndpointRequest(input *DescribeOriginEndpointInput) (req *request.Request, output *DescribeOriginEndpointOutput) {
 	op := &request.Operation{
 		Name:       opDescribeOriginEndpoint,
@@ -514,7 +558,11 @@ func (c *MediaPackage) DescribeOriginEndpointRequest(input *DescribeOriginEndpoi
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpoint
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) DescribeOriginEndpoint(input *DescribeOriginEndpointInput) (*DescribeOriginEndpointOutput, error) {
 	req, out := c.DescribeOriginEndpointRequest(input)
 	return out, req.Send()
@@ -561,7 +609,11 @@ const opListChannels = "ListChannels"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannels
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannels
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) ListChannelsRequest(input *ListChannelsInput) (req *request.Request, output *ListChannelsOutput) {
 	op := &request.Operation{
 		Name:       opListChannels,
@@ -608,7 +660,11 @@ func (c *MediaPackage) ListChannelsRequest(input *ListChannelsInput) (req *reque
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannels
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannels
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) ListChannels(input *ListChannelsInput) (*ListChannelsOutput, error) {
 	req, out := c.ListChannelsRequest(input)
 	return out, req.Send()
@@ -705,7 +761,11 @@ const opListOriginEndpoints = "ListOriginEndpoints"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpoints
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpoints
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) ListOriginEndpointsRequest(input *ListOriginEndpointsInput) (req *request.Request, output *ListOriginEndpointsOutput) {
 	op := &request.Operation{
 		Name:       opListOriginEndpoints,
@@ -752,7 +812,11 @@ func (c *MediaPackage) ListOriginEndpointsRequest(input *ListOriginEndpointsInpu
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpoints
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpoints
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) ListOriginEndpoints(input *ListOriginEndpointsInput) (*ListOriginEndpointsOutput, error) {
 	req, out := c.ListOriginEndpointsRequest(input)
 	return out, req.Send()
@@ -849,7 +913,11 @@ const opRotateChannelCredentials = "RotateChannelCredentials"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentials
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentials
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) RotateChannelCredentialsRequest(input *RotateChannelCredentialsInput) (req *request.Request, output *RotateChannelCredentialsOutput) {
 	op := &request.Operation{
 		Name:       opRotateChannelCredentials,
@@ -890,7 +958,11 @@ func (c *MediaPackage) RotateChannelCredentialsRequest(input *RotateChannelCrede
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentials
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentials
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) RotateChannelCredentials(input *RotateChannelCredentialsInput) (*RotateChannelCredentialsOutput, error) {
 	req, out := c.RotateChannelCredentialsRequest(input)
 	return out, req.Send()
@@ -937,7 +1009,11 @@ const opUpdateChannel = "UpdateChannel"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannel
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) UpdateChannelRequest(input *UpdateChannelInput) (req *request.Request, output *UpdateChannelOutput) {
 	op := &request.Operation{
 		Name:       opUpdateChannel,
@@ -978,7 +1054,11 @@ func (c *MediaPackage) UpdateChannelRequest(input *UpdateChannelInput) (req *req
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannel
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) UpdateChannel(input *UpdateChannelInput) (*UpdateChannelOutput, error) {
 	req, out := c.UpdateChannelRequest(input)
 	return out, req.Send()
@@ -1025,7 +1105,11 @@ const opUpdateOriginEndpoint = "UpdateOriginEndpoint"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpoint
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) UpdateOriginEndpointRequest(input *UpdateOriginEndpointInput) (req *request.Request, output *UpdateOriginEndpointOutput) {
 	op := &request.Operation{
 		Name:       opUpdateOriginEndpoint,
@@ -1066,7 +1150,11 @@ func (c *MediaPackage) UpdateOriginEndpointRequest(input *UpdateOriginEndpointIn
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpoint
+>>>>>>> Working on getting compiling
 func (c *MediaPackage) UpdateOriginEndpoint(input *UpdateOriginEndpointInput) (*UpdateOriginEndpointOutput, error) {
 	req, out := c.UpdateOriginEndpointRequest(input)
 	return out, req.Send()
@@ -1089,7 +1177,11 @@ func (c *MediaPackage) UpdateOriginEndpointWithContext(ctx aws.Context, input *U
 }
 
 // A Channel resource configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/Channel
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/Channel
+>>>>>>> Working on getting compiling
 type Channel struct {
 	_ struct{} `type:"structure"`
 
@@ -1140,7 +1232,11 @@ func (s *Channel) SetId(v string) *Channel {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannelRequest
+>>>>>>> Working on getting compiling
 type CreateChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1185,7 +1281,11 @@ func (s *CreateChannelInput) SetId(v string) *CreateChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateChannelResponse
+>>>>>>> Working on getting compiling
 type CreateChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1233,7 +1333,11 @@ func (s *CreateChannelOutput) SetId(v string) *CreateChannelOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpointRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpointRequest
+>>>>>>> Working on getting compiling
 type CreateOriginEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1364,7 +1468,11 @@ func (s *CreateOriginEndpointInput) SetWhitelist(v []*string) *CreateOriginEndpo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpointResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/CreateOriginEndpointResponse
+>>>>>>> Working on getting compiling
 type CreateOriginEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1479,7 +1587,11 @@ func (s *CreateOriginEndpointOutput) SetWhitelist(v []*string) *CreateOriginEndp
 }
 
 // A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DashEncryption
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DashEncryption
+>>>>>>> Working on getting compiling
 type DashEncryption struct {
 	_ struct{} `type:"structure"`
 
@@ -1534,7 +1646,11 @@ func (s *DashEncryption) SetSpekeKeyProvider(v *SpekeKeyProvider) *DashEncryptio
 }
 
 // A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DashPackage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DashPackage
+>>>>>>> Working on getting compiling
 type DashPackage struct {
 	_ struct{} `type:"structure"`
 
@@ -1640,7 +1756,11 @@ func (s *DashPackage) SetSuggestedPresentationDelaySeconds(v int64) *DashPackage
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannelRequest
+>>>>>>> Working on getting compiling
 type DeleteChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1677,7 +1797,11 @@ func (s *DeleteChannelInput) SetId(v string) *DeleteChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteChannelResponse
+>>>>>>> Working on getting compiling
 type DeleteChannelOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1692,7 +1816,11 @@ func (s DeleteChannelOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpointRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpointRequest
+>>>>>>> Working on getting compiling
 type DeleteOriginEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1729,7 +1857,11 @@ func (s *DeleteOriginEndpointInput) SetId(v string) *DeleteOriginEndpointInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpointResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DeleteOriginEndpointResponse
+>>>>>>> Working on getting compiling
 type DeleteOriginEndpointOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1744,7 +1876,11 @@ func (s DeleteOriginEndpointOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannelRequest
+>>>>>>> Working on getting compiling
 type DescribeChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1781,7 +1917,11 @@ func (s *DescribeChannelInput) SetId(v string) *DescribeChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeChannelResponse
+>>>>>>> Working on getting compiling
 type DescribeChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1829,7 +1969,11 @@ func (s *DescribeChannelOutput) SetId(v string) *DescribeChannelOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpointRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpointRequest
+>>>>>>> Working on getting compiling
 type DescribeOriginEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1866,7 +2010,11 @@ func (s *DescribeOriginEndpointInput) SetId(v string) *DescribeOriginEndpointInp
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpointResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/DescribeOriginEndpointResponse
+>>>>>>> Working on getting compiling
 type DescribeOriginEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1981,7 +2129,11 @@ func (s *DescribeOriginEndpointOutput) SetWhitelist(v []*string) *DescribeOrigin
 }
 
 // An HTTP Live Streaming (HLS) encryption configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsEncryption
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsEncryption
+>>>>>>> Working on getting compiling
 type HlsEncryption struct {
 	_ struct{} `type:"structure"`
 
@@ -2064,7 +2216,11 @@ func (s *HlsEncryption) SetSpekeKeyProvider(v *SpekeKeyProvider) *HlsEncryption 
 }
 
 // An HTTP Live Streaming (HLS) ingest resource configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsIngest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsIngest
+>>>>>>> Working on getting compiling
 type HlsIngest struct {
 	_ struct{} `type:"structure"`
 
@@ -2089,7 +2245,11 @@ func (s *HlsIngest) SetIngestEndpoints(v []*IngestEndpoint) *HlsIngest {
 }
 
 // An HTTP Live Streaming (HLS) packaging configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsPackage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/HlsPackage
+>>>>>>> Working on getting compiling
 type HlsPackage struct {
 	_ struct{} `type:"structure"`
 
@@ -2215,7 +2375,11 @@ func (s *HlsPackage) SetUseAudioRenditionGroup(v bool) *HlsPackage {
 }
 
 // An endpoint for ingesting source content for a Channel.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/IngestEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/IngestEndpoint
+>>>>>>> Working on getting compiling
 type IngestEndpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -2257,7 +2421,11 @@ func (s *IngestEndpoint) SetUsername(v string) *IngestEndpoint {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannelsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannelsRequest
+>>>>>>> Working on getting compiling
 type ListChannelsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2301,7 +2469,11 @@ func (s *ListChannelsInput) SetNextToken(v string) *ListChannelsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannelsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListChannelsResponse
+>>>>>>> Working on getting compiling
 type ListChannelsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2332,7 +2504,11 @@ func (s *ListChannelsOutput) SetNextToken(v string) *ListChannelsOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpointsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpointsRequest
+>>>>>>> Working on getting compiling
 type ListOriginEndpointsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2384,7 +2560,11 @@ func (s *ListOriginEndpointsInput) SetNextToken(v string) *ListOriginEndpointsIn
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpointsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/ListOriginEndpointsResponse
+>>>>>>> Working on getting compiling
 type ListOriginEndpointsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2416,7 +2596,11 @@ func (s *ListOriginEndpointsOutput) SetOriginEndpoints(v []*OriginEndpoint) *Lis
 }
 
 // A Microsoft Smooth Streaming (MSS) encryption configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/MssEncryption
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/MssEncryption
+>>>>>>> Working on getting compiling
 type MssEncryption struct {
 	_ struct{} `type:"structure"`
 
@@ -2462,7 +2646,11 @@ func (s *MssEncryption) SetSpekeKeyProvider(v *SpekeKeyProvider) *MssEncryption 
 }
 
 // A Microsoft Smooth Streaming (MSS) packaging configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/MssPackage
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/MssPackage
+>>>>>>> Working on getting compiling
 type MssPackage struct {
 	_ struct{} `type:"structure"`
 
@@ -2529,7 +2717,11 @@ func (s *MssPackage) SetStreamSelection(v *StreamSelection) *MssPackage {
 }
 
 // An OriginEndpoint resource configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/OriginEndpoint
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/OriginEndpoint
+>>>>>>> Working on getting compiling
 type OriginEndpoint struct {
 	_ struct{} `type:"structure"`
 
@@ -2654,7 +2846,11 @@ func (s *OriginEndpoint) SetWhitelist(v []*string) *OriginEndpoint {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentialsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentialsRequest
+>>>>>>> Working on getting compiling
 type RotateChannelCredentialsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2691,7 +2887,11 @@ func (s *RotateChannelCredentialsInput) SetId(v string) *RotateChannelCredential
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentialsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/RotateChannelCredentialsResponse
+>>>>>>> Working on getting compiling
 type RotateChannelCredentialsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2741,7 +2941,11 @@ func (s *RotateChannelCredentialsOutput) SetId(v string) *RotateChannelCredentia
 
 // A configuration for accessing an external Secure Packager and Encoder Key
 // Exchange (SPEKE) service that will provide encryption keys.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/SpekeKeyProvider
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/SpekeKeyProvider
+>>>>>>> Working on getting compiling
 type SpekeKeyProvider struct {
 	_ struct{} `type:"structure"`
 
@@ -2824,7 +3028,11 @@ func (s *SpekeKeyProvider) SetUrl(v string) *SpekeKeyProvider {
 }
 
 // A StreamSelection configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/StreamSelection
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/StreamSelection
+>>>>>>> Working on getting compiling
 type StreamSelection struct {
 	_ struct{} `type:"structure"`
 
@@ -2866,7 +3074,11 @@ func (s *StreamSelection) SetStreamOrder(v string) *StreamSelection {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannelRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannelRequest
+>>>>>>> Working on getting compiling
 type UpdateChannelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2911,7 +3123,11 @@ func (s *UpdateChannelInput) SetId(v string) *UpdateChannelInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannelResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateChannelResponse
+>>>>>>> Working on getting compiling
 type UpdateChannelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2959,7 +3175,11 @@ func (s *UpdateChannelOutput) SetId(v string) *UpdateChannelOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpointRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpointRequest
+>>>>>>> Working on getting compiling
 type UpdateOriginEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3078,7 +3298,11 @@ func (s *UpdateOriginEndpointInput) SetWhitelist(v []*string) *UpdateOriginEndpo
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpointResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediapackage-2017-10-12/UpdateOriginEndpointResponse
+>>>>>>> Working on getting compiling
 type UpdateOriginEndpointOutput struct {
 	_ struct{} `type:"structure"`
 

@@ -442,17 +442,11 @@ type Termios struct {
 	Ospeed uint32
 }
 
-type Winsize struct {
-	Row    uint16
-	Col    uint16
-	Xpixel uint16
-	Ypixel uint16
-}
-
 const (
 	AT_FDCWD            = 0xfffafdcd
 	AT_SYMLINK_NOFOLLOW = 0x1
 )
+<<<<<<< HEAD
 
 type PollFd struct {
 	Fd      int32
@@ -483,3 +477,5 @@ type Utsname struct {
 }
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling

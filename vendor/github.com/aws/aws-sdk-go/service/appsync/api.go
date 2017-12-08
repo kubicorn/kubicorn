@@ -33,7 +33,11 @@ const opCreateApiKey = "CreateApiKey"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKey
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateApiKeyRequest(input *CreateApiKeyInput) (req *request.Request, output *CreateApiKeyOutput) {
 	op := &request.Operation{
 		Name:       opCreateApiKey,
@@ -86,7 +90,11 @@ func (c *AppSync) CreateApiKeyRequest(input *CreateApiKeyInput) (req *request.Re
 //   * ErrCodeApiKeyLimitExceededException "ApiKeyLimitExceededException"
 //   The API key exceeded a limit. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKey
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateApiKey(input *CreateApiKeyInput) (*CreateApiKeyOutput, error) {
 	req, out := c.CreateApiKeyRequest(input)
 	return out, req.Send()
@@ -133,7 +141,11 @@ const opCreateDataSource = "CreateDataSource"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSource
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateDataSourceRequest(input *CreateDataSourceInput) (req *request.Request, output *CreateDataSourceOutput) {
 	op := &request.Operation{
 		Name:       opCreateDataSource,
@@ -180,7 +192,11 @@ func (c *AppSync) CreateDataSourceRequest(input *CreateDataSourceInput) (req *re
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSource
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateDataSource(input *CreateDataSourceInput) (*CreateDataSourceOutput, error) {
 	req, out := c.CreateDataSourceRequest(input)
 	return out, req.Send()
@@ -227,7 +243,11 @@ const opCreateGraphqlApi = "CreateGraphqlApi"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApi
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateGraphqlApiRequest(input *CreateGraphqlApiInput) (req *request.Request, output *CreateGraphqlApiOutput) {
 	op := &request.Operation{
 		Name:       opCreateGraphqlApi,
@@ -279,7 +299,11 @@ func (c *AppSync) CreateGraphqlApiRequest(input *CreateGraphqlApiInput) (req *re
 //   * ErrCodeApiLimitExceededException "ApiLimitExceededException"
 //   The GraphQL API exceeded a limit. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApi
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateGraphqlApi(input *CreateGraphqlApiInput) (*CreateGraphqlApiOutput, error) {
 	req, out := c.CreateGraphqlApiRequest(input)
 	return out, req.Send()
@@ -326,7 +350,11 @@ const opCreateResolver = "CreateResolver"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolver
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateResolverRequest(input *CreateResolverInput) (req *request.Request, output *CreateResolverOutput) {
 	op := &request.Operation{
 		Name:       opCreateResolver,
@@ -372,7 +400,11 @@ func (c *AppSync) CreateResolverRequest(input *CreateResolverInput) (req *reques
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolver
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateResolver(input *CreateResolverInput) (*CreateResolverOutput, error) {
 	req, out := c.CreateResolverRequest(input)
 	return out, req.Send()
@@ -419,7 +451,11 @@ const opCreateType = "CreateType"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateType
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateTypeRequest(input *CreateTypeInput) (req *request.Request, output *CreateTypeOutput) {
 	op := &request.Operation{
 		Name:       opCreateType,
@@ -466,7 +502,11 @@ func (c *AppSync) CreateTypeRequest(input *CreateTypeInput) (req *request.Reques
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateType
+>>>>>>> Working on getting compiling
 func (c *AppSync) CreateType(input *CreateTypeInput) (*CreateTypeOutput, error) {
 	req, out := c.CreateTypeRequest(input)
 	return out, req.Send()
@@ -513,7 +553,11 @@ const opDeleteApiKey = "DeleteApiKey"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKey
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteApiKeyRequest(input *DeleteApiKeyInput) (req *request.Request, output *DeleteApiKeyOutput) {
 	op := &request.Operation{
 		Name:       opDeleteApiKey,
@@ -556,7 +600,11 @@ func (c *AppSync) DeleteApiKeyRequest(input *DeleteApiKeyInput) (req *request.Re
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKey
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteApiKey(input *DeleteApiKeyInput) (*DeleteApiKeyOutput, error) {
 	req, out := c.DeleteApiKeyRequest(input)
 	return out, req.Send()
@@ -603,7 +651,11 @@ const opDeleteDataSource = "DeleteDataSource"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSource
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteDataSourceRequest(input *DeleteDataSourceInput) (req *request.Request, output *DeleteDataSourceOutput) {
 	op := &request.Operation{
 		Name:       opDeleteDataSource,
@@ -650,7 +702,11 @@ func (c *AppSync) DeleteDataSourceRequest(input *DeleteDataSourceInput) (req *re
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSource
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteDataSource(input *DeleteDataSourceInput) (*DeleteDataSourceOutput, error) {
 	req, out := c.DeleteDataSourceRequest(input)
 	return out, req.Send()
@@ -697,7 +753,11 @@ const opDeleteGraphqlApi = "DeleteGraphqlApi"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApi
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteGraphqlApiRequest(input *DeleteGraphqlApiInput) (req *request.Request, output *DeleteGraphqlApiOutput) {
 	op := &request.Operation{
 		Name:       opDeleteGraphqlApi,
@@ -744,7 +804,11 @@ func (c *AppSync) DeleteGraphqlApiRequest(input *DeleteGraphqlApiInput) (req *re
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApi
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteGraphqlApi(input *DeleteGraphqlApiInput) (*DeleteGraphqlApiOutput, error) {
 	req, out := c.DeleteGraphqlApiRequest(input)
 	return out, req.Send()
@@ -791,7 +855,11 @@ const opDeleteResolver = "DeleteResolver"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolver
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteResolverRequest(input *DeleteResolverInput) (req *request.Request, output *DeleteResolverOutput) {
 	op := &request.Operation{
 		Name:       opDeleteResolver,
@@ -834,7 +902,11 @@ func (c *AppSync) DeleteResolverRequest(input *DeleteResolverInput) (req *reques
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolver
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteResolver(input *DeleteResolverInput) (*DeleteResolverOutput, error) {
 	req, out := c.DeleteResolverRequest(input)
 	return out, req.Send()
@@ -881,7 +953,11 @@ const opDeleteType = "DeleteType"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteType
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteTypeRequest(input *DeleteTypeInput) (req *request.Request, output *DeleteTypeOutput) {
 	op := &request.Operation{
 		Name:       opDeleteType,
@@ -928,7 +1004,11 @@ func (c *AppSync) DeleteTypeRequest(input *DeleteTypeInput) (req *request.Reques
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteType
+>>>>>>> Working on getting compiling
 func (c *AppSync) DeleteType(input *DeleteTypeInput) (*DeleteTypeOutput, error) {
 	req, out := c.DeleteTypeRequest(input)
 	return out, req.Send()
@@ -975,7 +1055,11 @@ const opGetDataSource = "GetDataSource"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSource
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetDataSourceRequest(input *GetDataSourceInput) (req *request.Request, output *GetDataSourceOutput) {
 	op := &request.Operation{
 		Name:       opGetDataSource,
@@ -1022,7 +1106,11 @@ func (c *AppSync) GetDataSourceRequest(input *GetDataSourceInput) (req *request.
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSource
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetDataSource(input *GetDataSourceInput) (*GetDataSourceOutput, error) {
 	req, out := c.GetDataSourceRequest(input)
 	return out, req.Send()
@@ -1069,7 +1157,11 @@ const opGetGraphqlApi = "GetGraphqlApi"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApi
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetGraphqlApiRequest(input *GetGraphqlApiInput) (req *request.Request, output *GetGraphqlApiOutput) {
 	op := &request.Operation{
 		Name:       opGetGraphqlApi,
@@ -1112,7 +1204,11 @@ func (c *AppSync) GetGraphqlApiRequest(input *GetGraphqlApiInput) (req *request.
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApi
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetGraphqlApi(input *GetGraphqlApiInput) (*GetGraphqlApiOutput, error) {
 	req, out := c.GetGraphqlApiRequest(input)
 	return out, req.Send()
@@ -1159,7 +1255,11 @@ const opGetIntrospectionSchema = "GetIntrospectionSchema"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchema
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchema
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetIntrospectionSchemaRequest(input *GetIntrospectionSchemaInput) (req *request.Request, output *GetIntrospectionSchemaOutput) {
 	op := &request.Operation{
 		Name:       opGetIntrospectionSchema,
@@ -1201,7 +1301,11 @@ func (c *AppSync) GetIntrospectionSchemaRequest(input *GetIntrospectionSchemaInp
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchema
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchema
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetIntrospectionSchema(input *GetIntrospectionSchemaInput) (*GetIntrospectionSchemaOutput, error) {
 	req, out := c.GetIntrospectionSchemaRequest(input)
 	return out, req.Send()
@@ -1248,7 +1352,11 @@ const opGetResolver = "GetResolver"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolver
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetResolverRequest(input *GetResolverInput) (req *request.Request, output *GetResolverOutput) {
 	op := &request.Operation{
 		Name:       opGetResolver,
@@ -1288,7 +1396,11 @@ func (c *AppSync) GetResolverRequest(input *GetResolverInput) (req *request.Requ
 //   * ErrCodeUnauthorizedException "UnauthorizedException"
 //   You are not authorized to perform this operation.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolver
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetResolver(input *GetResolverInput) (*GetResolverOutput, error) {
 	req, out := c.GetResolverRequest(input)
 	return out, req.Send()
@@ -1335,7 +1447,11 @@ const opGetSchemaCreationStatus = "GetSchemaCreationStatus"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatus
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatus
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetSchemaCreationStatusRequest(input *GetSchemaCreationStatusInput) (req *request.Request, output *GetSchemaCreationStatusOutput) {
 	op := &request.Operation{
 		Name:       opGetSchemaCreationStatus,
@@ -1378,7 +1494,11 @@ func (c *AppSync) GetSchemaCreationStatusRequest(input *GetSchemaCreationStatusI
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatus
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatus
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetSchemaCreationStatus(input *GetSchemaCreationStatusInput) (*GetSchemaCreationStatusOutput, error) {
 	req, out := c.GetSchemaCreationStatusRequest(input)
 	return out, req.Send()
@@ -1425,7 +1545,11 @@ const opGetType = "GetType"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetType
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetTypeRequest(input *GetTypeInput) (req *request.Request, output *GetTypeOutput) {
 	op := &request.Operation{
 		Name:       opGetType,
@@ -1472,7 +1596,11 @@ func (c *AppSync) GetTypeRequest(input *GetTypeInput) (req *request.Request, out
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetType
+>>>>>>> Working on getting compiling
 func (c *AppSync) GetType(input *GetTypeInput) (*GetTypeOutput, error) {
 	req, out := c.GetTypeRequest(input)
 	return out, req.Send()
@@ -1519,7 +1647,11 @@ const opListApiKeys = "ListApiKeys"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeys
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeys
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListApiKeysRequest(input *ListApiKeysInput) (req *request.Request, output *ListApiKeysOutput) {
 	op := &request.Operation{
 		Name:       opListApiKeys,
@@ -1562,7 +1694,11 @@ func (c *AppSync) ListApiKeysRequest(input *ListApiKeysInput) (req *request.Requ
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeys
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeys
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListApiKeys(input *ListApiKeysInput) (*ListApiKeysOutput, error) {
 	req, out := c.ListApiKeysRequest(input)
 	return out, req.Send()
@@ -1609,7 +1745,11 @@ const opListDataSources = "ListDataSources"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSources
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSources
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListDataSourcesRequest(input *ListDataSourcesInput) (req *request.Request, output *ListDataSourcesOutput) {
 	op := &request.Operation{
 		Name:       opListDataSources,
@@ -1652,7 +1792,11 @@ func (c *AppSync) ListDataSourcesRequest(input *ListDataSourcesInput) (req *requ
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSources
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSources
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListDataSources(input *ListDataSourcesInput) (*ListDataSourcesOutput, error) {
 	req, out := c.ListDataSourcesRequest(input)
 	return out, req.Send()
@@ -1699,7 +1843,11 @@ const opListGraphqlApis = "ListGraphqlApis"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApis
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApis
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListGraphqlApisRequest(input *ListGraphqlApisInput) (req *request.Request, output *ListGraphqlApisOutput) {
 	op := &request.Operation{
 		Name:       opListGraphqlApis,
@@ -1738,7 +1886,11 @@ func (c *AppSync) ListGraphqlApisRequest(input *ListGraphqlApisInput) (req *requ
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApis
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApis
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListGraphqlApis(input *ListGraphqlApisInput) (*ListGraphqlApisOutput, error) {
 	req, out := c.ListGraphqlApisRequest(input)
 	return out, req.Send()
@@ -1785,7 +1937,11 @@ const opListResolvers = "ListResolvers"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolvers
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolvers
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListResolversRequest(input *ListResolversInput) (req *request.Request, output *ListResolversOutput) {
 	op := &request.Operation{
 		Name:       opListResolvers,
@@ -1828,7 +1984,11 @@ func (c *AppSync) ListResolversRequest(input *ListResolversInput) (req *request.
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolvers
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolvers
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListResolvers(input *ListResolversInput) (*ListResolversOutput, error) {
 	req, out := c.ListResolversRequest(input)
 	return out, req.Send()
@@ -1875,7 +2035,11 @@ const opListTypes = "ListTypes"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypes
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypes
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListTypesRequest(input *ListTypesInput) (req *request.Request, output *ListTypesOutput) {
 	op := &request.Operation{
 		Name:       opListTypes,
@@ -1922,7 +2086,11 @@ func (c *AppSync) ListTypesRequest(input *ListTypesInput) (req *request.Request,
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypes
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypes
+>>>>>>> Working on getting compiling
 func (c *AppSync) ListTypes(input *ListTypesInput) (*ListTypesOutput, error) {
 	req, out := c.ListTypesRequest(input)
 	return out, req.Send()
@@ -1969,7 +2137,11 @@ const opStartSchemaCreation = "StartSchemaCreation"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreation
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreation
+>>>>>>> Working on getting compiling
 func (c *AppSync) StartSchemaCreationRequest(input *StartSchemaCreationInput) (req *request.Request, output *StartSchemaCreationOutput) {
 	op := &request.Operation{
 		Name:       opStartSchemaCreation,
@@ -2018,7 +2190,11 @@ func (c *AppSync) StartSchemaCreationRequest(input *StartSchemaCreationInput) (r
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreation
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreation
+>>>>>>> Working on getting compiling
 func (c *AppSync) StartSchemaCreation(input *StartSchemaCreationInput) (*StartSchemaCreationOutput, error) {
 	req, out := c.StartSchemaCreationRequest(input)
 	return out, req.Send()
@@ -2065,7 +2241,11 @@ const opUpdateDataSource = "UpdateDataSource"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSource
+>>>>>>> Working on getting compiling
 func (c *AppSync) UpdateDataSourceRequest(input *UpdateDataSourceInput) (req *request.Request, output *UpdateDataSourceOutput) {
 	op := &request.Operation{
 		Name:       opUpdateDataSource,
@@ -2112,7 +2292,11 @@ func (c *AppSync) UpdateDataSourceRequest(input *UpdateDataSourceInput) (req *re
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSource
+>>>>>>> Working on getting compiling
 func (c *AppSync) UpdateDataSource(input *UpdateDataSourceInput) (*UpdateDataSourceOutput, error) {
 	req, out := c.UpdateDataSourceRequest(input)
 	return out, req.Send()
@@ -2159,7 +2343,11 @@ const opUpdateGraphqlApi = "UpdateGraphqlApi"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApi
+>>>>>>> Working on getting compiling
 func (c *AppSync) UpdateGraphqlApiRequest(input *UpdateGraphqlApiInput) (req *request.Request, output *UpdateGraphqlApiOutput) {
 	op := &request.Operation{
 		Name:       opUpdateGraphqlApi,
@@ -2206,7 +2394,11 @@ func (c *AppSync) UpdateGraphqlApiRequest(input *UpdateGraphqlApiInput) (req *re
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApi
+>>>>>>> Working on getting compiling
 func (c *AppSync) UpdateGraphqlApi(input *UpdateGraphqlApiInput) (*UpdateGraphqlApiOutput, error) {
 	req, out := c.UpdateGraphqlApiRequest(input)
 	return out, req.Send()
@@ -2253,7 +2445,11 @@ const opUpdateResolver = "UpdateResolver"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolver
+>>>>>>> Working on getting compiling
 func (c *AppSync) UpdateResolverRequest(input *UpdateResolverInput) (req *request.Request, output *UpdateResolverOutput) {
 	op := &request.Operation{
 		Name:       opUpdateResolver,
@@ -2296,7 +2492,11 @@ func (c *AppSync) UpdateResolverRequest(input *UpdateResolverInput) (req *reques
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolver
+>>>>>>> Working on getting compiling
 func (c *AppSync) UpdateResolver(input *UpdateResolverInput) (*UpdateResolverOutput, error) {
 	req, out := c.UpdateResolverRequest(input)
 	return out, req.Send()
@@ -2343,7 +2543,11 @@ const opUpdateType = "UpdateType"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateType
+>>>>>>> Working on getting compiling
 func (c *AppSync) UpdateTypeRequest(input *UpdateTypeInput) (req *request.Request, output *UpdateTypeOutput) {
 	op := &request.Operation{
 		Name:       opUpdateType,
@@ -2390,7 +2594,11 @@ func (c *AppSync) UpdateTypeRequest(input *UpdateTypeInput) (req *request.Reques
 //   * ErrCodeInternalFailureException "InternalFailureException"
 //   An internal AWS AppSync error occurred. Try your request again.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateType
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateType
+>>>>>>> Working on getting compiling
 func (c *AppSync) UpdateType(input *UpdateTypeInput) (*UpdateTypeOutput, error) {
 	req, out := c.UpdateTypeRequest(input)
 	return out, req.Send()
@@ -2413,7 +2621,11 @@ func (c *AppSync) UpdateTypeWithContext(ctx aws.Context, input *UpdateTypeInput,
 }
 
 // Describes an API key.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ApiKey
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ApiKey
+>>>>>>> Working on getting compiling
 type ApiKey struct {
 	_ struct{} `type:"structure"`
 
@@ -2455,7 +2667,11 @@ func (s *ApiKey) SetId(v string) *ApiKey {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKeyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKeyRequest
+>>>>>>> Working on getting compiling
 type CreateApiKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2503,7 +2719,11 @@ func (s *CreateApiKeyInput) SetDescription(v string) *CreateApiKeyInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKeyResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateApiKeyResponse
+>>>>>>> Working on getting compiling
 type CreateApiKeyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2527,7 +2747,11 @@ func (s *CreateApiKeyOutput) SetApiKey(v *ApiKey) *CreateApiKeyOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSourceRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSourceRequest
+>>>>>>> Working on getting compiling
 type CreateDataSourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2655,7 +2879,11 @@ func (s *CreateDataSourceInput) SetType(v string) *CreateDataSourceInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSourceResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateDataSourceResponse
+>>>>>>> Working on getting compiling
 type CreateDataSourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2679,7 +2907,11 @@ func (s *CreateDataSourceOutput) SetDataSource(v *DataSource) *CreateDataSourceO
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApiRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApiRequest
+>>>>>>> Working on getting compiling
 type CreateGraphqlApiInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2746,7 +2978,11 @@ func (s *CreateGraphqlApiInput) SetUserPoolConfig(v *UserPoolConfig) *CreateGrap
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApiResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateGraphqlApiResponse
+>>>>>>> Working on getting compiling
 type CreateGraphqlApiOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2770,7 +3006,11 @@ func (s *CreateGraphqlApiOutput) SetGraphqlApi(v *GraphqlApi) *CreateGraphqlApiO
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolverRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolverRequest
+>>>>>>> Working on getting compiling
 type CreateResolverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2878,7 +3118,11 @@ func (s *CreateResolverInput) SetTypeName(v string) *CreateResolverInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolverResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateResolverResponse
+>>>>>>> Working on getting compiling
 type CreateResolverOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2902,7 +3146,11 @@ func (s *CreateResolverOutput) SetResolver(v *Resolver) *CreateResolverOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateTypeRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateTypeRequest
+>>>>>>> Working on getting compiling
 type CreateTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2971,7 +3219,11 @@ func (s *CreateTypeInput) SetFormat(v string) *CreateTypeInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateTypeResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/CreateTypeResponse
+>>>>>>> Working on getting compiling
 type CreateTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2996,7 +3248,11 @@ func (s *CreateTypeOutput) SetType(v *Type) *CreateTypeOutput {
 }
 
 // Describes a data source.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DataSource
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DataSource
+>>>>>>> Working on getting compiling
 type DataSource struct {
 	_ struct{} `type:"structure"`
 
@@ -3084,7 +3340,11 @@ func (s *DataSource) SetType(v string) *DataSource {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKeyRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKeyRequest
+>>>>>>> Working on getting compiling
 type DeleteApiKeyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3137,7 +3397,11 @@ func (s *DeleteApiKeyInput) SetId(v string) *DeleteApiKeyInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKeyResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteApiKeyResponse
+>>>>>>> Working on getting compiling
 type DeleteApiKeyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3152,7 +3416,11 @@ func (s DeleteApiKeyOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSourceRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSourceRequest
+>>>>>>> Working on getting compiling
 type DeleteDataSourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3205,7 +3473,11 @@ func (s *DeleteDataSourceInput) SetName(v string) *DeleteDataSourceInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSourceResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteDataSourceResponse
+>>>>>>> Working on getting compiling
 type DeleteDataSourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3220,7 +3492,11 @@ func (s DeleteDataSourceOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApiRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApiRequest
+>>>>>>> Working on getting compiling
 type DeleteGraphqlApiInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3259,7 +3535,11 @@ func (s *DeleteGraphqlApiInput) SetApiId(v string) *DeleteGraphqlApiInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApiResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteGraphqlApiResponse
+>>>>>>> Working on getting compiling
 type DeleteGraphqlApiOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3274,7 +3554,11 @@ func (s DeleteGraphqlApiOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolverRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolverRequest
+>>>>>>> Working on getting compiling
 type DeleteResolverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3341,7 +3625,11 @@ func (s *DeleteResolverInput) SetTypeName(v string) *DeleteResolverInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolverResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteResolverResponse
+>>>>>>> Working on getting compiling
 type DeleteResolverOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3356,7 +3644,11 @@ func (s DeleteResolverOutput) GoString() string {
 	return s.String()
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteTypeRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteTypeRequest
+>>>>>>> Working on getting compiling
 type DeleteTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3409,7 +3701,11 @@ func (s *DeleteTypeInput) SetTypeName(v string) *DeleteTypeInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteTypeResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DeleteTypeResponse
+>>>>>>> Working on getting compiling
 type DeleteTypeOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3425,7 +3721,11 @@ func (s DeleteTypeOutput) GoString() string {
 }
 
 // Describes a DynamoDB data source configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DynamodbDataSourceConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/DynamodbDataSourceConfig
+>>>>>>> Working on getting compiling
 type DynamodbDataSourceConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -3488,7 +3788,11 @@ func (s *DynamodbDataSourceConfig) SetUseCallerCredentials(v bool) *DynamodbData
 }
 
 // Describes an Elasticsearch data source configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ElasticsearchDataSourceConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ElasticsearchDataSourceConfig
+>>>>>>> Working on getting compiling
 type ElasticsearchDataSourceConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -3541,7 +3845,11 @@ func (s *ElasticsearchDataSourceConfig) SetEndpoint(v string) *ElasticsearchData
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSourceRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSourceRequest
+>>>>>>> Working on getting compiling
 type GetDataSourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3594,7 +3902,11 @@ func (s *GetDataSourceInput) SetName(v string) *GetDataSourceInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSourceResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetDataSourceResponse
+>>>>>>> Working on getting compiling
 type GetDataSourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3618,7 +3930,11 @@ func (s *GetDataSourceOutput) SetDataSource(v *DataSource) *GetDataSourceOutput 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApiRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApiRequest
+>>>>>>> Working on getting compiling
 type GetGraphqlApiInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3657,7 +3973,11 @@ func (s *GetGraphqlApiInput) SetApiId(v string) *GetGraphqlApiInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApiResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetGraphqlApiResponse
+>>>>>>> Working on getting compiling
 type GetGraphqlApiOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3681,7 +4001,11 @@ func (s *GetGraphqlApiOutput) SetGraphqlApi(v *GraphqlApi) *GetGraphqlApiOutput 
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchemaRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchemaRequest
+>>>>>>> Working on getting compiling
 type GetIntrospectionSchemaInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3734,7 +4058,11 @@ func (s *GetIntrospectionSchemaInput) SetFormat(v string) *GetIntrospectionSchem
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchemaResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetIntrospectionSchemaResponse
+>>>>>>> Working on getting compiling
 type GetIntrospectionSchemaOutput struct {
 	_ struct{} `type:"structure" payload:"Schema"`
 
@@ -3760,7 +4088,11 @@ func (s *GetIntrospectionSchemaOutput) SetSchema(v []byte) *GetIntrospectionSche
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolverRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolverRequest
+>>>>>>> Working on getting compiling
 type GetResolverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3827,7 +4159,11 @@ func (s *GetResolverInput) SetTypeName(v string) *GetResolverInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolverResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetResolverResponse
+>>>>>>> Working on getting compiling
 type GetResolverOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3851,7 +4187,11 @@ func (s *GetResolverOutput) SetResolver(v *Resolver) *GetResolverOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatusRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatusRequest
+>>>>>>> Working on getting compiling
 type GetSchemaCreationStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3890,7 +4230,11 @@ func (s *GetSchemaCreationStatusInput) SetApiId(v string) *GetSchemaCreationStat
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatusResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetSchemaCreationStatusResponse
+>>>>>>> Working on getting compiling
 type GetSchemaCreationStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3924,7 +4268,11 @@ func (s *GetSchemaCreationStatusOutput) SetStatus(v string) *GetSchemaCreationSt
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetTypeRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetTypeRequest
+>>>>>>> Working on getting compiling
 type GetTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3991,7 +4339,11 @@ func (s *GetTypeInput) SetTypeName(v string) *GetTypeInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetTypeResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GetTypeResponse
+>>>>>>> Working on getting compiling
 type GetTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4016,7 +4368,11 @@ func (s *GetTypeOutput) SetType(v *Type) *GetTypeOutput {
 }
 
 // Describes a GraphQL API.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GraphqlApi
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/GraphqlApi
+>>>>>>> Working on getting compiling
 type GraphqlApi struct {
 	_ struct{} `type:"structure"`
 
@@ -4086,7 +4442,11 @@ func (s *GraphqlApi) SetUserPoolConfig(v *UserPoolConfig) *GraphqlApi {
 }
 
 // Describes a Lambda data source configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/LambdaDataSourceConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/LambdaDataSourceConfig
+>>>>>>> Working on getting compiling
 type LambdaDataSourceConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -4125,7 +4485,11 @@ func (s *LambdaDataSourceConfig) SetLambdaFunctionArn(v string) *LambdaDataSourc
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeysRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeysRequest
+>>>>>>> Working on getting compiling
 type ListApiKeysInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4183,7 +4547,11 @@ func (s *ListApiKeysInput) SetNextToken(v string) *ListApiKeysInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeysResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListApiKeysResponse
+>>>>>>> Working on getting compiling
 type ListApiKeysOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4217,7 +4585,11 @@ func (s *ListApiKeysOutput) SetNextToken(v string) *ListApiKeysOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSourcesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSourcesRequest
+>>>>>>> Working on getting compiling
 type ListDataSourcesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4275,7 +4647,11 @@ func (s *ListDataSourcesInput) SetNextToken(v string) *ListDataSourcesInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSourcesResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListDataSourcesResponse
+>>>>>>> Working on getting compiling
 type ListDataSourcesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4309,7 +4685,11 @@ func (s *ListDataSourcesOutput) SetNextToken(v string) *ListDataSourcesOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApisRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApisRequest
+>>>>>>> Working on getting compiling
 type ListGraphqlApisInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4343,7 +4723,11 @@ func (s *ListGraphqlApisInput) SetNextToken(v string) *ListGraphqlApisInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApisResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListGraphqlApisResponse
+>>>>>>> Working on getting compiling
 type ListGraphqlApisOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4377,7 +4761,11 @@ func (s *ListGraphqlApisOutput) SetNextToken(v string) *ListGraphqlApisOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolversRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolversRequest
+>>>>>>> Working on getting compiling
 type ListResolversInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4449,7 +4837,11 @@ func (s *ListResolversInput) SetTypeName(v string) *ListResolversInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolversResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListResolversResponse
+>>>>>>> Working on getting compiling
 type ListResolversOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4483,7 +4875,11 @@ func (s *ListResolversOutput) SetResolvers(v []*Resolver) *ListResolversOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypesRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypesRequest
+>>>>>>> Working on getting compiling
 type ListTypesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4555,7 +4951,11 @@ func (s *ListTypesInput) SetNextToken(v string) *ListTypesInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypesResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/ListTypesResponse
+>>>>>>> Working on getting compiling
 type ListTypesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4590,7 +4990,11 @@ func (s *ListTypesOutput) SetTypes(v []*Type) *ListTypesOutput {
 }
 
 // Describes a resolver.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/Resolver
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/Resolver
+>>>>>>> Working on getting compiling
 type Resolver struct {
 	_ struct{} `type:"structure"`
 
@@ -4659,7 +5063,11 @@ func (s *Resolver) SetTypeName(v string) *Resolver {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreationRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreationRequest
+>>>>>>> Working on getting compiling
 type StartSchemaCreationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4714,7 +5122,11 @@ func (s *StartSchemaCreationInput) SetDefinition(v []byte) *StartSchemaCreationI
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreationResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/StartSchemaCreationResponse
+>>>>>>> Working on getting compiling
 type StartSchemaCreationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4740,7 +5152,11 @@ func (s *StartSchemaCreationOutput) SetStatus(v string) *StartSchemaCreationOutp
 }
 
 // Describes a type.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/Type
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/Type
+>>>>>>> Working on getting compiling
 type Type struct {
 	_ struct{} `type:"structure"`
 
@@ -4800,7 +5216,11 @@ func (s *Type) SetName(v string) *Type {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSourceRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSourceRequest
+>>>>>>> Working on getting compiling
 type UpdateDataSourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4927,7 +5347,11 @@ func (s *UpdateDataSourceInput) SetType(v string) *UpdateDataSourceInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSourceResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateDataSourceResponse
+>>>>>>> Working on getting compiling
 type UpdateDataSourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4951,7 +5375,11 @@ func (s *UpdateDataSourceOutput) SetDataSource(v *DataSource) *UpdateDataSourceO
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApiRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApiRequest
+>>>>>>> Working on getting compiling
 type UpdateGraphqlApiInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5027,7 +5455,11 @@ func (s *UpdateGraphqlApiInput) SetUserPoolConfig(v *UserPoolConfig) *UpdateGrap
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApiResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateGraphqlApiResponse
+>>>>>>> Working on getting compiling
 type UpdateGraphqlApiOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5051,7 +5483,11 @@ func (s *UpdateGraphqlApiOutput) SetGraphqlApi(v *GraphqlApi) *UpdateGraphqlApiO
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolverRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolverRequest
+>>>>>>> Working on getting compiling
 type UpdateResolverInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5155,7 +5591,11 @@ func (s *UpdateResolverInput) SetTypeName(v string) *UpdateResolverInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolverResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateResolverResponse
+>>>>>>> Working on getting compiling
 type UpdateResolverOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5179,7 +5619,11 @@ func (s *UpdateResolverOutput) SetResolver(v *Resolver) *UpdateResolverOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateTypeRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateTypeRequest
+>>>>>>> Working on getting compiling
 type UpdateTypeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5255,7 +5699,11 @@ func (s *UpdateTypeInput) SetTypeName(v string) *UpdateTypeInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateTypeResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UpdateTypeResponse
+>>>>>>> Working on getting compiling
 type UpdateTypeOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5280,7 +5728,11 @@ func (s *UpdateTypeOutput) SetType(v *Type) *UpdateTypeOutput {
 }
 
 // Describes an Amazon Cognito User Pool configuration.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UserPoolConfig
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/appsync-2017-07-25/UserPoolConfig
+>>>>>>> Working on getting compiling
 type UserPoolConfig struct {
 	_ struct{} `type:"structure"`
 

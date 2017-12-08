@@ -2378,7 +2378,11 @@ const opDescribeGroups = "DescribeGroups"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups
+>>>>>>> Working on getting compiling
 func (c *WorkDocs) DescribeGroupsRequest(input *DescribeGroupsInput) (req *request.Request, output *DescribeGroupsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeGroups,
@@ -2421,7 +2425,11 @@ func (c *WorkDocs) DescribeGroupsRequest(input *DescribeGroupsInput) (req *reque
 //   * ErrCodeServiceUnavailableException "ServiceUnavailableException"
 //   One or more of the dependencies is unavailable.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups
+>>>>>>> Working on getting compiling
 func (c *WorkDocs) DescribeGroups(input *DescribeGroupsInput) (*DescribeGroupsOutput, error) {
 	req, out := c.DescribeGroupsRequest(input)
 	return out, req.Send()
@@ -3049,7 +3057,11 @@ func (c *WorkDocs) GetDocumentRequest(input *GetDocumentInput) (req *request.Req
 //   * ErrCodeInvalidPasswordException "InvalidPasswordException"
 //   The password is invalid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocument
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocument
+>>>>>>> Working on getting compiling
 func (c *WorkDocs) GetDocument(input *GetDocumentInput) (*GetDocumentOutput, error) {
 	req, out := c.GetDocumentRequest(input)
 	return out, req.Send()
@@ -3247,7 +3259,11 @@ func (c *WorkDocs) GetDocumentVersionRequest(input *GetDocumentVersionInput) (re
 //   * ErrCodeInvalidPasswordException "InvalidPasswordException"
 //   The password is invalid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocumentVersion
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocumentVersion
+>>>>>>> Working on getting compiling
 func (c *WorkDocs) GetDocumentVersion(input *GetDocumentVersionInput) (*GetDocumentVersionOutput, error) {
 	req, out := c.GetDocumentVersionRequest(input)
 	return out, req.Send()
@@ -4255,7 +4271,11 @@ func (c *WorkDocs) UpdateUserRequest(input *UpdateUserInput) (req *request.Reque
 //   * ErrCodeInvalidArgumentException "InvalidArgumentException"
 //   The pagination marker or limit fields are not valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/UpdateUser
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/UpdateUser
+>>>>>>> Working on getting compiling
 func (c *WorkDocs) UpdateUser(input *UpdateUserInput) (*UpdateUserOutput, error) {
 	req, out := c.UpdateUserRequest(input)
 	return out, req.Send()
@@ -6824,7 +6844,11 @@ func (s *DescribeFolderContentsOutput) SetMarker(v string) *DescribeFolderConten
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroupsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroupsRequest
+>>>>>>> Working on getting compiling
 type DescribeGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6916,7 +6940,11 @@ func (s *DescribeGroupsInput) SetSearchQuery(v string) *DescribeGroupsInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroupsResponse
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroupsResponse
+>>>>>>> Working on getting compiling
 type DescribeGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6950,7 +6978,11 @@ func (s *DescribeGroupsOutput) SetMarker(v string) *DescribeGroupsOutput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeNotificationSubscriptionsRequest
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeNotificationSubscriptionsRequest
+>>>>>>> Working on getting compiling
 type DescribeNotificationSubscriptionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8602,7 +8634,11 @@ func (s *InitiateDocumentVersionUploadOutput) SetUploadMetadata(v *UploadMetadat
 }
 
 // Set of options which defines notification preferences of given action.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/NotificationOptions
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/NotificationOptions
+>>>>>>> Working on getting compiling
 type NotificationOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -8636,7 +8672,11 @@ func (s *NotificationOptions) SetSendEmail(v bool) *NotificationOptions {
 }
 
 // Describes the users or user groups.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/Participants
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/Participants
+>>>>>>> Working on getting compiling
 type Participants struct {
 	_ struct{} `type:"structure"`
 

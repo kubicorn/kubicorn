@@ -4055,12 +4055,18 @@
       "member":{"shape":"UsagePlanKey"}
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
     "ListOfVpcLink":{
       "type":"list",
       "member":{"shape":"VpcLink"}
     },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> Working on getting compiling
     "LocationStatusType":{
       "type":"string",
       "enum":[

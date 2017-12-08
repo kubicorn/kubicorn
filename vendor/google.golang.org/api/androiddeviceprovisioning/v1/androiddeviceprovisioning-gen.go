@@ -128,10 +128,14 @@ type ClaimDeviceRequest struct {
 	// Possible values:
 	//   "SECTION_TYPE_UNSPECIFIED" - Unspecified section type.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
 =======
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero touch section type.
 >>>>>>> Initial dep workover
+=======
+	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
+>>>>>>> Working on getting compiling
 	SectionType string `json:"sectionType,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "CustomerId") to
@@ -318,6 +322,7 @@ func (s *CreateCustomerRequest) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Device: An Android device registered for zero-touch enrollment.
 type Device struct {
 	// Claims: Output only. The provisioning claims for a device. Devices
@@ -354,25 +359,47 @@ type Device struct {
 	// `partners/[PARTNER_ID]/devices/[DEVICE_ID]`. Assigned by the server.
 =======
 // Device: An Android device.
+=======
+// Device: An Android device registered for zero-touch enrollment.
+>>>>>>> Working on getting compiling
 type Device struct {
-	// Claims: Claims.
+	// Claims: Output only. The provisioning claims for a device. Devices
+	// claimed for
+	// zero-touch enrollment have a claim with the type
+	// `SECTION_TYPE_ZERO_TOUCH`.
+	// Call
+	// `partners.devices.unclaim`
+	// or
+	// `partner
+	// s.devices.unclaimAsync`
+	// to remove the device from zero-touch enrollment.
 	Claims []*DeviceClaim `json:"claims,omitempty"`
 
-	// Configuration: The resource name of the configuration.
-	// Only set for customers.
+	// Configuration: Not available to resellers.
 	Configuration string `json:"configuration,omitempty"`
 
-	// DeviceId: Device ID.
+	// DeviceId: Output only. The ID of the device. Assigned by the server.
 	DeviceId int64 `json:"deviceId,omitempty,string"`
 
-	// DeviceIdentifier: Device identifier.
+	// DeviceIdentifier: The hardware IDs that identify a manufactured
+	// device. To learn more,
+	// read
+	// [Identifiers](/zero-touch/guides/identifiers).
 	DeviceIdentifier *DeviceIdentifier `json:"deviceIdentifier,omitempty"`
 
-	// DeviceMetadata: Device metadata.
+	// DeviceMetadata: The metadata attached to the device. Structured as
+	// key-value pairs. To
+	// learn more, read [Device metadata](/zero-touch/guides/metadata).
 	DeviceMetadata *DeviceMetadata `json:"deviceMetadata,omitempty"`
 
+<<<<<<< HEAD
 	// Name: Resource name in `partners/[PARTNER_ID]/devices/[DEVICE_ID]`.
 >>>>>>> Initial dep workover
+=======
+	// Name: Output only. The API resource name in the
+	// format
+	// `partners/[PARTNER_ID]/devices/[DEVICE_ID]`. Assigned by the server.
+>>>>>>> Working on getting compiling
 	Name string `json:"name,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
@@ -403,12 +430,16 @@ func (s *Device) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Working on getting compiling
 // DeviceClaim: A record of a device claimed by a reseller for a
 // customer. Devices claimed
 // for zero-touch enrollment have a claim with the
 // type
 // `SECTION_TYPE_ZERO_TOUCH`. To learn more, read
 // [Claim devices for customers](/zero-touch/guides/how-it-works#claim).
+<<<<<<< HEAD
 type DeviceClaim struct {
 	// OwnerCompanyId: The ID of the Customer that purchased the device.
 	OwnerCompanyId int64 `json:"ownerCompanyId,omitempty,string"`
@@ -420,16 +451,22 @@ type DeviceClaim struct {
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
 =======
 // DeviceClaim: Information about a device claimed for a partner.
+=======
+>>>>>>> Working on getting compiling
 type DeviceClaim struct {
-	// OwnerCompanyId: Owner ID.
+	// OwnerCompanyId: The ID of the Customer that purchased the device.
 	OwnerCompanyId int64 `json:"ownerCompanyId,omitempty,string"`
 
-	// SectionType: Section type of the device claim.
+	// SectionType: Output only. The type of claim made on the device.
 	//
 	// Possible values:
 	//   "SECTION_TYPE_UNSPECIFIED" - Unspecified section type.
+<<<<<<< HEAD
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero touch section type.
 >>>>>>> Initial dep workover
+=======
+	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
+>>>>>>> Working on getting compiling
 	SectionType string `json:"sectionType,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "OwnerCompanyId") to
@@ -457,6 +494,7 @@ func (s *DeviceClaim) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // DeviceIdentifier: Encapsulates hardware and product IDs to identify a
 // manufactured device. To
 // learn more, read [Identifiers](/zero-touch/guides/identifiers).
@@ -480,21 +518,34 @@ type DeviceIdentifier struct {
 	// unique.
 =======
 // DeviceIdentifier: Identifies a unique device.
+=======
+// DeviceIdentifier: Encapsulates hardware and product IDs to identify a
+// manufactured device. To
+// learn more, read [Identifiers](/zero-touch/guides/identifiers).
+>>>>>>> Working on getting compiling
 type DeviceIdentifier struct {
-	// Imei: IMEI number.
+	// Imei: The device’s IMEI number. Validated on input.
 	Imei string `json:"imei,omitempty"`
 
-	// Manufacturer: Manufacturer name to match
-	// `android.os.Build.MANUFACTURER` (required).
-	// Allowed values listed in
-	// [manufacturer names](/zero-touch/resources/manufacturer-names).
+	// Manufacturer: Required. The device manufacturer’s name. Matches the
+	// device's built-in
+	// value returned from `android.os.Build.MANUFACTURER`. Allowed values
+	// are
+	// listed in [manufacturer
+	// names](/zero-touch/resources/manufacturer-names).
 	Manufacturer string `json:"manufacturer,omitempty"`
 
-	// Meid: MEID number.
+	// Meid: The device’s MEID number.
 	Meid string `json:"meid,omitempty"`
 
+<<<<<<< HEAD
 	// SerialNumber: Serial number (optional).
 >>>>>>> Initial dep workover
+=======
+	// SerialNumber: The manufacturer's serial number for the device. This
+	// value might not be
+	// unique.
+>>>>>>> Working on getting compiling
 	SerialNumber string `json:"serialNumber,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Imei") to
@@ -521,12 +572,18 @@ func (s *DeviceIdentifier) MarshalJSON() ([]byte, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // DeviceMetadata: Metadata entries that can be attached to a `Device`.
 // To learn more, read
 // [Device metadata](/zero-touch/guides/metadata).
 =======
 // DeviceMetadata: A key-value pair of the device metadata.
 >>>>>>> Initial dep workover
+=======
+// DeviceMetadata: Metadata entries that can be attached to a `Device`.
+// To learn more, read
+// [Device metadata](/zero-touch/guides/metadata).
+>>>>>>> Working on getting compiling
 type DeviceMetadata struct {
 	// Entries: Metadata entries recorded as key-value pairs.
 	Entries map[string]string `json:"entries,omitempty"`
@@ -741,10 +798,14 @@ type FindDevicesByOwnerRequest struct {
 	// Possible values:
 	//   "SECTION_TYPE_UNSPECIFIED" - Unspecified section type.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
 =======
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero touch section type.
 >>>>>>> Initial dep workover
+=======
+	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
+>>>>>>> Working on getting compiling
 	SectionType string `json:"sectionType,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "CustomerId") to
@@ -952,10 +1013,14 @@ type PartnerClaim struct {
 	// Possible values:
 	//   "SECTION_TYPE_UNSPECIFIED" - Unspecified section type.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
 =======
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero touch section type.
 >>>>>>> Initial dep workover
+=======
+	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
+>>>>>>> Working on getting compiling
 	SectionType string `json:"sectionType,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "CustomerId") to
@@ -994,10 +1059,14 @@ type PartnerUnclaim struct {
 	// Possible values:
 	//   "SECTION_TYPE_UNSPECIFIED" - Unspecified section type.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
 =======
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero touch section type.
 >>>>>>> Initial dep workover
+=======
+	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
+>>>>>>> Working on getting compiling
 	SectionType string `json:"sectionType,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "DeviceId") to
@@ -1210,10 +1279,14 @@ type UnclaimDeviceRequest struct {
 	// Possible values:
 	//   "SECTION_TYPE_UNSPECIFIED" - Unspecified section type.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
 =======
 	//   "SECTION_TYPE_ZERO_TOUCH" - Zero touch section type.
 >>>>>>> Initial dep workover
+=======
+	//   "SECTION_TYPE_ZERO_TOUCH" - Zero-touch enrollment section type.
+>>>>>>> Working on getting compiling
 	SectionType string `json:"sectionType,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "DeviceId") to
@@ -1621,10 +1694,14 @@ func (c *PartnersCustomersCreateCall) Do(opts ...googleapi.CallOption) (*Company
 	//   "parameters": {
 	//     "parent": {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//       "description": "Required. The parent resource ID in the format `partners/[PARTNER_ID]` that\nidentifies the reseller.",
 =======
 	//       "description": "Required. The parent resource ID in format `partners/[PARTNER_ID]` that\nidentifies the reseller.",
 >>>>>>> Initial dep workover
+=======
+	//       "description": "Required. The parent resource ID in the format `partners/[PARTNER_ID]` that\nidentifies the reseller.",
+>>>>>>> Working on getting compiling
 	//       "location": "path",
 	//       "pattern": "^partners/[^/]+$",
 	//       "required": true,

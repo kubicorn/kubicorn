@@ -3718,7 +3718,11 @@ const opUpdateStackInstances = "UpdateStackInstances"
 //        fmt.Println(resp)
 //    }
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstances
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstances
+>>>>>>> Working on getting compiling
 func (c *CloudFormation) UpdateStackInstancesRequest(input *UpdateStackInstancesInput) (req *request.Request, output *UpdateStackInstancesOutput) {
 	op := &request.Operation{
 		Name:       opUpdateStackInstances,
@@ -3784,7 +3788,11 @@ func (c *CloudFormation) UpdateStackInstancesRequest(input *UpdateStackInstances
 //   * ErrCodeInvalidOperationException "InvalidOperationException"
 //   The specified operation isn't valid.
 //
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstances
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstances
+>>>>>>> Working on getting compiling
 func (c *CloudFormation) UpdateStackInstances(input *UpdateStackInstancesInput) (*UpdateStackInstancesOutput, error) {
 	req, out := c.UpdateStackInstancesRequest(input)
 	return out, req.Send()
@@ -7369,10 +7377,14 @@ type GetTemplateSummaryInput struct {
 	// Conditional: You must specify only one of the following parameters: StackName,
 	// StackSetName, TemplateBody, or TemplateURL.
 <<<<<<< HEAD
+<<<<<<< HEAD
 	StackSetName *string `type:"string"`
 =======
 	StackSetName *string `min:"1" type:"string"`
 >>>>>>> Initial dep workover
+=======
+	StackSetName *string `type:"string"`
+>>>>>>> Working on getting compiling
 
 	// Structure containing the template body with a minimum length of 1 byte and
 	// a maximum length of 51,200 bytes. For more information about templates, see
@@ -11480,7 +11492,11 @@ func (s *UpdateStackInput) SetUsePreviousTemplate(v bool) *UpdateStackInput {
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstancesInput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstancesInput
+>>>>>>> Working on getting compiling
 type UpdateStackInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11628,7 +11644,11 @@ func (s *UpdateStackInstancesInput) SetStackSetName(v string) *UpdateStackInstan
 	return s
 }
 
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstancesOutput
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/UpdateStackInstancesOutput
+>>>>>>> Working on getting compiling
 type UpdateStackInstancesOutput struct {
 	_ struct{} `type:"structure"`
 

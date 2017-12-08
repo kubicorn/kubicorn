@@ -1,20 +1,28 @@
 {
  "kind": "discovery#restDescription",
 <<<<<<< HEAD
+<<<<<<< HEAD
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/iAmRSwOzrdbZR2Jaj_q1_TiSXuk\"",
 =======
  "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/fAVKyPugJAqWsjzIFuZg5ZMlajU\"",
 >>>>>>> Initial dep workover
+=======
+ "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/iAmRSwOzrdbZR2Jaj_q1_TiSXuk\"",
+>>>>>>> Working on getting compiling
  "discoveryVersion": "v1",
  "id": "content:v2sandbox",
  "name": "content",
  "canonicalName": "Shopping Content",
  "version": "v2sandbox",
 <<<<<<< HEAD
+<<<<<<< HEAD
  "revision": "20171124",
 =======
  "revision": "20171102",
 >>>>>>> Initial dep workover
+=======
+ "revision": "20171124",
+>>>>>>> Working on getting compiling
  "title": "Content API for Shopping",
  "description": "Manages product items, inventory, and Merchant Center accounts for Google Shopping.",
  "ownerDomain": "google.com",
@@ -749,10 +757,14 @@
     "carrier": {
      "type": "string",
 <<<<<<< HEAD
+<<<<<<< HEAD
      "description": "The carrier handling the shipment.\n\nAcceptable values are:  \n- \"gsx\" \n- \"ups\" \n- \"usps\" \n- \"fedex\" \n- \"dhl\" \n- \"ecourier\" \n- \"cxt\" \n- \"google\" \n- \"ontrac\" \n- \"emsy\" \n- \"ont\" \n- \"deliv\" \n- \"dynamex\" \n- \"lasership\" \n- \"mpx\" \n- \"uds\""
 =======
      "description": "The carrier handling the shipment.\n\nAcceptable values are:  \n- \"gsx\" \n- \"ups\" \n- \"united parcel service\" \n- \"usps\" \n- \"united states postal service\" \n- \"fedex\" \n- \"dhl\" \n- \"ecourier\" \n- \"cxt\" \n- \"google\" \n- \"on trac\" \n- \"ontrac\" \n- \"on-trac\" \n- \"on_trac\" \n- \"delvic\" \n- \"dynamex\" \n- \"lasership\" \n- \"smartpost\" \n- \"fedex smartpost\" \n- \"mpx\" \n- \"uds\" \n- \"united delivery service\""
 >>>>>>> Initial dep workover
+=======
+     "description": "The carrier handling the shipment.\n\nAcceptable values are:  \n- \"gsx\" \n- \"ups\" \n- \"usps\" \n- \"fedex\" \n- \"dhl\" \n- \"ecourier\" \n- \"cxt\" \n- \"google\" \n- \"ontrac\" \n- \"emsy\" \n- \"ont\" \n- \"deliv\" \n- \"dynamex\" \n- \"lasership\" \n- \"mpx\" \n- \"uds\""
+>>>>>>> Working on getting compiling
     },
     "creationDate": {
      "type": "string",
@@ -797,6 +809,10 @@
      "description": "The ID of the product to ship. This is the REST ID used in the products service. Either lineItemId or productId is required."
 =======
 >>>>>>> Initial dep workover
+    },
+    "productId": {
+     "type": "string",
+     "description": "The ID of the product to ship. This is the REST ID used in the products service. Either lineItemId or productId is required."
     },
     "quantity": {
      "type": "integer",
@@ -1071,6 +1087,10 @@
 =======
 >>>>>>> Initial dep workover
     },
+    "productId": {
+     "type": "string",
+     "description": "The ID of the product to cancel. This is the REST ID used in the products service. Either lineItemId or productId is required."
+    },
     "quantity": {
      "type": "integer",
      "description": "The quantity to cancel.",
@@ -1126,6 +1146,10 @@
      "description": "The ID of the product to return. This is the REST ID used in the products service. Either lineItemId or productId is required."
 =======
 >>>>>>> Initial dep workover
+    },
+    "productId": {
+     "type": "string",
+     "description": "The ID of the product to return. This is the REST ID used in the products service. Either lineItemId or productId is required."
     },
     "quantity": {
      "type": "integer",

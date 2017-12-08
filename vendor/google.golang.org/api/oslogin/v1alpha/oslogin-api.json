@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   "canonicalName": "Cloud OS Login",
   "auth": {
@@ -20,6 +21,8 @@
       }
     }
   },
+=======
+>>>>>>> Working on getting compiling
   "rootUrl": "https://oslogin.googleapis.com/",
 >>>>>>> Initial dep workover
   "ownerDomain": "google.com",
@@ -31,11 +34,16 @@
   "resources": {
     "users": {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "methods": {
         "importSshPublicKey": {
           "flatPath": "v1alpha/users/{usersId}:importSshPublicKey",
           "path": "v1alpha/{+parent}:importSshPublicKey",
           "id": "oslogin.users.importSshPublicKey",
+=======
+      "methods": {
+        "importSshPublicKey": {
+>>>>>>> Working on getting compiling
           "request": {
             "$ref": "SshPublicKey"
           },
@@ -49,6 +57,7 @@
           "httpMethod": "POST",
           "parameters": {
             "projectId": {
+<<<<<<< HEAD
               "location": "query",
               "description": "The project ID of the Google Cloud Platform project.",
               "type": "string"
@@ -59,12 +68,31 @@
               "required": true,
               "type": "string",
               "pattern": "^users/[^/]+$"
+=======
+              "description": "The project ID of the Google Cloud Platform project.",
+              "type": "string",
+              "location": "query"
+            },
+            "parent": {
+              "pattern": "^users/[^/]+$",
+              "location": "path",
+              "description": "The unique ID for the user in format `users/{user}`.",
+              "required": true,
+              "type": "string"
+>>>>>>> Working on getting compiling
             }
           },
           "scopes": [
             "https://www.googleapis.com/auth/cloud-platform",
             "https://www.googleapis.com/auth/compute"
+<<<<<<< HEAD
           ]
+=======
+          ],
+          "flatPath": "v1alpha/users/{usersId}:importSshPublicKey",
+          "path": "v1alpha/{+parent}:importSshPublicKey",
+          "id": "oslogin.users.importSshPublicKey"
+>>>>>>> Working on getting compiling
         },
         "getLoginProfile": {
           "response": {
@@ -82,11 +110,19 @@
           ],
           "parameters": {
             "name": {
+<<<<<<< HEAD
               "location": "path",
               "description": "The unique ID for the user in format `users/{user}`.",
               "required": true,
               "type": "string",
               "pattern": "^users/[^/]+$"
+=======
+              "description": "The unique ID for the user in format `users/{user}`.",
+              "required": true,
+              "type": "string",
+              "pattern": "^users/[^/]+$",
+              "location": "path"
+>>>>>>> Working on getting compiling
             }
           },
           "flatPath": "v1alpha/users/{usersId}/loginProfile",
@@ -95,6 +131,7 @@
           "description": "Retrieves the profile information used for logging in to a virtual machine\non Google Compute Engine."
         }
       },
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
       "resources": {
@@ -102,6 +139,12 @@
           "methods": {
             "get": {
               "description": "Retrieves an SSH public key.",
+=======
+      "resources": {
+        "sshPublicKeys": {
+          "methods": {
+            "delete": {
+>>>>>>> Working on getting compiling
               "response": {
                 "$ref": "SshPublicKey"
               },
@@ -121,12 +164,18 @@
               "httpMethod": "DELETE",
               "parameters": {
                 "name": {
+                  "pattern": "^users/[^/]+/sshPublicKeys/[^/]+$",
+                  "location": "path",
                   "description": "The fingerprint of the public key to update. Public keys are identified by\ntheir SHA-256 fingerprint. The fingerprint of the public key is in format\n`users/{user}/sshPublicKeys/{fingerprint}`.",
                   "required": true,
+<<<<<<< HEAD
                   "type": "string",
                   "pattern": "^users/[^/]+/sshPublicKeys/[^/]+$",
                   "location": "path"
 >>>>>>> Initial dep workover
+=======
+                  "type": "string"
+>>>>>>> Working on getting compiling
                 }
               },
               "scopes": [
@@ -135,6 +184,7 @@
               ],
               "flatPath": "v1alpha/users/{usersId}/sshPublicKeys/{sshPublicKeysId}",
               "path": "v1alpha/{+name}",
+<<<<<<< HEAD
 <<<<<<< HEAD
               "id": "oslogin.users.sshPublicKeys.get"
             },
@@ -146,8 +196,13 @@
               "httpMethod": "PATCH",
 =======
               "id": "oslogin.users.sshPublicKeys.delete"
+=======
+              "id": "oslogin.users.sshPublicKeys.delete",
+              "description": "Deletes an SSH public key."
+>>>>>>> Working on getting compiling
             },
             "get": {
+              "description": "Retrieves an SSH public key.",
               "response": {
                 "$ref": "SshPublicKey"
               },
@@ -156,10 +211,6 @@
                 "name"
               ],
               "httpMethod": "GET",
-              "scopes": [
-                "https://www.googleapis.com/auth/cloud-platform",
-                "https://www.googleapis.com/auth/compute"
-              ],
               "parameters": {
 <<<<<<< HEAD
                 "updateMask": {
@@ -211,6 +262,7 @@
                 "https://www.googleapis.com/auth/cloud-platform",
                 "https://www.googleapis.com/auth/compute"
               ],
+<<<<<<< HEAD
               "flatPath": "v1alpha/users/{usersId}/sshPublicKeys/{sshPublicKeysId}",
               "id": "oslogin.users.sshPublicKeys.delete",
               "path": "v1alpha/{+name}"
@@ -222,19 +274,23 @@
             "delete": {
               "description": "Deletes a POSIX account.",
 =======
+=======
+>>>>>>> Working on getting compiling
               "flatPath": "v1alpha/users/{usersId}/sshPublicKeys/{sshPublicKeysId}",
               "path": "v1alpha/{+name}",
-              "id": "oslogin.users.sshPublicKeys.get",
-              "description": "Retrieves an SSH public key."
+              "id": "oslogin.users.sshPublicKeys.get"
             },
             "patch": {
               "path": "v1alpha/{+name}",
               "id": "oslogin.users.sshPublicKeys.patch",
-              "description": "Updates an SSH public key and returns the profile information. This method\nsupports patch semantics.",
               "request": {
                 "$ref": "SshPublicKey"
               },
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
+=======
+              "description": "Updates an SSH public key and returns the profile information. This method\nsupports patch semantics.",
+>>>>>>> Working on getting compiling
               "response": {
                 "$ref": "Empty"
               },
@@ -245,19 +301,17 @@
               "httpMethod": "DELETE",
 =======
               "httpMethod": "PATCH",
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
               "scopes": [
                 "https://www.googleapis.com/auth/cloud-platform",
                 "https://www.googleapis.com/auth/compute"
               ],
+=======
+>>>>>>> Working on getting compiling
               "parameters": {
-                "updateMask": {
-                  "location": "query",
-                  "description": "Mask to control which fields get updated. Updates all if not present.",
-                  "format": "google-fieldmask",
-                  "type": "string"
-                },
                 "name": {
+<<<<<<< HEAD
                   "pattern": "^users/[^/]+/sshPublicKeys/[^/]+$",
                   "location": "path",
 <<<<<<< HEAD
@@ -271,11 +325,25 @@
               "path": "v1alpha/{+name}",
               "id": "oslogin.users.projects.delete"
 =======
+=======
+>>>>>>> Working on getting compiling
                   "description": "The fingerprint of the public key to update. Public keys are identified by\ntheir SHA-256 fingerprint. The fingerprint of the public key is in format\n`users/{user}/sshPublicKeys/{fingerprint}`.",
                   "required": true,
-                  "type": "string"
+                  "type": "string",
+                  "pattern": "^users/[^/]+/sshPublicKeys/[^/]+$",
+                  "location": "path"
+                },
+                "updateMask": {
+                  "description": "Mask to control which fields get updated. Updates all if not present.",
+                  "format": "google-fieldmask",
+                  "type": "string",
+                  "location": "query"
                 }
               },
+              "scopes": [
+                "https://www.googleapis.com/auth/cloud-platform",
+                "https://www.googleapis.com/auth/compute"
+              ],
               "flatPath": "v1alpha/users/{usersId}/sshPublicKeys/{sshPublicKeysId}"
             }
           }
@@ -283,13 +351,14 @@
         "projects": {
           "methods": {
             "delete": {
-              "httpMethod": "DELETE",
-              "parameterOrder": [
-                "name"
-              ],
+              "description": "Deletes a POSIX account.",
               "response": {
                 "$ref": "Empty"
               },
+              "parameterOrder": [
+                "name"
+              ],
+              "httpMethod": "DELETE",
               "parameters": {
                 "name": {
                   "pattern": "^users/[^/]+/projects/[^/]+$",
@@ -304,81 +373,21 @@
                 "https://www.googleapis.com/auth/compute"
               ],
               "flatPath": "v1alpha/users/{usersId}/projects/{projectsId}",
-              "id": "oslogin.users.projects.delete",
               "path": "v1alpha/{+name}",
+<<<<<<< HEAD
               "description": "Deletes a POSIX account."
 >>>>>>> Initial dep workover
+=======
+              "id": "oslogin.users.projects.delete"
+>>>>>>> Working on getting compiling
             }
           }
-        }
-      },
-      "methods": {
-        "importSshPublicKey": {
-          "response": {
-            "$ref": "ImportSshPublicKeyResponse"
-          },
-          "parameterOrder": [
-            "parent"
-          ],
-          "httpMethod": "POST",
-          "parameters": {
-            "projectId": {
-              "description": "The project ID of the Google Cloud Platform project.",
-              "type": "string",
-              "location": "query"
-            },
-            "parent": {
-              "pattern": "^users/[^/]+$",
-              "location": "path",
-              "description": "The unique ID for the user in format `users/{user}`.",
-              "required": true,
-              "type": "string"
-            }
-          },
-          "scopes": [
-            "https://www.googleapis.com/auth/cloud-platform",
-            "https://www.googleapis.com/auth/compute"
-          ],
-          "flatPath": "v1alpha/users/{usersId}:importSshPublicKey",
-          "path": "v1alpha/{+parent}:importSshPublicKey",
-          "id": "oslogin.users.importSshPublicKey",
-          "request": {
-            "$ref": "SshPublicKey"
-          },
-          "description": "Adds an SSH public key and returns the profile information. Default POSIX\naccount information is set when no username and UID exist as part of the\nlogin profile."
-        },
-        "getLoginProfile": {
-          "httpMethod": "GET",
-          "response": {
-            "$ref": "LoginProfile"
-          },
-          "parameterOrder": [
-            "name"
-          ],
-          "parameters": {
-            "name": {
-              "pattern": "^users/[^/]+$",
-              "location": "path",
-              "description": "The unique ID for the user in format `users/{user}`.",
-              "required": true,
-              "type": "string"
-            }
-          },
-          "scopes": [
-            "https://www.googleapis.com/auth/cloud-platform",
-            "https://www.googleapis.com/auth/cloud-platform.read-only",
-            "https://www.googleapis.com/auth/compute",
-            "https://www.googleapis.com/auth/compute.readonly"
-          ],
-          "flatPath": "v1alpha/users/{usersId}/loginProfile",
-          "id": "oslogin.users.getLoginProfile",
-          "path": "v1alpha/{+name}/loginProfile",
-          "description": "Retrieves the profile information used for logging in to a virtual machine\non Google Compute Engine."
         }
       }
     }
   },
   "parameters": {
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     "uploadType": {
@@ -388,13 +397,28 @@
     },
     "fields": {
       "description": "Selector specifying which fields to include in a partial response.",
+=======
+    "upload_protocol": {
+      "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
+>>>>>>> Working on getting compiling
       "type": "string",
       "location": "query"
     },
-    "callback": {
+    "prettyPrint": {
+      "description": "Returns response with indentations and line breaks.",
+      "type": "boolean",
+      "default": "true",
+      "location": "query"
+    },
+    "fields": {
       "location": "query",
-      "description": "JSONP",
+      "description": "Selector specifying which fields to include in a partial response.",
       "type": "string"
+    },
+    "uploadType": {
+      "description": "Legacy upload protocol for media (e.g. \"media\", \"multipart\").",
+      "type": "string",
+      "location": "query"
     },
     "$.xgafv": {
       "enum": [
@@ -409,9 +433,12 @@
       ],
       "location": "query"
     },
+    "callback": {
+      "description": "JSONP",
+      "type": "string",
+      "location": "query"
+    },
     "alt": {
-      "description": "Data format for response.",
-      "default": "json",
       "enum": [
         "json",
         "media",
@@ -423,30 +450,36 @@
         "Media download with context-dependent Content-Type",
         "Responses with Content-Type of application/x-protobuf"
       ],
-      "location": "query"
-    },
-    "key": {
-      "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
-      "type": "string",
-      "location": "query"
+      "location": "query",
+      "description": "Data format for response.",
+      "default": "json"
     },
     "access_token": {
       "location": "query",
       "description": "OAuth access token.",
       "type": "string"
     },
-    "quotaUser": {
-      "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
+    "key": {
+      "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
       "type": "string",
       "location": "query"
     },
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
+=======
+    "quotaUser": {
+      "location": "query",
+      "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.",
+      "type": "string"
+    },
+>>>>>>> Working on getting compiling
     "pp": {
       "location": "query",
       "description": "Pretty-print response.",
       "type": "boolean",
       "default": "true"
     },
+<<<<<<< HEAD
 <<<<<<< HEAD
     "oauth_token": {
       "location": "query",
@@ -463,12 +496,15 @@
       "type": "string",
       "location": "query"
     },
+=======
+>>>>>>> Working on getting compiling
     "oauth_token": {
       "location": "query",
       "description": "OAuth 2.0 token for the current user.",
       "type": "string"
 >>>>>>> Initial dep workover
     },
+<<<<<<< HEAD
     "upload_protocol": {
       "location": "query",
       "description": "Upload protocol for media (e.g. \"raw\", \"multipart\").",
@@ -482,21 +518,29 @@
       "location": "query"
 =======
       "default": "true"
+=======
+    "bearer_token": {
+      "description": "OAuth bearer token.",
+      "type": "string",
+      "location": "query"
+>>>>>>> Working on getting compiling
     }
   },
   "version": "v1alpha",
   "baseUrl": "https://oslogin.googleapis.com/",
-  "servicePath": "",
-  "description": "Manages OS login configuration for Google account users.",
   "kind": "discovery#restDescription",
+  "description": "Manages OS login configuration for Google account users.",
+  "servicePath": "",
   "basePath": "",
-  "revision": "20171109",
-  "documentationLink": "https://cloud.google.com/compute/docs/oslogin/rest/",
+  "revision": "20171120",
   "id": "oslogin:v1alpha",
+  "documentationLink": "https://cloud.google.com/compute/docs/oslogin/rest/",
   "discoveryVersion": "v1",
   "version_module": true,
   "schemas": {
     "LoginProfile": {
+      "description": "The user profile information used for logging in to a virtual machine on\nGoogle Compute Engine.",
+      "type": "object",
       "properties": {
         "name": {
           "description": "A unique user ID for identifying the user.",
@@ -521,16 +565,20 @@
           "type": "object"
         }
       },
+<<<<<<< HEAD
       "id": "LoginProfile",
       "description": "The user profile information used for logging in to a virtual machine on\nGoogle Compute Engine.",
       "type": "object"
 >>>>>>> Initial dep workover
+=======
+      "id": "LoginProfile"
+>>>>>>> Working on getting compiling
     },
     "Empty": {
-      "description": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:\n\n    service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }\n\nThe JSON representation for `Empty` is empty JSON object `{}`.",
-      "type": "object",
       "properties": {},
-      "id": "Empty"
+      "id": "Empty",
+      "description": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:\n\n    service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }\n\nThe JSON representation for `Empty` is empty JSON object `{}`.",
+      "type": "object"
     },
 <<<<<<< HEAD
     "uploadType": {
@@ -539,11 +587,9 @@
       "type": "string"
 =======
     "SshPublicKey": {
+      "description": "The SSH public key information associated with a Google account.",
+      "type": "object",
       "properties": {
-        "key": {
-          "description": "Public key text in SSH format, defined by\n\u003ca href=\"https://www.ietf.org/rfc/rfc4253.txt\" target=\"_blank\"\u003eRFC4253\u003c/a\u003e\nsection 6.6.",
-          "type": "string"
-        },
         "expirationTimeUsec": {
           "description": "An expiration time in microseconds since epoch.",
           "format": "int64",
@@ -552,20 +598,28 @@
         "fingerprint": {
           "description": "Output only. The SHA-256 fingerprint of the SSH public key.",
           "type": "string"
+        },
+        "key": {
+          "description": "Public key text in SSH format, defined by\n\u003ca href=\"https://www.ietf.org/rfc/rfc4253.txt\" target=\"_blank\"\u003eRFC4253\u003c/a\u003e\nsection 6.6.",
+          "type": "string"
         }
       },
+<<<<<<< HEAD
       "id": "SshPublicKey",
       "description": "The SSH public key information associated with a Google account.",
       "type": "object"
 >>>>>>> Initial dep workover
+=======
+      "id": "SshPublicKey"
+>>>>>>> Working on getting compiling
     },
     "ImportSshPublicKeyResponse": {
       "description": "A response message for importing an SSH public key.",
       "type": "object",
       "properties": {
         "loginProfile": {
-          "$ref": "LoginProfile",
-          "description": "The login profile information for the user."
+          "description": "The login profile information for the user.",
+          "$ref": "LoginProfile"
         }
       },
       "id": "ImportSshPublicKeyResponse"
@@ -788,8 +842,27 @@
   },
   "protocol": "rest",
   "icons": {
-    "x32": "http://www.google.com/images/icons/product/search-32.gif",
-    "x16": "http://www.google.com/images/icons/product/search-16.gif"
+    "x16": "http://www.google.com/images/icons/product/search-16.gif",
+    "x32": "http://www.google.com/images/icons/product/search-32.gif"
+  },
+  "canonicalName": "Cloud OS Login",
+  "auth": {
+    "oauth2": {
+      "scopes": {
+        "https://www.googleapis.com/auth/cloud-platform": {
+          "description": "View and manage your data across Google Cloud Platform services"
+        },
+        "https://www.googleapis.com/auth/compute.readonly": {
+          "description": "View your Google Compute Engine resources"
+        },
+        "https://www.googleapis.com/auth/compute": {
+          "description": "View and manage your Google Compute Engine resources"
+        },
+        "https://www.googleapis.com/auth/cloud-platform.read-only": {
+          "description": "View your data across Google Cloud Platform services"
+        }
+      }
+    }
   }
 >>>>>>> Initial dep workover
 }

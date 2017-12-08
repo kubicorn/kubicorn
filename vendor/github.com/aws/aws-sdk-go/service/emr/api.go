@@ -7459,7 +7459,11 @@ func (s *JobFlowInstancesDetail) SetTerminationProtected(v bool) *JobFlowInstanc
 // using a security configuration. For more information see Use Kerberos Authentication
 // (http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html)
 // in the EMR Management Guide.
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/KerberosAttributes
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/KerberosAttributes
+>>>>>>> Working on getting compiling
 type KerberosAttributes struct {
 	_ struct{} `type:"structure"`
 
@@ -10222,7 +10226,11 @@ func (s *SupportedProductConfig) SetName(v string) *SupportedProductConfig {
 // with an Amazon EMR resource. Tags make it easier to associate clusters in
 // various ways, such as grouping clusters to track your Amazon EMR resource
 // allocation costs. For more information, see Tag Clusters (http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html).
+<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/Tag
+=======
+// Please also see https://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/Tag
+>>>>>>> Working on getting compiling
 type Tag struct {
 	_ struct{} `type:"structure"`
 

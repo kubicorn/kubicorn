@@ -421,6 +421,7 @@
         "DynamoDBReadCapacityUtilization",
         "DynamoDBWriteCapacityUtilization",
 <<<<<<< HEAD
+<<<<<<< HEAD
         "ALBRequestCountPerTarget",
         "RDSReaderAverageCPUUtilization",
         "RDSReaderAverageDatabaseConnections",
@@ -431,6 +432,14 @@
         "RDSReaderAverageCPUUtilization",
         "RDSReaderAverageDatabaseConnections"
 >>>>>>> Initial dep workover
+=======
+        "ALBRequestCountPerTarget",
+        "RDSReaderAverageCPUUtilization",
+        "RDSReaderAverageDatabaseConnections",
+        "EC2SpotFleetRequestAverageCPUUtilization",
+        "EC2SpotFleetRequestAverageNetworkIn",
+        "EC2SpotFleetRequestAverageNetworkOut"
+>>>>>>> Working on getting compiling
       ]
     },
     "MetricUnit":{"type":"string"},

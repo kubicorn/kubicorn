@@ -56,11 +56,11 @@
 		},
 		{
 			"ImportPath": "github.com/go-openapi/spec",
-			"Rev": "7abd5745472fff5eb3685386d5fb8bf38683154d"
+			"Rev": "6aced65f8501fe1217321abf0749d354824ba2ff"
 		},
 		{
 			"ImportPath": "github.com/go-openapi/swag",
-			"Rev": "f3f9494671f93fcff853e3c6e9e948b3eb71e590"
+			"Rev": "1d0bd113de87027671077d3c71eb3ac5d7dbba72"
 		},
 		{
 			"ImportPath": "github.com/gogo/protobuf/proto",
@@ -128,15 +128,15 @@
 		},
 		{
 			"ImportPath": "github.com/mailru/easyjson/buffer",
-			"Rev": "2f5df55504ebc322e4d52d34df6a1f5b503bf26d"
+			"Rev": "d5b7844b561a7bc640052f1b935f7b800330d7e0"
 		},
 		{
 			"ImportPath": "github.com/mailru/easyjson/jlexer",
-			"Rev": "2f5df55504ebc322e4d52d34df6a1f5b503bf26d"
+			"Rev": "d5b7844b561a7bc640052f1b935f7b800330d7e0"
 		},
 		{
 			"ImportPath": "github.com/mailru/easyjson/jwriter",
-			"Rev": "2f5df55504ebc322e4d52d34df6a1f5b503bf26d"
+			"Rev": "d5b7844b561a7bc640052f1b935f7b800330d7e0"
 		},
 		{
 			"ImportPath": "github.com/mxk/go-flowrate/flowrate",
@@ -245,6 +245,7 @@
 		{
 			"ImportPath": "k8s.io/kube-openapi/pkg/common",
 <<<<<<< HEAD
+<<<<<<< HEAD
 			"Rev": "39a7bf85c140f972372c2a0d1ee40adbf0c8bfe1"
 		},
 		{
@@ -253,6 +254,9 @@
 =======
 			"Rev": "61b46af70dfed79c6d24530cd23b41440a7f22a5"
 >>>>>>> Initial dep workover
+=======
+			"Rev": "868f2f29720b192240e18284659231b440f9cda5"
+>>>>>>> Working on getting compiling
 		}
 	]
 }

@@ -537,7 +537,7 @@ func (PodSecurityPolicySpec) SwaggerDoc() map[string]string {
 }
 
 var map_ReplicaSet = map[string]string{
-	"":         "DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1beta2/ReplicaSet. See the release notes for more information. ReplicaSet ensures that a specified number of pod replicas are running at any given time.",
+	"":         "DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1beta2/ReplicaSet. See the release notes for more information. ReplicaSet represents the configuration of a ReplicaSet.",
 	"metadata": "If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata",
 	"spec":     "Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
 	"status":   "Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#spec-and-status",
@@ -645,7 +645,7 @@ func (RunAsUserStrategyOptions) SwaggerDoc() map[string]string {
 var map_SELinuxStrategyOptions = map[string]string{
 	"":               "SELinux  Strategy Options defines the strategy type and any options used to create the strategy.",
 	"rule":           "type is the strategy that will dictate the allowable labels that may be set.",
-	"seLinuxOptions": "seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/",
+	"seLinuxOptions": "seLinuxOptions required to run as; required for MustRunAs More info: https://git.k8s.io/community/contributors/design-proposals/security_context.md",
 }
 
 func (SELinuxStrategyOptions) SwaggerDoc() map[string]string {

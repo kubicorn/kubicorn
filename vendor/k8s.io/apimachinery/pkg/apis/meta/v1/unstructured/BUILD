@@ -22,7 +22,6 @@ go_test(
     ],
 =======
     srcs = ["unstructured_test.go"],
-    importpath = "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured",
     library = ":go_default_library",
     deps = ["//vendor/github.com/stretchr/testify/assert:go_default_library"],
 >>>>>>> Initial dep workover
@@ -36,7 +35,6 @@ go_library(
         "unstructured_list.go",
         "zz_generated.deepcopy.go",
     ],
-    importpath = "k8s.io/apimachinery/pkg/apis/meta/v1/unstructured",
     deps = [
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",

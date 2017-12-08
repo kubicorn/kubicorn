@@ -232,30 +232,6 @@ func TestCacheableMethod(t *testing.T) {
 	}
 }
 
-func TestDontServeHeadResponseToGetRequest(t *testing.T) {
-	resetTest()
-	url := s.server.URL + "/"
-	req, err := http.NewRequest(http.MethodHead, url, nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-	_, err = s.client.Do(req)
-	if err != nil {
-		t.Fatal(err)
-	}
-	req, err = http.NewRequest(http.MethodGet, url, nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-	resp, err := s.client.Do(req)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if resp.Header.Get(XFromCache) != "" {
-		t.Errorf("Cache should not match")
-	}
-}
-
 func TestDontStorePartialRangeInCache(t *testing.T) {
 	resetTest()
 	{
