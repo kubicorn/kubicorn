@@ -15,6 +15,8 @@
 package resources
 
 import (
+	"net/url"
+
 	"github.com/aws/aws-sdk-go/aws/awserr"
 	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/kris-nova/kubicorn/apis/cluster"
@@ -22,7 +24,6 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/compare"
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"net/url"
 )
 
 var _ cloud.Resource = &InstanceProfile{}
