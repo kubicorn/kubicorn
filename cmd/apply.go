@@ -30,6 +30,7 @@ import (
 	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
+	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
 )
 
@@ -100,13 +101,18 @@ func RunApply(options *ApplyOptions) error {
 		})
 	case "git":
 		logger.Info("Selected [git] state store")
+		remote, _ := gg.OriginURL()
+		user, _ := gg.Global("user.name")
+		email, _ := gg.Email()
+		repo, _ := gg.Repository()
+
 		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
 			BasePath:    options.StateStorePath,
-			ClusterName: name,
+			ClusterName: repo,
 			CommitConfig: &git.JSONGitCommitConfig{
-				Name:   name,
-				Email:  "",
-				Remote: "",
+				Name:   user,
+				Email:  email,
+				Remote: remote,
 			},
 		})
 	case "jsonfs":
