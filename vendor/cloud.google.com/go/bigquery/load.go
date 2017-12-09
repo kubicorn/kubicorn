@@ -15,15 +15,14 @@
 package bigquery
 
 import (
+	"io"
+
 	"golang.org/x/net/context"
 	bq "google.golang.org/api/bigquery/v2"
 )
 
 // LoadConfig holds the configuration for a load job.
 type LoadConfig struct {
-	// JobID is the ID to use for the load job. If unset, a job ID will be automatically created.
-	JobID string
-
 	// Src is the source from which data will be loaded.
 	Src LoadSource
 
@@ -37,10 +36,53 @@ type LoadConfig struct {
 	// WriteDisposition specifies how existing data in the destination table is treated.
 	// The default is WriteAppend.
 	WriteDisposition TableWriteDisposition
+
+	// The labels associated with this job.
+	Labels map[string]string
+
+	// If non-nil, the destination table is partitioned by time.
+	TimePartitioning *TimePartitioning
+}
+
+func (l *LoadConfig) toBQ() (*bq.JobConfiguration, io.Reader) {
+	config := &bq.JobConfiguration{
+		Labels: l.Labels,
+		Load: &bq.JobConfigurationLoad{
+			CreateDisposition: string(l.CreateDisposition),
+			WriteDisposition:  string(l.WriteDisposition),
+			DestinationTable:  l.Dst.toBQ(),
+			TimePartitioning:  l.TimePartitioning.toBQ(),
+		},
+	}
+	media := l.Src.populateLoadConfig(config.Load)
+	return config, media
+}
+
+func bqToLoadConfig(q *bq.JobConfiguration, c *Client) *LoadConfig {
+	lc := &LoadConfig{
+		Labels:            q.Labels,
+		CreateDisposition: TableCreateDisposition(q.Load.CreateDisposition),
+		WriteDisposition:  TableWriteDisposition(q.Load.WriteDisposition),
+		Dst:               bqToTable(q.Load.DestinationTable, c),
+		TimePartitioning:  bqToTimePartitioning(q.Load.TimePartitioning),
+	}
+	var fc *FileConfig
+	if len(q.Load.SourceUris) == 0 {
+		s := NewReaderSource(nil)
+		fc = &s.FileConfig
+		lc.Src = s
+	} else {
+		s := NewGCSReference(q.Load.SourceUris...)
+		fc = &s.FileConfig
+		lc.Src = s
+	}
+	bqPopulateFileConfig(q.Load, fc)
+	return lc
 }
 
 // A Loader loads data from Google Cloud Storage into a BigQuery table.
 type Loader struct {
+	JobIDConfig
 	LoadConfig
 	c *Client
 }
@@ -51,11 +93,14 @@ type Loader struct {
 // This package defines two LoadSources: GCSReference, for Google Cloud Storage
 // objects, and ReaderSource, for data read from an io.Reader.
 type LoadSource interface {
-	populateInsertJobConfForLoad(conf *insertJobConf)
+	// populates config, returns media
+	populateLoadConfig(*bq.JobConfigurationLoad) io.Reader
 }
 
 // LoaderFrom returns a Loader which can be used to load data into a BigQuery table.
 // The returned Loader may optionally be further configured before its Run method is called.
+// See GCSReference and ReaderSource for additional configuration options that
+// affect loading.
 func (t *Table) LoaderFrom(src LoadSource) *Loader {
 	return &Loader{
 		c: t.c,
@@ -68,19 +113,14 @@ func (t *Table) LoaderFrom(src LoadSource) *Loader {
 
 // Run initiates a load job.
 func (l *Loader) Run(ctx context.Context) (*Job, error) {
-	job := &bq.Job{
-		Configuration: &bq.JobConfiguration{
-			Load: &bq.JobConfigurationLoad{
-				CreateDisposition: string(l.CreateDisposition),
-				WriteDisposition:  string(l.WriteDisposition),
-			},
-		},
-	}
-	conf := &insertJobConf{job: job}
-	l.Src.populateInsertJobConfForLoad(conf)
-	setJobRef(job, l.JobID, l.c.projectID)
+	job, media := l.newJob()
+	return l.c.insertJob(ctx, job, media)
+}
 
-	job.Configuration.Load.DestinationTable = l.Dst.tableRefProto()
-
-	return l.c.insertJob(ctx, conf)
+func (l *Loader) newJob() (*bq.Job, io.Reader) {
+	config, media := l.LoadConfig.toBQ()
+	return &bq.Job{
+		JobReference:  l.JobIDConfig.createJobRef(l.c.projectID),
+		Configuration: config,
+	}, media
 }

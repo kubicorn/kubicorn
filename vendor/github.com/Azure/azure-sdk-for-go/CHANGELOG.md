@@ -1,5 +1,121 @@
 # CHANGELOG
 
+## `v11.2.2-beta`
+
+### Bug Fixes
+ - Regenerating `latest` and `preview` profiles after deleting falsely included apimanagement.
+
+## `v11.2.1-beta`
+
+### Bug Fixes
+ - Commenting out ignore rule that false-positived on the graphrbac package.
+
+## `v11.2.0-beta`
+
+### Repository Structure
+ - Adding support for Multi-API Version paradigm in `services` directory.
+ - Adding support for Azure Profile in `profiles` directory.
+
+### Storage
+ - Added operations for getting and setting container metadata.
+ - Fixed unmarshaling bug on list containers operation.'
+
+### Generated code notes
+
+- Services directory generated from [Azure REST API specs](https://github.com/Azure/azure-rest-api-specs) commit: 274c99f7bd93d8b98048e31b74a34333cecded74
+- [AutoRest Go Generator](https://github.com/Azure/autorest.go) version: 2.0.41
+
+## `v11.1.1-beta`
+ 
+### ARM
+ 
+- Registers resource providers if necessary.
+- Requires go-autorest v9.1.0
+ 
+### Generated code notes
+
+- [Azure REST API specs](https://github.com/Azure/azure-rest-api-specs) commits:
+  - All services except trafficmanager and containerregistry: 0c2a12b50d8598f68d6715b507f7dd53e163407e
+  - trafficmanager and containerregistry: c97a18ed775029207715b09c80761334724740b9
+- [AutoRest Go Generator](https://github.com/Azure/autorest.go) version: 2.0.36
+ 
+### Storage
+ 
+- Fixed bug in which blob types were unmarshaed incorrectly.
+
+## `v11.1.0-beta`
+
+### ARM
+
+- trafficmanager and containerregistry SDKs now reflect the services faithfully
+- trafficmanager also has a new operation group: user metrics.
+
+### Generated code notes
+- [Azure REST API specs](https://github.com/Azure/azure-rest-api-specs) commit: c97a18ed775029207715b09c80761334724740b9
+- [AutoRest Go Generator](https://github.com/Azure/autorest.go) commit: 5d984152f2e9cff6878ea5060bed7e8d8a2ae1cc
+
+## `v11.0.0-beta`
+
+### ARM
+
+| api                                 | version            | note                                |
+|:------------------------------------|:-------------------|:------------------------------------|
+| arm/analysisservices                | 2017-08-01-beta    | update                              |
+| arm/batch                           | 2017-05-01         | update                              |
+| arm/cdn                             | 2017-04-02         | update                              |
+| arm/cognitiveservices               | 2017-04-18         | update                              |
+| arm/compute                         | multiple           | update                              |
+| arm/containerregistry               | 2017-10-01         | update                              |
+| arm/customerinsights                | 2017-04-26         | update                              |
+| arm/eventgrid                       | 2017-09-15-preview | update                              |
+| arm/eventhub                        | 2017-04-01         | update                              |
+| arm/graphrbac                       | 1.6                | update                              |
+| arm/iothub                          | 2017-07-01         | update                              |
+| arm/keyvault                        | 2016-10-01         | update                              |
+| arm/marketplaceordering             | 2015-06-01         | new                                 |
+| arm/opertionalinsights              | multiple           | update                              |
+| arm/operationsmanagement            | 2015-11-01-preview | new                                 |
+| arm/recoveryservices                | multiple           | update                              |
+| arm/recoveryservicesbackup          | multiple           | update                              |
+| arm/redis                           | 2017-02-01         | update                              |
+| arm/relay                           | 2017-04-01         | update                              |
+| arm/resourcehealth                  | 017-07-01          | update                              |
+| arm/resources/resources             | 2017-05-10         | update                              |
+| arm/servicebus                      | 2017-04-01         | update                              |
+| arm/storage                         | 2017-06-01         | update                              |
+| arm/streamanalytics                 | 2016-03-01         | update                              |
+| arm/trafficmanager                  | 2017-09-01-preview | update                              |
+| arm/visualstudio                    | 2014-04-01-preview | update                              |
+
+### Data plane
+
+| api                                 | version            | note                                |
+|:------------------------------------|:-------------------|:------------------------------------|
+| dataplane/cognitiveservices/face          | 1.0          | new                                 |
+| dataplane/cognitiveservices/textanalytics | v2.0         | new                                 |
+
+### Storage
+
+- Support for queue SAS.
+- Refactored GetSASURI blob operation to be more complete.
+- Added a SAS client for some operations (`container.Exists()`, and `container.ListBlobs()`)
+
+- [Azure REST API specs](https://github.com/Azure/azure-rest-api-specs) commit: 0c2a12b50d8598f68d6715b507f7dd53e163407e
+- [AutoRest Go Generator](https://github.com/Azure/autorest.go) commit: 678110f012c7cde6528a1e61d125bdc7ea636b7f
+
+## `v10.3.1-beta`
+- Added Apache notice file.
+
+### ARM
+- Fixed package name on some `version.go` files.
+
+### Storage
+- Fixed bug related to SAS URI generation and storage emulator support.
+
+### Generated code notes
+- [Azure REST API specs](https://github.com/Azure/azure-rest-api-specs) commit: ad55af74f3f0e2b390a4306532528168ba742fef
+- [AutoRest Go extension](https://github.com/Azure/autorest.go) commit: 28a531c59c82cf67bc90c87095c1d34a936461b4
+
 ## `v10.3.0-beta`
 ### ARM
 
@@ -9,7 +125,7 @@
 | arm/eventgrid                       | 2017-06-15-preview | new                                 |
 
 ### ASM
-- Marked as deprecated.
+- Marked as in mainteinance mode.
 - Added Go 1.7 build tags.
 
 ### Storage
@@ -41,8 +157,6 @@
 ## `v10.1.0-beta`
 ### ARM
 
-| api                                 | version            | note                                |
-|:------------------------------------|:-------------------|:------------------------------------|
 | arm/recoveryservicessiterecovery    | 2016-08-10         | new                                 |
 | arm/managedapplications             | 2016-09-01-preview | new                                 |
 | arm/storsimple8000series            | 2017-06-01         | new                                 |

@@ -113,6 +113,10 @@ type InappPurchase struct {
 	// androidpublisher service.
 	Kind string `json:"kind,omitempty"`
 
+	// OrderId: The order id associated with the purchase of the inapp
+	// product.
+	OrderId string `json:"orderId,omitempty"`
+
 	// PurchaseState: The purchase state of the order. Possible values are:
 	//
 	// - Purchased
@@ -146,8 +150,8 @@ type InappPurchase struct {
 }
 
 func (s *InappPurchase) MarshalJSON() ([]byte, error) {
-	type noMethod InappPurchase
-	raw := noMethod(*s)
+	type NoMethod InappPurchase
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -192,8 +196,8 @@ type SubscriptionPurchase struct {
 }
 
 func (s *SubscriptionPurchase) MarshalJSON() ([]byte, error) {
-	type noMethod SubscriptionPurchase
-	raw := noMethod(*s)
+	type NoMethod SubscriptionPurchase
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -310,7 +314,7 @@ func (c *InapppurchasesGetCall) Do(opts ...googleapi.CallOption) (*InappPurchase
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
@@ -584,7 +588,7 @@ func (c *PurchasesGetCall) Do(opts ...googleapi.CallOption) (*SubscriptionPurcha
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil

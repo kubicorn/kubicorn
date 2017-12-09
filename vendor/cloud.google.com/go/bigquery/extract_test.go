@@ -17,19 +17,20 @@ package bigquery
 import (
 	"testing"
 
-	"cloud.google.com/go/internal/testutil"
+	"github.com/google/go-cmp/cmp"
 
-	"golang.org/x/net/context"
+	"cloud.google.com/go/internal/testutil"
 
 	bq "google.golang.org/api/bigquery/v2"
 )
 
 func defaultExtractJob() *bq.Job {
 	return &bq.Job{
+		JobReference: &bq.JobReference{JobId: "RANDOM", ProjectId: "client-project-id"},
 		Configuration: &bq.JobConfiguration{
 			Extract: &bq.JobConfigurationExtract{
 				SourceTable: &bq.TableReference{
-					ProjectId: "project-id",
+					ProjectId: "client-project-id",
 					DatasetId: "dataset-id",
 					TableId:   "table-id",
 				},
@@ -39,11 +40,16 @@ func defaultExtractJob() *bq.Job {
 	}
 }
 
+func defaultGCS() *GCSReference {
+	return &GCSReference{
+		URIs: []string{"uri"},
+	}
+}
+
 func TestExtract(t *testing.T) {
-	s := &testService{}
+	defer fixRandomID("RANDOM")()
 	c := &Client{
-		service:   s,
-		projectID: "project-id",
+		projectID: "client-project-id",
 	}
 
 	testCases := []struct {
@@ -58,11 +64,15 @@ func TestExtract(t *testing.T) {
 			want: defaultExtractJob(),
 		},
 		{
-			dst:    defaultGCS(),
-			src:    c.Dataset("dataset-id").Table("table-id"),
-			config: ExtractConfig{DisableHeader: true},
+			dst: defaultGCS(),
+			src: c.Dataset("dataset-id").Table("table-id"),
+			config: ExtractConfig{
+				DisableHeader: true,
+				Labels:        map[string]string{"a": "b"},
+			},
 			want: func() *bq.Job {
 				j := defaultExtractJob()
+				j.Configuration.Labels = map[string]string{"a": "b"}
 				f := false
 				j.Configuration.Extract.PrintHeader = &f
 				return j
@@ -87,17 +97,22 @@ func TestExtract(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
+	for i, tc := range testCases {
 		ext := tc.src.ExtractorTo(tc.dst)
 		tc.config.Src = ext.Src
 		tc.config.Dst = ext.Dst
 		ext.ExtractConfig = tc.config
-		if _, err := ext.Run(context.Background()); err != nil {
-			t.Errorf("err calling extract: %v", err)
-			continue
+		got := ext.newJob()
+		checkJob(t, i, got, tc.want)
+
+		jc, err := bqToJobConfig(got.Configuration, c)
+		if err != nil {
+			t.Fatalf("#%d: %v", i, err)
 		}
-		if !testutil.Equal(s.Job, tc.want) {
-			t.Errorf("extracting: got:\n%v\nwant:\n%v", s.Job, tc.want)
+		diff := testutil.Diff(jc, &ext.ExtractConfig,
+			cmp.AllowUnexported(Table{}, Client{}))
+		if diff != "" {
+			t.Errorf("#%d: (got=-, want=+:\n%s", i, diff)
 		}
 	}
 }

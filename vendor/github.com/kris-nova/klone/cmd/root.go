@@ -23,9 +23,9 @@
 package cmd
 
 import (
-	"errors"
 	"fmt"
 	"github.com/kris-nova/klone/pkg/auth"
+	"github.com/kris-nova/klone/pkg/container"
 	"github.com/kris-nova/klone/pkg/klone"
 	"github.com/kris-nova/klone/pkg/local"
 	"github.com/spf13/cobra"
@@ -34,19 +34,9 @@ import (
 
 var RootCmd = &cobra.Command{
 	Use:   "klone",
-	Short: "Used to clone a git repository with style.",
-	Long:  `Klone allows you define custom logic based on repository programming language.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		local.PrintStartBanner()
-		if len(args) > 0 {
-			err := klone.Klone(args[0])
-			if err != nil {
-				local.PrintError(err)
-			}
-		} else {
-			local.PrintErrorExitCode(errors.New("Missing argument. Use: 'klone $name'"), 99)
-		}
-	},
+	Short: "klone <query>",
+	Long:  `klone provides easy functionality to begin working, running, and contributing to software repositories.`,
+	Run:   runKlone,
 }
 
 func Execute() {
@@ -56,8 +46,65 @@ func Execute() {
 	}
 }
 
+var containerOptions = &container.Options{
+	//Command: []string{"sleep", "10"},
+	Command: []string{"/bin/bash"},
+}
+
 func init() {
 	RootCmd.Flags().StringVarP(&auth.OptPrivateKey, "identity-file", "i", "~/.ssh/id_rsa", "The private key to use for a git clone operation.")
 	RootCmd.Flags().BoolVarP(&klone.RefreshCredentials, "refresh-credentials", "r", false, "Hard reset local credential cache")
-	//RootCmd.Flags().StringVarP()
+	RootCmd.Flags().StringVarP(&containerOptions.Image, "container", "c", "", "Run the klone in a container, and use the image string defined")
+	RootCmd.Flags().StringSliceVarP(&containerOptions.Command, "container-command", "x", []string{"/bin/bash"}, "The command to run in the container that we are kloning into.")
+	local.PrintStartBanner()
+	RootCmd.SetUsageTemplate(UsageTemplate)
+	if len(os.Args) <= 1 {
+		RootCmd.Help()
+		os.Exit(0)
+	}
 }
+
+func runKlone(cmd *cobra.Command, args []string) {
+	local.SPutContent(local.Version, fmt.Sprintf("%s/.klone/version", local.Home()))
+	query := args[0]
+	if containerOptions.Image != "" {
+		containerOptions.Query = query
+		err := container.Run(containerOptions)
+		if err != nil {
+			local.PrintError(err)
+			os.Exit(3)
+		}
+	} else {
+		err := klone.Klone(query)
+		if err != nil {
+			local.PrintError(err)
+			os.Exit(4)
+		}
+	}
+}
+
+const UsageTemplate = `Usage:{{if .Runnable}}
+  {{if .HasAvailableFlags}}{{appendIfNotPresent .UseLine "<query> [flags]"}}{{else}}{{.UseLine}}{{end}}{{end}}{{if .HasAvailableSubCommands}}
+  {{ .CommandPath}} [command]{{end}}{{if gt .Aliases 0}}
+
+Aliases:
+  {{.NameAndAliases}}
+{{end}}{{if .HasExample}}
+
+Examples:
+{{ .Example }}{{end}}{{ if .HasAvailableSubCommands}}
+
+Available Commands:{{range .Commands}}{{if .IsAvailableCommand}}
+  {{rpad .Name .NamePadding }} {{.Short}}{{end}}{{end}}{{end}}{{ if .HasAvailableLocalFlags}}
+
+Flags:
+{{.LocalFlags.FlagUsages | trimRightSpace}}{{end}}{{ if .HasAvailableInheritedFlags}}
+
+Global Flags:
+{{.InheritedFlags.FlagUsages | trimRightSpace}}{{end}}{{if .HasHelpSubCommands}}
+
+Additional help topics:{{range .Commands}}{{if .IsHelpCommand}}
+  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}{{end}}{{end}}{{end}}{{ if .HasAvailableSubCommands }}
+
+Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
+`

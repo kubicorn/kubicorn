@@ -27,6 +27,7 @@ import (
 	visionpb "google.golang.org/genproto/googleapis/cloud/vision/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 )
 
 // ImageAnnotatorCallOptions contains the retry settings for each method of ImageAnnotatorClient.
@@ -73,7 +74,7 @@ type ImageAnnotatorClient struct {
 	CallOptions *ImageAnnotatorCallOptions
 
 	// The metadata to be sent with each request.
-	xGoogHeader []string
+	Metadata metadata.MD
 }
 
 // NewImageAnnotatorClient creates a new image annotator client.
@@ -92,7 +93,7 @@ func NewImageAnnotatorClient(ctx context.Context, opts ...option.ClientOption) (
 
 		imageAnnotatorClient: visionpb.NewImageAnnotatorClient(conn),
 	}
-	c.SetGoogleClientInfo()
+	c.setGoogleClientInfo()
 	return c, nil
 }
 
@@ -107,18 +108,18 @@ func (c *ImageAnnotatorClient) Close() error {
 	return c.conn.Close()
 }
 
-// SetGoogleClientInfo sets the name and version of the application in
+// setGoogleClientInfo sets the name and version of the application in
 // the `x-goog-api-client` header passed on each request. Intended for
 // use by Google-written clients.
-func (c *ImageAnnotatorClient) SetGoogleClientInfo(keyval ...string) {
+func (c *ImageAnnotatorClient) setGoogleClientInfo(keyval ...string) {
 	kv := append([]string{"gl-go", version.Go()}, keyval...)
 	kv = append(kv, "gapic", version.Repo, "gax", gax.Version, "grpc", grpc.Version)
-	c.xGoogHeader = []string{gax.XGoogHeader(kv...)}
+	c.Metadata = metadata.Pairs("x-goog-api-client", gax.XGoogHeader(kv...))
 }
 
 // BatchAnnotateImages run image detection and annotation for a batch of images.
 func (c *ImageAnnotatorClient) BatchAnnotateImages(ctx context.Context, req *visionpb.BatchAnnotateImagesRequest, opts ...gax.CallOption) (*visionpb.BatchAnnotateImagesResponse, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.BatchAnnotateImages[0:len(c.CallOptions.BatchAnnotateImages):len(c.CallOptions.BatchAnnotateImages)], opts...)
 	var resp *visionpb.BatchAnnotateImagesResponse
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
