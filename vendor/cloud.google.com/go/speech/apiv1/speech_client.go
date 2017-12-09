@@ -30,6 +30,7 @@ import (
 	longrunningpb "google.golang.org/genproto/googleapis/longrunning"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 )
 
 // CallOptions contains the retry settings for each method of Client.
@@ -85,7 +86,7 @@ type Client struct {
 	CallOptions *CallOptions
 
 	// The metadata to be sent with each request.
-	xGoogHeader []string
+	Metadata metadata.MD
 }
 
 // NewClient creates a new speech client.
@@ -102,7 +103,7 @@ func NewClient(ctx context.Context, opts ...option.ClientOption) (*Client, error
 
 		client: speechpb.NewSpeechClient(conn),
 	}
-	c.SetGoogleClientInfo()
+	c.setGoogleClientInfo()
 
 	c.LROClient, err = lroauto.NewOperationsClient(ctx, option.WithGRPCConn(conn))
 	if err != nil {
@@ -128,19 +129,19 @@ func (c *Client) Close() error {
 	return c.conn.Close()
 }
 
-// SetGoogleClientInfo sets the name and version of the application in
+// setGoogleClientInfo sets the name and version of the application in
 // the `x-goog-api-client` header passed on each request. Intended for
 // use by Google-written clients.
-func (c *Client) SetGoogleClientInfo(keyval ...string) {
+func (c *Client) setGoogleClientInfo(keyval ...string) {
 	kv := append([]string{"gl-go", version.Go()}, keyval...)
 	kv = append(kv, "gapic", version.Repo, "gax", gax.Version, "grpc", grpc.Version)
-	c.xGoogHeader = []string{gax.XGoogHeader(kv...)}
+	c.Metadata = metadata.Pairs("x-goog-api-client", gax.XGoogHeader(kv...))
 }
 
 // Recognize performs synchronous speech recognition: receive results after all audio
 // has been sent and processed.
 func (c *Client) Recognize(ctx context.Context, req *speechpb.RecognizeRequest, opts ...gax.CallOption) (*speechpb.RecognizeResponse, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.Recognize[0:len(c.CallOptions.Recognize):len(c.CallOptions.Recognize)], opts...)
 	var resp *speechpb.RecognizeResponse
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -156,10 +157,10 @@ func (c *Client) Recognize(ctx context.Context, req *speechpb.RecognizeRequest, 
 
 // LongRunningRecognize performs asynchronous speech recognition: receive results via the
 // google.longrunning.Operations interface. Returns either an
-// `Operation.error` or an `Operation.response` which contains
-// a `LongRunningRecognizeResponse` message.
+// Operation.error or an Operation.response which contains
+// a LongRunningRecognizeResponse message.
 func (c *Client) LongRunningRecognize(ctx context.Context, req *speechpb.LongRunningRecognizeRequest, opts ...gax.CallOption) (*LongRunningRecognizeOperation, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.LongRunningRecognize[0:len(c.CallOptions.LongRunningRecognize):len(c.CallOptions.LongRunningRecognize)], opts...)
 	var resp *longrunningpb.Operation
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -178,7 +179,7 @@ func (c *Client) LongRunningRecognize(ctx context.Context, req *speechpb.LongRun
 // StreamingRecognize performs bidirectional streaming speech recognition: receive results while
 // sending audio. This method is only available via the gRPC API (not REST).
 func (c *Client) StreamingRecognize(ctx context.Context, opts ...gax.CallOption) (speechpb.Speech_StreamingRecognizeClient, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.StreamingRecognize[0:len(c.CallOptions.StreamingRecognize):len(c.CallOptions.StreamingRecognize)], opts...)
 	var resp speechpb.Speech_StreamingRecognizeClient
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -210,7 +211,7 @@ func (c *Client) LongRunningRecognizeOperation(name string) *LongRunningRecogniz
 // See documentation of Poll for error-handling information.
 func (op *LongRunningRecognizeOperation) Wait(ctx context.Context, opts ...gax.CallOption) (*speechpb.LongRunningRecognizeResponse, error) {
 	var resp speechpb.LongRunningRecognizeResponse
-	if err := op.lro.Wait(ctx, &resp, opts...); err != nil {
+	if err := op.lro.WaitWithInterval(ctx, &resp, 45000*time.Millisecond, opts...); err != nil {
 		return nil, err
 	}
 	return &resp, nil

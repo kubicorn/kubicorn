@@ -15,8 +15,10 @@ import (
 )
 
 // InternalInconsistency indicates the packets sent and the data queued to be
-// written to the file don't match up. It is an unusual error and if you get it
-// you should file a ticket.
+// written to the file don't match up. It is an unusual error and usually is
+// caused by bad behavior server side or connection issues. The error is
+// limited in scope to the call where it happened, the client object is still
+// OK to use as long as the connection is still open.
 var InternalInconsistency = errors.New("internal inconsistency")
 
 // A ClientOption is a function which applies configuration to a Client.

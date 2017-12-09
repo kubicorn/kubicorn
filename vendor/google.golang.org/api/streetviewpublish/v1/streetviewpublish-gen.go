@@ -122,8 +122,8 @@ type BatchDeletePhotosRequest struct {
 }
 
 func (s *BatchDeletePhotosRequest) MarshalJSON() ([]byte, error) {
-	type noMethod BatchDeletePhotosRequest
-	raw := noMethod(*s)
+	type NoMethod BatchDeletePhotosRequest
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -157,8 +157,8 @@ type BatchDeletePhotosResponse struct {
 }
 
 func (s *BatchDeletePhotosResponse) MarshalJSON() ([]byte, error) {
-	type noMethod BatchDeletePhotosResponse
-	raw := noMethod(*s)
+	type NoMethod BatchDeletePhotosResponse
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -192,8 +192,8 @@ type BatchGetPhotosResponse struct {
 }
 
 func (s *BatchGetPhotosResponse) MarshalJSON() ([]byte, error) {
-	type noMethod BatchGetPhotosResponse
-	raw := noMethod(*s)
+	type NoMethod BatchGetPhotosResponse
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -224,8 +224,8 @@ type BatchUpdatePhotosRequest struct {
 }
 
 func (s *BatchUpdatePhotosRequest) MarshalJSON() ([]byte, error) {
-	type noMethod BatchUpdatePhotosRequest
-	raw := noMethod(*s)
+	type NoMethod BatchUpdatePhotosRequest
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -260,8 +260,8 @@ type BatchUpdatePhotosResponse struct {
 }
 
 func (s *BatchUpdatePhotosResponse) MarshalJSON() ([]byte, error) {
-	type noMethod BatchUpdatePhotosResponse
-	raw := noMethod(*s)
+	type NoMethod BatchUpdatePhotosResponse
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -291,8 +291,8 @@ type Connection struct {
 }
 
 func (s *Connection) MarshalJSON() ([]byte, error) {
-	type noMethod Connection
-	raw := noMethod(*s)
+	type NoMethod Connection
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -323,40 +323,6 @@ type Empty struct {
 // href="http://www.unoosa.org/pdf/icg/2012/template/WGS_84.pdf">WGS84
 // st
 // andard</a>. Values must be within normalized ranges.
-//
-// Example of normalization code in Python:
-//
-//     def NormalizeLongitude(longitude):
-//       """Wraps decimal degrees longitude to [-180.0, 180.0]."""
-//       q, r = divmod(longitude, 360.0)
-//       if r > 180.0 or (r == 180.0 and q <= -1.0):
-//         return r - 360.0
-//       return r
-//
-//     def NormalizeLatLng(latitude, longitude):
-//       """Wraps decimal degrees latitude and longitude to
-//       [-90.0, 90.0] and [-180.0, 180.0], respectively."""
-//       r = latitude % 360.0
-//       if r <= 90.0:
-//         return r, NormalizeLongitude(longitude)
-//       elif r >= 270.0:
-//         return r - 360, NormalizeLongitude(longitude)
-//       else:
-//         return 180 - r, NormalizeLongitude(longitude + 180.0)
-//
-//     assert 180.0 == NormalizeLongitude(180.0)
-//     assert -180.0 == NormalizeLongitude(-180.0)
-//     assert -179.0 == NormalizeLongitude(181.0)
-//     assert (0.0, 0.0) == NormalizeLatLng(360.0, 0.0)
-//     assert (0.0, 0.0) == NormalizeLatLng(-360.0, 0.0)
-//     assert (85.0, 180.0) == NormalizeLatLng(95.0, 0.0)
-//     assert (-85.0, -170.0) == NormalizeLatLng(-95.0, 10.0)
-//     assert (90.0, 10.0) == NormalizeLatLng(90.0, 10.0)
-//     assert (-90.0, -10.0) == NormalizeLatLng(-90.0, -10.0)
-//     assert (0.0, -170.0) == NormalizeLatLng(-180.0, 10.0)
-//     assert (0.0, -170.0) == NormalizeLatLng(180.0, 10.0)
-//     assert (-90.0, 10.0) == NormalizeLatLng(270.0, 10.0)
-//     assert (90.0, 10.0) == NormalizeLatLng(-270.0, 10.0)
 type LatLng struct {
 	// Latitude: The latitude in degrees. It must be in the range [-90.0,
 	// +90.0].
@@ -384,19 +350,19 @@ type LatLng struct {
 }
 
 func (s *LatLng) MarshalJSON() ([]byte, error) {
-	type noMethod LatLng
-	raw := noMethod(*s)
+	type NoMethod LatLng
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 func (s *LatLng) UnmarshalJSON(data []byte) error {
-	type noMethod LatLng
+	type NoMethod LatLng
 	var s1 struct {
 		Latitude  gensupport.JSONFloat64 `json:"latitude"`
 		Longitude gensupport.JSONFloat64 `json:"longitude"`
-		*noMethod
+		*NoMethod
 	}
-	s1.noMethod = (*noMethod)(s)
+	s1.NoMethod = (*NoMethod)(s)
 	if err := json.Unmarshal(data, &s1); err != nil {
 		return err
 	}
@@ -440,18 +406,18 @@ type Level struct {
 }
 
 func (s *Level) MarshalJSON() ([]byte, error) {
-	type noMethod Level
-	raw := noMethod(*s)
+	type NoMethod Level
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 func (s *Level) UnmarshalJSON(data []byte) error {
-	type noMethod Level
+	type NoMethod Level
 	var s1 struct {
 		Number gensupport.JSONFloat64 `json:"number"`
-		*noMethod
+		*NoMethod
 	}
-	s1.noMethod = (*noMethod)(s)
+	s1.NoMethod = (*NoMethod)(s)
 	if err := json.Unmarshal(data, &s1); err != nil {
 		return err
 	}
@@ -495,8 +461,79 @@ type ListPhotosResponse struct {
 }
 
 func (s *ListPhotosResponse) MarshalJSON() ([]byte, error) {
-	type noMethod ListPhotosResponse
-	raw := noMethod(*s)
+	type NoMethod ListPhotosResponse
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// Operation: This resource represents a long-running operation that is
+// the result of a
+// network API call.
+type Operation struct {
+	// Done: If the value is `false`, it means the operation is still in
+	// progress.
+	// If `true`, the operation is completed, and either `error` or
+	// `response` is
+	// available.
+	Done bool `json:"done,omitempty"`
+
+	// Error: The error result of the operation in case of failure or
+	// cancellation.
+	Error *Status `json:"error,omitempty"`
+
+	// Metadata: Service-specific metadata associated with the operation.
+	// It typically
+	// contains progress information and common metadata such as create
+	// time.
+	// Some services might not provide such metadata.  Any method that
+	// returns a
+	// long-running operation should document the metadata type, if any.
+	Metadata googleapi.RawMessage `json:"metadata,omitempty"`
+
+	// Name: The server-assigned name, which is only unique within the same
+	// service that
+	// originally returns it. If you use the default HTTP mapping,
+	// the
+	// `name` should have the format of `operations/some/unique/name`.
+	Name string `json:"name,omitempty"`
+
+	// Response: The normal response of the operation in case of success.
+	// If the original
+	// method returns no data on success, such as `Delete`, the response
+	// is
+	// `google.protobuf.Empty`.  If the original method is
+	// standard
+	// `Get`/`Create`/`Update`, the response should be the resource.  For
+	// other
+	// methods, the response should have the type `XxxResponse`, where
+	// `Xxx`
+	// is the original method name.  For example, if the original method
+	// name
+	// is `TakeSnapshot()`, the inferred response type
+	// is
+	// `TakeSnapshotResponse`.
+	Response googleapi.RawMessage `json:"response,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Done") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Done") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *Operation) MarshalJSON() ([]byte, error) {
+	type NoMethod Operation
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -511,6 +548,9 @@ type Photo struct {
 	// Connections: Connections to other photos. A connection represents the
 	// link from this
 	// photo to another photo.
+	// The maximum number of connections that can be set through
+	// an
+	// google.streetview.publish.v1.UpdatePhotoRequest is 10.
 	Connections []*Connection `json:"connections,omitempty"`
 
 	// DownloadUrl: Output only. The download URL for the photo bytes. This
@@ -521,7 +561,7 @@ type Photo struct {
 	// PhotoView.INCLUDE_DOWNLOAD_URL.
 	DownloadUrl string `json:"downloadUrl,omitempty"`
 
-	// PhotoId: Required when updating photo. Output only when creating
+	// PhotoId: Required when updating a photo. Output only when creating a
 	// photo.
 	// Identifier for the photo, which is unique among all photos in
 	// Google.
@@ -540,9 +580,9 @@ type Photo struct {
 	// the given photo.
 	ThumbnailUrl string `json:"thumbnailUrl,omitempty"`
 
-	// UploadReference: Required when creating photo. Input only. The
-	// resource URL where the photo
-	// bytes are uploaded to.
+	// UploadReference: Required when creating a photo. Input only. The
+	// resource URL where the
+	// photo bytes are uploaded to.
 	UploadReference *UploadRef `json:"uploadReference,omitempty"`
 
 	// ViewCount: Output only. View count of the photo.
@@ -570,14 +610,14 @@ type Photo struct {
 }
 
 func (s *Photo) MarshalJSON() ([]byte, error) {
-	type noMethod Photo
-	raw := noMethod(*s)
+	type NoMethod Photo
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 // PhotoId: Identifier for a Photo.
 type PhotoId struct {
-	// Id: Required. A base64 encoded identifier.
+	// Id: Required. A unique identifier for a photo.
 	Id string `json:"id,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Id") to
@@ -598,8 +638,8 @@ type PhotoId struct {
 }
 
 func (s *PhotoId) MarshalJSON() ([]byte, error) {
-	type noMethod PhotoId
-	raw := noMethod(*s)
+	type NoMethod PhotoId
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -637,14 +677,14 @@ type PhotoResponse struct {
 }
 
 func (s *PhotoResponse) MarshalJSON() ([]byte, error) {
-	type noMethod PhotoResponse
-	raw := noMethod(*s)
+	type NoMethod PhotoResponse
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 // Place: Place metadata for an entity.
 type Place struct {
-	// PlaceId: Required. Place identifier, as described
+	// PlaceId: Place identifier, as described
 	// in
 	// https://developers.google.com/places/place-id.
 	PlaceId string `json:"placeId,omitempty"`
@@ -667,15 +707,14 @@ type Place struct {
 }
 
 func (s *Place) MarshalJSON() ([]byte, error) {
-	type noMethod Place
-	raw := noMethod(*s)
+	type NoMethod Place
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 // Pose: Raw pose measurement for an entity.
 type Pose struct {
-	// Altitude: Altitude of the pose in meters above ground level (as
-	// defined by WGS84).
+	// Altitude: Altitude of the pose in meters above WGS84 ellipsoid.
 	// NaN indicates an unmeasured quantity.
 	Altitude float64 `json:"altitude,omitempty"`
 
@@ -735,21 +774,21 @@ type Pose struct {
 }
 
 func (s *Pose) MarshalJSON() ([]byte, error) {
-	type noMethod Pose
-	raw := noMethod(*s)
+	type NoMethod Pose
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 func (s *Pose) UnmarshalJSON(data []byte) error {
-	type noMethod Pose
+	type NoMethod Pose
 	var s1 struct {
 		Altitude gensupport.JSONFloat64 `json:"altitude"`
 		Heading  gensupport.JSONFloat64 `json:"heading"`
 		Pitch    gensupport.JSONFloat64 `json:"pitch"`
 		Roll     gensupport.JSONFloat64 `json:"roll"`
-		*noMethod
+		*NoMethod
 	}
-	s1.noMethod = (*noMethod)(s)
+	s1.NoMethod = (*NoMethod)(s)
 	if err := json.Unmarshal(data, &s1); err != nil {
 		return err
 	}
@@ -874,8 +913,8 @@ type Status struct {
 }
 
 func (s *Status) MarshalJSON() ([]byte, error) {
-	type noMethod Status
-	raw := noMethod(*s)
+	type NoMethod Status
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -884,30 +923,22 @@ func (s *Status) MarshalJSON() ([]byte, error) {
 // is not supported.
 type UpdatePhotoRequest struct {
 	// Photo: Required. Photo object containing the
-	// new metadata. Only the fields specified in
-	// updateMask
-	// field are used. If `updateMask` is not present, the update applies to
-	// all
-	// fields. <aside class="note"><b>Note:</b> To
-	// update
-	// Pose.altitude,
-	// Pose.latLngPair has to be
-	// filled as well. Otherwise, the request will fail.
+	// new metadata.
 	Photo *Photo `json:"photo,omitempty"`
 
 	// UpdateMask: Mask that identifies fields on the photo metadata to
 	// update.
-	// If not present, the old Photo metadata will be entirely replaced with
-	// the
-	// new Photo metadata in this request. The update fails if invalid
-	// fields are
-	// specified. Multiple fields can be specified in a comma-delimited
-	// list.
+	// If not present, the old Photo
+	// metadata will be entirely replaced with the
+	// new Photo metadata in this request.
+	// The update fails if invalid fields are specified. Multiple fields can
+	// be
+	// specified in a comma-delimited list.
 	//
 	// The following fields are valid:
 	//
 	// * `pose.heading`
-	// * `pose.latlngpair`
+	// * `pose.latLngPair`
 	// * `pose.pitch`
 	// * `pose.roll`
 	// * `pose.level`
@@ -922,11 +953,9 @@ type UpdatePhotoRequest struct {
 	// new
 	// contents. For example, if
 	// updateMask
-	// contains `connections`
-	// and
-	// google.streetview.publish.v1.UpdatePhotoRequest.photo.connections
-	// is
-	// empty, all connections will be removed.</aside>
+	// contains `connections` and `UpdatePhotoRequest.photo.connections` is
+	// empty,
+	// all connections will be removed.</aside>
 	UpdateMask string `json:"updateMask,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "Photo") to
@@ -947,8 +976,8 @@ type UpdatePhotoRequest struct {
 }
 
 func (s *UpdatePhotoRequest) MarshalJSON() ([]byte, error) {
-	type noMethod UpdatePhotoRequest
-	raw := noMethod(*s)
+	type NoMethod UpdatePhotoRequest
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -984,8 +1013,8 @@ type UploadRef struct {
 }
 
 func (s *UploadRef) MarshalJSON() ([]byte, error) {
-	type noMethod UploadRef
-	raw := noMethod(*s)
+	type NoMethod UploadRef
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -1006,9 +1035,23 @@ type PhotoCreateCall struct {
 // publishes the uploaded Photo to
 // Street View on Google Maps.
 //
+// Currently, the only way to set heading, pitch, and roll in
+// CreatePhoto is
+// through the [Photo Sphere
+// XMP
+// metadata](https://developers.google.com/streetview/spherical-metad
+// ata) in
+// the photo bytes. The `pose.heading`, `pose.pitch`,
+// `pose.roll`,
+// `pose.altitude`, and `pose.level` fields in Pose are ignored
+// for
+// CreatePhoto.
+//
 // This method returns the following error codes:
 //
-// * google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
+// * google.rpc.Code.INVALID_ARGUMENT if the request is malformed or
+// if
+// the uploaded photo is not a 360 photo.
 // * google.rpc.Code.NOT_FOUND if the upload reference does not exist.
 // * google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached
 // the
@@ -1097,12 +1140,12 @@ func (c *PhotoCreateCall) Do(opts ...googleapi.CallOption) (*Photo, error) {
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
 	// {
-	//   "description": "After the client finishes uploading the photo with the returned\nUploadRef,\nCreatePhoto\npublishes the uploaded Photo to\nStreet View on Google Maps.\n\nThis method returns the following error codes:\n\n* google.rpc.Code.INVALID_ARGUMENT if the request is malformed.\n* google.rpc.Code.NOT_FOUND if the upload reference does not exist.\n* google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached the\nstorage limit.",
+	//   "description": "After the client finishes uploading the photo with the returned\nUploadRef,\nCreatePhoto\npublishes the uploaded Photo to\nStreet View on Google Maps.\n\nCurrently, the only way to set heading, pitch, and roll in CreatePhoto is\nthrough the [Photo Sphere XMP\nmetadata](https://developers.google.com/streetview/spherical-metadata) in\nthe photo bytes. The `pose.heading`, `pose.pitch`, `pose.roll`,\n`pose.altitude`, and `pose.level` fields in Pose are ignored for\nCreatePhoto.\n\nThis method returns the following error codes:\n\n* google.rpc.Code.INVALID_ARGUMENT if the request is malformed or if\nthe uploaded photo is not a 360 photo.\n* google.rpc.Code.NOT_FOUND if the upload reference does not exist.\n* google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached the\nstorage limit.",
 	//   "flatPath": "v1/photo",
 	//   "httpMethod": "POST",
 	//   "id": "streetviewpublish.photo.create",
@@ -1222,7 +1265,7 @@ func (c *PhotoDeleteCall) Do(opts ...googleapi.CallOption) (*Empty, error) {
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
@@ -1381,7 +1424,7 @@ func (c *PhotoGetCall) Do(opts ...googleapi.CallOption) (*Photo, error) {
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
@@ -1541,7 +1584,7 @@ func (c *PhotoStartUploadCall) Do(opts ...googleapi.CallOption) (*UploadRef, err
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
@@ -1582,6 +1625,18 @@ type PhotoUpdateCall struct {
 // a
 // photo is not supported.
 //
+// Only the fields specified in the
+// updateMask
+// field are used. If `updateMask` is not present, the update applies to
+// all
+// fields.
+//
+// <aside class="note"><b>Note:</b> To
+// update
+// Pose.altitude,
+// Pose.latLngPair has to be
+// filled as well. Otherwise, the request will fail.</aside>
+//
 // This method returns the following error codes:
 //
 // * google.rpc.Code.PERMISSION_DENIED if the requesting user did
@@ -1598,17 +1653,17 @@ func (r *PhotoService) Update(id string, photo *Photo) *PhotoUpdateCall {
 
 // UpdateMask sets the optional parameter "updateMask": Mask that
 // identifies fields on the photo metadata to update.
-// If not present, the old Photo metadata will be entirely replaced with
-// the
-// new Photo metadata in this request. The update fails if invalid
-// fields are
-// specified. Multiple fields can be specified in a comma-delimited
-// list.
+// If not present, the old Photo
+// metadata will be entirely replaced with the
+// new Photo metadata in this request.
+// The update fails if invalid fields are specified. Multiple fields can
+// be
+// specified in a comma-delimited list.
 //
 // The following fields are valid:
 //
 // * `pose.heading`
-// * `pose.latlngpair`
+// * `pose.latLngPair`
 // * `pose.pitch`
 // * `pose.roll`
 // * `pose.level`
@@ -1623,11 +1678,9 @@ func (r *PhotoService) Update(id string, photo *Photo) *PhotoUpdateCall {
 // new
 // contents. For example, if
 // updateMask
-// contains `connections`
-// and
-// google.streetview.publish.v1.UpdatePhotoRequest.photo.connections
-// is
-// empty, all connections will be removed.</aside>
+// contains `connections` and `UpdatePhotoRequest.photo.connections` is
+// empty,
+// all connections will be removed.</aside>
 func (c *PhotoUpdateCall) UpdateMask(updateMask string) *PhotoUpdateCall {
 	c.urlParams_.Set("updateMask", updateMask)
 	return c
@@ -1714,12 +1767,12 @@ func (c *PhotoUpdateCall) Do(opts ...googleapi.CallOption) (*Photo, error) {
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
 	// {
-	//   "description": "Updates the metadata of a Photo, such\nas pose, place association, connections, etc. Changing the pixels of a\nphoto is not supported.\n\nThis method returns the following error codes:\n\n* google.rpc.Code.PERMISSION_DENIED if the requesting user did not\ncreate the requested photo.\n* google.rpc.Code.INVALID_ARGUMENT if the request is malformed.\n* google.rpc.Code.NOT_FOUND if the requested photo does not exist.",
+	//   "description": "Updates the metadata of a Photo, such\nas pose, place association, connections, etc. Changing the pixels of a\nphoto is not supported.\n\nOnly the fields specified in the\nupdateMask\nfield are used. If `updateMask` is not present, the update applies to all\nfields.\n\n\u003caside class=\"note\"\u003e\u003cb\u003eNote:\u003c/b\u003e To update\nPose.altitude,\nPose.latLngPair has to be\nfilled as well. Otherwise, the request will fail.\u003c/aside\u003e\n\nThis method returns the following error codes:\n\n* google.rpc.Code.PERMISSION_DENIED if the requesting user did not\ncreate the requested photo.\n* google.rpc.Code.INVALID_ARGUMENT if the request is malformed.\n* google.rpc.Code.NOT_FOUND if the requested photo does not exist.",
 	//   "flatPath": "v1/photo/{id}",
 	//   "httpMethod": "PUT",
 	//   "id": "streetviewpublish.photo.update",
@@ -1728,13 +1781,13 @@ func (c *PhotoUpdateCall) Do(opts ...googleapi.CallOption) (*Photo, error) {
 	//   ],
 	//   "parameters": {
 	//     "id": {
-	//       "description": "Required. A base64 encoded identifier.",
+	//       "description": "Required. A unique identifier for a photo.",
 	//       "location": "path",
 	//       "required": true,
 	//       "type": "string"
 	//     },
 	//     "updateMask": {
-	//       "description": "Mask that identifies fields on the photo metadata to update.\nIf not present, the old Photo metadata will be entirely replaced with the\nnew Photo metadata in this request. The update fails if invalid fields are\nspecified. Multiple fields can be specified in a comma-delimited list.\n\nThe following fields are valid:\n\n* `pose.heading`\n* `pose.latlngpair`\n* `pose.pitch`\n* `pose.roll`\n* `pose.level`\n* `pose.altitude`\n* `connections`\n* `places`\n\n\n\u003caside class=\"note\"\u003e\u003cb\u003eNote:\u003c/b\u003e Repeated fields in\nupdateMask\nmean the entire set of repeated values will be replaced with the new\ncontents. For example, if\nupdateMask\ncontains `connections` and\ngoogle.streetview.publish.v1.UpdatePhotoRequest.photo.connections is\nempty, all connections will be removed.\u003c/aside\u003e",
+	//       "description": "Mask that identifies fields on the photo metadata to update.\nIf not present, the old Photo\nmetadata will be entirely replaced with the\nnew Photo metadata in this request.\nThe update fails if invalid fields are specified. Multiple fields can be\nspecified in a comma-delimited list.\n\nThe following fields are valid:\n\n* `pose.heading`\n* `pose.latLngPair`\n* `pose.pitch`\n* `pose.roll`\n* `pose.level`\n* `pose.altitude`\n* `connections`\n* `places`\n\n\n\u003caside class=\"note\"\u003e\u003cb\u003eNote:\u003c/b\u003e Repeated fields in\nupdateMask\nmean the entire set of repeated values will be replaced with the new\ncontents. For example, if\nupdateMask\ncontains `connections` and `UpdatePhotoRequest.photo.connections` is empty,\nall connections will be removed.\u003c/aside\u003e",
 	//       "format": "google-fieldmask",
 	//       "location": "query",
 	//       "type": "string"
@@ -1764,7 +1817,8 @@ type PhotosBatchDeleteCall struct {
 	header_                  http.Header
 }
 
-// BatchDelete: Deletes a list of Photos and their metadata.
+// BatchDelete: Deletes a list of Photos and their
+// metadata.
 //
 // Note that if
 // BatchDeletePhotos
@@ -1867,12 +1921,12 @@ func (c *PhotosBatchDeleteCall) Do(opts ...googleapi.CallOption) (*BatchDeletePh
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
 	// {
-	//   "description": "Deletes a list of Photos and their metadata.\n\nNote that if\nBatchDeletePhotos\nfails, either critical fields are missing or there was an authentication\nerror. Even if\nBatchDeletePhotos\nsucceeds, there may have been failures for single photos in the batch.\nThese failures will be specified in each\nPhotoResponse.status\nin\nBatchDeletePhotosResponse.results.\nSee\nDeletePhoto\nfor specific failures that can occur per photo.",
+	//   "description": "Deletes a list of Photos and their\nmetadata.\n\nNote that if\nBatchDeletePhotos\nfails, either critical fields are missing or there was an authentication\nerror. Even if\nBatchDeletePhotos\nsucceeds, there may have been failures for single photos in the batch.\nThese failures will be specified in each\nPhotoResponse.status\nin\nBatchDeletePhotosResponse.results.\nSee\nDeletePhoto\nfor specific failures that can occur per photo.",
 	//   "flatPath": "v1/photos:batchDelete",
 	//   "httpMethod": "POST",
 	//   "id": "streetviewpublish.photos.batchDelete",
@@ -2035,7 +2089,7 @@ func (c *PhotosBatchGetCall) Do(opts ...googleapi.CallOption) (*BatchGetPhotosRe
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
@@ -2105,6 +2159,18 @@ type PhotosBatchUpdateCall struct {
 // Up
 // datePhoto
 // for specific failures that can occur per photo.
+//
+// Only the fields specified in
+// updateMask
+// field are used. If `updateMask` is not present, the update applies to
+// all
+// fields.
+//
+// <aside class="note"><b>Note:</b> To
+// update
+// Pose.altitude,
+// Pose.latLngPair has to be
+// filled as well. Otherwise, the request will fail.</aside>
 func (r *PhotosService) BatchUpdate(batchupdatephotosrequest *BatchUpdatePhotosRequest) *PhotosBatchUpdateCall {
 	c := &PhotosBatchUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.batchupdatephotosrequest = batchupdatephotosrequest
@@ -2189,12 +2255,12 @@ func (c *PhotosBatchUpdateCall) Do(opts ...googleapi.CallOption) (*BatchUpdatePh
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
 	// {
-	//   "description": "Updates the metadata of Photos, such\nas pose, place association, connections, etc. Changing the pixels of photos\nis not supported.\n\nNote that if\nBatchUpdatePhotos\nfails, either critical fields are missing or there was an authentication\nerror. Even if\nBatchUpdatePhotos\nsucceeds, there may have been failures for single photos in the batch.\nThese failures will be specified in each\nPhotoResponse.status\nin\nBatchUpdatePhotosResponse.results.\nSee\nUpdatePhoto\nfor specific failures that can occur per photo.",
+	//   "description": "Updates the metadata of Photos, such\nas pose, place association, connections, etc. Changing the pixels of photos\nis not supported.\n\nNote that if\nBatchUpdatePhotos\nfails, either critical fields are missing or there was an authentication\nerror. Even if\nBatchUpdatePhotos\nsucceeds, there may have been failures for single photos in the batch.\nThese failures will be specified in each\nPhotoResponse.status\nin\nBatchUpdatePhotosResponse.results.\nSee\nUpdatePhoto\nfor specific failures that can occur per photo.\n\nOnly the fields specified in\nupdateMask\nfield are used. If `updateMask` is not present, the update applies to all\nfields.\n\n\u003caside class=\"note\"\u003e\u003cb\u003eNote:\u003c/b\u003e To update\nPose.altitude,\nPose.latLngPair has to be\nfilled as well. Otherwise, the request will fail.\u003c/aside\u003e",
 	//   "flatPath": "v1/photos:batchUpdate",
 	//   "httpMethod": "POST",
 	//   "id": "streetviewpublish.photos.batchUpdate",
@@ -2224,7 +2290,8 @@ type PhotosListCall struct {
 	header_      http.Header
 }
 
-// List: Lists all the Photos that belong to the user.
+// List: Lists all the Photos that belong to
+// the user.
 func (r *PhotosService) List() *PhotosListCall {
 	c := &PhotosListCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	return c
@@ -2232,6 +2299,8 @@ func (r *PhotosService) List() *PhotosListCall {
 
 // Filter sets the optional parameter "filter": The filter expression.
 // For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`.
+//
+// The only filter supported at the moment is `placeId`.
 func (c *PhotosListCall) Filter(filter string) *PhotosListCall {
 	c.urlParams_.Set("filter", filter)
 	return c
@@ -2360,19 +2429,19 @@ func (c *PhotosListCall) Do(opts ...googleapi.CallOption) (*ListPhotosResponse, 
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
 	// {
-	//   "description": "Lists all the Photos that belong to the user.",
+	//   "description": "Lists all the Photos that belong to\nthe user.",
 	//   "flatPath": "v1/photos",
 	//   "httpMethod": "GET",
 	//   "id": "streetviewpublish.photos.list",
 	//   "parameterOrder": [],
 	//   "parameters": {
 	//     "filter": {
-	//       "description": "The filter expression. For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`.",
+	//       "description": "The filter expression. For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`.\n\nThe only filter supported at the moment is `placeId`.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },

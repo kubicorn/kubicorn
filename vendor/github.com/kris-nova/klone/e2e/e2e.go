@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func IdempotentKlone(path, query string) (error) {
+func IdempotentKlone(path, query string) error {
 	if err := os.RemoveAll(path); err != nil {
 		return err
 	}

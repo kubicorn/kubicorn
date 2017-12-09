@@ -1,12 +1,12 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/DSQnXnJrdGCXbfLjaO33fHf1TP4\"",
+ "etag": "\"YWOzh2SDasdU84ArJnpYek-OMdg/YBhevoUFAfVyqSyxTJkhAWUX4fg\"",
  "discoveryVersion": "v1",
  "id": "deploymentmanager:alpha",
  "name": "deploymentmanager",
  "canonicalName": "Deployment Manager Alpha",
  "version": "alpha",
- "revision": "20170615",
+ "revision": "20171201",
  "title": "Google Cloud Deployment Manager Alpha API",
  "description": "The Deployment Manager API allows users to declaratively configure, deploy and run complex solutions on the Google Cloud Platform.",
  "ownerDomain": "google.com",
@@ -21,7 +21,7 @@
  "basePath": "/deploymentmanager/alpha/projects/",
  "rootUrl": "https://www.googleapis.com/",
  "servicePath": "deploymentmanager/alpha/projects/",
- "batchPath": "batch",
+ "batchPath": "batch/deploymentmanager/alpha",
  "parameters": {
   "alt": {
    "type": "string",
@@ -86,6 +86,21 @@
   }
  },
  "schemas": {
+  "AsyncOptions": {
+   "id": "AsyncOptions",
+   "type": "object",
+   "description": "Async options that determine when a resource should finish.",
+   "properties": {
+    "methodMatch": {
+     "type": "string",
+     "description": "Method regex where this policy will apply."
+    },
+    "pollingOptions": {
+     "$ref": "PollingOptions",
+     "description": "Deployment manager will poll instances for this API resource setting a RUNNING state, and blocking until polling conditions tell whether the resource is completed or failed."
+    }
+   }
+  },
   "AuditConfig": {
    "id": "AuditConfig",
    "type": "object",
@@ -126,6 +141,17 @@
     "logType": {
      "type": "string",
      "description": "The log type that this config enables."
+    }
+   }
+  },
+  "AuthorizationLoggingOptions": {
+   "id": "AuthorizationLoggingOptions",
+   "type": "object",
+   "description": "Authorization-related information used by Cloud Audit Logging.",
+   "properties": {
+    "permissionType": {
+     "type": "string",
+     "description": "The type of the permission that was checked."
     }
    }
   },
@@ -190,12 +216,12 @@
     },
     "id": {
      "type": "string",
-     "description": "[Output Only] Unique identifier for the resource; defined by the server.",
+     "description": "Output only. Unique identifier for the resource; defined by the server.",
      "format": "uint64"
     },
     "insertTime": {
      "type": "string",
-     "description": "[Output Only] Timestamp when the composite type was created, in RFC3339 text format."
+     "description": "Output only. Timestamp when the composite type was created, in RFC3339 text format."
     },
     "labels": {
      "type": "array",
@@ -206,15 +232,15 @@
     },
     "name": {
      "type": "string",
-     "description": "Name of the composite type."
+     "description": "Name of the composite type, must follow the expression: [a-z]([-a-z0-9_.]{0,61}[a-z0-9])?."
     },
     "operation": {
      "$ref": "Operation",
-     "description": "[Output Only] The Operation that most recently ran, or is currently running, on this composite type."
+     "description": "Output only. The Operation that most recently ran, or is currently running, on this composite type."
     },
     "selfLink": {
      "type": "string",
-     "description": "[Output Only] Self link for the type provider."
+     "description": "Output only. Self link for the type provider."
     },
     "status": {
      "type": "string"
@@ -244,7 +270,7 @@
    "properties": {
     "compositeTypes": {
      "type": "array",
-     "description": "[Output Only] A list of resource composite types supported by Deployment Manager.",
+     "description": "Output only. A list of resource composite types supported by Deployment Manager.",
      "items": {
       "$ref": "CompositeType"
      }
@@ -329,11 +355,19 @@
   "Credential": {
    "id": "Credential",
    "type": "object",
-   "description": "Credential used by ConfigurableResourceTypes.",
+   "description": "The credential used by Deployment Manager and TypeProvider. Only one of the options is permitted.",
    "properties": {
     "basicAuth": {
      "$ref": "BasicAuth",
-     "description": "Basic Auth Credentials for this Type."
+     "description": "Basic Auth Credential, only used by TypeProvider."
+    },
+    "serviceAccount": {
+     "$ref": "ServiceAccount",
+     "description": "Service Account Credential, only used by Deployment."
+    },
+    "useProjectDefault": {
+     "type": "boolean",
+     "description": "Specify to use the project default credential, only supported by Deployment."
     }
    }
   },
@@ -342,6 +376,10 @@
    "type": "object",
    "description": "",
    "properties": {
+    "credential": {
+     "$ref": "Credential",
+     "description": "User provided default credential for the deployment."
+    },
     "description": {
      "type": "string",
      "description": "An optional user-provided description of the deployment."
@@ -353,12 +391,12 @@
     },
     "id": {
      "type": "string",
-     "description": "[Output Only] Unique identifier for the resource; defined by the server.",
+     "description": "Output only. Unique identifier for the resource; defined by the server.",
      "format": "uint64"
     },
     "insertTime": {
      "type": "string",
-     "description": "[Output Only] Timestamp when the deployment was created, in RFC3339 text format ."
+     "description": "Output only. Timestamp when the deployment was created, in RFC3339 text format ."
     },
     "labels": {
      "type": "array",
@@ -369,7 +407,7 @@
     },
     "manifest": {
      "type": "string",
-     "description": "[Output Only] URL of the manifest representing the last manifest that was successfully deployed."
+     "description": "Output only. URL of the manifest representing the last manifest that was successfully deployed."
     },
     "name": {
      "type": "string",
@@ -377,11 +415,18 @@
     },
     "operation": {
      "$ref": "Operation",
-     "description": "[Output Only] The Operation that most recently ran, or is currently running, on this deployment."
+     "description": "Output only. The Operation that most recently ran, or is currently running, on this deployment."
+    },
+    "outputs": {
+     "type": "array",
+     "description": "Output only. Map of outputs from the last manifest that deployed successfully.",
+     "items": {
+      "$ref": "DeploymentOutputsEntry"
+     }
     },
     "selfLink": {
      "type": "string",
-     "description": "[Output Only] Self link for the deployment."
+     "description": "Output only. Self link for the deployment."
     },
     "target": {
      "$ref": "TargetConfiguration",
@@ -389,7 +434,7 @@
     },
     "update": {
      "$ref": "DeploymentUpdate",
-     "description": "[Output Only] If Deployment Manager is currently updating or previewing an update to this deployment, the updated configuration appears here."
+     "description": "Output only. If Deployment Manager is currently updating or previewing an update to this deployment, the updated configuration appears here."
     }
    }
   },
@@ -405,25 +450,41 @@
     }
    }
   },
+  "DeploymentOutputsEntry": {
+   "id": "DeploymentOutputsEntry",
+   "type": "object",
+   "properties": {
+    "key": {
+     "type": "string"
+    },
+    "value": {
+     "type": "string"
+    }
+   }
+  },
   "DeploymentUpdate": {
    "id": "DeploymentUpdate",
    "type": "object",
    "description": "",
    "properties": {
+    "credential": {
+     "$ref": "Credential",
+     "description": "Output only. The user-provided default credential to use when deploying this preview."
+    },
     "description": {
      "type": "string",
-     "description": "[Output Only] An optional user-provided description of the deployment after the current update has been applied."
+     "description": "Output only. An optional user-provided description of the deployment after the current update has been applied."
     },
     "labels": {
      "type": "array",
-     "description": "[Output Only] Map of labels; provided by the client when the resource is created or updated. Specifically: Label keys must be between 1 and 63 characters long and must conform to the following regular expression: [a-z]([-a-z0-9]*[a-z0-9])? Label values must be between 0 and 63 characters long and must conform to the regular expression ([a-z]([-a-z0-9]*[a-z0-9])?)?",
+     "description": "Output only. Map of labels; provided by the client when the resource is created or updated. Specifically: Label keys must be between 1 and 63 characters long and must conform to the following regular expression: [a-z]([-a-z0-9]*[a-z0-9])? Label values must be between 0 and 63 characters long and must conform to the regular expression ([a-z]([-a-z0-9]*[a-z0-9])?)?",
      "items": {
       "$ref": "DeploymentUpdateLabelEntry"
      }
     },
     "manifest": {
      "type": "string",
-     "description": "[Output Only] URL of the manifest representing the update configuration of this deployment."
+     "description": "Output only. URL of the manifest representing the update configuration of this deployment."
     }
    }
   },
@@ -458,14 +519,14 @@
    "properties": {
     "deployments": {
      "type": "array",
-     "description": "[Output Only] The deployments contained in this response.",
+     "description": "Output only. The deployments contained in this response.",
      "items": {
       "$ref": "Deployment"
      }
     },
     "nextPageToken": {
      "type": "string",
-     "description": "[Output Only] A token used to continue a truncated list request."
+     "description": "Output only. A token used to continue a truncated list request."
     }
    }
   },
@@ -478,6 +539,21 @@
      "type": "string",
      "description": "Specifies a fingerprint for stop() requests. A fingerprint is a randomly generated value that must be provided in stop() requests to perform optimistic locking. This ensures optimistic concurrency so that the deployment does not have conflicting requests (e.g. if someone attempts to make a new update request while another user attempts to stop an ongoing update request, this would prevent a collision).\n\nThe fingerprint is initially generated by Deployment Manager and changes after every request to modify a deployment. To get the latest fingerprint value, perform a get() request on the deployment.",
      "format": "byte"
+    }
+   }
+  },
+  "Diagnostic": {
+   "id": "Diagnostic",
+   "type": "object",
+   "description": "",
+   "properties": {
+    "field": {
+     "type": "string",
+     "description": "JsonPath expression on the resource that if non empty, indicates that this field needs to be extracted as a diagnostic."
+    },
+    "level": {
+     "type": "string",
+     "description": "Level to record this diagnostic."
     }
    }
   },
@@ -554,6 +630,10 @@
     "counter": {
      "$ref": "LogConfigCounterOptions",
      "description": "Counter options."
+    },
+    "dataAccess": {
+     "$ref": "LogConfigDataAccessOptions",
+     "description": "Data access options."
     }
    }
   },
@@ -562,6 +642,10 @@
    "type": "object",
    "description": "Write a Cloud Audit log",
    "properties": {
+    "authorizationLoggingOptions": {
+     "$ref": "AuthorizationLoggingOptions",
+     "description": "Information used by the Cloud Audit Logging pipeline."
+    },
     "logName": {
      "type": "string",
      "description": "The log_name to populate in the Cloud Audit Record."
@@ -571,7 +655,7 @@
   "LogConfigCounterOptions": {
    "id": "LogConfigCounterOptions",
    "type": "object",
-   "description": "Options for counters",
+   "description": "Increment a streamz counter with the specified metric and field names.\n\nMetric names should start with a '/', generally be lowercase-only, and end in \"_count\". Field names should not contain an initial slash. The actual exported metric names will have \"/iam/policy\" prepended.\n\nField names correspond to IAM request parameters and field values are their respective values.\n\nAt present the only supported field names are - \"iam_principal\", corresponding to IAMContext.principal; - \"\" (empty string), resulting in one aggretated counter with no field.\n\nExamples: counter { metric: \"/debug_access_count\" field: \"iam_principal\" } ==\u003e increment counter /iam/policy/backend_debug_access_count {iam_principal=[value of IAMContext.principal]}\n\nAt this time we do not support: * multiple field names (though this may be supported in the future) * decrementing the counter * incrementing it by anything other than 1",
    "properties": {
     "field": {
      "type": "string",
@@ -583,6 +667,17 @@
     }
    }
   },
+  "LogConfigDataAccessOptions": {
+   "id": "LogConfigDataAccessOptions",
+   "type": "object",
+   "description": "Write a Data Access (Gin) log",
+   "properties": {
+    "logMode": {
+     "type": "string",
+     "description": "Whether Gin logging should happen in a fail-closed manner at the caller. This is relevant only in the LocalIAM implementation, for now."
+    }
+   }
+  },
   "Manifest": {
    "id": "Manifest",
    "type": "object",
@@ -590,39 +685,39 @@
    "properties": {
     "config": {
      "$ref": "ConfigFile",
-     "description": "[Output Only] The YAML configuration for this manifest."
+     "description": "Output only. The YAML configuration for this manifest."
     },
     "expandedConfig": {
      "type": "string",
-     "description": "[Output Only] The fully-expanded configuration file, including any templates and references."
+     "description": "Output only. The fully-expanded configuration file, including any templates and references."
     },
     "id": {
      "type": "string",
-     "description": "[Output Only] Unique identifier for the resource; defined by the server.",
+     "description": "Output only. Unique identifier for the resource; defined by the server.",
      "format": "uint64"
     },
     "imports": {
      "type": "array",
-     "description": "[Output Only] The imported files for this manifest.",
+     "description": "Output only. The imported files for this manifest.",
      "items": {
       "$ref": "ImportFile"
      }
     },
     "insertTime": {
      "type": "string",
-     "description": "[Output Only] Timestamp when the manifest was created, in RFC3339 text format."
+     "description": "Output only. Timestamp when the manifest was created, in RFC3339 text format."
     },
     "layout": {
      "type": "string",
-     "description": "[Output Only] The YAML layout for this manifest."
+     "description": "Output only. The YAML layout for this manifest."
     },
     "name": {
      "type": "string",
-     "description": "[Output Only] The name of the manifest."
+     "description": "Output only.\n\nThe name of the manifest."
     },
     "selfLink": {
      "type": "string",
-     "description": "[Output Only] Self link for the manifest."
+     "description": "Output only. Self link for the manifest."
     }
    }
   },
@@ -633,21 +728,21 @@
    "properties": {
     "manifests": {
      "type": "array",
-     "description": "[Output Only] Manifests contained in this list response.",
+     "description": "Output only. Manifests contained in this list response.",
      "items": {
       "$ref": "Manifest"
      }
     },
     "nextPageToken": {
      "type": "string",
-     "description": "[Output Only] A token used to continue a truncated list request."
+     "description": "Output only. A token used to continue a truncated list request."
     }
    }
   },
   "Operation": {
    "id": "Operation",
    "type": "object",
-   "description": "An Operation resource, used to manage asynchronous API requests.",
+   "description": "An Operation resource, used to manage asynchronous API requests. (== resource_for v1.globalOperations ==) (== resource_for beta.globalOperations ==) (== resource_for v1.regionOperations ==) (== resource_for beta.regionOperations ==) (== resource_for v1.zoneOperations ==) (== resource_for beta.zoneOperations ==)",
    "properties": {
     "clientOperationId": {
      "type": "string",
@@ -808,11 +903,11 @@
    "properties": {
     "nextPageToken": {
      "type": "string",
-     "description": "[Output Only] A token used to continue a truncated list request."
+     "description": "Output only. A token used to continue a truncated list request."
     },
     "operations": {
      "type": "array",
-     "description": "[Output Only] Operations contained in this list response.",
+     "description": "Output only. Operations contained in this list response.",
      "items": {
       "$ref": "Operation"
      }
@@ -824,6 +919,13 @@
    "type": "object",
    "description": "Options allows customized resource handling by Deployment Manager.",
    "properties": {
+    "asyncOptions": {
+     "type": "array",
+     "description": "Options regarding how to thread async requests.",
+     "items": {
+      "$ref": "AsyncOptions"
+     }
+    },
     "inputMappings": {
      "type": "array",
      "description": "The mappings that apply for requests.",
@@ -883,6 +985,36 @@
     }
    }
   },
+  "PollingOptions": {
+   "id": "PollingOptions",
+   "type": "object",
+   "description": "",
+   "properties": {
+    "diagnostics": {
+     "type": "array",
+     "description": "An array of diagnostics to be collected by Deployment Manager, these diagnostics will be displayed to the user.",
+     "items": {
+      "$ref": "Diagnostic"
+     }
+    },
+    "failCondition": {
+     "type": "string",
+     "description": "JsonPath expression that determines if the request failed."
+    },
+    "finishCondition": {
+     "type": "string",
+     "description": "JsonPath expression that determines if the request is completed."
+    },
+    "pollingLink": {
+     "type": "string",
+     "description": "JsonPath expression that evaluates to string, it indicates where to poll."
+    },
+    "targetLink": {
+     "type": "string",
+     "description": "JsonPath expression, after polling is completed, indicates where to fetch the resource."
+    }
+   }
+  },
   "Resource": {
    "id": "Resource",
    "type": "object",
@@ -894,48 +1026,59 @@
     },
     "finalProperties": {
      "type": "string",
-     "description": "[Output Only] The evaluated properties of the resource with references expanded. Returned as serialized YAML."
+     "description": "Output only. The evaluated properties of the resource with references expanded. Returned as serialized YAML."
     },
     "id": {
      "type": "string",
-     "description": "[Output Only] Unique identifier for the resource; defined by the server.",
+     "description": "Output only. Unique identifier for the resource; defined by the server.",
      "format": "uint64"
     },
     "insertTime": {
      "type": "string",
-     "description": "[Output Only] Timestamp when the resource was created or acquired, in RFC3339 text format ."
+     "description": "Output only. Timestamp when the resource was created or acquired, in RFC3339 text format ."
+    },
+    "lastUsedCredential": {
+     "$ref": "Credential",
+     "description": "Output only. The last used credential that successfully created/updated the resource."
     },
     "manifest": {
      "type": "string",
-     "description": "[Output Only] URL of the manifest representing the current configuration of this resource."
+     "description": "Output only. URL of the manifest representing the current configuration of this resource."
     },
     "name": {
      "type": "string",
-     "description": "[Output Only] The name of the resource as it appears in the YAML config."
+     "description": "Output only. The name of the resource as it appears in the YAML config."
     },
     "properties": {
      "type": "string",
-     "description": "[Output Only] The current properties of the resource before any references have been filled in. Returned as serialized YAML."
+     "description": "Output only. The current properties of the resource before any references have been filled in. Returned as serialized YAML."
+    },
+    "runtimePolicies": {
+     "type": "array",
+     "description": "Output only. In case this is an action, it will show the runtimePolicies on which this action will run in the deployment",
+     "items": {
+      "type": "string"
+     }
     },
     "type": {
      "type": "string",
-     "description": "[Output Only] The type of the resource, for example compute.v1.instance, or cloudfunctions.v1beta1.function."
+     "description": "Output only. The type of the resource, for example compute.v1.instance, or cloudfunctions.v1beta1.function."
     },
     "update": {
      "$ref": "ResourceUpdate",
-     "description": "[Output Only] If Deployment Manager is currently updating or previewing an update to this resource, the updated configuration appears here."
+     "description": "Output only. If Deployment Manager is currently updating or previewing an update to this resource, the updated configuration appears here."
     },
     "updateTime": {
      "type": "string",
-     "description": "[Output Only] Timestamp when the resource was updated, in RFC3339 text format ."
+     "description": "Output only. Timestamp when the resource was updated, in RFC3339 text format ."
     },
     "url": {
      "type": "string",
-     "description": "[Output Only] The URL of the actual resource."
+     "description": "Output only. The URL of the actual resource."
     },
     "warnings": {
      "type": "array",
-     "description": "[Output Only] If warning messages are generated during processing of this resource, this field will be populated.",
+     "description": "Output only. If warning messages are generated during processing of this resource, this field will be populated.",
      "items": {
       "type": "object",
       "properties": {
@@ -989,9 +1132,13 @@
      "$ref": "ResourceAccessControl",
      "description": "The Access Control Policy to set on this resource after updating the resource itself."
     },
+    "credential": {
+     "$ref": "Credential",
+     "description": "Output only. The credential that will be used creating/updating this resource."
+    },
     "error": {
      "type": "object",
-     "description": "[Output Only] If errors are generated during update of the resource, this field will be populated.",
+     "description": "Output only. If errors are generated during update of the resource, this field will be populated.",
      "properties": {
       "errors": {
        "type": "array",
@@ -1018,27 +1165,34 @@
     },
     "finalProperties": {
      "type": "string",
-     "description": "[Output Only] The expanded properties of the resource with reference values expanded. Returned as serialized YAML."
+     "description": "Output only. The expanded properties of the resource with reference values expanded. Returned as serialized YAML."
     },
     "intent": {
      "type": "string",
-     "description": "[Output Only] The intent of the resource: PREVIEW, UPDATE, or CANCEL."
+     "description": "Output only. The intent of the resource: PREVIEW, UPDATE, or CANCEL."
     },
     "manifest": {
      "type": "string",
-     "description": "[Output Only] URL of the manifest representing the update configuration of this resource."
+     "description": "Output only. URL of the manifest representing the update configuration of this resource."
     },
     "properties": {
      "type": "string",
-     "description": "[Output Only] The set of updated properties for this resource, before references are expanded. Returned as serialized YAML."
+     "description": "Output only. The set of updated properties for this resource, before references are expanded. Returned as serialized YAML."
+    },
+    "runtimePolicies": {
+     "type": "array",
+     "description": "Output only. In case this is an action, it will show the runtimePolicies that this action will have after updating the deployment.",
+     "items": {
+      "type": "string"
+     }
     },
     "state": {
      "type": "string",
-     "description": "[Output Only] The state of the resource."
+     "description": "Output only. The state of the resource."
     },
     "warnings": {
      "type": "array",
-     "description": "[Output Only] If warning messages are generated during processing of this resource, this field will be populated.",
+     "description": "Output only. If warning messages are generated during processing of this resource, this field will be populated.",
      "items": {
       "type": "object",
       "properties": {
@@ -1101,7 +1255,7 @@
     },
     "conditions": {
      "type": "array",
-     "description": "Additional restrictions that must be met",
+     "description": "Additional restrictions that must be met. All conditions must pass for the rule to match.",
      "items": {
       "$ref": "Condition"
      }
@@ -1140,6 +1294,17 @@
     }
    }
   },
+  "ServiceAccount": {
+   "id": "ServiceAccount",
+   "type": "object",
+   "description": "Service Account used as a credential.",
+   "properties": {
+    "email": {
+     "type": "string",
+     "description": "The IAM service account email address like test@myproject.iam.gserviceaccount.com"
+    }
+   }
+  },
   "TargetConfiguration": {
    "id": "TargetConfiguration",
    "type": "object",
@@ -1173,6 +1338,10 @@
     "interpreter": {
      "type": "string",
      "description": "Which interpreter (python or jinja) should be used during expansion."
+    },
+    "mainTemplate": {
+     "type": "string",
+     "description": "The filename of the mainTemplate"
     },
     "schema": {
      "type": "string",
@@ -1225,12 +1394,12 @@
     },
     "id": {
      "type": "string",
-     "description": "[Output Only] Unique identifier for the resource; defined by the server.",
+     "description": "Output only. Unique identifier for the resource; defined by the server.",
      "format": "uint64"
     },
     "insertTime": {
      "type": "string",
-     "description": "[Output Only] Timestamp when the type was created, in RFC3339 text format."
+     "description": "Output only. Timestamp when the type was created, in RFC3339 text format."
     },
     "labels": {
      "type": "array",
@@ -1245,11 +1414,11 @@
     },
     "operation": {
      "$ref": "Operation",
-     "description": "[Output Only] The Operation that most recently ran, or is currently running, on this type."
+     "description": "Output only. The Operation that most recently ran, or is currently running, on this type."
     },
     "selfLink": {
      "type": "string",
-     "description": "[Output Only] Self link for the type."
+     "description": "Output only. Self link for the type."
     }
    }
   },
@@ -1268,7 +1437,7 @@
     },
     "kind": {
      "type": "string",
-     "description": "[Output Only] Type of the output. Always deploymentManager#TypeInfo for TypeInfo.",
+     "description": "Output only. Type of the output. Always deploymentManager#TypeInfo for TypeInfo.",
      "default": "deploymentmanager#typeInfo"
     },
     "name": {
@@ -1281,7 +1450,7 @@
     },
     "selfLink": {
      "type": "string",
-     "description": "[Output Only] Server-defined URL for the resource."
+     "description": "Output only. Server-defined URL for the resource."
     },
     "title": {
      "type": "string",
@@ -1342,12 +1511,12 @@
     },
     "id": {
      "type": "string",
-     "description": "[Output Only] Unique identifier for the resource; defined by the server.",
+     "description": "Output only. Unique identifier for the resource; defined by the server.",
      "format": "uint64"
     },
     "insertTime": {
      "type": "string",
-     "description": "[Output Only] Timestamp when the type provider was created, in RFC3339 text format."
+     "description": "Output only. Timestamp when the type provider was created, in RFC3339 text format."
     },
     "labels": {
      "type": "array",
@@ -1362,7 +1531,7 @@
     },
     "operation": {
      "$ref": "Operation",
-     "description": "[Output Only] The Operation that most recently ran, or is currently running, on this type provider."
+     "description": "Output only. The Operation that most recently ran, or is currently running, on this type provider."
     },
     "options": {
      "$ref": "Options",
@@ -1370,7 +1539,7 @@
     },
     "selfLink": {
      "type": "string",
-     "description": "[Output Only] Self link for the type provider."
+     "description": "Output only. Self link for the type provider."
     }
    }
   },
@@ -1397,7 +1566,7 @@
     },
     "typeProviders": {
      "type": "array",
-     "description": "[Output Only] A list of resource type providers supported by Deployment Manager.",
+     "description": "Output only. A list of resource type providers supported by Deployment Manager.",
      "items": {
       "$ref": "TypeProvider"
      }
@@ -1415,7 +1584,7 @@
     },
     "types": {
      "type": "array",
-     "description": "[Output Only] A list of resource type info.",
+     "description": "Output only. A list of resource type info.",
      "items": {
       "$ref": "TypeInfo"
      }
@@ -1433,7 +1602,7 @@
     },
     "types": {
      "type": "array",
-     "description": "[Output Only] A list of resource types supported by Deployment Manager.",
+     "description": "Output only. A list of resource types supported by Deployment Manager.",
      "items": {
       "$ref": "Type"
      }
@@ -1469,7 +1638,7 @@
        "type": "string",
        "description": "The name of the type for this request.",
        "required": true,
-       "pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+       "pattern": "[a-z](?:[-a-z0-9_.]{0,61}[a-z0-9])?",
        "location": "path"
       },
       "project": {
@@ -1502,7 +1671,7 @@
        "type": "string",
        "description": "The name of the composite type for this request.",
        "required": true,
-       "pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+       "pattern": "[a-z](?:[-a-z0-9_.]{0,61}[a-z0-9])?",
        "location": "path"
       },
       "project": {
@@ -1615,7 +1784,7 @@
        "type": "string",
        "description": "The name of the composite type for this request.",
        "required": true,
-       "pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+       "pattern": "[a-z](?:[-a-z0-9_.]{0,61}[a-z0-9])?",
        "location": "path"
       },
       "project": {
@@ -1651,7 +1820,7 @@
        "type": "string",
        "description": "The name of the composite type for this request.",
        "required": true,
-       "pattern": "[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?",
+       "pattern": "[a-z](?:[-a-z0-9_.]{0,61}[a-z0-9])?",
        "location": "path"
       },
       "project": {
@@ -1816,7 +1985,7 @@
        "type": "string",
        "description": "Name of the resource for this request.",
        "required": true,
-       "pattern": "[a-z](?:[-a-z0-9_]{0,61}[a-z0-9])?",
+       "pattern": "[a-z0-9](?:[-a-z0-9_]{0,61}[a-z0-9])?",
        "location": "path"
       }
      },
@@ -2002,7 +2171,7 @@
        "type": "string",
        "description": "Name of the resource for this request.",
        "required": true,
-       "pattern": "[a-z](?:[-a-z0-9_]{0,61}[a-z0-9])?",
+       "pattern": "[a-z0-9](?:[-a-z0-9_]{0,61}[a-z0-9])?",
        "location": "path"
       }
      },
@@ -2074,7 +2243,7 @@
        "type": "string",
        "description": "Name of the resource for this request.",
        "required": true,
-       "pattern": "[a-z](?:[-a-z0-9_]{0,61}[a-z0-9])?",
+       "pattern": "(?:[-a-z0-9_]{0,62}[a-z0-9])?",
        "location": "path"
       }
      },

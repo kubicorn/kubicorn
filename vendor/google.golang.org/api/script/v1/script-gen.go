@@ -1,4 +1,4 @@
-// Package script provides access to the Google Apps Script Execution API.
+// Package script provides access to the Google Apps Script API.
 //
 // See https://developers.google.com/apps-script/execution/rest/v1/scripts/run
 //
@@ -115,13 +115,15 @@ type ScriptsService struct {
 }
 
 // ExecutionError: An object that provides information about the nature
-// of an error in the Apps
-// Script Execution API. If an
-// `run` call succeeds but the
-// script function (or Apps Script itself) throws an exception, the
-// response
-// body's `error` field contains a
-// `Status` object. The `Status` object's `details` field
+// of an error resulting
+// from an attempted execution of a script function using the Apps
+// Script API.
+// If a run call
+// succeeds but the script function (or Apps Script itself) throws an
+// exception,
+// the response body's error field
+// contains a
+// Status object. The `Status` object's `details` field
 // contains an array with a single one of these `ExecutionError`
 // objects.
 type ExecutionError struct {
@@ -158,8 +160,8 @@ type ExecutionError struct {
 }
 
 func (s *ExecutionError) MarshalJSON() ([]byte, error) {
-	type noMethod ExecutionError
-	raw := noMethod(*s)
+	type NoMethod ExecutionError
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -173,7 +175,7 @@ type ExecutionRequest struct {
 	// runs at the
 	// most recently saved version rather than the version deployed for use
 	// with
-	// the Execution API. Optional; default is `false`.
+	// the Apps Script API. Optional; default is `false`.
 	DevMode bool `json:"devMode,omitempty"`
 
 	// Function: The name of the function to execute in the given script.
@@ -197,17 +199,19 @@ type ExecutionRequest struct {
 	// in the Android app for Google Docs or Sheets, included as extra data
 	// in
 	// the
-	// [`Intent`](https://developer.android.com/guide/components/intents-
-	// filters.html)
+	// [Intent](https://developer.android.com/guide/components/intents-fi
+	// lters.html)
 	// that launches the add-on. When an Android add-on is run with a
 	// session
 	// state, it gains the privileges of
 	// a
 	// [bound](https://developers.google.com/apps-script/guides/bound)
-	// script &mdash;
-	// that is, it can access information like the user's current cursor
-	// position
-	// (in Docs) or selected cell (in Sheets). To retrieve the state,
+	// scri
+	// pt&mdash;that is, it can access information like the user's
+	// current
+	// cursor position (in Docs) or selected cell (in Sheets). To retrieve
+	// the
+	// state,
 	// call
 	// `Intent.getStringExtra("com.google.android.apps.docs.addons.Sessi
 	// onState")`.
@@ -232,22 +236,21 @@ type ExecutionRequest struct {
 }
 
 func (s *ExecutionRequest) MarshalJSON() ([]byte, error) {
-	type noMethod ExecutionRequest
-	raw := noMethod(*s)
+	type NoMethod ExecutionRequest
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 // ExecutionResponse: An object that provides the return value of a
-// function executed through the
-// Apps Script Execution API. If a
-// `run` call succeeds and the
-// script function returns successfully, the response body's
-// `response` field contains this
+// function executed using the
+// Apps Script API. If the script function returns successfully, the
+// response
+// body's response field contains this
 // `ExecutionResponse` object.
 type ExecutionResponse struct {
 	// Result: The return value of the script function. The type matches the
 	// object type
-	// returned in Apps Script. Functions called through the Execution API
+	// returned in Apps Script. Functions called using the Apps Script API
 	// cannot
 	// return Apps Script-specific objects (such as a `Document` or a
 	// `Calendar`);
@@ -274,121 +277,59 @@ type ExecutionResponse struct {
 }
 
 func (s *ExecutionResponse) MarshalJSON() ([]byte, error) {
-	type noMethod ExecutionResponse
-	raw := noMethod(*s)
+	type NoMethod ExecutionResponse
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// JoinAsyncRequest: A request to retrieve the results from a collection
-// of requests,
-// specified by the operation resource names.
-type JoinAsyncRequest struct {
-	// Names: List of operation resource names that we want to join,
-	// as returned from a call to RunAsync.
-	Names []string `json:"names,omitempty"`
-
-	// ScriptId: The script id which specifies the script which all
-	// processes in the names
-	// field must be from.
-	ScriptId string `json:"scriptId,omitempty"`
-
-	// Timeout: Timeout for information retrieval in milliseconds.
-	Timeout string `json:"timeout,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "Names") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "Names") to include in API
-	// requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *JoinAsyncRequest) MarshalJSON() ([]byte, error) {
-	type noMethod JoinAsyncRequest
-	raw := noMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// JoinAsyncResponse: An object that provides the return value for the
-// JoinAsync method.
-type JoinAsyncResponse struct {
-	// Results: The return values for each script function, in a map of
-	// operation resource
-	// names to the Operation containing the result of the process. The
-	// response
-	// will contain either an error or the result of the script function.
-	Results map[string]Operation `json:"results,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "Results") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "Results") to include in
-	// API requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *JoinAsyncResponse) MarshalJSON() ([]byte, error) {
-	type noMethod JoinAsyncResponse
-	raw := noMethod(*s)
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// Operation: The response will not arrive until the function finishes
-// executing. The maximum runtime is listed in the guide to [limitations
-// in Apps
-// Script](https://developers.google.com/apps-script/guides/services/quot
-// as#current_limitations).
-// <p>If the script function returns successfully, the `response` field
-// will contain an `ExecutionResponse` object with the function's return
-// value in the object's `result` field.</p>
-// <p>If the script function (or Apps Script itself) throws an
-// exception, the `error` field will contain a `Status` object. The
-// `Status` object's `details` field will contain an array with a single
-// `ExecutionError` object that provides information about the nature of
-// the error.</p>
-// <p>If the `run` call itself fails (for example, because of a
-// malformed request or an authorization error), the method will return
-// an HTTP response code in the 4XX range with a different format for
-// the response body. Client libraries will automatically convert a 4XX
-// response into an exception class.</p>
+// Operation: A representation of a execution of an Apps Script function
+// that is started using run. The execution response does not arrive
+// until the function finishes executing. The maximum execution runtime
+// is listed in the [Apps Script quotas
+// guide](/apps-script/guides/services/quotas#current_limitations).
+// <p>After the execution is started, it can have one of four
+// outcomes:</p> <ul> <li> If the script function returns successfully,
+// the
+//   response field contains an
+//   ExecutionResponse object
+//   with the function's return value in the object's `result`
+// field.</li>
+// <li> If the script function (or Apps Script itself) throws an
+// exception, the
+//   error field contains a
+//   Status object. The `Status` object's `details`
+//   field contains an array with a single
+//   ExecutionError object that
+//   provides information about the nature of the error.</li>
+// <li> If the execution has not yet completed,
+//   the done field is `false` and
+//   the neither the `response` nor `error` fields are
+// present.</li>
+// <li> If the `run` call itself fails (for example, because of a
+//   malformed request or an authorization error), the method returns an
+// HTTP
+//   response code in the 4XX range with a different format for the
+// response
+//   body. Client libraries automatically convert a 4XX response into
+// an
+//   exception class.</li>
+// </ul>
 type Operation struct {
-	// Done: This field is not used.
+	// Done: This field indicates whether the script execution has
+	// completed. A completed execution has a populated `response` field
+	// containing the ExecutionResponse from function that was executed.
 	Done bool `json:"done,omitempty"`
 
 	// Error: If a `run` call succeeds but the script function (or Apps
-	// Script itself) throws an exception, this field will contain a
-	// `Status` object. The `Status` object's `details` field will contain
-	// an array with a single `ExecutionError` object that provides
-	// information about the nature of the error.
+	// Script itself) throws an exception, this field contains a Status
+	// object. The `Status` object's `details` field contains an array with
+	// a single ExecutionError object that provides information about the
+	// nature of the error.
 	Error *Status `json:"error,omitempty"`
 
-	// Metadata: This field is not used.
-	Metadata googleapi.RawMessage `json:"metadata,omitempty"`
-
-	// Name: This field is not used.
-	Name string `json:"name,omitempty"`
-
 	// Response: If the script function returns successfully, this field
-	// will contain an `ExecutionResponse` object with the function's return
-	// value as the object's `result` field.
+	// contains an ExecutionResponse object with the function's return
+	// value.
 	Response googleapi.RawMessage `json:"response,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
@@ -413,8 +354,8 @@ type Operation struct {
 }
 
 func (s *Operation) MarshalJSON() ([]byte, error) {
-	type noMethod Operation
-	raw := noMethod(*s)
+	type NoMethod Operation
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -445,26 +386,27 @@ type ScriptStackTraceElement struct {
 }
 
 func (s *ScriptStackTraceElement) MarshalJSON() ([]byte, error) {
-	type noMethod ScriptStackTraceElement
-	raw := noMethod(*s)
+	type NoMethod ScriptStackTraceElement
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
 // Status: If a `run` call succeeds but the script function (or Apps
-// Script itself) throws an exception, the response body's `error` field
-// will contain this `Status` object.
+// Script itself) throws an exception, the response body's error field
+// contains this `Status` object.
 type Status struct {
-	// Code: The status code. For this API, this value will always be 3,
-	// corresponding to an INVALID_ARGUMENT error.
+	// Code: The status code. For this API, this value either: <ul> <li> 3,
+	// indicating an `INVALID_ARGUMENT` error, or</li> <li> 1, indicating a
+	// `CANCELLED` execution.</li> </ul>
 	Code int64 `json:"code,omitempty"`
 
-	// Details: An array that contains a single `ExecutionError` object that
+	// Details: An array that contains a single ExecutionError object that
 	// provides information about the nature of the error.
 	Details []googleapi.RawMessage `json:"details,omitempty"`
 
 	// Message: A developer-facing error message, which is in English. Any
 	// user-facing error message is localized and sent in the
-	// [`google.rpc.Status.details`](google.rpc.Status.details) field, or
+	// [google.rpc.Status.details](google.rpc.Status.details) field, or
 	// localized by the client.
 	Message string `json:"message,omitempty"`
 
@@ -486,8 +428,8 @@ type Status struct {
 }
 
 func (s *Status) MarshalJSON() ([]byte, error) {
-	type noMethod Status
-	raw := noMethod(*s)
+	type NoMethod Status
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -504,7 +446,7 @@ type ScriptsRunCall struct {
 
 // Run: Runs a function in an Apps Script project. The project must be
 // deployed
-// for use with the Apps Script Execution API.
+// for use with the Apps Script API.
 //
 // This method requires authorization with an OAuth 2.0 token that
 // includes at
@@ -605,12 +547,12 @@ func (c *ScriptsRunCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
 	// {
-	//   "description": "Runs a function in an Apps Script project. The project must be deployed\nfor use with the Apps Script Execution API.\n\nThis method requires authorization with an OAuth 2.0 token that includes at\nleast one of the scopes listed in the [Authorization](#authorization)\nsection; script projects that do not require authorization cannot be\nexecuted through this API. To find the correct scopes to include in the\nauthentication token, open the project in the script editor, then select\n**File \u003e Project properties** and click the **Scopes** tab.",
+	//   "description": "Runs a function in an Apps Script project. The project must be deployed\nfor use with the Apps Script API.\n\nThis method requires authorization with an OAuth 2.0 token that includes at\nleast one of the scopes listed in the [Authorization](#authorization)\nsection; script projects that do not require authorization cannot be\nexecuted through this API. To find the correct scopes to include in the\nauthentication token, open the project in the script editor, then select\n**File \u003e Project properties** and click the **Scopes** tab.",
 	//   "flatPath": "v1/scripts/{scriptId}:run",
 	//   "httpMethod": "POST",
 	//   "id": "script.scripts.run",
@@ -619,7 +561,7 @@ func (c *ScriptsRunCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
 	//   ],
 	//   "parameters": {
 	//     "scriptId": {
-	//       "description": "The project key of the script to be executed. To find the project key, open\nthe project in the script editor and select **File \u003e Project properties**.",
+	//       "description": "The script ID of the script to be executed. To find the script ID, open\nthe project in the script editor and select **File \u003e Project properties**.",
 	//       "location": "path",
 	//       "required": true,
 	//       "type": "string"

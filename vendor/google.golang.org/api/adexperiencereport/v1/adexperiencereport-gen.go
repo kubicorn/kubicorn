@@ -109,14 +109,6 @@ type PlatformSummary struct {
 	//   "FAILING" - Failing.
 	BetterAdsStatus string `json:"betterAdsStatus,omitempty"`
 
-	// EgregiousStatus: The status of the site reviewed for egregious ads.
-	//
-	// Possible values:
-	//   "UNKNOWN" - Not reviewed.
-	//   "PASSING" - Passing.
-	//   "FAILING" - Failing.
-	EgregiousStatus string `json:"egregiousStatus,omitempty"`
-
 	// EnforcementTime: The date on which ad filtering begins.
 	EnforcementTime string `json:"enforcementTime,omitempty"`
 
@@ -166,8 +158,8 @@ type PlatformSummary struct {
 }
 
 func (s *PlatformSummary) MarshalJSON() ([]byte, error) {
-	type noMethod PlatformSummary
-	raw := noMethod(*s)
+	type NoMethod PlatformSummary
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -205,8 +197,8 @@ type SiteSummaryResponse struct {
 }
 
 func (s *SiteSummaryResponse) MarshalJSON() ([]byte, error) {
-	type noMethod SiteSummaryResponse
-	raw := noMethod(*s)
+	type NoMethod SiteSummaryResponse
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -238,8 +230,8 @@ type ViolatingSitesResponse struct {
 }
 
 func (s *ViolatingSitesResponse) MarshalJSON() ([]byte, error) {
-	type noMethod ViolatingSitesResponse
-	raw := noMethod(*s)
+	type NoMethod ViolatingSitesResponse
+	raw := NoMethod(*s)
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -350,7 +342,7 @@ func (c *SitesGetCall) Do(opts ...googleapi.CallOption) (*SiteSummaryResponse, e
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil
@@ -364,7 +356,7 @@ func (c *SitesGetCall) Do(opts ...googleapi.CallOption) (*SiteSummaryResponse, e
 	//   ],
 	//   "parameters": {
 	//     "name": {
-	//       "description": "The required site name. It should be the site property whose ad experiences\nmay have been reviewed, and it should be URL encoded. For example,\nhttps%3A%2F%2Fwww.google.com. The server will return an error of\nBAD_REQUEST if this field is not filled in. Note that if the site property\nis not yet verified in Search Console, the reportUrl field returned by the\nAPI will lead to the verification page, prompting the user to go through\nthat process before they can gain access to the Ad Experience Report.",
+	//       "description": "The required site name. It should be the site property whose ad experiences\nmay have been reviewed, and it should be URL-encoded. For example,\nsites/https%3A%2F%2Fwww.google.com. The server will return an error of\nBAD_REQUEST if this field is not filled in. Note that if the site property\nis not yet verified in Search Console, the reportUrl field returned by the\nAPI will lead to the verification page, prompting the user to go through\nthat process before they can gain access to the Ad Experience Report.",
 	//       "location": "path",
 	//       "pattern": "^sites/[^/]+$",
 	//       "required": true,
@@ -485,7 +477,7 @@ func (c *ViolatingSitesListCall) Do(opts ...googleapi.CallOption) (*ViolatingSit
 		},
 	}
 	target := &ret
-	if err := json.NewDecoder(res.Body).Decode(target); err != nil {
+	if err := gensupport.DecodeResponse(target, res); err != nil {
 		return nil, err
 	}
 	return ret, nil

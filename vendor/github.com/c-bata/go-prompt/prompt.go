@@ -12,11 +12,17 @@ import (
 const (
 	logfile      = "/tmp/go-prompt-debug.log"
 	envEnableLog = "GO_PROMPT_ENABLE_LOG"
+
+	maxReadBytes = 1024
 )
 
+// Executor is called when user input something text.
 type Executor func(string)
+
+// Completer should return the suggest item from Document.
 type Completer func(Document) []Suggest
 
+// Prompt is core struct of go-prompt.
 type Prompt struct {
 	in          ConsoleParser
 	buf         *Buffer
@@ -28,10 +34,12 @@ type Prompt struct {
 	keyBindMode KeyBindMode
 }
 
+// Exec is the struct contains user input context.
 type Exec struct {
 	input string
 }
 
+// Run starts prompt.
 func (p *Prompt) Run() {
 	// Logging
 	if os.Getenv(envEnableLog) != "true" {
@@ -55,7 +63,8 @@ func (p *Prompt) Run() {
 
 	exitCh := make(chan int)
 	winSizeCh := make(chan *WinSize)
-	go handleSignals(p.in, exitCh, winSizeCh)
+	stopHandleSignalCh := make(chan struct{})
+	go handleSignals(p.in, exitCh, winSizeCh, stopHandleSignalCh)
 
 	for {
 		select {
@@ -66,6 +75,7 @@ func (p *Prompt) Run() {
 			} else if e != nil {
 				// Stop goroutine to run readBuffer function
 				stopReadBufCh <- struct{}{}
+				stopHandleSignalCh <- struct{}{}
 
 				// Unset raw mode
 				// Reset to Blocking mode because returned EAGAIN when still set non-blocking mode.
@@ -78,6 +88,7 @@ func (p *Prompt) Run() {
 				// Set raw mode
 				p.in.Setup()
 				go readBuffer(bufCh, stopReadBufCh)
+				go handleSignals(p.in, exitCh, winSizeCh, stopHandleSignalCh)
 			} else {
 				p.completion.Update(*p.buf.Document())
 				p.renderer.Render(p.buf, p.completion)
@@ -187,6 +198,7 @@ func (p *Prompt) feed(b []byte) (shouldExit bool, exec *Exec) {
 	return
 }
 
+// Input just returns user input text.
 func (p *Prompt) Input() string {
 	// Logging
 	if os.Getenv(envEnableLog) != "true" {
@@ -239,7 +251,7 @@ func (p *Prompt) tearDown() {
 }
 
 func readBuffer(bufCh chan []byte, stopCh chan struct{}) {
-	buf := make([]byte, 1024)
+	buf := make([]byte, maxReadBytes)
 
 	log.Printf("[INFO] readBuffer start")
 	for {
@@ -250,13 +262,15 @@ func readBuffer(bufCh chan []byte, stopCh chan struct{}) {
 			return
 		default:
 			if n, err := syscall.Read(syscall.Stdin, buf); err == nil {
-				bufCh <- buf[:n]
+				cbuf := make([]byte, n)
+				copy(cbuf, buf[:n])
+				bufCh <- cbuf
 			}
 		}
 	}
 }
 
-func handleSignals(in ConsoleParser, exitCh chan int, winSizeCh chan *WinSize) {
+func handleSignals(in ConsoleParser, exitCh chan int, winSizeCh chan *WinSize, stop chan struct{}) {
 	sigCh := make(chan os.Signal, 1)
 	signal.Notify(
 		sigCh,
@@ -267,25 +281,28 @@ func handleSignals(in ConsoleParser, exitCh chan int, winSizeCh chan *WinSize) {
 	)
 
 	for {
-		s := <-sigCh
-		switch s {
-		case syscall.SIGINT: // kill -SIGINT XXXX or Ctrl+c
-			log.Println("[SIGNAL] Catch SIGINT")
-			exitCh <- 0
+		select {
+		case <-stop:
+			log.Println("[INFO] stop handleSignals")
+			return
+		case s := <-sigCh:
+			switch s {
+			case syscall.SIGINT: // kill -SIGINT XXXX or Ctrl+c
+				log.Println("[SIGNAL] Catch SIGINT")
+				exitCh <- 0
 
-		case syscall.SIGTERM: // kill -SIGTERM XXXX
-			log.Println("[SIGNAL] Catch SIGTERM")
-			exitCh <- 1
+			case syscall.SIGTERM: // kill -SIGTERM XXXX
+				log.Println("[SIGNAL] Catch SIGTERM")
+				exitCh <- 1
 
-		case syscall.SIGQUIT: // kill -SIGQUIT XXXX
-			log.Println("[SIGNAL] Catch SIGQUIT")
-			exitCh <- 0
+			case syscall.SIGQUIT: // kill -SIGQUIT XXXX
+				log.Println("[SIGNAL] Catch SIGQUIT")
+				exitCh <- 0
 
-		case syscall.SIGWINCH:
-			log.Println("[SIGNAL] Catch SIGWINCH")
-			winSizeCh <- in.GetWinSize()
-		default:
-			time.Sleep(10 * time.Millisecond)
+			case syscall.SIGWINCH:
+				log.Println("[SIGNAL] Catch SIGWINCH")
+				winSizeCh <- in.GetWinSize()
+			}
 		}
 	}
 }

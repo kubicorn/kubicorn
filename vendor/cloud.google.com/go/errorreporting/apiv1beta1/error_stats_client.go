@@ -29,10 +29,7 @@ import (
 	clouderrorreportingpb "google.golang.org/genproto/googleapis/devtools/clouderrorreporting/v1beta1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-)
-
-var (
-	errorStatsProjectPathTemplate = gax.MustCompilePathTemplate("projects/{project}")
+	"google.golang.org/grpc/metadata"
 )
 
 // ErrorStatsCallOptions contains the retry settings for each method of ErrorStatsClient.
@@ -83,7 +80,7 @@ type ErrorStatsClient struct {
 	CallOptions *ErrorStatsCallOptions
 
 	// The metadata to be sent with each request.
-	xGoogHeader []string
+	Metadata metadata.MD
 }
 
 // NewErrorStatsClient creates a new error stats service client.
@@ -122,23 +119,20 @@ func (c *ErrorStatsClient) Close() error {
 func (c *ErrorStatsClient) SetGoogleClientInfo(keyval ...string) {
 	kv := append([]string{"gl-go", version.Go()}, keyval...)
 	kv = append(kv, "gapic", version.Repo, "gax", gax.Version, "grpc", grpc.Version)
-	c.xGoogHeader = []string{gax.XGoogHeader(kv...)}
+	c.Metadata = metadata.Pairs("x-goog-api-client", gax.XGoogHeader(kv...))
 }
 
 // ErrorStatsProjectPath returns the path for the project resource.
 func ErrorStatsProjectPath(project string) string {
-	path, err := errorStatsProjectPathTemplate.Render(map[string]string{
-		"project": project,
-	})
-	if err != nil {
-		panic(err)
-	}
-	return path
+	return "" +
+		"projects/" +
+		project +
+		""
 }
 
 // ListGroupStats lists the specified groups.
 func (c *ErrorStatsClient) ListGroupStats(ctx context.Context, req *clouderrorreportingpb.ListGroupStatsRequest, opts ...gax.CallOption) *ErrorGroupStatsIterator {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.ListGroupStats[0:len(c.CallOptions.ListGroupStats):len(c.CallOptions.ListGroupStats)], opts...)
 	it := &ErrorGroupStatsIterator{}
 	it.InternalFetch = func(pageSize int, pageToken string) ([]*clouderrorreportingpb.ErrorGroupStats, string, error) {
@@ -173,7 +167,7 @@ func (c *ErrorStatsClient) ListGroupStats(ctx context.Context, req *clouderrorre
 
 // ListEvents lists the specified events.
 func (c *ErrorStatsClient) ListEvents(ctx context.Context, req *clouderrorreportingpb.ListEventsRequest, opts ...gax.CallOption) *ErrorEventIterator {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.ListEvents[0:len(c.CallOptions.ListEvents):len(c.CallOptions.ListEvents)], opts...)
 	it := &ErrorEventIterator{}
 	it.InternalFetch = func(pageSize int, pageToken string) ([]*clouderrorreportingpb.ErrorEvent, string, error) {
@@ -208,7 +202,7 @@ func (c *ErrorStatsClient) ListEvents(ctx context.Context, req *clouderrorreport
 
 // DeleteEvents deletes all error events of a given project.
 func (c *ErrorStatsClient) DeleteEvents(ctx context.Context, req *clouderrorreportingpb.DeleteEventsRequest, opts ...gax.CallOption) (*clouderrorreportingpb.DeleteEventsResponse, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.DeleteEvents[0:len(c.CallOptions.DeleteEvents):len(c.CallOptions.DeleteEvents)], opts...)
 	var resp *clouderrorreportingpb.DeleteEventsResponse
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {

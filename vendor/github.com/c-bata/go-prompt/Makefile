@@ -6,7 +6,6 @@ setup:  ## Setup for required tools.
 	go get golang.org/x/tools/cmd/goimports
 	go get golang.org/x/tools/cmd/stringer
 	go get github.com/pkg/term
-	glide install
 
 .PHONY: fmt
 fmt: ## Formatting source codes.
@@ -20,6 +19,10 @@ lint: ## Run golint and go vet.
 .PHONY: test
 test:  ## Run the tests.
 	@go test .
+
+.PHONY: race-test
+race-test:  ## Checking the race condition.
+	@go test -race .
 
 .PHONY: help
 help: ## Show help text
