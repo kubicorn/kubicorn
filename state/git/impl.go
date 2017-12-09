@@ -91,9 +91,26 @@ func (git *JSONGitStore) Write(relativePath string, data []byte) error {
 func (git *JSONGitStore) Read(relativePath string) ([]byte, error) {
 	fqn := filepath.Join(git.AbsolutePath, relativePath)
 	bytes, err := ioutil.ReadFile(fqn)
+
+	//if there's nothing check the remote repo
 	if err != nil {
-		return []byte(""), err
+		// Create a new repository
+		r, _ := g.NewFilesystemRepository(fqn)
+		_, err = r.CreateRemote(&config.RemoteConfig{
+			Name: git.ClusterName,
+			URL:  git.options.CommitConfig.Remote,
+		})
+
+		// Pull using the create repository
+		err = r.Pull(&g.PullOptions{
+			RemoteName: git.ClusterName,
+		})
+		bytes, err = ioutil.ReadFile(fqn)
+		if err != nil {
+			return []byte(""), err
+		}
 	}
+
 	return bytes, nil
 }
 
