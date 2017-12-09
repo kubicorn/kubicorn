@@ -18,12 +18,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"os"
-	"k8s.io/client-go/tools/clientcmd"
 	"github.com/golang/glog"
 	"time"
 	"fmt"
-	"k8s.io/kube-deploy/cluster-api/client"
 	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
+	"k8s.io/kube-deploy/cluster-api/util"
 )
 
 const (
@@ -70,11 +69,10 @@ func CRDCommand() *cobra.Command {
 func RunCRDCreate(options *CRDOptions) error {
 
 
-	// Config
-	config, err := clientcmd.BuildConfigFromFlags("", options.KubeConfigPath)
-
-	// Client
-	cs, err := client.NewForConfig(config)
+	cs, err := util.NewClientSet(options.KubeConfigPath)
+	if err != nil {
+		return fmt.Errorf("unable to initialize new client set: %v", err)
+	}
 
 	// Create CRD for Machines
 	success := false

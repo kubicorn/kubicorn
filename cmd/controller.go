@@ -94,7 +94,7 @@ func RunController(options *ControllerOptions) error {
 				MinSize: &m,
 				LaunchConfigurationName: &name,
 			}
-			asg, err := sdk.ASG.UpdateAutoScalingGroup(input)
+			_, err := sdk.ASG.UpdateAutoScalingGroup(input)
 			if err != nil {
 				logger.Critical("unable to update ASG: %v", err)
 
