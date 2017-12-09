@@ -58,6 +58,10 @@
   version = "1.2.0"
 
 [[constraint]]
+  name = "github.com/golang/glog"
+  branch = "master"
+
+[[constraint]]
   branch = "master"
   name = "github.com/kris-nova/lolgopher"
 
@@ -117,3 +121,6 @@
   branch = "master"
   name = "k8s.io/kube-deploy"
 
+[[constraint]]
+  name = "golang.org/x/oauth2"
+  branch = "master"
