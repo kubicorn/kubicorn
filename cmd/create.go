@@ -23,11 +23,7 @@ import (
 	"strings"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/namer"
-	//"github.com/kris-nova/kubicorn/profiles/legacy/amazon"
-	//"github.com/kris-nova/kubicorn/profiles/legacy/azure"
-	//"github.com/kris-nova/kubicorn/profiles/legacy/digitalocean"
 	newdigitalocean "github.com/kris-nova/kubicorn/profiles/api/digitalocean"
-	//"github.com/kris-nova/kubicorn/profiles/legacy/googlecompute"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/git"
@@ -36,7 +32,7 @@ import (
 	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
 	"github.com/kris-nova/kubicorn/apis"
-	"github.com/kris-nova/kubicorn/profiles/api/amazon"
+	"github.com/kris-nova/kubicorn/profiles/packet"
 )
 
 type CreateOptions struct {
@@ -49,6 +45,7 @@ var co = &CreateOptions{}
 // CreateCmd represents create command
 func CreateCmd() *cobra.Command {
 	var createCmd = &cobra.Command{
+
 		Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
 		Short: "Create a Kubicorn API model from a profile",
 		Long: `Use this command to create a Kubicorn API model in a defined state store.
@@ -74,6 +71,8 @@ func CreateCmd() *cobra.Command {
 
 		},
 	}
+
+	createCmd.SetUsageTemplate(usageTemplate)
 
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
@@ -130,19 +129,18 @@ var profileMapIndexed = map[string]profileMap{
 	//	profileFunc: digitalocean.NewUbuntuCluster,
 	//	description: "Ubuntu on DigitalOcean",
 	//},
-	"aws-ubuntu": {
-		profileFunc: amazon.NewUbuntuCluster,
-		description: "Ubuntu on Amazon",
-	},
-<<<<<<< HEAD
-	"do-centos": {
-		profileFunc: digitalocean.NewCentosCluster,
-		description: "CentOS on DigitalOcean",
-	},
-	"aws-centos": {
-		profileFunc: amazon.NewCentosCluster,
-		description: "CentOS on Amazon",
-	},
+	//"aws-ubuntu": {
+	//	profileFunc: amazon.NewUbuntuCluster,
+	//	description: "Ubuntu on Amazon",
+	//},
+	//"do-centos": {
+	//	profileFunc: digitalocean.NewCentosCluster,
+	//	description: "CentOS on DigitalOcean",
+	//},
+	//"aws-centos": {
+	//	profileFunc: amazon.NewCentosCluster,
+	//	description: "CentOS on Amazon",
+	//},
 	"packet": {
 		profileFunc: packet.NewUbuntuCluster,
 		description: "Ubuntu on Packet x86",
@@ -150,8 +148,7 @@ var profileMapIndexed = map[string]profileMap{
 	"packet-ubuntu": {
 		profileFunc: packet.NewUbuntuCluster,
 		description: "Ubuntu on Packet x86",
-	"new-do-ubuntu": {
-=======
+	},
 	//"do-centos": {
 	//	profileFunc: digitalocean.NewCentosCluster,
 	//	description: "CentOS on DigitalOcean",
@@ -161,7 +158,6 @@ var profileMapIndexed = map[string]profileMap{
 	//	description: "CentOS on Amazon",
 	//},
 	"do-ubuntu": {
->>>>>>> #kubecon hacking on #kubicorn
 		profileFunc: newdigitalocean.NewUbuntuCluster,
 		description: "New Cluster API Ubuntu on Digital Ocean",
 	},

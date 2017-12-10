@@ -253,13 +253,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		}
 		return nil, nil, err
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	logger.Success("Created Launch Configuration [%s]", r.Name)
-=======
-	logger.Info("Created Launch Configuration [%s]", r.Name)
-<<<<<<< HEAD
 
 	{
 		found := false
@@ -310,15 +304,7 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 			return nil, nil, fmt.Errorf("Unable to find Master IP")
 		}
 	}
->>>>>>> #kubecon hacking on #kubicorn
-=======
->>>>>>> AWS IS WORKING WITH THE NEW API FUCK YEAH
-=======
 	logger.Success("Created Launch Configuration [%s]", r.Name)
->>>>>>> Adding files
-=======
-	logger.Info("Created Launch Configuration [%s]", r.Name)
->>>>>>> Working on getting compiling
 	newResource.Image = expected.(*Lc).Image
 	newResource.InstanceType = expected.(*Lc).InstanceType
 	newResource.Name = expected.(*Lc).Name
