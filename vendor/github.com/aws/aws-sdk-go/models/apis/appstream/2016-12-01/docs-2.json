@@ -5,7 +5,6 @@
     "AssociateFleet": "<p>Associates the specified fleet with the specified stack.</p>",
     "CreateDirectoryConfig": "<p>Creates a directory configuration.</p>",
     "CreateFleet": "<p>Creates a fleet.</p>",
-<<<<<<< HEAD
     "CreateImageBuilder": "<p>Creates an image builder.</p> <p>The initial state of the builder is <code>PENDING</code>. When it is ready, the state is <code>RUNNING</code>.</p>",
     "CreateImageBuilderStreamingURL": "<p>Creates a URL to start an image builder streaming session.</p>",
     "CreateStack": "<p>Creates a stack.</p>",
@@ -18,20 +17,6 @@
     "DescribeDirectoryConfigs": "<p>Describes the specified directory configurations.</p>",
     "DescribeFleets": "<p>Describes the specified fleets or all fleets in the account.</p>",
     "DescribeImageBuilders": "<p>Describes the specified image builders or all image builders in the account.</p>",
-=======
-    "CreateImageBuilder": null,
-    "CreateImageBuilderStreamingURL": null,
-    "CreateStack": "<p>Creates a stack.</p>",
-    "CreateStreamingURL": "<p>Creates a URL to start a streaming session for the specified user.</p> <p>By default, the URL is valid only for one minute from the time that it is generated.</p>",
-    "DeleteDirectoryConfig": "<p>Deletes the specified directory configuration.</p>",
-    "DeleteFleet": "<p>Deletes the specified fleet.</p>",
-    "DeleteImage": null,
-    "DeleteImageBuilder": null,
-    "DeleteStack": "<p>Deletes the specified stack. After this operation completes, the environment can no longer be activated and any reservations made for the stack are released.</p>",
-    "DescribeDirectoryConfigs": "<p>Describes the specified directory configurations.</p>",
-    "DescribeFleets": "<p>Describes the specified fleets or all fleets in the account.</p>",
-    "DescribeImageBuilders": null,
->>>>>>> Initial dep workover
     "DescribeImages": "<p>Describes the specified images or all images in the account.</p>",
     "DescribeSessions": "<p>Describes the streaming sessions for the specified stack and fleet. If a user ID is provided, only the streaming sessions for only that user are returned. If an authentication type is not provided, the default is to authenticate users using a streaming URL.</p>",
     "DescribeStacks": "<p>Describes the specified stacks or all stacks in the account.</p>",
@@ -40,15 +25,9 @@
     "ListAssociatedFleets": "<p>Lists the fleets associated with the specified stack.</p>",
     "ListAssociatedStacks": "<p>Lists the stacks associated with the specified fleet.</p>",
     "StartFleet": "<p>Starts the specified fleet.</p>",
-<<<<<<< HEAD
     "StartImageBuilder": "<p>Starts the specified image builder.</p>",
     "StopFleet": "<p>Stops the specified fleet.</p>",
     "StopImageBuilder": "<p>Stops the specified image builder.</p>",
-=======
-    "StartImageBuilder": null,
-    "StopFleet": "<p>Stops the specified fleet.</p>",
-    "StopImageBuilder": null,
->>>>>>> Initial dep workover
     "UpdateDirectoryConfig": "<p>Updates the specified directory configuration.</p>",
     "UpdateFleet": "<p>Updates the specified fleet.</p> <p>If the fleet is in the <code>STOPPED</code> state, you can update any attribute except the fleet name. If the fleet is in the <code>RUNNING</code> state, you can update the <code>DisplayName</code> and <code>ComputeCapacity</code> attributes. If the fleet is in the <code>STARTING</code> or <code>STOPPING</code> state, you can't update it.</p>",
     "UpdateStack": "<p>Updates the specified stack.</p>"
@@ -76,7 +55,6 @@
       "base": null,
       "refs": {
         "Image$Applications": "<p>The applications associated with the image.</p>"
-<<<<<<< HEAD
       }
     },
     "AppstreamAgentVersion": {
@@ -86,8 +64,6 @@
         "Image$AppstreamAgentVersion": "<p>The version of the AppStream 2.0 agent to use for instances that are launched from this image.</p>",
         "ImageBuilder$AppstreamAgentVersion": "<p>The version of the AppStream 2.0 agent that is currently being used by this image builder.</p>",
         "StartImageBuilderRequest$AppstreamAgentVersion": "<p>The version of the AppStream 2.0 agent to use for this image builder. To use the latest version of the AppStream 2.0 agent, specify [LATEST].</p>"
-=======
->>>>>>> Initial dep workover
       }
     },
     "Arn": {
@@ -96,13 +72,8 @@
         "Fleet$Arn": "<p>The ARN for the fleet.</p>",
         "Image$Arn": "<p>The ARN of the image.</p>",
         "Image$BaseImageArn": "<p>The ARN of the image from which this image was created.</p>",
-<<<<<<< HEAD
         "ImageBuilder$Arn": "<p>The ARN for the image builder.</p>",
         "ImageBuilder$ImageArn": "<p>The ARN of the image from which this builder was created.</p>",
-=======
-        "ImageBuilder$Arn": null,
-        "ImageBuilder$ImageArn": null,
->>>>>>> Initial dep workover
         "Stack$Arn": "<p>The ARN of the stack.</p>"
       }
     },
@@ -136,15 +107,9 @@
       "base": null,
       "refs": {
         "CreateFleetRequest$EnableDefaultInternetAccess": "<p>Enables or disables default internet access for the fleet.</p>",
-<<<<<<< HEAD
         "CreateImageBuilderRequest$EnableDefaultInternetAccess": "<p>Enables or disables default internet access for the image builder.</p>",
         "Fleet$EnableDefaultInternetAccess": "<p>Indicates whether default internet access is enabled for the fleet.</p>",
         "ImageBuilder$EnableDefaultInternetAccess": "<p>Enables or disables default internet access for the image builder.</p>",
-=======
-        "CreateImageBuilderRequest$EnableDefaultInternetAccess": null,
-        "Fleet$EnableDefaultInternetAccess": "<p>Indicates whether default internet access is enabled for the fleet.</p>",
-        "ImageBuilder$EnableDefaultInternetAccess": null,
->>>>>>> Initial dep workover
         "UpdateFleetRequest$EnableDefaultInternetAccess": "<p>Enables or disables default internet access for the fleet.</p>"
       }
     },
@@ -339,19 +304,11 @@
     "Description": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "CreateFleetRequest$Description": "<p>The description for display.</p>",
         "CreateImageBuilderRequest$Description": "<p>The description for display.</p>",
         "CreateStackRequest$Description": "<p>The description for display.</p>",
         "UpdateFleetRequest$Description": "<p>The description for display.</p>",
         "UpdateStackRequest$Description": "<p>The description for display.</p>"
-=======
-        "CreateFleetRequest$Description": "<p>The description displayed to end users.</p>",
-        "CreateImageBuilderRequest$Description": null,
-        "CreateStackRequest$Description": "<p>The description displayed to end users.</p>",
-        "UpdateFleetRequest$Description": "<p>The description displayed to end users.</p>",
-        "UpdateStackRequest$Description": "<p>The description displayed to end users.</p>"
->>>>>>> Initial dep workover
       }
     },
     "DirectoryConfig": {
@@ -398,7 +355,6 @@
     "DisplayName": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "CreateFleetRequest$DisplayName": "<p>The fleet name for display.</p>",
         "CreateImageBuilderRequest$DisplayName": "<p>The image builder name for display.</p>",
         "CreateStackRequest$DisplayName": "<p>The stack name for display.</p>",
@@ -414,23 +370,6 @@
         "Fleet$DomainJoinInfo": "<p>The information needed to join a Microsoft Active Directory domain.</p>",
         "ImageBuilder$DomainJoinInfo": "<p>The information needed to join a Microsoft Active Directory domain.</p>",
         "UpdateFleetRequest$DomainJoinInfo": "<p>The information needed to join a Microsoft Active Directory domain.</p>"
-=======
-        "CreateFleetRequest$DisplayName": "<p>The fleet name displayed to end users.</p>",
-        "CreateImageBuilderRequest$DisplayName": null,
-        "CreateStackRequest$DisplayName": "<p>The stack name displayed to end users.</p>",
-        "UpdateFleetRequest$DisplayName": "<p>The fleet name displayed to end users.</p>",
-        "UpdateStackRequest$DisplayName": "<p>The stack name displayed to end users.</p>"
-      }
-    },
-    "DomainJoinInfo": {
-      "base": "<p>Contains the information needed for streaming instances to join a domain.</p>",
-      "refs": {
-        "CreateFleetRequest$DomainJoinInfo": "<p>The information needed for streaming instances to join a domain.</p>",
-        "CreateImageBuilderRequest$DomainJoinInfo": null,
-        "Fleet$DomainJoinInfo": "<p>The information needed for streaming instances to join a domain.</p>",
-        "ImageBuilder$DomainJoinInfo": null,
-        "UpdateFleetRequest$DomainJoinInfo": "<p>The information needed for streaming instances to join a domain.</p>"
->>>>>>> Initial dep workover
       }
     },
     "ErrorMessage": {
@@ -488,11 +427,7 @@
       "base": null,
       "refs": {
         "FleetError$ErrorCode": "<p>The error code.</p>",
-<<<<<<< HEAD
         "ResourceError$ErrorCode": "<p>The error code.</p>"
-=======
-        "ResourceError$ErrorCode": null
->>>>>>> Initial dep workover
       }
     },
     "FleetErrors": {
@@ -516,28 +451,18 @@
     "FleetType": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "CreateFleetRequest$FleetType": "<p>The fleet type.</p> <dl> <dt>ALWAYS_ON</dt> <dd> <p>Provides users with instant-on access to their apps. You are charged for all running instances in your fleet, even if no users are streaming apps.</p> </dd> <dt>ON_DEMAND</dt> <dd> <p>Provide users with access to applications after they connect, which takes one to two minutes. You are charged for instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.</p> </dd> </dl>",
         "Fleet$FleetType": "<p>The fleet type.</p> <dl> <dt>ALWAYS_ON</dt> <dd> <p>Provides users with instant-on access to their apps. You are charged for all running instances in your fleet, even if no users are streaming apps.</p> </dd> <dt>ON_DEMAND</dt> <dd> <p>Provide users with access to applications after they connect, which takes one to two minutes. You are charged for instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.</p> </dd> </dl>"
-=======
-        "CreateFleetRequest$FleetType": null,
-        "Fleet$FleetType": null
->>>>>>> Initial dep workover
       }
     },
     "Image": {
       "base": "<p>Describes an image.</p>",
       "refs": {
-<<<<<<< HEAD
         "DeleteImageResult$Image": "<p>Information about the image.</p>",
-=======
-        "DeleteImageResult$Image": null,
->>>>>>> Initial dep workover
         "ImageList$member": null
       }
     },
     "ImageBuilder": {
-<<<<<<< HEAD
       "base": "<p>Describes a streaming instance used for editing an image. New images are created from a snapshot through an image builder.</p>",
       "refs": {
         "CreateImageBuilderResult$ImageBuilder": "<p>Information about the image builder.</p>",
@@ -545,31 +470,17 @@
         "ImageBuilderList$member": null,
         "StartImageBuilderResult$ImageBuilder": "<p>Information about the image builder.</p>",
         "StopImageBuilderResult$ImageBuilder": "<p>Information about the image builder.</p>"
-=======
-      "base": null,
-      "refs": {
-        "CreateImageBuilderResult$ImageBuilder": null,
-        "DeleteImageBuilderResult$ImageBuilder": null,
-        "ImageBuilderList$member": null,
-        "StartImageBuilderResult$ImageBuilder": null,
-        "StopImageBuilderResult$ImageBuilder": null
->>>>>>> Initial dep workover
       }
     },
     "ImageBuilderList": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "DescribeImageBuildersResult$ImageBuilders": "<p>Information about the image builders.</p>"
-=======
-        "DescribeImageBuildersResult$ImageBuilders": null
->>>>>>> Initial dep workover
       }
     },
     "ImageBuilderState": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "ImageBuilder$State": "<p>The state of the image builder.</p>"
       }
     },
@@ -577,25 +488,12 @@
       "base": "<p>Describes the reason why the last image builder state change occurred.</p>",
       "refs": {
         "ImageBuilder$StateChangeReason": "<p>The reason why the last state change occurred.</p>"
-=======
-        "ImageBuilder$State": null
-      }
-    },
-    "ImageBuilderStateChangeReason": {
-      "base": null,
-      "refs": {
-        "ImageBuilder$StateChangeReason": null
->>>>>>> Initial dep workover
       }
     },
     "ImageBuilderStateChangeReasonCode": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "ImageBuilderStateChangeReason$Code": "<p>The state change reason code.</p>"
-=======
-        "ImageBuilderStateChangeReason$Code": null
->>>>>>> Initial dep workover
       }
     },
     "ImageList": {
@@ -611,11 +509,7 @@
       }
     },
     "ImageStateChangeReason": {
-<<<<<<< HEAD
       "base": "<p>Describes the reason why the last image state change occurred.</p>",
-=======
-      "base": "<p>Describes the reason why the last state change occurred.</p>",
->>>>>>> Initial dep workover
       "refs": {
         "Image$StateChangeReason": "<p>The reason why the last state change occurred.</p>"
       }
@@ -642,11 +536,7 @@
         "CreateFleetRequest$MaxUserDurationInSeconds": "<p>The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 57600.</p>",
         "CreateFleetRequest$DisconnectTimeoutInSeconds": "<p>The time after disconnection when a session is considered to have ended, in seconds. If a user who was disconnected reconnects within this time interval, the user is connected to their previous session. Specify a value between 60 and 57600.</p>",
         "DescribeDirectoryConfigsRequest$MaxResults": "<p>The maximum size of each page of results.</p>",
-<<<<<<< HEAD
         "DescribeImageBuildersRequest$MaxResults": "<p>The maximum size of each page of results.</p>",
-=======
-        "DescribeImageBuildersRequest$MaxResults": null,
->>>>>>> Initial dep workover
         "DescribeSessionsRequest$Limit": "<p>The size of each page of results. The default value is 20 and the maximum value is 50.</p>",
         "Fleet$MaxUserDurationInSeconds": "<p>The maximum time that a streaming session can run, in seconds. Specify a value between 600 and 57600.</p>",
         "Fleet$DisconnectTimeoutInSeconds": "<p>The time after disconnection when a session is considered to have ended, in seconds. If a user who was disconnected reconnects within this time interval, the user is connected to their previous session. Specify a value between 60 and 57600.</p>",
@@ -692,13 +582,8 @@
     "Long": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "CreateImageBuilderStreamingURLRequest$Validity": "<p>The time that the streaming URL will be valid, in seconds. Specify a value between 1 and 604800 seconds. The default is 3600 seconds.</p>",
         "CreateStreamingURLRequest$Validity": "<p>The time that the streaming URL will be valid, in seconds. Specify a value between 1 and 604800 seconds. The default is 60 seconds.</p>"
-=======
-        "CreateImageBuilderStreamingURLRequest$Validity": null,
-        "CreateStreamingURLRequest$Validity": "<p>The time that the streaming URL will be valid, in seconds. Specify a value between 1 and 604800 seconds.</p>"
->>>>>>> Initial dep workover
       }
     },
     "Metadata": {
@@ -711,15 +596,9 @@
       "base": null,
       "refs": {
         "CreateFleetRequest$Name": "<p>A unique name for the fleet.</p>",
-<<<<<<< HEAD
         "CreateImageBuilderRequest$Name": "<p>A unique name for the image builder.</p>",
         "DeleteImageBuilderRequest$Name": "<p>The name of the image builder.</p>",
         "DeleteImageRequest$Name": "<p>The name of the image.</p>"
-=======
-        "CreateImageBuilderRequest$Name": null,
-        "DeleteImageBuilderRequest$Name": null,
-        "DeleteImageRequest$Name": null
->>>>>>> Initial dep workover
       }
     },
     "OperationNotPermittedException": {
@@ -746,11 +625,7 @@
       "base": null,
       "refs": {
         "Image$Platform": "<p>The operating system platform of the image.</p>",
-<<<<<<< HEAD
         "ImageBuilder$Platform": "<p>The operating system platform of the image builder.</p>"
-=======
-        "ImageBuilder$Platform": null
->>>>>>> Initial dep workover
       }
     },
     "ResourceAlreadyExistsException": {
@@ -759,11 +634,7 @@
       }
     },
     "ResourceError": {
-<<<<<<< HEAD
       "base": "<p>Describes a resource error.</p>",
-=======
-      "base": null,
->>>>>>> Initial dep workover
       "refs": {
         "ResourceErrors$member": null
       }
@@ -771,11 +642,7 @@
     "ResourceErrors": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "ImageBuilder$ImageBuilderErrors": "<p>The image builder errors.</p>"
-=======
-        "ImageBuilder$ImageBuilderErrors": null
->>>>>>> Initial dep workover
       }
     },
     "ResourceIdentifier": {
@@ -933,17 +800,12 @@
       "base": null,
       "refs": {
         "Application$Name": "<p>The name of the application.</p>",
-<<<<<<< HEAD
         "Application$DisplayName": "<p>The application name for display.</p>",
-=======
-        "Application$DisplayName": "<p>The application name displayed to end users.</p>",
->>>>>>> Initial dep workover
         "Application$IconURL": "<p>The URL for the application icon. This URL might be time-limited.</p>",
         "Application$LaunchPath": "<p>The path to the application executable in the instance.</p>",
         "Application$LaunchParameters": "<p>The arguments that are passed to the application at launch.</p>",
         "AssociateFleetRequest$FleetName": "<p>The name of the fleet.</p>",
         "AssociateFleetRequest$StackName": "<p>The name of the stack.</p>",
-<<<<<<< HEAD
         "CreateFleetRequest$ImageName": "<p>The name of the image used to create the fleet.</p>",
         "CreateFleetRequest$InstanceType": "<p>The instance type to use when launching fleet instances. The following instance types are available:</p> <ul> <li> <p>stream.standard.medium</p> </li> <li> <p>stream.standard.large</p> </li> <li> <p>stream.compute.large</p> </li> <li> <p>stream.compute.xlarge</p> </li> <li> <p>stream.compute.2xlarge</p> </li> <li> <p>stream.compute.4xlarge</p> </li> <li> <p>stream.compute.8xlarge</p> </li> <li> <p>stream.memory.large</p> </li> <li> <p>stream.memory.xlarge</p> </li> <li> <p>stream.memory.2xlarge</p> </li> <li> <p>stream.memory.4xlarge</p> </li> <li> <p>stream.memory.8xlarge</p> </li> <li> <p>stream.graphics-design.large</p> </li> <li> <p>stream.graphics-design.xlarge</p> </li> <li> <p>stream.graphics-design.2xlarge</p> </li> <li> <p>stream.graphics-design.4xlarge</p> </li> <li> <p>stream.graphics-desktop.2xlarge</p> </li> <li> <p>stream.graphics-pro.4xlarge</p> </li> <li> <p>stream.graphics-pro.8xlarge</p> </li> <li> <p>stream.graphics-pro.16xlarge</p> </li> </ul>",
         "CreateImageBuilderRequest$ImageName": "<p>The name of the image used to create the builder.</p>",
@@ -955,19 +817,6 @@
         "CreateStreamingURLRequest$FleetName": "<p>The name of the fleet.</p>",
         "CreateStreamingURLRequest$ApplicationId": "<p>The name of the application to launch after the session starts. This is the name that you specified as <b>Name</b> in the Image Assistant.</p>",
         "CreateStreamingURLRequest$SessionContext": "<p>The session context. For more information, see <a href=\"http://docs.aws.amazon.com/appstream2/latest/developerguide/managing-stacks-fleets.html#managing-stacks-fleets-parameters\">Session Context</a> in the <i>Amazon AppStream 2.0 Developer Guide</i>.</p>",
-=======
-        "CreateFleetRequest$ImageName": "<p>The name of the image used by the fleet.</p>",
-        "CreateFleetRequest$InstanceType": "<p>The instance type to use when launching fleet instances. The following instance types are available:</p> <ul> <li> <p>stream.standard.medium</p> </li> <li> <p>stream.standard.large</p> </li> <li> <p>stream.compute.large</p> </li> <li> <p>stream.compute.xlarge</p> </li> <li> <p>stream.compute.2xlarge</p> </li> <li> <p>stream.compute.4xlarge</p> </li> <li> <p>stream.compute.8xlarge</p> </li> <li> <p>stream.memory.large</p> </li> <li> <p>stream.memory.xlarge</p> </li> <li> <p>stream.memory.2xlarge</p> </li> <li> <p>stream.memory.4xlarge</p> </li> <li> <p>stream.memory.8xlarge</p> </li> <li> <p>stream.graphics-design.large</p> </li> <li> <p>stream.graphics-design.xlarge</p> </li> <li> <p>stream.graphics-design.2xlarge</p> </li> <li> <p>stream.graphics-design.4xlarge</p> </li> <li> <p>stream.graphics-desktop.2xlarge</p> </li> <li> <p>stream.graphics-pro.4xlarge</p> </li> <li> <p>stream.graphics-pro.8xlarge</p> </li> <li> <p>stream.graphics-pro.16xlarge</p> </li> </ul>",
-        "CreateImageBuilderRequest$ImageName": null,
-        "CreateImageBuilderRequest$InstanceType": null,
-        "CreateImageBuilderStreamingURLRequest$Name": null,
-        "CreateImageBuilderStreamingURLResult$StreamingURL": null,
-        "CreateStackRequest$Name": "<p>The name of the stack.</p>",
-        "CreateStreamingURLRequest$StackName": "<p>The name of the stack.</p>",
-        "CreateStreamingURLRequest$FleetName": "<p>The name of the fleet.</p>",
-        "CreateStreamingURLRequest$ApplicationId": "<p>The ID of the application that must be launched after the session starts.</p>",
-        "CreateStreamingURLRequest$SessionContext": "<p>The session context of the streaming URL.</p>",
->>>>>>> Initial dep workover
         "CreateStreamingURLResult$StreamingURL": "<p>The URL to start the AppStream 2.0 streaming session.</p>",
         "DeleteFleetRequest$Name": "<p>The name of the fleet.</p>",
         "DeleteStackRequest$Name": "<p>The name of the stack.</p>",
@@ -975,13 +824,8 @@
         "DescribeDirectoryConfigsResult$NextToken": "<p>The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.</p>",
         "DescribeFleetsRequest$NextToken": "<p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>",
         "DescribeFleetsResult$NextToken": "<p>The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.</p>",
-<<<<<<< HEAD
         "DescribeImageBuildersRequest$NextToken": "<p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>",
         "DescribeImageBuildersResult$NextToken": "<p>The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.</p>",
-=======
-        "DescribeImageBuildersRequest$NextToken": null,
-        "DescribeImageBuildersResult$NextToken": null,
->>>>>>> Initial dep workover
         "DescribeSessionsRequest$StackName": "<p>The name of the stack.</p>",
         "DescribeSessionsRequest$FleetName": "<p>The name of the fleet.</p>",
         "DescribeSessionsRequest$NextToken": "<p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>",
@@ -992,7 +836,6 @@
         "DisassociateFleetRequest$StackName": "<p>The name of the stack.</p>",
         "ExpireSessionRequest$SessionId": "<p>The ID of the streaming session.</p>",
         "Fleet$Name": "<p>The name of the fleet.</p>",
-<<<<<<< HEAD
         "Fleet$DisplayName": "<p>The fleet name for display.</p>",
         "Fleet$Description": "<p>The description for display.</p>",
         "Fleet$ImageName": "<p>The name of the image used to create the fleet.</p>",
@@ -1006,21 +849,6 @@
         "ImageBuilder$DisplayName": "<p>The image builder name for display.</p>",
         "ImageBuilder$InstanceType": "<p>The instance type for the image builder.</p>",
         "ImageBuilderStateChangeReason$Message": "<p>The state change reason message.</p>",
-=======
-        "Fleet$DisplayName": "<p>The fleet name displayed to end users.</p>",
-        "Fleet$Description": "<p>The description displayed to end users.</p>",
-        "Fleet$ImageName": "<p>The image used by the fleet.</p>",
-        "Fleet$InstanceType": "<p>The instance type to use when launching fleet instances.</p>",
-        "FleetError$ErrorMessage": "<p>The error message.</p>",
-        "Image$Name": "<p>The name of the image.</p>",
-        "Image$DisplayName": "<p>The image name displayed to end users.</p>",
-        "Image$Description": "<p>The description displayed to end users.</p>",
-        "ImageBuilder$Name": null,
-        "ImageBuilder$Description": null,
-        "ImageBuilder$DisplayName": null,
-        "ImageBuilder$InstanceType": null,
-        "ImageBuilderStateChangeReason$Message": null,
->>>>>>> Initial dep workover
         "ImageStateChangeReason$Message": "<p>The state change reason message.</p>",
         "ListAssociatedFleetsRequest$StackName": "<p>The name of the stack.</p>",
         "ListAssociatedFleetsRequest$NextToken": "<p>The pagination token to use to retrieve the next page of results for this operation. If this value is null, it retrieves the first page.</p>",
@@ -1030,17 +858,12 @@
         "ListAssociatedStacksResult$NextToken": "<p>The pagination token to use to retrieve the next page of results for this operation. If there are no more pages, this value is null.</p>",
         "Metadata$key": null,
         "Metadata$value": null,
-<<<<<<< HEAD
         "ResourceError$ErrorMessage": "<p>The error message.</p>",
-=======
-        "ResourceError$ErrorMessage": null,
->>>>>>> Initial dep workover
         "SecurityGroupIdList$member": null,
         "Session$Id": "<p>The ID of the streaming session.</p>",
         "Session$StackName": "<p>The name of the stack for the streaming session.</p>",
         "Session$FleetName": "<p>The name of the fleet for the streaming session.</p>",
         "Stack$Name": "<p>The name of the stack.</p>",
-<<<<<<< HEAD
         "Stack$Description": "<p>The description for display.</p>",
         "Stack$DisplayName": "<p>The stack name for display.</p>",
         "StackError$ErrorMessage": "<p>The error message.</p>",
@@ -1051,18 +874,6 @@
         "StringList$member": null,
         "SubnetIdList$member": null,
         "UpdateFleetRequest$ImageName": "<p>The name of the image used to create the fleet.</p>",
-=======
-        "Stack$Description": "<p>The description displayed to end users.</p>",
-        "Stack$DisplayName": "<p>The stack name displayed to end users.</p>",
-        "StackError$ErrorMessage": "<p>The error message.</p>",
-        "StartFleetRequest$Name": "<p>The name of the fleet.</p>",
-        "StartImageBuilderRequest$Name": null,
-        "StopFleetRequest$Name": "<p>The name of the fleet.</p>",
-        "StopImageBuilderRequest$Name": null,
-        "StringList$member": null,
-        "SubnetIdList$member": null,
-        "UpdateFleetRequest$ImageName": "<p>The name of the image used by the fleet.</p>",
->>>>>>> Initial dep workover
         "UpdateFleetRequest$Name": "<p>A unique name for the fleet.</p>",
         "UpdateFleetRequest$InstanceType": "<p>The instance type to use when launching fleet instances. The following instance types are available:</p> <ul> <li> <p>stream.standard.medium</p> </li> <li> <p>stream.standard.large</p> </li> <li> <p>stream.compute.large</p> </li> <li> <p>stream.compute.xlarge</p> </li> <li> <p>stream.compute.2xlarge</p> </li> <li> <p>stream.compute.4xlarge</p> </li> <li> <p>stream.compute.8xlarge</p> </li> <li> <p>stream.memory.large</p> </li> <li> <p>stream.memory.xlarge</p> </li> <li> <p>stream.memory.2xlarge</p> </li> <li> <p>stream.memory.4xlarge</p> </li> <li> <p>stream.memory.8xlarge</p> </li> <li> <p>stream.graphics-design.large</p> </li> <li> <p>stream.graphics-design.xlarge</p> </li> <li> <p>stream.graphics-design.2xlarge</p> </li> <li> <p>stream.graphics-design.4xlarge</p> </li> <li> <p>stream.graphics-desktop.2xlarge</p> </li> <li> <p>stream.graphics-pro.4xlarge</p> </li> <li> <p>stream.graphics-pro.8xlarge</p> </li> <li> <p>stream.graphics-pro.16xlarge</p> </li> </ul>",
         "UpdateStackRequest$Name": "<p>The name of the stack.</p>"
@@ -1072,11 +883,7 @@
       "base": null,
       "refs": {
         "DescribeFleetsRequest$Names": "<p>The names of the fleets to describe.</p>",
-<<<<<<< HEAD
         "DescribeImageBuildersRequest$Names": "<p>The names of the image builders to describe.</p>",
-=======
-        "DescribeImageBuildersRequest$Names": null,
->>>>>>> Initial dep workover
         "DescribeImagesRequest$Names": "<p>The names of the images to describe.</p>",
         "DescribeStacksRequest$Names": "<p>The names of the stacks to describe.</p>",
         "ListAssociatedFleetsResult$Names": "<p>The names of the fleets.</p>",
@@ -1092,23 +899,14 @@
     "Timestamp": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
         "CreateImageBuilderStreamingURLResult$Expires": "<p>The elapsed time, in seconds after the Unix epoch, when this URL expires.</p>",
-=======
-        "CreateImageBuilderStreamingURLResult$Expires": null,
->>>>>>> Initial dep workover
         "CreateStreamingURLResult$Expires": "<p>The elapsed time, in seconds after the Unix epoch, when this URL expires.</p>",
         "DirectoryConfig$CreatedTime": "<p>The time the directory configuration was created.</p>",
         "Fleet$CreatedTime": "<p>The time the fleet was created.</p>",
         "Image$CreatedTime": "<p>The time the image was created.</p>",
         "Image$PublicBaseImageReleasedDate": "<p>The release date of the public base image. For private images, this date is the release date of the base image from which the image was created.</p>",
-<<<<<<< HEAD
         "ImageBuilder$CreatedTime": "<p>The time stamp when the image builder was created.</p>",
         "ResourceError$ErrorTimestamp": "<p>The time the error occurred.</p>",
-=======
-        "ImageBuilder$CreatedTime": null,
-        "ResourceError$ErrorTimestamp": null,
->>>>>>> Initial dep workover
         "Stack$CreatedTime": "<p>The time the stack was created.</p>"
       }
     },
@@ -1159,15 +957,9 @@
       "base": "<p>Describes VPC configuration information.</p>",
       "refs": {
         "CreateFleetRequest$VpcConfig": "<p>The VPC configuration for the fleet.</p>",
-<<<<<<< HEAD
         "CreateImageBuilderRequest$VpcConfig": "<p>The VPC configuration for the image builder. You can specify only one subnet.</p>",
         "Fleet$VpcConfig": "<p>The VPC configuration for the fleet.</p>",
         "ImageBuilder$VpcConfig": "<p>The VPC configuration of the image builder.</p>",
-=======
-        "CreateImageBuilderRequest$VpcConfig": null,
-        "Fleet$VpcConfig": "<p>The VPC configuration for the fleet.</p>",
-        "ImageBuilder$VpcConfig": null,
->>>>>>> Initial dep workover
         "UpdateFleetRequest$VpcConfig": "<p>The VPC configuration for the fleet.</p>"
       }
     }

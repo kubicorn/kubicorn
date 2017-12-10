@@ -197,7 +197,6 @@ const opCreateSubscriber = "CreateSubscriber"
 // client's request for the CreateSubscriber operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -205,15 +204,6 @@ const opCreateSubscriber = "CreateSubscriber"
 // See CreateSubscriber for more information on using the CreateSubscriber
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateSubscriber for more information on using the CreateSubscriber
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -299,7 +289,6 @@ const opDeleteBudget = "DeleteBudget"
 // client's request for the DeleteBudget operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -307,15 +296,6 @@ const opDeleteBudget = "DeleteBudget"
 // See DeleteBudget for more information on using the DeleteBudget
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteBudget for more information on using the DeleteBudget
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -393,7 +373,6 @@ const opDeleteNotification = "DeleteNotification"
 // client's request for the DeleteNotification operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -401,15 +380,6 @@ const opDeleteNotification = "DeleteNotification"
 // See DeleteNotification for more information on using the DeleteNotification
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteNotification for more information on using the DeleteNotification
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -487,7 +457,6 @@ const opDeleteSubscriber = "DeleteSubscriber"
 // client's request for the DeleteSubscriber operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -495,15 +464,6 @@ const opDeleteSubscriber = "DeleteSubscriber"
 // See DeleteSubscriber for more information on using the DeleteSubscriber
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteSubscriber for more information on using the DeleteSubscriber
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -581,7 +541,6 @@ const opDescribeBudget = "DescribeBudget"
 // client's request for the DescribeBudget operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -589,15 +548,6 @@ const opDescribeBudget = "DescribeBudget"
 // See DescribeBudget for more information on using the DescribeBudget
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeBudget for more information on using the DescribeBudget
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -675,7 +625,6 @@ const opDescribeBudgets = "DescribeBudgets"
 // client's request for the DescribeBudgets operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -683,15 +632,6 @@ const opDescribeBudgets = "DescribeBudgets"
 // See DescribeBudgets for more information on using the DescribeBudgets
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeBudgets for more information on using the DescribeBudgets
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -776,7 +716,6 @@ const opDescribeNotificationsForBudget = "DescribeNotificationsForBudget"
 // client's request for the DescribeNotificationsForBudget operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -784,15 +723,6 @@ const opDescribeNotificationsForBudget = "DescribeNotificationsForBudget"
 // See DescribeNotificationsForBudget for more information on using the DescribeNotificationsForBudget
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeNotificationsForBudget for more information on using the DescribeNotificationsForBudget
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -877,7 +807,6 @@ const opDescribeSubscribersForNotification = "DescribeSubscribersForNotification
 // client's request for the DescribeSubscribersForNotification operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -885,15 +814,6 @@ const opDescribeSubscribersForNotification = "DescribeSubscribersForNotification
 // See DescribeSubscribersForNotification for more information on using the DescribeSubscribersForNotification
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeSubscribersForNotification for more information on using the DescribeSubscribersForNotification
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -978,7 +898,6 @@ const opUpdateBudget = "UpdateBudget"
 // client's request for the UpdateBudget operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -986,15 +905,6 @@ const opUpdateBudget = "UpdateBudget"
 // See UpdateBudget for more information on using the UpdateBudget
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateBudget for more information on using the UpdateBudget
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1072,7 +982,6 @@ const opUpdateNotification = "UpdateNotification"
 // client's request for the UpdateNotification operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1080,15 +989,6 @@ const opUpdateNotification = "UpdateNotification"
 // See UpdateNotification for more information on using the UpdateNotification
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateNotification for more information on using the UpdateNotification
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //

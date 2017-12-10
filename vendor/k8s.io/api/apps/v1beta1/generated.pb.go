@@ -46,9 +46,13 @@ limitations under the License.
 		ScaleStatus
 		StatefulSet
 <<<<<<< HEAD
+<<<<<<< HEAD
 		StatefulSetCondition
 =======
 >>>>>>> Initial dep workover
+=======
+		StatefulSetCondition
+>>>>>>> moar deps
 		StatefulSetList
 		StatefulSetSpec
 		StatefulSetStatus
@@ -153,10 +157,14 @@ func (*StatefulSet) ProtoMessage()               {}
 func (*StatefulSet) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{15} }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *StatefulSetCondition) Reset()                    { *m = StatefulSetCondition{} }
 func (*StatefulSetCondition) ProtoMessage()               {}
 func (*StatefulSetCondition) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{16} }
 
+<<<<<<< HEAD
 func (m *StatefulSetList) Reset()                    { *m = StatefulSetList{} }
 func (*StatefulSetList) ProtoMessage()               {}
 func (*StatefulSetList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{17} }
@@ -169,27 +177,37 @@ func (m *StatefulSetStatus) Reset()                    { *m = StatefulSetStatus{
 func (*StatefulSetStatus) ProtoMessage()               {}
 func (*StatefulSetStatus) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{19} }
 =======
+=======
+>>>>>>> moar deps
 func (m *StatefulSetList) Reset()                    { *m = StatefulSetList{} }
 func (*StatefulSetList) ProtoMessage()               {}
-func (*StatefulSetList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{16} }
+func (*StatefulSetList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{17} }
 
 func (m *StatefulSetSpec) Reset()                    { *m = StatefulSetSpec{} }
 func (*StatefulSetSpec) ProtoMessage()               {}
-func (*StatefulSetSpec) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{17} }
+func (*StatefulSetSpec) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{18} }
 
 func (m *StatefulSetStatus) Reset()                    { *m = StatefulSetStatus{} }
 func (*StatefulSetStatus) ProtoMessage()               {}
+<<<<<<< HEAD
 func (*StatefulSetStatus) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{18} }
 >>>>>>> Initial dep workover
+=======
+func (*StatefulSetStatus) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{19} }
+>>>>>>> moar deps
 
 func (m *StatefulSetUpdateStrategy) Reset()      { *m = StatefulSetUpdateStrategy{} }
 func (*StatefulSetUpdateStrategy) ProtoMessage() {}
 func (*StatefulSetUpdateStrategy) Descriptor() ([]byte, []int) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return fileDescriptorGenerated, []int{20}
 =======
 	return fileDescriptorGenerated, []int{19}
 >>>>>>> Initial dep workover
+=======
+	return fileDescriptorGenerated, []int{20}
+>>>>>>> moar deps
 }
 
 func init() {
@@ -210,9 +228,13 @@ func init() {
 	proto.RegisterType((*ScaleStatus)(nil), "k8s.io.api.apps.v1beta1.ScaleStatus")
 	proto.RegisterType((*StatefulSet)(nil), "k8s.io.api.apps.v1beta1.StatefulSet")
 <<<<<<< HEAD
+<<<<<<< HEAD
 	proto.RegisterType((*StatefulSetCondition)(nil), "k8s.io.api.apps.v1beta1.StatefulSetCondition")
 =======
 >>>>>>> Initial dep workover
+=======
+	proto.RegisterType((*StatefulSetCondition)(nil), "k8s.io.api.apps.v1beta1.StatefulSetCondition")
+>>>>>>> moar deps
 	proto.RegisterType((*StatefulSetList)(nil), "k8s.io.api.apps.v1beta1.StatefulSetList")
 	proto.RegisterType((*StatefulSetSpec)(nil), "k8s.io.api.apps.v1beta1.StatefulSetSpec")
 	proto.RegisterType((*StatefulSetStatus)(nil), "k8s.io.api.apps.v1beta1.StatefulSetStatus")
@@ -875,6 +897,9 @@ func (m *StatefulSet) MarshalTo(dAtA []byte) (int, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *StatefulSetCondition) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -917,8 +942,11 @@ func (m *StatefulSetCondition) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (m *StatefulSetList) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -938,6 +966,7 @@ func (m *StatefulSetList) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n25, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -950,6 +979,13 @@ func (m *StatefulSetList) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n24
 >>>>>>> Initial dep workover
+=======
+	n25, err := m.ListMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n25
+>>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -990,6 +1026,7 @@ func (m *StatefulSetSpec) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintGenerated(dAtA, i, uint64(m.Selector.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 		n26, err := m.Selector.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
@@ -1002,10 +1039,18 @@ func (m *StatefulSetSpec) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n25
 >>>>>>> Initial dep workover
+=======
+		n26, err := m.Selector.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n26
+>>>>>>> moar deps
 	}
 	dAtA[i] = 0x1a
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.Template.Size()))
+<<<<<<< HEAD
 <<<<<<< HEAD
 	n27, err := m.Template.MarshalTo(dAtA[i:])
 	if err != nil {
@@ -1019,6 +1064,13 @@ func (m *StatefulSetSpec) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n26
 >>>>>>> Initial dep workover
+=======
+	n27, err := m.Template.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n27
+>>>>>>> moar deps
 	if len(m.VolumeClaimTemplates) > 0 {
 		for _, msg := range m.VolumeClaimTemplates {
 			dAtA[i] = 0x22
@@ -1043,6 +1095,7 @@ func (m *StatefulSetSpec) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.UpdateStrategy.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n28, err := m.UpdateStrategy.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -1055,6 +1108,13 @@ func (m *StatefulSetSpec) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n27
 >>>>>>> Initial dep workover
+=======
+	n28, err := m.UpdateStrategy.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n28
+>>>>>>> moar deps
 	if m.RevisionHistoryLimit != nil {
 		dAtA[i] = 0x40
 		i++
@@ -1109,6 +1169,9 @@ func (m *StatefulSetStatus) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintGenerated(dAtA, i, uint64(*m.CollisionCount))
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	if len(m.Conditions) > 0 {
 		for _, msg := range m.Conditions {
 			dAtA[i] = 0x52
@@ -1121,8 +1184,11 @@ func (m *StatefulSetStatus) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return i, nil
 }
 
@@ -1150,6 +1216,7 @@ func (m *StatefulSetUpdateStrategy) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintGenerated(dAtA, i, uint64(m.RollingUpdate.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 		n29, err := m.RollingUpdate.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
@@ -1162,6 +1229,13 @@ func (m *StatefulSetUpdateStrategy) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n28
 >>>>>>> Initial dep workover
+=======
+		n29, err := m.RollingUpdate.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n29
+>>>>>>> moar deps
 	}
 	return i, nil
 }
@@ -1421,6 +1495,9 @@ func (m *StatefulSet) Size() (n int) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *StatefulSetCondition) Size() (n int) {
 	var l int
 	_ = l
@@ -1437,8 +1514,11 @@ func (m *StatefulSetCondition) Size() (n int) {
 	return n
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (m *StatefulSetList) Size() (n int) {
 	var l int
 	_ = l
@@ -1501,14 +1581,20 @@ func (m *StatefulSetStatus) Size() (n int) {
 		n += 1 + sovGenerated(uint64(*m.CollisionCount))
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	if len(m.Conditions) > 0 {
 		for _, e := range m.Conditions {
 			l = e.Size()
 			n += 1 + l + sovGenerated(uint64(l))
 		}
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return n
 }
 
@@ -1754,6 +1840,9 @@ func (this *StatefulSet) String() string {
 	return s
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (this *StatefulSetCondition) String() string {
 	if this == nil {
 		return "nil"
@@ -1768,8 +1857,11 @@ func (this *StatefulSetCondition) String() string {
 	}, "")
 	return s
 }
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (this *StatefulSetList) String() string {
 	if this == nil {
 		return "nil"
@@ -1812,9 +1904,13 @@ func (this *StatefulSetStatus) String() string {
 		`UpdateRevision:` + fmt.Sprintf("%v", this.UpdateRevision) + `,`,
 		`CollisionCount:` + valueToStringGenerated(this.CollisionCount) + `,`,
 <<<<<<< HEAD
+<<<<<<< HEAD
 		`Conditions:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Conditions), "StatefulSetCondition", "StatefulSetCondition", 1), `&`, ``, 1) + `,`,
 =======
 >>>>>>> Initial dep workover
+=======
+		`Conditions:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Conditions), "StatefulSetCondition", "StatefulSetCondition", 1), `&`, ``, 1) + `,`,
+>>>>>>> moar deps
 		`}`,
 	}, "")
 	return s
@@ -4201,6 +4297,9 @@ func (m *StatefulSet) Unmarshal(dAtA []byte) error {
 	return nil
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *StatefulSetCondition) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -4397,8 +4496,11 @@ func (m *StatefulSetCondition) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (m *StatefulSetList) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -4986,6 +5088,9 @@ func (m *StatefulSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.CollisionCount = &v
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 		case 10:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Conditions", wireType)
@@ -5017,8 +5122,11 @@ func (m *StatefulSetStatus) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenerated(dAtA[iNdEx:])
@@ -5263,6 +5371,9 @@ func init() {
 
 var fileDescriptorGenerated = []byte{
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	// 1871 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xdc, 0x58, 0x4f, 0x6f, 0x1b, 0xc7,
 	0x15, 0xd7, 0x52, 0xa4, 0x44, 0x3d, 0x45, 0x94, 0x3d, 0x52, 0x2d, 0x46, 0x69, 0x29, 0x61, 0x1b,
@@ -5381,6 +5492,7 @@ var fileDescriptorGenerated = []byte{
 	0x35, 0xf3, 0xcd, 0xb3, 0xd6, 0xcc, 0x6f, 0x26, 0x2d, 0xe5, 0xe9, 0xa4, 0xa5, 0x7c, 0x3d, 0x69,
 	0x29, 0xdf, 0x4c, 0x5a, 0xca, 0x3f, 0x26, 0x2d, 0xe5, 0x77, 0xcf, 0x5b, 0x33, 0x9f, 0xcf, 0x4b,
 	0x8f, 0xff, 0x0b, 0x00, 0x00, 0xff, 0xff, 0x9d, 0x5d, 0x9e, 0x04, 0x8c, 0x1b, 0x00, 0x00,
+<<<<<<< HEAD
 =======
 	// 1820 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xdc, 0x58, 0x4b, 0x6f, 0x1b, 0xc9,
@@ -5498,4 +5610,6 @@ var fileDescriptorGenerated = []byte{
 	0x75, 0xe9, 0x1f, 0xa3, 0xba, 0xf4, 0xbb, 0x0f, 0xf5, 0x89, 0xe7, 0xd3, 0xc2, 0xe3, 0x7f, 0x02,
 	0x00, 0x00, 0xff, 0xff, 0x3a, 0x2e, 0x29, 0xcd, 0xb9, 0x19, 0x00, 0x00,
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 }

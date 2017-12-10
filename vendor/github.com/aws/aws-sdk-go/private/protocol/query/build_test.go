@@ -249,7 +249,6 @@ const opInputService1TestCaseOperation3 = "OperationName"
 // client's request for the InputService1TestCaseOperation3 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -257,15 +256,6 @@ const opInputService1TestCaseOperation3 = "OperationName"
 // See InputService1TestCaseOperation3 for more information on using the InputService1TestCaseOperation3
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService1TestCaseOperation3 for more information on using the InputService1TestCaseOperation3
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -428,7 +418,6 @@ const opInputService2TestCaseOperation1 = "OperationName"
 // client's request for the InputService2TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -436,15 +425,6 @@ const opInputService2TestCaseOperation1 = "OperationName"
 // See InputService2TestCaseOperation1 for more information on using the InputService2TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService2TestCaseOperation1 for more information on using the InputService2TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -595,7 +575,6 @@ const opInputService3TestCaseOperation1 = "OperationName"
 // client's request for the InputService3TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -603,15 +582,6 @@ const opInputService3TestCaseOperation1 = "OperationName"
 // See InputService3TestCaseOperation1 for more information on using the InputService3TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService3TestCaseOperation1 for more information on using the InputService3TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -675,7 +645,6 @@ const opInputService3TestCaseOperation2 = "OperationName"
 // client's request for the InputService3TestCaseOperation2 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -683,15 +652,6 @@ const opInputService3TestCaseOperation2 = "OperationName"
 // See InputService3TestCaseOperation2 for more information on using the InputService3TestCaseOperation2
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService3TestCaseOperation2 for more information on using the InputService3TestCaseOperation2
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -834,7 +794,6 @@ const opInputService4TestCaseOperation1 = "OperationName"
 // client's request for the InputService4TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -842,15 +801,6 @@ const opInputService4TestCaseOperation1 = "OperationName"
 // See InputService4TestCaseOperation1 for more information on using the InputService4TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService4TestCaseOperation1 for more information on using the InputService4TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1667,7 +1617,6 @@ const opInputService9TestCaseOperation1 = "OperationName"
 // client's request for the InputService9TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1675,15 +1624,6 @@ const opInputService9TestCaseOperation1 = "OperationName"
 // See InputService9TestCaseOperation1 for more information on using the InputService9TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService9TestCaseOperation1 for more information on using the InputService9TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1822,7 +1762,6 @@ const opInputService10TestCaseOperation1 = "OperationName"
 // client's request for the InputService10TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1830,15 +1769,6 @@ const opInputService10TestCaseOperation1 = "OperationName"
 // See InputService10TestCaseOperation1 for more information on using the InputService10TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService10TestCaseOperation1 for more information on using the InputService10TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1978,7 +1908,6 @@ const opInputService11TestCaseOperation1 = "OperationName"
 // client's request for the InputService11TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1986,15 +1915,6 @@ const opInputService11TestCaseOperation1 = "OperationName"
 // See InputService11TestCaseOperation1 for more information on using the InputService11TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService11TestCaseOperation1 for more information on using the InputService11TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2133,7 +2053,6 @@ const opInputService12TestCaseOperation1 = "OperationName"
 // client's request for the InputService12TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2141,15 +2060,6 @@ const opInputService12TestCaseOperation1 = "OperationName"
 // See InputService12TestCaseOperation1 for more information on using the InputService12TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService12TestCaseOperation1 for more information on using the InputService12TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2218,7 +2128,6 @@ func (s *InputService12TestShapeInputService12TestCaseOperation1Input) SetTimeAr
 	s.TimeArg = &v
 	return s
 }
-<<<<<<< HEAD
 
 type InputService12TestShapeInputService12TestCaseOperation1Output struct {
 	_ struct{} `type:"structure"`
@@ -2300,89 +2209,6 @@ const opInputService13TestCaseOperation1 = "OperationName"
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-=======
-
-type InputService12TestShapeInputService12TestCaseOperation1Output struct {
-	_ struct{} `type:"structure"`
-}
-
-// InputService13ProtocolTest provides the API operation methods for making requests to
-// . See this package's package overview docs
-// for details on the service.
-//
-// InputService13ProtocolTest methods are safe to use concurrently. It is not safe to
-// modify mutate any of the struct's properties though.
-type InputService13ProtocolTest struct {
-	*client.Client
-}
-
-// New creates a new instance of the InputService13ProtocolTest client with a session.
-// If additional configuration is needed for the client instance use the optional
-// aws.Config parameter to add your extra config.
-//
-// Example:
-//     // Create a InputService13ProtocolTest client from just a session.
-//     svc := inputservice13protocoltest.New(mySession)
-//
-//     // Create a InputService13ProtocolTest client with additional configuration
-//     svc := inputservice13protocoltest.New(mySession, aws.NewConfig().WithRegion("us-west-2"))
-func NewInputService13ProtocolTest(p client.ConfigProvider, cfgs ...*aws.Config) *InputService13ProtocolTest {
-	c := p.ClientConfig("inputservice13protocoltest", cfgs...)
-	return newInputService13ProtocolTestClient(*c.Config, c.Handlers, c.Endpoint, c.SigningRegion, c.SigningName)
-}
-
-// newClient creates, initializes and returns a new service client instance.
-func newInputService13ProtocolTestClient(cfg aws.Config, handlers request.Handlers, endpoint, signingRegion, signingName string) *InputService13ProtocolTest {
-	svc := &InputService13ProtocolTest{
-		Client: client.New(
-			cfg,
-			metadata.ClientInfo{
-				ServiceName:   "inputservice13protocoltest",
-				SigningName:   signingName,
-				SigningRegion: signingRegion,
-				Endpoint:      endpoint,
-				APIVersion:    "2014-01-01",
-			},
-			handlers,
-		),
-	}
-
-	// Handlers
-	svc.Handlers.Sign.PushBackNamed(v4.SignRequestHandler)
-	svc.Handlers.Build.PushBackNamed(query.BuildHandler)
-	svc.Handlers.Unmarshal.PushBackNamed(query.UnmarshalHandler)
-	svc.Handlers.UnmarshalMeta.PushBackNamed(query.UnmarshalMetaHandler)
-	svc.Handlers.UnmarshalError.PushBackNamed(query.UnmarshalErrorHandler)
-
-	return svc
-}
-
-// newRequest creates a new request for a InputService13ProtocolTest operation and runs any
-// custom request initialization.
-func (c *InputService13ProtocolTest) newRequest(op *request.Operation, params, data interface{}) *request.Request {
-	req := c.NewRequest(op, params, data)
-
-	return req
-}
-
-const opInputService13TestCaseOperation1 = "OperationName"
-
-// InputService13TestCaseOperation1Request generates a "aws/request.Request" representing the
-// client's request for the InputService13TestCaseOperation1 operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService13TestCaseOperation1 for more information on using the InputService13TestCaseOperation1
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
->>>>>>> Initial dep workover
 //    // Example sending a request using the InputService13TestCaseOperation1Request method.
 //    req, resp := client.InputService13TestCaseOperation1Request(params)
 //
@@ -2512,7 +2338,6 @@ const opInputService13TestCaseOperation3 = "OperationName"
 // client's request for the InputService13TestCaseOperation3 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2524,19 +2349,6 @@ const opInputService13TestCaseOperation3 = "OperationName"
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService13TestCaseOperation3 for more information on using the InputService13TestCaseOperation3
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
->>>>>>> Initial dep workover
 //    // Example sending a request using the InputService13TestCaseOperation3Request method.
 //    req, resp := client.InputService13TestCaseOperation3Request(params)
 //
@@ -2596,7 +2408,6 @@ const opInputService13TestCaseOperation4 = "OperationName"
 // client's request for the InputService13TestCaseOperation4 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2608,19 +2419,6 @@ const opInputService13TestCaseOperation4 = "OperationName"
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService13TestCaseOperation4 for more information on using the InputService13TestCaseOperation4
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
->>>>>>> Initial dep workover
 //    // Example sending a request using the InputService13TestCaseOperation4Request method.
 //    req, resp := client.InputService13TestCaseOperation4Request(params)
 //
@@ -2680,7 +2478,6 @@ const opInputService13TestCaseOperation5 = "OperationName"
 // client's request for the InputService13TestCaseOperation5 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2692,19 +2489,6 @@ const opInputService13TestCaseOperation5 = "OperationName"
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InputService13TestCaseOperation5 for more information on using the InputService13TestCaseOperation5
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
->>>>>>> Initial dep workover
 //    // Example sending a request using the InputService13TestCaseOperation5Request method.
 //    req, resp := client.InputService13TestCaseOperation5Request(params)
 //
@@ -3162,10 +2946,6 @@ func newInputService15ProtocolTestClient(cfg aws.Config, handlers request.Handle
 		),
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// Handlers
 	svc.Handlers.Sign.PushBackNamed(v4.SignRequestHandler)
 	svc.Handlers.Build.PushBackNamed(query.BuildHandler)
@@ -3456,14 +3236,6 @@ func TestInputService1ProtocolTestScalarMembersCase1(t *testing.T) {
 		t.Errorf("expect no error, got %v", req.Error)
 	}
 
-=======
-	// build request
-	query.Build(req)
-	if req.Error != nil {
-		t.Errorf("expect no error, got %v", req.Error)
-	}
-
->>>>>>> Initial dep workover
 	// assert body
 	if r.Body == nil {
 		t.Errorf("expect body not to be nil")

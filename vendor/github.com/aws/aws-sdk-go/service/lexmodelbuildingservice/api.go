@@ -2635,11 +2635,7 @@ const opGetExport = "GetExport"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetExport
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetExport
->>>>>>> Initial dep workover
 func (c *LexModelBuildingService) GetExportRequest(input *GetExportInput) (req *request.Request, output *GetExportOutput) {
 	op := &request.Operation{
 		Name:       opGetExport,
@@ -2682,11 +2678,7 @@ func (c *LexModelBuildingService) GetExportRequest(input *GetExportInput) (req *
 //   The request is not well formed. For example, a value is invalid or a required
 //   field is missing. Check the field values, and try again.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetExport
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetExport
->>>>>>> Initial dep workover
 func (c *LexModelBuildingService) GetExport(input *GetExportInput) (*GetExportOutput, error) {
 	req, out := c.GetExportRequest(input)
 	return out, req.Send()
@@ -7179,11 +7171,7 @@ func (s *GetBuiltinSlotTypesOutput) SetSlotTypes(v []*BuiltinSlotTypeMetadata) *
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetExportRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetExportRequest
->>>>>>> Initial dep workover
 type GetExportInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7270,11 +7258,7 @@ func (s *GetExportInput) SetVersion(v string) *GetExportInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetExportResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetExportResponse
->>>>>>> Initial dep workover
 type GetExportOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7362,11 +7346,7 @@ func (s *GetExportOutput) SetVersion(v string) *GetExportOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetIntentRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetIntentRequest
->>>>>>> Initial dep workover
 type GetIntentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9664,11 +9644,7 @@ func (s *PutSlotTypeInput) SetValueSelectionStrategy(v string) *PutSlotTypeInput
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/PutSlotTypeResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/PutSlotTypeResponse
->>>>>>> Initial dep workover
 type PutSlotTypeOutput struct {
 	_ struct{} `type:"structure"`
 

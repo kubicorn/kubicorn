@@ -1,4 +1,4 @@
-// Copyright 2017, Google LLC All rights reserved.
+// Copyright 2017, Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package pubsub
 
 import (
 	emptypb "github.com/golang/protobuf/ptypes/empty"
-	timestamppb "github.com/golang/protobuf/ptypes/timestamp"
 	iampb "google.golang.org/genproto/googleapis/iam/v1"
 	pubsubpb "google.golang.org/genproto/googleapis/pubsub/v1"
 	field_maskpb "google.golang.org/genproto/protobuf/field_mask"
@@ -1026,12 +1025,12 @@ func TestSubscriberGetSubscriptionError(t *testing.T) {
 func TestSubscriberUpdateSubscription(t *testing.T) {
 	var name string = "name3373707"
 	var topic string = "topic110546223"
-	var ackDeadlineSeconds2 int32 = -921632575
+	var ackDeadlineSeconds int32 = 2135351438
 	var retainAckedMessages bool = false
 	var expectedResponse = &pubsubpb.Subscription{
 		Name:                name,
 		Topic:               topic,
-		AckDeadlineSeconds:  ackDeadlineSeconds2,
+		AckDeadlineSeconds:  ackDeadlineSeconds,
 		RetainAckedMessages: retainAckedMessages,
 	}
 
@@ -1040,15 +1039,8 @@ func TestSubscriberUpdateSubscription(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var ackDeadlineSeconds int32 = 42
-	var subscription = &pubsubpb.Subscription{
-		AckDeadlineSeconds: ackDeadlineSeconds,
-	}
-	var pathsElement string = "ack_deadline_seconds"
-	var paths = []string{pathsElement}
-	var updateMask = &field_maskpb.FieldMask{
-		Paths: paths,
-	}
+	var subscription *pubsubpb.Subscription = &pubsubpb.Subscription{}
+	var updateMask *field_maskpb.FieldMask = &field_maskpb.FieldMask{}
 	var request = &pubsubpb.UpdateSubscriptionRequest{
 		Subscription: subscription,
 		UpdateMask:   updateMask,
@@ -1078,15 +1070,8 @@ func TestSubscriberUpdateSubscriptionError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var ackDeadlineSeconds int32 = 42
-	var subscription = &pubsubpb.Subscription{
-		AckDeadlineSeconds: ackDeadlineSeconds,
-	}
-	var pathsElement string = "ack_deadline_seconds"
-	var paths = []string{pathsElement}
-	var updateMask = &field_maskpb.FieldMask{
-		Paths: paths,
-	}
+	var subscription *pubsubpb.Subscription = &pubsubpb.Subscription{}
+	var updateMask *field_maskpb.FieldMask = &field_maskpb.FieldMask{}
 	var request = &pubsubpb.UpdateSubscriptionRequest{
 		Subscription: subscription,
 		UpdateMask:   updateMask,
@@ -1696,18 +1681,8 @@ func TestSubscriberUpdateSnapshot(t *testing.T) {
 
 	mockSubscriber.resps = append(mockSubscriber.resps[:0], expectedResponse)
 
-	var seconds int64 = 123456
-	var expireTime = &timestamppb.Timestamp{
-		Seconds: seconds,
-	}
-	var snapshot = &pubsubpb.Snapshot{
-		ExpireTime: expireTime,
-	}
-	var pathsElement string = "expire_time"
-	var paths = []string{pathsElement}
-	var updateMask = &field_maskpb.FieldMask{
-		Paths: paths,
-	}
+	var snapshot *pubsubpb.Snapshot = &pubsubpb.Snapshot{}
+	var updateMask *field_maskpb.FieldMask = &field_maskpb.FieldMask{}
 	var request = &pubsubpb.UpdateSnapshotRequest{
 		Snapshot:   snapshot,
 		UpdateMask: updateMask,
@@ -1737,18 +1712,8 @@ func TestSubscriberUpdateSnapshotError(t *testing.T) {
 	errCode := codes.PermissionDenied
 	mockSubscriber.err = gstatus.Error(errCode, "test error")
 
-	var seconds int64 = 123456
-	var expireTime = &timestamppb.Timestamp{
-		Seconds: seconds,
-	}
-	var snapshot = &pubsubpb.Snapshot{
-		ExpireTime: expireTime,
-	}
-	var pathsElement string = "expire_time"
-	var paths = []string{pathsElement}
-	var updateMask = &field_maskpb.FieldMask{
-		Paths: paths,
-	}
+	var snapshot *pubsubpb.Snapshot = &pubsubpb.Snapshot{}
+	var updateMask *field_maskpb.FieldMask = &field_maskpb.FieldMask{}
 	var request = &pubsubpb.UpdateSnapshotRequest{
 		Snapshot:   snapshot,
 		UpdateMask: updateMask,

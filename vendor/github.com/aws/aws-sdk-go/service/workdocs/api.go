@@ -212,7 +212,6 @@ const opAddResourcePermissions = "AddResourcePermissions"
 // client's request for the AddResourcePermissions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -220,15 +219,6 @@ const opAddResourcePermissions = "AddResourcePermissions"
 // See AddResourcePermissions for more information on using the AddResourcePermissions
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See AddResourcePermissions for more information on using the AddResourcePermissions
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -313,7 +303,6 @@ const opCreateComment = "CreateComment"
 // client's request for the CreateComment operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -321,15 +310,6 @@ const opCreateComment = "CreateComment"
 // See CreateComment for more information on using the CreateComment
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateComment for more information on using the CreateComment
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -423,7 +403,6 @@ const opCreateCustomMetadata = "CreateCustomMetadata"
 // client's request for the CreateCustomMetadata operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -431,15 +410,6 @@ const opCreateCustomMetadata = "CreateCustomMetadata"
 // See CreateCustomMetadata for more information on using the CreateCustomMetadata
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateCustomMetadata for more information on using the CreateCustomMetadata
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -534,7 +504,6 @@ const opCreateFolder = "CreateFolder"
 // client's request for the CreateFolder operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -542,15 +511,6 @@ const opCreateFolder = "CreateFolder"
 // See CreateFolder for more information on using the CreateFolder
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateFolder for more information on using the CreateFolder
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -646,7 +606,6 @@ const opCreateLabels = "CreateLabels"
 // client's request for the CreateLabels operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -654,15 +613,6 @@ const opCreateLabels = "CreateLabels"
 // See CreateLabels for more information on using the CreateLabels
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateLabels for more information on using the CreateLabels
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1230,7 +1180,6 @@ const opDeleteDocument = "DeleteDocument"
 // client's request for the DeleteDocument operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1238,15 +1187,6 @@ const opDeleteDocument = "DeleteDocument"
 // See DeleteDocument for more information on using the DeleteDocument
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteDocument for more information on using the DeleteDocument
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1341,7 +1281,6 @@ const opDeleteFolder = "DeleteFolder"
 // client's request for the DeleteFolder operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1349,15 +1288,6 @@ const opDeleteFolder = "DeleteFolder"
 // See DeleteFolder for more information on using the DeleteFolder
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteFolder for more information on using the DeleteFolder
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1452,7 +1382,6 @@ const opDeleteFolderContents = "DeleteFolderContents"
 // client's request for the DeleteFolderContents operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1460,15 +1389,6 @@ const opDeleteFolderContents = "DeleteFolderContents"
 // See DeleteFolderContents for more information on using the DeleteFolderContents
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteFolderContents for more information on using the DeleteFolderContents
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1557,7 +1477,6 @@ const opDeleteLabels = "DeleteLabels"
 // client's request for the DeleteLabels operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1565,15 +1484,6 @@ const opDeleteLabels = "DeleteLabels"
 // See DeleteLabels for more information on using the DeleteLabels
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteLabels for more information on using the DeleteLabels
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1660,7 +1570,6 @@ const opDeleteNotificationSubscription = "DeleteNotificationSubscription"
 // client's request for the DeleteNotificationSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1668,15 +1577,6 @@ const opDeleteNotificationSubscription = "DeleteNotificationSubscription"
 // See DeleteNotificationSubscription for more information on using the DeleteNotificationSubscription
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteNotificationSubscription for more information on using the DeleteNotificationSubscription
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2378,11 +2278,7 @@ const opDescribeGroups = "DescribeGroups"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups
->>>>>>> Working on getting compiling
 func (c *WorkDocs) DescribeGroupsRequest(input *DescribeGroupsInput) (req *request.Request, output *DescribeGroupsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeGroups,
@@ -2425,11 +2321,7 @@ func (c *WorkDocs) DescribeGroupsRequest(input *DescribeGroupsInput) (req *reque
 //   * ErrCodeServiceUnavailableException "ServiceUnavailableException"
 //   One or more of the dependencies is unavailable.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroups
->>>>>>> Working on getting compiling
 func (c *WorkDocs) DescribeGroups(input *DescribeGroupsInput) (*DescribeGroupsOutput, error) {
 	req, out := c.DescribeGroupsRequest(input)
 	return out, req.Send()
@@ -2976,7 +2868,6 @@ const opGetDocument = "GetDocument"
 // client's request for the GetDocument operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2984,15 +2875,6 @@ const opGetDocument = "GetDocument"
 // See GetDocument for more information on using the GetDocument
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetDocument for more information on using the GetDocument
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3057,11 +2939,7 @@ func (c *WorkDocs) GetDocumentRequest(input *GetDocumentInput) (req *request.Req
 //   * ErrCodeInvalidPasswordException "InvalidPasswordException"
 //   The password is invalid.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocument
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocument
->>>>>>> Working on getting compiling
 func (c *WorkDocs) GetDocument(input *GetDocumentInput) (*GetDocumentOutput, error) {
 	req, out := c.GetDocumentRequest(input)
 	return out, req.Send()
@@ -3259,11 +3137,7 @@ func (c *WorkDocs) GetDocumentVersionRequest(input *GetDocumentVersionInput) (re
 //   * ErrCodeInvalidPasswordException "InvalidPasswordException"
 //   The password is invalid.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocumentVersion
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/GetDocumentVersion
->>>>>>> Working on getting compiling
 func (c *WorkDocs) GetDocumentVersion(input *GetDocumentVersionInput) (*GetDocumentVersionOutput, error) {
 	req, out := c.GetDocumentVersionRequest(input)
 	return out, req.Send()
@@ -3291,7 +3165,6 @@ const opGetFolder = "GetFolder"
 // client's request for the GetFolder operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3299,15 +3172,6 @@ const opGetFolder = "GetFolder"
 // See GetFolder for more information on using the GetFolder
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetFolder for more information on using the GetFolder
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3499,7 +3363,6 @@ const opInitiateDocumentVersionUpload = "InitiateDocumentVersionUpload"
 // client's request for the InitiateDocumentVersionUpload operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3507,15 +3370,6 @@ const opInitiateDocumentVersionUpload = "InitiateDocumentVersionUpload"
 // See InitiateDocumentVersionUpload for more information on using the InitiateDocumentVersionUpload
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InitiateDocumentVersionUpload for more information on using the InitiateDocumentVersionUpload
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3628,7 +3482,6 @@ const opRemoveAllResourcePermissions = "RemoveAllResourcePermissions"
 // client's request for the RemoveAllResourcePermissions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3636,15 +3489,6 @@ const opRemoveAllResourcePermissions = "RemoveAllResourcePermissions"
 // See RemoveAllResourcePermissions for more information on using the RemoveAllResourcePermissions
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See RemoveAllResourcePermissions for more information on using the RemoveAllResourcePermissions
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3730,7 +3574,6 @@ const opRemoveResourcePermission = "RemoveResourcePermission"
 // client's request for the RemoveResourcePermission operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3738,15 +3581,6 @@ const opRemoveResourcePermission = "RemoveResourcePermission"
 // See RemoveResourcePermission for more information on using the RemoveResourcePermission
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See RemoveResourcePermission for more information on using the RemoveResourcePermission
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3832,7 +3666,6 @@ const opUpdateDocument = "UpdateDocument"
 // client's request for the UpdateDocument operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3840,15 +3673,6 @@ const opUpdateDocument = "UpdateDocument"
 // See UpdateDocument for more information on using the UpdateDocument
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateDocument for more information on using the UpdateDocument
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3950,7 +3774,6 @@ const opUpdateDocumentVersion = "UpdateDocumentVersion"
 // client's request for the UpdateDocumentVersion operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3958,15 +3781,6 @@ const opUpdateDocumentVersion = "UpdateDocumentVersion"
 // See UpdateDocumentVersion for more information on using the UpdateDocumentVersion
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateDocumentVersion for more information on using the UpdateDocumentVersion
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4068,7 +3882,6 @@ const opUpdateFolder = "UpdateFolder"
 // client's request for the UpdateFolder operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4076,15 +3889,6 @@ const opUpdateFolder = "UpdateFolder"
 // See UpdateFolder for more information on using the UpdateFolder
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateFolder for more information on using the UpdateFolder
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4186,7 +3990,6 @@ const opUpdateUser = "UpdateUser"
 // client's request for the UpdateUser operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4194,15 +3997,6 @@ const opUpdateUser = "UpdateUser"
 // See UpdateUser for more information on using the UpdateUser
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateUser for more information on using the UpdateUser
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4271,11 +4065,7 @@ func (c *WorkDocs) UpdateUserRequest(input *UpdateUserInput) (req *request.Reque
 //   * ErrCodeInvalidArgumentException "InvalidArgumentException"
 //   The pagination marker or limit fields are not valid.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/UpdateUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/UpdateUser
->>>>>>> Working on getting compiling
 func (c *WorkDocs) UpdateUser(input *UpdateUserInput) (*UpdateUserOutput, error) {
 	req, out := c.UpdateUserRequest(input)
 	return out, req.Send()
@@ -6844,11 +6634,7 @@ func (s *DescribeFolderContentsOutput) SetMarker(v string) *DescribeFolderConten
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroupsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroupsRequest
->>>>>>> Working on getting compiling
 type DescribeGroupsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6940,11 +6726,7 @@ func (s *DescribeGroupsInput) SetSearchQuery(v string) *DescribeGroupsInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroupsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeGroupsResponse
->>>>>>> Working on getting compiling
 type DescribeGroupsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6978,11 +6760,7 @@ func (s *DescribeGroupsOutput) SetMarker(v string) *DescribeGroupsOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeNotificationSubscriptionsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/DescribeNotificationSubscriptionsRequest
->>>>>>> Working on getting compiling
 type DescribeNotificationSubscriptionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8634,11 +8412,7 @@ func (s *InitiateDocumentVersionUploadOutput) SetUploadMetadata(v *UploadMetadat
 }
 
 // Set of options which defines notification preferences of given action.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/NotificationOptions
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/NotificationOptions
->>>>>>> Working on getting compiling
 type NotificationOptions struct {
 	_ struct{} `type:"structure"`
 
@@ -8672,11 +8446,7 @@ func (s *NotificationOptions) SetSendEmail(v bool) *NotificationOptions {
 }
 
 // Describes the users or user groups.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/Participants
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/workdocs-2016-05-01/Participants
->>>>>>> Working on getting compiling
 type Participants struct {
 	_ struct{} `type:"structure"`
 

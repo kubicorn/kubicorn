@@ -248,19 +248,10 @@ type WAFAPI interface {
 	ListRegexPatternSetsWithContext(aws.Context, *waf.ListRegexPatternSetsInput, ...request.Option) (*waf.ListRegexPatternSetsOutput, error)
 	ListRegexPatternSetsRequest(*waf.ListRegexPatternSetsInput) (*request.Request, *waf.ListRegexPatternSetsOutput)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	ListRuleGroups(*waf.ListRuleGroupsInput) (*waf.ListRuleGroupsOutput, error)
 	ListRuleGroupsWithContext(aws.Context, *waf.ListRuleGroupsInput, ...request.Option) (*waf.ListRuleGroupsOutput, error)
 	ListRuleGroupsRequest(*waf.ListRuleGroupsInput) (*request.Request, *waf.ListRuleGroupsOutput)
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	ListRules(*waf.ListRulesInput) (*waf.ListRulesOutput, error)
 	ListRulesWithContext(aws.Context, *waf.ListRulesInput, ...request.Option) (*waf.ListRulesOutput, error)
 	ListRulesRequest(*waf.ListRulesInput) (*request.Request, *waf.ListRulesOutput)

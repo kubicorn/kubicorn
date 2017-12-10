@@ -68,6 +68,9 @@ message StorageClass {
   // +optional
   optional bool allowVolumeExpansion = 6;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 
   // VolumeBindingMode indicates how PersistentVolumeClaims should be
   // provisioned and bound.  When unset, VolumeBindingImmediate is used.
@@ -75,8 +78,11 @@ message StorageClass {
   // the VolumeScheduling feature.
   // +optional
   optional string volumeBindingMode = 7;
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 }
 
 // StorageClassList is a collection of storage classes.

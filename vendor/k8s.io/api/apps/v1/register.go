@@ -42,6 +42,9 @@ var (
 )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 // Adds the list of known types to the given scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
@@ -55,6 +58,7 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&ReplicaSetList{},
 		&ControllerRevision{},
 		&ControllerRevisionList{},
+<<<<<<< HEAD
 =======
 // Adds the list of known types to api.Scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
@@ -62,6 +66,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&DaemonSet{},
 		&DaemonSetList{},
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil

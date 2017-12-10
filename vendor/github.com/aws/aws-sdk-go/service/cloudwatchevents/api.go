@@ -852,11 +852,7 @@ func (c *CloudWatchEvents) PutPermissionRequest(input *PutPermissionInput) (req 
 //   * ErrCodeConcurrentModificationException "ConcurrentModificationException"
 //   There is concurrent modification on a rule or target.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/events-2015-10-07/PutPermission
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/events-2015-10-07/PutPermission
->>>>>>> Initial dep workover
 func (c *CloudWatchEvents) PutPermission(input *PutPermissionInput) (*PutPermissionOutput, error) {
 	req, out := c.PutPermissionRequest(input)
 	return out, req.Send()
@@ -1225,11 +1221,7 @@ func (c *CloudWatchEvents) RemovePermissionRequest(input *RemovePermissionInput)
 //   * ErrCodeConcurrentModificationException "ConcurrentModificationException"
 //   There is concurrent modification on a rule or target.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/events-2015-10-07/RemovePermission
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/events-2015-10-07/RemovePermission
->>>>>>> Initial dep workover
 func (c *CloudWatchEvents) RemovePermission(input *RemovePermissionInput) (*RemovePermissionOutput, error) {
 	req, out := c.RemovePermissionRequest(input)
 	return out, req.Send()

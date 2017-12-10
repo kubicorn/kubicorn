@@ -37,11 +37,7 @@ const opDeleteObject = "DeleteObject"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObject
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObject
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) DeleteObjectRequest(input *DeleteObjectInput) (req *request.Request, output *DeleteObjectOutput) {
 	op := &request.Operation{
 		Name:       opDeleteObject,
@@ -79,11 +75,7 @@ func (c *MediaStoreData) DeleteObjectRequest(input *DeleteObjectInput) (req *req
 //   * ErrCodeInternalServerError "InternalServerError"
 //   The service is temporarily unavailable.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObject
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObject
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) DeleteObject(input *DeleteObjectInput) (*DeleteObjectOutput, error) {
 	req, out := c.DeleteObjectRequest(input)
 	return out, req.Send()
@@ -130,11 +122,7 @@ const opDescribeObject = "DescribeObject"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObject
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObject
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) DescribeObjectRequest(input *DescribeObjectInput) (req *request.Request, output *DescribeObjectOutput) {
 	op := &request.Operation{
 		Name:       opDescribeObject,
@@ -172,11 +160,7 @@ func (c *MediaStoreData) DescribeObjectRequest(input *DescribeObjectInput) (req 
 //   * ErrCodeInternalServerError "InternalServerError"
 //   The service is temporarily unavailable.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObject
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObject
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) DescribeObject(input *DescribeObjectInput) (*DescribeObjectOutput, error) {
 	req, out := c.DescribeObjectRequest(input)
 	return out, req.Send()
@@ -223,11 +207,7 @@ const opGetObject = "GetObject"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObject
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObject
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) GetObjectRequest(input *GetObjectInput) (req *request.Request, output *GetObjectOutput) {
 	op := &request.Operation{
 		Name:       opGetObject,
@@ -268,11 +248,7 @@ func (c *MediaStoreData) GetObjectRequest(input *GetObjectInput) (req *request.R
 //   * ErrCodeInternalServerError "InternalServerError"
 //   The service is temporarily unavailable.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObject
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObject
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) GetObject(input *GetObjectInput) (*GetObjectOutput, error) {
 	req, out := c.GetObjectRequest(input)
 	return out, req.Send()
@@ -319,11 +295,7 @@ const opListItems = "ListItems"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItems
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItems
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) ListItemsRequest(input *ListItemsInput) (req *request.Request, output *ListItemsOutput) {
 	op := &request.Operation{
 		Name:       opListItems,
@@ -359,11 +331,7 @@ func (c *MediaStoreData) ListItemsRequest(input *ListItemsInput) (req *request.R
 //   * ErrCodeInternalServerError "InternalServerError"
 //   The service is temporarily unavailable.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItems
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItems
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) ListItems(input *ListItemsInput) (*ListItemsOutput, error) {
 	req, out := c.ListItemsRequest(input)
 	return out, req.Send()
@@ -410,11 +378,7 @@ const opPutObject = "PutObject"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObject
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObject
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) PutObjectRequest(input *PutObjectInput) (req *request.Request, output *PutObjectOutput) {
 	op := &request.Operation{
 		Name:       opPutObject,
@@ -452,11 +416,7 @@ func (c *MediaStoreData) PutObjectRequest(input *PutObjectInput) (req *request.R
 //   * ErrCodeInternalServerError "InternalServerError"
 //   The service is temporarily unavailable.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObject
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObject
->>>>>>> Working on getting compiling
 func (c *MediaStoreData) PutObject(input *PutObjectInput) (*PutObjectOutput, error) {
 	req, out := c.PutObjectRequest(input)
 	return out, req.Send()
@@ -478,11 +438,7 @@ func (c *MediaStoreData) PutObjectWithContext(ctx aws.Context, input *PutObjectI
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObjectRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObjectRequest
->>>>>>> Working on getting compiling
 type DeleteObjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -525,11 +481,7 @@ func (s *DeleteObjectInput) SetPath(v string) *DeleteObjectInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObjectResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DeleteObjectResponse
->>>>>>> Working on getting compiling
 type DeleteObjectOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -544,11 +496,7 @@ func (s DeleteObjectOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObjectRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObjectRequest
->>>>>>> Working on getting compiling
 type DescribeObjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -591,11 +539,7 @@ func (s *DescribeObjectInput) SetPath(v string) *DescribeObjectInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObjectResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/DescribeObjectResponse
->>>>>>> Working on getting compiling
 type DescribeObjectOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -659,11 +603,7 @@ func (s *DescribeObjectOutput) SetLastModified(v time.Time) *DescribeObjectOutpu
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObjectRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObjectRequest
->>>>>>> Working on getting compiling
 type GetObjectInput struct {
 	_ struct{} `type:"structure"`
 
@@ -738,11 +678,7 @@ func (s *GetObjectInput) SetRange(v string) *GetObjectInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObjectResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObjectResponse
->>>>>>> Working on getting compiling
 type GetObjectOutput struct {
 	_ struct{} `type:"structure" payload:"Body"`
 
@@ -846,11 +782,7 @@ func (s *GetObjectOutput) SetStatusCode(v int64) *GetObjectOutput {
 }
 
 // A metadata entry for a folder or object.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/Item
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/Item
->>>>>>> Working on getting compiling
 type Item struct {
 	_ struct{} `type:"structure"`
 
@@ -919,11 +851,7 @@ func (s *Item) SetType(v string) *Item {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItemsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItemsRequest
->>>>>>> Working on getting compiling
 type ListItemsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -980,11 +908,7 @@ func (s *ListItemsInput) SetPath(v string) *ListItemsInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItemsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/ListItemsResponse
->>>>>>> Working on getting compiling
 type ListItemsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1017,11 +941,7 @@ func (s *ListItemsOutput) SetNextToken(v string) *ListItemsOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObjectRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObjectRequest
->>>>>>> Working on getting compiling
 type PutObjectInput struct {
 	_ struct{} `type:"structure" payload:"Body"`
 
@@ -1143,11 +1063,7 @@ func (s *PutObjectInput) SetStorageClass(v string) *PutObjectInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObjectResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObjectResponse
->>>>>>> Working on getting compiling
 type PutObjectOutput struct {
 	_ struct{} `type:"structure"`
 

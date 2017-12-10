@@ -6170,11 +6170,7 @@ func (s *CreateUploadOutput) SetUpload(v *Upload) *CreateUploadOutput {
 // Specify deviceHostPaths and optionally specify either iosPaths or androidPaths.
 //
 // For web app tests, you can specify both iosPaths and androidPaths.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/CustomerArtifactPaths
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/CustomerArtifactPaths
->>>>>>> Initial dep workover
 type CustomerArtifactPaths struct {
 	_ struct{} `type:"structure"`
 
@@ -10886,11 +10882,7 @@ func (s *Rule) SetValue(v string) *Rule {
 
 // Represents a test run on a set of devices with a given app package, test
 // parameters, etc.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/Run
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/Run
->>>>>>> Initial dep workover
 type Run struct {
 	_ struct{} `type:"structure"`
 

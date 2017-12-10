@@ -921,24 +921,12 @@ type OrderShipment struct {
 	// Acceptable values are:
 	// - "gsx"
 	// - "ups"
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// - "usps"
-=======
-	// - "united parcel service"
-	// - "usps"
-	// - "united states postal service"
->>>>>>> Initial dep workover
-=======
-	// - "usps"
->>>>>>> Working on getting compiling
 	// - "fedex"
 	// - "dhl"
 	// - "ecourier"
 	// - "cxt"
 	// - "google"
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// - "ontrac"
 	// - "emsy"
 	// - "ont"
@@ -947,23 +935,6 @@ type OrderShipment struct {
 	// - "lasership"
 	// - "mpx"
 	// - "uds"
-=======
-	// - "on trac"
-=======
->>>>>>> Working on getting compiling
-	// - "ontrac"
-	// - "emsy"
-	// - "ont"
-	// - "deliv"
-	// - "dynamex"
-	// - "lasership"
-	// - "mpx"
-	// - "uds"
-<<<<<<< HEAD
-	// - "united delivery service"
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	Carrier string `json:"carrier,omitempty"`
 
 	// CreationDate: Date on which the shipment has been created, in ISO
@@ -1147,10 +1118,6 @@ type OrdersCancelLineItemRequest struct {
 	// left on the order.
 	Amount *Price `json:"amount,omitempty"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// AmountPretax: Amount to refund for the cancelation. Optional. If not
 	// set, Google will calculate the default based on the price and tax of
 	// the items involved. The amount must not be larger than the net amount
@@ -1161,11 +1128,6 @@ type OrdersCancelLineItemRequest struct {
 	// amountPretax.
 	AmountTax *Price `json:"amountTax,omitempty"`
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// LineItemId: The ID of the line item to cancel. Either lineItemId or
 	// productId is required.
 	LineItemId string `json:"lineItemId,omitempty"`
@@ -1511,10 +1473,6 @@ type OrdersCustomBatchRequestEntryCancelLineItem struct {
 	// left on the order.
 	Amount *Price `json:"amount,omitempty"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// AmountPretax: Amount to refund for the cancelation. Optional. If not
 	// set, Google will calculate the default based on the price and tax of
 	// the items involved. The amount must not be larger than the net amount
@@ -1525,11 +1483,6 @@ type OrdersCustomBatchRequestEntryCancelLineItem struct {
 	// amountPretax.
 	AmountTax *Price `json:"amountTax,omitempty"`
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// LineItemId: The ID of the line item to cancel. Either lineItemId or
 	// productId is required.
 	LineItemId string `json:"lineItemId,omitempty"`

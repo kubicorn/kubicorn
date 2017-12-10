@@ -345,21 +345,12 @@ func (f *File) writeToBuffer(indent string) (*bytes.Buffer, error) {
 					return nil, err
 				}
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 
 			for _, val := range key.nestedValues {
 				if _, err := buf.WriteString(indent + "  " + val + LineBreak); err != nil {
 					return nil, err
 				}
 			}
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 		}
 
 		if PrettySection {

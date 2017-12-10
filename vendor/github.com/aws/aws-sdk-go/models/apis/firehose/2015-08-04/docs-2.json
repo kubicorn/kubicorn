@@ -378,10 +378,6 @@
         "UpdateDestinationInput$ExtendedS3DestinationUpdate": "<p>Describes an update for a destination in Amazon S3.</p>"
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "HECAcknowledgmentTimeoutInSeconds": {
       "base": null,
       "refs": {
@@ -391,7 +387,6 @@
       }
     },
     "HECEndpoint": {
-<<<<<<< HEAD
       "base": null,
       "refs": {
         "SplunkDestinationConfiguration$HECEndpoint": "<p>The HTTP Event Collector (HEC) endpoint to which Kinesis Firehose sends your data.</p>",
@@ -413,35 +408,6 @@
         "SplunkDestinationConfiguration$HECToken": "<p>This is a GUID you obtain from your Splunk cluster when you create a new HEC endpoint.</p>",
         "SplunkDestinationDescription$HECToken": "<p>This is a GUID you obtain from your Splunk cluster when you create a new HEC endpoint.</p>",
         "SplunkDestinationUpdate$HECToken": "<p>This is a GUID you obtain from your Splunk cluster when you create a new HEC endpoint.</p>"
-=======
-    "FirehoseSource": {
-=======
->>>>>>> Working on getting compiling
-      "base": null,
-      "refs": {
-        "SplunkDestinationConfiguration$HECEndpoint": "<p>The HTTP Event Collector (HEC) endpoint to which Kinesis Firehose sends your data.</p>",
-        "SplunkDestinationDescription$HECEndpoint": "<p>The HTTP Event Collector (HEC) endpoint to which Kinesis Firehose sends your data.</p>",
-        "SplunkDestinationUpdate$HECEndpoint": "<p>The HTTP Event Collector (HEC) endpoint to which Kinesis Firehose sends your data.</p>"
-      }
-    },
-    "HECEndpointType": {
-      "base": null,
-      "refs": {
-        "SplunkDestinationConfiguration$HECEndpointType": "<p>This type can be either \"Raw\" or \"Event\".</p>",
-        "SplunkDestinationDescription$HECEndpointType": "<p>This type can be either \"Raw\" or \"Event\".</p>",
-        "SplunkDestinationUpdate$HECEndpointType": "<p>This type can be either \"Raw\" or \"Event\".</p>"
-      }
-    },
-    "HECToken": {
-      "base": null,
-      "refs": {
-<<<<<<< HEAD
->>>>>>> Initial dep workover
-=======
-        "SplunkDestinationConfiguration$HECToken": "<p>This is a GUID you obtain from your Splunk cluster when you create a new HEC endpoint.</p>",
-        "SplunkDestinationDescription$HECToken": "<p>This is a GUID you obtain from your Splunk cluster when you create a new HEC endpoint.</p>",
-        "SplunkDestinationUpdate$HECToken": "<p>This is a GUID you obtain from your Splunk cluster when you create a new HEC endpoint.</p>"
->>>>>>> Working on getting compiling
       }
     },
     "IntervalInSeconds": {
@@ -452,20 +418,9 @@
     },
     "InvalidArgumentException": {
       "base": "<p>The specified input parameter has a value that is not valid.</p>",
-<<<<<<< HEAD
-=======
       "refs": {
       }
     },
-<<<<<<< HEAD
-    "InvalidStreamTypeException": {
-      "base": null,
->>>>>>> Initial dep workover
-      "refs": {
-      }
-    },
-=======
->>>>>>> Working on getting compiling
     "KMSEncryptionConfig": {
       "base": "<p>Describes an encryption key for a destination in Amazon S3.</p>",
       "refs": {
@@ -475,13 +430,6 @@
     "KinesisStreamARN": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        "GetKinesisStreamOutput$KinesisStreamARN": null,
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
         "KinesisStreamSourceConfiguration$KinesisStreamARN": "<p>The ARN of the source Kinesis stream.</p>",
         "KinesisStreamSourceDescription$KinesisStreamARN": "<p>The ARN of the source Kinesis stream.</p>"
       }
@@ -839,49 +787,6 @@
         "SplunkDestinationUpdate$S3BackupMode": "<p>Defines how documents should be delivered to Amazon S3. When set to <code>FailedDocumentsOnly</code>, Kinesis Firehose writes any data that could not be indexed to the configured Amazon S3 destination. When set to <code>AllDocuments</code>, Kinesis Firehose delivers all incoming records to Amazon S3, and also writes failed documents to Amazon S3. Default value is <code>FailedDocumentsOnly</code>. </p>"
       }
     },
-<<<<<<< HEAD
-    "SplunkDestinationConfiguration": {
-      "base": "<p>Describes the configuration of a destination in Splunk.</p>",
-      "refs": {
-        "CreateDeliveryStreamInput$SplunkDestinationConfiguration": "<p>The destination in Splunk. You can specify only one destination.</p>"
-      }
-    },
-    "SplunkDestinationDescription": {
-      "base": "<p>Describes a destination in Splunk.</p>",
-      "refs": {
-        "DestinationDescription$SplunkDestinationDescription": "<p>The destination in Splunk.</p>"
-      }
-    },
-    "SplunkDestinationUpdate": {
-      "base": "<p>Describes an update for a destination in Splunk.</p>",
-      "refs": {
-        "UpdateDestinationInput$SplunkDestinationUpdate": "<p>Describes an update for a destination in Splunk.</p>"
-      }
-    },
-    "SplunkRetryDurationInSeconds": {
-      "base": null,
-      "refs": {
-        "SplunkRetryOptions$DurationInSeconds": "<p>The total amount of time that Kinesis Firehose spends on retries. This duration starts after the initial attempt to send data to Splunk fails and doesn't include the periods during which Kinesis Firehose waits for acknowledgment from Splunk after each attempt.</p>"
-      }
-    },
-    "SplunkRetryOptions": {
-      "base": "<p>Configures retry behavior in case Kinesis Firehose is unable to deliver documents to Splunk or if it doesn't receive an acknowledgment from Splunk.</p>",
-      "refs": {
-        "SplunkDestinationConfiguration$RetryOptions": "<p>The retry behavior in case Kinesis Firehose is unable to deliver data to Splunk or if it doesn't receive an acknowledgment of receipt from Splunk.</p>",
-        "SplunkDestinationDescription$RetryOptions": "<p>The retry behavior in case Kinesis Firehose is unable to deliver data to Splunk or if it doesn't receive an acknowledgment of receipt from Splunk.</p>",
-        "SplunkDestinationUpdate$RetryOptions": "<p>The retry behavior in case Kinesis Firehose is unable to deliver data to Splunk or if it doesn't receive an acknowledgment of receipt from Splunk.</p>"
-      }
-    },
-    "SplunkS3BackupMode": {
-      "base": null,
-      "refs": {
-        "SplunkDestinationConfiguration$S3BackupMode": "<p>Defines how documents should be delivered to Amazon S3. When set to <code>FailedDocumentsOnly</code>, Kinesis Firehose writes any data that could not be indexed to the configured Amazon S3 destination. When set to <code>AllDocuments</code>, Kinesis Firehose delivers all incoming records to Amazon S3, and also writes failed documents to Amazon S3. Default value is <code>FailedDocumentsOnly</code>. </p>",
-        "SplunkDestinationDescription$S3BackupMode": "<p>Defines how documents should be delivered to Amazon S3. When set to <code>FailedDocumentsOnly</code>, Kinesis Firehose writes any data that could not be indexed to the configured Amazon S3 destination. When set to <code>AllDocuments</code>, Kinesis Firehose delivers all incoming records to Amazon S3, and also writes failed documents to Amazon S3. Default value is <code>FailedDocumentsOnly</code>. </p>",
-        "SplunkDestinationUpdate$S3BackupMode": "<p>Defines how documents should be delivered to Amazon S3. When set to <code>FailedDocumentsOnly</code>, Kinesis Firehose writes any data that could not be indexed to the configured Amazon S3 destination. When set to <code>AllDocuments</code>, Kinesis Firehose delivers all incoming records to Amazon S3, and also writes failed documents to Amazon S3. Default value is <code>FailedDocumentsOnly</code>. </p>"
-      }
-    },
-=======
->>>>>>> Initial dep workover
     "Timestamp": {
       "base": null,
       "refs": {

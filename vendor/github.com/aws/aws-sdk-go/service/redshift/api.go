@@ -3646,11 +3646,7 @@ func (c *Redshift) DescribeEventSubscriptionsRequest(input *DescribeEventSubscri
 //   * ErrCodeInvalidTagFault "InvalidTagFault"
 //   The tag is invalid.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeEventSubscriptions
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeEventSubscriptions
->>>>>>> Initial dep workover
 func (c *Redshift) DescribeEventSubscriptions(input *DescribeEventSubscriptionsInput) (*DescribeEventSubscriptionsOutput, error) {
 	req, out := c.DescribeEventSubscriptionsRequest(input)
 	return out, req.Send()
@@ -11528,11 +11524,7 @@ func (s *DescribeEventSubscriptionsInput) SetTagValues(v []*string) *DescribeEve
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/EventSubscriptionsMessage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/EventSubscriptionsMessage
->>>>>>> Initial dep workover
 type DescribeEventSubscriptionsOutput struct {
 	_ struct{} `type:"structure"`
 

@@ -28,6 +28,7 @@ package v1alpha1
 
 // AUTO-GENERATED FUNCTIONS START HERE
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var map_AdmissionHookClientConfig = map[string]string{
 	"":         "AdmissionHookClientConfig contains the information to make a TLS connection with the webhook",
@@ -72,6 +73,8 @@ func (ExternalAdmissionHookConfigurationList) SwaggerDoc() map[string]string {
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 var map_Initializer = map[string]string{
 	"":      "Initializer describes the name and the failure policy of an initializer, and what resources it applies to.",
 	"name":  "Name is the identifier of the initializer. It will be added to the object that needs to be initialized. Name should be fully qualified, e.g., alwayspullimages.kubernetes.io, where \"alwayspullimages\" is the name of the webhook, and kubernetes.io is the name of the organization. Required",
@@ -114,6 +117,7 @@ func (Rule) SwaggerDoc() map[string]string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var map_RuleWithOperations = map[string]string{
 	"":           "RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.",
@@ -135,4 +139,6 @@ func (ServiceReference) SwaggerDoc() map[string]string {
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 // AUTO-GENERATED FUNCTIONS END HERE

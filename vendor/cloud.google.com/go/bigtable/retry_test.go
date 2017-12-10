@@ -16,14 +16,13 @@ limitations under the License.
 package bigtable
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 	"time"
 
 	"cloud.google.com/go/bigtable/bttest"
-	"cloud.google.com/go/internal/testutil"
 	"github.com/golang/protobuf/ptypes/wrappers"
-	"github.com/google/go-cmp/cmp"
 	"golang.org/x/net/context"
 	"google.golang.org/api/option"
 	btpb "google.golang.org/genproto/googleapis/bigtable/v2"
@@ -238,7 +237,7 @@ func TestRetryApplyBulk(t *testing.T) {
 		grpc.Errorf(codes.FailedPrecondition, ""),
 		grpc.Errorf(codes.Aborted, ""),
 	}
-	if !testutil.Equal(want, errors) {
+	if !reflect.DeepEqual(want, errors) {
 		t.Errorf("unretryable errors: got: %v, want: %v", errors, want)
 	}
 
@@ -274,7 +273,7 @@ func TestRetainRowsAfter(t *testing.T) {
 	prevRowKey := "m"
 	want := NewRange("m\x00", "z")
 	got := prevRowRange.retainRowsAfter(prevRowKey)
-	if !testutil.Equal(want, got, cmp.AllowUnexported(RowRange{})) {
+	if !reflect.DeepEqual(want, got) {
 		t.Errorf("range retry: got %v, want %v", got, want)
 	}
 
@@ -282,7 +281,7 @@ func TestRetainRowsAfter(t *testing.T) {
 	prevRowKey = "f"
 	wantRowRangeList := RowRangeList{NewRange("f\x00", "g"), NewRange("h", "l")}
 	got = prevRowRangeList.retainRowsAfter(prevRowKey)
-	if !testutil.Equal(wantRowRangeList, got, cmp.AllowUnexported(RowRange{})) {
+	if !reflect.DeepEqual(wantRowRangeList, got) {
 		t.Errorf("range list retry: got %v, want %v", got, wantRowRangeList)
 	}
 
@@ -290,7 +289,7 @@ func TestRetainRowsAfter(t *testing.T) {
 	prevRowKey = "b"
 	wantList := RowList{"c", "d", "e", "f"}
 	got = prevRowList.retainRowsAfter(prevRowKey)
-	if !testutil.Equal(wantList, got) {
+	if !reflect.DeepEqual(wantList, got) {
 		t.Errorf("list retry: got %v, want %v", got, wantList)
 	}
 }
@@ -352,7 +351,7 @@ func TestRetryReadRows(t *testing.T) {
 		return true
 	})
 	want := []string{"a", "b", "c", "d"}
-	if !testutil.Equal(got, want) {
+	if !reflect.DeepEqual(got, want) {
 		t.Errorf("retry range integration: got %v, want %v", got, want)
 	}
 }

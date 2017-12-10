@@ -53,10 +53,8 @@ var (
 		}},
 	}
 	testTableExpiration time.Time
-	// BigQuery does not accept hyphens in dataset or table IDs, so we create IDs
-	// with underscores.
-	datasetIDs = testutil.NewUIDSpaceSep("dataset", '_')
-	tableIDs   = testutil.NewUIDSpaceSep("table", '_')
+	datasetIDs          = testutil.NewUIDSpaceSep("dataset", '_')
+	tableIDs            = testutil.NewUIDSpaceSep("table", '_')
 )
 
 func TestMain(m *testing.M) {
@@ -96,6 +94,8 @@ func initIntegrationTest() func() {
 	if err != nil {
 		log.Fatalf("storage.NewClient: %v", err)
 	}
+	// BigQuery does not accept hyphens in dataset or table IDs, so we create IDs
+	// with underscores.
 	dataset = client.Dataset(datasetIDs.New())
 	if err := dataset.Create(ctx, nil); err != nil {
 		log.Fatalf("creating dataset %s: %v", dataset.DatasetID, err)
@@ -197,28 +197,16 @@ func TestIntegration_TableMetadata(t *testing.T) {
 
 	// Create tables that have time partitioning
 	partitionCases := []struct {
-		timePartitioning TimePartitioning
-		wantExpiration   time.Duration
-		wantField        string
+		timePartitioning   TimePartitioning
+		expectedExpiration time.Duration
 	}{
-		{TimePartitioning{}, time.Duration(0), ""},
-		{TimePartitioning{Expiration: time.Second}, time.Second, ""},
-		{
-			TimePartitioning{
-				Expiration: time.Second,
-				Field:      "date",
-			}, time.Second, "date"},
+		{TimePartitioning{}, time.Duration(0)},
+		{TimePartitioning{time.Second}, time.Second},
 	}
-
-	schema2 := Schema{
-		{Name: "name", Type: StringFieldType},
-		{Name: "date", Type: DateFieldType},
-	}
-
 	for i, c := range partitionCases {
 		table := dataset.Table(fmt.Sprintf("t_metadata_partition_%v", i))
 		err = table.Create(context.Background(), &TableMetadata{
-			Schema:           schema2,
+			Schema:           schema,
 			TimePartitioning: &c.timePartitioning,
 			ExpirationTime:   time.Now().Add(5 * time.Minute),
 		})
@@ -232,10 +220,7 @@ func TestIntegration_TableMetadata(t *testing.T) {
 		}
 
 		got := md.TimePartitioning
-		want := &TimePartitioning{
-			Expiration: c.wantExpiration,
-			Field:      c.wantField,
-		}
+		want := &TimePartitioning{c.expectedExpiration}
 		if !testutil.Equal(got, want) {
 			t.Errorf("metadata.TimePartitioning: got %v, want %v", got, want)
 		}
@@ -770,14 +755,15 @@ func TestIntegration_UploadAndReadStructs(t *testing.T) {
 	}
 	sort.Sort(byName(got))
 
-	// Round times to the microsecond.
-	roundToMicros := cmp.Transformer("RoundToMicros",
-		func(t time.Time) time.Time { return t.Round(time.Microsecond) })
+	// Compare times to the microsecond.
+	timeEq := func(x, y time.Time) bool {
+		return x.Round(time.Microsecond).Equal(y.Round(time.Microsecond))
+	}
 	// BigQuery does not elide nils. It reports an error for nil fields.
 	for i, g := range got {
 		if i >= len(want) {
 			t.Errorf("%d: got %v, past end of want", i, pretty.Value(g))
-		} else if diff := testutil.Diff(g, want[i], roundToMicros); diff != "" {
+		} else if diff := testutil.Diff(g, want[i], cmp.Comparer(timeEq)); diff != "" {
 			t.Errorf("%d: got=-, want=+:\n%s", i, diff)
 		}
 	}

@@ -529,15 +529,7 @@ type Document struct {
 	//
 	// A simple field name contains only characters `a` to `z`, `A` to
 	// `Z`,
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// `0` to `9`, or `_`, and must not start with `0` to `9`. For
-=======
-	// `0` to `9`, or `_`, and must not start with `0` to `9` or `_`. For
->>>>>>> Initial dep workover
-=======
-	// `0` to `9`, or `_`, and must not start with `0` to `9`. For
->>>>>>> Working on getting compiling
 	// example,
 	// `foo_bar_17`.
 	//
@@ -999,17 +991,8 @@ type FieldTransform struct {
 	//   "SERVER_VALUE_UNSPECIFIED" - Unspecified. This value must not be
 	// used.
 	//   "REQUEST_TIME" - The time at which the server processed the
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// request, with millisecond
 	// precision.
-=======
-	// request.
->>>>>>> Initial dep workover
-=======
-	// request, with millisecond
-	// precision.
->>>>>>> Working on getting compiling
 	SetToServerValue string `json:"setToServerValue,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "FieldPath") to

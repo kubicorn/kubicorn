@@ -21,10 +21,7 @@ import (
 	"sort"
 	"testing"
 
-	"cloud.google.com/go/internal/testutil"
-
 	"github.com/golang/protobuf/proto"
-	"github.com/google/go-cmp/cmp"
 	"golang.org/x/net/context"
 	pb "google.golang.org/genproto/googleapis/datastore/v1"
 	"google.golang.org/grpc"
@@ -337,7 +334,7 @@ func TestSimpleQuery(t *testing.T) {
 			}
 		}
 
-		if !testutil.Equal(tc.dst, tc.want) {
+		if !reflect.DeepEqual(tc.dst, tc.want) {
 			t.Errorf("dst type %T: Entities\ngot  %+v\nwant %+v", tc.dst, tc.dst, tc.want)
 			continue
 		}
@@ -360,10 +357,10 @@ func TestQueriesAreImmutable(t *testing.T) {
 	q0 := NewQuery("foo")
 	q1 := NewQuery("foo")
 	q2 := q1.Offset(2)
-	if !testutil.Equal(q0, q1, cmp.AllowUnexported(Query{})) {
+	if !reflect.DeepEqual(q0, q1) {
 		t.Errorf("q0 and q1 were not equal")
 	}
-	if testutil.Equal(q1, q2, cmp.AllowUnexported(Query{})) {
+	if reflect.DeepEqual(q1, q2) {
 		t.Errorf("q1 and q2 were equal")
 	}
 
@@ -384,10 +381,10 @@ func TestQueriesAreImmutable(t *testing.T) {
 	q4 := f()
 	q5 := q4.Order("y")
 	q6 := q4.Order("z")
-	if !testutil.Equal(q3, q5, cmp.AllowUnexported(Query{})) {
+	if !reflect.DeepEqual(q3, q5) {
 		t.Errorf("q3 and q5 were not equal")
 	}
-	if testutil.Equal(q5, q6, cmp.AllowUnexported(Query{})) {
+	if reflect.DeepEqual(q5, q6) {
 		t.Errorf("q5 and q6 were equal")
 	}
 }

@@ -1057,15 +1057,7 @@ type ExportAgentResponse struct {
 
 	// AgentUri: The URI to a file containing the exported agent. This field
 	// is populated
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// only if `agent_uri` is specified in `ExportAgentRequest`.
-=======
-	// only if `agent_uri`
->>>>>>> Initial dep workover
-=======
-	// only if `agent_uri` is specified in `ExportAgentRequest`.
->>>>>>> Working on getting compiling
 	AgentUri string `json:"agentUri,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "AgentContent") to
@@ -2636,8 +2628,6 @@ func (s *OriginalDetectIntentRequest) MarshalJSON() ([]byte, error) {
 
 // QueryInput: Represents the query input. It can contain either:
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // 1.  An audio config which
 //     instructs the speech recognizer how to process the speech
 // audio.
@@ -2645,22 +2635,6 @@ func (s *OriginalDetectIntentRequest) MarshalJSON() ([]byte, error) {
 // 2.  A conversational query in the form of text,.
 //
 // 3.  An event that specifies which intent to trigger.
-=======
-// 1.  an audio config which
-=======
-// 1.  An audio config which
->>>>>>> Working on getting compiling
-//     instructs the speech recognizer how to process the speech
-// audio.
-//
-// 2.  A conversational query in the form of text,.
-//
-<<<<<<< HEAD
-// 3.  an event that specifies which intent to trigger.
->>>>>>> Initial dep workover
-=======
-// 3.  An event that specifies which intent to trigger.
->>>>>>> Working on getting compiling
 type QueryInput struct {
 	// AudioConfig: Instructs the speech recognizer how to process the
 	// speech audio.
@@ -3446,28 +3420,11 @@ type ProjectsAgentExportCall struct {
 	header_            http.Header
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Export: Exports the specified agent to a ZIP file.
 //
 //
 // Operation <response: ExportAgentResponse,
 //            metadata: google.protobuf.Struct>
-=======
-// Export: Exports the specified agent to a ZIP
-// file.
-//
-//
-// Operation<response: ExportAgentResponse,
-//           metadata: google.protobuf.Struct>
->>>>>>> Initial dep workover
-=======
-// Export: Exports the specified agent to a ZIP file.
-//
-//
-// Operation <response: ExportAgentResponse,
-//            metadata: google.protobuf.Struct>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentService) Export(parent string, exportagentrequest *ExportAgentRequest) *ProjectsAgentExportCall {
 	c := &ProjectsAgentExportCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -3561,15 +3518,7 @@ func (c *ProjectsAgentExportCall) Do(opts ...googleapi.CallOption) (*Operation, 
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Exports the specified agent to a ZIP file.\n\n\nOperation \u003cresponse: ExportAgentResponse,\n           metadata: google.protobuf.Struct\u003e",
-=======
-	//   "description": "Exports the specified agent to a ZIP file.\n\n\nOperation\u003cresponse: ExportAgentResponse,\n          metadata: google.protobuf.Struct\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Exports the specified agent to a ZIP file.\n\n\nOperation \u003cresponse: ExportAgentResponse,\n           metadata: google.protobuf.Struct\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent:export",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.export",
@@ -3619,18 +3568,8 @@ type ProjectsAgentImportCall struct {
 // versions from ImportAgentRequest.
 //
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Operation <response: google.protobuf.Empty,
 //            metadata: google.protobuf.Struct>
-=======
-// Operation<response: google.protobuf.Empty,
-//           metadata: google.protobuf.Struct>
->>>>>>> Initial dep workover
-=======
-// Operation <response: google.protobuf.Empty,
-//            metadata: google.protobuf.Struct>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentService) Import(parent string, importagentrequest *ImportAgentRequest) *ProjectsAgentImportCall {
 	c := &ProjectsAgentImportCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -3724,15 +3663,7 @@ func (c *ProjectsAgentImportCall) Do(opts ...googleapi.CallOption) (*Operation, 
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Imports the specified agent from a ZIP file.\n\nUploads new intents and entity types without deleting the existing ones.\nIntents and entity types with the same name are replaced with the new\nversions from ImportAgentRequest.\n\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
-=======
-	//   "description": "Imports the specified agent from a ZIP file.\n\nUploads new intents and entity types without deleting the existing ones.\nIntents and entity types with the same name are replaced with the new\nversions from ImportAgentRequest.\n\n\nOperation\u003cresponse: google.protobuf.Empty,\n          metadata: google.protobuf.Struct\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Imports the specified agent from a ZIP file.\n\nUploads new intents and entity types without deleting the existing ones.\nIntents and entity types with the same name are replaced with the new\nversions from ImportAgentRequest.\n\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent:import",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.import",
@@ -3780,18 +3711,8 @@ type ProjectsAgentRestoreCall struct {
 // entity types in the older version are deleted.
 //
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Operation <response: google.protobuf.Empty,
 //            metadata: google.protobuf.Struct>
-=======
-// Operation<response: google.protobuf.Empty,
-//           metadata: google.protobuf.Struct>
->>>>>>> Initial dep workover
-=======
-// Operation <response: google.protobuf.Empty,
-//            metadata: google.protobuf.Struct>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentService) Restore(parent string, restoreagentrequest *RestoreAgentRequest) *ProjectsAgentRestoreCall {
 	c := &ProjectsAgentRestoreCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -3885,15 +3806,7 @@ func (c *ProjectsAgentRestoreCall) Do(opts ...googleapi.CallOption) (*Operation,
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Restores the specified agent from a ZIP file.\n\nReplaces the current agent version with a new one. All the intents and\nentity types in the older version are deleted.\n\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
-=======
-	//   "description": "Restores the specified agent from a ZIP file.\n\nReplaces the current agent version with a new one. All the intents and\nentity types in the older version are deleted.\n\n\nOperation\u003cresponse: google.protobuf.Empty,\n          metadata: google.protobuf.Struct\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Restores the specified agent from a ZIP file.\n\nReplaces the current agent version with a new one. All the intents and\nentity types in the older version are deleted.\n\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent:restore",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.restore",
@@ -4134,18 +4047,8 @@ type ProjectsAgentTrainCall struct {
 // Train: Trains the specified agent.
 //
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Operation <response: google.protobuf.Empty,
 //            metadata: google.protobuf.Struct>
-=======
-// Operation<response: google.protobuf.Empty,
-//           metadata: google.protobuf.Struct>
->>>>>>> Initial dep workover
-=======
-// Operation <response: google.protobuf.Empty,
-//            metadata: google.protobuf.Struct>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentService) Train(parent string, trainagentrequest *TrainAgentRequest) *ProjectsAgentTrainCall {
 	c := &ProjectsAgentTrainCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -4239,15 +4142,7 @@ func (c *ProjectsAgentTrainCall) Do(opts ...googleapi.CallOption) (*Operation, e
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Trains the specified agent.\n\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
-=======
-	//   "description": "Trains the specified agent.\n\n\nOperation\u003cresponse: google.protobuf.Empty,\n          metadata: google.protobuf.Struct\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Trains the specified agent.\n\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent:train",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.train",
@@ -4288,25 +4183,10 @@ type ProjectsAgentEntityTypesBatchDeleteCall struct {
 	header_                       http.Header
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // BatchDelete: Deletes entity types in the specified agent.
 //
 // Operation <response: google.protobuf.Empty,
 //            metadata: google.protobuf.Struct>
-=======
-// BatchDelete: Deletes entity types in the specified
-// agent.
-//
-// Operation<response: google.protobuf.Empty,
-//           metadata: google.protobuf.Struct>
->>>>>>> Initial dep workover
-=======
-// BatchDelete: Deletes entity types in the specified agent.
-//
-// Operation <response: google.protobuf.Empty,
-//            metadata: google.protobuf.Struct>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentEntityTypesService) BatchDelete(parent string, batchdeleteentitytypesrequest *BatchDeleteEntityTypesRequest) *ProjectsAgentEntityTypesBatchDeleteCall {
 	c := &ProjectsAgentEntityTypesBatchDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -4400,15 +4280,7 @@ func (c *ProjectsAgentEntityTypesBatchDeleteCall) Do(opts ...googleapi.CallOptio
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Deletes entity types in the specified agent.\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
-=======
-	//   "description": "Deletes entity types in the specified agent.\n\nOperation\u003cresponse: google.protobuf.Empty,\n          metadata: google.protobuf.Struct\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Deletes entity types in the specified agent.\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent/entityTypes:batchDelete",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.entityTypes.batchDelete",
@@ -4452,18 +4324,8 @@ type ProjectsAgentEntityTypesBatchUpdateCall struct {
 // BatchUpdate: Updates/Creates multiple entity types in the specified
 // agent.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Operation <response: BatchUpdateEntityTypesResponse,
 //            metadata: google.protobuf.Struct>
-=======
-// Operation<response: BatchUpdateEntityTypesResponse,
-//           metadata: google.protobuf.Struct>
->>>>>>> Initial dep workover
-=======
-// Operation <response: BatchUpdateEntityTypesResponse,
-//            metadata: google.protobuf.Struct>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentEntityTypesService) BatchUpdate(parent string, batchupdateentitytypesrequest *BatchUpdateEntityTypesRequest) *ProjectsAgentEntityTypesBatchUpdateCall {
 	c := &ProjectsAgentEntityTypesBatchUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -4557,15 +4419,7 @@ func (c *ProjectsAgentEntityTypesBatchUpdateCall) Do(opts ...googleapi.CallOptio
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Updates/Creates multiple entity types in the specified agent.\n\nOperation \u003cresponse: BatchUpdateEntityTypesResponse,\n           metadata: google.protobuf.Struct\u003e",
-=======
-	//   "description": "Updates/Creates multiple entity types in the specified agent.\n\nOperation\u003cresponse: BatchUpdateEntityTypesResponse,\n          metadata: google.protobuf.Struct\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Updates/Creates multiple entity types in the specified agent.\n\nOperation \u003cresponse: BatchUpdateEntityTypesResponse,\n           metadata: google.protobuf.Struct\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent/entityTypes:batchUpdate",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.entityTypes.batchUpdate",
@@ -5419,15 +5273,7 @@ type ProjectsAgentEntityTypesEntitiesBatchCreateCall struct {
 // type (extends the
 // existing collection of entries).
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Operation <response: google.protobuf.Empty>
-=======
-// Operation<response: google.protobuf.Empty>
->>>>>>> Initial dep workover
-=======
-// Operation <response: google.protobuf.Empty>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentEntityTypesEntitiesService) BatchCreate(parent string, batchcreateentitiesrequest *BatchCreateEntitiesRequest) *ProjectsAgentEntityTypesEntitiesBatchCreateCall {
 	c := &ProjectsAgentEntityTypesEntitiesBatchCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -5521,15 +5367,7 @@ func (c *ProjectsAgentEntityTypesEntitiesBatchCreateCall) Do(opts ...googleapi.C
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Creates multiple new entities in the specified entity type (extends the\nexisting collection of entries).\n\nOperation \u003cresponse: google.protobuf.Empty\u003e",
-=======
-	//   "description": "Creates multiple new entities in the specified entity type (extends the\nexisting collection of entries).\n\nOperation\u003cresponse: google.protobuf.Empty\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Creates multiple new entities in the specified entity type (extends the\nexisting collection of entries).\n\nOperation \u003cresponse: google.protobuf.Empty\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent/entityTypes/{entityTypesId}/entities:batchCreate",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.entityTypes.entities.batchCreate",
@@ -5573,18 +5411,8 @@ type ProjectsAgentEntityTypesEntitiesBatchDeleteCall struct {
 // BatchDelete: Deletes entities in the specified entity
 // type.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Operation <response: google.protobuf.Empty,
 //            metadata: google.protobuf.Struct>
-=======
-// Operation<response: google.protobuf.Empty,
-//           metadata: google.protobuf.Struct>
->>>>>>> Initial dep workover
-=======
-// Operation <response: google.protobuf.Empty,
-//            metadata: google.protobuf.Struct>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentEntityTypesEntitiesService) BatchDelete(parent string, batchdeleteentitiesrequest *BatchDeleteEntitiesRequest) *ProjectsAgentEntityTypesEntitiesBatchDeleteCall {
 	c := &ProjectsAgentEntityTypesEntitiesBatchDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -5678,15 +5506,7 @@ func (c *ProjectsAgentEntityTypesEntitiesBatchDeleteCall) Do(opts ...googleapi.C
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Deletes entities in the specified entity type.\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
-=======
-	//   "description": "Deletes entities in the specified entity type.\n\nOperation\u003cresponse: google.protobuf.Empty,\n          metadata: google.protobuf.Struct\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Deletes entities in the specified entity type.\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent/entityTypes/{entityTypesId}/entities:batchDelete",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.entityTypes.entities.batchDelete",
@@ -5731,18 +5551,8 @@ type ProjectsAgentEntityTypesEntitiesBatchUpdateCall struct {
 // the existing
 // collection of entries).
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Operation <response: google.protobuf.Empty,
 //            metadata: google.protobuf.Struct>
-=======
-// Operation<response: google.protobuf.Empty,
-//           metadata: google.protobuf.Struct>
->>>>>>> Initial dep workover
-=======
-// Operation <response: google.protobuf.Empty,
-//            metadata: google.protobuf.Struct>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentEntityTypesEntitiesService) BatchUpdate(parent string, batchupdateentitiesrequest *BatchUpdateEntitiesRequest) *ProjectsAgentEntityTypesEntitiesBatchUpdateCall {
 	c := &ProjectsAgentEntityTypesEntitiesBatchUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -5836,15 +5646,7 @@ func (c *ProjectsAgentEntityTypesEntitiesBatchUpdateCall) Do(opts ...googleapi.C
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Updates entities in the specified entity type (replaces the existing\ncollection of entries).\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
-=======
-	//   "description": "Updates entities in the specified entity type (replaces the existing\ncollection of entries).\n\nOperation\u003cresponse: google.protobuf.Empty,\n          metadata: google.protobuf.Struct\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Updates entities in the specified entity type (replaces the existing\ncollection of entries).\n\nOperation \u003cresponse: google.protobuf.Empty,\n           metadata: google.protobuf.Struct\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent/entityTypes/{entityTypesId}/entities:batchUpdate",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.entityTypes.entities.batchUpdate",
@@ -5885,22 +5687,9 @@ type ProjectsAgentIntentsBatchDeleteCall struct {
 	header_                   http.Header
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // BatchDelete: Deletes intents in the specified agent.
 //
 // Operation <response: google.protobuf.Empty>
-=======
-// BatchDelete: Deletes intents in the specified
-// agent.
-//
-// Operation<response: google.protobuf.Empty>
->>>>>>> Initial dep workover
-=======
-// BatchDelete: Deletes intents in the specified agent.
-//
-// Operation <response: google.protobuf.Empty>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentIntentsService) BatchDelete(parent string, batchdeleteintentsrequest *BatchDeleteIntentsRequest) *ProjectsAgentIntentsBatchDeleteCall {
 	c := &ProjectsAgentIntentsBatchDeleteCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -5994,15 +5783,7 @@ func (c *ProjectsAgentIntentsBatchDeleteCall) Do(opts ...googleapi.CallOption) (
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Deletes intents in the specified agent.\n\nOperation \u003cresponse: google.protobuf.Empty\u003e",
-=======
-	//   "description": "Deletes intents in the specified agent.\n\nOperation\u003cresponse: google.protobuf.Empty\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Deletes intents in the specified agent.\n\nOperation \u003cresponse: google.protobuf.Empty\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent/intents:batchDelete",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.intents.batchDelete",
@@ -6046,15 +5827,7 @@ type ProjectsAgentIntentsBatchUpdateCall struct {
 // BatchUpdate: Updates/Creates multiple intents in the specified
 // agent.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Operation <response: BatchUpdateIntentsResponse>
-=======
-// Operation<response: BatchUpdateIntentsResponse>
->>>>>>> Initial dep workover
-=======
-// Operation <response: BatchUpdateIntentsResponse>
->>>>>>> Working on getting compiling
 func (r *ProjectsAgentIntentsService) BatchUpdate(parent string, batchupdateintentsrequest *BatchUpdateIntentsRequest) *ProjectsAgentIntentsBatchUpdateCall {
 	c := &ProjectsAgentIntentsBatchUpdateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.parent = parent
@@ -6148,15 +5921,7 @@ func (c *ProjectsAgentIntentsBatchUpdateCall) Do(opts ...googleapi.CallOption) (
 	}
 	return ret, nil
 	// {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//   "description": "Updates/Creates multiple intents in the specified agent.\n\nOperation \u003cresponse: BatchUpdateIntentsResponse\u003e",
-=======
-	//   "description": "Updates/Creates multiple intents in the specified agent.\n\nOperation\u003cresponse: BatchUpdateIntentsResponse\u003e",
->>>>>>> Initial dep workover
-=======
-	//   "description": "Updates/Creates multiple intents in the specified agent.\n\nOperation \u003cresponse: BatchUpdateIntentsResponse\u003e",
->>>>>>> Working on getting compiling
 	//   "flatPath": "v2beta1/projects/{projectsId}/agent/intents:batchUpdate",
 	//   "httpMethod": "POST",
 	//   "id": "dialogflow.projects.agent.intents.batchUpdate",

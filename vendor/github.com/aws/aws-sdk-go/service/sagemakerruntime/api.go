@@ -33,11 +33,7 @@ const opInvokeEndpoint = "InvokeEndpoint"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpoint
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpoint
->>>>>>> Working on getting compiling
 func (c *SageMakerRuntime) InvokeEndpointRequest(input *InvokeEndpointInput) (req *request.Request, output *InvokeEndpointOutput) {
 	op := &request.Operation{
 		Name:       opInvokeEndpoint,
@@ -86,11 +82,7 @@ func (c *SageMakerRuntime) InvokeEndpointRequest(input *InvokeEndpointInput) (re
 //   * ErrCodeModelError "ModelError"
 //   Model (owned by the customer in the container) returned an error 500.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpoint
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpoint
->>>>>>> Working on getting compiling
 func (c *SageMakerRuntime) InvokeEndpoint(input *InvokeEndpointInput) (*InvokeEndpointOutput, error) {
 	req, out := c.InvokeEndpointRequest(input)
 	return out, req.Send()
@@ -112,11 +104,7 @@ func (c *SageMakerRuntime) InvokeEndpointWithContext(ctx aws.Context, input *Inv
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpointInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpointInput
->>>>>>> Working on getting compiling
 type InvokeEndpointInput struct {
 	_ struct{} `type:"structure" payload:"Body"`
 
@@ -190,11 +178,7 @@ func (s *InvokeEndpointInput) SetEndpointName(v string) *InvokeEndpointInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpointOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpointOutput
->>>>>>> Working on getting compiling
 type InvokeEndpointOutput struct {
 	_ struct{} `type:"structure" payload:"Body"`
 

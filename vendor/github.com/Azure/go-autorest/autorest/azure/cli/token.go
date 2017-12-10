@@ -62,8 +62,6 @@ func (t Token) ToADALToken() (converted adal.Token, err error) {
 }
 
 // AccessTokensPath returns the path where access tokens are stored from the Azure CLI
-<<<<<<< HEAD
-<<<<<<< HEAD
 // TODO(#199): add unit test.
 func AccessTokensPath() (string, error) {
 	// Azure-CLI allows user to customize the path of access tokens thorugh environment variable.
@@ -77,25 +75,6 @@ func AccessTokensPath() (string, error) {
 	}
 
 	return accessTokenPath, err
-=======
-func AccessTokensPath() (string, error) {
-	return homedir.Expand("~/.azure/accessTokens.json")
->>>>>>> Initial dep workover
-=======
-// TODO(#199): add unit test.
-func AccessTokensPath() (string, error) {
-	// Azure-CLI allows user to customize the path of access tokens thorugh environment variable.
-	var accessTokenPath = os.Getenv("AZURE_ACCESS_TOKEN_FILE")
-	var err error
-
-	// Fallback logic to default path on non-cloud-shell environment.
-	// TODO(#200): remove the dependency on hard-coding path.
-	if accessTokenPath == "" {
-		accessTokenPath, err = homedir.Expand("~/.azure/accessTokens.json")
-	}
-
-	return accessTokenPath, err
->>>>>>> Working on getting compiling
 }
 
 // ParseExpirationDate parses either a Azure CLI or CloudShell date into a time object

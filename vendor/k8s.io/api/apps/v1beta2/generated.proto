@@ -36,10 +36,15 @@ import "k8s.io/apimachinery/pkg/util/intstr/generated.proto";
 option go_package = "v1beta2";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1/ControllerRevision. See the
 // release notes for more information.
 =======
 >>>>>>> Initial dep workover
+=======
+// DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1/ControllerRevision. See the
+// release notes for more information.
+>>>>>>> moar deps
 // ControllerRevision implements an immutable snapshot of state data. Clients
 // are responsible for serializing and deserializing the objects that contain
 // their internal state.
@@ -73,10 +78,15 @@ message ControllerRevisionList {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the release notes for
 // more information.
 =======
 >>>>>>> Initial dep workover
+=======
+// DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the release notes for
+// more information.
+>>>>>>> moar deps
 // DaemonSet represents the configuration of a daemon set.
 message DaemonSet {
   // Standard object's metadata.
@@ -99,6 +109,9 @@ message DaemonSet {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 // DaemonSetCondition describes the state of a DaemonSet at a certain point.
 message DaemonSetCondition {
   // Type of DaemonSet condition.
@@ -120,8 +133,11 @@ message DaemonSetCondition {
   optional string message = 5;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 // DaemonSetList is a collection of daemon sets.
 message DaemonSetList {
   // Standard list metadata.
@@ -138,6 +154,7 @@ message DaemonSetSpec {
   // A label query over pods that are managed by the daemon set.
   // Must match in order to be controlled.
 <<<<<<< HEAD
+<<<<<<< HEAD
   // It must match the pod template's labels.
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 =======
@@ -145,6 +162,10 @@ message DaemonSetSpec {
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
   // +optional
 >>>>>>> Initial dep workover
+=======
+  // It must match the pod template's labels.
+  // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+>>>>>>> moar deps
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 1;
 
   // An object that describes the pod that will be created.
@@ -219,14 +240,20 @@ message DaemonSetStatus {
   // +optional
   optional int32 collisionCount = 9;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 
   // Represents the latest available observations of a DaemonSet's current state.
   // +optional
   // +patchMergeKey=type
   // +patchStrategy=merge
   repeated DaemonSetCondition conditions = 10;
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 }
 
 // DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
@@ -245,10 +272,15 @@ message DaemonSetUpdateStrategy {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the release notes for
 // more information.
 =======
 >>>>>>> Initial dep workover
+=======
+// DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the release notes for
+// more information.
+>>>>>>> moar deps
 // Deployment enables declarative updates for Pods and ReplicaSets.
 message Deployment {
   // Standard object metadata.
@@ -305,10 +337,14 @@ message DeploymentSpec {
   // Label selector for pods. Existing ReplicaSets whose pods are
   // selected by this will be the ones affected by this deployment.
 <<<<<<< HEAD
+<<<<<<< HEAD
   // It must match the pod template's labels.
 =======
   // +optional
 >>>>>>> Initial dep workover
+=======
+  // It must match the pod template's labels.
+>>>>>>> moar deps
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
 
   // Template describes the pods that will be created.
@@ -399,6 +435,7 @@ message DeploymentStrategy {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the release notes for
 // more information.
 =======
@@ -407,6 +444,11 @@ message DeploymentStrategy {
 =======
 // ReplicaSet represents the configuration of a ReplicaSet.
 >>>>>>> Working on getting compiling
+=======
+// DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the release notes for
+// more information.
+// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+>>>>>>> moar deps
 message ReplicaSet {
   // If the Labels of a ReplicaSet are empty, they are defaulted to
   // be the same as the Pod(s) that the ReplicaSet manages.
@@ -478,15 +520,22 @@ message ReplicaSetSpec {
 
   // Selector is a label query over pods that should match the replica count.
 <<<<<<< HEAD
+<<<<<<< HEAD
   // Label keys and values that must match in order to be controlled by this replica set.
   // It must match the pod template's labels.
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 =======
   // If the selector is empty, it is defaulted to the labels present on the pod template.
+=======
+>>>>>>> moar deps
   // Label keys and values that must match in order to be controlled by this replica set.
+  // It must match the pod template's labels.
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+<<<<<<< HEAD
   // +optional
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
 
   // Template is the object that describes the pod that will be created if
@@ -626,10 +675,15 @@ message ScaleStatus {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the release notes for
 // more information.
 =======
 >>>>>>> Initial dep workover
+=======
+// DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the release notes for
+// more information.
+>>>>>>> moar deps
 // StatefulSet represents a set of pods with consistent identities.
 // Identities are defined as:
 //  - Network: A single stable DNS and hostname.
@@ -651,6 +705,9 @@ message StatefulSet {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 // StatefulSetCondition describes the state of a statefulset at a certain point.
 message StatefulSetCondition {
   // Type of statefulset condition.
@@ -672,8 +729,11 @@ message StatefulSetCondition {
   optional string message = 5;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 // StatefulSetList is a collection of StatefulSets.
 message StatefulSetList {
   // +optional
@@ -694,6 +754,7 @@ message StatefulSetSpec {
 
   // selector is a label query over pods that should match the replica count.
 <<<<<<< HEAD
+<<<<<<< HEAD
   // It must match the pod template's labels.
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 =======
@@ -701,6 +762,10 @@ message StatefulSetSpec {
   // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
   // +optional
 >>>>>>> Initial dep workover
+=======
+  // It must match the pod template's labels.
+  // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+>>>>>>> moar deps
   optional k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector selector = 2;
 
   // template is the object that describes the pod that will be created if
@@ -784,14 +849,20 @@ message StatefulSetStatus {
   // +optional
   optional int32 collisionCount = 9;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 
   // Represents the latest available observations of a statefulset's current state.
   // +optional
   // +patchMergeKey=type
   // +patchStrategy=merge
   repeated StatefulSetCondition conditions = 10;
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet

@@ -33,11 +33,7 @@ const opGetCostAndUsage = "GetCostAndUsage"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostAndUsage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostAndUsage
->>>>>>> Working on getting compiling
 func (c *CostExplorer) GetCostAndUsageRequest(input *GetCostAndUsageInput) (req *request.Request, output *GetCostAndUsageOutput) {
 	op := &request.Operation{
 		Name:       opGetCostAndUsage,
@@ -74,11 +70,7 @@ func (c *CostExplorer) GetCostAndUsageRequest(input *GetCostAndUsageInput) (req 
 //   * ErrCodeLimitExceededException "LimitExceededException"
 //   You made too many calls in a short period of time. Try again later.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostAndUsage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostAndUsage
->>>>>>> Working on getting compiling
 func (c *CostExplorer) GetCostAndUsage(input *GetCostAndUsageInput) (*GetCostAndUsageOutput, error) {
 	req, out := c.GetCostAndUsageRequest(input)
 	return out, req.Send()
@@ -125,11 +117,7 @@ const opGetDimensionValues = "GetDimensionValues"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetDimensionValues
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetDimensionValues
->>>>>>> Working on getting compiling
 func (c *CostExplorer) GetDimensionValuesRequest(input *GetDimensionValuesInput) (req *request.Request, output *GetDimensionValuesOutput) {
 	op := &request.Operation{
 		Name:       opGetDimensionValues,
@@ -163,11 +151,7 @@ func (c *CostExplorer) GetDimensionValuesRequest(input *GetDimensionValuesInput)
 //   * ErrCodeLimitExceededException "LimitExceededException"
 //   You made too many calls in a short period of time. Try again later.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetDimensionValues
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetDimensionValues
->>>>>>> Working on getting compiling
 func (c *CostExplorer) GetDimensionValues(input *GetDimensionValuesInput) (*GetDimensionValuesOutput, error) {
 	req, out := c.GetDimensionValuesRequest(input)
 	return out, req.Send()
@@ -214,11 +198,7 @@ const opGetReservationUtilization = "GetReservationUtilization"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilization
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilization
->>>>>>> Working on getting compiling
 func (c *CostExplorer) GetReservationUtilizationRequest(input *GetReservationUtilizationInput) (req *request.Request, output *GetReservationUtilizationOutput) {
 	op := &request.Operation{
 		Name:       opGetReservationUtilization,
@@ -254,11 +234,7 @@ func (c *CostExplorer) GetReservationUtilizationRequest(input *GetReservationUti
 //   * ErrCodeLimitExceededException "LimitExceededException"
 //   You made too many calls in a short period of time. Try again later.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilization
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilization
->>>>>>> Working on getting compiling
 func (c *CostExplorer) GetReservationUtilization(input *GetReservationUtilizationInput) (*GetReservationUtilizationOutput, error) {
 	req, out := c.GetReservationUtilizationRequest(input)
 	return out, req.Send()
@@ -305,11 +281,7 @@ const opGetTags = "GetTags"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetTags
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetTags
->>>>>>> Working on getting compiling
 func (c *CostExplorer) GetTagsRequest(input *GetTagsInput) (req *request.Request, output *GetTagsOutput) {
 	op := &request.Operation{
 		Name:       opGetTags,
@@ -342,11 +314,7 @@ func (c *CostExplorer) GetTagsRequest(input *GetTagsInput) (req *request.Request
 //   * ErrCodeLimitExceededException "LimitExceededException"
 //   You made too many calls in a short period of time. Try again later.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetTags
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetTags
->>>>>>> Working on getting compiling
 func (c *CostExplorer) GetTags(input *GetTagsInput) (*GetTagsOutput, error) {
 	req, out := c.GetTagsRequest(input)
 	return out, req.Send()
@@ -369,11 +337,7 @@ func (c *CostExplorer) GetTagsWithContext(ctx aws.Context, input *GetTagsInput, 
 }
 
 // The time period that you want the usage and costs for.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/DateInterval
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/DateInterval
->>>>>>> Working on getting compiling
 type DateInterval struct {
 	_ struct{} `type:"structure"`
 
@@ -432,11 +396,7 @@ func (s *DateInterval) SetStart(v string) *DateInterval {
 
 // The metadata that you can use to filter and group your results. You can use
 // GetDimensionValues to find specific values.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/DimensionValues
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/DimensionValues
->>>>>>> Working on getting compiling
 type DimensionValues struct {
 	_ struct{} `type:"structure"`
 
@@ -473,11 +433,7 @@ func (s *DimensionValues) SetValues(v []*string) *DimensionValues {
 
 // The metadata of a specific type that you can use to filter and group your
 // results. You can use GetDimensionValues to find specific values.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/DimensionValuesWithAttributes
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/DimensionValuesWithAttributes
->>>>>>> Working on getting compiling
 type DimensionValuesWithAttributes struct {
 	_ struct{} `type:"structure"`
 
@@ -542,11 +498,7 @@ func (s *DimensionValuesWithAttributes) SetValue(v string) *DimensionValuesWithA
 //
 //  { "And": [ ... ], "DimensionValues": { "Dimension": "UsageType", "Values":
 //    [ "DataTransfer" ] } }
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/Expression
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/Expression
->>>>>>> Working on getting compiling
 type Expression struct {
 	_ struct{} `type:"structure"`
 
@@ -606,11 +558,7 @@ func (s *Expression) SetTags(v *TagValues) *Expression {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostAndUsageRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostAndUsageRequest
->>>>>>> Working on getting compiling
 type GetCostAndUsageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -719,11 +667,7 @@ func (s *GetCostAndUsageInput) SetTimePeriod(v *DateInterval) *GetCostAndUsageIn
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostAndUsageResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostAndUsageResponse
->>>>>>> Working on getting compiling
 type GetCostAndUsageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -767,11 +711,7 @@ func (s *GetCostAndUsageOutput) SetResultsByTime(v []*ResultByTime) *GetCostAndU
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetDimensionValuesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetDimensionValuesRequest
->>>>>>> Working on getting compiling
 type GetDimensionValuesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -915,11 +855,7 @@ func (s *GetDimensionValuesInput) SetTimePeriod(v *DateInterval) *GetDimensionVa
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetDimensionValuesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetDimensionValuesResponse
->>>>>>> Working on getting compiling
 type GetDimensionValuesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1028,11 +964,7 @@ func (s *GetDimensionValuesOutput) SetTotalSize(v int64) *GetDimensionValuesOutp
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilizationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilizationRequest
->>>>>>> Working on getting compiling
 type GetReservationUtilizationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1124,11 +1056,7 @@ func (s *GetReservationUtilizationInput) SetTimePeriod(v *DateInterval) *GetRese
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilizationResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilizationResponse
->>>>>>> Working on getting compiling
 type GetReservationUtilizationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1174,11 +1102,7 @@ func (s *GetReservationUtilizationOutput) SetUtilizationsByTime(v []*Utilization
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetTagsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetTagsRequest
->>>>>>> Working on getting compiling
 type GetTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1254,11 +1178,7 @@ func (s *GetTagsInput) SetTimePeriod(v *DateInterval) *GetTagsInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetTagsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetTagsResponse
->>>>>>> Working on getting compiling
 type GetTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1318,11 +1238,7 @@ func (s *GetTagsOutput) SetTotalSize(v int64) *GetTagsOutput {
 }
 
 // One level of grouped data within the results.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/Group
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/Group
->>>>>>> Working on getting compiling
 type Group struct {
 	_ struct{} `type:"structure"`
 
@@ -1357,11 +1273,7 @@ func (s *Group) SetMetrics(v map[string]*MetricValue) *Group {
 
 // Represents a group when you specify a group by criteria, or in the response
 // to a query with a specific grouping.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GroupDefinition
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GroupDefinition
->>>>>>> Working on getting compiling
 type GroupDefinition struct {
 	_ struct{} `type:"structure"`
 
@@ -1395,11 +1307,7 @@ func (s *GroupDefinition) SetType(v string) *GroupDefinition {
 }
 
 // The aggregated value for a metric.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/MetricValue
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/MetricValue
->>>>>>> Working on getting compiling
 type MetricValue struct {
 	_ struct{} `type:"structure"`
 
@@ -1433,11 +1341,7 @@ func (s *MetricValue) SetUnit(v string) *MetricValue {
 }
 
 // The aggregated numbers for your RI usage.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ReservationAggregates
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ReservationAggregates
->>>>>>> Working on getting compiling
 type ReservationAggregates struct {
 	_ struct{} `type:"structure"`
 
@@ -1489,11 +1393,7 @@ func (s *ReservationAggregates) SetUtilizationPercentage(v string) *ReservationA
 }
 
 // A group of RIs that share a set of attributes.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ReservationUtilizationGroup
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ReservationUtilizationGroup
->>>>>>> Working on getting compiling
 type ReservationUtilizationGroup struct {
 	_ struct{} `type:"structure"`
 
@@ -1545,11 +1445,7 @@ func (s *ReservationUtilizationGroup) SetValue(v string) *ReservationUtilization
 }
 
 // The result that is associated with a time period.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ResultByTime
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/ResultByTime
->>>>>>> Working on getting compiling
 type ResultByTime struct {
 	_ struct{} `type:"structure"`
 
@@ -1601,11 +1497,7 @@ func (s *ResultByTime) SetTotal(v map[string]*MetricValue) *ResultByTime {
 }
 
 // The values that are available for a tag.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/TagValues
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/TagValues
->>>>>>> Working on getting compiling
 type TagValues struct {
 	_ struct{} `type:"structure"`
 
@@ -1639,11 +1531,7 @@ func (s *TagValues) SetValues(v []*string) *TagValues {
 }
 
 // The amount of utilization, in hours.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/UtilizationByTime
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/UtilizationByTime
->>>>>>> Working on getting compiling
 type UtilizationByTime struct {
 	_ struct{} `type:"structure"`
 

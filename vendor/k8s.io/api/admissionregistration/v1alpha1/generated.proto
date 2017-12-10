@@ -34,6 +34,7 @@ import "k8s.io/apimachinery/pkg/util/intstr/generated.proto";
 option go_package = "v1alpha1";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // AdmissionHookClientConfig contains the information to make a TLS
 // connection with the webhook
@@ -99,6 +100,8 @@ message ExternalAdmissionHookConfigurationList {
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 // Initializer describes the name and the failure policy of an initializer, and
 // what resources it applies to.
 message Initializer {
@@ -177,6 +180,7 @@ message Rule {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make
 // sure that all the tuple expansions are valid.
@@ -204,3 +208,5 @@ message ServiceReference {
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps

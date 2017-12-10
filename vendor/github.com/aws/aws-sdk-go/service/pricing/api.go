@@ -35,11 +35,7 @@ const opDescribeServices = "DescribeServices"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServices
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServices
->>>>>>> Initial dep workover
 func (c *Pricing) DescribeServicesRequest(input *DescribeServicesInput) (req *request.Request, output *DescribeServicesOutput) {
 	op := &request.Operation{
 		Name:       opDescribeServices,
@@ -95,11 +91,7 @@ func (c *Pricing) DescribeServicesRequest(input *DescribeServicesInput) (req *re
 //   * ErrCodeExpiredNextTokenException "ExpiredNextTokenException"
 //   The pagination token expired. Try again without a pagination token.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServices
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServices
->>>>>>> Initial dep workover
 func (c *Pricing) DescribeServices(input *DescribeServicesInput) (*DescribeServicesOutput, error) {
 	req, out := c.DescribeServicesRequest(input)
 	return out, req.Send()
@@ -196,11 +188,7 @@ const opGetAttributeValues = "GetAttributeValues"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValues
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValues
->>>>>>> Initial dep workover
 func (c *Pricing) GetAttributeValuesRequest(input *GetAttributeValuesInput) (req *request.Request, output *GetAttributeValuesOutput) {
 	op := &request.Operation{
 		Name:       opGetAttributeValues,
@@ -254,11 +242,7 @@ func (c *Pricing) GetAttributeValuesRequest(input *GetAttributeValuesInput) (req
 //   * ErrCodeExpiredNextTokenException "ExpiredNextTokenException"
 //   The pagination token expired. Try again without a pagination token.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValues
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValues
->>>>>>> Initial dep workover
 func (c *Pricing) GetAttributeValues(input *GetAttributeValuesInput) (*GetAttributeValuesOutput, error) {
 	req, out := c.GetAttributeValuesRequest(input)
 	return out, req.Send()
@@ -355,11 +339,7 @@ const opGetProducts = "GetProducts"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProducts
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProducts
->>>>>>> Initial dep workover
 func (c *Pricing) GetProductsRequest(input *GetProductsInput) (req *request.Request, output *GetProductsOutput) {
 	op := &request.Operation{
 		Name:       opGetProducts,
@@ -410,11 +390,7 @@ func (c *Pricing) GetProductsRequest(input *GetProductsInput) (req *request.Requ
 //   * ErrCodeExpiredNextTokenException "ExpiredNextTokenException"
 //   The pagination token expired. Try again without a pagination token.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProducts
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProducts
->>>>>>> Initial dep workover
 func (c *Pricing) GetProducts(input *GetProductsInput) (*GetProductsOutput, error) {
 	req, out := c.GetProductsRequest(input)
 	return out, req.Send()
@@ -488,11 +464,7 @@ func (c *Pricing) GetProductsPagesWithContext(ctx aws.Context, input *GetProduct
 
 // The values of a given attribute, such as Throughput Optimized HDD or Provisioned
 // IOPS for the Amazon EC2volumeType attribute.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/AttributeValue
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/AttributeValue
->>>>>>> Initial dep workover
 type AttributeValue struct {
 	_ struct{} `type:"structure"`
 
@@ -516,11 +488,7 @@ func (s *AttributeValue) SetValue(v string) *AttributeValue {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServicesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServicesRequest
->>>>>>> Initial dep workover
 type DescribeServicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -589,11 +557,7 @@ func (s *DescribeServicesInput) SetServiceCode(v string) *DescribeServicesInput 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServicesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/DescribeServicesResponse
->>>>>>> Initial dep workover
 type DescribeServicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -636,11 +600,7 @@ func (s *DescribeServicesOutput) SetServices(v []*Service) *DescribeServicesOutp
 }
 
 // The constraints that you want all returned products to match.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/Filter
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/Filter
->>>>>>> Initial dep workover
 type Filter struct {
 	_ struct{} `type:"structure"`
 
@@ -722,11 +682,7 @@ func (s *Filter) SetValue(v string) *Filter {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValuesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValuesRequest
->>>>>>> Initial dep workover
 type GetAttributeValuesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -803,11 +759,7 @@ func (s *GetAttributeValuesInput) SetServiceCode(v string) *GetAttributeValuesIn
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValuesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetAttributeValuesResponse
->>>>>>> Initial dep workover
 type GetAttributeValuesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -841,11 +793,7 @@ func (s *GetAttributeValuesOutput) SetNextToken(v string) *GetAttributeValuesOut
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProductsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProductsRequest
->>>>>>> Initial dep workover
 type GetProductsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -932,11 +880,7 @@ func (s *GetProductsInput) SetServiceCode(v string) *GetProductsInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProductsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/GetProductsResponse
->>>>>>> Initial dep workover
 type GetProductsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -981,11 +925,7 @@ func (s *GetProductsOutput) SetPriceList(v []aws.JSONValue) *GetProductsOutput {
 
 // The metadata for a service, such as the service code and available attribute
 // names.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/Service
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/pricing-2017-10-15/Service
->>>>>>> Initial dep workover
 type Service struct {
 	_ struct{} `type:"structure"`
 

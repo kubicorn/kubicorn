@@ -395,11 +395,10 @@ func ExampleInferSchema() {
 
 func ExampleInferSchema_tags() {
 	type Item struct {
-		Name     string
-		Size     float64
-		Count    int    `bigquery:"number"`
-		Secret   []byte `bigquery:"-"`
-		Optional bool   `bigquery:",nullable"`
+		Name   string
+		Size   float64
+		Count  int    `bigquery:"number"`
+		Secret []byte `bigquery:"-"`
 	}
 	schema, err := bigquery.InferSchema(Item{})
 	if err != nil {
@@ -407,13 +406,12 @@ func ExampleInferSchema_tags() {
 		// TODO: Handle error.
 	}
 	for _, fs := range schema {
-		fmt.Println(fs.Name, fs.Type, fs.Required)
+		fmt.Println(fs.Name, fs.Type)
 	}
 	// Output:
-	// Name STRING true
-	// Size FLOAT true
-	// number INTEGER true
-	// Optional BOOLEAN false
+	// Name STRING
+	// Size FLOAT
+	// number INTEGER
 }
 
 func ExampleTable_Create() {

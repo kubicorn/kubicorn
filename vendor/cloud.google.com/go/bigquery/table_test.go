@@ -51,7 +51,6 @@ func TestBQToTableMetadata(t *testing.T) {
 				TimePartitioning: &bq.TimePartitioning{
 					ExpirationMs: 7890,
 					Type:         "DAY",
-					Field:        "pfield",
 				},
 				Type:   "EXTERNAL",
 				View:   &bq.ViewDefinition{Query: "view-query"},
@@ -73,10 +72,7 @@ func TestBQToTableMetadata(t *testing.T) {
 				LastModifiedTime:   aTime.Truncate(time.Millisecond),
 				NumBytes:           123,
 				NumRows:            7,
-				TimePartitioning: &TimePartitioning{
-					Expiration: 7890 * time.Millisecond,
-					Field:      "pfield",
-				},
+				TimePartitioning:   &TimePartitioning{Expiration: 7890 * time.Millisecond},
 				StreamingBuffer: &StreamingBuffer{
 					EstimatedBytes:  11,
 					EstimatedRows:   3,
@@ -158,12 +154,9 @@ func TestTableMetadataToBQ(t *testing.T) {
 		},
 		{
 			&TableMetadata{
-				ViewQuery:      "q",
-				UseStandardSQL: true,
-				TimePartitioning: &TimePartitioning{
-					Expiration: time.Second,
-					Field:      "ofDreams",
-				},
+				ViewQuery:        "q",
+				UseStandardSQL:   true,
+				TimePartitioning: &TimePartitioning{time.Second},
 			},
 			&bq.Table{
 				View: &bq.ViewDefinition{
@@ -174,7 +167,6 @@ func TestTableMetadataToBQ(t *testing.T) {
 				TimePartitioning: &bq.TimePartitioning{
 					Type:         "DAY",
 					ExpirationMs: 1000,
-					Field:        "ofDreams",
 				},
 			},
 		},

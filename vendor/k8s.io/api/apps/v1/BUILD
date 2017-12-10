@@ -17,9 +17,12 @@ go_library(
         "//vendor/k8s.io/api/core/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         "//vendor/k8s.io/apimachinery/pkg/conversion:go_default_library",
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
         "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/util/intstr:go_default_library",

@@ -36,11 +36,7 @@ const opGetMedia = "GetMedia"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/GetMedia
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/GetMedia
->>>>>>> Working on getting compiling
 func (c *KinesisVideoMedia) GetMediaRequest(input *GetMediaInput) (req *request.Request, output *GetMediaOutput) {
 	op := &request.Operation{
 		Name:       opGetMedia,
@@ -111,11 +107,7 @@ func (c *KinesisVideoMedia) GetMediaRequest(input *GetMediaInput) (req *request.
 //   * ErrCodeInvalidArgumentException "InvalidArgumentException"
 //   The value for this input parameter is invalid.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/GetMedia
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/GetMedia
->>>>>>> Working on getting compiling
 func (c *KinesisVideoMedia) GetMedia(input *GetMediaInput) (*GetMediaOutput, error) {
 	req, out := c.GetMediaRequest(input)
 	return out, req.Send()
@@ -137,11 +129,7 @@ func (c *KinesisVideoMedia) GetMediaWithContext(ctx aws.Context, input *GetMedia
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/GetMediaInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/GetMediaInput
->>>>>>> Working on getting compiling
 type GetMediaInput struct {
 	_ struct{} `type:"structure"`
 
@@ -211,11 +199,7 @@ func (s *GetMediaInput) SetStreamName(v string) *GetMediaInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/GetMediaOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/GetMediaOutput
->>>>>>> Working on getting compiling
 type GetMediaOutput struct {
 	_ struct{} `type:"structure" payload:"Payload"`
 
@@ -307,11 +291,7 @@ func (s *GetMediaOutput) SetPayload(v io.ReadCloser) *GetMediaOutput {
 //    tag (AWS_KINESISVIDEO_CONTINUATION_TOKEN). If your previous GetMedia request
 //    terminated, you can use this tag value in your next GetMedia request.
 //    The API then starts returning chunks starting where the last API ended.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/StartSelector
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-video-media-2017-09-30/StartSelector
->>>>>>> Working on getting compiling
 type StartSelector struct {
 	_ struct{} `type:"structure"`
 

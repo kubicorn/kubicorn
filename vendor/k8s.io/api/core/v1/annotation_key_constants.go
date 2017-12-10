@@ -46,6 +46,7 @@ const (
 	SeccompContainerAnnotationKeyPrefix string = "container.seccomp.security.alpha.kubernetes.io/"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	// CreatedByAnnotation represents the key used to store the spec(json)
 	// used to create the resource.
@@ -54,6 +55,8 @@ const (
 	CreatedByAnnotation = "kubernetes.io/created-by"
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	// PreferAvoidPodsAnnotationKey represents the key of preferAvoidPods data (json serialized)
 	// in the Annotations of a Node.
 	PreferAvoidPodsAnnotationKey string = "scheduler.alpha.kubernetes.io/preferAvoidPods"

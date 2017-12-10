@@ -36,11 +36,7 @@ const opCreatePrivateDnsNamespace = "CreatePrivateDnsNamespace"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespace
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) CreatePrivateDnsNamespaceRequest(input *CreatePrivateDnsNamespaceInput) (req *request.Request, output *CreatePrivateDnsNamespaceOutput) {
 	op := &request.Operation{
 		Name:       opCreatePrivateDnsNamespace,
@@ -87,11 +83,7 @@ func (c *ServiceDiscovery) CreatePrivateDnsNamespaceRequest(input *CreatePrivate
 //   * ErrCodeDuplicateRequest "DuplicateRequest"
 //   This request tried to create an object that already exists.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespace
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) CreatePrivateDnsNamespace(input *CreatePrivateDnsNamespaceInput) (*CreatePrivateDnsNamespaceOutput, error) {
 	req, out := c.CreatePrivateDnsNamespaceRequest(input)
 	return out, req.Send()
@@ -138,11 +130,7 @@ const opCreatePublicDnsNamespace = "CreatePublicDnsNamespace"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespace
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) CreatePublicDnsNamespaceRequest(input *CreatePublicDnsNamespaceInput) (req *request.Request, output *CreatePublicDnsNamespaceOutput) {
 	op := &request.Operation{
 		Name:       opCreatePublicDnsNamespace,
@@ -189,11 +177,7 @@ func (c *ServiceDiscovery) CreatePublicDnsNamespaceRequest(input *CreatePublicDn
 //   * ErrCodeDuplicateRequest "DuplicateRequest"
 //   This request tried to create an object that already exists.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespace
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) CreatePublicDnsNamespace(input *CreatePublicDnsNamespaceInput) (*CreatePublicDnsNamespaceOutput, error) {
 	req, out := c.CreatePublicDnsNamespaceRequest(input)
 	return out, req.Send()
@@ -240,11 +224,7 @@ const opCreateService = "CreateService"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateService
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) CreateServiceRequest(input *CreateServiceInput) (req *request.Request, output *CreateServiceOutput) {
 	op := &request.Operation{
 		Name:       opCreateService,
@@ -296,11 +276,7 @@ func (c *ServiceDiscovery) CreateServiceRequest(input *CreateServiceInput) (req 
 //   The service can't be created because a service with the same name already
 //   exists.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateService
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) CreateService(input *CreateServiceInput) (*CreateServiceOutput, error) {
 	req, out := c.CreateServiceRequest(input)
 	return out, req.Send()
@@ -347,11 +323,7 @@ const opDeleteNamespace = "DeleteNamespace"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteNamespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteNamespace
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) DeleteNamespaceRequest(input *DeleteNamespaceInput) (req *request.Request, output *DeleteNamespaceOutput) {
 	op := &request.Operation{
 		Name:       opDeleteNamespace,
@@ -395,11 +367,7 @@ func (c *ServiceDiscovery) DeleteNamespaceRequest(input *DeleteNamespaceInput) (
 //   * ErrCodeDuplicateRequest "DuplicateRequest"
 //   This request tried to create an object that already exists.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteNamespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteNamespace
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) DeleteNamespace(input *DeleteNamespaceInput) (*DeleteNamespaceOutput, error) {
 	req, out := c.DeleteNamespaceRequest(input)
 	return out, req.Send()
@@ -446,11 +414,7 @@ const opDeleteService = "DeleteService"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteService
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) DeleteServiceRequest(input *DeleteServiceInput) (req *request.Request, output *DeleteServiceOutput) {
 	op := &request.Operation{
 		Name:       opDeleteService,
@@ -491,11 +455,7 @@ func (c *ServiceDiscovery) DeleteServiceRequest(input *DeleteServiceInput) (req 
 //   The specified resource can't be deleted because it contains other resources.
 //   For example, you can't delete a service that contains any instances.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteService
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) DeleteService(input *DeleteServiceInput) (*DeleteServiceOutput, error) {
 	req, out := c.DeleteServiceRequest(input)
 	return out, req.Send()
@@ -542,11 +502,7 @@ const opDeregisterInstance = "DeregisterInstance"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeregisterInstance
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeregisterInstance
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) DeregisterInstanceRequest(input *DeregisterInstanceInput) (req *request.Request, output *DeregisterInstanceOutput) {
 	op := &request.Operation{
 		Name:       opDeregisterInstance,
@@ -593,11 +549,7 @@ func (c *ServiceDiscovery) DeregisterInstanceRequest(input *DeregisterInstanceIn
 //   * ErrCodeServiceNotFound "ServiceNotFound"
 //   No service exists with the specified ID.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeregisterInstance
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeregisterInstance
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) DeregisterInstance(input *DeregisterInstanceInput) (*DeregisterInstanceOutput, error) {
 	req, out := c.DeregisterInstanceRequest(input)
 	return out, req.Send()
@@ -644,11 +596,7 @@ const opGetInstance = "GetInstance"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstance
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstance
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetInstanceRequest(input *GetInstanceInput) (req *request.Request, output *GetInstanceOutput) {
 	op := &request.Operation{
 		Name:       opGetInstance,
@@ -687,11 +635,7 @@ func (c *ServiceDiscovery) GetInstanceRequest(input *GetInstanceInput) (req *req
 //   * ErrCodeServiceNotFound "ServiceNotFound"
 //   No service exists with the specified ID.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstance
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstance
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetInstance(input *GetInstanceInput) (*GetInstanceOutput, error) {
 	req, out := c.GetInstanceRequest(input)
 	return out, req.Send()
@@ -738,11 +682,7 @@ const opGetInstancesHealthStatus = "GetInstancesHealthStatus"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstancesHealthStatus
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstancesHealthStatus
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetInstancesHealthStatusRequest(input *GetInstancesHealthStatusInput) (req *request.Request, output *GetInstancesHealthStatusOutput) {
 	op := &request.Operation{
 		Name:       opGetInstancesHealthStatus,
@@ -788,11 +728,7 @@ func (c *ServiceDiscovery) GetInstancesHealthStatusRequest(input *GetInstancesHe
 //   * ErrCodeServiceNotFound "ServiceNotFound"
 //   No service exists with the specified ID.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstancesHealthStatus
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstancesHealthStatus
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetInstancesHealthStatus(input *GetInstancesHealthStatusInput) (*GetInstancesHealthStatusOutput, error) {
 	req, out := c.GetInstancesHealthStatusRequest(input)
 	return out, req.Send()
@@ -889,11 +825,7 @@ const opGetNamespace = "GetNamespace"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetNamespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetNamespace
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetNamespaceRequest(input *GetNamespaceInput) (req *request.Request, output *GetNamespaceOutput) {
 	op := &request.Operation{
 		Name:       opGetNamespace,
@@ -929,11 +861,7 @@ func (c *ServiceDiscovery) GetNamespaceRequest(input *GetNamespaceInput) (req *r
 //   * ErrCodeNamespaceNotFound "NamespaceNotFound"
 //   No namespace exists with the specified ID.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetNamespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetNamespace
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetNamespace(input *GetNamespaceInput) (*GetNamespaceOutput, error) {
 	req, out := c.GetNamespaceRequest(input)
 	return out, req.Send()
@@ -980,11 +908,7 @@ const opGetOperation = "GetOperation"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetOperation
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetOperation
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetOperationRequest(input *GetOperationInput) (req *request.Request, output *GetOperationOutput) {
 	op := &request.Operation{
 		Name:       opGetOperation,
@@ -1018,11 +942,7 @@ func (c *ServiceDiscovery) GetOperationRequest(input *GetOperationInput) (req *r
 //   * ErrCodeOperationNotFound "OperationNotFound"
 //   No operation exists with the specified ID.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetOperation
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetOperation
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetOperation(input *GetOperationInput) (*GetOperationOutput, error) {
 	req, out := c.GetOperationRequest(input)
 	return out, req.Send()
@@ -1069,11 +989,7 @@ const opGetService = "GetService"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetService
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetServiceRequest(input *GetServiceInput) (req *request.Request, output *GetServiceOutput) {
 	op := &request.Operation{
 		Name:       opGetService,
@@ -1109,11 +1025,7 @@ func (c *ServiceDiscovery) GetServiceRequest(input *GetServiceInput) (req *reque
 //   * ErrCodeServiceNotFound "ServiceNotFound"
 //   No service exists with the specified ID.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetService
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) GetService(input *GetServiceInput) (*GetServiceOutput, error) {
 	req, out := c.GetServiceRequest(input)
 	return out, req.Send()
@@ -1160,11 +1072,7 @@ const opListInstances = "ListInstances"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListInstances
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListInstances
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) ListInstancesRequest(input *ListInstancesInput) (req *request.Request, output *ListInstancesOutput) {
 	op := &request.Operation{
 		Name:       opListInstances,
@@ -1207,11 +1115,7 @@ func (c *ServiceDiscovery) ListInstancesRequest(input *ListInstancesInput) (req 
 //   One or more specified values aren't valid. For example, when you're creating
 //   a namespace, the value of Name might not be a valid DNS name.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListInstances
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListInstances
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) ListInstances(input *ListInstancesInput) (*ListInstancesOutput, error) {
 	req, out := c.ListInstancesRequest(input)
 	return out, req.Send()
@@ -1308,11 +1212,7 @@ const opListNamespaces = "ListNamespaces"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListNamespaces
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListNamespaces
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) ListNamespacesRequest(input *ListNamespacesInput) (req *request.Request, output *ListNamespacesOutput) {
 	op := &request.Operation{
 		Name:       opListNamespaces,
@@ -1352,11 +1252,7 @@ func (c *ServiceDiscovery) ListNamespacesRequest(input *ListNamespacesInput) (re
 //   One or more specified values aren't valid. For example, when you're creating
 //   a namespace, the value of Name might not be a valid DNS name.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListNamespaces
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListNamespaces
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) ListNamespaces(input *ListNamespacesInput) (*ListNamespacesOutput, error) {
 	req, out := c.ListNamespacesRequest(input)
 	return out, req.Send()
@@ -1453,11 +1349,7 @@ const opListOperations = "ListOperations"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListOperations
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListOperations
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) ListOperationsRequest(input *ListOperationsInput) (req *request.Request, output *ListOperationsOutput) {
 	op := &request.Operation{
 		Name:       opListOperations,
@@ -1496,11 +1388,7 @@ func (c *ServiceDiscovery) ListOperationsRequest(input *ListOperationsInput) (re
 //   One or more specified values aren't valid. For example, when you're creating
 //   a namespace, the value of Name might not be a valid DNS name.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListOperations
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListOperations
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) ListOperations(input *ListOperationsInput) (*ListOperationsOutput, error) {
 	req, out := c.ListOperationsRequest(input)
 	return out, req.Send()
@@ -1597,11 +1485,7 @@ const opListServices = "ListServices"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListServices
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListServices
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) ListServicesRequest(input *ListServicesInput) (req *request.Request, output *ListServicesOutput) {
 	op := &request.Operation{
 		Name:       opListServices,
@@ -1635,11 +1519,7 @@ func (c *ServiceDiscovery) ListServicesRequest(input *ListServicesInput) (req *r
 //
 // See the AWS API reference guide for Amazon Route 53 Auto Naming's
 // API operation ListServices for usage and error information.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListServices
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListServices
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) ListServices(input *ListServicesInput) (*ListServicesOutput, error) {
 	req, out := c.ListServicesRequest(input)
 	return out, req.Send()
@@ -1736,11 +1616,7 @@ const opRegisterInstance = "RegisterInstance"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/RegisterInstance
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/RegisterInstance
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) RegisterInstanceRequest(input *RegisterInstanceInput) (req *request.Request, output *RegisterInstanceOutput) {
 	op := &request.Operation{
 		Name:       opRegisterInstance,
@@ -1814,11 +1690,7 @@ func (c *ServiceDiscovery) RegisterInstanceRequest(input *RegisterInstanceInput)
 //   * ErrCodeServiceNotFound "ServiceNotFound"
 //   No service exists with the specified ID.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/RegisterInstance
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/RegisterInstance
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) RegisterInstance(input *RegisterInstanceInput) (*RegisterInstanceOutput, error) {
 	req, out := c.RegisterInstanceRequest(input)
 	return out, req.Send()
@@ -1865,11 +1737,7 @@ const opUpdateService = "UpdateService"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateService
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) UpdateServiceRequest(input *UpdateServiceInput) (req *request.Request, output *UpdateServiceOutput) {
 	op := &request.Operation{
 		Name:       opUpdateService,
@@ -1916,11 +1784,7 @@ func (c *ServiceDiscovery) UpdateServiceRequest(input *UpdateServiceInput) (req 
 //   * ErrCodeServiceNotFound "ServiceNotFound"
 //   No service exists with the specified ID.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateService
->>>>>>> Working on getting compiling
 func (c *ServiceDiscovery) UpdateService(input *UpdateServiceInput) (*UpdateServiceOutput, error) {
 	req, out := c.UpdateServiceRequest(input)
 	return out, req.Send()
@@ -1942,11 +1806,7 @@ func (c *ServiceDiscovery) UpdateServiceWithContext(ctx aws.Context, input *Upda
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespaceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespaceRequest
->>>>>>> Working on getting compiling
 type CreatePrivateDnsNamespaceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2020,11 +1880,7 @@ func (s *CreatePrivateDnsNamespaceInput) SetVpc(v string) *CreatePrivateDnsNames
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespaceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePrivateDnsNamespaceResponse
->>>>>>> Working on getting compiling
 type CreatePrivateDnsNamespaceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2049,11 +1905,7 @@ func (s *CreatePrivateDnsNamespaceOutput) SetOperationId(v string) *CreatePrivat
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespaceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespaceRequest
->>>>>>> Working on getting compiling
 type CreatePublicDnsNamespaceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2111,11 +1963,7 @@ func (s *CreatePublicDnsNamespaceInput) SetName(v string) *CreatePublicDnsNamesp
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespaceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreatePublicDnsNamespaceResponse
->>>>>>> Working on getting compiling
 type CreatePublicDnsNamespaceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2140,11 +1988,7 @@ func (s *CreatePublicDnsNamespaceOutput) SetOperationId(v string) *CreatePublicD
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateServiceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateServiceRequest
->>>>>>> Working on getting compiling
 type CreateServiceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2252,11 +2096,7 @@ func (s *CreateServiceInput) SetName(v string) *CreateServiceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateServiceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateServiceResponse
->>>>>>> Working on getting compiling
 type CreateServiceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2280,11 +2120,7 @@ func (s *CreateServiceOutput) SetService(v *Service) *CreateServiceOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteNamespaceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteNamespaceRequest
->>>>>>> Working on getting compiling
 type DeleteNamespaceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2323,11 +2159,7 @@ func (s *DeleteNamespaceInput) SetId(v string) *DeleteNamespaceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteNamespaceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteNamespaceResponse
->>>>>>> Working on getting compiling
 type DeleteNamespaceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2352,11 +2184,7 @@ func (s *DeleteNamespaceOutput) SetOperationId(v string) *DeleteNamespaceOutput 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteServiceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteServiceRequest
->>>>>>> Working on getting compiling
 type DeleteServiceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2395,11 +2223,7 @@ func (s *DeleteServiceInput) SetId(v string) *DeleteServiceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteServiceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeleteServiceResponse
->>>>>>> Working on getting compiling
 type DeleteServiceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2414,11 +2238,7 @@ func (s DeleteServiceOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeregisterInstanceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeregisterInstanceRequest
->>>>>>> Working on getting compiling
 type DeregisterInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2471,11 +2291,7 @@ func (s *DeregisterInstanceInput) SetServiceId(v string) *DeregisterInstanceInpu
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeregisterInstanceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DeregisterInstanceResponse
->>>>>>> Working on getting compiling
 type DeregisterInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2502,11 +2318,7 @@ func (s *DeregisterInstanceOutput) SetOperationId(v string) *DeregisterInstanceO
 
 // A complex type that contains information about the resource record sets that
 // you want Amazon Route 53 to create when you register an instance.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DnsConfig
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DnsConfig
->>>>>>> Working on getting compiling
 type DnsConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -2572,11 +2384,7 @@ func (s *DnsConfig) SetNamespaceId(v string) *DnsConfig {
 
 // A complex type that contains information about changes to the resource record
 // sets that Amazon Route 53 creates when you register an instance.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DnsConfigChange
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DnsConfigChange
->>>>>>> Working on getting compiling
 type DnsConfigChange struct {
 	_ struct{} `type:"structure"`
 
@@ -2628,11 +2436,7 @@ func (s *DnsConfigChange) SetDnsRecords(v []*DnsRecord) *DnsConfigChange {
 
 // A complex type that contains the ID for the hosted zone that Amazon Route
 // 53 creates when you create a namespace.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DnsProperties
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DnsProperties
->>>>>>> Working on getting compiling
 type DnsProperties struct {
 	_ struct{} `type:"structure"`
 
@@ -2659,11 +2463,7 @@ func (s *DnsProperties) SetHostedZoneId(v string) *DnsProperties {
 
 // A complex type that contains information about the resource record sets that
 // you want Amazon Route 53 to create when you register an instance.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DnsRecord
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/DnsRecord
->>>>>>> Working on getting compiling
 type DnsRecord struct {
 	_ struct{} `type:"structure"`
 
@@ -2733,11 +2533,7 @@ func (s *DnsRecord) SetType(v string) *DnsRecord {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstanceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstanceRequest
->>>>>>> Working on getting compiling
 type GetInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2790,11 +2586,7 @@ func (s *GetInstanceInput) SetServiceId(v string) *GetInstanceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstanceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstanceResponse
->>>>>>> Working on getting compiling
 type GetInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2818,11 +2610,7 @@ func (s *GetInstanceOutput) SetInstance(v *Instance) *GetInstanceOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstancesHealthStatusRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstancesHealthStatusRequest
->>>>>>> Working on getting compiling
 type GetInstancesHealthStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2905,11 +2693,7 @@ func (s *GetInstancesHealthStatusInput) SetServiceId(v string) *GetInstancesHeal
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstancesHealthStatusResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetInstancesHealthStatusResponse
->>>>>>> Working on getting compiling
 type GetInstancesHealthStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2945,11 +2729,7 @@ func (s *GetInstancesHealthStatusOutput) SetStatus(v map[string]*string) *GetIns
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetNamespaceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetNamespaceRequest
->>>>>>> Working on getting compiling
 type GetNamespaceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2988,11 +2768,7 @@ func (s *GetNamespaceInput) SetId(v string) *GetNamespaceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetNamespaceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetNamespaceResponse
->>>>>>> Working on getting compiling
 type GetNamespaceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3016,11 +2792,7 @@ func (s *GetNamespaceOutput) SetNamespace(v *Namespace) *GetNamespaceOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetOperationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetOperationRequest
->>>>>>> Working on getting compiling
 type GetOperationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3059,11 +2831,7 @@ func (s *GetOperationInput) SetOperationId(v string) *GetOperationInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetOperationResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetOperationResponse
->>>>>>> Working on getting compiling
 type GetOperationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3087,11 +2855,7 @@ func (s *GetOperationOutput) SetOperation(v *Operation) *GetOperationOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetServiceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetServiceRequest
->>>>>>> Working on getting compiling
 type GetServiceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3130,11 +2894,7 @@ func (s *GetServiceInput) SetId(v string) *GetServiceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetServiceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/GetServiceResponse
->>>>>>> Working on getting compiling
 type GetServiceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3175,11 +2935,7 @@ func (s *GetServiceOutput) SetService(v *Service) *GetServiceOutput {
 //
 // For information about the charges for health checks, see Amazon Route 53
 // Pricing (http://aws.amazon.com/route53/pricing).
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/HealthCheckConfig
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/HealthCheckConfig
->>>>>>> Working on getting compiling
 type HealthCheckConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -3266,11 +3022,7 @@ func (s *HealthCheckConfig) SetType(v string) *HealthCheckConfig {
 
 // A complex type that contains information about an instance that Amazon Route
 // 53 creates when you submit a RegisterInstance request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/Instance
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/Instance
->>>>>>> Working on getting compiling
 type Instance struct {
 	_ struct{} `type:"structure"`
 
@@ -3340,11 +3092,7 @@ func (s *Instance) SetId(v string) *Instance {
 
 // A complex type that contains information about the instances that you created
 // by using a specified service.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/InstanceSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/InstanceSummary
->>>>>>> Working on getting compiling
 type InstanceSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -3387,11 +3135,7 @@ func (s *InstanceSummary) SetId(v string) *InstanceSummary {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListInstancesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListInstancesRequest
->>>>>>> Working on getting compiling
 type ListInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3457,11 +3201,7 @@ func (s *ListInstancesInput) SetServiceId(v string) *ListInstancesInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListInstancesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListInstancesResponse
->>>>>>> Working on getting compiling
 type ListInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3497,11 +3237,7 @@ func (s *ListInstancesOutput) SetNextToken(v string) *ListInstancesOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListNamespacesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListNamespacesRequest
->>>>>>> Working on getting compiling
 type ListNamespacesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3576,11 +3312,7 @@ func (s *ListNamespacesInput) SetNextToken(v string) *ListNamespacesInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListNamespacesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListNamespacesResponse
->>>>>>> Working on getting compiling
 type ListNamespacesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3616,11 +3348,7 @@ func (s *ListNamespacesOutput) SetNextToken(v string) *ListNamespacesOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListOperationsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListOperationsRequest
->>>>>>> Working on getting compiling
 type ListOperationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3696,11 +3424,7 @@ func (s *ListOperationsInput) SetNextToken(v string) *ListOperationsInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListOperationsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListOperationsResponse
->>>>>>> Working on getting compiling
 type ListOperationsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3735,11 +3459,7 @@ func (s *ListOperationsOutput) SetOperations(v []*OperationSummary) *ListOperati
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListServicesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListServicesRequest
->>>>>>> Working on getting compiling
 type ListServicesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3814,11 +3534,7 @@ func (s *ListServicesInput) SetNextToken(v string) *ListServicesInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListServicesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ListServicesResponse
->>>>>>> Working on getting compiling
 type ListServicesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3856,11 +3572,7 @@ func (s *ListServicesOutput) SetServices(v []*ServiceSummary) *ListServicesOutpu
 }
 
 // A complex type that contains information about a specified namespace.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/Namespace
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/Namespace
->>>>>>> Working on getting compiling
 type Namespace struct {
 	_ struct{} `type:"structure"`
 
@@ -3962,11 +3674,7 @@ func (s *Namespace) SetType(v string) *Namespace {
 
 // A complex type that identifies the namespaces that you want to list. You
 // can choose to list public or private namespaces.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/NamespaceFilter
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/NamespaceFilter
->>>>>>> Working on getting compiling
 type NamespaceFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -4041,11 +3749,7 @@ func (s *NamespaceFilter) SetValues(v []*string) *NamespaceFilter {
 
 // A complex type that contains information that is specific to the namespace
 // type.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/NamespaceProperties
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/NamespaceProperties
->>>>>>> Working on getting compiling
 type NamespaceProperties struct {
 	_ struct{} `type:"structure"`
 
@@ -4071,11 +3775,7 @@ func (s *NamespaceProperties) SetDnsProperties(v *DnsProperties) *NamespacePrope
 }
 
 // A complex type that contains information about a namespace.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/NamespaceSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/NamespaceSummary
->>>>>>> Working on getting compiling
 type NamespaceSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -4129,11 +3829,7 @@ func (s *NamespaceSummary) SetType(v string) *NamespaceSummary {
 }
 
 // A complex type that contains information about a specified operation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/Operation
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/Operation
->>>>>>> Working on getting compiling
 type Operation struct {
 	_ struct{} `type:"structure"`
 
@@ -4238,11 +3934,7 @@ func (s *Operation) SetUpdateDate(v time.Time) *Operation {
 }
 
 // A complex type that lets you select the operations that you want to list.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/OperationFilter
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/OperationFilter
->>>>>>> Working on getting compiling
 type OperationFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -4344,11 +4036,7 @@ func (s *OperationFilter) SetValues(v []*string) *OperationFilter {
 
 // A complex type that contains information about an operation that matches
 // the criteria that you specified in a ListOperations request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/OperationSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/OperationSummary
->>>>>>> Working on getting compiling
 type OperationSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -4390,11 +4078,7 @@ func (s *OperationSummary) SetStatus(v string) *OperationSummary {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/RegisterInstanceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/RegisterInstanceRequest
->>>>>>> Working on getting compiling
 type RegisterInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4491,11 +4175,7 @@ func (s *RegisterInstanceInput) SetServiceId(v string) *RegisterInstanceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/RegisterInstanceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/RegisterInstanceResponse
->>>>>>> Working on getting compiling
 type RegisterInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4521,11 +4201,7 @@ func (s *RegisterInstanceOutput) SetOperationId(v string) *RegisterInstanceOutpu
 }
 
 // A complex type that contains information about the specified service.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/Service
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/Service
->>>>>>> Working on getting compiling
 type Service struct {
 	_ struct{} `type:"structure"`
 
@@ -4644,11 +4320,7 @@ func (s *Service) SetName(v string) *Service {
 }
 
 // A complex type that contains changes to an existing service.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ServiceChange
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ServiceChange
->>>>>>> Working on getting compiling
 type ServiceChange struct {
 	_ struct{} `type:"structure"`
 
@@ -4734,11 +4406,7 @@ func (s *ServiceChange) SetHealthCheckConfig(v *HealthCheckConfig) *ServiceChang
 
 // A complex type that lets you specify the namespaces that you want to list
 // services for.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ServiceFilter
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ServiceFilter
->>>>>>> Working on getting compiling
 type ServiceFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -4809,11 +4477,7 @@ func (s *ServiceFilter) SetValues(v []*string) *ServiceFilter {
 }
 
 // A complex type that contains information about a specified service.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ServiceSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/ServiceSummary
->>>>>>> Working on getting compiling
 type ServiceSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -4876,11 +4540,7 @@ func (s *ServiceSummary) SetName(v string) *ServiceSummary {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateServiceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateServiceRequest
->>>>>>> Working on getting compiling
 type UpdateServiceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4938,11 +4598,7 @@ func (s *UpdateServiceInput) SetService(v *ServiceChange) *UpdateServiceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateServiceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/UpdateServiceResponse
->>>>>>> Working on getting compiling
 type UpdateServiceOutput struct {
 	_ struct{} `type:"structure"`
 

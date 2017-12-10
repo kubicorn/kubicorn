@@ -15,9 +15,8 @@
 package firestore
 
 import (
-	"testing"
-
 	"golang.org/x/net/context"
+	"testing"
 
 	pb "google.golang.org/genproto/googleapis/firestore/v1beta1"
 
@@ -87,7 +86,7 @@ func TestRunTransaction(t *testing.T) {
 		if err != nil {
 			return err
 		}
-		tx.Update(docref, []Update{{Path: "count", Value: count.(int64) + 1}})
+		tx.UpdateMap(docref, map[string]interface{}{"count": count.(int64) + 1})
 		return nil
 	})
 	if err != nil {
@@ -316,16 +315,18 @@ func TestTransactionErrors(t *testing.T) {
 		func(ctx context.Context) error { _, err := dr.Create(ctx, testData); return err },
 		func(ctx context.Context) error { _, err := dr.Set(ctx, testData); return err },
 		func(ctx context.Context) error { _, err := dr.Delete(ctx); return err },
+		func(ctx context.Context) error { _, err := dr.UpdateMap(ctx, testData); return err },
 		func(ctx context.Context) error {
-			_, err := dr.Update(ctx, []Update{{FieldPath: []string{"*"}, Value: 1}})
+			_, err := dr.UpdateStruct(ctx, []string{"x"}, struct{}{})
+			return err
+		},
+		func(ctx context.Context) error {
+			_, err := dr.UpdatePaths(ctx, []FieldPathUpdate{{Path: []string{"*"}, Value: 1}})
 			return err
 		},
 		func(ctx context.Context) error { it := c.Collections(ctx); _, err := it.Next(); return err },
 		func(ctx context.Context) error { it := dr.Collections(ctx); _, err := it.Next(); return err },
-		func(ctx context.Context) error {
-			_, err := c.Batch().Set(dr, testData).Commit(ctx)
-			return err
-		},
+		func(ctx context.Context) error { _, err := c.Batch().Commit(ctx); return err },
 		func(ctx context.Context) error {
 			it := c.Collection("C").Documents(ctx)
 			_, err := it.Next()

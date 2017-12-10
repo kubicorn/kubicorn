@@ -122,11 +122,7 @@ const opCheckDomainTransferability = "CheckDomainTransferability"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferability
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferability
->>>>>>> Initial dep workover
 func (c *Route53Domains) CheckDomainTransferabilityRequest(input *CheckDomainTransferabilityInput) (req *request.Request, output *CheckDomainTransferabilityOutput) {
 	op := &request.Operation{
 		Name:       opCheckDomainTransferability,
@@ -163,11 +159,7 @@ func (c *Route53Domains) CheckDomainTransferabilityRequest(input *CheckDomainTra
 //   * ErrCodeUnsupportedTLD "UnsupportedTLD"
 //   Amazon Route 53 does not support this top-level domain (TLD).
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferability
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferability
->>>>>>> Initial dep workover
 func (c *Route53Domains) CheckDomainTransferability(input *CheckDomainTransferabilityInput) (*CheckDomainTransferabilityOutput, error) {
 	req, out := c.CheckDomainTransferabilityRequest(input)
 	return out, req.Send()
@@ -2544,11 +2536,7 @@ func (s *CheckDomainAvailabilityOutput) SetAvailability(v string) *CheckDomainAv
 }
 
 // The CheckDomainTransferability request contains the following elements.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferabilityRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferabilityRequest
->>>>>>> Initial dep workover
 type CheckDomainTransferabilityInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2603,11 +2591,7 @@ func (s *CheckDomainTransferabilityInput) SetDomainName(v string) *CheckDomainTr
 }
 
 // The CheckDomainTransferability response includes the following elements.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferabilityResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/CheckDomainTransferabilityResponse
->>>>>>> Initial dep workover
 type CheckDomainTransferabilityOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3113,11 +3097,7 @@ func (s *DomainSummary) SetTransferLock(v bool) *DomainSummary {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DomainTransferability
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/DomainTransferability
->>>>>>> Initial dep workover
 type DomainTransferability struct {
 	_ struct{} `type:"structure"`
 
@@ -3151,11 +3131,7 @@ func (s *DomainTransferability) SetTransferable(v string) *DomainTransferability
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/EnableDomainAutoRenewRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/route53domains-2014-05-15/EnableDomainAutoRenewRequest
->>>>>>> Initial dep workover
 type EnableDomainAutoRenewInput struct {
 	_ struct{} `type:"structure"`
 

@@ -127,12 +127,9 @@ func (item *mapItem) VisitKind(schema *proto.Kind) {
 	}
 }
 
-<<<<<<< HEAD
 func (item *mapItem) VisitArbitrary(schema *proto.Arbitrary) {
 }
 
-=======
->>>>>>> Initial dep workover
 func (item *mapItem) VisitReference(schema proto.Reference) {
 	// passthrough
 	schema.SubSchema().Accept(item)
@@ -176,12 +173,9 @@ func (item *arrayItem) VisitKind(schema *proto.Kind) {
 	item.AddValidationError(InvalidTypeError{Path: schema.GetPath().String(), Expected: "array", Actual: "map"})
 }
 
-<<<<<<< HEAD
 func (item *arrayItem) VisitArbitrary(schema *proto.Arbitrary) {
 }
 
-=======
->>>>>>> Initial dep workover
 func (item *arrayItem) VisitReference(schema proto.Reference) {
 	// passthrough
 	schema.SubSchema().Accept(item)
@@ -238,12 +232,9 @@ func (item *primitiveItem) VisitKind(schema *proto.Kind) {
 	item.AddValidationError(InvalidTypeError{Path: schema.GetPath().String(), Expected: "map", Actual: item.Kind})
 }
 
-<<<<<<< HEAD
 func (item *primitiveItem) VisitArbitrary(schema *proto.Arbitrary) {
 }
 
-=======
->>>>>>> Initial dep workover
 func (item *primitiveItem) VisitReference(schema proto.Reference) {
 	// passthrough
 	schema.SubSchema().Accept(item)

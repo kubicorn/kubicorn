@@ -50,10 +50,14 @@ func isEmptyValue(v reflect.Value) bool {
 	case reflect.Float32, reflect.Float64:
 		return v.Float() == 0
 <<<<<<< HEAD
+<<<<<<< HEAD
 	case reflect.Interface, reflect.Ptr, reflect.Func:
 =======
 	case reflect.Interface, reflect.Ptr:
 >>>>>>> Working on getting compiling
+=======
+	case reflect.Interface, reflect.Ptr, reflect.Func:
+>>>>>>> moar deps
 		return v.IsNil()
 	}
 	return false

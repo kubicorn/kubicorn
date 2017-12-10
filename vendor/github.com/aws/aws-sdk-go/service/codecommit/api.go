@@ -253,8 +253,6 @@ func (c *CodeCommit) CreateBranchWithContext(ctx aws.Context, input *CreateBranc
 }
 
 const opCreatePullRequest = "CreatePullRequest"
-<<<<<<< HEAD
-=======
 
 // CreatePullRequestRequest generates a "aws/request.Request" representing the
 // client's request for the CreatePullRequest operation. The "output" return
@@ -269,201 +267,6 @@ const opCreatePullRequest = "CreatePullRequest"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the CreatePullRequestRequest method.
-//    req, resp := client.CreatePullRequestRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreatePullRequest
-func (c *CodeCommit) CreatePullRequestRequest(input *CreatePullRequestInput) (req *request.Request, output *CreatePullRequestOutput) {
-	op := &request.Operation{
-		Name:       opCreatePullRequest,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &CreatePullRequestInput{}
-	}
-
-	output = &CreatePullRequestOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// CreatePullRequest API operation for AWS CodeCommit.
-//
-// Creates a pull request in the specified repository.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation CreatePullRequest for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-//   * ErrCodeClientRequestTokenRequiredException "ClientRequestTokenRequiredException"
-//   A client request token is required. A client request token is an unique,
-//   client-generated idempotency token that when provided in a request, ensures
-//   the request cannot be repeated with a changed parameter. If a request is
-//   received with the same parameters and a token is included, the request will
-//   return information about the initial request that used that token.
-//
-//   * ErrCodeInvalidClientRequestTokenException "InvalidClientRequestTokenException"
-//   The client request token is not valid.
-//
-//   * ErrCodeIdempotencyParameterMismatchException "IdempotencyParameterMismatchException"
-//   The client request token is not valid. Either the token is not in a valid
-//   format, or the token has been used in a previous request and cannot be re-used.
-//
-//   * ErrCodeReferenceNameRequiredException "ReferenceNameRequiredException"
-//   A reference name is required, but none was provided.
-//
-//   * ErrCodeInvalidReferenceNameException "InvalidReferenceNameException"
-//   The specified reference name format is not valid. Reference names must conform
-//   to the Git references format, for example refs/heads/master. For more information,
-//   see Git Internals - Git References (https://git-scm.com/book/en/v2/Git-Internals-Git-References)
-//   or consult your Git documentation.
-//
-//   * ErrCodeReferenceDoesNotExistException "ReferenceDoesNotExistException"
-//   The specified reference does not exist. You must provide a full commit ID.
-//
-//   * ErrCodeReferenceTypeNotSupportedException "ReferenceTypeNotSupportedException"
-//   The specified reference is not a supported type.
-//
-//   * ErrCodeTitleRequiredException "TitleRequiredException"
-//   A pull request title is required. It cannot be empty or null.
-//
-//   * ErrCodeInvalidTitleException "InvalidTitleException"
-//   The title of the pull request is not valid. Pull request titles cannot exceed
-//   100 characters in length.
-//
-//   * ErrCodeInvalidDescriptionException "InvalidDescriptionException"
-//   The pull request description is not valid. Descriptions are limited to 1,000
-//   characters in length.
-//
-//   * ErrCodeTargetsRequiredException "TargetsRequiredException"
-//   An array of target objects is required. It cannot be empty or null.
-//
-//   * ErrCodeInvalidTargetsException "InvalidTargetsException"
-//   The targets for the pull request is not valid or not in a valid format. Targets
-//   are a list of target objects. Each target object must contain the full values
-//   for the repository name, source branch, and destination branch for a pull
-//   request.
-//
-//   * ErrCodeTargetRequiredException "TargetRequiredException"
-//   A pull request target is required. It cannot be empty or null. A pull request
-//   target must contain the full values for the repository name, source branch,
-//   and destination branch for the pull request.
-//
-//   * ErrCodeInvalidTargetException "InvalidTargetException"
-//   The target for the pull request is not valid. A target must contain the full
-//   values for the repository name, source branch, and destination branch for
-//   the pull request.
-//
-//   * ErrCodeMultipleRepositoriesInPullRequestException "MultipleRepositoriesInPullRequestException"
-//   You cannot include more than one repository in a pull request. Make sure
-//   you have specified only one repository name in your request, and then try
-//   again.
-//
-//   * ErrCodeMaximumOpenPullRequestsExceededException "MaximumOpenPullRequestsExceededException"
-//   You cannot create the pull request because the repository has too many open
-//   pull requests. The maximum number of open pull requests for a repository
-//   is 1,000. Close one or more open pull requests, and then try again.
-//
-//   * ErrCodeSourceAndDestinationAreSameException "SourceAndDestinationAreSameException"
-//   The source branch and the destination branch for the pull request are the
-//   same. You must specify different branches for the source and destination.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreatePullRequest
-func (c *CodeCommit) CreatePullRequest(input *CreatePullRequestInput) (*CreatePullRequestOutput, error) {
-	req, out := c.CreatePullRequestRequest(input)
-	return out, req.Send()
-}
-
-// CreatePullRequestWithContext is the same as CreatePullRequest with the addition of
-// the ability to pass a context and additional request options.
-//
-// See CreatePullRequest for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) CreatePullRequestWithContext(ctx aws.Context, input *CreatePullRequestInput, opts ...request.Option) (*CreatePullRequestOutput, error) {
-	req, out := c.CreatePullRequestRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opCreateRepository = "CreateRepository"
->>>>>>> Working on getting compiling
-
-<<<<<<< HEAD
-// CreatePullRequestRequest generates a "aws/request.Request" representing the
-// client's request for the CreatePullRequest operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreatePullRequest for more information on using the CreatePullRequest
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// CreateRepositoryRequest generates a "aws/request.Request" representing the
-// client's request for the CreateRepository operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateRepository for more information on using the CreateRepository
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the CreatePullRequestRequest method.
@@ -626,224 +429,57 @@ func (c *CodeCommit) CreatePullRequestWithContext(ctx aws.Context, input *Create
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opCreateRepository = "CreateRepository"
 
 // CreateRepositoryRequest generates a "aws/request.Request" representing the
 // client's request for the CreateRepository operation. The "output" return
-=======
-const opDeleteBranch = "DeleteBranch"
-
-// DeleteBranchRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteBranch operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-// See DeleteBranch for more information on using the DeleteBranch
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the DeleteBranchRequest method.
-//    req, resp := client.DeleteBranchRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranch
-func (c *CodeCommit) DeleteBranchRequest(input *DeleteBranchInput) (req *request.Request, output *DeleteBranchOutput) {
-	op := &request.Operation{
-		Name:       opDeleteBranch,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &DeleteBranchInput{}
-	}
-
-	output = &DeleteBranchOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// DeleteBranch API operation for AWS CodeCommit.
-//
-// Deletes a branch from a repository, unless that branch is the default branch
-// for the repository.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation DeleteBranch for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeBranchNameRequiredException "BranchNameRequiredException"
-//   A branch name is required but was not specified.
-//
-//   * ErrCodeInvalidBranchNameException "InvalidBranchNameException"
-//   The specified reference name is not valid.
-//
-//   * ErrCodeDefaultBranchCannotBeDeletedException "DefaultBranchCannotBeDeletedException"
-//   The specified branch is the default branch for the repository, and cannot
-//   be deleted. To delete this branch, you must first set another branch as the
-//   default branch.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranch
-func (c *CodeCommit) DeleteBranch(input *DeleteBranchInput) (*DeleteBranchOutput, error) {
-	req, out := c.DeleteBranchRequest(input)
-	return out, req.Send()
-}
-
-// DeleteBranchWithContext is the same as DeleteBranch with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteBranch for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) DeleteBranchWithContext(ctx aws.Context, input *DeleteBranchInput, opts ...request.Option) (*DeleteBranchOutput, error) {
-	req, out := c.DeleteBranchRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opDeleteCommentContent = "DeleteCommentContent"
-
-<<<<<<< HEAD
-// DeleteRepositoryRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteRepository operation. The "output" return
->>>>>>> Initial dep workover
-=======
-// DeleteCommentContentRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteCommentContent operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-<<<<<<< HEAD
-<<<<<<< HEAD
 // See CreateRepository for more information on using the CreateRepository
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// See DeleteRepository for more information on using the DeleteRepository
-=======
-// See DeleteCommentContent for more information on using the DeleteCommentContent
->>>>>>> Working on getting compiling
-// API call, and error handling.
 //
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the CreateRepositoryRequest method.
 //    req, resp := client.CreateRepositoryRequest(params)
-=======
-//    // Example sending a request using the DeleteCommentContentRequest method.
-//    req, resp := client.DeleteCommentContentRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateRepository
 func (c *CodeCommit) CreateRepositoryRequest(input *CreateRepositoryInput) (req *request.Request, output *CreateRepositoryOutput) {
 	op := &request.Operation{
 		Name:       opCreateRepository,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteCommentContent
-func (c *CodeCommit) DeleteCommentContentRequest(input *DeleteCommentContentInput) (req *request.Request, output *DeleteCommentContentOutput) {
-	op := &request.Operation{
-		Name:       opDeleteCommentContent,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &CreateRepositoryInput{}
 	}
 
 	output = &CreateRepositoryOutput{}
-=======
-		input = &DeleteCommentContentInput{}
-	}
-
-	output = &DeleteCommentContentOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // CreateRepository API operation for AWS CodeCommit.
 //
 // Creates a new, empty repository.
-=======
-// DeleteCommentContent API operation for AWS CodeCommit.
-//
-// Deletes the content of a comment made on a change, file, or commit in a repository.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation CreateRepository for usage and error information.
 //
 // Returned Error Codes:
@@ -871,27 +507,16 @@ func (c *CodeCommit) DeleteCommentContentRequest(input *DeleteCommentContentInpu
 //
 //   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
 //   An encryption key could not be accessed.
-=======
-// API operation DeleteCommentContent for usage and error information.
 //
-// Returned Error Codes:
-//   * ErrCodeCommentDoesNotExistException "CommentDoesNotExistException"
-//   No comment exists with the provided ID. Verify that you have provided the
-//   correct ID, and then try again.
->>>>>>> Working on getting compiling
+//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
+//   The encryption key is disabled.
 //
-//   * ErrCodeCommentIdRequiredException "CommentIdRequiredException"
-//   The comment ID is missing or null. A comment ID is required.
+//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
+//   No encryption key was found.
 //
-//   * ErrCodeInvalidCommentIdException "InvalidCommentIdException"
-//   The comment ID is not in a valid format. Make sure that you have provided
-//   the full comment ID.
+//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
+//   The encryption key is not available.
 //
-//   * ErrCodeCommentDeletedException "CommentDeletedException"
-//   This comment has already been deleted. You cannot edit or delete a deleted
-//   comment.
-//
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateRepository
 func (c *CodeCommit) CreateRepository(input *CreateRepositoryInput) (*CreateRepositoryOutput, error) {
 	req, out := c.CreateRepositoryRequest(input)
@@ -902,39 +527,20 @@ func (c *CodeCommit) CreateRepository(input *CreateRepositoryInput) (*CreateRepo
 // the ability to pass a context and additional request options.
 //
 // See CreateRepository for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteCommentContent
-func (c *CodeCommit) DeleteCommentContent(input *DeleteCommentContentInput) (*DeleteCommentContentOutput, error) {
-	req, out := c.DeleteCommentContentRequest(input)
-	return out, req.Send()
-}
-
-// DeleteCommentContentWithContext is the same as DeleteCommentContent with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteCommentContent for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) CreateRepositoryWithContext(ctx aws.Context, input *CreateRepositoryInput, opts ...request.Option) (*CreateRepositoryOutput, error) {
 	req, out := c.CreateRepositoryRequest(input)
-=======
-func (c *CodeCommit) DeleteCommentContentWithContext(ctx aws.Context, input *DeleteCommentContentInput, opts ...request.Option) (*DeleteCommentContentOutput, error) {
-	req, out := c.DeleteCommentContentRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opDeleteBranch = "DeleteBranch"
 
-<<<<<<< HEAD
 // DeleteBranchRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteBranch operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -948,100 +554,44 @@ const opDeleteBranch = "DeleteBranch"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// GetBlobRequest generates a "aws/request.Request" representing the
-// client's request for the GetBlob operation. The "output" return
-=======
-const opDeleteRepository = "DeleteRepository"
-
-// DeleteRepositoryRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteRepository operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteRepository for more information on using the DeleteRepository
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the DeleteBranchRequest method.
 //    req, resp := client.DeleteBranchRequest(params)
-=======
-//    // Example sending a request using the DeleteRepositoryRequest method.
-//    req, resp := client.DeleteRepositoryRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranch
 func (c *CodeCommit) DeleteBranchRequest(input *DeleteBranchInput) (req *request.Request, output *DeleteBranchOutput) {
 	op := &request.Operation{
 		Name:       opDeleteBranch,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteRepository
-func (c *CodeCommit) DeleteRepositoryRequest(input *DeleteRepositoryInput) (req *request.Request, output *DeleteRepositoryOutput) {
-	op := &request.Operation{
-		Name:       opDeleteRepository,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &DeleteBranchInput{}
 	}
 
 	output = &DeleteBranchOutput{}
-=======
-		input = &DeleteRepositoryInput{}
-	}
-
-	output = &DeleteRepositoryOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // DeleteBranch API operation for AWS CodeCommit.
 //
 // Deletes a branch from a repository, unless that branch is the default branch
 // for the repository.
-=======
-// DeleteRepository API operation for AWS CodeCommit.
-//
-// Deletes a repository. If a specified repository was already deleted, a null
-// repository ID will be returned.
-//
-// Deleting a repository also deletes all associated objects and metadata. After
-// a repository is deleted, all future push calls to the deleted repository
-// will fail.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation DeleteBranch for usage and error information.
-=======
-// API operation DeleteRepository for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
@@ -1057,7 +607,6 @@ func (c *CodeCommit) DeleteRepositoryRequest(input *DeleteRepositoryInput) (req 
 //   Other exceptions occur when a required repository parameter is missing, or
 //   when a specified repository does not exist.
 //
-<<<<<<< HEAD
 //   * ErrCodeBranchNameRequiredException "BranchNameRequiredException"
 //   A branch name is required but was not specified.
 //
@@ -1069,8 +618,6 @@ func (c *CodeCommit) DeleteRepositoryRequest(input *DeleteRepositoryInput) (req 
 //   be deleted. To delete this branch, you must first set another branch as the
 //   default branch.
 //
-=======
->>>>>>> Working on getting compiling
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
 //
@@ -1086,7 +633,6 @@ func (c *CodeCommit) DeleteRepositoryRequest(input *DeleteRepositoryInput) (req 
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranch
 func (c *CodeCommit) DeleteBranch(input *DeleteBranchInput) (*DeleteBranchOutput, error) {
 	req, out := c.DeleteBranchRequest(input)
@@ -1097,39 +643,20 @@ func (c *CodeCommit) DeleteBranch(input *DeleteBranchInput) (*DeleteBranchOutput
 // the ability to pass a context and additional request options.
 //
 // See DeleteBranch for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteRepository
-func (c *CodeCommit) DeleteRepository(input *DeleteRepositoryInput) (*DeleteRepositoryOutput, error) {
-	req, out := c.DeleteRepositoryRequest(input)
-	return out, req.Send()
-}
-
-// DeleteRepositoryWithContext is the same as DeleteRepository with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteRepository for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) DeleteBranchWithContext(ctx aws.Context, input *DeleteBranchInput, opts ...request.Option) (*DeleteBranchOutput, error) {
 	req, out := c.DeleteBranchRequest(input)
-=======
-func (c *CodeCommit) DeleteRepositoryWithContext(ctx aws.Context, input *DeleteRepositoryInput, opts ...request.Option) (*DeleteRepositoryOutput, error) {
-	req, out := c.DeleteRepositoryRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opDeleteCommentContent = "DeleteCommentContent"
 
-<<<<<<< HEAD
 // DeleteCommentContentRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteCommentContent operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1143,141 +670,48 @@ const opDeleteCommentContent = "DeleteCommentContent"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// GetBranchRequest generates a "aws/request.Request" representing the
-// client's request for the GetBranch operation. The "output" return
-=======
-const opDescribePullRequestEvents = "DescribePullRequestEvents"
-
-// DescribePullRequestEventsRequest generates a "aws/request.Request" representing the
-// client's request for the DescribePullRequestEvents operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribePullRequestEvents for more information on using the DescribePullRequestEvents
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the DeleteCommentContentRequest method.
 //    req, resp := client.DeleteCommentContentRequest(params)
-=======
-//    // Example sending a request using the DescribePullRequestEventsRequest method.
-//    req, resp := client.DescribePullRequestEventsRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteCommentContent
 func (c *CodeCommit) DeleteCommentContentRequest(input *DeleteCommentContentInput) (req *request.Request, output *DeleteCommentContentOutput) {
 	op := &request.Operation{
 		Name:       opDeleteCommentContent,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DescribePullRequestEvents
-func (c *CodeCommit) DescribePullRequestEventsRequest(input *DescribePullRequestEventsInput) (req *request.Request, output *DescribePullRequestEventsOutput) {
-	op := &request.Operation{
-		Name:       opDescribePullRequestEvents,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
-		Paginator: &request.Paginator{
-			InputTokens:     []string{"nextToken"},
-			OutputTokens:    []string{"nextToken"},
-			LimitToken:      "maxResults",
-			TruncationToken: "",
-		},
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &DeleteCommentContentInput{}
 	}
 
 	output = &DeleteCommentContentOutput{}
-=======
-		input = &DescribePullRequestEventsInput{}
-	}
-
-	output = &DescribePullRequestEventsOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // DeleteCommentContent API operation for AWS CodeCommit.
 //
 // Deletes the content of a comment made on a change, file, or commit in a repository.
-=======
-// DescribePullRequestEvents API operation for AWS CodeCommit.
-//
-// Returns information about one or more pull request events.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation DeleteCommentContent for usage and error information.
 //
 // Returned Error Codes:
 //   * ErrCodeCommentDoesNotExistException "CommentDoesNotExistException"
 //   No comment exists with the provided ID. Verify that you have provided the
 //   correct ID, and then try again.
-=======
-// API operation DescribePullRequestEvents for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
-//   The pull request ID could not be found. Make sure that you have specified
-//   the correct repository name and pull request ID, and then try again.
-//
-//   * ErrCodeInvalidPullRequestIdException "InvalidPullRequestIdException"
-//   The pull request ID is not valid. Make sure that you have provided the full
-//   ID and that the pull request is in the specified repository, and then try
-//   again.
-//
-//   * ErrCodePullRequestIdRequiredException "PullRequestIdRequiredException"
-//   A pull request ID is required, but none was provided.
-//
-//   * ErrCodeInvalidPullRequestEventTypeException "InvalidPullRequestEventTypeException"
-//   The pull request event type is not valid.
-//
-//   * ErrCodeInvalidActorArnException "InvalidActorArnException"
-//   The Amazon Resource Name (ARN) is not valid. Make sure that you have provided
-//   the full ARN for the user who initiated the change for the pull request,
-//   and then try again.
-//
-//   * ErrCodeActorDoesNotExistException "ActorDoesNotExistException"
-//   The specified Amazon Resource Name (ARN) does not exist in the AWS account.
-//
-//   * ErrCodeInvalidMaxResultsException "InvalidMaxResultsException"
-//   The specified number of maximum results is not valid.
-//
-//   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
-//   The specified continuation token is not valid.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
->>>>>>> Working on getting compiling
 //
 //   * ErrCodeCommentIdRequiredException "CommentIdRequiredException"
 //   The comment ID is missing or null. A comment ID is required.
@@ -1290,7 +724,6 @@ func (c *CodeCommit) DescribePullRequestEventsRequest(input *DescribePullRequest
 //   This comment has already been deleted. You cannot edit or delete a deleted
 //   comment.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteCommentContent
 func (c *CodeCommit) DeleteCommentContent(input *DeleteCommentContentInput) (*DeleteCommentContentOutput, error) {
 	req, out := c.DeleteCommentContentRequest(input)
@@ -1301,177 +734,60 @@ func (c *CodeCommit) DeleteCommentContent(input *DeleteCommentContentInput) (*De
 // the ability to pass a context and additional request options.
 //
 // See DeleteCommentContent for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DescribePullRequestEvents
-func (c *CodeCommit) DescribePullRequestEvents(input *DescribePullRequestEventsInput) (*DescribePullRequestEventsOutput, error) {
-	req, out := c.DescribePullRequestEventsRequest(input)
-	return out, req.Send()
-}
-
-// DescribePullRequestEventsWithContext is the same as DescribePullRequestEvents with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DescribePullRequestEvents for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) DeleteCommentContentWithContext(ctx aws.Context, input *DeleteCommentContentInput, opts ...request.Option) (*DeleteCommentContentOutput, error) {
 	req, out := c.DeleteCommentContentRequest(input)
-=======
-func (c *CodeCommit) DescribePullRequestEventsWithContext(ctx aws.Context, input *DescribePullRequestEventsInput, opts ...request.Option) (*DescribePullRequestEventsOutput, error) {
-	req, out := c.DescribePullRequestEventsRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opDeleteRepository = "DeleteRepository"
 
-<<<<<<< HEAD
 // DeleteRepositoryRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteRepository operation. The "output" return
-=======
-// GetCommitRequest generates a "aws/request.Request" representing the
-// client's request for the GetCommit operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See DeleteRepository for more information on using the DeleteRepository
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// See GetCommit for more information on using the GetCommit
-// API call, and error handling.
-=======
-// DescribePullRequestEventsPages iterates over the pages of a DescribePullRequestEvents operation,
-// calling the "fn" function with the response data for each page. To stop
-// iterating, return false from the fn function.
-//
-// See DescribePullRequestEvents method for more information on how to use this operation.
->>>>>>> Working on getting compiling
-//
-// Note: This operation can generate multiple requests to a service.
-//
-<<<<<<< HEAD
->>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the DeleteRepositoryRequest method.
 //    req, resp := client.DeleteRepositoryRequest(params)
-=======
-//    // Example iterating over at most 3 pages of a DescribePullRequestEvents operation.
-//    pageNum := 0
-//    err := client.DescribePullRequestEventsPages(params,
-//        func(page *DescribePullRequestEventsOutput, lastPage bool) bool {
-//            pageNum++
-//            fmt.Println(page)
-//            return pageNum <= 3
-//        })
-//
-func (c *CodeCommit) DescribePullRequestEventsPages(input *DescribePullRequestEventsInput, fn func(*DescribePullRequestEventsOutput, bool) bool) error {
-	return c.DescribePullRequestEventsPagesWithContext(aws.BackgroundContext(), input, fn)
-}
-
-// DescribePullRequestEventsPagesWithContext same as DescribePullRequestEventsPages except
-// it takes a Context and allows setting request options on the pages.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) DescribePullRequestEventsPagesWithContext(ctx aws.Context, input *DescribePullRequestEventsInput, fn func(*DescribePullRequestEventsOutput, bool) bool, opts ...request.Option) error {
-	p := request.Pagination{
-		NewRequest: func() (*request.Request, error) {
-			var inCpy *DescribePullRequestEventsInput
-			if input != nil {
-				tmp := *input
-				inCpy = &tmp
-			}
-			req, _ := c.DescribePullRequestEventsRequest(inCpy)
-			req.SetContext(ctx)
-			req.ApplyOptions(opts...)
-			return req, nil
-		},
-	}
-
-	cont := true
-	for p.Next() && cont {
-		cont = fn(p.Page().(*DescribePullRequestEventsOutput), !p.HasNextPage())
-	}
-	return p.Err()
-}
-
-const opGetBlob = "GetBlob"
-
-// GetBlobRequest generates a "aws/request.Request" representing the
-// client's request for the GetBlob operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetBlob for more information on using the GetBlob
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the GetBlobRequest method.
-//    req, resp := client.GetBlobRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteRepository
 func (c *CodeCommit) DeleteRepositoryRequest(input *DeleteRepositoryInput) (req *request.Request, output *DeleteRepositoryOutput) {
 	op := &request.Operation{
 		Name:       opDeleteRepository,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBlob
-func (c *CodeCommit) GetBlobRequest(input *GetBlobInput) (req *request.Request, output *GetBlobOutput) {
-	op := &request.Operation{
-		Name:       opGetBlob,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &DeleteRepositoryInput{}
 	}
 
 	output = &DeleteRepositoryOutput{}
-=======
-		input = &GetBlobInput{}
-	}
-
-	output = &GetBlobOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // DeleteRepository API operation for AWS CodeCommit.
 //
 // Deletes a repository. If a specified repository was already deleted, a null
@@ -1480,22 +796,13 @@ func (c *CodeCommit) GetBlobRequest(input *GetBlobInput) (req *request.Request, 
 // Deleting a repository also deletes all associated objects and metadata. After
 // a repository is deleted, all future push calls to the deleted repository
 // will fail.
-=======
-// GetBlob API operation for AWS CodeCommit.
-//
-// Returns the base-64 encoded content of an individual blob within a repository.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation DeleteRepository for usage and error information.
-=======
-// API operation GetBlob for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
@@ -1508,21 +815,6 @@ func (c *CodeCommit) GetBlobRequest(input *GetBlobInput) (req *request.Request, 
 //   Other exceptions occur when a required repository parameter is missing, or
 //   when a specified repository does not exist.
 //
-<<<<<<< HEAD
-=======
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeBlobIdRequiredException "BlobIdRequiredException"
-//   A blob ID is required but was not specified.
-//
-//   * ErrCodeInvalidBlobIdException "InvalidBlobIdException"
-//   The specified blob is not valid.
-//
-//   * ErrCodeBlobIdDoesNotExistException "BlobIdDoesNotExistException"
-//   The specified blob does not exist.
-//
->>>>>>> Working on getting compiling
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
 //
@@ -1538,7 +830,6 @@ func (c *CodeCommit) GetBlobRequest(input *GetBlobInput) (req *request.Request, 
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteRepository
 func (c *CodeCommit) DeleteRepository(input *DeleteRepositoryInput) (*DeleteRepositoryOutput, error) {
 	req, out := c.DeleteRepositoryRequest(input)
@@ -1549,44 +840,20 @@ func (c *CodeCommit) DeleteRepository(input *DeleteRepositoryInput) (*DeleteRepo
 // the ability to pass a context and additional request options.
 //
 // See DeleteRepository for details on how to use this API operation.
-=======
-//   * ErrCodeFileTooLargeException "FileTooLargeException"
-//   The specified file exceeds the file size limit for AWS CodeCommit. For more
-//   information about limits in AWS CodeCommit, see AWS CodeCommit User Guide
-//   (http://docs.aws.amazon.com/codecommit/latest/userguide/limits.html).
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBlob
-func (c *CodeCommit) GetBlob(input *GetBlobInput) (*GetBlobOutput, error) {
-	req, out := c.GetBlobRequest(input)
-	return out, req.Send()
-}
-
-// GetBlobWithContext is the same as GetBlob with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetBlob for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) DeleteRepositoryWithContext(ctx aws.Context, input *DeleteRepositoryInput, opts ...request.Option) (*DeleteRepositoryOutput, error) {
 	req, out := c.DeleteRepositoryRequest(input)
-=======
-func (c *CodeCommit) GetBlobWithContext(ctx aws.Context, input *GetBlobInput, opts ...request.Option) (*GetBlobOutput, error) {
-	req, out := c.GetBlobRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opDescribePullRequestEvents = "DescribePullRequestEvents"
 
-<<<<<<< HEAD
 // DescribePullRequestEventsRequest generates a "aws/request.Request" representing the
 // client's request for the DescribePullRequestEvents operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1600,44 +867,16 @@ const opDescribePullRequestEvents = "DescribePullRequestEvents"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// GetDifferencesRequest generates a "aws/request.Request" representing the
-// client's request for the GetDifferences operation. The "output" return
-=======
-const opGetBranch = "GetBranch"
-
-// GetBranchRequest generates a "aws/request.Request" representing the
-// client's request for the GetBranch operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetBranch for more information on using the GetBranch
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the DescribePullRequestEventsRequest method.
 //    req, resp := client.DescribePullRequestEventsRequest(params)
-=======
-//    // Example sending a request using the GetBranchRequest method.
-//    req, resp := client.GetBranchRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DescribePullRequestEvents
 func (c *CodeCommit) DescribePullRequestEventsRequest(input *DescribePullRequestEventsInput) (req *request.Request, output *DescribePullRequestEventsOutput) {
 	op := &request.Operation{
@@ -1657,46 +896,20 @@ func (c *CodeCommit) DescribePullRequestEventsRequest(input *DescribePullRequest
 	}
 
 	output = &DescribePullRequestEventsOutput{}
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBranch
-func (c *CodeCommit) GetBranchRequest(input *GetBranchInput) (req *request.Request, output *GetBranchOutput) {
-	op := &request.Operation{
-		Name:       opGetBranch,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &GetBranchInput{}
-	}
-
-	output = &GetBranchOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // DescribePullRequestEvents API operation for AWS CodeCommit.
 //
 // Returns information about one or more pull request events.
-=======
-// GetBranch API operation for AWS CodeCommit.
-//
-// Returns information about a repository branch, including its name and the
-// last commit ID.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation DescribePullRequestEvents for usage and error information.
-=======
-// API operation GetBranch for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
@@ -1714,7 +927,6 @@ func (c *CodeCommit) GetBranchRequest(input *GetBranchInput) (req *request.Reque
 //   * ErrCodeInvalidPullRequestEventTypeException "InvalidPullRequestEventTypeException"
 //   The pull request event type is not valid.
 //
-<<<<<<< HEAD
 //   * ErrCodeInvalidActorArnException "InvalidActorArnException"
 //   The Amazon Resource Name (ARN) is not valid. Make sure that you have provided
 //   the full ARN for the user who initiated the change for the pull request,
@@ -1728,16 +940,6 @@ func (c *CodeCommit) GetBranchRequest(input *GetBranchInput) (req *request.Reque
 //
 //   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
 //   The specified continuation token is not valid.
-=======
-//   * ErrCodeBranchNameRequiredException "BranchNameRequiredException"
-//   A branch name is required but was not specified.
-//
-//   * ErrCodeInvalidBranchNameException "InvalidBranchNameException"
-//   The specified reference name is not valid.
-//
-//   * ErrCodeBranchDoesNotExistException "BranchDoesNotExistException"
-//   The specified branch does not exist.
->>>>>>> Working on getting compiling
 //
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
@@ -1754,7 +956,6 @@ func (c *CodeCommit) GetBranchRequest(input *GetBranchInput) (req *request.Reque
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DescribePullRequestEvents
 func (c *CodeCommit) DescribePullRequestEvents(input *DescribePullRequestEventsInput) (*DescribePullRequestEventsOutput, error) {
 	req, out := c.DescribePullRequestEventsRequest(input)
@@ -1765,36 +966,18 @@ func (c *CodeCommit) DescribePullRequestEvents(input *DescribePullRequestEventsI
 // the ability to pass a context and additional request options.
 //
 // See DescribePullRequestEvents for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBranch
-func (c *CodeCommit) GetBranch(input *GetBranchInput) (*GetBranchOutput, error) {
-	req, out := c.GetBranchRequest(input)
-	return out, req.Send()
-}
-
-// GetBranchWithContext is the same as GetBranch with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetBranch for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) DescribePullRequestEventsWithContext(ctx aws.Context, input *DescribePullRequestEventsInput, opts ...request.Option) (*DescribePullRequestEventsOutput, error) {
 	req, out := c.DescribePullRequestEventsRequest(input)
-=======
-func (c *CodeCommit) GetBranchWithContext(ctx aws.Context, input *GetBranchInput, opts ...request.Option) (*GetBranchOutput, error) {
-	req, out := c.GetBranchRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // DescribePullRequestEventsPages iterates over the pages of a DescribePullRequestEvents operation,
 // calling the "fn" function with the response data for each page. To stop
 // iterating, return false from the fn function.
@@ -1847,7 +1030,6 @@ func (c *CodeCommit) DescribePullRequestEventsPagesWithContext(ctx aws.Context, 
 
 const opGetBlob = "GetBlob"
 
-<<<<<<< HEAD
 // GetBlobRequest generates a "aws/request.Request" representing the
 // client's request for the GetBlob operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -1861,101 +1043,48 @@ const opGetBlob = "GetBlob"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// GetRepositoryRequest generates a "aws/request.Request" representing the
-// client's request for the GetRepository operation. The "output" return
-=======
-const opGetComment = "GetComment"
-
-// GetCommentRequest generates a "aws/request.Request" representing the
-// client's request for the GetComment operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetComment for more information on using the GetComment
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the GetBlobRequest method.
 //    req, resp := client.GetBlobRequest(params)
-=======
-//    // Example sending a request using the GetCommentRequest method.
-//    req, resp := client.GetCommentRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBlob
 func (c *CodeCommit) GetBlobRequest(input *GetBlobInput) (req *request.Request, output *GetBlobOutput) {
 	op := &request.Operation{
 		Name:       opGetBlob,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetComment
-func (c *CodeCommit) GetCommentRequest(input *GetCommentInput) (req *request.Request, output *GetCommentOutput) {
-	op := &request.Operation{
-		Name:       opGetComment,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &GetBlobInput{}
 	}
 
 	output = &GetBlobOutput{}
-=======
-		input = &GetCommentInput{}
-	}
-
-	output = &GetCommentOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetBlob API operation for AWS CodeCommit.
 //
 // Returns the base-64 encoded content of an individual blob within a repository.
-=======
-// GetComment API operation for AWS CodeCommit.
-//
-// Returns the content of a comment made on a change, file, or commit in a repository.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetBlob for usage and error information.
-=======
-// API operation GetComment for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
-//   * ErrCodeCommentDoesNotExistException "CommentDoesNotExistException"
-//   No comment exists with the provided ID. Verify that you have provided the
-//   correct ID, and then try again.
+//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
+//   A repository name is required but was not specified.
 //
-<<<<<<< HEAD
 //   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
 //   At least one specified repository name is not valid.
 //
@@ -2005,159 +1134,71 @@ func (c *CodeCommit) GetBlob(input *GetBlobInput) (*GetBlobOutput, error) {
 // the ability to pass a context and additional request options.
 //
 // See GetBlob for details on how to use this API operation.
-=======
-//   * ErrCodeCommentIdRequiredException "CommentIdRequiredException"
-//   The comment ID is missing or null. A comment ID is required.
-//
-//   * ErrCodeInvalidCommentIdException "InvalidCommentIdException"
-//   The comment ID is not in a valid format. Make sure that you have provided
-//   the full comment ID.
-//
-//   * ErrCodeCommentDeletedException "CommentDeletedException"
-//   This comment has already been deleted. You cannot edit or delete a deleted
-//   comment.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetComment
-func (c *CodeCommit) GetComment(input *GetCommentInput) (*GetCommentOutput, error) {
-	req, out := c.GetCommentRequest(input)
-	return out, req.Send()
-}
-
-// GetCommentWithContext is the same as GetComment with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetComment for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetBlobWithContext(ctx aws.Context, input *GetBlobInput, opts ...request.Option) (*GetBlobOutput, error) {
 	req, out := c.GetBlobRequest(input)
-=======
-func (c *CodeCommit) GetCommentWithContext(ctx aws.Context, input *GetCommentInput, opts ...request.Option) (*GetCommentOutput, error) {
-	req, out := c.GetCommentRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetBranch = "GetBranch"
 
-<<<<<<< HEAD
 // GetBranchRequest generates a "aws/request.Request" representing the
 // client's request for the GetBranch operation. The "output" return
-=======
-// GetRepositoryTriggersRequest generates a "aws/request.Request" representing the
-// client's request for the GetRepositoryTriggers operation. The "output" return
->>>>>>> Initial dep workover
-=======
-const opGetCommentsForComparedCommit = "GetCommentsForComparedCommit"
-
-// GetCommentsForComparedCommitRequest generates a "aws/request.Request" representing the
-// client's request for the GetCommentsForComparedCommit operation. The "output" return
->>>>>>> Working on getting compiling
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // See GetBranch for more information on using the GetBranch
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// See GetRepositoryTriggers for more information on using the GetRepositoryTriggers
-=======
-// See GetCommentsForComparedCommit for more information on using the GetCommentsForComparedCommit
->>>>>>> Working on getting compiling
-// API call, and error handling.
 //
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the GetBranchRequest method.
 //    req, resp := client.GetBranchRequest(params)
-=======
-//    // Example sending a request using the GetCommentsForComparedCommitRequest method.
-//    req, resp := client.GetCommentsForComparedCommitRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBranch
 func (c *CodeCommit) GetBranchRequest(input *GetBranchInput) (req *request.Request, output *GetBranchOutput) {
 	op := &request.Operation{
 		Name:       opGetBranch,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForComparedCommit
-func (c *CodeCommit) GetCommentsForComparedCommitRequest(input *GetCommentsForComparedCommitInput) (req *request.Request, output *GetCommentsForComparedCommitOutput) {
-	op := &request.Operation{
-		Name:       opGetCommentsForComparedCommit,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
-		Paginator: &request.Paginator{
-			InputTokens:     []string{"nextToken"},
-			OutputTokens:    []string{"nextToken"},
-			LimitToken:      "maxResults",
-			TruncationToken: "",
-		},
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &GetBranchInput{}
 	}
 
 	output = &GetBranchOutput{}
-=======
-		input = &GetCommentsForComparedCommitInput{}
-	}
-
-	output = &GetCommentsForComparedCommitOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetBranch API operation for AWS CodeCommit.
 //
 // Returns information about a repository branch, including its name and the
 // last commit ID.
-=======
-// GetCommentsForComparedCommit API operation for AWS CodeCommit.
-//
-// Returns information about comments made on the comparison between two commits.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetBranch for usage and error information.
-=======
-// API operation GetCommentsForComparedCommit for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
@@ -2173,7 +1214,6 @@ func (c *CodeCommit) GetCommentsForComparedCommitRequest(input *GetCommentsForCo
 //   Other exceptions occur when a required repository parameter is missing, or
 //   when a specified repository does not exist.
 //
-<<<<<<< HEAD
 //   * ErrCodeBranchNameRequiredException "BranchNameRequiredException"
 //   A branch name is required but was not specified.
 //
@@ -2182,23 +1222,6 @@ func (c *CodeCommit) GetCommentsForComparedCommitRequest(input *GetCommentsForCo
 //
 //   * ErrCodeBranchDoesNotExistException "BranchDoesNotExistException"
 //   The specified branch does not exist.
-=======
-//   * ErrCodeCommitIdRequiredException "CommitIdRequiredException"
-//   A commit ID was not specified.
-//
-//   * ErrCodeInvalidCommitIdException "InvalidCommitIdException"
-//   The specified commit ID is not valid.
-//
-//   * ErrCodeCommitDoesNotExistException "CommitDoesNotExistException"
-//   The specified commit does not exist or no commit was specified, and the specified
-//   repository has no default branch.
-//
-//   * ErrCodeInvalidMaxResultsException "InvalidMaxResultsException"
-//   The specified number of maximum results is not valid.
-//
-//   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
-//   The specified continuation token is not valid.
->>>>>>> Working on getting compiling
 //
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
@@ -2215,7 +1238,6 @@ func (c *CodeCommit) GetCommentsForComparedCommitRequest(input *GetCommentsForCo
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBranch
 func (c *CodeCommit) GetBranch(input *GetBranchInput) (*GetBranchOutput, error) {
 	req, out := c.GetBranchRequest(input)
@@ -2226,39 +1248,20 @@ func (c *CodeCommit) GetBranch(input *GetBranchInput) (*GetBranchOutput, error) 
 // the ability to pass a context and additional request options.
 //
 // See GetBranch for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForComparedCommit
-func (c *CodeCommit) GetCommentsForComparedCommit(input *GetCommentsForComparedCommitInput) (*GetCommentsForComparedCommitOutput, error) {
-	req, out := c.GetCommentsForComparedCommitRequest(input)
-	return out, req.Send()
-}
-
-// GetCommentsForComparedCommitWithContext is the same as GetCommentsForComparedCommit with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetCommentsForComparedCommit for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetBranchWithContext(ctx aws.Context, input *GetBranchInput, opts ...request.Option) (*GetBranchOutput, error) {
 	req, out := c.GetBranchRequest(input)
-=======
-func (c *CodeCommit) GetCommentsForComparedCommitWithContext(ctx aws.Context, input *GetCommentsForComparedCommitInput, opts ...request.Option) (*GetCommentsForComparedCommitOutput, error) {
-	req, out := c.GetCommentsForComparedCommitRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetComment = "GetComment"
 
-<<<<<<< HEAD
 // GetCommentRequest generates a "aws/request.Request" representing the
 // client's request for the GetComment operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2272,94 +1275,16 @@ const opGetComment = "GetComment"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// ListBranchesRequest generates a "aws/request.Request" representing the
-// client's request for the ListBranches operation. The "output" return
-=======
-// GetCommentsForComparedCommitPages iterates over the pages of a GetCommentsForComparedCommit operation,
-// calling the "fn" function with the response data for each page. To stop
-// iterating, return false from the fn function.
 //
-// See GetCommentsForComparedCommit method for more information on how to use this operation.
-//
-// Note: This operation can generate multiple requests to a service.
-//
-//    // Example iterating over at most 3 pages of a GetCommentsForComparedCommit operation.
-//    pageNum := 0
-//    err := client.GetCommentsForComparedCommitPages(params,
-//        func(page *GetCommentsForComparedCommitOutput, lastPage bool) bool {
-//            pageNum++
-//            fmt.Println(page)
-//            return pageNum <= 3
-//        })
-//
-func (c *CodeCommit) GetCommentsForComparedCommitPages(input *GetCommentsForComparedCommitInput, fn func(*GetCommentsForComparedCommitOutput, bool) bool) error {
-	return c.GetCommentsForComparedCommitPagesWithContext(aws.BackgroundContext(), input, fn)
-}
-
-// GetCommentsForComparedCommitPagesWithContext same as GetCommentsForComparedCommitPages except
-// it takes a Context and allows setting request options on the pages.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) GetCommentsForComparedCommitPagesWithContext(ctx aws.Context, input *GetCommentsForComparedCommitInput, fn func(*GetCommentsForComparedCommitOutput, bool) bool, opts ...request.Option) error {
-	p := request.Pagination{
-		NewRequest: func() (*request.Request, error) {
-			var inCpy *GetCommentsForComparedCommitInput
-			if input != nil {
-				tmp := *input
-				inCpy = &tmp
-			}
-			req, _ := c.GetCommentsForComparedCommitRequest(inCpy)
-			req.SetContext(ctx)
-			req.ApplyOptions(opts...)
-			return req, nil
-		},
-	}
-
-	cont := true
-	for p.Next() && cont {
-		cont = fn(p.Page().(*GetCommentsForComparedCommitOutput), !p.HasNextPage())
-	}
-	return p.Err()
-}
-
-const opGetCommentsForPullRequest = "GetCommentsForPullRequest"
-
-// GetCommentsForPullRequestRequest generates a "aws/request.Request" representing the
-// client's request for the GetCommentsForPullRequest operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetCommentsForPullRequest for more information on using the GetCommentsForPullRequest
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the GetCommentRequest method.
 //    req, resp := client.GetCommentRequest(params)
-=======
-//    // Example sending a request using the GetCommentsForPullRequestRequest method.
-//    req, resp := client.GetCommentsForPullRequestRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetComment
 func (c *CodeCommit) GetCommentRequest(input *GetCommentInput) (req *request.Request, output *GetCommentOutput) {
 	op := &request.Operation{
@@ -2373,47 +1298,19 @@ func (c *CodeCommit) GetCommentRequest(input *GetCommentInput) (req *request.Req
 	}
 
 	output = &GetCommentOutput{}
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForPullRequest
-func (c *CodeCommit) GetCommentsForPullRequestRequest(input *GetCommentsForPullRequestInput) (req *request.Request, output *GetCommentsForPullRequestOutput) {
-	op := &request.Operation{
-		Name:       opGetCommentsForPullRequest,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-		Paginator: &request.Paginator{
-			InputTokens:     []string{"nextToken"},
-			OutputTokens:    []string{"nextToken"},
-			LimitToken:      "maxResults",
-			TruncationToken: "",
-		},
-	}
-
-	if input == nil {
-		input = &GetCommentsForPullRequestInput{}
-	}
-
-	output = &GetCommentsForPullRequestOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetComment API operation for AWS CodeCommit.
 //
 // Returns the content of a comment made on a change, file, or commit in a repository.
-=======
-// GetCommentsForPullRequest API operation for AWS CodeCommit.
-//
-// Returns comments made on a pull request.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetComment for usage and error information.
 //
 // Returned Error Codes:
@@ -2512,23 +1409,8 @@ func (c *CodeCommit) GetCommentsForComparedCommitRequest(input *GetCommentsForCo
 //
 // See the AWS API reference guide for AWS CodeCommit's
 // API operation GetCommentsForComparedCommit for usage and error information.
-=======
-// API operation GetCommentsForPullRequest for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
-//   * ErrCodePullRequestIdRequiredException "PullRequestIdRequiredException"
-//   A pull request ID is required, but none was provided.
-//
-//   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
-//   The pull request ID could not be found. Make sure that you have specified
-//   the correct repository name and pull request ID, and then try again.
-//
-//   * ErrCodeInvalidPullRequestIdException "InvalidPullRequestIdException"
-//   The pull request ID is not valid. Make sure that you have provided the full
-//   ID and that the pull request is in the specified repository, and then try
-//   again.
-//
 //   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
 //   A repository name is required but was not specified.
 //
@@ -2558,14 +1440,6 @@ func (c *CodeCommit) GetCommentsForComparedCommitRequest(input *GetCommentsForCo
 //   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
 //   The specified continuation token is not valid.
 //
-<<<<<<< HEAD
-=======
-//   * ErrCodeRepositoryNotAssociatedWithPullRequestException "RepositoryNotAssociatedWithPullRequestException"
-//   The repository does not contain any pull requests with that pull request
-//   ID. Check to make sure you have provided the correct repository name for
-//   the pull request.
-//
->>>>>>> Working on getting compiling
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
 //
@@ -2581,7 +1455,6 @@ func (c *CodeCommit) GetCommentsForComparedCommitRequest(input *GetCommentsForCo
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForComparedCommit
 func (c *CodeCommit) GetCommentsForComparedCommit(input *GetCommentsForComparedCommitInput) (*GetCommentsForComparedCommitOutput, error) {
 	req, out := c.GetCommentsForComparedCommitRequest(input)
@@ -2592,36 +1465,18 @@ func (c *CodeCommit) GetCommentsForComparedCommit(input *GetCommentsForComparedC
 // the ability to pass a context and additional request options.
 //
 // See GetCommentsForComparedCommit for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForPullRequest
-func (c *CodeCommit) GetCommentsForPullRequest(input *GetCommentsForPullRequestInput) (*GetCommentsForPullRequestOutput, error) {
-	req, out := c.GetCommentsForPullRequestRequest(input)
-	return out, req.Send()
-}
-
-// GetCommentsForPullRequestWithContext is the same as GetCommentsForPullRequest with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetCommentsForPullRequest for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetCommentsForComparedCommitWithContext(ctx aws.Context, input *GetCommentsForComparedCommitInput, opts ...request.Option) (*GetCommentsForComparedCommitOutput, error) {
 	req, out := c.GetCommentsForComparedCommitRequest(input)
-=======
-func (c *CodeCommit) GetCommentsForPullRequestWithContext(ctx aws.Context, input *GetCommentsForPullRequestInput, opts ...request.Option) (*GetCommentsForPullRequestOutput, error) {
-	req, out := c.GetCommentsForPullRequestRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // GetCommentsForComparedCommitPages iterates over the pages of a GetCommentsForComparedCommit operation,
 // calling the "fn" function with the response data for each page. To stop
 // iterating, return false from the fn function.
@@ -2634,64 +1489,31 @@ func (c *CodeCommit) GetCommentsForPullRequestWithContext(ctx aws.Context, input
 //    pageNum := 0
 //    err := client.GetCommentsForComparedCommitPages(params,
 //        func(page *GetCommentsForComparedCommitOutput, lastPage bool) bool {
-=======
-// GetCommentsForPullRequestPages iterates over the pages of a GetCommentsForPullRequest operation,
-// calling the "fn" function with the response data for each page. To stop
-// iterating, return false from the fn function.
-//
-// See GetCommentsForPullRequest method for more information on how to use this operation.
-//
-// Note: This operation can generate multiple requests to a service.
-//
-//    // Example iterating over at most 3 pages of a GetCommentsForPullRequest operation.
-//    pageNum := 0
-//    err := client.GetCommentsForPullRequestPages(params,
-//        func(page *GetCommentsForPullRequestOutput, lastPage bool) bool {
->>>>>>> Working on getting compiling
 //            pageNum++
 //            fmt.Println(page)
 //            return pageNum <= 3
 //        })
 //
-<<<<<<< HEAD
 func (c *CodeCommit) GetCommentsForComparedCommitPages(input *GetCommentsForComparedCommitInput, fn func(*GetCommentsForComparedCommitOutput, bool) bool) error {
 	return c.GetCommentsForComparedCommitPagesWithContext(aws.BackgroundContext(), input, fn)
 }
 
 // GetCommentsForComparedCommitPagesWithContext same as GetCommentsForComparedCommitPages except
-=======
-func (c *CodeCommit) GetCommentsForPullRequestPages(input *GetCommentsForPullRequestInput, fn func(*GetCommentsForPullRequestOutput, bool) bool) error {
-	return c.GetCommentsForPullRequestPagesWithContext(aws.BackgroundContext(), input, fn)
-}
-
-// GetCommentsForPullRequestPagesWithContext same as GetCommentsForPullRequestPages except
->>>>>>> Working on getting compiling
 // it takes a Context and allows setting request options on the pages.
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetCommentsForComparedCommitPagesWithContext(ctx aws.Context, input *GetCommentsForComparedCommitInput, fn func(*GetCommentsForComparedCommitOutput, bool) bool, opts ...request.Option) error {
 	p := request.Pagination{
 		NewRequest: func() (*request.Request, error) {
 			var inCpy *GetCommentsForComparedCommitInput
-=======
-func (c *CodeCommit) GetCommentsForPullRequestPagesWithContext(ctx aws.Context, input *GetCommentsForPullRequestInput, fn func(*GetCommentsForPullRequestOutput, bool) bool, opts ...request.Option) error {
-	p := request.Pagination{
-		NewRequest: func() (*request.Request, error) {
-			var inCpy *GetCommentsForPullRequestInput
->>>>>>> Working on getting compiling
 			if input != nil {
 				tmp := *input
 				inCpy = &tmp
 			}
-<<<<<<< HEAD
 			req, _ := c.GetCommentsForComparedCommitRequest(inCpy)
-=======
-			req, _ := c.GetCommentsForPullRequestRequest(inCpy)
->>>>>>> Working on getting compiling
 			req.SetContext(ctx)
 			req.ApplyOptions(opts...)
 			return req, nil
@@ -2700,19 +1522,13 @@ func (c *CodeCommit) GetCommentsForPullRequestPagesWithContext(ctx aws.Context, 
 
 	cont := true
 	for p.Next() && cont {
-<<<<<<< HEAD
 		cont = fn(p.Page().(*GetCommentsForComparedCommitOutput), !p.HasNextPage())
-=======
-		cont = fn(p.Page().(*GetCommentsForPullRequestOutput), !p.HasNextPage())
->>>>>>> Working on getting compiling
 	}
 	return p.Err()
 }
 
-<<<<<<< HEAD
 const opGetCommentsForPullRequest = "GetCommentsForPullRequest"
 
-<<<<<<< HEAD
 // GetCommentsForPullRequestRequest generates a "aws/request.Request" representing the
 // client's request for the GetCommentsForPullRequest operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -2726,44 +1542,16 @@ const opGetCommentsForPullRequest = "GetCommentsForPullRequest"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// ListRepositoriesRequest generates a "aws/request.Request" representing the
-// client's request for the ListRepositories operation. The "output" return
-=======
-const opGetCommit = "GetCommit"
-
-// GetCommitRequest generates a "aws/request.Request" representing the
-// client's request for the GetCommit operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetCommit for more information on using the GetCommit
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the GetCommentsForPullRequestRequest method.
 //    req, resp := client.GetCommentsForPullRequestRequest(params)
-=======
-//    // Example sending a request using the GetCommitRequest method.
-//    req, resp := client.GetCommitRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForPullRequest
 func (c *CodeCommit) GetCommentsForPullRequestRequest(input *GetCommentsForPullRequestInput) (req *request.Request, output *GetCommentsForPullRequestOutput) {
 	op := &request.Operation{
@@ -2783,42 +1571,19 @@ func (c *CodeCommit) GetCommentsForPullRequestRequest(input *GetCommentsForPullR
 	}
 
 	output = &GetCommentsForPullRequestOutput{}
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommit
-func (c *CodeCommit) GetCommitRequest(input *GetCommitInput) (req *request.Request, output *GetCommitOutput) {
-	op := &request.Operation{
-		Name:       opGetCommit,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &GetCommitInput{}
-	}
-
-	output = &GetCommitOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetCommentsForPullRequest API operation for AWS CodeCommit.
 //
 // Returns comments made on a pull request.
-=======
-// GetCommit API operation for AWS CodeCommit.
-//
-// Returns information about a commit, including commit message and committer
-// information.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetCommentsForPullRequest for usage and error information.
 //
 // Returned Error Codes:
@@ -2859,39 +1624,14 @@ func (c *CodeCommit) GetCommitRequest(input *GetCommitInput) (req *request.Reque
 //
 //   * ErrCodeInvalidMaxResultsException "InvalidMaxResultsException"
 //   The specified number of maximum results is not valid.
-=======
-// API operation GetCommit for usage and error information.
 //
-// Returned Error Codes:
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
+//   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
+//   The specified continuation token is not valid.
 //
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
->>>>>>> Working on getting compiling
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-<<<<<<< HEAD
 //   * ErrCodeRepositoryNotAssociatedWithPullRequestException "RepositoryNotAssociatedWithPullRequestException"
 //   The repository does not contain any pull requests with that pull request
 //   ID. Check to make sure you have provided the correct repository name for
 //   the pull request.
-=======
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeCommitIdRequiredException "CommitIdRequiredException"
-//   A commit ID was not specified.
-//
-//   * ErrCodeInvalidCommitIdException "InvalidCommitIdException"
-//   The specified commit ID is not valid.
-//
-//   * ErrCodeCommitIdDoesNotExistException "CommitIdDoesNotExistException"
-//   The specified commit ID does not exist.
->>>>>>> Working on getting compiling
 //
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
@@ -2908,7 +1648,6 @@ func (c *CodeCommit) GetCommitRequest(input *GetCommitInput) (req *request.Reque
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForPullRequest
 func (c *CodeCommit) GetCommentsForPullRequest(input *GetCommentsForPullRequestInput) (*GetCommentsForPullRequestOutput, error) {
 	req, out := c.GetCommentsForPullRequestRequest(input)
@@ -2919,36 +1658,18 @@ func (c *CodeCommit) GetCommentsForPullRequest(input *GetCommentsForPullRequestI
 // the ability to pass a context and additional request options.
 //
 // See GetCommentsForPullRequest for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommit
-func (c *CodeCommit) GetCommit(input *GetCommitInput) (*GetCommitOutput, error) {
-	req, out := c.GetCommitRequest(input)
-	return out, req.Send()
-}
-
-// GetCommitWithContext is the same as GetCommit with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetCommit for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetCommentsForPullRequestWithContext(ctx aws.Context, input *GetCommentsForPullRequestInput, opts ...request.Option) (*GetCommentsForPullRequestOutput, error) {
 	req, out := c.GetCommentsForPullRequestRequest(input)
-=======
-func (c *CodeCommit) GetCommitWithContext(ctx aws.Context, input *GetCommitInput, opts ...request.Option) (*GetCommitOutput, error) {
-	req, out := c.GetCommitRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // GetCommentsForPullRequestPages iterates over the pages of a GetCommentsForPullRequest operation,
 // calling the "fn" function with the response data for each page. To stop
 // iterating, return false from the fn function.
@@ -2961,201 +1682,31 @@ func (c *CodeCommit) GetCommitWithContext(ctx aws.Context, input *GetCommitInput
 //    pageNum := 0
 //    err := client.GetCommentsForPullRequestPages(params,
 //        func(page *GetCommentsForPullRequestOutput, lastPage bool) bool {
-=======
-const opGetDifferences = "GetDifferences"
-
-// GetDifferencesRequest generates a "aws/request.Request" representing the
-// client's request for the GetDifferences operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetDifferences for more information on using the GetDifferences
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the GetDifferencesRequest method.
-//    req, resp := client.GetDifferencesRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetDifferences
-func (c *CodeCommit) GetDifferencesRequest(input *GetDifferencesInput) (req *request.Request, output *GetDifferencesOutput) {
-	op := &request.Operation{
-		Name:       opGetDifferences,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-		Paginator: &request.Paginator{
-			InputTokens:     []string{"NextToken"},
-			OutputTokens:    []string{"NextToken"},
-			LimitToken:      "MaxResults",
-			TruncationToken: "",
-		},
-	}
-
-	if input == nil {
-		input = &GetDifferencesInput{}
-	}
-
-	output = &GetDifferencesOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// GetDifferences API operation for AWS CodeCommit.
-//
-// Returns information about the differences in a valid commit specifier (such
-// as a branch, tag, HEAD, commit ID or other fully qualified reference). Results
-// can be limited to a specified path.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation GetDifferences for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
-//   The specified continuation token is not valid.
-//
-//   * ErrCodeInvalidMaxResultsException "InvalidMaxResultsException"
-//   The specified number of maximum results is not valid.
-//
-//   * ErrCodeInvalidCommitIdException "InvalidCommitIdException"
-//   The specified commit ID is not valid.
-//
-//   * ErrCodeCommitRequiredException "CommitRequiredException"
-//   A commit was not specified.
-//
-//   * ErrCodeInvalidCommitException "InvalidCommitException"
-//   The specified commit is not valid.
-//
-//   * ErrCodeCommitDoesNotExistException "CommitDoesNotExistException"
-//   The specified commit does not exist or no commit was specified, and the specified
-//   repository has no default branch.
-//
-//   * ErrCodeInvalidPathException "InvalidPathException"
-//   The specified path is not valid.
-//
-//   * ErrCodePathDoesNotExistException "PathDoesNotExistException"
-//   The specified path does not exist.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetDifferences
-func (c *CodeCommit) GetDifferences(input *GetDifferencesInput) (*GetDifferencesOutput, error) {
-	req, out := c.GetDifferencesRequest(input)
-	return out, req.Send()
-}
-
-// GetDifferencesWithContext is the same as GetDifferences with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetDifferences for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) GetDifferencesWithContext(ctx aws.Context, input *GetDifferencesInput, opts ...request.Option) (*GetDifferencesOutput, error) {
-	req, out := c.GetDifferencesRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-// GetDifferencesPages iterates over the pages of a GetDifferences operation,
-// calling the "fn" function with the response data for each page. To stop
-// iterating, return false from the fn function.
-//
-// See GetDifferences method for more information on how to use this operation.
-//
-// Note: This operation can generate multiple requests to a service.
-//
-//    // Example iterating over at most 3 pages of a GetDifferences operation.
-//    pageNum := 0
-//    err := client.GetDifferencesPages(params,
-//        func(page *GetDifferencesOutput, lastPage bool) bool {
->>>>>>> Working on getting compiling
 //            pageNum++
 //            fmt.Println(page)
 //            return pageNum <= 3
 //        })
 //
-<<<<<<< HEAD
 func (c *CodeCommit) GetCommentsForPullRequestPages(input *GetCommentsForPullRequestInput, fn func(*GetCommentsForPullRequestOutput, bool) bool) error {
 	return c.GetCommentsForPullRequestPagesWithContext(aws.BackgroundContext(), input, fn)
 }
 
 // GetCommentsForPullRequestPagesWithContext same as GetCommentsForPullRequestPages except
-=======
-func (c *CodeCommit) GetDifferencesPages(input *GetDifferencesInput, fn func(*GetDifferencesOutput, bool) bool) error {
-	return c.GetDifferencesPagesWithContext(aws.BackgroundContext(), input, fn)
-}
-
-// GetDifferencesPagesWithContext same as GetDifferencesPages except
->>>>>>> Working on getting compiling
 // it takes a Context and allows setting request options on the pages.
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetCommentsForPullRequestPagesWithContext(ctx aws.Context, input *GetCommentsForPullRequestInput, fn func(*GetCommentsForPullRequestOutput, bool) bool, opts ...request.Option) error {
 	p := request.Pagination{
 		NewRequest: func() (*request.Request, error) {
 			var inCpy *GetCommentsForPullRequestInput
-=======
-func (c *CodeCommit) GetDifferencesPagesWithContext(ctx aws.Context, input *GetDifferencesInput, fn func(*GetDifferencesOutput, bool) bool, opts ...request.Option) error {
-	p := request.Pagination{
-		NewRequest: func() (*request.Request, error) {
-			var inCpy *GetDifferencesInput
->>>>>>> Working on getting compiling
 			if input != nil {
 				tmp := *input
 				inCpy = &tmp
 			}
-<<<<<<< HEAD
 			req, _ := c.GetCommentsForPullRequestRequest(inCpy)
-=======
-			req, _ := c.GetDifferencesRequest(inCpy)
->>>>>>> Working on getting compiling
 			req.SetContext(ctx)
 			req.ApplyOptions(opts...)
 			return req, nil
@@ -3164,123 +1715,64 @@ func (c *CodeCommit) GetDifferencesPagesWithContext(ctx aws.Context, input *GetD
 
 	cont := true
 	for p.Next() && cont {
-<<<<<<< HEAD
 		cont = fn(p.Page().(*GetCommentsForPullRequestOutput), !p.HasNextPage())
-=======
-		cont = fn(p.Page().(*GetDifferencesOutput), !p.HasNextPage())
->>>>>>> Working on getting compiling
 	}
 	return p.Err()
 }
 
-<<<<<<< HEAD
 const opGetCommit = "GetCommit"
 
-<<<<<<< HEAD
 // GetCommitRequest generates a "aws/request.Request" representing the
 // client's request for the GetCommit operation. The "output" return
-=======
-// PutRepositoryTriggersRequest generates a "aws/request.Request" representing the
-// client's request for the PutRepositoryTriggers operation. The "output" return
->>>>>>> Initial dep workover
-=======
-const opGetMergeConflicts = "GetMergeConflicts"
-
-// GetMergeConflictsRequest generates a "aws/request.Request" representing the
-// client's request for the GetMergeConflicts operation. The "output" return
->>>>>>> Working on getting compiling
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // See GetCommit for more information on using the GetCommit
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// See PutRepositoryTriggers for more information on using the PutRepositoryTriggers
-=======
-// See GetMergeConflicts for more information on using the GetMergeConflicts
->>>>>>> Working on getting compiling
-// API call, and error handling.
 //
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the GetCommitRequest method.
 //    req, resp := client.GetCommitRequest(params)
-=======
-//    // Example sending a request using the GetMergeConflictsRequest method.
-//    req, resp := client.GetMergeConflictsRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommit
 func (c *CodeCommit) GetCommitRequest(input *GetCommitInput) (req *request.Request, output *GetCommitOutput) {
 	op := &request.Operation{
 		Name:       opGetCommit,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetMergeConflicts
-func (c *CodeCommit) GetMergeConflictsRequest(input *GetMergeConflictsInput) (req *request.Request, output *GetMergeConflictsOutput) {
-	op := &request.Operation{
-		Name:       opGetMergeConflicts,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &GetCommitInput{}
 	}
 
 	output = &GetCommitOutput{}
-=======
-		input = &GetMergeConflictsInput{}
-	}
-
-	output = &GetMergeConflictsOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetCommit API operation for AWS CodeCommit.
 //
 // Returns information about a commit, including commit message and committer
 // information.
-=======
-// GetMergeConflicts API operation for AWS CodeCommit.
-//
-// Returns information about merge conflicts between the before and after commit
-// IDs for a pull request in a repository.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetCommit for usage and error information.
-=======
-// API operation GetMergeConflicts for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
@@ -3295,7 +1787,6 @@ func (c *CodeCommit) GetMergeConflictsRequest(input *GetMergeConflictsInput) (re
 //
 //   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
 //   The specified repository does not exist.
-<<<<<<< HEAD
 //
 //   * ErrCodeCommitIdRequiredException "CommitIdRequiredException"
 //   A commit ID was not specified.
@@ -3315,54 +1806,12 @@ func (c *CodeCommit) GetMergeConflictsRequest(input *GetMergeConflictsInput) (re
 //   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
 //   The encryption key is disabled.
 //
-=======
-//
-//   * ErrCodeMergeOptionRequiredException "MergeOptionRequiredException"
-//   A merge option or stategy is required, and none was provided.
-//
-//   * ErrCodeInvalidMergeOptionException "InvalidMergeOptionException"
-//   The specified merge option is not valid. The only valid value is FAST_FORWARD_MERGE.
-//
-//   * ErrCodeInvalidDestinationCommitSpecifierException "InvalidDestinationCommitSpecifierException"
-//   The destination commit specifier is not valid. You must provide a valid branch
-//   name, tag, or full commit ID.
-//
-//   * ErrCodeInvalidSourceCommitSpecifierException "InvalidSourceCommitSpecifierException"
-//   The source commit specifier is not valid. You must provide a valid branch
-//   name, tag, or full commit ID.
-//
-//   * ErrCodeCommitRequiredException "CommitRequiredException"
-//   A commit was not specified.
-//
-//   * ErrCodeCommitDoesNotExistException "CommitDoesNotExistException"
-//   The specified commit does not exist or no commit was specified, and the specified
-//   repository has no default branch.
-//
-//   * ErrCodeInvalidCommitException "InvalidCommitException"
-//   The specified commit is not valid.
-//
-//   * ErrCodeTipsDivergenceExceededException "TipsDivergenceExceededException"
-//   The divergence between the tips of the provided commit specifiers is too
-//   great to determine whether there might be any merge conflicts. Locally compare
-//   the specifiers using git diff or a diff tool.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
->>>>>>> Working on getting compiling
 //   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
 //   No encryption key was found.
 //
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommit
 func (c *CodeCommit) GetCommit(input *GetCommitInput) (*GetCommitOutput, error) {
 	req, out := c.GetCommitRequest(input)
@@ -3373,39 +1822,20 @@ func (c *CodeCommit) GetCommit(input *GetCommitInput) (*GetCommitOutput, error) 
 // the ability to pass a context and additional request options.
 //
 // See GetCommit for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetMergeConflicts
-func (c *CodeCommit) GetMergeConflicts(input *GetMergeConflictsInput) (*GetMergeConflictsOutput, error) {
-	req, out := c.GetMergeConflictsRequest(input)
-	return out, req.Send()
-}
-
-// GetMergeConflictsWithContext is the same as GetMergeConflicts with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetMergeConflicts for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetCommitWithContext(ctx aws.Context, input *GetCommitInput, opts ...request.Option) (*GetCommitOutput, error) {
 	req, out := c.GetCommitRequest(input)
-=======
-func (c *CodeCommit) GetMergeConflictsWithContext(ctx aws.Context, input *GetMergeConflictsInput, opts ...request.Option) (*GetMergeConflictsOutput, error) {
-	req, out := c.GetMergeConflictsRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetDifferences = "GetDifferences"
 
-<<<<<<< HEAD
 // GetDifferencesRequest generates a "aws/request.Request" representing the
 // client's request for the GetDifferences operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -3419,54 +1849,20 @@ const opGetDifferences = "GetDifferences"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// TestRepositoryTriggersRequest generates a "aws/request.Request" representing the
-// client's request for the TestRepositoryTriggers operation. The "output" return
-=======
-const opGetPullRequest = "GetPullRequest"
-
-// GetPullRequestRequest generates a "aws/request.Request" representing the
-// client's request for the GetPullRequest operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetPullRequest for more information on using the GetPullRequest
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the GetDifferencesRequest method.
 //    req, resp := client.GetDifferencesRequest(params)
-=======
-//    // Example sending a request using the GetPullRequestRequest method.
-//    req, resp := client.GetPullRequestRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetDifferences
 func (c *CodeCommit) GetDifferencesRequest(input *GetDifferencesInput) (req *request.Request, output *GetDifferencesOutput) {
 	op := &request.Operation{
 		Name:       opGetDifferences,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequest
-func (c *CodeCommit) GetPullRequestRequest(input *GetPullRequestInput) (req *request.Request, output *GetPullRequestOutput) {
-	op := &request.Operation{
-		Name:       opGetPullRequest,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 		Paginator: &request.Paginator{
@@ -3478,39 +1874,25 @@ func (c *CodeCommit) GetPullRequestRequest(input *GetPullRequestInput) (req *req
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &GetDifferencesInput{}
 	}
 
 	output = &GetDifferencesOutput{}
-=======
-		input = &GetPullRequestInput{}
-	}
-
-	output = &GetPullRequestOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetDifferences API operation for AWS CodeCommit.
 //
 // Returns information about the differences in a valid commit specifier (such
 // as a branch, tag, HEAD, commit ID or other fully qualified reference). Results
 // can be limited to a specified path.
-=======
-// GetPullRequest API operation for AWS CodeCommit.
-//
-// Gets information about a pull request in a specified repository.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetDifferences for usage and error information.
 //
 // Returned Error Codes:
@@ -3551,22 +1933,6 @@ func (c *CodeCommit) GetPullRequestRequest(input *GetPullRequestInput) (req *req
 //
 //   * ErrCodePathDoesNotExistException "PathDoesNotExistException"
 //   The specified path does not exist.
-=======
-// API operation GetPullRequest for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
-//   The pull request ID could not be found. Make sure that you have specified
-//   the correct repository name and pull request ID, and then try again.
-//
-//   * ErrCodeInvalidPullRequestIdException "InvalidPullRequestIdException"
-//   The pull request ID is not valid. Make sure that you have provided the full
-//   ID and that the pull request is in the specified repository, and then try
-//   again.
-//
-//   * ErrCodePullRequestIdRequiredException "PullRequestIdRequiredException"
-//   A pull request ID is required, but none was provided.
->>>>>>> Working on getting compiling
 //
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
@@ -3583,7 +1949,6 @@ func (c *CodeCommit) GetPullRequestRequest(input *GetPullRequestInput) (req *req
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetDifferences
 func (c *CodeCommit) GetDifferences(input *GetDifferencesInput) (*GetDifferencesOutput, error) {
 	req, out := c.GetDifferencesRequest(input)
@@ -3594,36 +1959,18 @@ func (c *CodeCommit) GetDifferences(input *GetDifferencesInput) (*GetDifferences
 // the ability to pass a context and additional request options.
 //
 // See GetDifferences for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequest
-func (c *CodeCommit) GetPullRequest(input *GetPullRequestInput) (*GetPullRequestOutput, error) {
-	req, out := c.GetPullRequestRequest(input)
-	return out, req.Send()
-}
-
-// GetPullRequestWithContext is the same as GetPullRequest with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetPullRequest for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetDifferencesWithContext(ctx aws.Context, input *GetDifferencesInput, opts ...request.Option) (*GetDifferencesOutput, error) {
 	req, out := c.GetDifferencesRequest(input)
-=======
-func (c *CodeCommit) GetPullRequestWithContext(ctx aws.Context, input *GetPullRequestInput, opts ...request.Option) (*GetPullRequestOutput, error) {
-	req, out := c.GetPullRequestRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // GetDifferencesPages iterates over the pages of a GetDifferences operation,
 // calling the "fn" function with the response data for each page. To stop
 // iterating, return false from the fn function.
@@ -3645,7 +1992,6 @@ func (c *CodeCommit) GetDifferencesPages(input *GetDifferencesInput, fn func(*Ge
 	return c.GetDifferencesPagesWithContext(aws.BackgroundContext(), input, fn)
 }
 
-<<<<<<< HEAD
 // GetDifferencesPagesWithContext same as GetDifferencesPages except
 // it takes a Context and allows setting request options on the pages.
 //
@@ -3679,113 +2025,55 @@ const opGetMergeConflicts = "GetMergeConflicts"
 
 // GetMergeConflictsRequest generates a "aws/request.Request" representing the
 // client's request for the GetMergeConflicts operation. The "output" return
-=======
-// UpdateDefaultBranchRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateDefaultBranch operation. The "output" return
->>>>>>> Initial dep workover
-=======
-const opGetRepository = "GetRepository"
-
-// GetRepositoryRequest generates a "aws/request.Request" representing the
-// client's request for the GetRepository operation. The "output" return
->>>>>>> Working on getting compiling
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // See GetMergeConflicts for more information on using the GetMergeConflicts
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// See UpdateDefaultBranch for more information on using the UpdateDefaultBranch
-=======
-// See GetRepository for more information on using the GetRepository
->>>>>>> Working on getting compiling
-// API call, and error handling.
 //
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the GetMergeConflictsRequest method.
 //    req, resp := client.GetMergeConflictsRequest(params)
-=======
-//    // Example sending a request using the GetRepositoryRequest method.
-//    req, resp := client.GetRepositoryRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetMergeConflicts
 func (c *CodeCommit) GetMergeConflictsRequest(input *GetMergeConflictsInput) (req *request.Request, output *GetMergeConflictsOutput) {
 	op := &request.Operation{
 		Name:       opGetMergeConflicts,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepository
-func (c *CodeCommit) GetRepositoryRequest(input *GetRepositoryInput) (req *request.Request, output *GetRepositoryOutput) {
-	op := &request.Operation{
-		Name:       opGetRepository,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &GetMergeConflictsInput{}
 	}
 
 	output = &GetMergeConflictsOutput{}
-=======
-		input = &GetRepositoryInput{}
-	}
-
-	output = &GetRepositoryOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetMergeConflicts API operation for AWS CodeCommit.
 //
 // Returns information about merge conflicts between the before and after commit
 // IDs for a pull request in a repository.
-=======
-// GetRepository API operation for AWS CodeCommit.
-//
-// Returns information about a repository.
-//
-// The description field for a repository accepts all HTML characters and all
-// valid Unicode characters. Applications that do not HTML-encode the description
-// and display it in a web page could expose users to potentially malicious
-// code. Make sure that you HTML-encode the description field in any application
-// that uses this API to display the repository description on a web page.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetMergeConflicts for usage and error information.
-=======
-// API operation GetRepository for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
@@ -3798,7 +2086,6 @@ func (c *CodeCommit) GetRepositoryRequest(input *GetRepositoryInput) (req *reque
 //   Other exceptions occur when a required repository parameter is missing, or
 //   when a specified repository does not exist.
 //
-<<<<<<< HEAD
 //   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
 //   The specified repository does not exist.
 //
@@ -3831,8 +2118,6 @@ func (c *CodeCommit) GetRepositoryRequest(input *GetRepositoryInput) (req *reque
 //   great to determine whether there might be any merge conflicts. Locally compare
 //   the specifiers using git diff or a diff tool.
 //
-=======
->>>>>>> Working on getting compiling
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
 //
@@ -3848,7 +2133,6 @@ func (c *CodeCommit) GetRepositoryRequest(input *GetRepositoryInput) (req *reque
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetMergeConflicts
 func (c *CodeCommit) GetMergeConflicts(input *GetMergeConflictsInput) (*GetMergeConflictsOutput, error) {
 	req, out := c.GetMergeConflictsRequest(input)
@@ -3859,39 +2143,20 @@ func (c *CodeCommit) GetMergeConflicts(input *GetMergeConflictsInput) (*GetMerge
 // the ability to pass a context and additional request options.
 //
 // See GetMergeConflicts for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepository
-func (c *CodeCommit) GetRepository(input *GetRepositoryInput) (*GetRepositoryOutput, error) {
-	req, out := c.GetRepositoryRequest(input)
-	return out, req.Send()
-}
-
-// GetRepositoryWithContext is the same as GetRepository with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetRepository for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetMergeConflictsWithContext(ctx aws.Context, input *GetMergeConflictsInput, opts ...request.Option) (*GetMergeConflictsOutput, error) {
 	req, out := c.GetMergeConflictsRequest(input)
-=======
-func (c *CodeCommit) GetRepositoryWithContext(ctx aws.Context, input *GetRepositoryInput, opts ...request.Option) (*GetRepositoryOutput, error) {
-	req, out := c.GetRepositoryRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetPullRequest = "GetPullRequest"
 
-<<<<<<< HEAD
 // GetPullRequestRequest generates a "aws/request.Request" representing the
 // client's request for the GetPullRequest operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -3905,75 +2170,33 @@ const opGetPullRequest = "GetPullRequest"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// UpdateRepositoryDescriptionRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateRepositoryDescription operation. The "output" return
-=======
-const opGetRepositoryTriggers = "GetRepositoryTriggers"
-
-// GetRepositoryTriggersRequest generates a "aws/request.Request" representing the
-// client's request for the GetRepositoryTriggers operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetRepositoryTriggers for more information on using the GetRepositoryTriggers
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-<<<<<<< HEAD
 //
 //    // Example sending a request using the GetPullRequestRequest method.
 //    req, resp := client.GetPullRequestRequest(params)
-=======
-//    // Example sending a request using the GetRepositoryTriggersRequest method.
-//    req, resp := client.GetRepositoryTriggersRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequest
 func (c *CodeCommit) GetPullRequestRequest(input *GetPullRequestInput) (req *request.Request, output *GetPullRequestOutput) {
 	op := &request.Operation{
 		Name:       opGetPullRequest,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryTriggers
-func (c *CodeCommit) GetRepositoryTriggersRequest(input *GetRepositoryTriggersInput) (req *request.Request, output *GetRepositoryTriggersOutput) {
-	op := &request.Operation{
-		Name:       opGetRepositoryTriggers,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &GetPullRequestInput{}
 	}
 
 	output = &GetPullRequestOutput{}
-=======
-		input = &GetRepositoryTriggersInput{}
-	}
-
-	output = &GetRepositoryTriggersOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetPullRequest API operation for AWS CodeCommit.
 //
 // Gets information about a pull request in a specified repository.
@@ -4037,7 +2260,6 @@ func (c *CodeCommit) GetPullRequestWithContext(ctx aws.Context, input *GetPullRe
 
 const opGetRepository = "GetRepository"
 
-<<<<<<< HEAD
 // GetRepositoryRequest generates a "aws/request.Request" representing the
 // client's request for the GetRepository operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -4051,22 +2273,6 @@ const opGetRepository = "GetRepository"
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// UpdateRepositoryNameRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateRepositoryName operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateRepositoryName for more information on using the UpdateRepositoryName
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
 //
 //
 //    // Example sending a request using the GetRepositoryRequest method.
@@ -4097,26 +2303,26 @@ func (c *CodeCommit) GetRepositoryRequest(input *GetRepositoryInput) (req *reque
 // GetRepository API operation for AWS CodeCommit.
 //
 // Returns information about a repository.
-=======
-// GetRepositoryTriggers API operation for AWS CodeCommit.
->>>>>>> Working on getting compiling
 //
-// Gets information about triggers configured for a repository.
+// The description field for a repository accepts all HTML characters and all
+// valid Unicode characters. Applications that do not HTML-encode the description
+// and display it in a web page could expose users to potentially malicious
+// code. Make sure that you HTML-encode the description field in any application
+// that uses this API to display the repository description on a web page.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetRepository for usage and error information.
-=======
-// API operation GetRepositoryTriggers for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
 //   A repository name is required but was not specified.
+//
+//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
+//   The specified repository does not exist.
 //
 //   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
 //   At least one specified repository name is not valid.
@@ -4125,12 +2331,6 @@ func (c *CodeCommit) GetRepositoryRequest(input *GetRepositoryInput) (req *reque
 //   Other exceptions occur when a required repository parameter is missing, or
 //   when a specified repository does not exist.
 //
-<<<<<<< HEAD
-=======
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
->>>>>>> Working on getting compiling
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
 //
@@ -4146,7 +2346,6 @@ func (c *CodeCommit) GetRepositoryRequest(input *GetRepositoryInput) (req *reque
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepository
 func (c *CodeCommit) GetRepository(input *GetRepositoryInput) (*GetRepositoryOutput, error) {
 	req, out := c.GetRepositoryRequest(input)
@@ -4157,140 +2356,74 @@ func (c *CodeCommit) GetRepository(input *GetRepositoryInput) (*GetRepositoryOut
 // the ability to pass a context and additional request options.
 //
 // See GetRepository for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryTriggers
-func (c *CodeCommit) GetRepositoryTriggers(input *GetRepositoryTriggersInput) (*GetRepositoryTriggersOutput, error) {
-	req, out := c.GetRepositoryTriggersRequest(input)
-	return out, req.Send()
-}
-
-// GetRepositoryTriggersWithContext is the same as GetRepositoryTriggers with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetRepositoryTriggers for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetRepositoryWithContext(ctx aws.Context, input *GetRepositoryInput, opts ...request.Option) (*GetRepositoryOutput, error) {
 	req, out := c.GetRepositoryRequest(input)
-=======
-func (c *CodeCommit) GetRepositoryTriggersWithContext(ctx aws.Context, input *GetRepositoryTriggersInput, opts ...request.Option) (*GetRepositoryTriggersOutput, error) {
-	req, out := c.GetRepositoryTriggersRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetRepositoryTriggers = "GetRepositoryTriggers"
 
 // GetRepositoryTriggersRequest generates a "aws/request.Request" representing the
 // client's request for the GetRepositoryTriggers operation. The "output" return
-=======
-const opListBranches = "ListBranches"
-
-// ListBranchesRequest generates a "aws/request.Request" representing the
-// client's request for the ListBranches operation. The "output" return
->>>>>>> Working on getting compiling
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetRepositoryTriggers for more information on using the GetRepositoryTriggers
-=======
-// See ListBranches for more information on using the ListBranches
->>>>>>> Working on getting compiling
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetRepositoryTriggersRequest method.
 //    req, resp := client.GetRepositoryTriggersRequest(params)
-=======
-//    // Example sending a request using the ListBranchesRequest method.
-//    req, resp := client.ListBranchesRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryTriggers
 func (c *CodeCommit) GetRepositoryTriggersRequest(input *GetRepositoryTriggersInput) (req *request.Request, output *GetRepositoryTriggersOutput) {
 	op := &request.Operation{
 		Name:       opGetRepositoryTriggers,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListBranches
-func (c *CodeCommit) ListBranchesRequest(input *ListBranchesInput) (req *request.Request, output *ListBranchesOutput) {
-	op := &request.Operation{
-		Name:       opListBranches,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
-		Paginator: &request.Paginator{
-			InputTokens:     []string{"nextToken"},
-			OutputTokens:    []string{"nextToken"},
-			LimitToken:      "",
-			TruncationToken: "",
-		},
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &GetRepositoryTriggersInput{}
 	}
 
 	output = &GetRepositoryTriggersOutput{}
-=======
-		input = &ListBranchesInput{}
-	}
-
-	output = &ListBranchesOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetRepositoryTriggers API operation for AWS CodeCommit.
 //
 // Gets information about triggers configured for a repository.
-=======
-// ListBranches API operation for AWS CodeCommit.
-//
-// Gets information about one or more branches in a repository.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS CodeCommit's
-<<<<<<< HEAD
 // API operation GetRepositoryTriggers for usage and error information.
-=======
-// API operation ListBranches for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
 //   A repository name is required but was not specified.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
 //
 //   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
 //   At least one specified repository name is not valid.
@@ -4299,12 +2432,9 @@ func (c *CodeCommit) ListBranchesRequest(input *ListBranchesInput) (req *request
 //   Other exceptions occur when a required repository parameter is missing, or
 //   when a specified repository does not exist.
 //
-<<<<<<< HEAD
 //   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
 //   The specified repository does not exist.
 //
-=======
->>>>>>> Working on getting compiling
 //   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
 //   An encryption integrity check failed.
 //
@@ -4320,7 +2450,6 @@ func (c *CodeCommit) ListBranchesRequest(input *ListBranchesInput) (req *request
 //   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
 //   The encryption key is not available.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryTriggers
 func (c *CodeCommit) GetRepositoryTriggers(input *GetRepositoryTriggersInput) (*GetRepositoryTriggersOutput, error) {
 	req, out := c.GetRepositoryTriggersRequest(input)
@@ -4331,39 +2460,18 @@ func (c *CodeCommit) GetRepositoryTriggers(input *GetRepositoryTriggersInput) (*
 // the ability to pass a context and additional request options.
 //
 // See GetRepositoryTriggers for details on how to use this API operation.
-=======
-//   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
-//   The specified continuation token is not valid.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListBranches
-func (c *CodeCommit) ListBranches(input *ListBranchesInput) (*ListBranchesOutput, error) {
-	req, out := c.ListBranchesRequest(input)
-	return out, req.Send()
-}
-
-// ListBranchesWithContext is the same as ListBranches with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListBranches for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *CodeCommit) GetRepositoryTriggersWithContext(ctx aws.Context, input *GetRepositoryTriggersInput, opts ...request.Option) (*GetRepositoryTriggersOutput, error) {
 	req, out := c.GetRepositoryTriggersRequest(input)
-=======
-func (c *CodeCommit) ListBranchesWithContext(ctx aws.Context, input *ListBranchesInput, opts ...request.Option) (*ListBranchesOutput, error) {
-	req, out := c.ListBranchesRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opListBranches = "ListBranches"
 
 // ListBranchesRequest generates a "aws/request.Request" representing the
@@ -6488,3693 +4596,10 @@ type BatchGetRepositoriesInput struct {
 
 // String returns the string representation
 func (s BatchGetRepositoriesInput) String() string {
-=======
-// ListBranchesPages iterates over the pages of a ListBranches operation,
-// calling the "fn" function with the response data for each page. To stop
-// iterating, return false from the fn function.
-//
-// See ListBranches method for more information on how to use this operation.
-//
-// Note: This operation can generate multiple requests to a service.
-//
-//    // Example iterating over at most 3 pages of a ListBranches operation.
-//    pageNum := 0
-//    err := client.ListBranchesPages(params,
-//        func(page *ListBranchesOutput, lastPage bool) bool {
-//            pageNum++
-//            fmt.Println(page)
-//            return pageNum <= 3
-//        })
-//
-func (c *CodeCommit) ListBranchesPages(input *ListBranchesInput, fn func(*ListBranchesOutput, bool) bool) error {
-	return c.ListBranchesPagesWithContext(aws.BackgroundContext(), input, fn)
-}
-
-// ListBranchesPagesWithContext same as ListBranchesPages except
-// it takes a Context and allows setting request options on the pages.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) ListBranchesPagesWithContext(ctx aws.Context, input *ListBranchesInput, fn func(*ListBranchesOutput, bool) bool, opts ...request.Option) error {
-	p := request.Pagination{
-		NewRequest: func() (*request.Request, error) {
-			var inCpy *ListBranchesInput
-			if input != nil {
-				tmp := *input
-				inCpy = &tmp
-			}
-			req, _ := c.ListBranchesRequest(inCpy)
-			req.SetContext(ctx)
-			req.ApplyOptions(opts...)
-			return req, nil
-		},
-	}
-
-	cont := true
-	for p.Next() && cont {
-		cont = fn(p.Page().(*ListBranchesOutput), !p.HasNextPage())
-	}
-	return p.Err()
-}
-
-const opListPullRequests = "ListPullRequests"
-
-// ListPullRequestsRequest generates a "aws/request.Request" representing the
-// client's request for the ListPullRequests operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListPullRequests for more information on using the ListPullRequests
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the ListPullRequestsRequest method.
-//    req, resp := client.ListPullRequestsRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListPullRequests
-func (c *CodeCommit) ListPullRequestsRequest(input *ListPullRequestsInput) (req *request.Request, output *ListPullRequestsOutput) {
-	op := &request.Operation{
-		Name:       opListPullRequests,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-		Paginator: &request.Paginator{
-			InputTokens:     []string{"nextToken"},
-			OutputTokens:    []string{"nextToken"},
-			LimitToken:      "maxResults",
-			TruncationToken: "",
-		},
-	}
-
-	if input == nil {
-		input = &ListPullRequestsInput{}
-	}
-
-	output = &ListPullRequestsOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// ListPullRequests API operation for AWS CodeCommit.
-//
-// Returns a list of pull requests for a specified repository. The return list
-// can be refined by pull request status or pull request author ARN.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation ListPullRequests for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeInvalidPullRequestStatusException "InvalidPullRequestStatusException"
-//   The pull request status is not valid. The only valid values are OPEN and
-//   CLOSED.
-//
-//   * ErrCodeInvalidAuthorArnException "InvalidAuthorArnException"
-//   The Amazon Resource Name (ARN) is not valid. Make sure that you have provided
-//   the full ARN for the author of the pull request, and then try again.
-//
-//   * ErrCodeAuthorDoesNotExistException "AuthorDoesNotExistException"
-//   The specified Amazon Resource Name (ARN) does not exist in the AWS account.
-//
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeInvalidMaxResultsException "InvalidMaxResultsException"
-//   The specified number of maximum results is not valid.
-//
-//   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
-//   The specified continuation token is not valid.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListPullRequests
-func (c *CodeCommit) ListPullRequests(input *ListPullRequestsInput) (*ListPullRequestsOutput, error) {
-	req, out := c.ListPullRequestsRequest(input)
-	return out, req.Send()
-}
-
-// ListPullRequestsWithContext is the same as ListPullRequests with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListPullRequests for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) ListPullRequestsWithContext(ctx aws.Context, input *ListPullRequestsInput, opts ...request.Option) (*ListPullRequestsOutput, error) {
-	req, out := c.ListPullRequestsRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-// ListPullRequestsPages iterates over the pages of a ListPullRequests operation,
-// calling the "fn" function with the response data for each page. To stop
-// iterating, return false from the fn function.
-//
-// See ListPullRequests method for more information on how to use this operation.
-//
-// Note: This operation can generate multiple requests to a service.
-//
-//    // Example iterating over at most 3 pages of a ListPullRequests operation.
-//    pageNum := 0
-//    err := client.ListPullRequestsPages(params,
-//        func(page *ListPullRequestsOutput, lastPage bool) bool {
-//            pageNum++
-//            fmt.Println(page)
-//            return pageNum <= 3
-//        })
-//
-func (c *CodeCommit) ListPullRequestsPages(input *ListPullRequestsInput, fn func(*ListPullRequestsOutput, bool) bool) error {
-	return c.ListPullRequestsPagesWithContext(aws.BackgroundContext(), input, fn)
-}
-
-// ListPullRequestsPagesWithContext same as ListPullRequestsPages except
-// it takes a Context and allows setting request options on the pages.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) ListPullRequestsPagesWithContext(ctx aws.Context, input *ListPullRequestsInput, fn func(*ListPullRequestsOutput, bool) bool, opts ...request.Option) error {
-	p := request.Pagination{
-		NewRequest: func() (*request.Request, error) {
-			var inCpy *ListPullRequestsInput
-			if input != nil {
-				tmp := *input
-				inCpy = &tmp
-			}
-			req, _ := c.ListPullRequestsRequest(inCpy)
-			req.SetContext(ctx)
-			req.ApplyOptions(opts...)
-			return req, nil
-		},
-	}
-
-	cont := true
-	for p.Next() && cont {
-		cont = fn(p.Page().(*ListPullRequestsOutput), !p.HasNextPage())
-	}
-	return p.Err()
-}
-
-const opListRepositories = "ListRepositories"
-
-// ListRepositoriesRequest generates a "aws/request.Request" representing the
-// client's request for the ListRepositories operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListRepositories for more information on using the ListRepositories
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the ListRepositoriesRequest method.
-//    req, resp := client.ListRepositoriesRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListRepositories
-func (c *CodeCommit) ListRepositoriesRequest(input *ListRepositoriesInput) (req *request.Request, output *ListRepositoriesOutput) {
-	op := &request.Operation{
-		Name:       opListRepositories,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-		Paginator: &request.Paginator{
-			InputTokens:     []string{"nextToken"},
-			OutputTokens:    []string{"nextToken"},
-			LimitToken:      "",
-			TruncationToken: "",
-		},
-	}
-
-	if input == nil {
-		input = &ListRepositoriesInput{}
-	}
-
-	output = &ListRepositoriesOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// ListRepositories API operation for AWS CodeCommit.
-//
-// Gets information about one or more repositories.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation ListRepositories for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeInvalidSortByException "InvalidSortByException"
-//   The specified sort by value is not valid.
-//
-//   * ErrCodeInvalidOrderException "InvalidOrderException"
-//   The specified sort order is not valid.
-//
-//   * ErrCodeInvalidContinuationTokenException "InvalidContinuationTokenException"
-//   The specified continuation token is not valid.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListRepositories
-func (c *CodeCommit) ListRepositories(input *ListRepositoriesInput) (*ListRepositoriesOutput, error) {
-	req, out := c.ListRepositoriesRequest(input)
-	return out, req.Send()
-}
-
-// ListRepositoriesWithContext is the same as ListRepositories with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListRepositories for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) ListRepositoriesWithContext(ctx aws.Context, input *ListRepositoriesInput, opts ...request.Option) (*ListRepositoriesOutput, error) {
-	req, out := c.ListRepositoriesRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-// ListRepositoriesPages iterates over the pages of a ListRepositories operation,
-// calling the "fn" function with the response data for each page. To stop
-// iterating, return false from the fn function.
-//
-// See ListRepositories method for more information on how to use this operation.
-//
-// Note: This operation can generate multiple requests to a service.
-//
-//    // Example iterating over at most 3 pages of a ListRepositories operation.
-//    pageNum := 0
-//    err := client.ListRepositoriesPages(params,
-//        func(page *ListRepositoriesOutput, lastPage bool) bool {
-//            pageNum++
-//            fmt.Println(page)
-//            return pageNum <= 3
-//        })
-//
-func (c *CodeCommit) ListRepositoriesPages(input *ListRepositoriesInput, fn func(*ListRepositoriesOutput, bool) bool) error {
-	return c.ListRepositoriesPagesWithContext(aws.BackgroundContext(), input, fn)
-}
-
-// ListRepositoriesPagesWithContext same as ListRepositoriesPages except
-// it takes a Context and allows setting request options on the pages.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) ListRepositoriesPagesWithContext(ctx aws.Context, input *ListRepositoriesInput, fn func(*ListRepositoriesOutput, bool) bool, opts ...request.Option) error {
-	p := request.Pagination{
-		NewRequest: func() (*request.Request, error) {
-			var inCpy *ListRepositoriesInput
-			if input != nil {
-				tmp := *input
-				inCpy = &tmp
-			}
-			req, _ := c.ListRepositoriesRequest(inCpy)
-			req.SetContext(ctx)
-			req.ApplyOptions(opts...)
-			return req, nil
-		},
-	}
-
-	cont := true
-	for p.Next() && cont {
-		cont = fn(p.Page().(*ListRepositoriesOutput), !p.HasNextPage())
-	}
-	return p.Err()
-}
-
-const opMergePullRequestByFastForward = "MergePullRequestByFastForward"
-
-// MergePullRequestByFastForwardRequest generates a "aws/request.Request" representing the
-// client's request for the MergePullRequestByFastForward operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See MergePullRequestByFastForward for more information on using the MergePullRequestByFastForward
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the MergePullRequestByFastForwardRequest method.
-//    req, resp := client.MergePullRequestByFastForwardRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/MergePullRequestByFastForward
-func (c *CodeCommit) MergePullRequestByFastForwardRequest(input *MergePullRequestByFastForwardInput) (req *request.Request, output *MergePullRequestByFastForwardOutput) {
-	op := &request.Operation{
-		Name:       opMergePullRequestByFastForward,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &MergePullRequestByFastForwardInput{}
-	}
-
-	output = &MergePullRequestByFastForwardOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// MergePullRequestByFastForward API operation for AWS CodeCommit.
-//
-// Closes a pull request and attempts to merge the source commit of a pull request
-// into the specified destination branch for that pull request at the specified
-// commit using the fast-forward merge option.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation MergePullRequestByFastForward for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeManualMergeRequiredException "ManualMergeRequiredException"
-//   The pull request cannot be merged automatically into the destination branch.
-//   You must manually merge the branches and resolve any conflicts.
-//
-//   * ErrCodePullRequestAlreadyClosedException "PullRequestAlreadyClosedException"
-//   The pull request status cannot be updated because it is already closed.
-//
-//   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
-//   The pull request ID could not be found. Make sure that you have specified
-//   the correct repository name and pull request ID, and then try again.
-//
-//   * ErrCodeInvalidPullRequestIdException "InvalidPullRequestIdException"
-//   The pull request ID is not valid. Make sure that you have provided the full
-//   ID and that the pull request is in the specified repository, and then try
-//   again.
-//
-//   * ErrCodePullRequestIdRequiredException "PullRequestIdRequiredException"
-//   A pull request ID is required, but none was provided.
-//
-//   * ErrCodeTipOfSourceReferenceIsDifferentException "TipOfSourceReferenceIsDifferentException"
-//   The tip of the source branch in the destination repository does not match
-//   the tip of the source branch specified in your request. The pull request
-//   might have been updated. Make sure that you have the latest changes.
-//
-//   * ErrCodeReferenceDoesNotExistException "ReferenceDoesNotExistException"
-//   The specified reference does not exist. You must provide a full commit ID.
-//
-//   * ErrCodeInvalidCommitIdException "InvalidCommitIdException"
-//   The specified commit ID is not valid.
-//
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/MergePullRequestByFastForward
-func (c *CodeCommit) MergePullRequestByFastForward(input *MergePullRequestByFastForwardInput) (*MergePullRequestByFastForwardOutput, error) {
-	req, out := c.MergePullRequestByFastForwardRequest(input)
-	return out, req.Send()
-}
-
-// MergePullRequestByFastForwardWithContext is the same as MergePullRequestByFastForward with the addition of
-// the ability to pass a context and additional request options.
-//
-// See MergePullRequestByFastForward for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) MergePullRequestByFastForwardWithContext(ctx aws.Context, input *MergePullRequestByFastForwardInput, opts ...request.Option) (*MergePullRequestByFastForwardOutput, error) {
-	req, out := c.MergePullRequestByFastForwardRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opPostCommentForComparedCommit = "PostCommentForComparedCommit"
-
-// PostCommentForComparedCommitRequest generates a "aws/request.Request" representing the
-// client's request for the PostCommentForComparedCommit operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PostCommentForComparedCommit for more information on using the PostCommentForComparedCommit
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the PostCommentForComparedCommitRequest method.
-//    req, resp := client.PostCommentForComparedCommitRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForComparedCommit
-func (c *CodeCommit) PostCommentForComparedCommitRequest(input *PostCommentForComparedCommitInput) (req *request.Request, output *PostCommentForComparedCommitOutput) {
-	op := &request.Operation{
-		Name:       opPostCommentForComparedCommit,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &PostCommentForComparedCommitInput{}
-	}
-
-	output = &PostCommentForComparedCommitOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// PostCommentForComparedCommit API operation for AWS CodeCommit.
-//
-// Posts a comment on the comparison between two commits.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation PostCommentForComparedCommit for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeClientRequestTokenRequiredException "ClientRequestTokenRequiredException"
-//   A client request token is required. A client request token is an unique,
-//   client-generated idempotency token that when provided in a request, ensures
-//   the request cannot be repeated with a changed parameter. If a request is
-//   received with the same parameters and a token is included, the request will
-//   return information about the initial request that used that token.
-//
-//   * ErrCodeInvalidClientRequestTokenException "InvalidClientRequestTokenException"
-//   The client request token is not valid.
-//
-//   * ErrCodeIdempotencyParameterMismatchException "IdempotencyParameterMismatchException"
-//   The client request token is not valid. Either the token is not in a valid
-//   format, or the token has been used in a previous request and cannot be re-used.
-//
-//   * ErrCodeCommentContentRequiredException "CommentContentRequiredException"
-//   The comment is empty. You must provide some content for a comment. The content
-//   cannot be null.
-//
-//   * ErrCodeCommentContentSizeLimitExceededException "CommentContentSizeLimitExceededException"
-//   The comment is too large. Comments are limited to 1,000 characters.
-//
-//   * ErrCodeInvalidFileLocationException "InvalidFileLocationException"
-//   The location of the file is not valid. Make sure that you include the extension
-//   of the file as well as the file name.
-//
-//   * ErrCodeInvalidRelativeFileVersionEnumException "InvalidRelativeFileVersionEnumException"
-//   Either the enum is not in a valid format, or the specified file version enum
-//   is not valid in respect to the current file version.
-//
-//   * ErrCodePathRequiredException "PathRequiredException"
-//   The filePath for a location cannot be empty or null.
-//
-//   * ErrCodeInvalidFilePositionException "InvalidFilePositionException"
-//   The position is not valid. Make sure that the line number exists in the version
-//   of the file you want to comment on.
-//
-//   * ErrCodeCommitIdRequiredException "CommitIdRequiredException"
-//   A commit ID was not specified.
-//
-//   * ErrCodeInvalidCommitIdException "InvalidCommitIdException"
-//   The specified commit ID is not valid.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-//   * ErrCodeBeforeCommitIdAndAfterCommitIdAreSameException "BeforeCommitIdAndAfterCommitIdAreSameException"
-//   The before commit ID and the after commit ID are the same, which is not valid.
-//   The before commit ID and the after commit ID must be different commit IDs.
-//
-//   * ErrCodeCommitDoesNotExistException "CommitDoesNotExistException"
-//   The specified commit does not exist or no commit was specified, and the specified
-//   repository has no default branch.
-//
-//   * ErrCodeInvalidPathException "InvalidPathException"
-//   The specified path is not valid.
-//
-//   * ErrCodePathDoesNotExistException "PathDoesNotExistException"
-//   The specified path does not exist.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForComparedCommit
-func (c *CodeCommit) PostCommentForComparedCommit(input *PostCommentForComparedCommitInput) (*PostCommentForComparedCommitOutput, error) {
-	req, out := c.PostCommentForComparedCommitRequest(input)
-	return out, req.Send()
-}
-
-// PostCommentForComparedCommitWithContext is the same as PostCommentForComparedCommit with the addition of
-// the ability to pass a context and additional request options.
-//
-// See PostCommentForComparedCommit for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) PostCommentForComparedCommitWithContext(ctx aws.Context, input *PostCommentForComparedCommitInput, opts ...request.Option) (*PostCommentForComparedCommitOutput, error) {
-	req, out := c.PostCommentForComparedCommitRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opPostCommentForPullRequest = "PostCommentForPullRequest"
-
-// PostCommentForPullRequestRequest generates a "aws/request.Request" representing the
-// client's request for the PostCommentForPullRequest operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PostCommentForPullRequest for more information on using the PostCommentForPullRequest
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the PostCommentForPullRequestRequest method.
-//    req, resp := client.PostCommentForPullRequestRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForPullRequest
-func (c *CodeCommit) PostCommentForPullRequestRequest(input *PostCommentForPullRequestInput) (req *request.Request, output *PostCommentForPullRequestOutput) {
-	op := &request.Operation{
-		Name:       opPostCommentForPullRequest,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &PostCommentForPullRequestInput{}
-	}
-
-	output = &PostCommentForPullRequestOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// PostCommentForPullRequest API operation for AWS CodeCommit.
-//
-// Posts a comment on a pull request.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation PostCommentForPullRequest for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
-//   The pull request ID could not be found. Make sure that you have specified
-//   the correct repository name and pull request ID, and then try again.
-//
-//   * ErrCodeInvalidPullRequestIdException "InvalidPullRequestIdException"
-//   The pull request ID is not valid. Make sure that you have provided the full
-//   ID and that the pull request is in the specified repository, and then try
-//   again.
-//
-//   * ErrCodePullRequestIdRequiredException "PullRequestIdRequiredException"
-//   A pull request ID is required, but none was provided.
-//
-//   * ErrCodeRepositoryNotAssociatedWithPullRequestException "RepositoryNotAssociatedWithPullRequestException"
-//   The repository does not contain any pull requests with that pull request
-//   ID. Check to make sure you have provided the correct repository name for
-//   the pull request.
-//
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeClientRequestTokenRequiredException "ClientRequestTokenRequiredException"
-//   A client request token is required. A client request token is an unique,
-//   client-generated idempotency token that when provided in a request, ensures
-//   the request cannot be repeated with a changed parameter. If a request is
-//   received with the same parameters and a token is included, the request will
-//   return information about the initial request that used that token.
-//
-//   * ErrCodeInvalidClientRequestTokenException "InvalidClientRequestTokenException"
-//   The client request token is not valid.
-//
-//   * ErrCodeIdempotencyParameterMismatchException "IdempotencyParameterMismatchException"
-//   The client request token is not valid. Either the token is not in a valid
-//   format, or the token has been used in a previous request and cannot be re-used.
-//
-//   * ErrCodeCommentContentRequiredException "CommentContentRequiredException"
-//   The comment is empty. You must provide some content for a comment. The content
-//   cannot be null.
-//
-//   * ErrCodeCommentContentSizeLimitExceededException "CommentContentSizeLimitExceededException"
-//   The comment is too large. Comments are limited to 1,000 characters.
-//
-//   * ErrCodeInvalidFileLocationException "InvalidFileLocationException"
-//   The location of the file is not valid. Make sure that you include the extension
-//   of the file as well as the file name.
-//
-//   * ErrCodeInvalidRelativeFileVersionEnumException "InvalidRelativeFileVersionEnumException"
-//   Either the enum is not in a valid format, or the specified file version enum
-//   is not valid in respect to the current file version.
-//
-//   * ErrCodePathRequiredException "PathRequiredException"
-//   The filePath for a location cannot be empty or null.
-//
-//   * ErrCodeInvalidFilePositionException "InvalidFilePositionException"
-//   The position is not valid. Make sure that the line number exists in the version
-//   of the file you want to comment on.
-//
-//   * ErrCodeCommitIdRequiredException "CommitIdRequiredException"
-//   A commit ID was not specified.
-//
-//   * ErrCodeInvalidCommitIdException "InvalidCommitIdException"
-//   The specified commit ID is not valid.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-//   * ErrCodeCommitDoesNotExistException "CommitDoesNotExistException"
-//   The specified commit does not exist or no commit was specified, and the specified
-//   repository has no default branch.
-//
-//   * ErrCodeInvalidPathException "InvalidPathException"
-//   The specified path is not valid.
-//
-//   * ErrCodePathDoesNotExistException "PathDoesNotExistException"
-//   The specified path does not exist.
-//
-//   * ErrCodePathRequiredException "PathRequiredException"
-//   The filePath for a location cannot be empty or null.
-//
-//   * ErrCodeBeforeCommitIdAndAfterCommitIdAreSameException "BeforeCommitIdAndAfterCommitIdAreSameException"
-//   The before commit ID and the after commit ID are the same, which is not valid.
-//   The before commit ID and the after commit ID must be different commit IDs.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForPullRequest
-func (c *CodeCommit) PostCommentForPullRequest(input *PostCommentForPullRequestInput) (*PostCommentForPullRequestOutput, error) {
-	req, out := c.PostCommentForPullRequestRequest(input)
-	return out, req.Send()
-}
-
-// PostCommentForPullRequestWithContext is the same as PostCommentForPullRequest with the addition of
-// the ability to pass a context and additional request options.
-//
-// See PostCommentForPullRequest for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) PostCommentForPullRequestWithContext(ctx aws.Context, input *PostCommentForPullRequestInput, opts ...request.Option) (*PostCommentForPullRequestOutput, error) {
-	req, out := c.PostCommentForPullRequestRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opPostCommentReply = "PostCommentReply"
-
-// PostCommentReplyRequest generates a "aws/request.Request" representing the
-// client's request for the PostCommentReply operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PostCommentReply for more information on using the PostCommentReply
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the PostCommentReplyRequest method.
-//    req, resp := client.PostCommentReplyRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentReply
-func (c *CodeCommit) PostCommentReplyRequest(input *PostCommentReplyInput) (req *request.Request, output *PostCommentReplyOutput) {
-	op := &request.Operation{
-		Name:       opPostCommentReply,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &PostCommentReplyInput{}
-	}
-
-	output = &PostCommentReplyOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// PostCommentReply API operation for AWS CodeCommit.
-//
-// Posts a comment in reply to an existing comment on a comparison between commits
-// or a pull request.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation PostCommentReply for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeClientRequestTokenRequiredException "ClientRequestTokenRequiredException"
-//   A client request token is required. A client request token is an unique,
-//   client-generated idempotency token that when provided in a request, ensures
-//   the request cannot be repeated with a changed parameter. If a request is
-//   received with the same parameters and a token is included, the request will
-//   return information about the initial request that used that token.
-//
-//   * ErrCodeInvalidClientRequestTokenException "InvalidClientRequestTokenException"
-//   The client request token is not valid.
-//
-//   * ErrCodeIdempotencyParameterMismatchException "IdempotencyParameterMismatchException"
-//   The client request token is not valid. Either the token is not in a valid
-//   format, or the token has been used in a previous request and cannot be re-used.
-//
-//   * ErrCodeCommentContentRequiredException "CommentContentRequiredException"
-//   The comment is empty. You must provide some content for a comment. The content
-//   cannot be null.
-//
-//   * ErrCodeCommentContentSizeLimitExceededException "CommentContentSizeLimitExceededException"
-//   The comment is too large. Comments are limited to 1,000 characters.
-//
-//   * ErrCodeCommentDoesNotExistException "CommentDoesNotExistException"
-//   No comment exists with the provided ID. Verify that you have provided the
-//   correct ID, and then try again.
-//
-//   * ErrCodeCommentIdRequiredException "CommentIdRequiredException"
-//   The comment ID is missing or null. A comment ID is required.
-//
-//   * ErrCodeInvalidCommentIdException "InvalidCommentIdException"
-//   The comment ID is not in a valid format. Make sure that you have provided
-//   the full comment ID.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentReply
-func (c *CodeCommit) PostCommentReply(input *PostCommentReplyInput) (*PostCommentReplyOutput, error) {
-	req, out := c.PostCommentReplyRequest(input)
-	return out, req.Send()
-}
-
-// PostCommentReplyWithContext is the same as PostCommentReply with the addition of
-// the ability to pass a context and additional request options.
-//
-// See PostCommentReply for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) PostCommentReplyWithContext(ctx aws.Context, input *PostCommentReplyInput, opts ...request.Option) (*PostCommentReplyOutput, error) {
-	req, out := c.PostCommentReplyRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opPutRepositoryTriggers = "PutRepositoryTriggers"
-
-// PutRepositoryTriggersRequest generates a "aws/request.Request" representing the
-// client's request for the PutRepositoryTriggers operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PutRepositoryTriggers for more information on using the PutRepositoryTriggers
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the PutRepositoryTriggersRequest method.
-//    req, resp := client.PutRepositoryTriggersRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PutRepositoryTriggers
-func (c *CodeCommit) PutRepositoryTriggersRequest(input *PutRepositoryTriggersInput) (req *request.Request, output *PutRepositoryTriggersOutput) {
-	op := &request.Operation{
-		Name:       opPutRepositoryTriggers,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &PutRepositoryTriggersInput{}
-	}
-
-	output = &PutRepositoryTriggersOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// PutRepositoryTriggers API operation for AWS CodeCommit.
-//
-// Replaces all triggers for a repository. This can be used to create or delete
-// triggers.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation PutRepositoryTriggers for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeRepositoryTriggersListRequiredException "RepositoryTriggersListRequiredException"
-//   The list of triggers for the repository is required but was not specified.
-//
-//   * ErrCodeMaximumRepositoryTriggersExceededException "MaximumRepositoryTriggersExceededException"
-//   The number of triggers allowed for the repository was exceeded.
-//
-//   * ErrCodeInvalidRepositoryTriggerNameException "InvalidRepositoryTriggerNameException"
-//   The name of the trigger is not valid.
-//
-//   * ErrCodeInvalidRepositoryTriggerDestinationArnException "InvalidRepositoryTriggerDestinationArnException"
-//   The Amazon Resource Name (ARN) for the trigger is not valid for the specified
-//   destination. The most common reason for this error is that the ARN does not
-//   meet the requirements for the service type.
-//
-//   * ErrCodeInvalidRepositoryTriggerRegionException "InvalidRepositoryTriggerRegionException"
-//   The region for the trigger target does not match the region for the repository.
-//   Triggers must be created in the same region as the target for the trigger.
-//
-//   * ErrCodeInvalidRepositoryTriggerCustomDataException "InvalidRepositoryTriggerCustomDataException"
-//   The custom data provided for the trigger is not valid.
-//
-//   * ErrCodeMaximumBranchesExceededException "MaximumBranchesExceededException"
-//   The number of branches for the trigger was exceeded.
-//
-//   * ErrCodeInvalidRepositoryTriggerBranchNameException "InvalidRepositoryTriggerBranchNameException"
-//   One or more branch names specified for the trigger is not valid.
-//
-//   * ErrCodeInvalidRepositoryTriggerEventsException "InvalidRepositoryTriggerEventsException"
-//   One or more events specified for the trigger is not valid. Check to make
-//   sure that all events specified match the requirements for allowed events.
-//
-//   * ErrCodeRepositoryTriggerNameRequiredException "RepositoryTriggerNameRequiredException"
-//   A name for the trigger is required but was not specified.
-//
-//   * ErrCodeRepositoryTriggerDestinationArnRequiredException "RepositoryTriggerDestinationArnRequiredException"
-//   A destination ARN for the target service for the trigger is required but
-//   was not specified.
-//
-//   * ErrCodeRepositoryTriggerBranchNameListRequiredException "RepositoryTriggerBranchNameListRequiredException"
-//   At least one branch name is required but was not specified in the trigger
-//   configuration.
-//
-//   * ErrCodeRepositoryTriggerEventsListRequiredException "RepositoryTriggerEventsListRequiredException"
-//   At least one event for the trigger is required but was not specified.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PutRepositoryTriggers
-func (c *CodeCommit) PutRepositoryTriggers(input *PutRepositoryTriggersInput) (*PutRepositoryTriggersOutput, error) {
-	req, out := c.PutRepositoryTriggersRequest(input)
-	return out, req.Send()
-}
-
-// PutRepositoryTriggersWithContext is the same as PutRepositoryTriggers with the addition of
-// the ability to pass a context and additional request options.
-//
-// See PutRepositoryTriggers for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) PutRepositoryTriggersWithContext(ctx aws.Context, input *PutRepositoryTriggersInput, opts ...request.Option) (*PutRepositoryTriggersOutput, error) {
-	req, out := c.PutRepositoryTriggersRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opTestRepositoryTriggers = "TestRepositoryTriggers"
-
-// TestRepositoryTriggersRequest generates a "aws/request.Request" representing the
-// client's request for the TestRepositoryTriggers operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See TestRepositoryTriggers for more information on using the TestRepositoryTriggers
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the TestRepositoryTriggersRequest method.
-//    req, resp := client.TestRepositoryTriggersRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/TestRepositoryTriggers
-func (c *CodeCommit) TestRepositoryTriggersRequest(input *TestRepositoryTriggersInput) (req *request.Request, output *TestRepositoryTriggersOutput) {
-	op := &request.Operation{
-		Name:       opTestRepositoryTriggers,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &TestRepositoryTriggersInput{}
-	}
-
-	output = &TestRepositoryTriggersOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// TestRepositoryTriggers API operation for AWS CodeCommit.
-//
-// Tests the functionality of repository triggers by sending information to
-// the trigger target. If real data is available in the repository, the test
-// will send data from the last commit. If no data is available, sample data
-// will be generated.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation TestRepositoryTriggers for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeRepositoryTriggersListRequiredException "RepositoryTriggersListRequiredException"
-//   The list of triggers for the repository is required but was not specified.
-//
-//   * ErrCodeMaximumRepositoryTriggersExceededException "MaximumRepositoryTriggersExceededException"
-//   The number of triggers allowed for the repository was exceeded.
-//
-//   * ErrCodeInvalidRepositoryTriggerNameException "InvalidRepositoryTriggerNameException"
-//   The name of the trigger is not valid.
-//
-//   * ErrCodeInvalidRepositoryTriggerDestinationArnException "InvalidRepositoryTriggerDestinationArnException"
-//   The Amazon Resource Name (ARN) for the trigger is not valid for the specified
-//   destination. The most common reason for this error is that the ARN does not
-//   meet the requirements for the service type.
-//
-//   * ErrCodeInvalidRepositoryTriggerRegionException "InvalidRepositoryTriggerRegionException"
-//   The region for the trigger target does not match the region for the repository.
-//   Triggers must be created in the same region as the target for the trigger.
-//
-//   * ErrCodeInvalidRepositoryTriggerCustomDataException "InvalidRepositoryTriggerCustomDataException"
-//   The custom data provided for the trigger is not valid.
-//
-//   * ErrCodeMaximumBranchesExceededException "MaximumBranchesExceededException"
-//   The number of branches for the trigger was exceeded.
-//
-//   * ErrCodeInvalidRepositoryTriggerBranchNameException "InvalidRepositoryTriggerBranchNameException"
-//   One or more branch names specified for the trigger is not valid.
-//
-//   * ErrCodeInvalidRepositoryTriggerEventsException "InvalidRepositoryTriggerEventsException"
-//   One or more events specified for the trigger is not valid. Check to make
-//   sure that all events specified match the requirements for allowed events.
-//
-//   * ErrCodeRepositoryTriggerNameRequiredException "RepositoryTriggerNameRequiredException"
-//   A name for the trigger is required but was not specified.
-//
-//   * ErrCodeRepositoryTriggerDestinationArnRequiredException "RepositoryTriggerDestinationArnRequiredException"
-//   A destination ARN for the target service for the trigger is required but
-//   was not specified.
-//
-//   * ErrCodeRepositoryTriggerBranchNameListRequiredException "RepositoryTriggerBranchNameListRequiredException"
-//   At least one branch name is required but was not specified in the trigger
-//   configuration.
-//
-//   * ErrCodeRepositoryTriggerEventsListRequiredException "RepositoryTriggerEventsListRequiredException"
-//   At least one event for the trigger is required but was not specified.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/TestRepositoryTriggers
-func (c *CodeCommit) TestRepositoryTriggers(input *TestRepositoryTriggersInput) (*TestRepositoryTriggersOutput, error) {
-	req, out := c.TestRepositoryTriggersRequest(input)
-	return out, req.Send()
-}
-
-// TestRepositoryTriggersWithContext is the same as TestRepositoryTriggers with the addition of
-// the ability to pass a context and additional request options.
-//
-// See TestRepositoryTriggers for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) TestRepositoryTriggersWithContext(ctx aws.Context, input *TestRepositoryTriggersInput, opts ...request.Option) (*TestRepositoryTriggersOutput, error) {
-	req, out := c.TestRepositoryTriggersRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opUpdateComment = "UpdateComment"
-
-// UpdateCommentRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateComment operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateComment for more information on using the UpdateComment
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdateCommentRequest method.
-//    req, resp := client.UpdateCommentRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateComment
-func (c *CodeCommit) UpdateCommentRequest(input *UpdateCommentInput) (req *request.Request, output *UpdateCommentOutput) {
-	op := &request.Operation{
-		Name:       opUpdateComment,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &UpdateCommentInput{}
-	}
-
-	output = &UpdateCommentOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// UpdateComment API operation for AWS CodeCommit.
-//
-// Replaces the contents of a comment.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation UpdateComment for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeCommentContentRequiredException "CommentContentRequiredException"
-//   The comment is empty. You must provide some content for a comment. The content
-//   cannot be null.
-//
-//   * ErrCodeCommentContentSizeLimitExceededException "CommentContentSizeLimitExceededException"
-//   The comment is too large. Comments are limited to 1,000 characters.
-//
-//   * ErrCodeCommentDoesNotExistException "CommentDoesNotExistException"
-//   No comment exists with the provided ID. Verify that you have provided the
-//   correct ID, and then try again.
-//
-//   * ErrCodeCommentIdRequiredException "CommentIdRequiredException"
-//   The comment ID is missing or null. A comment ID is required.
-//
-//   * ErrCodeInvalidCommentIdException "InvalidCommentIdException"
-//   The comment ID is not in a valid format. Make sure that you have provided
-//   the full comment ID.
-//
-//   * ErrCodeCommentNotCreatedByCallerException "CommentNotCreatedByCallerException"
-//   You cannot modify or delete this comment. Only comment authors can modify
-//   or delete their comments.
-//
-//   * ErrCodeCommentDeletedException "CommentDeletedException"
-//   This comment has already been deleted. You cannot edit or delete a deleted
-//   comment.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateComment
-func (c *CodeCommit) UpdateComment(input *UpdateCommentInput) (*UpdateCommentOutput, error) {
-	req, out := c.UpdateCommentRequest(input)
-	return out, req.Send()
-}
-
-// UpdateCommentWithContext is the same as UpdateComment with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateComment for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) UpdateCommentWithContext(ctx aws.Context, input *UpdateCommentInput, opts ...request.Option) (*UpdateCommentOutput, error) {
-	req, out := c.UpdateCommentRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opUpdateDefaultBranch = "UpdateDefaultBranch"
-
-// UpdateDefaultBranchRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateDefaultBranch operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateDefaultBranch for more information on using the UpdateDefaultBranch
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdateDefaultBranchRequest method.
-//    req, resp := client.UpdateDefaultBranchRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateDefaultBranch
-func (c *CodeCommit) UpdateDefaultBranchRequest(input *UpdateDefaultBranchInput) (req *request.Request, output *UpdateDefaultBranchOutput) {
-	op := &request.Operation{
-		Name:       opUpdateDefaultBranch,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &UpdateDefaultBranchInput{}
-	}
-
-	output = &UpdateDefaultBranchOutput{}
-	req = c.newRequest(op, input, output)
-	req.Handlers.Unmarshal.Remove(jsonrpc.UnmarshalHandler)
-	req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler)
-	return
-}
-
-// UpdateDefaultBranch API operation for AWS CodeCommit.
-//
-// Sets or changes the default branch name for the specified repository.
-//
-// If you use this operation to change the default branch name to the current
-// default branch name, a success message is returned even though the default
-// branch did not change.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation UpdateDefaultBranch for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeBranchNameRequiredException "BranchNameRequiredException"
-//   A branch name is required but was not specified.
-//
-//   * ErrCodeInvalidBranchNameException "InvalidBranchNameException"
-//   The specified reference name is not valid.
-//
-//   * ErrCodeBranchDoesNotExistException "BranchDoesNotExistException"
-//   The specified branch does not exist.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateDefaultBranch
-func (c *CodeCommit) UpdateDefaultBranch(input *UpdateDefaultBranchInput) (*UpdateDefaultBranchOutput, error) {
-	req, out := c.UpdateDefaultBranchRequest(input)
-	return out, req.Send()
-}
-
-// UpdateDefaultBranchWithContext is the same as UpdateDefaultBranch with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateDefaultBranch for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) UpdateDefaultBranchWithContext(ctx aws.Context, input *UpdateDefaultBranchInput, opts ...request.Option) (*UpdateDefaultBranchOutput, error) {
-	req, out := c.UpdateDefaultBranchRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opUpdatePullRequestDescription = "UpdatePullRequestDescription"
-
-// UpdatePullRequestDescriptionRequest generates a "aws/request.Request" representing the
-// client's request for the UpdatePullRequestDescription operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdatePullRequestDescription for more information on using the UpdatePullRequestDescription
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdatePullRequestDescriptionRequest method.
-//    req, resp := client.UpdatePullRequestDescriptionRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestDescription
-func (c *CodeCommit) UpdatePullRequestDescriptionRequest(input *UpdatePullRequestDescriptionInput) (req *request.Request, output *UpdatePullRequestDescriptionOutput) {
-	op := &request.Operation{
-		Name:       opUpdatePullRequestDescription,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &UpdatePullRequestDescriptionInput{}
-	}
-
-	output = &UpdatePullRequestDescriptionOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// UpdatePullRequestDescription API operation for AWS CodeCommit.
-//
-// Replaces the contents of the description of a pull request.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation UpdatePullRequestDescription for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
-//   The pull request ID could not be found. Make sure that you have specified
-//   the correct repository name and pull request ID, and then try again.
-//
-//   * ErrCodeInvalidPullRequestIdException "InvalidPullRequestIdException"
-//   The pull request ID is not valid. Make sure that you have provided the full
-//   ID and that the pull request is in the specified repository, and then try
-//   again.
-//
-//   * ErrCodePullRequestIdRequiredException "PullRequestIdRequiredException"
-//   A pull request ID is required, but none was provided.
-//
-//   * ErrCodeInvalidDescriptionException "InvalidDescriptionException"
-//   The pull request description is not valid. Descriptions are limited to 1,000
-//   characters in length.
-//
-//   * ErrCodePullRequestAlreadyClosedException "PullRequestAlreadyClosedException"
-//   The pull request status cannot be updated because it is already closed.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestDescription
-func (c *CodeCommit) UpdatePullRequestDescription(input *UpdatePullRequestDescriptionInput) (*UpdatePullRequestDescriptionOutput, error) {
-	req, out := c.UpdatePullRequestDescriptionRequest(input)
-	return out, req.Send()
-}
-
-// UpdatePullRequestDescriptionWithContext is the same as UpdatePullRequestDescription with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdatePullRequestDescription for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) UpdatePullRequestDescriptionWithContext(ctx aws.Context, input *UpdatePullRequestDescriptionInput, opts ...request.Option) (*UpdatePullRequestDescriptionOutput, error) {
-	req, out := c.UpdatePullRequestDescriptionRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opUpdatePullRequestStatus = "UpdatePullRequestStatus"
-
-// UpdatePullRequestStatusRequest generates a "aws/request.Request" representing the
-// client's request for the UpdatePullRequestStatus operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdatePullRequestStatus for more information on using the UpdatePullRequestStatus
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdatePullRequestStatusRequest method.
-//    req, resp := client.UpdatePullRequestStatusRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestStatus
-func (c *CodeCommit) UpdatePullRequestStatusRequest(input *UpdatePullRequestStatusInput) (req *request.Request, output *UpdatePullRequestStatusOutput) {
-	op := &request.Operation{
-		Name:       opUpdatePullRequestStatus,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &UpdatePullRequestStatusInput{}
-	}
-
-	output = &UpdatePullRequestStatusOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// UpdatePullRequestStatus API operation for AWS CodeCommit.
-//
-// Updates the status of a pull request.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation UpdatePullRequestStatus for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
-//   The pull request ID could not be found. Make sure that you have specified
-//   the correct repository name and pull request ID, and then try again.
-//
-//   * ErrCodeInvalidPullRequestIdException "InvalidPullRequestIdException"
-//   The pull request ID is not valid. Make sure that you have provided the full
-//   ID and that the pull request is in the specified repository, and then try
-//   again.
-//
-//   * ErrCodePullRequestIdRequiredException "PullRequestIdRequiredException"
-//   A pull request ID is required, but none was provided.
-//
-//   * ErrCodeInvalidPullRequestStatusUpdateException "InvalidPullRequestStatusUpdateException"
-//   The pull request status update is not valid. The only valid update is from
-//   OPEN to CLOSED.
-//
-//   * ErrCodeInvalidPullRequestStatusException "InvalidPullRequestStatusException"
-//   The pull request status is not valid. The only valid values are OPEN and
-//   CLOSED.
-//
-//   * ErrCodePullRequestStatusRequiredException "PullRequestStatusRequiredException"
-//   A pull request status is required, but none was provided.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestStatus
-func (c *CodeCommit) UpdatePullRequestStatus(input *UpdatePullRequestStatusInput) (*UpdatePullRequestStatusOutput, error) {
-	req, out := c.UpdatePullRequestStatusRequest(input)
-	return out, req.Send()
-}
-
-// UpdatePullRequestStatusWithContext is the same as UpdatePullRequestStatus with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdatePullRequestStatus for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) UpdatePullRequestStatusWithContext(ctx aws.Context, input *UpdatePullRequestStatusInput, opts ...request.Option) (*UpdatePullRequestStatusOutput, error) {
-	req, out := c.UpdatePullRequestStatusRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opUpdatePullRequestTitle = "UpdatePullRequestTitle"
-
-// UpdatePullRequestTitleRequest generates a "aws/request.Request" representing the
-// client's request for the UpdatePullRequestTitle operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdatePullRequestTitle for more information on using the UpdatePullRequestTitle
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdatePullRequestTitleRequest method.
-//    req, resp := client.UpdatePullRequestTitleRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestTitle
-func (c *CodeCommit) UpdatePullRequestTitleRequest(input *UpdatePullRequestTitleInput) (req *request.Request, output *UpdatePullRequestTitleOutput) {
-	op := &request.Operation{
-		Name:       opUpdatePullRequestTitle,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &UpdatePullRequestTitleInput{}
-	}
-
-	output = &UpdatePullRequestTitleOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// UpdatePullRequestTitle API operation for AWS CodeCommit.
-//
-// Replaces the title of a pull request.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation UpdatePullRequestTitle for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodePullRequestDoesNotExistException "PullRequestDoesNotExistException"
-//   The pull request ID could not be found. Make sure that you have specified
-//   the correct repository name and pull request ID, and then try again.
-//
-//   * ErrCodeInvalidPullRequestIdException "InvalidPullRequestIdException"
-//   The pull request ID is not valid. Make sure that you have provided the full
-//   ID and that the pull request is in the specified repository, and then try
-//   again.
-//
-//   * ErrCodePullRequestIdRequiredException "PullRequestIdRequiredException"
-//   A pull request ID is required, but none was provided.
-//
-//   * ErrCodeTitleRequiredException "TitleRequiredException"
-//   A pull request title is required. It cannot be empty or null.
-//
-//   * ErrCodeInvalidTitleException "InvalidTitleException"
-//   The title of the pull request is not valid. Pull request titles cannot exceed
-//   100 characters in length.
-//
-//   * ErrCodePullRequestAlreadyClosedException "PullRequestAlreadyClosedException"
-//   The pull request status cannot be updated because it is already closed.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestTitle
-func (c *CodeCommit) UpdatePullRequestTitle(input *UpdatePullRequestTitleInput) (*UpdatePullRequestTitleOutput, error) {
-	req, out := c.UpdatePullRequestTitleRequest(input)
-	return out, req.Send()
-}
-
-// UpdatePullRequestTitleWithContext is the same as UpdatePullRequestTitle with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdatePullRequestTitle for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) UpdatePullRequestTitleWithContext(ctx aws.Context, input *UpdatePullRequestTitleInput, opts ...request.Option) (*UpdatePullRequestTitleOutput, error) {
-	req, out := c.UpdatePullRequestTitleRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opUpdateRepositoryDescription = "UpdateRepositoryDescription"
-
-// UpdateRepositoryDescriptionRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateRepositoryDescription operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateRepositoryDescription for more information on using the UpdateRepositoryDescription
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdateRepositoryDescriptionRequest method.
-//    req, resp := client.UpdateRepositoryDescriptionRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateRepositoryDescription
-func (c *CodeCommit) UpdateRepositoryDescriptionRequest(input *UpdateRepositoryDescriptionInput) (req *request.Request, output *UpdateRepositoryDescriptionOutput) {
-	op := &request.Operation{
-		Name:       opUpdateRepositoryDescription,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &UpdateRepositoryDescriptionInput{}
-	}
-
-	output = &UpdateRepositoryDescriptionOutput{}
-	req = c.newRequest(op, input, output)
-	req.Handlers.Unmarshal.Remove(jsonrpc.UnmarshalHandler)
-	req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler)
-	return
-}
-
-// UpdateRepositoryDescription API operation for AWS CodeCommit.
-//
-// Sets or changes the comment or description for a repository.
-//
-// The description field for a repository accepts all HTML characters and all
-// valid Unicode characters. Applications that do not HTML-encode the description
-// and display it in a web page could expose users to potentially malicious
-// code. Make sure that you HTML-encode the description field in any application
-// that uses this API to display the repository description on a web page.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation UpdateRepositoryDescription for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-//   * ErrCodeInvalidRepositoryDescriptionException "InvalidRepositoryDescriptionException"
-//   The specified repository description is not valid.
-//
-//   * ErrCodeEncryptionIntegrityChecksFailedException "EncryptionIntegrityChecksFailedException"
-//   An encryption integrity check failed.
-//
-//   * ErrCodeEncryptionKeyAccessDeniedException "EncryptionKeyAccessDeniedException"
-//   An encryption key could not be accessed.
-//
-//   * ErrCodeEncryptionKeyDisabledException "EncryptionKeyDisabledException"
-//   The encryption key is disabled.
-//
-//   * ErrCodeEncryptionKeyNotFoundException "EncryptionKeyNotFoundException"
-//   No encryption key was found.
-//
-//   * ErrCodeEncryptionKeyUnavailableException "EncryptionKeyUnavailableException"
-//   The encryption key is not available.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateRepositoryDescription
-func (c *CodeCommit) UpdateRepositoryDescription(input *UpdateRepositoryDescriptionInput) (*UpdateRepositoryDescriptionOutput, error) {
-	req, out := c.UpdateRepositoryDescriptionRequest(input)
-	return out, req.Send()
-}
-
-// UpdateRepositoryDescriptionWithContext is the same as UpdateRepositoryDescription with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateRepositoryDescription for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) UpdateRepositoryDescriptionWithContext(ctx aws.Context, input *UpdateRepositoryDescriptionInput, opts ...request.Option) (*UpdateRepositoryDescriptionOutput, error) {
-	req, out := c.UpdateRepositoryDescriptionRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opUpdateRepositoryName = "UpdateRepositoryName"
-
-// UpdateRepositoryNameRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateRepositoryName operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateRepositoryName for more information on using the UpdateRepositoryName
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdateRepositoryNameRequest method.
-//    req, resp := client.UpdateRepositoryNameRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateRepositoryName
-func (c *CodeCommit) UpdateRepositoryNameRequest(input *UpdateRepositoryNameInput) (req *request.Request, output *UpdateRepositoryNameOutput) {
-	op := &request.Operation{
-		Name:       opUpdateRepositoryName,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &UpdateRepositoryNameInput{}
-	}
-
-	output = &UpdateRepositoryNameOutput{}
-	req = c.newRequest(op, input, output)
-	req.Handlers.Unmarshal.Remove(jsonrpc.UnmarshalHandler)
-	req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler)
-	return
-}
-
-// UpdateRepositoryName API operation for AWS CodeCommit.
-//
-// Renames a repository. The repository name must be unique across the calling
-// AWS account. In addition, repository names are limited to 100 alphanumeric,
-// dash, and underscore characters, and cannot include certain characters. The
-// suffix ".git" is prohibited. For a full description of the limits on repository
-// names, see Limits (http://docs.aws.amazon.com/codecommit/latest/userguide/limits.html)
-// in the AWS CodeCommit User Guide.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS CodeCommit's
-// API operation UpdateRepositoryName for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeRepositoryDoesNotExistException "RepositoryDoesNotExistException"
-//   The specified repository does not exist.
-//
-//   * ErrCodeRepositoryNameExistsException "RepositoryNameExistsException"
-//   The specified repository name already exists.
-//
-//   * ErrCodeRepositoryNameRequiredException "RepositoryNameRequiredException"
-//   A repository name is required but was not specified.
-//
-//   * ErrCodeInvalidRepositoryNameException "InvalidRepositoryNameException"
-//   At least one specified repository name is not valid.
-//
-//   This exception only occurs when a specified repository name is not valid.
-//   Other exceptions occur when a required repository parameter is missing, or
-//   when a specified repository does not exist.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateRepositoryName
-func (c *CodeCommit) UpdateRepositoryName(input *UpdateRepositoryNameInput) (*UpdateRepositoryNameOutput, error) {
-	req, out := c.UpdateRepositoryNameRequest(input)
-	return out, req.Send()
-}
-
-// UpdateRepositoryNameWithContext is the same as UpdateRepositoryName with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateRepositoryName for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *CodeCommit) UpdateRepositoryNameWithContext(ctx aws.Context, input *UpdateRepositoryNameInput, opts ...request.Option) (*UpdateRepositoryNameOutput, error) {
-	req, out := c.UpdateRepositoryNameRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-// Represents the input of a batch get repositories operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/BatchGetRepositoriesInput
-type BatchGetRepositoriesInput struct {
-	_ struct{} `type:"structure"`
-
-	// The names of the repositories to get information about.
-	//
-	// RepositoryNames is a required field
-	RepositoryNames []*string `locationName:"repositoryNames" type:"list" required:"true"`
-}
-
-// String returns the string representation
-func (s BatchGetRepositoriesInput) String() string {
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-func (s BatchGetRepositoriesInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *BatchGetRepositoriesInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "BatchGetRepositoriesInput"}
-	if s.RepositoryNames == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryNames"))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetRepositoryNames sets the RepositoryNames field's value.
-func (s *BatchGetRepositoriesInput) SetRepositoryNames(v []*string) *BatchGetRepositoriesInput {
-	s.RepositoryNames = v
-	return s
-}
-
-// Represents the output of a batch get repositories operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/BatchGetRepositoriesOutput
-type BatchGetRepositoriesOutput struct {
-	_ struct{} `type:"structure"`
-
-	// A list of repositories returned by the batch get repositories operation.
-	Repositories []*RepositoryMetadata `locationName:"repositories" type:"list"`
-
-	// Returns a list of repository names for which information could not be found.
-	RepositoriesNotFound []*string `locationName:"repositoriesNotFound" type:"list"`
-}
-
-// String returns the string representation
-func (s BatchGetRepositoriesOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s BatchGetRepositoriesOutput) GoString() string {
-	return s.String()
-}
-
-// SetRepositories sets the Repositories field's value.
-func (s *BatchGetRepositoriesOutput) SetRepositories(v []*RepositoryMetadata) *BatchGetRepositoriesOutput {
-	s.Repositories = v
-	return s
-}
-
-// SetRepositoriesNotFound sets the RepositoriesNotFound field's value.
-func (s *BatchGetRepositoriesOutput) SetRepositoriesNotFound(v []*string) *BatchGetRepositoriesOutput {
-	s.RepositoriesNotFound = v
-	return s
-}
-
-// Returns information about a specific Git blob object.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/BlobMetadata
-type BlobMetadata struct {
-	_ struct{} `type:"structure"`
-
-	// The full ID of the blob.
-	BlobId *string `locationName:"blobId" type:"string"`
-
-	// The file mode permissions of the blob. File mode permission codes include:
-	//
-	//    * 100644 indicates read/write
-	//
-	//    * 100755 indicates read/write/execute
-	//
-	//    * 160000 indicates a submodule
-	//
-	//    * 120000 indicates a symlink
-	Mode *string `locationName:"mode" type:"string"`
-
-	// The path to the blob and any associated file name, if any.
-	Path *string `locationName:"path" type:"string"`
-}
-
-// String returns the string representation
-func (s BlobMetadata) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s BlobMetadata) GoString() string {
-	return s.String()
-}
-
-// SetBlobId sets the BlobId field's value.
-func (s *BlobMetadata) SetBlobId(v string) *BlobMetadata {
-	s.BlobId = &v
-	return s
-}
-
-// SetMode sets the Mode field's value.
-func (s *BlobMetadata) SetMode(v string) *BlobMetadata {
-	s.Mode = &v
-	return s
-}
-
-// SetPath sets the Path field's value.
-func (s *BlobMetadata) SetPath(v string) *BlobMetadata {
-	s.Path = &v
-	return s
-}
-
-// Returns information about a branch.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/BranchInfo
-type BranchInfo struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the branch.
-	BranchName *string `locationName:"branchName" min:"1" type:"string"`
-
-	// The ID of the last commit made to the branch.
-	CommitId *string `locationName:"commitId" type:"string"`
-}
-
-// String returns the string representation
-func (s BranchInfo) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s BranchInfo) GoString() string {
-	return s.String()
-}
-
-// SetBranchName sets the BranchName field's value.
-func (s *BranchInfo) SetBranchName(v string) *BranchInfo {
-	s.BranchName = &v
-	return s
-}
-
-// SetCommitId sets the CommitId field's value.
-func (s *BranchInfo) SetCommitId(v string) *BranchInfo {
-	s.CommitId = &v
-	return s
-}
-
-// Returns information about a specific comment.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/Comment
-type Comment struct {
-	_ struct{} `type:"structure"`
-
-	// The Amazon Resource Name (ARN) of the person who posted the comment.
-	AuthorArn *string `locationName:"authorArn" type:"string"`
-
-	// A unique, client-generated idempotency token that when provided in a request,
-	// ensures the request cannot be repeated with a changed parameter. If a request
-	// is received with the same parameters and a token is included, the request
-	// will return information about the initial request that used that token.
-	ClientRequestToken *string `locationName:"clientRequestToken" type:"string"`
-
-	// The system-generated comment ID.
-	CommentId *string `locationName:"commentId" type:"string"`
-
-	// The content of the comment.
-	Content *string `locationName:"content" type:"string"`
-
-	// The date and time the comment was created, in timestamp format.
-	CreationDate *time.Time `locationName:"creationDate" type:"timestamp" timestampFormat:"unix"`
-
-	// A Boolean value indicating whether the comment has been deleted.
-	Deleted *bool `locationName:"deleted" type:"boolean"`
-
-	// The ID of the comment for which this comment is a reply, if any.
-	InReplyTo *string `locationName:"inReplyTo" type:"string"`
-
-	// The date and time the comment was most recently modified, in timestamp format.
-	LastModifiedDate *time.Time `locationName:"lastModifiedDate" type:"timestamp" timestampFormat:"unix"`
-}
-
-// String returns the string representation
-func (s Comment) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s Comment) GoString() string {
-	return s.String()
-}
-
-// SetAuthorArn sets the AuthorArn field's value.
-func (s *Comment) SetAuthorArn(v string) *Comment {
-	s.AuthorArn = &v
-	return s
-}
-
-// SetClientRequestToken sets the ClientRequestToken field's value.
-func (s *Comment) SetClientRequestToken(v string) *Comment {
-	s.ClientRequestToken = &v
-	return s
-}
-
-// SetCommentId sets the CommentId field's value.
-func (s *Comment) SetCommentId(v string) *Comment {
-	s.CommentId = &v
-	return s
-}
-
-// SetContent sets the Content field's value.
-func (s *Comment) SetContent(v string) *Comment {
-	s.Content = &v
-	return s
-}
-
-// SetCreationDate sets the CreationDate field's value.
-func (s *Comment) SetCreationDate(v time.Time) *Comment {
-	s.CreationDate = &v
-	return s
-}
-
-// SetDeleted sets the Deleted field's value.
-func (s *Comment) SetDeleted(v bool) *Comment {
-	s.Deleted = &v
-	return s
-}
-
-// SetInReplyTo sets the InReplyTo field's value.
-func (s *Comment) SetInReplyTo(v string) *Comment {
-	s.InReplyTo = &v
-	return s
-}
-
-// SetLastModifiedDate sets the LastModifiedDate field's value.
-func (s *Comment) SetLastModifiedDate(v time.Time) *Comment {
-	s.LastModifiedDate = &v
-	return s
-}
-
-// Returns information about comments on the comparison between two commits.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CommentsForComparedCommit
-type CommentsForComparedCommit struct {
-	_ struct{} `type:"structure"`
-
-	// The full blob ID of the commit used to establish the 'after' of the comparison.
-	AfterBlobId *string `locationName:"afterBlobId" type:"string"`
-
-	// The full commit ID of the commit used to establish the 'after' of the comparison.
-	AfterCommitId *string `locationName:"afterCommitId" type:"string"`
-
-	// The full blob ID of the commit used to establish the 'before' of the comparison.
-	BeforeBlobId *string `locationName:"beforeBlobId" type:"string"`
-
-	// The full commit ID of the commit used to establish the 'before' of the comparison.
-	BeforeCommitId *string `locationName:"beforeCommitId" type:"string"`
-
-	// An array of comment objects. Each comment object contains information about
-	// a comment on the comparison between commits.
-	Comments []*Comment `locationName:"comments" type:"list"`
-
-	// Location information about the comment on the comparison, including the file
-	// name, line number, and whether the version of the file where the comment
-	// was made is 'BEFORE' or 'AFTER'.
-	Location *Location `locationName:"location" type:"structure"`
-
-	// The name of the repository that contains the compared commits.
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string"`
-}
-
-// String returns the string representation
-func (s CommentsForComparedCommit) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CommentsForComparedCommit) GoString() string {
-	return s.String()
-}
-
-// SetAfterBlobId sets the AfterBlobId field's value.
-func (s *CommentsForComparedCommit) SetAfterBlobId(v string) *CommentsForComparedCommit {
-	s.AfterBlobId = &v
-	return s
-}
-
-// SetAfterCommitId sets the AfterCommitId field's value.
-func (s *CommentsForComparedCommit) SetAfterCommitId(v string) *CommentsForComparedCommit {
-	s.AfterCommitId = &v
-	return s
-}
-
-// SetBeforeBlobId sets the BeforeBlobId field's value.
-func (s *CommentsForComparedCommit) SetBeforeBlobId(v string) *CommentsForComparedCommit {
-	s.BeforeBlobId = &v
-	return s
-}
-
-// SetBeforeCommitId sets the BeforeCommitId field's value.
-func (s *CommentsForComparedCommit) SetBeforeCommitId(v string) *CommentsForComparedCommit {
-	s.BeforeCommitId = &v
-	return s
-}
-
-// SetComments sets the Comments field's value.
-func (s *CommentsForComparedCommit) SetComments(v []*Comment) *CommentsForComparedCommit {
-	s.Comments = v
-	return s
-}
-
-// SetLocation sets the Location field's value.
-func (s *CommentsForComparedCommit) SetLocation(v *Location) *CommentsForComparedCommit {
-	s.Location = v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *CommentsForComparedCommit) SetRepositoryName(v string) *CommentsForComparedCommit {
-	s.RepositoryName = &v
-	return s
-}
-
-// Returns information about comments on a pull request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CommentsForPullRequest
-type CommentsForPullRequest struct {
-	_ struct{} `type:"structure"`
-
-	// The full blob ID of the file on which you want to comment on the source commit.
-	AfterBlobId *string `locationName:"afterBlobId" type:"string"`
-
-	// he full commit ID of the commit that was the tip of the source branch at
-	// the time the comment was made.
-	AfterCommitId *string `locationName:"afterCommitId" type:"string"`
-
-	// The full blob ID of the file on which you want to comment on the destination
-	// commit.
-	BeforeBlobId *string `locationName:"beforeBlobId" type:"string"`
-
-	// The full commit ID of the commit that was the tip of the destination branch
-	// when the pull request was created. This commit will be superceded by the
-	// after commit in the source branch when and if you merge the source branch
-	// into the destination branch.
-	BeforeCommitId *string `locationName:"beforeCommitId" type:"string"`
-
-	// An array of comment objects. Each comment object contains information about
-	// a comment on the pull request.
-	Comments []*Comment `locationName:"comments" type:"list"`
-
-	// Location information about the comment on the pull request, including the
-	// file name, line number, and whether the version of the file where the comment
-	// was made is 'BEFORE' (destination branch) or 'AFTER' (source branch).
-	Location *Location `locationName:"location" type:"structure"`
-
-	// The system-generated ID of the pull request.
-	PullRequestId *string `locationName:"pullRequestId" type:"string"`
-
-	// The name of the repository that contains the pull request.
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string"`
-}
-
-// String returns the string representation
-func (s CommentsForPullRequest) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CommentsForPullRequest) GoString() string {
-	return s.String()
-}
-
-// SetAfterBlobId sets the AfterBlobId field's value.
-func (s *CommentsForPullRequest) SetAfterBlobId(v string) *CommentsForPullRequest {
-	s.AfterBlobId = &v
-	return s
-}
-
-// SetAfterCommitId sets the AfterCommitId field's value.
-func (s *CommentsForPullRequest) SetAfterCommitId(v string) *CommentsForPullRequest {
-	s.AfterCommitId = &v
-	return s
-}
-
-// SetBeforeBlobId sets the BeforeBlobId field's value.
-func (s *CommentsForPullRequest) SetBeforeBlobId(v string) *CommentsForPullRequest {
-	s.BeforeBlobId = &v
-	return s
-}
-
-// SetBeforeCommitId sets the BeforeCommitId field's value.
-func (s *CommentsForPullRequest) SetBeforeCommitId(v string) *CommentsForPullRequest {
-	s.BeforeCommitId = &v
-	return s
-}
-
-// SetComments sets the Comments field's value.
-func (s *CommentsForPullRequest) SetComments(v []*Comment) *CommentsForPullRequest {
-	s.Comments = v
-	return s
-}
-
-// SetLocation sets the Location field's value.
-func (s *CommentsForPullRequest) SetLocation(v *Location) *CommentsForPullRequest {
-	s.Location = v
-	return s
-}
-
-// SetPullRequestId sets the PullRequestId field's value.
-func (s *CommentsForPullRequest) SetPullRequestId(v string) *CommentsForPullRequest {
-	s.PullRequestId = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *CommentsForPullRequest) SetRepositoryName(v string) *CommentsForPullRequest {
-	s.RepositoryName = &v
-	return s
-}
-
-// Returns information about a specific commit.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/Commit
-type Commit struct {
-	_ struct{} `type:"structure"`
-
-	// Any additional data associated with the specified commit.
-	AdditionalData *string `locationName:"additionalData" type:"string"`
-
-	// Information about the author of the specified commit. Information includes
-	// the date in timestamp format with GMT offset, the name of the author, and
-	// the email address for the author, as configured in Git.
-	Author *UserInfo `locationName:"author" type:"structure"`
-
-	// The full SHA of the specified commit.
-	CommitId *string `locationName:"commitId" type:"string"`
-
-	// Information about the person who committed the specified commit, also known
-	// as the committer. Information includes the date in timestamp format with
-	// GMT offset, the name of the committer, and the email address for the committer,
-	// as configured in Git.
-	//
-	// For more information about the difference between an author and a committer
-	// in Git, see Viewing the Commit History (http://git-scm.com/book/ch2-3.html)
-	// in Pro Git by Scott Chacon and Ben Straub.
-	Committer *UserInfo `locationName:"committer" type:"structure"`
-
-	// The commit message associated with the specified commit.
-	Message *string `locationName:"message" type:"string"`
-
-	// The parent list for the specified commit.
-	Parents []*string `locationName:"parents" type:"list"`
-
-	// Tree information for the specified commit.
-	TreeId *string `locationName:"treeId" type:"string"`
-}
-
-// String returns the string representation
-func (s Commit) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s Commit) GoString() string {
-	return s.String()
-}
-
-// SetAdditionalData sets the AdditionalData field's value.
-func (s *Commit) SetAdditionalData(v string) *Commit {
-	s.AdditionalData = &v
-	return s
-}
-
-// SetAuthor sets the Author field's value.
-func (s *Commit) SetAuthor(v *UserInfo) *Commit {
-	s.Author = v
-	return s
-}
-
-// SetCommitId sets the CommitId field's value.
-func (s *Commit) SetCommitId(v string) *Commit {
-	s.CommitId = &v
-	return s
-}
-
-// SetCommitter sets the Committer field's value.
-func (s *Commit) SetCommitter(v *UserInfo) *Commit {
-	s.Committer = v
-	return s
-}
-
-// SetMessage sets the Message field's value.
-func (s *Commit) SetMessage(v string) *Commit {
-	s.Message = &v
-	return s
-}
-
-// SetParents sets the Parents field's value.
-func (s *Commit) SetParents(v []*string) *Commit {
-	s.Parents = v
-	return s
-}
-
-// SetTreeId sets the TreeId field's value.
-func (s *Commit) SetTreeId(v string) *Commit {
-	s.TreeId = &v
-	return s
-}
-
-// Represents the input of a create branch operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateBranchInput
-type CreateBranchInput struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the new branch to create.
-	//
-	// BranchName is a required field
-	BranchName *string `locationName:"branchName" min:"1" type:"string" required:"true"`
-
-	// The ID of the commit to point the new branch to.
-	//
-	// CommitId is a required field
-	CommitId *string `locationName:"commitId" type:"string" required:"true"`
-
-	// The name of the repository in which you want to create the new branch.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s CreateBranchInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CreateBranchInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *CreateBranchInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "CreateBranchInput"}
-	if s.BranchName == nil {
-		invalidParams.Add(request.NewErrParamRequired("BranchName"))
-	}
-	if s.BranchName != nil && len(*s.BranchName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("BranchName", 1))
-	}
-	if s.CommitId == nil {
-		invalidParams.Add(request.NewErrParamRequired("CommitId"))
-	}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetBranchName sets the BranchName field's value.
-func (s *CreateBranchInput) SetBranchName(v string) *CreateBranchInput {
-	s.BranchName = &v
-	return s
-}
-
-// SetCommitId sets the CommitId field's value.
-func (s *CreateBranchInput) SetCommitId(v string) *CreateBranchInput {
-	s.CommitId = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *CreateBranchInput) SetRepositoryName(v string) *CreateBranchInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateBranchOutput
-type CreateBranchOutput struct {
-	_ struct{} `type:"structure"`
-}
-
-// String returns the string representation
-func (s CreateBranchOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CreateBranchOutput) GoString() string {
-	return s.String()
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreatePullRequestInput
-type CreatePullRequestInput struct {
-	_ struct{} `type:"structure"`
-
-	// A unique, client-generated idempotency token that when provided in a request,
-	// ensures the request cannot be repeated with a changed parameter. If a request
-	// is received with the same parameters and a token is included, the request
-	// will return information about the initial request that used that token.
-	//
-	// The AWS SDKs prepopulate client request tokens. If using an AWS SDK, you
-	// do not have to generate an idempotency token, as this will be done for you.
-	ClientRequestToken *string `locationName:"clientRequestToken" type:"string" idempotencyToken:"true"`
-
-	// A description of the pull request.
-	Description *string `locationName:"description" type:"string"`
-
-	// The targets for the pull request, including the source of the code to be
-	// reviewed (the source branch), and the destination where the creator of the
-	// pull request intends the code to be merged after the pull request is closed
-	// (the destination branch).
-	//
-	// Targets is a required field
-	Targets []*Target `locationName:"targets" type:"list" required:"true"`
-
-	// The title of the pull request. This title will be used to identify the pull
-	// request to other users in the repository.
-	//
-	// Title is a required field
-	Title *string `locationName:"title" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s CreatePullRequestInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CreatePullRequestInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *CreatePullRequestInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "CreatePullRequestInput"}
-	if s.Targets == nil {
-		invalidParams.Add(request.NewErrParamRequired("Targets"))
-	}
-	if s.Title == nil {
-		invalidParams.Add(request.NewErrParamRequired("Title"))
-	}
-	if s.Targets != nil {
-		for i, v := range s.Targets {
-			if v == nil {
-				continue
-			}
-			if err := v.Validate(); err != nil {
-				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "Targets", i), err.(request.ErrInvalidParams))
-			}
-		}
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetClientRequestToken sets the ClientRequestToken field's value.
-func (s *CreatePullRequestInput) SetClientRequestToken(v string) *CreatePullRequestInput {
-	s.ClientRequestToken = &v
-	return s
-}
-
-// SetDescription sets the Description field's value.
-func (s *CreatePullRequestInput) SetDescription(v string) *CreatePullRequestInput {
-	s.Description = &v
-	return s
-}
-
-// SetTargets sets the Targets field's value.
-func (s *CreatePullRequestInput) SetTargets(v []*Target) *CreatePullRequestInput {
-	s.Targets = v
-	return s
-}
-
-// SetTitle sets the Title field's value.
-func (s *CreatePullRequestInput) SetTitle(v string) *CreatePullRequestInput {
-	s.Title = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreatePullRequestOutput
-type CreatePullRequestOutput struct {
-	_ struct{} `type:"structure"`
-
-	// Information about the newly created pull request.
-	//
-	// PullRequest is a required field
-	PullRequest *PullRequest `locationName:"pullRequest" type:"structure" required:"true"`
-}
-
-// String returns the string representation
-func (s CreatePullRequestOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CreatePullRequestOutput) GoString() string {
-	return s.String()
-}
-
-// SetPullRequest sets the PullRequest field's value.
-func (s *CreatePullRequestOutput) SetPullRequest(v *PullRequest) *CreatePullRequestOutput {
-	s.PullRequest = v
-	return s
-}
-
-// Represents the input of a create repository operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateRepositoryInput
-type CreateRepositoryInput struct {
-	_ struct{} `type:"structure"`
-
-	// A comment or description about the new repository.
-	//
-	// The description field for a repository accepts all HTML characters and all
-	// valid Unicode characters. Applications that do not HTML-encode the description
-	// and display it in a web page could expose users to potentially malicious
-	// code. Make sure that you HTML-encode the description field in any application
-	// that uses this API to display the repository description on a web page.
-	RepositoryDescription *string `locationName:"repositoryDescription" type:"string"`
-
-	// The name of the new repository to be created.
-	//
-	// The repository name must be unique across the calling AWS account. In addition,
-	// repository names are limited to 100 alphanumeric, dash, and underscore characters,
-	// and cannot include certain characters. For a full description of the limits
-	// on repository names, see Limits (http://docs.aws.amazon.com/codecommit/latest/userguide/limits.html)
-	// in the AWS CodeCommit User Guide. The suffix ".git" is prohibited.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s CreateRepositoryInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CreateRepositoryInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *CreateRepositoryInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "CreateRepositoryInput"}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetRepositoryDescription sets the RepositoryDescription field's value.
-func (s *CreateRepositoryInput) SetRepositoryDescription(v string) *CreateRepositoryInput {
-	s.RepositoryDescription = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *CreateRepositoryInput) SetRepositoryName(v string) *CreateRepositoryInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Represents the output of a create repository operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateRepositoryOutput
-type CreateRepositoryOutput struct {
-	_ struct{} `type:"structure"`
-
-	// Information about the newly created repository.
-	RepositoryMetadata *RepositoryMetadata `locationName:"repositoryMetadata" type:"structure"`
-}
-
-// String returns the string representation
-func (s CreateRepositoryOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s CreateRepositoryOutput) GoString() string {
-	return s.String()
-}
-
-// SetRepositoryMetadata sets the RepositoryMetadata field's value.
-func (s *CreateRepositoryOutput) SetRepositoryMetadata(v *RepositoryMetadata) *CreateRepositoryOutput {
-	s.RepositoryMetadata = v
-	return s
-}
-
-// Represents the input of a delete branch operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranchInput
-type DeleteBranchInput struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the branch to delete.
-	//
-	// BranchName is a required field
-	BranchName *string `locationName:"branchName" min:"1" type:"string" required:"true"`
-
-	// The name of the repository that contains the branch to be deleted.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s DeleteBranchInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteBranchInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *DeleteBranchInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "DeleteBranchInput"}
-	if s.BranchName == nil {
-		invalidParams.Add(request.NewErrParamRequired("BranchName"))
-	}
-	if s.BranchName != nil && len(*s.BranchName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("BranchName", 1))
-	}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetBranchName sets the BranchName field's value.
-func (s *DeleteBranchInput) SetBranchName(v string) *DeleteBranchInput {
-	s.BranchName = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *DeleteBranchInput) SetRepositoryName(v string) *DeleteBranchInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Represents the output of a delete branch operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranchOutput
-type DeleteBranchOutput struct {
-	_ struct{} `type:"structure"`
-
-	// Information about the branch deleted by the operation, including the branch
-	// name and the commit ID that was the tip of the branch.
-	DeletedBranch *BranchInfo `locationName:"deletedBranch" type:"structure"`
-}
-
-// String returns the string representation
-func (s DeleteBranchOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteBranchOutput) GoString() string {
-	return s.String()
-}
-
-// SetDeletedBranch sets the DeletedBranch field's value.
-func (s *DeleteBranchOutput) SetDeletedBranch(v *BranchInfo) *DeleteBranchOutput {
-	s.DeletedBranch = v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteCommentContentInput
-type DeleteCommentContentInput struct {
-	_ struct{} `type:"structure"`
-
-	// The unique, system-generated ID of the comment. To get this ID, use GetCommentsForComparedCommit
-	// or GetCommentsForPullRequest.
-	//
-	// CommentId is a required field
-	CommentId *string `locationName:"commentId" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s DeleteCommentContentInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteCommentContentInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *DeleteCommentContentInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "DeleteCommentContentInput"}
-	if s.CommentId == nil {
-		invalidParams.Add(request.NewErrParamRequired("CommentId"))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetCommentId sets the CommentId field's value.
-func (s *DeleteCommentContentInput) SetCommentId(v string) *DeleteCommentContentInput {
-	s.CommentId = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteCommentContentOutput
-type DeleteCommentContentOutput struct {
-	_ struct{} `type:"structure"`
-
-	// Information about the comment you just deleted.
-	Comment *Comment `locationName:"comment" type:"structure"`
-}
-
-// String returns the string representation
-func (s DeleteCommentContentOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteCommentContentOutput) GoString() string {
-	return s.String()
-}
-
-// SetComment sets the Comment field's value.
-func (s *DeleteCommentContentOutput) SetComment(v *Comment) *DeleteCommentContentOutput {
-	s.Comment = v
-	return s
-}
-
-// Represents the input of a delete repository operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteRepositoryInput
-type DeleteRepositoryInput struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the repository to delete.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s DeleteRepositoryInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteRepositoryInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *DeleteRepositoryInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "DeleteRepositoryInput"}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *DeleteRepositoryInput) SetRepositoryName(v string) *DeleteRepositoryInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Represents the output of a delete repository operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteRepositoryOutput
-type DeleteRepositoryOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The ID of the repository that was deleted.
-	RepositoryId *string `locationName:"repositoryId" type:"string"`
-}
-
-// String returns the string representation
-func (s DeleteRepositoryOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteRepositoryOutput) GoString() string {
-	return s.String()
-}
-
-// SetRepositoryId sets the RepositoryId field's value.
-func (s *DeleteRepositoryOutput) SetRepositoryId(v string) *DeleteRepositoryOutput {
-	s.RepositoryId = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DescribePullRequestEventsInput
-type DescribePullRequestEventsInput struct {
-	_ struct{} `type:"structure"`
-
-	// The Amazon Resource Name (ARN) of the user whose actions resulted in the
-	// event. Examples include updating the pull request with additional commits
-	// or changing the status of a pull request.
-	ActorArn *string `locationName:"actorArn" type:"string"`
-
-	// A non-negative integer used to limit the number of returned results. The
-	// default is 100 events, which is also the maximum number of events that can
-	// be returned in a result.
-	MaxResults *int64 `locationName:"maxResults" type:"integer"`
-
-	// An enumeration token that when provided in a request, returns the next batch
-	// of the results.
-	NextToken *string `locationName:"nextToken" type:"string"`
-
-	// Optional. The pull request event type about which you want to return information.
-	PullRequestEventType *string `locationName:"pullRequestEventType" type:"string" enum:"PullRequestEventType"`
-
-	// The system-generated ID of the pull request. To get this ID, use ListPullRequests.
-	//
-	// PullRequestId is a required field
-	PullRequestId *string `locationName:"pullRequestId" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s DescribePullRequestEventsInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DescribePullRequestEventsInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *DescribePullRequestEventsInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "DescribePullRequestEventsInput"}
-	if s.PullRequestId == nil {
-		invalidParams.Add(request.NewErrParamRequired("PullRequestId"))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetActorArn sets the ActorArn field's value.
-func (s *DescribePullRequestEventsInput) SetActorArn(v string) *DescribePullRequestEventsInput {
-	s.ActorArn = &v
-	return s
-}
-
-// SetMaxResults sets the MaxResults field's value.
-func (s *DescribePullRequestEventsInput) SetMaxResults(v int64) *DescribePullRequestEventsInput {
-	s.MaxResults = &v
-	return s
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *DescribePullRequestEventsInput) SetNextToken(v string) *DescribePullRequestEventsInput {
-	s.NextToken = &v
-	return s
-}
-
-// SetPullRequestEventType sets the PullRequestEventType field's value.
-func (s *DescribePullRequestEventsInput) SetPullRequestEventType(v string) *DescribePullRequestEventsInput {
-	s.PullRequestEventType = &v
-	return s
-}
-
-// SetPullRequestId sets the PullRequestId field's value.
-func (s *DescribePullRequestEventsInput) SetPullRequestId(v string) *DescribePullRequestEventsInput {
-	s.PullRequestId = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DescribePullRequestEventsOutput
-type DescribePullRequestEventsOutput struct {
-	_ struct{} `type:"structure"`
-
-	// An enumeration token that can be used in a request to return the next batch
-	// of the results.
-	NextToken *string `locationName:"nextToken" type:"string"`
-
-	// Information about the pull request events.
-	//
-	// PullRequestEvents is a required field
-	PullRequestEvents []*PullRequestEvent `locationName:"pullRequestEvents" type:"list" required:"true"`
-}
-
-// String returns the string representation
-func (s DescribePullRequestEventsOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DescribePullRequestEventsOutput) GoString() string {
-	return s.String()
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *DescribePullRequestEventsOutput) SetNextToken(v string) *DescribePullRequestEventsOutput {
-	s.NextToken = &v
-	return s
-}
-
-// SetPullRequestEvents sets the PullRequestEvents field's value.
-func (s *DescribePullRequestEventsOutput) SetPullRequestEvents(v []*PullRequestEvent) *DescribePullRequestEventsOutput {
-	s.PullRequestEvents = v
-	return s
-}
-
-// Returns information about a set of differences for a commit specifier.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/Difference
-type Difference struct {
-	_ struct{} `type:"structure"`
-
-	// Information about an afterBlob data type object, including the ID, the file
-	// mode permission code, and the path.
-	AfterBlob *BlobMetadata `locationName:"afterBlob" type:"structure"`
-
-	// Information about a beforeBlob data type object, including the ID, the file
-	// mode permission code, and the path.
-	BeforeBlob *BlobMetadata `locationName:"beforeBlob" type:"structure"`
-
-	// Whether the change type of the difference is an addition (A), deletion (D),
-	// or modification (M).
-	ChangeType *string `locationName:"changeType" type:"string" enum:"ChangeTypeEnum"`
-}
-
-// String returns the string representation
-func (s Difference) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s Difference) GoString() string {
-	return s.String()
-}
-
-// SetAfterBlob sets the AfterBlob field's value.
-func (s *Difference) SetAfterBlob(v *BlobMetadata) *Difference {
-	s.AfterBlob = v
-	return s
-}
-
-// SetBeforeBlob sets the BeforeBlob field's value.
-func (s *Difference) SetBeforeBlob(v *BlobMetadata) *Difference {
-	s.BeforeBlob = v
-	return s
-}
-
-// SetChangeType sets the ChangeType field's value.
-func (s *Difference) SetChangeType(v string) *Difference {
-	s.ChangeType = &v
-	return s
-}
-
-// Represents the input of a get blob operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBlobInput
-type GetBlobInput struct {
-	_ struct{} `type:"structure"`
-
-	// The ID of the blob, which is its SHA-1 pointer.
-	//
-	// BlobId is a required field
-	BlobId *string `locationName:"blobId" type:"string" required:"true"`
-
-	// The name of the repository that contains the blob.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s GetBlobInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetBlobInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetBlobInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetBlobInput"}
-	if s.BlobId == nil {
-		invalidParams.Add(request.NewErrParamRequired("BlobId"))
-	}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetBlobId sets the BlobId field's value.
-func (s *GetBlobInput) SetBlobId(v string) *GetBlobInput {
-	s.BlobId = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *GetBlobInput) SetRepositoryName(v string) *GetBlobInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Represents the output of a get blob operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBlobOutput
-type GetBlobOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The content of the blob, usually a file.
-	//
-	// Content is automatically base64 encoded/decoded by the SDK.
-	//
-	// Content is a required field
-	Content []byte `locationName:"content" type:"blob" required:"true"`
-}
-
-// String returns the string representation
-func (s GetBlobOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetBlobOutput) GoString() string {
-	return s.String()
-}
-
-// SetContent sets the Content field's value.
-func (s *GetBlobOutput) SetContent(v []byte) *GetBlobOutput {
-	s.Content = v
-	return s
-}
-
-// Represents the input of a get branch operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBranchInput
-type GetBranchInput struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the branch for which you want to retrieve information.
-	BranchName *string `locationName:"branchName" min:"1" type:"string"`
-
-	// The name of the repository that contains the branch for which you want to
-	// retrieve information.
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string"`
-}
-
-// String returns the string representation
-func (s GetBranchInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetBranchInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetBranchInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetBranchInput"}
-	if s.BranchName != nil && len(*s.BranchName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("BranchName", 1))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetBranchName sets the BranchName field's value.
-func (s *GetBranchInput) SetBranchName(v string) *GetBranchInput {
-	s.BranchName = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *GetBranchInput) SetRepositoryName(v string) *GetBranchInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Represents the output of a get branch operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetBranchOutput
-type GetBranchOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the branch.
-	Branch *BranchInfo `locationName:"branch" type:"structure"`
-}
-
-// String returns the string representation
-func (s GetBranchOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetBranchOutput) GoString() string {
-	return s.String()
-}
-
-// SetBranch sets the Branch field's value.
-func (s *GetBranchOutput) SetBranch(v *BranchInfo) *GetBranchOutput {
-	s.Branch = v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentInput
-type GetCommentInput struct {
-	_ struct{} `type:"structure"`
-
-	// The unique, system-generated ID of the comment. To get this ID, use GetCommentsForComparedCommit
-	// or GetCommentsForPullRequest.
-	//
-	// CommentId is a required field
-	CommentId *string `locationName:"commentId" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s GetCommentInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetCommentInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetCommentInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetCommentInput"}
-	if s.CommentId == nil {
-		invalidParams.Add(request.NewErrParamRequired("CommentId"))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetCommentId sets the CommentId field's value.
-func (s *GetCommentInput) SetCommentId(v string) *GetCommentInput {
-	s.CommentId = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentOutput
-type GetCommentOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The contents of the comment.
-	Comment *Comment `locationName:"comment" type:"structure"`
-}
-
-// String returns the string representation
-func (s GetCommentOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetCommentOutput) GoString() string {
-	return s.String()
-}
-
-// SetComment sets the Comment field's value.
-func (s *GetCommentOutput) SetComment(v *Comment) *GetCommentOutput {
-	s.Comment = v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForComparedCommitInput
-type GetCommentsForComparedCommitInput struct {
-	_ struct{} `type:"structure"`
-
-	// To establish the directionality of the comparison, the full commit ID of
-	// the 'after' commit.
-	//
-	// AfterCommitId is a required field
-	AfterCommitId *string `locationName:"afterCommitId" type:"string" required:"true"`
-
-	// To establish the directionality of the comparison, the full commit ID of
-	// the 'before' commit.
-	BeforeCommitId *string `locationName:"beforeCommitId" type:"string"`
-
-	// A non-negative integer used to limit the number of returned results. The
-	// default is 100 comments, and is configurable up to 500.
-	MaxResults *int64 `locationName:"maxResults" type:"integer"`
-
-	// An enumeration token that when provided in a request, returns the next batch
-	// of the results.
-	NextToken *string `locationName:"nextToken" type:"string"`
-
-	// The name of the repository where you want to compare commits.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s GetCommentsForComparedCommitInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetCommentsForComparedCommitInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetCommentsForComparedCommitInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetCommentsForComparedCommitInput"}
-	if s.AfterCommitId == nil {
-		invalidParams.Add(request.NewErrParamRequired("AfterCommitId"))
-	}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetAfterCommitId sets the AfterCommitId field's value.
-func (s *GetCommentsForComparedCommitInput) SetAfterCommitId(v string) *GetCommentsForComparedCommitInput {
-	s.AfterCommitId = &v
-	return s
-}
-
-// SetBeforeCommitId sets the BeforeCommitId field's value.
-func (s *GetCommentsForComparedCommitInput) SetBeforeCommitId(v string) *GetCommentsForComparedCommitInput {
-	s.BeforeCommitId = &v
-	return s
-}
-
-// SetMaxResults sets the MaxResults field's value.
-func (s *GetCommentsForComparedCommitInput) SetMaxResults(v int64) *GetCommentsForComparedCommitInput {
-	s.MaxResults = &v
-	return s
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *GetCommentsForComparedCommitInput) SetNextToken(v string) *GetCommentsForComparedCommitInput {
-	s.NextToken = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *GetCommentsForComparedCommitInput) SetRepositoryName(v string) *GetCommentsForComparedCommitInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForComparedCommitOutput
-type GetCommentsForComparedCommitOutput struct {
-	_ struct{} `type:"structure"`
-
-	// A list of comment objects on the compared commit.
-	CommentsForComparedCommitData []*CommentsForComparedCommit `locationName:"commentsForComparedCommitData" type:"list"`
-
-	// An enumeration token that can be used in a request to return the next batch
-	// of the results.
-	NextToken *string `locationName:"nextToken" type:"string"`
-}
-
-// String returns the string representation
-func (s GetCommentsForComparedCommitOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetCommentsForComparedCommitOutput) GoString() string {
-	return s.String()
-}
-
-// SetCommentsForComparedCommitData sets the CommentsForComparedCommitData field's value.
-func (s *GetCommentsForComparedCommitOutput) SetCommentsForComparedCommitData(v []*CommentsForComparedCommit) *GetCommentsForComparedCommitOutput {
-	s.CommentsForComparedCommitData = v
-	return s
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *GetCommentsForComparedCommitOutput) SetNextToken(v string) *GetCommentsForComparedCommitOutput {
-	s.NextToken = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForPullRequestInput
-type GetCommentsForPullRequestInput struct {
-	_ struct{} `type:"structure"`
-
-	// The full commit ID of the commit in the source branch that was the tip of
-	// the branch at the time the comment was made.
-	AfterCommitId *string `locationName:"afterCommitId" type:"string"`
-
-	// The full commit ID of the commit in the destination branch that was the tip
-	// of the branch at the time the pull request was created.
-	BeforeCommitId *string `locationName:"beforeCommitId" type:"string"`
-
-	// A non-negative integer used to limit the number of returned results. The
-	// default is 100 comments. You can return up to 500 comments with a single
-	// request.
-	MaxResults *int64 `locationName:"maxResults" type:"integer"`
-
-	// An enumeration token that when provided in a request, returns the next batch
-	// of the results.
-	NextToken *string `locationName:"nextToken" type:"string"`
-
-	// The system-generated ID of the pull request. To get this ID, use ListPullRequests.
-	//
-	// PullRequestId is a required field
-	PullRequestId *string `locationName:"pullRequestId" type:"string" required:"true"`
-
-	// The name of the repository that contains the pull request.
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string"`
-}
-
-// String returns the string representation
-func (s GetCommentsForPullRequestInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetCommentsForPullRequestInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetCommentsForPullRequestInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetCommentsForPullRequestInput"}
-	if s.PullRequestId == nil {
-		invalidParams.Add(request.NewErrParamRequired("PullRequestId"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetAfterCommitId sets the AfterCommitId field's value.
-func (s *GetCommentsForPullRequestInput) SetAfterCommitId(v string) *GetCommentsForPullRequestInput {
-	s.AfterCommitId = &v
-	return s
-}
-
-// SetBeforeCommitId sets the BeforeCommitId field's value.
-func (s *GetCommentsForPullRequestInput) SetBeforeCommitId(v string) *GetCommentsForPullRequestInput {
-	s.BeforeCommitId = &v
-	return s
-}
-
-// SetMaxResults sets the MaxResults field's value.
-func (s *GetCommentsForPullRequestInput) SetMaxResults(v int64) *GetCommentsForPullRequestInput {
-	s.MaxResults = &v
-	return s
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *GetCommentsForPullRequestInput) SetNextToken(v string) *GetCommentsForPullRequestInput {
-	s.NextToken = &v
-	return s
-}
-
-// SetPullRequestId sets the PullRequestId field's value.
-func (s *GetCommentsForPullRequestInput) SetPullRequestId(v string) *GetCommentsForPullRequestInput {
-	s.PullRequestId = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *GetCommentsForPullRequestInput) SetRepositoryName(v string) *GetCommentsForPullRequestInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommentsForPullRequestOutput
-type GetCommentsForPullRequestOutput struct {
-	_ struct{} `type:"structure"`
-
-	// An array of comment objects on the pull request.
-	CommentsForPullRequestData []*CommentsForPullRequest `locationName:"commentsForPullRequestData" type:"list"`
-
-	// An enumeration token that can be used in a request to return the next batch
-	// of the results.
-	NextToken *string `locationName:"nextToken" type:"string"`
-}
-
-// String returns the string representation
-func (s GetCommentsForPullRequestOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetCommentsForPullRequestOutput) GoString() string {
-	return s.String()
-}
-
-// SetCommentsForPullRequestData sets the CommentsForPullRequestData field's value.
-func (s *GetCommentsForPullRequestOutput) SetCommentsForPullRequestData(v []*CommentsForPullRequest) *GetCommentsForPullRequestOutput {
-	s.CommentsForPullRequestData = v
-	return s
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *GetCommentsForPullRequestOutput) SetNextToken(v string) *GetCommentsForPullRequestOutput {
-	s.NextToken = &v
-	return s
-}
-
-// Represents the input of a get commit operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommitInput
-type GetCommitInput struct {
-	_ struct{} `type:"structure"`
-
-	// The commit ID. Commit IDs are the full SHA of the commit.
-	//
-	// CommitId is a required field
-	CommitId *string `locationName:"commitId" type:"string" required:"true"`
-
-	// The name of the repository to which the commit was made.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s GetCommitInput) String() string {
->>>>>>> Working on getting compiling
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-<<<<<<< HEAD
 func (s BatchGetRepositoriesInput) GoString() string {
 	return s.String()
 }
@@ -11999,24 +6424,6 @@ func (s *GetDifferencesInput) SetBeforePath(v string) *GetDifferencesInput {
 	s.BeforePath = &v
 	return s
 }
-=======
-func (s GetCommitInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetCommitInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetCommitInput"}
-	if s.CommitId == nil {
-		invalidParams.Add(request.NewErrParamRequired("CommitId"))
-	}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
->>>>>>> Working on getting compiling
 
 // SetMaxResults sets the MaxResults field's value.
 func (s *GetDifferencesInput) SetMaxResults(v int64) *GetDifferencesInput {
@@ -12024,29 +6431,18 @@ func (s *GetDifferencesInput) SetMaxResults(v int64) *GetDifferencesInput {
 	return s
 }
 
-<<<<<<< HEAD
 // SetNextToken sets the NextToken field's value.
 func (s *GetDifferencesInput) SetNextToken(v string) *GetDifferencesInput {
 	s.NextToken = &v
-=======
-// SetCommitId sets the CommitId field's value.
-func (s *GetCommitInput) SetCommitId(v string) *GetCommitInput {
-	s.CommitId = &v
->>>>>>> Working on getting compiling
 	return s
 }
 
 // SetRepositoryName sets the RepositoryName field's value.
-<<<<<<< HEAD
 func (s *GetDifferencesInput) SetRepositoryName(v string) *GetDifferencesInput {
-=======
-func (s *GetCommitInput) SetRepositoryName(v string) *GetCommitInput {
->>>>>>> Working on getting compiling
 	s.RepositoryName = &v
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetDifferencesOutput
 type GetDifferencesOutput struct {
 	_ struct{} `type:"structure"`
@@ -12061,161 +6457,6 @@ type GetDifferencesOutput struct {
 }
 
 // String returns the string representation
-=======
-// Represents the output of a get commit operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetCommitOutput
-type GetCommitOutput struct {
-	_ struct{} `type:"structure"`
-
-	// A commit data type object that contains information about the specified commit.
-	//
-	// Commit is a required field
-	Commit *Commit `locationName:"commit" type:"structure" required:"true"`
-}
-
-// String returns the string representation
-func (s GetCommitOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetCommitOutput) GoString() string {
-	return s.String()
-}
-
-// SetCommit sets the Commit field's value.
-func (s *GetCommitOutput) SetCommit(v *Commit) *GetCommitOutput {
-	s.Commit = v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetDifferencesInput
-type GetDifferencesInput struct {
-	_ struct{} `type:"structure"`
-
-	// The branch, tag, HEAD, or other fully qualified reference used to identify
-	// a commit.
-	//
-	// AfterCommitSpecifier is a required field
-	AfterCommitSpecifier *string `locationName:"afterCommitSpecifier" type:"string" required:"true"`
-
-	// The file path in which to check differences. Limits the results to this path.
-	// Can also be used to specify the changed name of a directory or folder, if
-	// it has changed. If not specified, differences will be shown for all paths.
-	AfterPath *string `locationName:"afterPath" type:"string"`
-
-	// The branch, tag, HEAD, or other fully qualified reference used to identify
-	// a commit. For example, the full commit ID. Optional. If not specified, all
-	// changes prior to the afterCommitSpecifier value will be shown. If you do
-	// not use beforeCommitSpecifier in your request, consider limiting the results
-	// with maxResults.
-	BeforeCommitSpecifier *string `locationName:"beforeCommitSpecifier" type:"string"`
-
-	// The file path in which to check for differences. Limits the results to this
-	// path. Can also be used to specify the previous name of a directory or folder.
-	// If beforePath and afterPath are not specified, differences will be shown
-	// for all paths.
-	BeforePath *string `locationName:"beforePath" type:"string"`
-
-	// A non-negative integer used to limit the number of returned results.
-	MaxResults *int64 `type:"integer"`
-
-	// An enumeration token that when provided in a request, returns the next batch
-	// of the results.
-	NextToken *string `type:"string"`
-
-	// The name of the repository where you want to get differences.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s GetDifferencesInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetDifferencesInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetDifferencesInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetDifferencesInput"}
-	if s.AfterCommitSpecifier == nil {
-		invalidParams.Add(request.NewErrParamRequired("AfterCommitSpecifier"))
-	}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetAfterCommitSpecifier sets the AfterCommitSpecifier field's value.
-func (s *GetDifferencesInput) SetAfterCommitSpecifier(v string) *GetDifferencesInput {
-	s.AfterCommitSpecifier = &v
-	return s
-}
-
-// SetAfterPath sets the AfterPath field's value.
-func (s *GetDifferencesInput) SetAfterPath(v string) *GetDifferencesInput {
-	s.AfterPath = &v
-	return s
-}
-
-// SetBeforeCommitSpecifier sets the BeforeCommitSpecifier field's value.
-func (s *GetDifferencesInput) SetBeforeCommitSpecifier(v string) *GetDifferencesInput {
-	s.BeforeCommitSpecifier = &v
-	return s
-}
-
-// SetBeforePath sets the BeforePath field's value.
-func (s *GetDifferencesInput) SetBeforePath(v string) *GetDifferencesInput {
-	s.BeforePath = &v
-	return s
-}
-
-// SetMaxResults sets the MaxResults field's value.
-func (s *GetDifferencesInput) SetMaxResults(v int64) *GetDifferencesInput {
-	s.MaxResults = &v
-	return s
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *GetDifferencesInput) SetNextToken(v string) *GetDifferencesInput {
-	s.NextToken = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *GetDifferencesInput) SetRepositoryName(v string) *GetDifferencesInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetDifferencesOutput
-type GetDifferencesOutput struct {
-	_ struct{} `type:"structure"`
-
-	// A differences data type object that contains information about the differences,
-	// including whether the difference is added, modified, or deleted (A, D, M).
-	Differences []*Difference `locationName:"differences" type:"list"`
-
-	// An enumeration token that can be used in a request to return the next batch
-	// of the results.
-	NextToken *string `type:"string"`
-}
-
-// String returns the string representation
->>>>>>> Working on getting compiling
 func (s GetDifferencesOutput) String() string {
 	return awsutil.Prettify(s)
 }
@@ -12237,11 +6478,7 @@ func (s *GetDifferencesOutput) SetNextToken(v string) *GetDifferencesOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetMergeConflictsInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetMergeConflictsInput
->>>>>>> Working on getting compiling
 type GetMergeConflictsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12328,11 +6565,7 @@ func (s *GetMergeConflictsInput) SetSourceCommitSpecifier(v string) *GetMergeCon
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetMergeConflictsOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetMergeConflictsOutput
->>>>>>> Working on getting compiling
 type GetMergeConflictsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12381,7 +6614,6 @@ func (s *GetMergeConflictsOutput) SetSourceCommitId(v string) *GetMergeConflicts
 	s.SourceCommitId = &v
 	return s
 }
-<<<<<<< HEAD
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequestInput
 type GetPullRequestInput struct {
@@ -12398,29 +6630,10 @@ func (s GetPullRequestInput) String() string {
 	return awsutil.Prettify(s)
 }
 
-<<<<<<< HEAD
 // GoString returns the string representation
 func (s GetPullRequestInput) GoString() string {
 	return s.String()
 }
-=======
-	// The full SHA of the specified commit.
-	CommitId *string `locationName:"commitId" type:"string"`
-=======
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequestInput
-type GetPullRequestInput struct {
-	_ struct{} `type:"structure"`
->>>>>>> Working on getting compiling
-
-	// The system-generated ID of the pull request. To get this ID, use ListPullRequests.
-	//
-<<<<<<< HEAD
-	// For more information about the difference between an author and a committer
-	// in Git, see Viewing the Commit History (http://git-scm.com/book/ch2-3.html)
-	// in Pro Git by Scott Chacon and Ben Straub.
-	Committer *UserInfo `locationName:"committer" type:"structure"`
->>>>>>> Initial dep workover
 
 // Validate inspects the fields of the type to determine if they are valid.
 func (s *GetPullRequestInput) Validate() error {
@@ -12453,19 +6666,10 @@ type GetPullRequestOutput struct {
 
 // String returns the string representation
 func (s GetPullRequestOutput) String() string {
-=======
-	// PullRequestId is a required field
-	PullRequestId *string `locationName:"pullRequestId" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s GetPullRequestInput) String() string {
->>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-<<<<<<< HEAD
 func (s GetPullRequestOutput) GoString() string {
 	return s.String()
 }
@@ -12487,22 +6691,9 @@ type GetRepositoryInput struct {
 	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
 }
 
-<<<<<<< HEAD
 // String returns the string representation
 func (s GetRepositoryInput) String() string {
 	return awsutil.Prettify(s)
-=======
-// SetCommitId sets the CommitId field's value.
-func (s *Commit) SetCommitId(v string) *Commit {
-	s.CommitId = &v
-	return s
-}
-
-// SetCommitter sets the Committer field's value.
-func (s *Commit) SetCommitter(v *UserInfo) *Commit {
-	s.Committer = v
-	return s
->>>>>>> Initial dep workover
 }
 
 // GoString returns the string representation
@@ -12563,94 +6754,24 @@ type GetRepositoryTriggersInput struct {
 	_ struct{} `type:"structure"`
 
 	// The name of the repository for which the trigger is configured.
-=======
-func (s GetPullRequestInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *GetPullRequestInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetPullRequestInput"}
-	if s.PullRequestId == nil {
-		invalidParams.Add(request.NewErrParamRequired("PullRequestId"))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetPullRequestId sets the PullRequestId field's value.
-func (s *GetPullRequestInput) SetPullRequestId(v string) *GetPullRequestInput {
-	s.PullRequestId = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequestOutput
-type GetPullRequestOutput struct {
-	_ struct{} `type:"structure"`
-
-	// Information about the specified pull request.
-	//
-	// PullRequest is a required field
-	PullRequest *PullRequest `locationName:"pullRequest" type:"structure" required:"true"`
-}
-
-// String returns the string representation
-func (s GetPullRequestOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s GetPullRequestOutput) GoString() string {
-	return s.String()
-}
-
-// SetPullRequest sets the PullRequest field's value.
-func (s *GetPullRequestOutput) SetPullRequest(v *PullRequest) *GetPullRequestOutput {
-	s.PullRequest = v
-	return s
-}
-
-// Represents the input of a get repository operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryInput
-type GetRepositoryInput struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the repository to get information about.
->>>>>>> Working on getting compiling
 	//
 	// RepositoryName is a required field
 	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
 }
 
 // String returns the string representation
-<<<<<<< HEAD
 func (s GetRepositoryTriggersInput) String() string {
-=======
-func (s GetRepositoryInput) String() string {
->>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-<<<<<<< HEAD
 func (s GetRepositoryTriggersInput) GoString() string {
-=======
-func (s GetRepositoryInput) GoString() string {
->>>>>>> Working on getting compiling
 	return s.String()
 }
 
 // Validate inspects the fields of the type to determine if they are valid.
-<<<<<<< HEAD
 func (s *GetRepositoryTriggersInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "GetRepositoryTriggersInput"}
-=======
-func (s *GetRepositoryInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetRepositoryInput"}
->>>>>>> Working on getting compiling
 	if s.RepositoryName == nil {
 		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
 	}
@@ -12665,16 +6786,11 @@ func (s *GetRepositoryInput) Validate() error {
 }
 
 // SetRepositoryName sets the RepositoryName field's value.
-<<<<<<< HEAD
 func (s *GetRepositoryTriggersInput) SetRepositoryName(v string) *GetRepositoryTriggersInput {
-=======
-func (s *GetRepositoryInput) SetRepositoryName(v string) *GetRepositoryInput {
->>>>>>> Working on getting compiling
 	s.RepositoryName = &v
 	return s
 }
 
-<<<<<<< HEAD
 // Represents the output of a get repository triggers operation.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryTriggersOutput
 type GetRepositoryTriggersOutput struct {
@@ -12689,24 +6805,10 @@ type GetRepositoryTriggersOutput struct {
 
 // String returns the string representation
 func (s GetRepositoryTriggersOutput) String() string {
-=======
-// Represents the output of a get repository operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryOutput
-type GetRepositoryOutput struct {
-	_ struct{} `type:"structure"`
-
-	// Information about the repository.
-	RepositoryMetadata *RepositoryMetadata `locationName:"repositoryMetadata" type:"structure"`
-}
-
-// String returns the string representation
-func (s GetRepositoryOutput) String() string {
->>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-<<<<<<< HEAD
 func (s GetRepositoryTriggersOutput) GoString() string {
 	return s.String()
 }
@@ -12732,55 +6834,24 @@ type ListBranchesInput struct {
 	NextToken *string `locationName:"nextToken" type:"string"`
 
 	// The name of the repository that contains the branches.
-=======
-func (s GetRepositoryOutput) GoString() string {
-	return s.String()
-}
-
-// SetRepositoryMetadata sets the RepositoryMetadata field's value.
-func (s *GetRepositoryOutput) SetRepositoryMetadata(v *RepositoryMetadata) *GetRepositoryOutput {
-	s.RepositoryMetadata = v
-	return s
-}
-
-// Represents the input of a get repository triggers operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryTriggersInput
-type GetRepositoryTriggersInput struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the repository for which the trigger is configured.
->>>>>>> Working on getting compiling
 	//
 	// RepositoryName is a required field
 	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
 }
 
 // String returns the string representation
-<<<<<<< HEAD
 func (s ListBranchesInput) String() string {
-=======
-func (s GetRepositoryTriggersInput) String() string {
->>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-<<<<<<< HEAD
 func (s ListBranchesInput) GoString() string {
-=======
-func (s GetRepositoryTriggersInput) GoString() string {
->>>>>>> Working on getting compiling
 	return s.String()
 }
 
 // Validate inspects the fields of the type to determine if they are valid.
-<<<<<<< HEAD
 func (s *ListBranchesInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "ListBranchesInput"}
-=======
-func (s *GetRepositoryTriggersInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "GetRepositoryTriggersInput"}
->>>>>>> Working on getting compiling
 	if s.RepositoryName == nil {
 		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
 	}
@@ -12794,7 +6865,6 @@ func (s *GetRepositoryTriggersInput) Validate() error {
 	return nil
 }
 
-<<<<<<< HEAD
 // SetNextToken sets the NextToken field's value.
 func (s *ListBranchesInput) SetNextToken(v string) *ListBranchesInput {
 	s.NextToken = &v
@@ -12803,15 +6873,10 @@ func (s *ListBranchesInput) SetNextToken(v string) *ListBranchesInput {
 
 // SetRepositoryName sets the RepositoryName field's value.
 func (s *ListBranchesInput) SetRepositoryName(v string) *ListBranchesInput {
-=======
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *GetRepositoryTriggersInput) SetRepositoryName(v string) *GetRepositoryTriggersInput {
->>>>>>> Working on getting compiling
 	s.RepositoryName = &v
 	return s
 }
 
-<<<<<<< HEAD
 // Represents the output of a list branches operation.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListBranchesOutput
 type ListBranchesOutput struct {
@@ -12826,27 +6891,10 @@ type ListBranchesOutput struct {
 
 // String returns the string representation
 func (s ListBranchesOutput) String() string {
-=======
-// Represents the output of a get repository triggers operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetRepositoryTriggersOutput
-type GetRepositoryTriggersOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The system-generated unique ID for the trigger.
-	ConfigurationId *string `locationName:"configurationId" type:"string"`
-
-	// The JSON block of configuration information for each trigger.
-	Triggers []*RepositoryTrigger `locationName:"triggers" type:"list"`
-}
-
-// String returns the string representation
-func (s GetRepositoryTriggersOutput) String() string {
->>>>>>> Working on getting compiling
 	return awsutil.Prettify(s)
 }
 
 // GoString returns the string representation
-<<<<<<< HEAD
 func (s ListBranchesOutput) GoString() string {
 	return s.String()
 }
@@ -12857,7 +6905,6 @@ func (s *ListBranchesOutput) SetBranches(v []*string) *ListBranchesOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // SetNextToken sets the NextToken field's value.
 func (s *ListBranchesOutput) SetNextToken(v string) *ListBranchesOutput {
 	s.NextToken = &v
@@ -12866,123 +6913,6 @@ func (s *ListBranchesOutput) SetNextToken(v string) *ListBranchesOutput {
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListPullRequestsInput
 type ListPullRequestsInput struct {
-=======
-// Represents the input of a delete branch operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteBranchInput
-type DeleteBranchInput struct {
-=======
-func (s GetRepositoryTriggersOutput) GoString() string {
-	return s.String()
-}
-
-// SetConfigurationId sets the ConfigurationId field's value.
-func (s *GetRepositoryTriggersOutput) SetConfigurationId(v string) *GetRepositoryTriggersOutput {
-	s.ConfigurationId = &v
-	return s
-}
-
-// SetTriggers sets the Triggers field's value.
-func (s *GetRepositoryTriggersOutput) SetTriggers(v []*RepositoryTrigger) *GetRepositoryTriggersOutput {
-	s.Triggers = v
-	return s
-}
-
-// Represents the input of a list branches operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListBranchesInput
-type ListBranchesInput struct {
->>>>>>> Working on getting compiling
-	_ struct{} `type:"structure"`
-
-	// An enumeration token that allows the operation to batch the results.
-	NextToken *string `locationName:"nextToken" type:"string"`
-
-	// The name of the repository that contains the branches.
-	//
-	// RepositoryName is a required field
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s ListBranchesInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s ListBranchesInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *ListBranchesInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "ListBranchesInput"}
-	if s.RepositoryName == nil {
-		invalidParams.Add(request.NewErrParamRequired("RepositoryName"))
-	}
-	if s.RepositoryName != nil && len(*s.RepositoryName) < 1 {
-		invalidParams.Add(request.NewErrParamMinLen("RepositoryName", 1))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *ListBranchesInput) SetNextToken(v string) *ListBranchesInput {
-	s.NextToken = &v
-	return s
-}
-
-// SetRepositoryName sets the RepositoryName field's value.
-func (s *ListBranchesInput) SetRepositoryName(v string) *ListBranchesInput {
-	s.RepositoryName = &v
-	return s
-}
-
-// Represents the output of a list branches operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListBranchesOutput
-type ListBranchesOutput struct {
-	_ struct{} `type:"structure"`
-
-	// The list of branch names.
-	Branches []*string `locationName:"branches" type:"list"`
-
-	// An enumeration token that returns the batch of the results.
-	NextToken *string `locationName:"nextToken" type:"string"`
-}
-
-// String returns the string representation
-func (s ListBranchesOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s ListBranchesOutput) GoString() string {
-	return s.String()
-}
-
-// SetBranches sets the Branches field's value.
-func (s *ListBranchesOutput) SetBranches(v []*string) *ListBranchesOutput {
-	s.Branches = v
-	return s
-}
-
-<<<<<<< HEAD
-// Represents the input of a delete repository operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/DeleteRepositoryInput
-type DeleteRepositoryInput struct {
->>>>>>> Initial dep workover
-=======
-// SetNextToken sets the NextToken field's value.
-func (s *ListBranchesOutput) SetNextToken(v string) *ListBranchesOutput {
-	s.NextToken = &v
-	return s
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListPullRequestsInput
-type ListPullRequestsInput struct {
->>>>>>> Working on getting compiling
 	_ struct{} `type:"structure"`
 
 	// Optional. The Amazon Resource Name (ARN) of the user who created the pull
@@ -13063,11 +6993,7 @@ func (s *ListPullRequestsInput) SetRepositoryName(v string) *ListPullRequestsInp
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListPullRequestsOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListPullRequestsOutput
->>>>>>> Working on getting compiling
 type ListPullRequestsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13104,11 +7030,7 @@ func (s *ListPullRequestsOutput) SetPullRequestIds(v []*string) *ListPullRequest
 }
 
 // Represents the input of a list repositories operation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListRepositoriesInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListRepositoriesInput
->>>>>>> Working on getting compiling
 type ListRepositoriesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13150,7 +7072,6 @@ func (s *ListRepositoriesInput) SetOrder(v string) *ListRepositoriesInput {
 // SetSortBy sets the SortBy field's value.
 func (s *ListRepositoriesInput) SetSortBy(v string) *ListRepositoriesInput {
 	s.SortBy = &v
-<<<<<<< HEAD
 	return s
 }
 
@@ -13201,58 +7122,6 @@ type Location struct {
 	// if any.
 	FilePath *string `locationName:"filePath" type:"string"`
 
-=======
-	return s
-}
-
-// Represents the output of a list repositories operation.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/ListRepositoriesOutput
-type ListRepositoriesOutput struct {
-	_ struct{} `type:"structure"`
-
-	// An enumeration token that allows the operation to batch the results of the
-	// operation. Batch sizes are 1,000 for list repository operations. When the
-	// client sends the token back to AWS CodeCommit, another page of 1,000 records
-	// is retrieved.
-	NextToken *string `locationName:"nextToken" type:"string"`
-
-	// Lists the repositories called by the list repositories operation.
-	Repositories []*RepositoryNameIdPair `locationName:"repositories" type:"list"`
-}
-
-// String returns the string representation
-func (s ListRepositoriesOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s ListRepositoriesOutput) GoString() string {
-	return s.String()
-}
-
-// SetNextToken sets the NextToken field's value.
-func (s *ListRepositoriesOutput) SetNextToken(v string) *ListRepositoriesOutput {
-	s.NextToken = &v
-	return s
-}
-
-// SetRepositories sets the Repositories field's value.
-func (s *ListRepositoriesOutput) SetRepositories(v []*RepositoryNameIdPair) *ListRepositoriesOutput {
-	s.Repositories = v
-	return s
-}
-
-// Returns information about the location of a change or comment in the comparison
-// between two commits or a pull request.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/Location
-type Location struct {
-	_ struct{} `type:"structure"`
-
-	// The name of the file being compared, including its extension and subdirectory,
-	// if any.
-	FilePath *string `locationName:"filePath" type:"string"`
-
->>>>>>> Working on getting compiling
 	// The position of a change within a compared file, in line number format.
 	FilePosition *int64 `locationName:"filePosition" type:"long"`
 
@@ -13291,11 +7160,7 @@ func (s *Location) SetRelativeFileVersion(v string) *Location {
 
 // Returns information about a merge or potential merge between a source reference
 // and a destination reference in a pull request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/MergeMetadata
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/MergeMetadata
->>>>>>> Working on getting compiling
 type MergeMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -13328,11 +7193,7 @@ func (s *MergeMetadata) SetMergedBy(v string) *MergeMetadata {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/MergePullRequestByFastForwardInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/MergePullRequestByFastForwardInput
->>>>>>> Working on getting compiling
 type MergePullRequestByFastForwardInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13399,11 +7260,7 @@ func (s *MergePullRequestByFastForwardInput) SetSourceCommitId(v string) *MergeP
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/MergePullRequestByFastForwardOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/MergePullRequestByFastForwardOutput
->>>>>>> Working on getting compiling
 type MergePullRequestByFastForwardOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13428,25 +7285,12 @@ func (s *MergePullRequestByFastForwardOutput) SetPullRequest(v *PullRequest) *Me
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForComparedCommitInput
 type PostCommentForComparedCommitInput struct {
 	_ struct{} `type:"structure"`
 
-<<<<<<< HEAD
 	// To establish the directionality of the comparison, the full commit ID of
 	// the 'after' commit.
-=======
-	// The commit ID. Commit IDs are the full SHA of the commit.
->>>>>>> Initial dep workover
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForComparedCommitInput
-type PostCommentForComparedCommitInput struct {
-	_ struct{} `type:"structure"`
-
-	// To establish the directionality of the comparison, the full commit ID of
-	// the 'after' commit.
->>>>>>> Working on getting compiling
 	//
 	// AfterCommitId is a required field
 	AfterCommitId *string `locationName:"afterCommitId" type:"string" required:"true"`
@@ -13544,11 +7388,7 @@ func (s *PostCommentForComparedCommitInput) SetRepositoryName(v string) *PostCom
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForComparedCommitOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForComparedCommitOutput
->>>>>>> Working on getting compiling
 type PostCommentForComparedCommitOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13629,11 +7469,7 @@ func (s *PostCommentForComparedCommitOutput) SetRepositoryName(v string) *PostCo
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForPullRequestInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForPullRequestInput
->>>>>>> Working on getting compiling
 type PostCommentForPullRequestInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13756,17 +7592,12 @@ func (s *PostCommentForPullRequestInput) SetRepositoryName(v string) *PostCommen
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForPullRequestOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentForPullRequestOutput
->>>>>>> Working on getting compiling
 type PostCommentForPullRequestOutput struct {
 	_ struct{} `type:"structure"`
 
 	// In the directionality of the pull request, the blob ID of the 'after' blob.
 	AfterBlobId *string `locationName:"afterBlobId" type:"string"`
-<<<<<<< HEAD
 
 	// The full commit ID of the commit in the destination branch where the pull
 	// request will be merged.
@@ -13833,74 +7664,6 @@ func (s *PostCommentForPullRequestOutput) SetComment(v *Comment) *PostCommentFor
 	return s
 }
 
-=======
-
-	// The full commit ID of the commit in the destination branch where the pull
-	// request will be merged.
-	AfterCommitId *string `locationName:"afterCommitId" type:"string"`
-
-	// In the directionality of the pull request, the blob ID of the 'before' blob.
-	BeforeBlobId *string `locationName:"beforeBlobId" type:"string"`
-
-	// The full commit ID of the commit in the source branch used to create the
-	// pull request, or in the case of an updated pull request, the full commit
-	// ID of the commit used to update the pull request.
-	BeforeCommitId *string `locationName:"beforeCommitId" type:"string"`
-
-	// The content of the comment you posted.
-	Comment *Comment `locationName:"comment" type:"structure"`
-
-	// The location of the change where you posted your comment.
-	Location *Location `locationName:"location" type:"structure"`
-
-	// The system-generated ID of the pull request.
-	PullRequestId *string `locationName:"pullRequestId" type:"string"`
-
-	// The name of the repository where you posted a comment on a pull request.
-	RepositoryName *string `locationName:"repositoryName" min:"1" type:"string"`
-}
-
-// String returns the string representation
-func (s PostCommentForPullRequestOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s PostCommentForPullRequestOutput) GoString() string {
-	return s.String()
-}
-
-// SetAfterBlobId sets the AfterBlobId field's value.
-func (s *PostCommentForPullRequestOutput) SetAfterBlobId(v string) *PostCommentForPullRequestOutput {
-	s.AfterBlobId = &v
-	return s
-}
-
-// SetAfterCommitId sets the AfterCommitId field's value.
-func (s *PostCommentForPullRequestOutput) SetAfterCommitId(v string) *PostCommentForPullRequestOutput {
-	s.AfterCommitId = &v
-	return s
-}
-
-// SetBeforeBlobId sets the BeforeBlobId field's value.
-func (s *PostCommentForPullRequestOutput) SetBeforeBlobId(v string) *PostCommentForPullRequestOutput {
-	s.BeforeBlobId = &v
-	return s
-}
-
-// SetBeforeCommitId sets the BeforeCommitId field's value.
-func (s *PostCommentForPullRequestOutput) SetBeforeCommitId(v string) *PostCommentForPullRequestOutput {
-	s.BeforeCommitId = &v
-	return s
-}
-
-// SetComment sets the Comment field's value.
-func (s *PostCommentForPullRequestOutput) SetComment(v *Comment) *PostCommentForPullRequestOutput {
-	s.Comment = v
-	return s
-}
-
->>>>>>> Working on getting compiling
 // SetLocation sets the Location field's value.
 func (s *PostCommentForPullRequestOutput) SetLocation(v *Location) *PostCommentForPullRequestOutput {
 	s.Location = v
@@ -13919,11 +7682,7 @@ func (s *PostCommentForPullRequestOutput) SetRepositoryName(v string) *PostComme
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentReplyInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentReplyInput
->>>>>>> Working on getting compiling
 type PostCommentReplyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13989,11 +7748,7 @@ func (s *PostCommentReplyInput) SetInReplyTo(v string) *PostCommentReplyInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentReplyOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PostCommentReplyOutput
->>>>>>> Working on getting compiling
 type PostCommentReplyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -14018,11 +7773,7 @@ func (s *PostCommentReplyOutput) SetComment(v *Comment) *PostCommentReplyOutput 
 }
 
 // Returns information about a pull request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequest
->>>>>>> Working on getting compiling
 type PullRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -14127,11 +7878,7 @@ func (s *PullRequest) SetTitle(v string) *PullRequest {
 }
 
 // Returns information about a pull request event.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestEvent
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestEvent
->>>>>>> Working on getting compiling
 type PullRequestEvent struct {
 	_ struct{} `type:"structure"`
 
@@ -14214,11 +7961,7 @@ func (s *PullRequestEvent) SetPullRequestStatusChangedEventMetadata(v *PullReque
 
 // Returns information about the change in the merge state for a pull request
 // event.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestMergedStateChangedEventMetadata
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestMergedStateChangedEventMetadata
->>>>>>> Working on getting compiling
 type PullRequestMergedStateChangedEventMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -14261,11 +8004,7 @@ func (s *PullRequestMergedStateChangedEventMetadata) SetRepositoryName(v string)
 }
 
 // Information about an update to the source branch of a pull request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestSourceReferenceUpdatedEventMetadata
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestSourceReferenceUpdatedEventMetadata
->>>>>>> Working on getting compiling
 type PullRequestSourceReferenceUpdatedEventMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -14310,11 +8049,7 @@ func (s *PullRequestSourceReferenceUpdatedEventMetadata) SetRepositoryName(v str
 }
 
 // Information about a change to the status of a pull request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestStatusChangedEventMetadata
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestStatusChangedEventMetadata
->>>>>>> Working on getting compiling
 type PullRequestStatusChangedEventMetadata struct {
 	_ struct{} `type:"structure"`
 
@@ -14339,11 +8074,7 @@ func (s *PullRequestStatusChangedEventMetadata) SetPullRequestStatus(v string) *
 }
 
 // Returns information about a pull request target.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestTarget
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/PullRequestTarget
->>>>>>> Working on getting compiling
 type PullRequestTarget struct {
 	_ struct{} `type:"structure"`
 
@@ -14781,11 +8512,7 @@ func (s *RepositoryTriggerExecutionFailure) SetTrigger(v string) *RepositoryTrig
 }
 
 // Returns information about a target for a pull request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/Target
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/Target
->>>>>>> Working on getting compiling
 type Target struct {
 	_ struct{} `type:"structure"`
 
@@ -14955,11 +8682,7 @@ func (s *TestRepositoryTriggersOutput) SetSuccessfulExecutions(v []*string) *Tes
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateCommentInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateCommentInput
->>>>>>> Working on getting compiling
 type UpdateCommentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15014,11 +8737,7 @@ func (s *UpdateCommentInput) SetContent(v string) *UpdateCommentInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateCommentOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdateCommentOutput
->>>>>>> Working on getting compiling
 type UpdateCommentOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15117,11 +8836,7 @@ func (s UpdateDefaultBranchOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestDescriptionInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestDescriptionInput
->>>>>>> Working on getting compiling
 type UpdatePullRequestDescriptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15175,11 +8890,7 @@ func (s *UpdatePullRequestDescriptionInput) SetPullRequestId(v string) *UpdatePu
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestDescriptionOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestDescriptionOutput
->>>>>>> Working on getting compiling
 type UpdatePullRequestDescriptionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15205,11 +8916,7 @@ func (s *UpdatePullRequestDescriptionOutput) SetPullRequest(v *PullRequest) *Upd
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestStatusInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestStatusInput
->>>>>>> Working on getting compiling
 type UpdatePullRequestStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15263,11 +8970,7 @@ func (s *UpdatePullRequestStatusInput) SetPullRequestStatus(v string) *UpdatePul
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestStatusOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestStatusOutput
->>>>>>> Working on getting compiling
 type UpdatePullRequestStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -15293,11 +8996,7 @@ func (s *UpdatePullRequestStatusOutput) SetPullRequest(v *PullRequest) *UpdatePu
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestTitleInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestTitleInput
->>>>>>> Working on getting compiling
 type UpdatePullRequestTitleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -15350,11 +9049,7 @@ func (s *UpdatePullRequestTitleInput) SetTitle(v string) *UpdatePullRequestTitle
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestTitleOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/UpdatePullRequestTitleOutput
->>>>>>> Working on getting compiling
 type UpdatePullRequestTitleOutput struct {
 	_ struct{} `type:"structure"`
 

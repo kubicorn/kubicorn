@@ -1200,15 +1200,7 @@ func (c *StorageGateway) CreateTapeWithBarcodeRequest(input *CreateTapeWithBarco
 // Creates a virtual tape by using your own barcode. You write data to the virtual
 // tape and then archive the tape. A barcode is unique and can not be reused
 // if it has already been used on a tape . This applies to barcodes used on
-<<<<<<< HEAD
-<<<<<<< HEAD
 // deleted tapes. This operation is only supported in the tape gateway type.
-=======
-// deleted tapes. This operation is only supported in the tape gateway. architecture.
->>>>>>> Initial dep workover
-=======
-// deleted tapes. This operation is only supported in the tape gateway type.
->>>>>>> Working on getting compiling
 //
 // Cache storage must be allocated to the gateway before you can create a virtual
 // tape. Use the AddCache operation to add cache storage to a gateway.
@@ -4550,11 +4542,7 @@ const opNotifyWhenUploaded = "NotifyWhenUploaded"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploaded
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploaded
->>>>>>> Working on getting compiling
 func (c *StorageGateway) NotifyWhenUploadedRequest(input *NotifyWhenUploadedInput) (req *request.Request, output *NotifyWhenUploadedOutput) {
 	op := &request.Operation{
 		Name:       opNotifyWhenUploaded,
@@ -4601,11 +4589,7 @@ func (c *StorageGateway) NotifyWhenUploadedRequest(input *NotifyWhenUploadedInpu
 //   An internal server error has occurred during the request. For more information,
 //   see the error and message fields.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploaded
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploaded
->>>>>>> Working on getting compiling
 func (c *StorageGateway) NotifyWhenUploaded(input *NotifyWhenUploadedInput) (*NotifyWhenUploadedOutput, error) {
 	req, out := c.NotifyWhenUploadedRequest(input)
 	return out, req.Send()
@@ -4673,17 +4657,8 @@ func (c *StorageGateway) RefreshCacheRequest(input *RefreshCacheInput) (req *req
 //
 // Refreshes the cache for the specified file share. This operation finds objects
 // in the Amazon S3 bucket that were added, removed or replaced since the gateway
-<<<<<<< HEAD
-<<<<<<< HEAD
 // last listed the bucket's contents and cached the results. This operation
 // is only supported in the file gateway type.
-=======
-// last listed the bucket's contents and cached the results.
->>>>>>> Initial dep workover
-=======
-// last listed the bucket's contents and cached the results. This operation
-// is only supported in the file gateway type.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -8225,23 +8200,10 @@ type DeleteFileShareInput struct {
 	// FileShareARN is a required field
 	FileShareARN *string `min:"50" type:"string" required:"true"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// If this value is set to true, the operation deletes a file share immediately
 	// and aborts all data uploads to AWS. Otherwise, the file share is not deleted
 	// until all data is uploaded to AWS. This process aborts the data upload process,
 	// and the file share enters the FORCE_DELETING status.
-<<<<<<< HEAD
-=======
-	// If set to true, deletes a file share immediately and aborts all data uploads
-	// to AWS. Otherwise the file share is not deleted until all data is uploaded
-	// to AWS. This process aborts the data upload process and the file share enters
-	// the FORCE_DELETING status.
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	ForceDelete *bool `type:"boolean"`
 }
 
@@ -8309,11 +8271,7 @@ func (s *DeleteFileShareOutput) SetFileShareARN(v string) *DeleteFileShareOutput
 }
 
 // A JSON object containing the ID of the gateway to delete.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteGatewayInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteGatewayInput
->>>>>>> Working on getting compiling
 type DeleteGatewayInput struct {
 	_ struct{} `type:"structure"`
 
@@ -8357,11 +8315,7 @@ func (s *DeleteGatewayInput) SetGatewayARN(v string) *DeleteGatewayInput {
 }
 
 // A JSON object containing the ID of the deleted gateway.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteGatewayOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DeleteGatewayOutput
->>>>>>> Working on getting compiling
 type DeleteGatewayOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -9030,11 +8984,7 @@ func (s *DescribeChapCredentialsOutput) SetChapCredentials(v []*ChapInfo) *Descr
 }
 
 // A JSON object containing the ID of the gateway.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeGatewayInformationInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/DescribeGatewayInformationInput
->>>>>>> Working on getting compiling
 type DescribeGatewayInformationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11320,11 +11270,7 @@ func (s *ListVolumesOutput) SetVolumeInfos(v []*VolumeInfo) *ListVolumesOutput {
 // to them. Upon discovery in an S3 bucket by Storage Gateway, the S3 objects
 // that represent files and folders are assigned these default Unix permissions.
 // This operation is only supported in the file gateway type.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NFSFileShareDefaults
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NFSFileShareDefaults
->>>>>>> Working on getting compiling
 type NFSFileShareDefaults struct {
 	_ struct{} `type:"structure"`
 
@@ -11614,11 +11560,7 @@ func (s *NetworkInterface) SetMacAddress(v string) *NetworkInterface {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploadedInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploadedInput
->>>>>>> Working on getting compiling
 type NotifyWhenUploadedInput struct {
 	_ struct{} `type:"structure"`
 
@@ -11660,11 +11602,7 @@ func (s *NotifyWhenUploadedInput) SetFileShareARN(v string) *NotifyWhenUploadedI
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploadedOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/NotifyWhenUploadedOutput
->>>>>>> Working on getting compiling
 type NotifyWhenUploadedOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -11698,11 +11636,7 @@ func (s *NotifyWhenUploadedOutput) SetNotificationId(v string) *NotifyWhenUpload
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RefreshCacheInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/RefreshCacheInput
->>>>>>> Working on getting compiling
 type RefreshCacheInput struct {
 	_ struct{} `type:"structure"`
 

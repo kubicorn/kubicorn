@@ -79,7 +79,6 @@ func TestDoRetryWithRegistration(t *testing.T) {
 		t.Fatalf("azure: Sender#DoRetryWithRegistration -- Got: StatusCode %v; Want: StatusCode 200 OK", r.StatusCode)
 	}
 }
-<<<<<<< HEAD
 
 func TestDoRetrySkipRegistration(t *testing.T) {
 	client := mocks.NewSender()
@@ -125,5 +124,3 @@ func TestDoRetrySkipRegistration(t *testing.T) {
 		t.Fatalf("azure: Sender#DoRetryWithRegistration -- Got: StatusCode %v; Want: StatusCode 409 Conflict", r.StatusCode)
 	}
 }
-=======
->>>>>>> Initial dep workover

@@ -452,7 +452,6 @@ const opOutputService3TestCaseOperation1 = "OperationName"
 // client's request for the OutputService3TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -460,15 +459,6 @@ const opOutputService3TestCaseOperation1 = "OperationName"
 // See OutputService3TestCaseOperation1 for more information on using the OutputService3TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See OutputService3TestCaseOperation1 for more information on using the OutputService3TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -605,7 +595,6 @@ const opOutputService4TestCaseOperation1 = "OperationName"
 // client's request for the OutputService4TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -613,15 +602,6 @@ const opOutputService4TestCaseOperation1 = "OperationName"
 // See OutputService4TestCaseOperation1 for more information on using the OutputService4TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See OutputService4TestCaseOperation1 for more information on using the OutputService4TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -758,7 +738,6 @@ const opOutputService5TestCaseOperation1 = "OperationName"
 // client's request for the OutputService5TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -766,15 +745,6 @@ const opOutputService5TestCaseOperation1 = "OperationName"
 // See OutputService5TestCaseOperation1 for more information on using the OutputService5TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See OutputService5TestCaseOperation1 for more information on using the OutputService5TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1066,7 +1036,6 @@ const opOutputService7TestCaseOperation1 = "OperationName"
 // client's request for the OutputService7TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1074,15 +1043,6 @@ const opOutputService7TestCaseOperation1 = "OperationName"
 // See OutputService7TestCaseOperation1 for more information on using the OutputService7TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See OutputService7TestCaseOperation1 for more information on using the OutputService7TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1219,7 +1179,6 @@ const opOutputService8TestCaseOperation1 = "OperationName"
 // client's request for the OutputService8TestCaseOperation1 operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1227,15 +1186,6 @@ const opOutputService8TestCaseOperation1 = "OperationName"
 // See OutputService8TestCaseOperation1 for more information on using the OutputService8TestCaseOperation1
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See OutputService8TestCaseOperation1 for more information on using the OutputService8TestCaseOperation1
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1883,41 +1833,6 @@ func TestOutputService9ProtocolTestEmptyStringCase1(t *testing.T) {
 	if e, a := "", *out.Foo; e != a {
 		t.Errorf("expect %v, got %v", e, a)
 	}
-<<<<<<< HEAD
-
-}
-
-func TestOutputService10ProtocolTestEnumOutputCase1(t *testing.T) {
-	svc := NewOutputService10ProtocolTest(unit.Session, &aws.Config{Endpoint: aws.String("https://test")})
-
-	buf := bytes.NewReader([]byte("<OperationNameResponse><FooEnum>foo</FooEnum><ListEnums><member>foo</member><member>bar</member></ListEnums></OperationNameResponse>"))
-	req, out := svc.OutputService10TestCaseOperation1Request(nil)
-	req.HTTPResponse = &http.Response{StatusCode: 200, Body: ioutil.NopCloser(buf), Header: http.Header{}}
-
-	// set headers
-
-	// unmarshal response
-	ec2query.UnmarshalMeta(req)
-	ec2query.Unmarshal(req)
-	if req.Error != nil {
-		t.Errorf("expect not error, got %v", req.Error)
-	}
-
-	// assert response
-	if out == nil {
-		t.Errorf("expect not to be nil")
-	}
-	if e, a := "foo", *out.FooEnum; e != a {
-		t.Errorf("expect %v, got %v", e, a)
-	}
-	if e, a := "foo", *out.ListEnums[0]; e != a {
-		t.Errorf("expect %v, got %v", e, a)
-	}
-	if e, a := "bar", *out.ListEnums[1]; e != a {
-		t.Errorf("expect %v, got %v", e, a)
-	}
-=======
->>>>>>> Initial dep workover
 
 }
 

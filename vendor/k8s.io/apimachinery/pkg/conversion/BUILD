@@ -12,6 +12,7 @@ go_test(
         "converter_test.go",
         "helper_test.go",
     ],
+    importpath = "k8s.io/apimachinery/pkg/conversion",
     library = ":go_default_library",
     deps = [
         "//vendor/github.com/google/gofuzz:go_default_library",
@@ -28,6 +29,7 @@ go_library(
         "doc.go",
         "helper.go",
     ],
+    importpath = "k8s.io/apimachinery/pkg/conversion",
     deps = ["//vendor/k8s.io/apimachinery/third_party/forked/golang/reflect:go_default_library"],
 )
 
@@ -43,10 +45,6 @@ filegroup(
     srcs = [
         ":package-srcs",
         "//staging/src/k8s.io/apimachinery/pkg/conversion/queryparams:all-srcs",
-<<<<<<< HEAD
-=======
-        "//staging/src/k8s.io/apimachinery/pkg/conversion/unstructured:all-srcs",
->>>>>>> Initial dep workover
     ],
     tags = ["automanaged"],
 )

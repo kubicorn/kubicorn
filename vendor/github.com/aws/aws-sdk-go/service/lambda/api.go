@@ -38,11 +38,7 @@ const opAddPermission = "AddPermission"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermission
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermission
->>>>>>> Initial dep workover
 func (c *Lambda) AddPermissionRequest(input *AddPermissionInput) (req *request.Request, output *AddPermissionOutput) {
 	op := &request.Operation{
 		Name:       opAddPermission,
@@ -104,10 +100,6 @@ func (c *Lambda) AddPermissionRequest(input *AddPermissionInput) (req *request.R
 //   Lambda function access policy is limited to 20 KB.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -116,15 +108,8 @@ func (c *Lambda) AddPermissionRequest(input *AddPermissionInput) (req *request.R
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermission
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermission
->>>>>>> Initial dep workover
 func (c *Lambda) AddPermission(input *AddPermissionInput) (*AddPermissionOutput, error) {
 	req, out := c.AddPermissionRequest(input)
 	return out, req.Send()
@@ -171,11 +156,7 @@ const opCreateAlias = "CreateAlias"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAlias
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAlias
->>>>>>> Initial dep workover
 func (c *Lambda) CreateAliasRequest(input *CreateAliasInput) (req *request.Request, output *AliasConfiguration) {
 	op := &request.Operation{
 		Name:       opCreateAlias,
@@ -224,10 +205,6 @@ func (c *Lambda) CreateAliasRequest(input *CreateAliasInput) (req *request.Reque
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -236,15 +213,8 @@ func (c *Lambda) CreateAliasRequest(input *CreateAliasInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAlias
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAlias
->>>>>>> Initial dep workover
 func (c *Lambda) CreateAlias(input *CreateAliasInput) (*AliasConfiguration, error) {
 	req, out := c.CreateAliasRequest(input)
 	return out, req.Send()
@@ -291,11 +261,7 @@ const opCreateEventSourceMapping = "CreateEventSourceMapping"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMapping
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMapping
->>>>>>> Initial dep workover
 func (c *Lambda) CreateEventSourceMappingRequest(input *CreateEventSourceMappingInput) (req *request.Request, output *EventSourceMappingConfiguration) {
 	op := &request.Operation{
 		Name:       opCreateEventSourceMapping,
@@ -373,11 +339,7 @@ func (c *Lambda) CreateEventSourceMappingRequest(input *CreateEventSourceMapping
 //   The resource (for example, a Lambda function or access policy statement)
 //   specified in the request does not exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMapping
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMapping
->>>>>>> Initial dep workover
 func (c *Lambda) CreateEventSourceMapping(input *CreateEventSourceMappingInput) (*EventSourceMappingConfiguration, error) {
 	req, out := c.CreateEventSourceMappingRequest(input)
 	return out, req.Send()
@@ -424,11 +386,7 @@ const opCreateFunction = "CreateFunction"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunction
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunction
->>>>>>> Initial dep workover
 func (c *Lambda) CreateFunctionRequest(input *CreateFunctionInput) (req *request.Request, output *FunctionConfiguration) {
 	op := &request.Operation{
 		Name:       opCreateFunction,
@@ -494,11 +452,7 @@ func (c *Lambda) CreateFunctionRequest(input *CreateFunctionInput) (req *request
 //   * ErrCodeCodeStorageExceededException "CodeStorageExceededException"
 //   You have exceeded your maximum total code size per account. Limits (http://docs.aws.amazon.com/lambda/latest/dg/limits.html)
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunction
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunction
->>>>>>> Initial dep workover
 func (c *Lambda) CreateFunction(input *CreateFunctionInput) (*FunctionConfiguration, error) {
 	req, out := c.CreateFunctionRequest(input)
 	return out, req.Send()
@@ -545,11 +499,7 @@ const opDeleteAlias = "DeleteAlias"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAlias
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAlias
->>>>>>> Initial dep workover
 func (c *Lambda) DeleteAliasRequest(input *DeleteAliasInput) (req *request.Request, output *DeleteAliasOutput) {
 	op := &request.Operation{
 		Name:       opDeleteAlias,
@@ -592,10 +542,6 @@ func (c *Lambda) DeleteAliasRequest(input *DeleteAliasInput) (req *request.Reque
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -604,15 +550,8 @@ func (c *Lambda) DeleteAliasRequest(input *DeleteAliasInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAlias
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAlias
->>>>>>> Initial dep workover
 func (c *Lambda) DeleteAlias(input *DeleteAliasInput) (*DeleteAliasOutput, error) {
 	req, out := c.DeleteAliasRequest(input)
 	return out, req.Send()
@@ -659,11 +598,7 @@ const opDeleteEventSourceMapping = "DeleteEventSourceMapping"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMapping
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMapping
->>>>>>> Initial dep workover
 func (c *Lambda) DeleteEventSourceMappingRequest(input *DeleteEventSourceMappingInput) (req *request.Request, output *EventSourceMappingConfiguration) {
 	op := &request.Operation{
 		Name:       opDeleteEventSourceMapping,
@@ -709,10 +644,6 @@ func (c *Lambda) DeleteEventSourceMappingRequest(input *DeleteEventSourceMapping
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -721,15 +652,8 @@ func (c *Lambda) DeleteEventSourceMappingRequest(input *DeleteEventSourceMapping
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMapping
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMapping
->>>>>>> Initial dep workover
 func (c *Lambda) DeleteEventSourceMapping(input *DeleteEventSourceMappingInput) (*EventSourceMappingConfiguration, error) {
 	req, out := c.DeleteEventSourceMappingRequest(input)
 	return out, req.Send()
@@ -757,7 +681,6 @@ const opDeleteFunction = "DeleteFunction"
 // client's request for the DeleteFunction operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -765,15 +688,6 @@ const opDeleteFunction = "DeleteFunction"
 // See DeleteFunction for more information on using the DeleteFunction
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteFunction for more information on using the DeleteFunction
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -786,11 +700,7 @@ const opDeleteFunction = "DeleteFunction"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunction
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunction
->>>>>>> Initial dep workover
 func (c *Lambda) DeleteFunctionRequest(input *DeleteFunctionInput) (req *request.Request, output *DeleteFunctionOutput) {
 	op := &request.Operation{
 		Name:       opDeleteFunction,
@@ -858,11 +768,7 @@ func (c *Lambda) DeleteFunctionRequest(input *DeleteFunctionInput) (req *request
 //   * ErrCodeResourceConflictException "ResourceConflictException"
 //   The resource already exists.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunction
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunction
->>>>>>> Initial dep workover
 func (c *Lambda) DeleteFunction(input *DeleteFunctionInput) (*DeleteFunctionOutput, error) {
 	req, out := c.DeleteFunctionRequest(input)
 	return out, req.Send()
@@ -909,11 +815,7 @@ const opDeleteFunctionConcurrency = "DeleteFunctionConcurrency"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrency
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrency
->>>>>>> Working on getting compiling
 func (c *Lambda) DeleteFunctionConcurrencyRequest(input *DeleteFunctionConcurrencyInput) (req *request.Request, output *DeleteFunctionConcurrencyOutput) {
 	op := &request.Operation{
 		Name:       opDeleteFunctionConcurrency,
@@ -966,11 +868,7 @@ func (c *Lambda) DeleteFunctionConcurrencyRequest(input *DeleteFunctionConcurren
 //   an IAM role for AWS Lambda to assume in the CreateFunction or the UpdateFunctionConfiguration
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrency
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrency
->>>>>>> Working on getting compiling
 func (c *Lambda) DeleteFunctionConcurrency(input *DeleteFunctionConcurrencyInput) (*DeleteFunctionConcurrencyOutput, error) {
 	req, out := c.DeleteFunctionConcurrencyRequest(input)
 	return out, req.Send()
@@ -998,7 +896,6 @@ const opGetAccountSettings = "GetAccountSettings"
 // client's request for the GetAccountSettings operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1006,15 +903,6 @@ const opGetAccountSettings = "GetAccountSettings"
 // See GetAccountSettings for more information on using the GetAccountSettings
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetAccountSettings for more information on using the GetAccountSettings
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1027,11 +915,7 @@ const opGetAccountSettings = "GetAccountSettings"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettings
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettings
->>>>>>> Initial dep workover
 func (c *Lambda) GetAccountSettingsRequest(input *GetAccountSettingsInput) (req *request.Request, output *GetAccountSettingsOutput) {
 	op := &request.Operation{
 		Name:       opGetAccountSettings,
@@ -1079,11 +963,7 @@ func (c *Lambda) GetAccountSettingsRequest(input *GetAccountSettingsInput) (req 
 //   * ErrCodeServiceException "ServiceException"
 //   The AWS Lambda service encountered an internal error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettings
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettings
->>>>>>> Initial dep workover
 func (c *Lambda) GetAccountSettings(input *GetAccountSettingsInput) (*GetAccountSettingsOutput, error) {
 	req, out := c.GetAccountSettingsRequest(input)
 	return out, req.Send()
@@ -1111,7 +991,6 @@ const opGetAlias = "GetAlias"
 // client's request for the GetAlias operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1119,15 +998,6 @@ const opGetAlias = "GetAlias"
 // See GetAlias for more information on using the GetAlias
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetAlias for more information on using the GetAlias
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1140,11 +1010,7 @@ const opGetAlias = "GetAlias"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAlias
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAlias
->>>>>>> Initial dep workover
 func (c *Lambda) GetAliasRequest(input *GetAliasInput) (req *request.Request, output *AliasConfiguration) {
 	op := &request.Operation{
 		Name:       opGetAlias,
@@ -1190,10 +1056,6 @@ func (c *Lambda) GetAliasRequest(input *GetAliasInput) (req *request.Request, ou
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -1202,15 +1064,8 @@ func (c *Lambda) GetAliasRequest(input *GetAliasInput) (req *request.Request, ou
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAlias
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAlias
->>>>>>> Initial dep workover
 func (c *Lambda) GetAlias(input *GetAliasInput) (*AliasConfiguration, error) {
 	req, out := c.GetAliasRequest(input)
 	return out, req.Send()
@@ -1238,7 +1093,6 @@ const opGetEventSourceMapping = "GetEventSourceMapping"
 // client's request for the GetEventSourceMapping operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1246,15 +1100,6 @@ const opGetEventSourceMapping = "GetEventSourceMapping"
 // See GetEventSourceMapping for more information on using the GetEventSourceMapping
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetEventSourceMapping for more information on using the GetEventSourceMapping
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1267,11 +1112,7 @@ const opGetEventSourceMapping = "GetEventSourceMapping"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMapping
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMapping
->>>>>>> Initial dep workover
 func (c *Lambda) GetEventSourceMappingRequest(input *GetEventSourceMappingInput) (req *request.Request, output *EventSourceMappingConfiguration) {
 	op := &request.Operation{
 		Name:       opGetEventSourceMapping,
@@ -1316,10 +1157,6 @@ func (c *Lambda) GetEventSourceMappingRequest(input *GetEventSourceMappingInput)
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -1328,15 +1165,8 @@ func (c *Lambda) GetEventSourceMappingRequest(input *GetEventSourceMappingInput)
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMapping
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMapping
->>>>>>> Initial dep workover
 func (c *Lambda) GetEventSourceMapping(input *GetEventSourceMappingInput) (*EventSourceMappingConfiguration, error) {
 	req, out := c.GetEventSourceMappingRequest(input)
 	return out, req.Send()
@@ -1383,11 +1213,7 @@ const opGetFunction = "GetFunction"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunction
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunction
->>>>>>> Initial dep workover
 func (c *Lambda) GetFunctionRequest(input *GetFunctionInput) (req *request.Request, output *GetFunctionOutput) {
 	op := &request.Operation{
 		Name:       opGetFunction,
@@ -1450,11 +1276,7 @@ func (c *Lambda) GetFunctionRequest(input *GetFunctionInput) (req *request.Reque
 //   an IAM role for AWS Lambda to assume in the CreateFunction or the UpdateFunctionConfiguration
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunction
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunction
->>>>>>> Initial dep workover
 func (c *Lambda) GetFunction(input *GetFunctionInput) (*GetFunctionOutput, error) {
 	req, out := c.GetFunctionRequest(input)
 	return out, req.Send()
@@ -1501,11 +1323,7 @@ const opGetFunctionConfiguration = "GetFunctionConfiguration"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionConfiguration
->>>>>>> Initial dep workover
 func (c *Lambda) GetFunctionConfigurationRequest(input *GetFunctionConfigurationInput) (req *request.Request, output *FunctionConfiguration) {
 	op := &request.Operation{
 		Name:       opGetFunctionConfiguration,
@@ -1568,11 +1386,7 @@ func (c *Lambda) GetFunctionConfigurationRequest(input *GetFunctionConfiguration
 //   an IAM role for AWS Lambda to assume in the CreateFunction or the UpdateFunctionConfiguration
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionConfiguration
->>>>>>> Initial dep workover
 func (c *Lambda) GetFunctionConfiguration(input *GetFunctionConfigurationInput) (*FunctionConfiguration, error) {
 	req, out := c.GetFunctionConfigurationRequest(input)
 	return out, req.Send()
@@ -1600,7 +1414,6 @@ const opGetPolicy = "GetPolicy"
 // client's request for the GetPolicy operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1608,15 +1421,6 @@ const opGetPolicy = "GetPolicy"
 // See GetPolicy for more information on using the GetPolicy
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetPolicy for more information on using the GetPolicy
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1629,11 +1433,7 @@ const opGetPolicy = "GetPolicy"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetPolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetPolicy
->>>>>>> Initial dep workover
 func (c *Lambda) GetPolicyRequest(input *GetPolicyInput) (req *request.Request, output *GetPolicyOutput) {
 	op := &request.Operation{
 		Name:       opGetPolicy,
@@ -1691,11 +1491,7 @@ func (c *Lambda) GetPolicyRequest(input *GetPolicyInput) (req *request.Request, 
 //   an IAM role for AWS Lambda to assume in the CreateFunction or the UpdateFunctionConfiguration
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetPolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetPolicy
->>>>>>> Initial dep workover
 func (c *Lambda) GetPolicy(input *GetPolicyInput) (*GetPolicyOutput, error) {
 	req, out := c.GetPolicyRequest(input)
 	return out, req.Send()
@@ -1723,7 +1519,6 @@ const opInvoke = "Invoke"
 // client's request for the Invoke operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1731,15 +1526,6 @@ const opInvoke = "Invoke"
 // See Invoke for more information on using the Invoke
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See Invoke for more information on using the Invoke
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1752,11 +1538,7 @@ const opInvoke = "Invoke"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Invoke
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Invoke
->>>>>>> Initial dep workover
 func (c *Lambda) InvokeRequest(input *InvokeInput) (req *request.Request, output *InvokeOutput) {
 	op := &request.Operation{
 		Name:       opInvoke,
@@ -1876,11 +1658,7 @@ func (c *Lambda) InvokeRequest(input *InvokeInput) (req *request.Request, output
 //   * ErrCodeInvalidRuntimeException "InvalidRuntimeException"
 //   The runtime or runtime version specified is not supported.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Invoke
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Invoke
->>>>>>> Initial dep workover
 func (c *Lambda) Invoke(input *InvokeInput) (*InvokeOutput, error) {
 	req, out := c.InvokeRequest(input)
 	return out, req.Send()
@@ -1908,7 +1686,6 @@ const opInvokeAsync = "InvokeAsync"
 // client's request for the InvokeAsync operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1916,15 +1693,6 @@ const opInvokeAsync = "InvokeAsync"
 // See InvokeAsync for more information on using the InvokeAsync
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See InvokeAsync for more information on using the InvokeAsync
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1937,11 +1705,7 @@ const opInvokeAsync = "InvokeAsync"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeAsync
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeAsync
->>>>>>> Initial dep workover
 func (c *Lambda) InvokeAsyncRequest(input *InvokeAsyncInput) (req *request.Request, output *InvokeAsyncOutput) {
 	if c.Client.Config.Logger != nil {
 		c.Client.Config.Logger.Log("This operation, InvokeAsync, has been deprecated")
@@ -1992,11 +1756,7 @@ func (c *Lambda) InvokeAsyncRequest(input *InvokeAsyncInput) (req *request.Reque
 //   * ErrCodeInvalidRuntimeException "InvalidRuntimeException"
 //   The runtime or runtime version specified is not supported.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeAsync
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeAsync
->>>>>>> Initial dep workover
 func (c *Lambda) InvokeAsync(input *InvokeAsyncInput) (*InvokeAsyncOutput, error) {
 	req, out := c.InvokeAsyncRequest(input)
 	return out, req.Send()
@@ -2024,7 +1784,6 @@ const opListAliases = "ListAliases"
 // client's request for the ListAliases operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2032,15 +1791,6 @@ const opListAliases = "ListAliases"
 // See ListAliases for more information on using the ListAliases
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListAliases for more information on using the ListAliases
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2053,11 +1803,7 @@ const opListAliases = "ListAliases"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliases
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliases
->>>>>>> Initial dep workover
 func (c *Lambda) ListAliasesRequest(input *ListAliasesInput) (req *request.Request, output *ListAliasesOutput) {
 	op := &request.Operation{
 		Name:       opListAliases,
@@ -2104,10 +1850,6 @@ func (c *Lambda) ListAliasesRequest(input *ListAliasesInput) (req *request.Reque
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2116,15 +1858,8 @@ func (c *Lambda) ListAliasesRequest(input *ListAliasesInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliases
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliases
->>>>>>> Initial dep workover
 func (c *Lambda) ListAliases(input *ListAliasesInput) (*ListAliasesOutput, error) {
 	req, out := c.ListAliasesRequest(input)
 	return out, req.Send()
@@ -2152,7 +1887,6 @@ const opListEventSourceMappings = "ListEventSourceMappings"
 // client's request for the ListEventSourceMappings operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2160,15 +1894,6 @@ const opListEventSourceMappings = "ListEventSourceMappings"
 // See ListEventSourceMappings for more information on using the ListEventSourceMappings
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListEventSourceMappings for more information on using the ListEventSourceMappings
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2181,11 +1906,7 @@ const opListEventSourceMappings = "ListEventSourceMappings"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappings
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappings
->>>>>>> Initial dep workover
 func (c *Lambda) ListEventSourceMappingsRequest(input *ListEventSourceMappingsInput) (req *request.Request, output *ListEventSourceMappingsOutput) {
 	op := &request.Operation{
 		Name:       opListEventSourceMappings,
@@ -2245,10 +1966,6 @@ func (c *Lambda) ListEventSourceMappingsRequest(input *ListEventSourceMappingsIn
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2257,15 +1974,8 @@ func (c *Lambda) ListEventSourceMappingsRequest(input *ListEventSourceMappingsIn
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappings
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappings
->>>>>>> Initial dep workover
 func (c *Lambda) ListEventSourceMappings(input *ListEventSourceMappingsInput) (*ListEventSourceMappingsOutput, error) {
 	req, out := c.ListEventSourceMappingsRequest(input)
 	return out, req.Send()
@@ -2343,7 +2053,6 @@ const opListFunctions = "ListFunctions"
 // client's request for the ListFunctions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2351,15 +2060,6 @@ const opListFunctions = "ListFunctions"
 // See ListFunctions for more information on using the ListFunctions
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListFunctions for more information on using the ListFunctions
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2372,11 +2072,7 @@ const opListFunctions = "ListFunctions"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctions
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctions
->>>>>>> Initial dep workover
 func (c *Lambda) ListFunctionsRequest(input *ListFunctionsInput) (req *request.Request, output *ListFunctionsOutput) {
 	op := &request.Operation{
 		Name:       opListFunctions,
@@ -2437,11 +2133,7 @@ func (c *Lambda) ListFunctionsRequest(input *ListFunctionsInput) (req *request.R
 //   an IAM role for AWS Lambda to assume in the CreateFunction or the UpdateFunctionConfiguration
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctions
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctions
->>>>>>> Initial dep workover
 func (c *Lambda) ListFunctions(input *ListFunctionsInput) (*ListFunctionsOutput, error) {
 	req, out := c.ListFunctionsRequest(input)
 	return out, req.Send()
@@ -2538,11 +2230,7 @@ const opListTags = "ListTags"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTags
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTags
->>>>>>> Initial dep workover
 func (c *Lambda) ListTagsRequest(input *ListTagsInput) (req *request.Request, output *ListTagsOutput) {
 	op := &request.Operation{
 		Name:       opListTags,
@@ -2585,10 +2273,6 @@ func (c *Lambda) ListTagsRequest(input *ListTagsInput) (req *request.Request, ou
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2597,15 +2281,8 @@ func (c *Lambda) ListTagsRequest(input *ListTagsInput) (req *request.Request, ou
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTags
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTags
->>>>>>> Initial dep workover
 func (c *Lambda) ListTags(input *ListTagsInput) (*ListTagsOutput, error) {
 	req, out := c.ListTagsRequest(input)
 	return out, req.Send()
@@ -2652,11 +2329,7 @@ const opListVersionsByFunction = "ListVersionsByFunction"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunction
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunction
->>>>>>> Initial dep workover
 func (c *Lambda) ListVersionsByFunctionRequest(input *ListVersionsByFunctionInput) (req *request.Request, output *ListVersionsByFunctionOutput) {
 	op := &request.Operation{
 		Name:       opListVersionsByFunction,
@@ -2699,10 +2372,6 @@ func (c *Lambda) ListVersionsByFunctionRequest(input *ListVersionsByFunctionInpu
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -2711,15 +2380,8 @@ func (c *Lambda) ListVersionsByFunctionRequest(input *ListVersionsByFunctionInpu
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunction
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunction
->>>>>>> Initial dep workover
 func (c *Lambda) ListVersionsByFunction(input *ListVersionsByFunctionInput) (*ListVersionsByFunctionOutput, error) {
 	req, out := c.ListVersionsByFunctionRequest(input)
 	return out, req.Send()
@@ -2766,11 +2428,7 @@ const opPublishVersion = "PublishVersion"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersion
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersion
->>>>>>> Initial dep workover
 func (c *Lambda) PublishVersionRequest(input *PublishVersionInput) (req *request.Request, output *FunctionConfiguration) {
 	op := &request.Operation{
 		Name:       opPublishVersion,
@@ -2828,11 +2486,7 @@ func (c *Lambda) PublishVersionRequest(input *PublishVersionInput) (req *request
 //   * ErrCodeCodeStorageExceededException "CodeStorageExceededException"
 //   You have exceeded your maximum total code size per account. Limits (http://docs.aws.amazon.com/lambda/latest/dg/limits.html)
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersion
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersion
->>>>>>> Initial dep workover
 func (c *Lambda) PublishVersion(input *PublishVersionInput) (*FunctionConfiguration, error) {
 	req, out := c.PublishVersionRequest(input)
 	return out, req.Send()
@@ -2879,11 +2533,7 @@ const opPutFunctionConcurrency = "PutFunctionConcurrency"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrency
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrency
->>>>>>> Working on getting compiling
 func (c *Lambda) PutFunctionConcurrencyRequest(input *PutFunctionConcurrencyInput) (req *request.Request, output *PutFunctionConcurrencyOutput) {
 	op := &request.Operation{
 		Name:       opPutFunctionConcurrency,
@@ -2939,11 +2589,7 @@ func (c *Lambda) PutFunctionConcurrencyRequest(input *PutFunctionConcurrencyInpu
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrency
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrency
->>>>>>> Working on getting compiling
 func (c *Lambda) PutFunctionConcurrency(input *PutFunctionConcurrencyInput) (*PutFunctionConcurrencyOutput, error) {
 	req, out := c.PutFunctionConcurrencyRequest(input)
 	return out, req.Send()
@@ -2971,7 +2617,6 @@ const opRemovePermission = "RemovePermission"
 // client's request for the RemovePermission operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2979,15 +2624,6 @@ const opRemovePermission = "RemovePermission"
 // See RemovePermission for more information on using the RemovePermission
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See RemovePermission for more information on using the RemovePermission
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3000,11 +2636,7 @@ const opRemovePermission = "RemovePermission"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermission
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermission
->>>>>>> Initial dep workover
 func (c *Lambda) RemovePermissionRequest(input *RemovePermissionInput) (req *request.Request, output *RemovePermissionOutput) {
 	op := &request.Operation{
 		Name:       opRemovePermission,
@@ -3060,10 +2692,6 @@ func (c *Lambda) RemovePermissionRequest(input *RemovePermissionInput) (req *req
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -3072,15 +2700,8 @@ func (c *Lambda) RemovePermissionRequest(input *RemovePermissionInput) (req *req
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermission
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermission
->>>>>>> Initial dep workover
 func (c *Lambda) RemovePermission(input *RemovePermissionInput) (*RemovePermissionOutput, error) {
 	req, out := c.RemovePermissionRequest(input)
 	return out, req.Send()
@@ -3108,7 +2729,6 @@ const opTagResource = "TagResource"
 // client's request for the TagResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3116,15 +2736,6 @@ const opTagResource = "TagResource"
 // See TagResource for more information on using the TagResource
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See TagResource for more information on using the TagResource
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3137,11 +2748,7 @@ const opTagResource = "TagResource"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResource
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResource
->>>>>>> Initial dep workover
 func (c *Lambda) TagResourceRequest(input *TagResourceInput) (req *request.Request, output *TagResourceOutput) {
 	op := &request.Operation{
 		Name:       opTagResource,
@@ -3187,10 +2794,6 @@ func (c *Lambda) TagResourceRequest(input *TagResourceInput) (req *request.Reque
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -3199,15 +2802,8 @@ func (c *Lambda) TagResourceRequest(input *TagResourceInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResource
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResource
->>>>>>> Initial dep workover
 func (c *Lambda) TagResource(input *TagResourceInput) (*TagResourceOutput, error) {
 	req, out := c.TagResourceRequest(input)
 	return out, req.Send()
@@ -3235,7 +2831,6 @@ const opUntagResource = "UntagResource"
 // client's request for the UntagResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3243,15 +2838,6 @@ const opUntagResource = "UntagResource"
 // See UntagResource for more information on using the UntagResource
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UntagResource for more information on using the UntagResource
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3264,11 +2850,7 @@ const opUntagResource = "UntagResource"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResource
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResource
->>>>>>> Initial dep workover
 func (c *Lambda) UntagResourceRequest(input *UntagResourceInput) (req *request.Request, output *UntagResourceOutput) {
 	op := &request.Operation{
 		Name:       opUntagResource,
@@ -3313,10 +2895,6 @@ func (c *Lambda) UntagResourceRequest(input *UntagResourceInput) (req *request.R
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -3325,15 +2903,8 @@ func (c *Lambda) UntagResourceRequest(input *UntagResourceInput) (req *request.R
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResource
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResource
->>>>>>> Initial dep workover
 func (c *Lambda) UntagResource(input *UntagResourceInput) (*UntagResourceOutput, error) {
 	req, out := c.UntagResourceRequest(input)
 	return out, req.Send()
@@ -3361,7 +2932,6 @@ const opUpdateAlias = "UpdateAlias"
 // client's request for the UpdateAlias operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3369,15 +2939,6 @@ const opUpdateAlias = "UpdateAlias"
 // See UpdateAlias for more information on using the UpdateAlias
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateAlias for more information on using the UpdateAlias
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3390,11 +2951,7 @@ const opUpdateAlias = "UpdateAlias"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateAlias
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateAlias
->>>>>>> Initial dep workover
 func (c *Lambda) UpdateAliasRequest(input *UpdateAliasInput) (req *request.Request, output *AliasConfiguration) {
 	op := &request.Operation{
 		Name:       opUpdateAlias,
@@ -3440,10 +2997,6 @@ func (c *Lambda) UpdateAliasRequest(input *UpdateAliasInput) (req *request.Reque
 //   API, that AWS Lambda is unable to assume you will get this exception.
 //
 //   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 //   You will get this exception for the following reasons. ConcurrentInvocationLimitExceeded
 //   is returned if you have no functions with reserved-concurrency and have exceeded
 //   your account concurrent limit or if a function without reserved concurrency
@@ -3452,15 +3005,8 @@ func (c *Lambda) UpdateAliasRequest(input *UpdateAliasInput) (req *request.Reque
 //   concurrent limit. CallerRateLimitExceeded is returned when your account limit
 //   is exceeded and you have not reserved concurrency on any function. For more
 //   information, see concurrent-executions
-<<<<<<< HEAD
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateAlias
-=======
-=======
->>>>>>> Working on getting compiling
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateAlias
->>>>>>> Initial dep workover
 func (c *Lambda) UpdateAlias(input *UpdateAliasInput) (*AliasConfiguration, error) {
 	req, out := c.UpdateAliasRequest(input)
 	return out, req.Send()
@@ -3488,7 +3034,6 @@ const opUpdateEventSourceMapping = "UpdateEventSourceMapping"
 // client's request for the UpdateEventSourceMapping operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3496,15 +3041,6 @@ const opUpdateEventSourceMapping = "UpdateEventSourceMapping"
 // See UpdateEventSourceMapping for more information on using the UpdateEventSourceMapping
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateEventSourceMapping for more information on using the UpdateEventSourceMapping
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3517,11 +3053,7 @@ const opUpdateEventSourceMapping = "UpdateEventSourceMapping"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMapping
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMapping
->>>>>>> Initial dep workover
 func (c *Lambda) UpdateEventSourceMappingRequest(input *UpdateEventSourceMappingInput) (req *request.Request, output *EventSourceMappingConfiguration) {
 	op := &request.Operation{
 		Name:       opUpdateEventSourceMapping,
@@ -3591,11 +3123,7 @@ func (c *Lambda) UpdateEventSourceMappingRequest(input *UpdateEventSourceMapping
 //   * ErrCodeResourceConflictException "ResourceConflictException"
 //   The resource already exists.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMapping
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMapping
->>>>>>> Initial dep workover
 func (c *Lambda) UpdateEventSourceMapping(input *UpdateEventSourceMappingInput) (*EventSourceMappingConfiguration, error) {
 	req, out := c.UpdateEventSourceMappingRequest(input)
 	return out, req.Send()
@@ -3623,7 +3151,6 @@ const opUpdateFunctionCode = "UpdateFunctionCode"
 // client's request for the UpdateFunctionCode operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3631,15 +3158,6 @@ const opUpdateFunctionCode = "UpdateFunctionCode"
 // See UpdateFunctionCode for more information on using the UpdateFunctionCode
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateFunctionCode for more information on using the UpdateFunctionCode
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3652,11 +3170,7 @@ const opUpdateFunctionCode = "UpdateFunctionCode"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCode
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCode
->>>>>>> Initial dep workover
 func (c *Lambda) UpdateFunctionCodeRequest(input *UpdateFunctionCodeInput) (req *request.Request, output *FunctionConfiguration) {
 	op := &request.Operation{
 		Name:       opUpdateFunctionCode,
@@ -3718,11 +3232,7 @@ func (c *Lambda) UpdateFunctionCodeRequest(input *UpdateFunctionCodeInput) (req 
 //   * ErrCodeCodeStorageExceededException "CodeStorageExceededException"
 //   You have exceeded your maximum total code size per account. Limits (http://docs.aws.amazon.com/lambda/latest/dg/limits.html)
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCode
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCode
->>>>>>> Initial dep workover
 func (c *Lambda) UpdateFunctionCode(input *UpdateFunctionCodeInput) (*FunctionConfiguration, error) {
 	req, out := c.UpdateFunctionCodeRequest(input)
 	return out, req.Send()
@@ -3769,11 +3279,7 @@ const opUpdateFunctionConfiguration = "UpdateFunctionConfiguration"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfiguration
->>>>>>> Initial dep workover
 func (c *Lambda) UpdateFunctionConfigurationRequest(input *UpdateFunctionConfigurationInput) (req *request.Request, output *FunctionConfiguration) {
 	op := &request.Operation{
 		Name:       opUpdateFunctionConfiguration,
@@ -3837,11 +3343,7 @@ func (c *Lambda) UpdateFunctionConfigurationRequest(input *UpdateFunctionConfigu
 //   * ErrCodeResourceConflictException "ResourceConflictException"
 //   The resource already exists.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfiguration
->>>>>>> Initial dep workover
 func (c *Lambda) UpdateFunctionConfiguration(input *UpdateFunctionConfigurationInput) (*FunctionConfiguration, error) {
 	req, out := c.UpdateFunctionConfigurationRequest(input)
 	return out, req.Send()
@@ -3865,11 +3367,7 @@ func (c *Lambda) UpdateFunctionConfigurationWithContext(ctx aws.Context, input *
 
 // Provides limits of code size and concurrency associated with the current
 // account and region.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AccountLimit
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AccountLimit
->>>>>>> Initial dep workover
 type AccountLimit struct {
 	_ struct{} `type:"structure"`
 
@@ -3939,11 +3437,7 @@ func (s *AccountLimit) SetUnreservedConcurrentExecutions(v int64) *AccountLimit 
 
 // Provides code size usage and function count associated with the current account
 // and region.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AccountUsage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AccountUsage
->>>>>>> Initial dep workover
 type AccountUsage struct {
 	_ struct{} `type:"structure"`
 
@@ -3976,11 +3470,7 @@ func (s *AccountUsage) SetTotalCodeSize(v int64) *AccountUsage {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermissionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermissionRequest
->>>>>>> Initial dep workover
 type AddPermissionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4151,11 +3641,7 @@ func (s *AddPermissionInput) SetStatementId(v string) *AddPermissionInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermissionResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermissionResponse
->>>>>>> Initial dep workover
 type AddPermissionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4182,11 +3668,7 @@ func (s *AddPermissionOutput) SetStatement(v string) *AddPermissionOutput {
 }
 
 // Provides configuration information about a Lambda function version alias.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AliasConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AliasConfiguration
->>>>>>> Initial dep workover
 type AliasConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -4244,10 +3726,6 @@ func (s *AliasConfiguration) SetName(v string) *AliasConfiguration {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetRoutingConfig sets the RoutingConfig field's value.
 func (s *AliasConfiguration) SetRoutingConfig(v *AliasRoutingConfiguration) *AliasConfiguration {
 	s.RoutingConfig = v
@@ -4256,11 +3734,7 @@ func (s *AliasConfiguration) SetRoutingConfig(v *AliasRoutingConfiguration) *Ali
 
 // The parent object that implements what percentage of traffic will invoke
 // each function version. For more information, see lambda-traffic-shifting-using-aliases.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AliasRoutingConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AliasRoutingConfiguration
->>>>>>> Working on getting compiling
 type AliasRoutingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -4286,13 +3760,7 @@ func (s *AliasRoutingConfiguration) SetAdditionalVersionWeights(v map[string]*fl
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAliasRequest
-=======
-=======
->>>>>>> Working on getting compiling
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAliasRequest
->>>>>>> Initial dep workover
 type CreateAliasInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4384,23 +3852,13 @@ func (s *CreateAliasInput) SetName(v string) *CreateAliasInput {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetRoutingConfig sets the RoutingConfig field's value.
 func (s *CreateAliasInput) SetRoutingConfig(v *AliasRoutingConfiguration) *CreateAliasInput {
 	s.RoutingConfig = v
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMappingRequest
-=======
-=======
->>>>>>> Working on getting compiling
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMappingRequest
->>>>>>> Initial dep workover
 type CreateEventSourceMappingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4528,11 +3986,7 @@ func (s *CreateEventSourceMappingInput) SetStartingPositionTimestamp(v time.Time
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunctionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunctionRequest
->>>>>>> Initial dep workover
 type CreateFunctionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4768,11 +4222,7 @@ func (s *CreateFunctionInput) SetVpcConfig(v *VpcConfig) *CreateFunctionInput {
 
 // The parent object that contains the target ARN (Amazon Resource Name) of
 // an Amazon SQS queue or Amazon SNS topic.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeadLetterConfig
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeadLetterConfig
->>>>>>> Initial dep workover
 type DeadLetterConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -4797,11 +4247,7 @@ func (s *DeadLetterConfig) SetTargetArn(v string) *DeadLetterConfig {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAliasRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAliasRequest
->>>>>>> Initial dep workover
 type DeleteAliasInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4863,11 +4309,7 @@ func (s *DeleteAliasInput) SetName(v string) *DeleteAliasInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAliasOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteAliasOutput
->>>>>>> Initial dep workover
 type DeleteAliasOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4882,11 +4324,7 @@ func (s DeleteAliasOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMappingRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMappingRequest
->>>>>>> Initial dep workover
 type DeleteEventSourceMappingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4925,12 +4363,7 @@ func (s *DeleteEventSourceMappingInput) SetUUID(v string) *DeleteEventSourceMapp
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrencyRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrencyRequest
->>>>>>> Working on getting compiling
 type DeleteFunctionConcurrencyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4972,11 +4405,7 @@ func (s *DeleteFunctionConcurrencyInput) SetFunctionName(v string) *DeleteFuncti
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrencyOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionConcurrencyOutput
->>>>>>> Working on getting compiling
 type DeleteFunctionConcurrencyOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4991,13 +4420,7 @@ func (s DeleteFunctionConcurrencyOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionRequest
-=======
-=======
->>>>>>> Working on getting compiling
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionRequest
->>>>>>> Initial dep workover
 type DeleteFunctionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5072,11 +4495,7 @@ func (s *DeleteFunctionInput) SetQualifier(v string) *DeleteFunctionInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionOutput
->>>>>>> Initial dep workover
 type DeleteFunctionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5092,11 +4511,7 @@ func (s DeleteFunctionOutput) GoString() string {
 }
 
 // The parent object that contains your environment's configuration settings.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Environment
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Environment
->>>>>>> Initial dep workover
 type Environment struct {
 	_ struct{} `type:"structure"`
 
@@ -5122,11 +4537,7 @@ func (s *Environment) SetVariables(v map[string]*string) *Environment {
 
 // The parent object that contains error information associated with your configuration
 // settings.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/EnvironmentError
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/EnvironmentError
->>>>>>> Initial dep workover
 type EnvironmentError struct {
 	_ struct{} `type:"structure"`
 
@@ -5161,11 +4572,7 @@ func (s *EnvironmentError) SetMessage(v string) *EnvironmentError {
 
 // The parent object returned that contains your environment's configuration
 // settings or any error information associated with your configuration settings.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/EnvironmentResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/EnvironmentResponse
->>>>>>> Initial dep workover
 type EnvironmentResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -5201,11 +4608,7 @@ func (s *EnvironmentResponse) SetVariables(v map[string]*string) *EnvironmentRes
 }
 
 // Describes mapping between an Amazon Kinesis stream and a Lambda function.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/EventSourceMappingConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/EventSourceMappingConfiguration
->>>>>>> Initial dep workover
 type EventSourceMappingConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -5298,11 +4701,7 @@ func (s *EventSourceMappingConfiguration) SetUUID(v string) *EventSourceMappingC
 }
 
 // The code for the Lambda function.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionCode
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionCode
->>>>>>> Initial dep workover
 type FunctionCode struct {
 	_ struct{} `type:"structure"`
 
@@ -5382,11 +4781,7 @@ func (s *FunctionCode) SetZipFile(v []byte) *FunctionCode {
 }
 
 // The object for the Lambda function location.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionCodeLocation
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionCodeLocation
->>>>>>> Initial dep workover
 type FunctionCodeLocation struct {
 	_ struct{} `type:"structure"`
 
@@ -5421,11 +4816,7 @@ func (s *FunctionCodeLocation) SetRepositoryType(v string) *FunctionCodeLocation
 }
 
 // A complex type that describes function metadata.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionConfiguration
->>>>>>> Initial dep workover
 type FunctionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -5614,11 +5005,7 @@ func (s *FunctionConfiguration) SetVpcConfig(v *VpcConfigResponse) *FunctionConf
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettingsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettingsRequest
->>>>>>> Initial dep workover
 type GetAccountSettingsInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -5633,11 +5020,7 @@ func (s GetAccountSettingsInput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettingsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettingsResponse
->>>>>>> Initial dep workover
 type GetAccountSettingsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5672,11 +5055,7 @@ func (s *GetAccountSettingsOutput) SetAccountUsage(v *AccountUsage) *GetAccountS
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAliasRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAliasRequest
->>>>>>> Initial dep workover
 type GetAliasInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5739,11 +5118,7 @@ func (s *GetAliasInput) SetName(v string) *GetAliasInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMappingRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMappingRequest
->>>>>>> Initial dep workover
 type GetEventSourceMappingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5782,11 +5157,7 @@ func (s *GetEventSourceMappingInput) SetUUID(v string) *GetEventSourceMappingInp
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionConfigurationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionConfigurationRequest
->>>>>>> Initial dep workover
 type GetFunctionConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5854,11 +5225,7 @@ func (s *GetFunctionConfigurationInput) SetQualifier(v string) *GetFunctionConfi
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionRequest
->>>>>>> Initial dep workover
 type GetFunctionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5925,11 +5292,7 @@ func (s *GetFunctionInput) SetQualifier(v string) *GetFunctionInput {
 }
 
 // This response contains the object for the Lambda function location (see FunctionCodeLocation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionResponse
->>>>>>> Initial dep workover
 type GetFunctionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5980,11 +5343,7 @@ func (s *GetFunctionOutput) SetTags(v map[string]*string) *GetFunctionOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetPolicyRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetPolicyRequest
->>>>>>> Initial dep workover
 type GetPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6050,11 +5409,7 @@ func (s *GetPolicyInput) SetQualifier(v string) *GetPolicyInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetPolicyResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetPolicyResponse
->>>>>>> Initial dep workover
 type GetPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6080,11 +5435,7 @@ func (s *GetPolicyOutput) SetPolicy(v string) *GetPolicyOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeAsyncRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeAsyncRequest
->>>>>>> Initial dep workover
 type InvokeAsyncInput struct {
 	_ struct{} `deprecated:"true" type:"structure" payload:"InvokeArgs"`
 
@@ -6143,11 +5494,7 @@ func (s *InvokeAsyncInput) SetInvokeArgs(v io.ReadSeeker) *InvokeAsyncInput {
 }
 
 // Upon success, it returns empty response. Otherwise, throws an exception.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeAsyncResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeAsyncResponse
->>>>>>> Initial dep workover
 type InvokeAsyncOutput struct {
 	_ struct{} `deprecated:"true" type:"structure"`
 
@@ -6171,11 +5518,7 @@ func (s *InvokeAsyncOutput) SetStatus(v int64) *InvokeAsyncOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvocationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvocationRequest
->>>>>>> Initial dep workover
 type InvokeInput struct {
 	_ struct{} `type:"structure" payload:"Payload"`
 
@@ -6295,11 +5638,7 @@ func (s *InvokeInput) SetQualifier(v string) *InvokeInput {
 }
 
 // Upon success, returns an empty response. Otherwise, throws an exception.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvocationResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvocationResponse
->>>>>>> Initial dep workover
 type InvokeOutput struct {
 	_ struct{} `type:"structure" payload:"Payload"`
 
@@ -6375,11 +5714,7 @@ func (s *InvokeOutput) SetStatusCode(v int64) *InvokeOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliasesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliasesRequest
->>>>>>> Initial dep workover
 type ListAliasesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6460,11 +5795,7 @@ func (s *ListAliasesInput) SetMaxItems(v int64) *ListAliasesInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliasesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListAliasesResponse
->>>>>>> Initial dep workover
 type ListAliasesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6497,11 +5828,7 @@ func (s *ListAliasesOutput) SetNextMarker(v string) *ListAliasesOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappingsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappingsRequest
->>>>>>> Initial dep workover
 type ListEventSourceMappingsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6582,11 +5909,7 @@ func (s *ListEventSourceMappingsInput) SetMaxItems(v int64) *ListEventSourceMapp
 }
 
 // Contains a list of event sources (see EventSourceMappingConfiguration)
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappingsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappingsResponse
->>>>>>> Initial dep workover
 type ListEventSourceMappingsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6619,11 +5942,7 @@ func (s *ListEventSourceMappingsOutput) SetNextMarker(v string) *ListEventSource
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctionsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctionsRequest
->>>>>>> Initial dep workover
 type ListFunctionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6705,11 +6024,7 @@ func (s *ListFunctionsInput) SetMaxItems(v int64) *ListFunctionsInput {
 }
 
 // Contains a list of AWS Lambda function configurations (see FunctionConfiguration.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctionsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctionsResponse
->>>>>>> Initial dep workover
 type ListFunctionsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6742,11 +6057,7 @@ func (s *ListFunctionsOutput) SetNextMarker(v string) *ListFunctionsOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTagsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTagsRequest
->>>>>>> Initial dep workover
 type ListTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6785,11 +6096,7 @@ func (s *ListTagsInput) SetResource(v string) *ListTagsInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTagsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListTagsResponse
->>>>>>> Initial dep workover
 type ListTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6813,11 +6120,7 @@ func (s *ListTagsOutput) SetTags(v map[string]*string) *ListTagsOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunctionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunctionRequest
->>>>>>> Initial dep workover
 type ListVersionsByFunctionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6887,11 +6190,7 @@ func (s *ListVersionsByFunctionInput) SetMaxItems(v int64) *ListVersionsByFuncti
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunctionResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunctionResponse
->>>>>>> Initial dep workover
 type ListVersionsByFunctionOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6924,11 +6223,7 @@ func (s *ListVersionsByFunctionOutput) SetVersions(v []*FunctionConfiguration) *
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersionRequest
->>>>>>> Initial dep workover
 type PublishVersionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6998,12 +6293,7 @@ func (s *PublishVersionInput) SetFunctionName(v string) *PublishVersionInput {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrencyRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionConcurrencyRequest
->>>>>>> Working on getting compiling
 type PutFunctionConcurrencyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7059,11 +6349,7 @@ func (s *PutFunctionConcurrencyInput) SetReservedConcurrentExecutions(v int64) *
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Concurrency
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Concurrency
->>>>>>> Working on getting compiling
 type PutFunctionConcurrencyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7087,13 +6373,7 @@ func (s *PutFunctionConcurrencyOutput) SetReservedConcurrentExecutions(v int64) 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermissionRequest
-=======
-=======
->>>>>>> Working on getting compiling
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermissionRequest
->>>>>>> Initial dep workover
 type RemovePermissionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7173,11 +6453,7 @@ func (s *RemovePermissionInput) SetStatementId(v string) *RemovePermissionInput 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermissionOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/RemovePermissionOutput
->>>>>>> Initial dep workover
 type RemovePermissionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -7192,11 +6468,7 @@ func (s RemovePermissionOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResourceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResourceRequest
->>>>>>> Initial dep workover
 type TagResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7249,11 +6521,7 @@ func (s *TagResourceInput) SetTags(v map[string]*string) *TagResourceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResourceOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TagResourceOutput
->>>>>>> Initial dep workover
 type TagResourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -7269,11 +6537,7 @@ func (s TagResourceOutput) GoString() string {
 }
 
 // The parent object that contains your function's tracing settings.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TracingConfig
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TracingConfig
->>>>>>> Initial dep workover
 type TracingConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -7302,11 +6566,7 @@ func (s *TracingConfig) SetMode(v string) *TracingConfig {
 }
 
 // Parent object of the tracing information associated with your Lambda function.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TracingConfigResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TracingConfigResponse
->>>>>>> Initial dep workover
 type TracingConfigResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -7330,11 +6590,7 @@ func (s *TracingConfigResponse) SetMode(v string) *TracingConfigResponse {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResourceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResourceRequest
->>>>>>> Initial dep workover
 type UntagResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7387,11 +6643,7 @@ func (s *UntagResourceInput) SetTagKeys(v []*string) *UntagResourceInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResourceOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UntagResourceOutput
->>>>>>> Initial dep workover
 type UntagResourceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -7406,11 +6658,7 @@ func (s UntagResourceOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateAliasRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateAliasRequest
->>>>>>> Initial dep workover
 type UpdateAliasInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7498,23 +6746,13 @@ func (s *UpdateAliasInput) SetName(v string) *UpdateAliasInput {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetRoutingConfig sets the RoutingConfig field's value.
 func (s *UpdateAliasInput) SetRoutingConfig(v *AliasRoutingConfiguration) *UpdateAliasInput {
 	s.RoutingConfig = v
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMappingRequest
-=======
-=======
->>>>>>> Working on getting compiling
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMappingRequest
->>>>>>> Initial dep workover
 type UpdateEventSourceMappingInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7602,11 +6840,7 @@ func (s *UpdateEventSourceMappingInput) SetUUID(v string) *UpdateEventSourceMapp
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCodeRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCodeRequest
->>>>>>> Initial dep workover
 type UpdateFunctionCodeInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7732,11 +6966,7 @@ func (s *UpdateFunctionCodeInput) SetZipFile(v []byte) *UpdateFunctionCodeInput 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfigurationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfigurationRequest
->>>>>>> Initial dep workover
 type UpdateFunctionConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7921,11 +7151,7 @@ func (s *UpdateFunctionConfigurationInput) SetVpcConfig(v *VpcConfig) *UpdateFun
 // identifying the list of security group IDs and subnet IDs. These must belong
 // to the same VPC. You must provide at least one security group and one subnet
 // ID.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/VpcConfig
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/VpcConfig
->>>>>>> Initial dep workover
 type VpcConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -7959,11 +7185,7 @@ func (s *VpcConfig) SetSubnetIds(v []*string) *VpcConfig {
 }
 
 // VPC configuration associated with your Lambda function.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/VpcConfigResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/VpcConfigResponse
->>>>>>> Initial dep workover
 type VpcConfigResponse struct {
 	_ struct{} `type:"structure"`
 

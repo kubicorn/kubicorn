@@ -30,9 +30,13 @@ limitations under the License.
 
 	It has these top-level messages:
 <<<<<<< HEAD
+<<<<<<< HEAD
 		AggregationRule
 =======
 >>>>>>> Initial dep workover
+=======
+		AggregationRule
+>>>>>>> moar deps
 		ClusterRole
 		ClusterRoleBinding
 		ClusterRoleBindingList
@@ -52,10 +56,15 @@ import fmt "fmt"
 import math "math"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import k8s_io_apimachinery_pkg_apis_meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 =======
 >>>>>>> Initial dep workover
+=======
+import k8s_io_apimachinery_pkg_apis_meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+>>>>>>> moar deps
 import strings "strings"
 import reflect "reflect"
 
@@ -73,10 +82,14 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *AggregationRule) Reset()                    { *m = AggregationRule{} }
 func (*AggregationRule) ProtoMessage()               {}
 func (*AggregationRule) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{0} }
 
+<<<<<<< HEAD
 func (m *ClusterRole) Reset()                    { *m = ClusterRole{} }
 func (*ClusterRole) ProtoMessage()               {}
 func (*ClusterRole) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{1} }
@@ -124,52 +137,58 @@ func (*Subject) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, [
 func init() {
 	proto.RegisterType((*AggregationRule)(nil), "k8s.io.api.rbac.v1.AggregationRule")
 =======
+=======
+>>>>>>> moar deps
 func (m *ClusterRole) Reset()                    { *m = ClusterRole{} }
 func (*ClusterRole) ProtoMessage()               {}
-func (*ClusterRole) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{0} }
+func (*ClusterRole) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{1} }
 
 func (m *ClusterRoleBinding) Reset()                    { *m = ClusterRoleBinding{} }
 func (*ClusterRoleBinding) ProtoMessage()               {}
-func (*ClusterRoleBinding) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{1} }
+func (*ClusterRoleBinding) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{2} }
 
 func (m *ClusterRoleBindingList) Reset()                    { *m = ClusterRoleBindingList{} }
 func (*ClusterRoleBindingList) ProtoMessage()               {}
-func (*ClusterRoleBindingList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{2} }
+func (*ClusterRoleBindingList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{3} }
 
 func (m *ClusterRoleList) Reset()                    { *m = ClusterRoleList{} }
 func (*ClusterRoleList) ProtoMessage()               {}
-func (*ClusterRoleList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{3} }
+func (*ClusterRoleList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{4} }
 
 func (m *PolicyRule) Reset()                    { *m = PolicyRule{} }
 func (*PolicyRule) ProtoMessage()               {}
-func (*PolicyRule) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{4} }
+func (*PolicyRule) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{5} }
 
 func (m *Role) Reset()                    { *m = Role{} }
 func (*Role) ProtoMessage()               {}
-func (*Role) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{5} }
+func (*Role) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{6} }
 
 func (m *RoleBinding) Reset()                    { *m = RoleBinding{} }
 func (*RoleBinding) ProtoMessage()               {}
-func (*RoleBinding) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{6} }
+func (*RoleBinding) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{7} }
 
 func (m *RoleBindingList) Reset()                    { *m = RoleBindingList{} }
 func (*RoleBindingList) ProtoMessage()               {}
-func (*RoleBindingList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{7} }
+func (*RoleBindingList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{8} }
 
 func (m *RoleList) Reset()                    { *m = RoleList{} }
 func (*RoleList) ProtoMessage()               {}
-func (*RoleList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{8} }
+func (*RoleList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{9} }
 
 func (m *RoleRef) Reset()                    { *m = RoleRef{} }
 func (*RoleRef) ProtoMessage()               {}
-func (*RoleRef) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{9} }
+func (*RoleRef) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{10} }
 
 func (m *Subject) Reset()                    { *m = Subject{} }
 func (*Subject) ProtoMessage()               {}
-func (*Subject) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{10} }
+func (*Subject) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{11} }
 
 func init() {
+<<<<<<< HEAD
 >>>>>>> Initial dep workover
+=======
+	proto.RegisterType((*AggregationRule)(nil), "k8s.io.api.rbac.v1.AggregationRule")
+>>>>>>> moar deps
 	proto.RegisterType((*ClusterRole)(nil), "k8s.io.api.rbac.v1.ClusterRole")
 	proto.RegisterType((*ClusterRoleBinding)(nil), "k8s.io.api.rbac.v1.ClusterRoleBinding")
 	proto.RegisterType((*ClusterRoleBindingList)(nil), "k8s.io.api.rbac.v1.ClusterRoleBindingList")
@@ -183,6 +202,9 @@ func init() {
 	proto.RegisterType((*Subject)(nil), "k8s.io.api.rbac.v1.Subject")
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *AggregationRule) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -213,8 +235,11 @@ func (m *AggregationRule) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (m *ClusterRole) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -251,6 +276,9 @@ func (m *ClusterRole) MarshalTo(dAtA []byte) (int, error) {
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	if m.AggregationRule != nil {
 		dAtA[i] = 0x1a
 		i++
@@ -261,8 +289,11 @@ func (m *ClusterRole) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n2
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return i, nil
 }
 
@@ -285,6 +316,7 @@ func (m *ClusterRoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n3, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -297,6 +329,13 @@ func (m *ClusterRoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n2
 >>>>>>> Initial dep workover
+=======
+	n3, err := m.ObjectMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n3
+>>>>>>> moar deps
 	if len(m.Subjects) > 0 {
 		for _, msg := range m.Subjects {
 			dAtA[i] = 0x12
@@ -313,6 +352,7 @@ func (m *ClusterRoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.RoleRef.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n4, err := m.RoleRef.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -325,6 +365,13 @@ func (m *ClusterRoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n3
 >>>>>>> Initial dep workover
+=======
+	n4, err := m.RoleRef.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n4
+>>>>>>> moar deps
 	return i, nil
 }
 
@@ -347,6 +394,7 @@ func (m *ClusterRoleBindingList) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n5, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -359,6 +407,13 @@ func (m *ClusterRoleBindingList) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n4
 >>>>>>> Initial dep workover
+=======
+	n5, err := m.ListMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n5
+>>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -393,6 +448,7 @@ func (m *ClusterRoleList) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n6, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -405,6 +461,13 @@ func (m *ClusterRoleList) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n5
 >>>>>>> Initial dep workover
+=======
+	n6, err := m.ListMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n6
+>>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -532,6 +595,7 @@ func (m *Role) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n7, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -544,6 +608,13 @@ func (m *Role) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n6
 >>>>>>> Initial dep workover
+=======
+	n7, err := m.ObjectMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n7
+>>>>>>> moar deps
 	if len(m.Rules) > 0 {
 		for _, msg := range m.Rules {
 			dAtA[i] = 0x12
@@ -578,6 +649,7 @@ func (m *RoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n8, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -590,6 +662,13 @@ func (m *RoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n7
 >>>>>>> Initial dep workover
+=======
+	n8, err := m.ObjectMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n8
+>>>>>>> moar deps
 	if len(m.Subjects) > 0 {
 		for _, msg := range m.Subjects {
 			dAtA[i] = 0x12
@@ -606,6 +685,7 @@ func (m *RoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.RoleRef.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n9, err := m.RoleRef.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -618,6 +698,13 @@ func (m *RoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n8
 >>>>>>> Initial dep workover
+=======
+	n9, err := m.RoleRef.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n9
+>>>>>>> moar deps
 	return i, nil
 }
 
@@ -640,6 +727,7 @@ func (m *RoleBindingList) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n10, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -652,6 +740,13 @@ func (m *RoleBindingList) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n9
 >>>>>>> Initial dep workover
+=======
+	n10, err := m.ListMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n10
+>>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -686,6 +781,7 @@ func (m *RoleList) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n11, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -698,6 +794,13 @@ func (m *RoleList) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n10
 >>>>>>> Initial dep workover
+=======
+	n11, err := m.ListMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n11
+>>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -805,6 +908,9 @@ func encodeVarintGenerated(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *AggregationRule) Size() (n int) {
 	var l int
 	_ = l
@@ -817,8 +923,11 @@ func (m *AggregationRule) Size() (n int) {
 	return n
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (m *ClusterRole) Size() (n int) {
 	var l int
 	_ = l
@@ -831,12 +940,18 @@ func (m *ClusterRole) Size() (n int) {
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	if m.AggregationRule != nil {
 		l = m.AggregationRule.Size()
 		n += 1 + l + sovGenerated(uint64(l))
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return n
 }
 
@@ -1018,6 +1133,9 @@ func sozGenerated(x uint64) (n int) {
 	return sovGenerated(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (this *AggregationRule) String() string {
 	if this == nil {
 		return "nil"
@@ -1028,8 +1146,11 @@ func (this *AggregationRule) String() string {
 	}, "")
 	return s
 }
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (this *ClusterRole) String() string {
 	if this == nil {
 		return "nil"
@@ -1038,9 +1159,13 @@ func (this *ClusterRole) String() string {
 		`ObjectMeta:` + strings.Replace(strings.Replace(this.ObjectMeta.String(), "ObjectMeta", "k8s_io_apimachinery_pkg_apis_meta_v1.ObjectMeta", 1), `&`, ``, 1) + `,`,
 		`Rules:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Rules), "PolicyRule", "PolicyRule", 1), `&`, ``, 1) + `,`,
 <<<<<<< HEAD
+<<<<<<< HEAD
 		`AggregationRule:` + strings.Replace(fmt.Sprintf("%v", this.AggregationRule), "AggregationRule", "AggregationRule", 1) + `,`,
 =======
 >>>>>>> Initial dep workover
+=======
+		`AggregationRule:` + strings.Replace(fmt.Sprintf("%v", this.AggregationRule), "AggregationRule", "AggregationRule", 1) + `,`,
+>>>>>>> moar deps
 		`}`,
 	}, "")
 	return s
@@ -1172,6 +1297,9 @@ func valueToStringGenerated(v interface{}) string {
 	return fmt.Sprintf("*%v", pv)
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *AggregationRule) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1253,8 +1381,11 @@ func (m *AggregationRule) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (m *ClusterRole) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1346,6 +1477,9 @@ func (m *ClusterRole) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field AggregationRule", wireType)
@@ -1379,8 +1513,11 @@ func (m *ClusterRole) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenerated(dAtA[iNdEx:])
@@ -2849,6 +2986,9 @@ func init() {
 var fileDescriptorGenerated = []byte{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	// 827 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x55, 0xcf, 0x8b, 0x23, 0x45,
 	0x18, 0x4d, 0x65, 0x12, 0x26, 0x5d, 0x31, 0xc4, 0x2d, 0x17, 0x69, 0xa2, 0x74, 0x86, 0x16, 0x24,
@@ -2902,6 +3042,7 @@ var fileDescriptorGenerated = []byte{
 	0xad, 0xe7, 0xd7, 0x5a, 0xeb, 0xdb, 0x44, 0x03, 0x57, 0x89, 0x06, 0x9e, 0x25, 0x1a, 0x78, 0x9e,
 	0x68, 0xe0, 0xcf, 0x44, 0x03, 0x3f, 0xfe, 0xa5, 0xb5, 0xbe, 0x68, 0x2f, 0xa7, 0xff, 0x04, 0x00,
 	0x00, 0xff, 0xff, 0x32, 0xe3, 0x23, 0xf8, 0x2e, 0x0b, 0x00, 0x00,
+<<<<<<< HEAD
 =======
 	// 743 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x94, 0x4f, 0x6b, 0x13, 0x4f,
@@ -3002,4 +3143,6 @@ var fileDescriptorGenerated = []byte{
 	0x64, 0x28, 0xa7, 0x91, 0xa1, 0x7c, 0x8f, 0x0c, 0xe5, 0xe3, 0x0f, 0x23, 0xf7, 0xaa, 0x9c, 0x4c,
 	0xfd, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0x74, 0x24, 0x6a, 0xfa, 0x45, 0x0a, 0x00, 0x00,
 >>>>>>> Working on getting compiling
+=======
+>>>>>>> moar deps
 }

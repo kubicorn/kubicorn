@@ -8,13 +8,6 @@ package test
 
 import (
 	"testing"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 )
 
 func TestBannerCallbackAgainstOpenSSH(t *testing.T) {

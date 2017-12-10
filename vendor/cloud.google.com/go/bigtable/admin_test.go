@@ -19,12 +19,10 @@ import (
 	"testing"
 	"time"
 
-	"cloud.google.com/go/internal/testutil"
-
 	"fmt"
-	"strings"
-
 	"golang.org/x/net/context"
+	"reflect"
+	"strings"
 )
 
 func TestAdminIntegration(t *testing.T) {
@@ -128,7 +126,7 @@ func TestAdminIntegration(t *testing.T) {
 	}
 	sort.Strings(tblInfo.Families)
 	wantFams := []string{"fam1", "fam2"}
-	if !testutil.Equal(tblInfo.Families, wantFams) {
+	if !reflect.DeepEqual(tblInfo.Families, wantFams) {
 		t.Errorf("Column family mismatch, got %v, want %v", tblInfo.Families, wantFams)
 	}
 

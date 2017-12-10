@@ -72,41 +72,46 @@ func TestCheckForPrefix(t *testing.T) {
 	}
 }
 
-func TestCreateMapFromUpdates(t *testing.T) {
+// Convenience function for creating a FieldPathUpdate.
+func fpu(val int, fields ...string) FieldPathUpdate {
+	return FieldPathUpdate{Path: fields, Value: val}
+}
+
+func TestCreateMapFromFieldPathUpdates(t *testing.T) {
 	type M map[string]interface{}
 
 	for _, test := range []struct {
-		fpvs []fpv
+		in   []FieldPathUpdate
 		want M
 	}{
 		{
-			fpvs: nil,
+			in:   nil,
 			want: M{},
 		},
 		{
-			fpvs: []fpv{{[]string{"a"}, 1}, {[]string{"b"}, 2}},
+			in:   []FieldPathUpdate{fpu(1, "a"), fpu(2, "b")},
 			want: M{"a": 1, "b": 2},
 		},
 		{
-			fpvs: []fpv{{[]string{"a", "b"}, 1}, {[]string{"c"}, 2}},
+			in:   []FieldPathUpdate{fpu(1, "a", "b"), fpu(2, "c")},
 			want: M{"a": map[string]interface{}{"b": 1}, "c": 2},
 		},
 		{
-			fpvs: []fpv{{[]string{"a", "b"}, 1}, {[]string{"c", "d"}, 2}},
+			in: []FieldPathUpdate{fpu(1, "a", "b"), fpu(2, "c", "d")},
 			want: M{
 				"a": map[string]interface{}{"b": 1},
 				"c": map[string]interface{}{"d": 2},
 			},
 		},
 		{
-			fpvs: []fpv{{[]string{"a", "b"}, 1}, {[]string{"a", "c"}, 2}},
+			in:   []FieldPathUpdate{fpu(1, "a", "b"), fpu(2, "a", "c")},
 			want: M{"a": map[string]interface{}{"b": 1, "c": 2}},
 		},
 	} {
-		gotm := createMapFromUpdates(test.fpvs)
+		gotm := createMapFromFieldPathUpdates(test.in)
 		got := M(gotm)
 		if !testEqual(got, test.want) {
-			t.Errorf("%v: got %#v, want %#v", test.fpvs, got, test.want)
+			t.Errorf("%v: got %#v, want %#v", test.in, got, test.want)
 		}
 	}
 }

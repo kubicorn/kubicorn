@@ -1,12 +1,18 @@
 package cobra
 
 import (
+	"bytes"
+	"fmt"
+	"os"
+	"reflect"
+	"runtime"
+	"strings"
 	"testing"
 	"text/template"
+
+	"github.com/spf13/pflag"
 )
 
-<<<<<<< HEAD
-=======
 var tp, te, tt, tr []string
 var rootPersPre, echoPre, echoPersPre, timesPersPre []string
 var flagb1, flagb2, flagb3, flagbr, flagbp bool
@@ -1259,7 +1265,6 @@ func TestFlagOnPflagCommandLine(t *testing.T) {
 	pflag.CommandLine = pflag.NewFlagSet(os.Args[0], pflag.ExitOnError)
 }
 
->>>>>>> Initial dep workover
 func TestAddTemplateFunctions(t *testing.T) {
 	AddTemplateFunc("t", func() bool { return true })
 	AddTemplateFuncs(template.FuncMap{
@@ -1267,11 +1272,43 @@ func TestAddTemplateFunctions(t *testing.T) {
 		"h": func() string { return "Hello," },
 		"w": func() string { return "world." }})
 
+	const usage = "Hello, world."
+
 	c := &Command{}
 	c.SetUsageTemplate(`{{if t}}{{h}}{{end}}{{if f}}{{h}}{{end}} {{w}}`)
 
-	const expected = "Hello, world."
-	if got := c.UsageString(); got != expected {
-		t.Errorf("Expected UsageString: %v\nGot: %v", expected, got)
+	if us := c.UsageString(); us != usage {
+		t.Errorf("c.UsageString() != \"%s\", is \"%s\"", usage, us)
+	}
+}
+
+func TestUsageIsNotPrintedTwice(t *testing.T) {
+	var cmd = &Command{Use: "root"}
+	var sub = &Command{Use: "sub"}
+	cmd.AddCommand(sub)
+
+	r := simpleTester(cmd, "")
+	if strings.Count(r.Output, "Usage:") != 1 {
+		t.Error("Usage output is not printed exactly once")
+	}
+}
+
+func BenchmarkInheritedFlags(b *testing.B) {
+	initialize()
+	cmdEcho.AddCommand(cmdTimes)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		cmdTimes.InheritedFlags()
+	}
+}
+
+func BenchmarkLocalFlags(b *testing.B) {
+	initialize()
+	cmdEcho.AddCommand(cmdTimes)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		cmdTimes.LocalFlags()
 	}
 }

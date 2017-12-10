@@ -343,6 +343,9 @@ message StatefulSet {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 // StatefulSetCondition describes the state of a statefulset at a certain point.
 message StatefulSetCondition {
   // Type of statefulset condition.
@@ -364,8 +367,11 @@ message StatefulSetCondition {
   optional string message = 5;
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 // StatefulSetList is a collection of StatefulSets.
 message StatefulSetList {
   // +optional
@@ -471,14 +477,20 @@ message StatefulSetStatus {
   // +optional
   optional int32 collisionCount = 9;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 
   // Represents the latest available observations of a statefulset's current state.
   // +optional
   // +patchMergeKey=type
   // +patchStrategy=merge
   repeated StatefulSetCondition conditions = 10;
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 }
 
 // StatefulSetUpdateStrategy indicates the strategy that the StatefulSet

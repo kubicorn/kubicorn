@@ -725,15 +725,7 @@
       "refs": {
         "CompleteLifecycleActionType$LifecycleActionResult": "<p>The action for the group to take. This parameter can be either <code>CONTINUE</code> or <code>ABANDON</code>.</p>",
         "LifecycleHook$DefaultResult": "<p>Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. The valid values are <code>CONTINUE</code> and <code>ABANDON</code>. The default value is <code>CONTINUE</code>.</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "LifecycleHookSpecification$DefaultResult": "<p>Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. The valid values are <code>CONTINUE</code> and <code>ABANDON</code>.</p>",
-=======
-        "LifecycleHookSpecification$DefaultResult": "<p>Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. The valid values are <code>CONTINUE</code> and <code>ABANDON</code>. The default value is <code>CONTINUE</code>.</p>",
->>>>>>> Initial dep workover
-=======
-        "LifecycleHookSpecification$DefaultResult": "<p>Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. The valid values are <code>CONTINUE</code> and <code>ABANDON</code>.</p>",
->>>>>>> Working on getting compiling
         "PutLifecycleHookType$DefaultResult": "<p>Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. This parameter can be either <code>CONTINUE</code> or <code>ABANDON</code>. The default value is <code>ABANDON</code>.</p>"
       }
     },
@@ -1169,15 +1161,7 @@
         "LifecycleHook$NotificationTargetARN": "<p>The ARN of the target that Auto Scaling sends notifications to when an instance is in the transition state for the lifecycle hook. The notification target can be either an SQS queue or an SNS topic.</p>",
         "LifecycleHook$RoleARN": "<p>The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target.</p>",
         "LifecycleHookSpecification$RoleARN": "<p>The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target.</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "NotificationConfiguration$AutoScalingGroupName": "<p>The name of the Auto Scaling group.</p>",
-=======
-        "NotificationConfiguration$AutoScalingGroupName": "<p>The name of the group.</p>",
->>>>>>> Initial dep workover
-=======
-        "NotificationConfiguration$AutoScalingGroupName": "<p>The name of the Auto Scaling group.</p>",
->>>>>>> Working on getting compiling
         "NotificationConfiguration$TopicARN": "<p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (SNS) topic.</p>",
         "PolicyARNType$PolicyARN": "<p>The Amazon Resource Name (ARN) of the policy.</p>",
         "PolicyNames$member": null,
@@ -1468,15 +1452,7 @@
         "Activity$Cause": "<p>The reason the activity began.</p>",
         "LifecycleHook$NotificationMetadata": "<p>Additional information that you want to include any time Auto Scaling sends a message to the notification target.</p>",
         "LifecycleHookSpecification$NotificationMetadata": "<p>Additional information that you want to include any time Auto Scaling sends a message to the notification target.</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "PredefinedMetricSpecification$ResourceLabel": "<p>Identifies the resource associated with the metric type. The following predefined metrics are available:</p> <ul> <li> <p> <code>ASGAverageCPUUtilization</code> - average CPU utilization of the Auto Scaling group</p> </li> <li> <p> <code>ASGAverageNetworkIn</code> - average number of bytes received on all network interfaces by the Auto Scaling group</p> </li> <li> <p> <code>ASGAverageNetworkOut</code> - average number of bytes sent out on all network interfaces by the Auto Scaling group</p> </li> <li> <p> <code>ALBRequestCountPerTarget</code> - number of requests completed per target in an Application Load Balancer target group</p> </li> </ul> <p>For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the metric type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>, the parameter must be specified in the format: <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>, where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the load balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the final portion of the target group ARN. The target group must be attached to the Auto Scaling group.</p>",
-=======
-        "PredefinedMetricSpecification$ResourceLabel": "<p>Identifies the resource associated with the metric type. The following predefined metrics are available:</p> <ul> <li> <p> <code>ASGAverageCPUUtilization</code> - average CPU utilization of the Auto Scaling group</p> </li> <li> <p> <code>ASGAverageNetworkIn</code> - average number of bytes received on all network interfaces by the Auto Scaling group</p> </li> <li> <p> <code>ASGAverageNetworkOut</code> - average number of bytes sent out on all network interfaces by the Auto Scaling group</p> </li> <li> <p> <code>ALBRequestCountPerTarget</code> - number of requests completed per target in an Application Load Balancer target group</p> </li> </ul> <p>For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code> and <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the metric type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>, the parameter must be specified in the format: <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>, where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the load balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the final portion of the target group ARN. The target group must be attached to the Auto Scaling group.</p>",
->>>>>>> Initial dep workover
-=======
-        "PredefinedMetricSpecification$ResourceLabel": "<p>Identifies the resource associated with the metric type. The following predefined metrics are available:</p> <ul> <li> <p> <code>ASGAverageCPUUtilization</code> - average CPU utilization of the Auto Scaling group</p> </li> <li> <p> <code>ASGAverageNetworkIn</code> - average number of bytes received on all network interfaces by the Auto Scaling group</p> </li> <li> <p> <code>ASGAverageNetworkOut</code> - average number of bytes sent out on all network interfaces by the Auto Scaling group</p> </li> <li> <p> <code>ALBRequestCountPerTarget</code> - number of requests completed per target in an Application Load Balancer target group</p> </li> </ul> <p>For predefined metric types <code>ASGAverageCPUUtilization</code>, <code>ASGAverageNetworkIn</code>, and <code>ASGAverageNetworkOut</code>, the parameter must not be specified as the resource associated with the metric type is the Auto Scaling group. For predefined metric type <code>ALBRequestCountPerTarget</code>, the parameter must be specified in the format: <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i>/targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code>, where <code>app/<i>load-balancer-name</i>/<i>load-balancer-id</i> </code> is the final portion of the load balancer ARN, and <code>targetgroup/<i>target-group-name</i>/<i>target-group-id</i> </code> is the final portion of the target group ARN. The target group must be attached to the Auto Scaling group.</p>",
->>>>>>> Working on getting compiling
         "PutLifecycleHookType$NotificationMetadata": "<p>Contains additional information that you want to include any time Auto Scaling sends a message to the notification target.</p>"
       }
     },
@@ -1493,15 +1469,7 @@
       "refs": {
         "AutoScalingInstanceDetails$InstanceId": "<p>The ID of the instance.</p>",
         "CompleteLifecycleActionType$InstanceId": "<p>The ID of the instance.</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "CreateAutoScalingGroupType$InstanceId": "<p>The ID of the instance used to create a launch configuration for the group. You must specify one of the following: an EC2 instance, a launch configuration, or a launch template.</p> <p>When you specify an ID of an instance, Auto Scaling creates a new launch configuration and associates it with the group. This launch configuration derives its attributes from the specified instance, with the exception of the block device mapping.</p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/autoscaling/latest/userguide/create-asg-from-instance.html\">Create an Auto Scaling Group Using an EC2 Instance</a> in the <i>Auto Scaling User Guide</i>.</p>",
-=======
-        "CreateAutoScalingGroupType$InstanceId": "<p>The ID of the instance used to create a launch configuration for the group. Alternatively, specify a launch configuration instead of an EC2 instance.</p> <p>When you specify an ID of an instance, Auto Scaling creates a new launch configuration and associates it with the group. This launch configuration derives its attributes from the specified instance, with the exception of the block device mapping.</p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/autoscaling/latest/userguide/create-asg-from-instance.html\">Create an Auto Scaling Group Using an EC2 Instance</a> in the <i>Auto Scaling User Guide</i>.</p>",
->>>>>>> Initial dep workover
-=======
-        "CreateAutoScalingGroupType$InstanceId": "<p>The ID of the instance used to create a launch configuration for the group. You must specify one of the following: an EC2 instance, a launch configuration, or a launch template.</p> <p>When you specify an ID of an instance, Auto Scaling creates a new launch configuration and associates it with the group. This launch configuration derives its attributes from the specified instance, with the exception of the block device mapping.</p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/autoscaling/latest/userguide/create-asg-from-instance.html\">Create an Auto Scaling Group Using an EC2 Instance</a> in the <i>Auto Scaling User Guide</i>.</p>",
->>>>>>> Working on getting compiling
         "CreateLaunchConfigurationType$InstanceId": "<p>The ID of the instance to use to create the launch configuration. The new launch configuration derives attributes from the instance, with the exception of the block device mapping.</p> <p>If you do not specify <code>InstanceId</code>, you must specify both <code>ImageId</code> and <code>InstanceType</code>.</p> <p>To create a launch configuration with a block device mapping or override any other instance attributes, specify them as part of the same request.</p> <p>For more information, see <a href=\"http://docs.aws.amazon.com/autoscaling/latest/userguide/create-lc-with-instanceID.html\">Create a Launch Configuration Using an EC2 Instance</a> in the <i>Auto Scaling User Guide</i>.</p>",
         "Instance$InstanceId": "<p>The ID of the instance.</p>",
         "InstanceIds$member": null,

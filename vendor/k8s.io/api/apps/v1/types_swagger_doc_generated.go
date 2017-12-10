@@ -28,6 +28,9 @@ package v1
 
 // AUTO-GENERATED FUNCTIONS START HERE
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 var map_ControllerRevision = map[string]string{
 	"":         "ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.",
 	"metadata": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata",
@@ -49,8 +52,11 @@ func (ControllerRevisionList) SwaggerDoc() map[string]string {
 	return map_ControllerRevisionList
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 var map_DaemonSet = map[string]string{
 	"":         "DaemonSet represents the configuration of a daemon set.",
 	"metadata": "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata",
@@ -63,6 +69,9 @@ func (DaemonSet) SwaggerDoc() map[string]string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 var map_DaemonSetCondition = map[string]string{
 	"":                   "DaemonSetCondition describes the state of a DaemonSet at a certain point.",
 	"type":               "Type of DaemonSet condition.",
@@ -76,8 +85,11 @@ func (DaemonSetCondition) SwaggerDoc() map[string]string {
 	return map_DaemonSetCondition
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 var map_DaemonSetList = map[string]string{
 	"":         "DaemonSetList is a collection of daemon sets.",
 	"metadata": "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata",
@@ -91,10 +103,14 @@ func (DaemonSetList) SwaggerDoc() map[string]string {
 var map_DaemonSetSpec = map[string]string{
 	"":                     "DaemonSetSpec is the specification of a daemon set.",
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"selector":             "A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors",
 =======
 	"selector":             "A label query over pods that are managed by the daemon set. Must match in order to be controlled. If empty, defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors",
 >>>>>>> Initial dep workover
+=======
+	"selector":             "A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors",
+>>>>>>> moar deps
 	"template":             "An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template",
 	"updateStrategy":       "An update strategy to replace existing DaemonSet pods with new pods.",
 	"minReadySeconds":      "The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).",
@@ -117,9 +133,13 @@ var map_DaemonSetStatus = map[string]string{
 	"numberUnavailable":      "The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)",
 	"collisionCount":         "Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.",
 <<<<<<< HEAD
+<<<<<<< HEAD
 	"conditions":             "Represents the latest available observations of a DaemonSet's current state.",
 =======
 >>>>>>> Initial dep workover
+=======
+	"conditions":             "Represents the latest available observations of a DaemonSet's current state.",
+>>>>>>> moar deps
 }
 
 func (DaemonSetStatus) SwaggerDoc() map[string]string {
@@ -137,6 +157,9 @@ func (DaemonSetUpdateStrategy) SwaggerDoc() map[string]string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 var map_Deployment = map[string]string{
 	"":         "Deployment enables declarative updates for Pods and ReplicaSets.",
 	"metadata": "Standard object metadata.",
@@ -274,8 +297,11 @@ func (ReplicaSetStatus) SwaggerDoc() map[string]string {
 	return map_ReplicaSetStatus
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 var map_RollingUpdateDaemonSet = map[string]string{
 	"":               "Spec to control the desired behavior of daemon set rolling update.",
 	"maxUnavailable": "The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.",
@@ -286,6 +312,9 @@ func (RollingUpdateDaemonSet) SwaggerDoc() map[string]string {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 var map_RollingUpdateDeployment = map[string]string{
 	"":               "Spec to control the desired behavior of rolling update.",
 	"maxUnavailable": "The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.",
@@ -379,6 +408,9 @@ func (StatefulSetUpdateStrategy) SwaggerDoc() map[string]string {
 	return map_StatefulSetUpdateStrategy
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 // AUTO-GENERATED FUNCTIONS END HERE

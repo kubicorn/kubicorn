@@ -512,11 +512,7 @@ const opDeleteLifecyclePolicy = "DeleteLifecyclePolicy"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicy
->>>>>>> Initial dep workover
 func (c *ECR) DeleteLifecyclePolicyRequest(input *DeleteLifecyclePolicyInput) (req *request.Request, output *DeleteLifecyclePolicyOutput) {
 	op := &request.Operation{
 		Name:       opDeleteLifecyclePolicy,
@@ -559,11 +555,7 @@ func (c *ECR) DeleteLifecyclePolicyRequest(input *DeleteLifecyclePolicyInput) (r
 //   * ErrCodeLifecyclePolicyNotFoundException "LifecyclePolicyNotFoundException"
 //   The lifecycle policy could not be found, and no policy is set to the repository.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicy
->>>>>>> Initial dep workover
 func (c *ECR) DeleteLifecyclePolicy(input *DeleteLifecyclePolicyInput) (*DeleteLifecyclePolicyOutput, error) {
 	req, out := c.DeleteLifecyclePolicyRequest(input)
 	return out, req.Send()
@@ -1278,11 +1270,7 @@ const opGetLifecyclePolicy = "GetLifecyclePolicy"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicy
->>>>>>> Initial dep workover
 func (c *ECR) GetLifecyclePolicyRequest(input *GetLifecyclePolicyInput) (req *request.Request, output *GetLifecyclePolicyOutput) {
 	op := &request.Operation{
 		Name:       opGetLifecyclePolicy,
@@ -1325,11 +1313,7 @@ func (c *ECR) GetLifecyclePolicyRequest(input *GetLifecyclePolicyInput) (req *re
 //   * ErrCodeLifecyclePolicyNotFoundException "LifecyclePolicyNotFoundException"
 //   The lifecycle policy could not be found, and no policy is set to the repository.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicy
->>>>>>> Initial dep workover
 func (c *ECR) GetLifecyclePolicy(input *GetLifecyclePolicyInput) (*GetLifecyclePolicyOutput, error) {
 	req, out := c.GetLifecyclePolicyRequest(input)
 	return out, req.Send()
@@ -1376,11 +1360,7 @@ const opGetLifecyclePolicyPreview = "GetLifecyclePolicyPreview"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreview
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreview
->>>>>>> Initial dep workover
 func (c *ECR) GetLifecyclePolicyPreviewRequest(input *GetLifecyclePolicyPreviewInput) (req *request.Request, output *GetLifecyclePolicyPreviewOutput) {
 	op := &request.Operation{
 		Name:       opGetLifecyclePolicyPreview,
@@ -1423,11 +1403,7 @@ func (c *ECR) GetLifecyclePolicyPreviewRequest(input *GetLifecyclePolicyPreviewI
 //   * ErrCodeLifecyclePolicyPreviewNotFoundException "LifecyclePolicyPreviewNotFoundException"
 //   There is no dry run for this repository.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreview
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreview
->>>>>>> Initial dep workover
 func (c *ECR) GetLifecyclePolicyPreview(input *GetLifecyclePolicyPreviewInput) (*GetLifecyclePolicyPreviewOutput, error) {
 	req, out := c.GetLifecyclePolicyPreviewRequest(input)
 	return out, req.Send()
@@ -1910,11 +1886,7 @@ const opPutLifecyclePolicy = "PutLifecyclePolicy"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicy
->>>>>>> Initial dep workover
 func (c *ECR) PutLifecyclePolicyRequest(input *PutLifecyclePolicyInput) (req *request.Request, output *PutLifecyclePolicyOutput) {
 	op := &request.Operation{
 		Name:       opPutLifecyclePolicy,
@@ -1954,11 +1926,7 @@ func (c *ECR) PutLifecyclePolicyRequest(input *PutLifecyclePolicyInput) (req *re
 //   The specified repository could not be found. Check the spelling of the specified
 //   repository and ensure that you are performing operations on the correct registry.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicy
->>>>>>> Initial dep workover
 func (c *ECR) PutLifecyclePolicy(input *PutLifecyclePolicyInput) (*PutLifecyclePolicyOutput, error) {
 	req, out := c.PutLifecyclePolicyRequest(input)
 	return out, req.Send()
@@ -2005,11 +1973,7 @@ const opSetRepositoryPolicy = "SetRepositoryPolicy"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SetRepositoryPolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SetRepositoryPolicy
->>>>>>> Initial dep workover
 func (c *ECR) SetRepositoryPolicyRequest(input *SetRepositoryPolicyInput) (req *request.Request, output *SetRepositoryPolicyOutput) {
 	op := &request.Operation{
 		Name:       opSetRepositoryPolicy,
@@ -2049,11 +2013,7 @@ func (c *ECR) SetRepositoryPolicyRequest(input *SetRepositoryPolicyInput) (req *
 //   The specified repository could not be found. Check the spelling of the specified
 //   repository and ensure that you are performing operations on the correct registry.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SetRepositoryPolicy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SetRepositoryPolicy
->>>>>>> Initial dep workover
 func (c *ECR) SetRepositoryPolicy(input *SetRepositoryPolicyInput) (*SetRepositoryPolicyOutput, error) {
 	req, out := c.SetRepositoryPolicyRequest(input)
 	return out, req.Send()
@@ -2100,11 +2060,7 @@ const opStartLifecyclePolicyPreview = "StartLifecyclePolicyPreview"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreview
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreview
->>>>>>> Initial dep workover
 func (c *ECR) StartLifecyclePolicyPreviewRequest(input *StartLifecyclePolicyPreviewInput) (req *request.Request, output *StartLifecyclePolicyPreviewOutput) {
 	op := &request.Operation{
 		Name:       opStartLifecyclePolicyPreview,
@@ -2152,11 +2108,7 @@ func (c *ECR) StartLifecyclePolicyPreviewRequest(input *StartLifecyclePolicyPrev
 //   The previous lifecycle policy preview request has not completed. Please try
 //   again later.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreview
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreview
->>>>>>> Initial dep workover
 func (c *ECR) StartLifecyclePolicyPreview(input *StartLifecyclePolicyPreviewInput) (*StartLifecyclePolicyPreviewOutput, error) {
 	req, out := c.StartLifecyclePolicyPreviewRequest(input)
 	return out, req.Send()
@@ -2203,11 +2155,7 @@ const opUploadLayerPart = "UploadLayerPart"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UploadLayerPart
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UploadLayerPart
->>>>>>> Initial dep workover
 func (c *ECR) UploadLayerPartRequest(input *UploadLayerPartInput) (req *request.Request, output *UploadLayerPartOutput) {
 	op := &request.Operation{
 		Name:       opUploadLayerPart,
@@ -2864,11 +2812,7 @@ func (s *CreateRepositoryOutput) SetRepository(v *Repository) *CreateRepositoryO
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicyRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicyRequest
->>>>>>> Initial dep workover
 type DeleteLifecyclePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2921,11 +2865,7 @@ func (s *DeleteLifecyclePolicyInput) SetRepositoryName(v string) *DeleteLifecycl
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicyResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteLifecyclePolicyResponse
->>>>>>> Initial dep workover
 type DeleteLifecyclePolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2976,11 +2916,7 @@ func (s *DeleteLifecyclePolicyOutput) SetRepositoryName(v string) *DeleteLifecyc
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteRepositoryRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteRepositoryRequest
->>>>>>> Initial dep workover
 type DeleteRepositoryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3610,11 +3546,7 @@ func (s *GetDownloadUrlForLayerOutput) SetLayerDigest(v string) *GetDownloadUrlF
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyRequest
->>>>>>> Initial dep workover
 type GetLifecyclePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3666,11 +3598,7 @@ func (s *GetLifecyclePolicyInput) SetRepositoryName(v string) *GetLifecyclePolic
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyResponse
->>>>>>> Initial dep workover
 type GetLifecyclePolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3721,11 +3649,7 @@ func (s *GetLifecyclePolicyOutput) SetRepositoryName(v string) *GetLifecyclePoli
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreviewRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreviewRequest
->>>>>>> Initial dep workover
 type GetLifecyclePolicyPreviewInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3831,11 +3755,7 @@ func (s *GetLifecyclePolicyPreviewInput) SetRepositoryName(v string) *GetLifecyc
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreviewResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetLifecyclePolicyPreviewResponse
->>>>>>> Initial dep workover
 type GetLifecyclePolicyPreviewOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3916,11 +3836,7 @@ func (s *GetLifecyclePolicyPreviewOutput) SetSummary(v *LifecyclePolicyPreviewSu
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetRepositoryPolicyRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetRepositoryPolicyRequest
->>>>>>> Initial dep workover
 type GetRepositoryPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3972,11 +3888,7 @@ func (s *GetRepositoryPolicyInput) SetRepositoryName(v string) *GetRepositoryPol
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetRepositoryPolicyResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetRepositoryPolicyResponse
->>>>>>> Initial dep workover
 type GetRepositoryPolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4019,11 +3931,7 @@ func (s *GetRepositoryPolicyOutput) SetRepositoryName(v string) *GetRepositoryPo
 }
 
 // An object representing an Amazon ECR image.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/Image
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/Image
->>>>>>> Initial dep workover
 type Image struct {
 	_ struct{} `type:"structure"`
 
@@ -4411,11 +4319,7 @@ func (s *LayerFailure) SetLayerDigest(v string) *LayerFailure {
 }
 
 // The filter for the lifecycle policy preview.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyPreviewFilter
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyPreviewFilter
->>>>>>> Initial dep workover
 type LifecyclePolicyPreviewFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -4440,11 +4344,7 @@ func (s *LifecyclePolicyPreviewFilter) SetTagStatus(v string) *LifecyclePolicyPr
 }
 
 // The result of the lifecycle policy preview.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyPreviewResult
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyPreviewResult
->>>>>>> Initial dep workover
 type LifecyclePolicyPreviewResult struct {
 	_ struct{} `type:"structure"`
 
@@ -4506,11 +4406,7 @@ func (s *LifecyclePolicyPreviewResult) SetImageTags(v []*string) *LifecyclePolic
 }
 
 // The summary of the lifecycle policy preview request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyPreviewSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyPreviewSummary
->>>>>>> Initial dep workover
 type LifecyclePolicyPreviewSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -4535,11 +4431,7 @@ func (s *LifecyclePolicyPreviewSummary) SetExpiringImageTotalCount(v int64) *Lif
 }
 
 // The type of action to be taken.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyRuleAction
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyRuleAction
->>>>>>> Initial dep workover
 type LifecyclePolicyRuleAction struct {
 	_ struct{} `type:"structure"`
 
@@ -4821,11 +4713,7 @@ func (s *PutImageOutput) SetImage(v *Image) *PutImageOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicyRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicyRequest
->>>>>>> Initial dep workover
 type PutLifecyclePolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4894,11 +4782,7 @@ func (s *PutLifecyclePolicyInput) SetRepositoryName(v string) *PutLifecyclePolic
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicyResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicyResponse
->>>>>>> Initial dep workover
 type PutLifecyclePolicyOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5124,11 +5008,7 @@ func (s *SetRepositoryPolicyOutput) SetRepositoryName(v string) *SetRepositoryPo
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreviewRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreviewRequest
->>>>>>> Initial dep workover
 type StartLifecyclePolicyPreviewInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5193,11 +5073,7 @@ func (s *StartLifecyclePolicyPreviewInput) SetRepositoryName(v string) *StartLif
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreviewResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/StartLifecyclePolicyPreviewResponse
->>>>>>> Initial dep workover
 type StartLifecyclePolicyPreviewOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5248,11 +5124,7 @@ func (s *StartLifecyclePolicyPreviewOutput) SetStatus(v string) *StartLifecycleP
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UploadLayerPartRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UploadLayerPartRequest
->>>>>>> Initial dep workover
 type UploadLayerPartInput struct {
 	_ struct{} `type:"structure"`
 

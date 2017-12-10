@@ -125,17 +125,7 @@ func NewClientWithConfig(ctx context.Context, database string, config ClientConf
 			resourcePrefixHeader, database,
 			xGoogHeaderKey, xGoogHeaderVal),
 	}
-	allOpts := []option.ClientOption{
-		option.WithEndpoint(prodAddr),
-		option.WithScopes(Scope),
-		option.WithGRPCDialOption(
-			grpc.WithDefaultCallOptions(
-				grpc.MaxCallSendMsgSize(100<<20),
-				grpc.MaxCallRecvMsgSize(100<<20),
-			),
-		),
-	}
-	allOpts = append(allOpts, openCensusOptions()...)
+	allOpts := []option.ClientOption{option.WithEndpoint(prodAddr), option.WithScopes(Scope), option.WithGRPCDialOption(grpc.WithDefaultCallOptions(grpc.MaxCallSendMsgSize(100<<20), grpc.MaxCallRecvMsgSize(100<<20)))}
 	allOpts = append(allOpts, opts...)
 	// Prepare gRPC channels.
 	if config.NumChannels == 0 {
@@ -147,6 +137,10 @@ func NewClientWithConfig(ctx context.Context, database string, config ClientConf
 	}
 	if config.MaxBurst == 0 {
 		config.MaxBurst = 10
+	}
+	// Default MaxSessionAge
+	if config.maxSessionAge == 0 {
+		config.maxSessionAge = time.Minute * 30
 	}
 	for i := 0; i < config.NumChannels; i++ {
 		conn, err := gtransport.Dial(ctx, allOpts...)
@@ -251,7 +245,7 @@ func (c *Client) ReadWriteTransaction(ctx context.Context, f func(context.Contex
 		ts time.Time
 		sh *sessionHandle
 	)
-	err := runRetryableNoWrap(ctx, func(ctx context.Context) error {
+	err := runRetryable(ctx, func(ctx context.Context) error {
 		var (
 			err error
 			t   *ReadWriteTransaction
@@ -278,7 +272,10 @@ func (c *Client) ReadWriteTransaction(ctx context.Context, f func(context.Contex
 			return errRetry(err)
 		}
 		ts, err = t.runInTransaction(ctx, f)
-		return err
+		if err != nil {
+			return err
+		}
+		return nil
 	})
 	if sh != nil {
 		sh.recycle()

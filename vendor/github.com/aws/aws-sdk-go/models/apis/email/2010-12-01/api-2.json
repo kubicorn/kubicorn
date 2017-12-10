@@ -84,10 +84,6 @@
         {"shape":"InvalidTrackingOptionsException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "CreateCustomVerificationEmailTemplate":{
       "name":"CreateCustomVerificationEmailTemplate",
       "http":{
@@ -102,11 +98,6 @@
         {"shape":"LimitExceededException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "CreateReceiptFilter":{
       "name":"CreateReceiptFilter",
       "http":{
@@ -224,10 +215,6 @@
         {"shape":"TrackingOptionsDoesNotExistException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DeleteCustomVerificationEmailTemplate":{
       "name":"DeleteCustomVerificationEmailTemplate",
       "http":{
@@ -236,11 +223,6 @@
       },
       "input":{"shape":"DeleteCustomVerificationEmailTemplateRequest"}
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DeleteIdentity":{
       "name":"DeleteIdentity",
       "http":{
@@ -396,10 +378,6 @@
         "resultWrapper":"GetAccountSendingEnabledResult"
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "GetCustomVerificationEmailTemplate":{
       "name":"GetCustomVerificationEmailTemplate",
       "http":{
@@ -415,11 +393,6 @@
         {"shape":"CustomVerificationEmailTemplateDoesNotExistException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "GetIdentityDkimAttributes":{
       "name":"GetIdentityDkimAttributes",
       "http":{
@@ -678,10 +651,6 @@
         {"shape":"AccountSendingPausedException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "SendCustomVerificationEmail":{
       "name":"SendCustomVerificationEmail",
       "http":{
@@ -701,11 +670,6 @@
         {"shape":"ProductionAccessNotGrantedException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "SendEmail":{
       "name":"SendEmail",
       "http":{
@@ -938,10 +902,6 @@
         {"shape":"InvalidTrackingOptionsException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "UpdateCustomVerificationEmailTemplate":{
       "name":"UpdateCustomVerificationEmailTemplate",
       "http":{
@@ -955,11 +915,6 @@
         {"shape":"CustomVerificationEmailInvalidContentException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "UpdateReceiptRule":{
       "name":"UpdateReceiptRule",
       "http":{
@@ -1351,10 +1306,6 @@
       "members":{
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "CreateCustomVerificationEmailTemplateRequest":{
       "type":"structure",
       "required":[
@@ -1374,11 +1325,6 @@
         "FailureRedirectionURL":{"shape":"FailureRedirectionURL"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "CreateReceiptFilterRequest":{
       "type":"structure",
       "required":["Filter"],
@@ -1442,10 +1388,6 @@
       ]
     },
     "CustomRedirectDomain":{"type":"string"},
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "CustomVerificationEmailInvalidContentException":{
       "type":"structure",
       "members":{
@@ -1495,11 +1437,6 @@
       "type":"list",
       "member":{"shape":"CustomVerificationEmailTemplate"}
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DefaultDimensionValue":{"type":"string"},
     "DeleteConfigurationSetEventDestinationRequest":{
       "type":"structure",
@@ -1541,10 +1478,6 @@
       "members":{
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DeleteCustomVerificationEmailTemplateRequest":{
       "type":"structure",
       "required":["TemplateName"],
@@ -1552,11 +1485,6 @@
         "TemplateName":{"shape":"TemplateName"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DeleteIdentityPolicyRequest":{
       "type":"structure",
       "required":[
@@ -1860,20 +1788,6 @@
         "FailureRedirectionURL":{"shape":"FailureRedirectionURL"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    "ExtensionFieldName":{"type":"string"},
-    "ExtensionFieldValue":{"type":"string"},
-    "GetAccountSendingEnabledResponse":{
-      "type":"structure",
-      "members":{
-        "Enabled":{"shape":"Enabled"}
-      }
-    },
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "GetIdentityDkimAttributesRequest":{
       "type":"structure",
       "required":["Identities"],
@@ -2713,10 +2627,6 @@
         "Status":{"shape":"BulkEmailDestinationStatusList"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "SendCustomVerificationEmailRequest":{
       "type":"structure",
       "required":[
@@ -2735,11 +2645,6 @@
         "MessageId":{"shape":"MessageId"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "SendDataPoint":{
       "type":"structure",
       "members":{
@@ -2952,19 +2857,9 @@
       "type":"string",
       "enum":["RuleSet"]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
     "Subject":{"type":"string"},
     "SubjectPart":{"type":"string"},
     "SuccessRedirectionURL":{"type":"string"},
-=======
-    "SubjectPart":{"type":"string"},
->>>>>>> Initial dep workover
-=======
-    "Subject":{"type":"string"},
-    "SubjectPart":{"type":"string"},
-    "SuccessRedirectionURL":{"type":"string"},
->>>>>>> Working on getting compiling
     "Template":{
       "type":"structure",
       "required":["TemplateName"],
@@ -2975,14 +2870,7 @@
         "HtmlPart":{"shape":"HtmlPart"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
     "TemplateContent":{"type":"string"},
-=======
->>>>>>> Initial dep workover
-=======
-    "TemplateContent":{"type":"string"},
->>>>>>> Working on getting compiling
     "TemplateData":{
       "type":"string",
       "max":262144
@@ -3127,10 +3015,6 @@
       "members":{
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "UpdateCustomVerificationEmailTemplateRequest":{
       "type":"structure",
       "required":["TemplateName"],
@@ -3143,11 +3027,6 @@
         "FailureRedirectionURL":{"shape":"FailureRedirectionURL"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "UpdateReceiptRuleRequest":{
       "type":"structure",
       "required":[

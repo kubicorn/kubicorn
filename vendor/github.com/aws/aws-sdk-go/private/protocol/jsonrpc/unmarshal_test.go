@@ -1480,7 +1480,6 @@ func TestOutputService6ProtocolTestIgnoresExtraDataCase1(t *testing.T) {
 	if req.Error != nil {
 		t.Errorf("expect not error, got %v", req.Error)
 	}
-<<<<<<< HEAD
 
 	// assert response
 	if out == nil {
@@ -1504,20 +1503,11 @@ func TestOutputService7ProtocolTestEnumOutputCase1(t *testing.T) {
 	if req.Error != nil {
 		t.Errorf("expect not error, got %v", req.Error)
 	}
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 
 	// assert response
 	if out == nil {
 		t.Errorf("expect not to be nil")
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	if e, a := "foo", *out.FooEnum; e != a {
 		t.Errorf("expect %v, got %v", e, a)
 	}
@@ -1527,10 +1517,5 @@ func TestOutputService7ProtocolTestEnumOutputCase1(t *testing.T) {
 	if e, a := "bar", *out.ListEnums[1]; e != a {
 		t.Errorf("expect %v, got %v", e, a)
 	}
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 
 }

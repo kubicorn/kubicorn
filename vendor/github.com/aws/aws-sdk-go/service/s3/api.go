@@ -668,11 +668,7 @@ const opDeleteBucketEncryption = "DeleteBucketEncryption"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketEncryption
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketEncryption
->>>>>>> Initial dep workover
 func (c *S3) DeleteBucketEncryptionRequest(input *DeleteBucketEncryptionInput) (req *request.Request, output *DeleteBucketEncryptionOutput) {
 	op := &request.Operation{
 		Name:       opDeleteBucketEncryption,
@@ -701,11 +697,7 @@ func (c *S3) DeleteBucketEncryptionRequest(input *DeleteBucketEncryptionInput) (
 //
 // See the AWS API reference guide for Amazon Simple Storage Service's
 // API operation DeleteBucketEncryption for usage and error information.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketEncryption
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketEncryption
->>>>>>> Initial dep workover
 func (c *S3) DeleteBucketEncryption(input *DeleteBucketEncryptionInput) (*DeleteBucketEncryptionOutput, error) {
 	req, out := c.DeleteBucketEncryptionRequest(input)
 	return out, req.Send()
@@ -1808,11 +1800,7 @@ const opGetBucketEncryption = "GetBucketEncryption"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryption
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryption
->>>>>>> Initial dep workover
 func (c *S3) GetBucketEncryptionRequest(input *GetBucketEncryptionInput) (req *request.Request, output *GetBucketEncryptionOutput) {
 	op := &request.Operation{
 		Name:       opGetBucketEncryption,
@@ -1839,11 +1827,7 @@ func (c *S3) GetBucketEncryptionRequest(input *GetBucketEncryptionInput) (req *r
 //
 // See the AWS API reference guide for Amazon Simple Storage Service's
 // API operation GetBucketEncryption for usage and error information.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryption
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryption
->>>>>>> Initial dep workover
 func (c *S3) GetBucketEncryption(input *GetBucketEncryptionInput) (*GetBucketEncryptionOutput, error) {
 	req, out := c.GetBucketEncryptionRequest(input)
 	return out, req.Send()
@@ -4668,11 +4652,7 @@ const opPutBucketEncryption = "PutBucketEncryption"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketEncryption
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketEncryption
->>>>>>> Initial dep workover
 func (c *S3) PutBucketEncryptionRequest(input *PutBucketEncryptionInput) (req *request.Request, output *PutBucketEncryptionOutput) {
 	op := &request.Operation{
 		Name:       opPutBucketEncryption,
@@ -4702,11 +4682,7 @@ func (c *S3) PutBucketEncryptionRequest(input *PutBucketEncryptionInput) (req *r
 //
 // See the AWS API reference guide for Amazon Simple Storage Service's
 // API operation PutBucketEncryption for usage and error information.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketEncryption
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketEncryption
->>>>>>> Initial dep workover
 func (c *S3) PutBucketEncryption(input *PutBucketEncryptionInput) (*PutBucketEncryptionOutput, error) {
 	req, out := c.PutBucketEncryptionRequest(input)
 	return out, req.Send()
@@ -6407,11 +6383,7 @@ func (s *AccessControlPolicy) SetOwner(v *Owner) *AccessControlPolicy {
 }
 
 // Container for information regarding the access control for replicas.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/AccessControlTranslation
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/AccessControlTranslation
->>>>>>> Initial dep workover
 type AccessControlTranslation struct {
 	_ struct{} `type:"structure"`
 
@@ -6450,11 +6422,7 @@ func (s *AccessControlTranslation) SetOwner(v string) *AccessControlTranslation 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/AnalyticsAndOperator
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/AnalyticsAndOperator
->>>>>>> Initial dep workover
 type AnalyticsAndOperator struct {
 	_ struct{} `type:"structure"`
 
@@ -7019,11 +6987,7 @@ func (s *CORSRule) SetMaxAgeSeconds(v int64) *CORSRule {
 }
 
 // Describes how a CSV-formatted input object is formatted.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CSVInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CSVInput
->>>>>>> Working on getting compiling
 type CSVInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7095,11 +7059,7 @@ func (s *CSVInput) SetRecordDelimiter(v string) *CSVInput {
 }
 
 // Describes how CSV-formatted results are formatted.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CSVOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CSVOutput
->>>>>>> Working on getting compiling
 type CSVOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7160,11 +7120,7 @@ func (s *CSVOutput) SetRecordDelimiter(v string) *CSVOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CloudFunctionConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CloudFunctionConfiguration
->>>>>>> Working on getting compiling
 type CloudFunctionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -8827,7 +8783,6 @@ func (s DeleteBucketCorsOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketEncryptionRequest
 type DeleteBucketEncryptionInput struct {
 	_ struct{} `type:"structure"`
@@ -8892,77 +8847,6 @@ func (s DeleteBucketEncryptionOutput) GoString() string {
 
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketRequest
 type DeleteBucketInput struct {
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketEncryptionRequest
-type DeleteBucketEncryptionInput struct {
->>>>>>> Initial dep workover
-	_ struct{} `type:"structure"`
-
-	// The name of the bucket containing the server-side encryption configuration
-	// to delete.
-	//
-	// Bucket is a required field
-	Bucket *string `location:"uri" locationName:"Bucket" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s DeleteBucketEncryptionInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteBucketEncryptionInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *DeleteBucketEncryptionInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "DeleteBucketEncryptionInput"}
-	if s.Bucket == nil {
-		invalidParams.Add(request.NewErrParamRequired("Bucket"))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetBucket sets the Bucket field's value.
-func (s *DeleteBucketEncryptionInput) SetBucket(v string) *DeleteBucketEncryptionInput {
-	s.Bucket = &v
-	return s
-}
-
-func (s *DeleteBucketEncryptionInput) getBucket() (v string) {
-	if s.Bucket == nil {
-		return v
-	}
-	return *s.Bucket
-}
-
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketInventoryConfigurationRequest
-type DeleteBucketInventoryConfigurationInput struct {
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketEncryptionOutput
-type DeleteBucketEncryptionOutput struct {
->>>>>>> Initial dep workover
-	_ struct{} `type:"structure"`
-}
-
-// String returns the string representation
-func (s DeleteBucketEncryptionOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteBucketEncryptionOutput) GoString() string {
-	return s.String()
-}
-
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketRequest
-type DeleteBucketInput struct {
 	_ struct{} `type:"structure"`
 
 	// Bucket is a required field
@@ -9005,7 +8889,7 @@ func (s *DeleteBucketInput) getBucket() (v string) {
 	return *s.Bucket
 }
 
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketInventoryConfigurationRequest
+// See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteBucketInventoryConfigurationRequest
 type DeleteBucketInventoryConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -9924,11 +9808,7 @@ func (s *DeletedObject) SetVersionId(v string) *DeletedObject {
 }
 
 // Container for replication destination information.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Destination
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Destination
->>>>>>> Initial dep workover
 type Destination struct {
 	_ struct{} `type:"structure"`
 
@@ -10017,16 +9897,9 @@ func (s *Destination) SetStorageClass(v string) *Destination {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Describes the server-side encryption that will be applied to the restore
 // results.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Encryption
-=======
-// Describes the server-side encryption that will be applied to the restore
-// results.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Encryption
->>>>>>> Working on getting compiling
 type Encryption struct {
 	_ struct{} `type:"structure"`
 
@@ -10086,15 +9959,8 @@ func (s *Encryption) SetKMSKeyId(v string) *Encryption {
 	return s
 }
 
-<<<<<<< HEAD
 // Container for information regarding encryption based configuration for replicas.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/EncryptionConfiguration
-=======
-=======
->>>>>>> Working on getting compiling
-// Container for information regarding encryption based configuration for replicas.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/EncryptionConfiguration
->>>>>>> Initial dep workover
 type EncryptionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -10118,11 +9984,7 @@ func (s *EncryptionConfiguration) SetReplicaKmsKeyID(v string) *EncryptionConfig
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Error
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Error
->>>>>>> Initial dep workover
 type Error struct {
 	_ struct{} `type:"structure"`
 
@@ -10544,11 +10406,7 @@ func (s *GetBucketCorsOutput) SetCORSRules(v []*CORSRule) *GetBucketCorsOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryptionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryptionRequest
->>>>>>> Initial dep workover
 type GetBucketEncryptionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10595,11 +10453,7 @@ func (s *GetBucketEncryptionInput) getBucket() (v string) {
 	return *s.Bucket
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryptionOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryptionOutput
->>>>>>> Initial dep workover
 type GetBucketEncryptionOutput struct {
 	_ struct{} `type:"structure" payload:"ServerSideEncryptionConfiguration"`
 
@@ -10624,11 +10478,7 @@ func (s *GetBucketEncryptionOutput) SetServerSideEncryptionConfiguration(v *Serv
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketInventoryConfigurationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketInventoryConfigurationRequest
->>>>>>> Initial dep workover
 type GetBucketInventoryConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -13133,11 +12983,7 @@ func (s *Initiator) SetID(v string) *Initiator {
 }
 
 // Describes the serialization format of the object.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InputSerialization
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InputSerialization
->>>>>>> Working on getting compiling
 type InputSerialization struct {
 	_ struct{} `type:"structure"`
 
@@ -13161,11 +13007,7 @@ func (s *InputSerialization) SetCSV(v *CSVInput) *InputSerialization {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryConfiguration
->>>>>>> Working on getting compiling
 type InventoryConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -13341,11 +13183,7 @@ func (s *InventoryDestination) SetS3BucketDestination(v *InventoryS3BucketDestin
 
 // Contains the type of server-side encryption used to encrypt the inventory
 // results.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryEncryption
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryEncryption
->>>>>>> Initial dep workover
 type InventoryEncryption struct {
 	_ struct{} `type:"structure"`
 
@@ -13393,11 +13231,7 @@ func (s *InventoryEncryption) SetSSES3(v *SSES3) *InventoryEncryption {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryFilter
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/InventoryFilter
->>>>>>> Initial dep workover
 type InventoryFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -15591,11 +15425,7 @@ func (s *ListPartsOutput) SetUploadId(v string) *ListPartsOutput {
 }
 
 // Describes an S3 location that will receive the results of the restore request.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/S3Location
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/S3Location
->>>>>>> Working on getting compiling
 type Location struct {
 	_ struct{} `type:"structure"`
 
@@ -15723,11 +15553,7 @@ func (s *Location) SetUserMetadata(v []*MetadataEntry) *Location {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/LoggingEnabled
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/LoggingEnabled
->>>>>>> Working on getting compiling
 type LoggingEnabled struct {
 	_ struct{} `type:"structure"`
 
@@ -15795,11 +15621,7 @@ func (s *LoggingEnabled) SetTargetPrefix(v string) *LoggingEnabled {
 }
 
 // A metadata key-value pair to store with an object.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/MetadataEntry
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/MetadataEntry
->>>>>>> Working on getting compiling
 type MetadataEntry struct {
 	_ struct{} `type:"structure"`
 
@@ -15830,11 +15652,7 @@ func (s *MetadataEntry) SetValue(v string) *MetadataEntry {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/MetricsAndOperator
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/MetricsAndOperator
->>>>>>> Working on getting compiling
 type MetricsAndOperator struct {
 	_ struct{} `type:"structure"`
 
@@ -16495,11 +16313,7 @@ func (s *ObjectVersion) SetVersionId(v string) *ObjectVersion {
 }
 
 // Describes the location where the restore job's output is stored.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/OutputLocation
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/OutputLocation
->>>>>>> Working on getting compiling
 type OutputLocation struct {
 	_ struct{} `type:"structure"`
 
@@ -16539,11 +16353,7 @@ func (s *OutputLocation) SetS3(v *Location) *OutputLocation {
 }
 
 // Describes how results of the Select job are serialized.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/OutputSerialization
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/OutputSerialization
->>>>>>> Working on getting compiling
 type OutputSerialization struct {
 	_ struct{} `type:"structure"`
 
@@ -16567,11 +16377,7 @@ func (s *OutputSerialization) SetCSV(v *CSVOutput) *OutputSerialization {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Owner
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Owner
->>>>>>> Working on getting compiling
 type Owner struct {
 	_ struct{} `type:"structure"`
 
@@ -17026,11 +16832,7 @@ func (s PutBucketCorsOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketEncryptionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketEncryptionRequest
->>>>>>> Initial dep workover
 type PutBucketEncryptionInput struct {
 	_ struct{} `type:"structure" payload:"ServerSideEncryptionConfiguration"`
 
@@ -17097,11 +16899,7 @@ func (s *PutBucketEncryptionInput) SetServerSideEncryptionConfiguration(v *Serve
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketEncryptionOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketEncryptionOutput
->>>>>>> Initial dep workover
 type PutBucketEncryptionOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -17116,11 +16914,7 @@ func (s PutBucketEncryptionOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketInventoryConfigurationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketInventoryConfigurationRequest
->>>>>>> Initial dep workover
 type PutBucketInventoryConfigurationInput struct {
 	_ struct{} `type:"structure" payload:"InventoryConfiguration"`
 
@@ -19138,11 +18932,7 @@ func (s *ReplicationConfiguration) SetRules(v []*ReplicationRule) *ReplicationCo
 }
 
 // Container for information about a particular replication rule.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ReplicationRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ReplicationRule
->>>>>>> Initial dep workover
 type ReplicationRule struct {
 	_ struct{} `type:"structure"`
 
@@ -19407,28 +19197,17 @@ func (s *RestoreObjectOutput) SetRestoreOutputPath(v string) *RestoreObjectOutpu
 }
 
 // Container for restore job parameters.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/RestoreRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/RestoreRequest
->>>>>>> Working on getting compiling
 type RestoreRequest struct {
 	_ struct{} `type:"structure"`
 
 	// Lifetime of the active copy in days. Do not use with restores that specify
 	// OutputLocation.
 	Days *int64 `type:"integer"`
-<<<<<<< HEAD
 
 	// The optional description for the job.
 	Description *string `type:"string"`
 
-=======
-
-	// The optional description for the job.
-	Description *string `type:"string"`
-
->>>>>>> Working on getting compiling
 	// Glacier related parameters pertaining to this job. Do not use with restores
 	// that specify OutputLocation.
 	GlacierJobParameters *GlacierJobParameters `type:"structure"`
@@ -19523,11 +19302,7 @@ func (s *RestoreRequest) SetType(v string) *RestoreRequest {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/RoutingRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/RoutingRule
->>>>>>> Working on getting compiling
 type RoutingRule struct {
 	_ struct{} `type:"structure"`
 
@@ -19696,11 +19471,7 @@ func (s *Rule) SetTransition(v *Transition) *Rule {
 }
 
 // Specifies the use of SSE-KMS to encrypt delievered Inventory reports.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SSEKMS
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SSEKMS
->>>>>>> Initial dep workover
 type SSEKMS struct {
 	_ struct{} `locationName:"SSE-KMS" type:"structure"`
 
@@ -19741,11 +19512,7 @@ func (s *SSEKMS) SetKeyId(v string) *SSEKMS {
 }
 
 // Specifies the use of SSE-S3 to encrypt delievered Inventory reports.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SSES3
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SSES3
->>>>>>> Initial dep workover
 type SSES3 struct {
 	_ struct{} `locationName:"SSE-S3" type:"structure"`
 }
@@ -19760,14 +19527,8 @@ func (s SSES3) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Describes the parameters for Select job types.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SelectParameters
-=======
-// Describes the parameters for Select job types.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SelectParameters
->>>>>>> Working on getting compiling
 type SelectParameters struct {
 	_ struct{} `type:"structure"`
 
@@ -19848,19 +19609,10 @@ func (s *SelectParameters) SetOutputSerialization(v *OutputSerialization) *Selec
 	return s
 }
 
-<<<<<<< HEAD
 // Describes the default server-side encryption to apply to new objects in the
 // bucket. If Put Object request does not specify any server-side encryption,
 // this default encryption will be applied.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ServerSideEncryptionByDefault
-=======
-=======
->>>>>>> Working on getting compiling
-// Describes the default server-side encryption to apply to new objects in the
-// bucket. If Put Object request does not specify any server-side encryption,
-// this default encryption will be applied.
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ServerSideEncryptionByDefault
->>>>>>> Initial dep workover
 type ServerSideEncryptionByDefault struct {
 	_ struct{} `type:"structure"`
 
@@ -19911,11 +19663,7 @@ func (s *ServerSideEncryptionByDefault) SetSSEAlgorithm(v string) *ServerSideEnc
 
 // Container for server-side encryption configuration rules. Currently S3 supports
 // one rule only.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ServerSideEncryptionConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ServerSideEncryptionConfiguration
->>>>>>> Initial dep workover
 type ServerSideEncryptionConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -19967,11 +19715,7 @@ func (s *ServerSideEncryptionConfiguration) SetRules(v []*ServerSideEncryptionRu
 
 // Container for information about a particular server-side encryption configuration
 // rule.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ServerSideEncryptionRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ServerSideEncryptionRule
->>>>>>> Initial dep workover
 type ServerSideEncryptionRule struct {
 	_ struct{} `type:"structure"`
 
@@ -20013,11 +19757,7 @@ func (s *ServerSideEncryptionRule) SetApplyServerSideEncryptionByDefault(v *Serv
 }
 
 // Container for filters that define which source objects should be replicated.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SourceSelectionCriteria
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SourceSelectionCriteria
->>>>>>> Initial dep workover
 type SourceSelectionCriteria struct {
 	_ struct{} `type:"structure"`
 
@@ -20057,11 +19797,7 @@ func (s *SourceSelectionCriteria) SetSseKmsEncryptedObjects(v *SseKmsEncryptedOb
 }
 
 // Container for filter information of selection of KMS Encrypted S3 objects.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SseKmsEncryptedObjects
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SseKmsEncryptedObjects
->>>>>>> Initial dep workover
 type SseKmsEncryptedObjects struct {
 	_ struct{} `type:"structure"`
 
@@ -20101,11 +19837,7 @@ func (s *SseKmsEncryptedObjects) SetStatus(v string) *SseKmsEncryptedObjects {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/StorageClassAnalysis
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/StorageClassAnalysis
->>>>>>> Initial dep workover
 type StorageClassAnalysis struct {
 	_ struct{} `type:"structure"`
 

@@ -105,6 +105,7 @@ type Rule struct {
 	Resources []string `json:"resources,omitempty" protobuf:"bytes,3,rep,name=resources"`
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 type FailurePolicyType string
@@ -220,3 +221,5 @@ type ServiceReference struct {
 	Name string `json:"name" protobuf:"bytes,2,opt,name=name"`
 }
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps

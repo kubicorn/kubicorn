@@ -18,8 +18,6 @@ import (
 	"reflect"
 	"testing"
 
-	"cloud.google.com/go/internal/testutil"
-
 	pb "google.golang.org/genproto/googleapis/datastore/v1"
 )
 
@@ -166,7 +164,7 @@ func TestLoadEntityNestedLegacy(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, dst) {
+		if !reflect.DeepEqual(tc.want, dst) {
 			t.Errorf("%s: compare:\ngot:  %#v\nwant: %#v", tc.desc, dst, tc.want)
 		}
 	}
@@ -409,7 +407,7 @@ func TestLoadEntityNested(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, dst) {
+		if !reflect.DeepEqual(tc.want, dst) {
 			t.Errorf("%s: compare:\ngot:  %#v\nwant: %#v", tc.desc, dst, tc.want)
 		}
 	}
@@ -505,7 +503,7 @@ func TestAlreadyPopulatedDst(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, tc.dst) {
+		if !reflect.DeepEqual(tc.want, tc.dst) {
 			t.Errorf("%s: compare:\ngot:  %#v\nwant: %#v", tc.desc, tc.dst, tc.want)
 		}
 	}
@@ -750,7 +748,7 @@ func TestKeyLoader(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, tc.dst) {
+		if !reflect.DeepEqual(tc.want, tc.dst) {
 			t.Errorf("%s: compare:\ngot:  %+v\nwant: %+v", tc.desc, tc.dst, tc.want)
 		}
 	}

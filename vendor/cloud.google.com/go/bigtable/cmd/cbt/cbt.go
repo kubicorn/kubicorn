@@ -217,13 +217,6 @@ var commands = []struct {
 		Required: cbtconfig.ProjectAndInstanceRequired,
 	},
 	{
-		Name:     "deletecolumn",
-		Desc:     "Delete all cells in a column",
-		do:       doDeleteColumn,
-		Usage:    "cbt deletecolumn <table> <row> <family> <column>",
-		Required: cbtconfig.ProjectAndInstanceRequired,
-	},
-	{
 		Name:     "deletefamily",
 		Desc:     "Delete a column family",
 		do:       doDeleteFamily,
@@ -291,12 +284,10 @@ var commands = []struct {
 		Name: "read",
 		Desc: "Read rows",
 		do:   doRead,
-		Usage: "cbt read <table> [start=<row>] [end=<row>] [prefix=<prefix>]" +
-			" [regex=<regex>] [count=<n>]\n" +
+		Usage: "cbt read <table> [start=<row>] [end=<row>] [prefix=<prefix>] [count=<n>]\n" +
 			"  start=<row>		Start reading at this row\n" +
 			"  end=<row>		Stop reading before this row\n" +
 			"  prefix=<prefix>	Read rows with this prefix\n" +
-			"  regex=<regex> 	Read rows with keys matching this regex\n" +
 			"  count=<n>		Read only this many rows\n",
 		Required: cbtconfig.ProjectAndInstanceRequired,
 	},
@@ -371,18 +362,6 @@ func doCreateTable(ctx context.Context, args ...string) {
 	}
 	if err != nil {
 		log.Fatalf("Creating table: %v", err)
-	}
-}
-
-func doDeleteColumn(ctx context.Context, args ...string) {
-	if len(args) != 4 {
-		log.Fatal("usage: cbt deletecolumn <table> <row> <family> <column>")
-	}
-	tbl := getClient().Open(args[0])
-	mut := bigtable.NewMutation()
-	mut.DeleteCellsInColumn(args[2], args[3])
-	if err := tbl.Apply(ctx, args[1], mut); err != nil {
-		log.Fatalf("Deleting cells in column: %v", err)
 	}
 }
 
@@ -495,9 +474,7 @@ var docTemplate = template.Must(template.New("doc").Funcs(template.FuncMap{
 //go:generate go run cbt.go -o cbtdoc.go doc
 
 /*
-Cbt is a tool for doing basic interactions with Cloud Bigtable. To learn how to
-install the cbt tool, see the
-[cbt overview](https://cloud.google.com/bigtable/docs/go/cbt-overview).
+Cbt is a tool for doing basic interactions with Cloud Bigtable.
 
 Usage:
 
@@ -695,7 +672,7 @@ func doRead(ctx context.Context, args ...string) {
 		case "limit":
 			// Be nicer; we used to support this, but renamed it to "end".
 			log.Fatalf("Unknown arg key %q; did you mean %q?", key, "end")
-		case "start", "end", "prefix", "count", "regex":
+		case "start", "end", "prefix", "count":
 			parsed[key] = val
 		}
 	}
@@ -720,9 +697,6 @@ func doRead(ctx context.Context, args ...string) {
 			log.Fatalf("Bad count %q: %v", count, err)
 		}
 		opts = append(opts, bigtable.LimitRows(n))
-	}
-	if regex := parsed["regex"]; regex != "" {
-		opts = append(opts, bigtable.RowFilter(bigtable.RowKeyFilter(regex)))
 	}
 
 	// TODO(dsymonds): Support filters.

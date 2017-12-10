@@ -1,4 +1,4 @@
-// Copyright 2017, Google LLC All rights reserved.
+// Copyright 2017, Google Inc. All rights reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 // Package language is an auto-generated package for the
 // Google Cloud Natural Language API.
-
 //
 // Google Cloud Natural Language API provides natural language understanding
 // technologies to developers. Examples include sentiment analysis, entity
@@ -28,15 +27,11 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-func insertMetadata(ctx context.Context, mds ...metadata.MD) context.Context {
-	out, _ := metadata.FromOutgoingContext(ctx)
-	out = out.Copy()
-	for _, md := range mds {
-		for k, v := range md {
-			out[k] = append(out[k], v...)
-		}
-	}
-	return metadata.NewOutgoingContext(ctx, out)
+func insertXGoog(ctx context.Context, val []string) context.Context {
+	md, _ := metadata.FromOutgoingContext(ctx)
+	md = md.Copy()
+	md["x-goog-api-client"] = val
+	return metadata.NewOutgoingContext(ctx, md)
 }
 
 // DefaultAuthScopes reports the default set of authentication scopes to use with this package.

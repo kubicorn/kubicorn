@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package internal contains support packages for oauth2 package.
 package internal
 
 import (
@@ -81,7 +80,6 @@ func TestProviderAuthHeaderWorksDomain(t *testing.T) {
 		}
 	}
 }
-<<<<<<< HEAD
 
 func TestRetrieveTokenWithContexts(t *testing.T) {
 	const clientID = "client-id"
@@ -108,5 +106,3 @@ func TestRetrieveTokenWithContexts(t *testing.T) {
 		t.Errorf("RetrieveToken (with cancelled context) = nil; want error")
 	}
 }
-=======
->>>>>>> Working on getting compiling

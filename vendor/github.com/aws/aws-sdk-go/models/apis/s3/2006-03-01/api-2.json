@@ -2048,10 +2048,6 @@
       "type":"string",
       "enum":["url"]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "Encryption":{
       "type":"structure",
       "required":["EncryptionType"],
@@ -2061,11 +2057,6 @@
         "KMSContext":{"shape":"KMSContext"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "EncryptionConfiguration":{
       "type":"structure",
       "members":{
@@ -5207,10 +5198,6 @@
       },
       "locationName":"SSE-S3"
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "SelectParameters":{
       "type":"structure",
       "required":[
@@ -5226,11 +5213,6 @@
         "OutputSerialization":{"shape":"OutputSerialization"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "ServerSideEncryption":{
       "type":"string",
       "enum":[

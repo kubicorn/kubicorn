@@ -7899,11 +7899,7 @@ func (s *ScheduleKeyDeletionOutput) SetKeyId(v string) *ScheduleKeyDeletionOutpu
 // For information about the rules that apply to tag keys and tag values, see
 // User-Defined Tag Restrictions (http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html)
 // in the AWS Billing and Cost Management User Guide.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Tag
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Tag
->>>>>>> Initial dep workover
 type Tag struct {
 	_ struct{} `type:"structure"`
 

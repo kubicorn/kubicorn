@@ -15,9 +15,8 @@
 package pubsub
 
 import (
+	"reflect"
 	"testing"
-
-	"cloud.google.com/go/internal/testutil"
 
 	"golang.org/x/net/context"
 
@@ -111,7 +110,7 @@ func TestListProjectSubscriptions(t *testing.T) {
 		"projects/projid/subscriptions/s1",
 		"projects/projid/subscriptions/s2",
 		"projects/projid/subscriptions/s3"}
-	if !testutil.Equal(got, want) {
+	if !reflect.DeepEqual(got, want) {
 		t.Errorf("sub list: got: %v, want: %v", got, want)
 	}
 	if len(s.subs) != 0 {
@@ -133,7 +132,7 @@ func TestListTopicSubscriptions(t *testing.T) {
 		"projects/projid/subscriptions/s1",
 		"projects/projid/subscriptions/s2",
 		"projects/projid/subscriptions/s3"}
-	if !testutil.Equal(got, want) {
+	if !reflect.DeepEqual(got, want) {
 		t.Errorf("sub list: got: %v, want: %v", got, want)
 	}
 	if len(s.subs) != 0 {

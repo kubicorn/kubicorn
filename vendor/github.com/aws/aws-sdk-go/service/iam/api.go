@@ -3789,11 +3789,7 @@ const opDeleteServiceLinkedRole = "DeleteServiceLinkedRole"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRole
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRole
->>>>>>> Initial dep workover
 func (c *IAM) DeleteServiceLinkedRoleRequest(input *DeleteServiceLinkedRoleInput) (req *request.Request, output *DeleteServiceLinkedRoleOutput) {
 	op := &request.Operation{
 		Name:       opDeleteServiceLinkedRole,
@@ -3853,11 +3849,7 @@ func (c *IAM) DeleteServiceLinkedRoleRequest(input *DeleteServiceLinkedRoleInput
 //   The request processing has failed because of an unknown error, exception
 //   or failure.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRole
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRole
->>>>>>> Initial dep workover
 func (c *IAM) DeleteServiceLinkedRole(input *DeleteServiceLinkedRoleInput) (*DeleteServiceLinkedRoleOutput, error) {
 	req, out := c.DeleteServiceLinkedRoleRequest(input)
 	return out, req.Send()
@@ -6721,11 +6713,7 @@ const opGetServiceLinkedRoleDeletionStatus = "GetServiceLinkedRoleDeletionStatus
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatus
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatus
->>>>>>> Initial dep workover
 func (c *IAM) GetServiceLinkedRoleDeletionStatusRequest(input *GetServiceLinkedRoleDeletionStatusInput) (req *request.Request, output *GetServiceLinkedRoleDeletionStatusOutput) {
 	op := &request.Operation{
 		Name:       opGetServiceLinkedRoleDeletionStatus,
@@ -6770,11 +6758,7 @@ func (c *IAM) GetServiceLinkedRoleDeletionStatusRequest(input *GetServiceLinkedR
 //   The request processing has failed because of an unknown error, exception
 //   or failure.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatus
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatus
->>>>>>> Initial dep workover
 func (c *IAM) GetServiceLinkedRoleDeletionStatus(input *GetServiceLinkedRoleDeletionStatusInput) (*GetServiceLinkedRoleDeletionStatusOutput, error) {
 	req, out := c.GetServiceLinkedRoleDeletionStatusRequest(input)
 	return out, req.Send()
@@ -16714,11 +16698,7 @@ func (s DeleteServerCertificateOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRoleRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRoleRequest
->>>>>>> Initial dep workover
 type DeleteServiceLinkedRoleInput struct {
 	_ struct{} `type:"structure"`
 
@@ -16760,11 +16740,7 @@ func (s *DeleteServiceLinkedRoleInput) SetRoleName(v string) *DeleteServiceLinke
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRoleResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceLinkedRoleResponse
->>>>>>> Initial dep workover
 type DeleteServiceLinkedRoleOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -16791,11 +16767,7 @@ func (s *DeleteServiceLinkedRoleOutput) SetDeletionTaskId(v string) *DeleteServi
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceSpecificCredentialRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeleteServiceSpecificCredentialRequest
->>>>>>> Initial dep workover
 type DeleteServiceSpecificCredentialInput struct {
 	_ struct{} `type:"structure"`
 
@@ -17162,11 +17134,7 @@ func (s DeleteVirtualMFADeviceOutput) GoString() string {
 //
 // This data type is used as a response element in the GetServiceLinkedRoleDeletionStatus
 // operation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeletionTaskFailureReasonType
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DeletionTaskFailureReasonType
->>>>>>> Initial dep workover
 type DeletionTaskFailureReasonType struct {
 	_ struct{} `type:"structure"`
 
@@ -17204,11 +17172,7 @@ func (s *DeletionTaskFailureReasonType) SetRoleUsageList(v []*RoleUsageType) *De
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DetachGroupPolicyRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DetachGroupPolicyRequest
->>>>>>> Initial dep workover
 type DetachGroupPolicyInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19403,11 +19367,7 @@ func (s *GetServerCertificateOutput) SetServerCertificate(v *ServerCertificate) 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatusRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatusRequest
->>>>>>> Initial dep workover
 type GetServiceLinkedRoleDeletionStatusInput struct {
 	_ struct{} `type:"structure"`
 
@@ -19450,11 +19410,7 @@ func (s *GetServiceLinkedRoleDeletionStatusInput) SetDeletionTaskId(v string) *G
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatusResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLinkedRoleDeletionStatusResponse
->>>>>>> Initial dep workover
 type GetServiceLinkedRoleDeletionStatusOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -19489,11 +19445,7 @@ func (s *GetServiceLinkedRoleDeletionStatusOutput) SetStatus(v string) *GetServi
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetUserRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetUserRequest
->>>>>>> Initial dep workover
 type GetUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -24976,11 +24928,7 @@ func (s *RoleDetail) SetRolePolicyList(v []*PolicyDetail) *RoleDetail {
 //
 // This data type is used as a response element in the GetServiceLinkedRoleDeletionStatus
 // operation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RoleUsageType
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/RoleUsageType
->>>>>>> Initial dep workover
 type RoleUsageType struct {
 	_ struct{} `type:"structure"`
 

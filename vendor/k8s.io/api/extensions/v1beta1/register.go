@@ -42,10 +42,14 @@ var (
 )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Adds the list of known types to the given scheme.
 =======
 // Adds the list of known types to api.Scheme.
 >>>>>>> Initial dep workover
+=======
+// Adds the list of known types to the given scheme.
+>>>>>>> moar deps
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&Deployment{},
@@ -53,6 +57,7 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&DeploymentRollback{},
 		&ReplicationControllerDummy{},
 		&Scale{},
+<<<<<<< HEAD
 <<<<<<< HEAD
 		&DaemonSetList{},
 		&DaemonSet{},
@@ -64,6 +69,10 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&ThirdPartyResourceData{},
 		&ThirdPartyResourceDataList{},
 >>>>>>> Initial dep workover
+=======
+		&DaemonSetList{},
+		&DaemonSet{},
+>>>>>>> moar deps
 		&Ingress{},
 		&IngressList{},
 		&ReplicaSet{},

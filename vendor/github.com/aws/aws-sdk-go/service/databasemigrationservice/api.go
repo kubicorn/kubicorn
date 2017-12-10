@@ -599,7 +599,6 @@ const opDeleteCertificate = "DeleteCertificate"
 // client's request for the DeleteCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -607,15 +606,6 @@ const opDeleteCertificate = "DeleteCertificate"
 // See DeleteCertificate for more information on using the DeleteCertificate
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteCertificate for more information on using the DeleteCertificate
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -692,7 +682,6 @@ const opDeleteEndpoint = "DeleteEndpoint"
 // client's request for the DeleteEndpoint operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -700,15 +689,6 @@ const opDeleteEndpoint = "DeleteEndpoint"
 // See DeleteEndpoint for more information on using the DeleteEndpoint
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteEndpoint for more information on using the DeleteEndpoint
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -788,7 +768,6 @@ const opDeleteEventSubscription = "DeleteEventSubscription"
 // client's request for the DeleteEventSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -796,15 +775,6 @@ const opDeleteEventSubscription = "DeleteEventSubscription"
 // See DeleteEventSubscription for more information on using the DeleteEventSubscription
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteEventSubscription for more information on using the DeleteEventSubscription
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1133,7 +1103,6 @@ const opDescribeAccountAttributes = "DescribeAccountAttributes"
 // client's request for the DescribeAccountAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1141,15 +1110,6 @@ const opDescribeAccountAttributes = "DescribeAccountAttributes"
 // See DescribeAccountAttributes for more information on using the DescribeAccountAttributes
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeAccountAttributes for more information on using the DescribeAccountAttributes
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1222,7 +1182,6 @@ const opDescribeCertificates = "DescribeCertificates"
 // client's request for the DescribeCertificates operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1230,15 +1189,6 @@ const opDescribeCertificates = "DescribeCertificates"
 // See DescribeCertificates for more information on using the DescribeCertificates
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeCertificates for more information on using the DescribeCertificates
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1367,7 +1317,6 @@ const opDescribeConnections = "DescribeConnections"
 // client's request for the DescribeConnections operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1375,15 +1324,6 @@ const opDescribeConnections = "DescribeConnections"
 // See DescribeConnections for more information on using the DescribeConnections
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeConnections for more information on using the DescribeConnections
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1513,7 +1453,6 @@ const opDescribeEndpointTypes = "DescribeEndpointTypes"
 // client's request for the DescribeEndpointTypes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1521,15 +1460,6 @@ const opDescribeEndpointTypes = "DescribeEndpointTypes"
 // See DescribeEndpointTypes for more information on using the DescribeEndpointTypes
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeEndpointTypes for more information on using the DescribeEndpointTypes
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1653,7 +1583,6 @@ const opDescribeEndpoints = "DescribeEndpoints"
 // client's request for the DescribeEndpoints operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1661,15 +1590,6 @@ const opDescribeEndpoints = "DescribeEndpoints"
 // See DescribeEndpoints for more information on using the DescribeEndpoints
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeEndpoints for more information on using the DescribeEndpoints
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1798,7 +1718,6 @@ const opDescribeEventCategories = "DescribeEventCategories"
 // client's request for the DescribeEventCategories operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1806,15 +1725,6 @@ const opDescribeEventCategories = "DescribeEventCategories"
 // See DescribeEventCategories for more information on using the DescribeEventCategories
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeEventCategories for more information on using the DescribeEventCategories
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1885,7 +1795,6 @@ const opDescribeEventSubscriptions = "DescribeEventSubscriptions"
 // client's request for the DescribeEventSubscriptions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1893,15 +1802,6 @@ const opDescribeEventSubscriptions = "DescribeEventSubscriptions"
 // See DescribeEventSubscriptions for more information on using the DescribeEventSubscriptions
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeEventSubscriptions for more information on using the DescribeEventSubscriptions
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2381,7 +2281,6 @@ const opDescribeReplicationInstances = "DescribeReplicationInstances"
 // client's request for the DescribeReplicationInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2389,15 +2288,6 @@ const opDescribeReplicationInstances = "DescribeReplicationInstances"
 // See DescribeReplicationInstances for more information on using the DescribeReplicationInstances
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeReplicationInstances for more information on using the DescribeReplicationInstances
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2527,7 +2417,6 @@ const opDescribeReplicationSubnetGroups = "DescribeReplicationSubnetGroups"
 // client's request for the DescribeReplicationSubnetGroups operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2535,15 +2424,6 @@ const opDescribeReplicationSubnetGroups = "DescribeReplicationSubnetGroups"
 // See DescribeReplicationSubnetGroups for more information on using the DescribeReplicationSubnetGroups
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeReplicationSubnetGroups for more information on using the DescribeReplicationSubnetGroups
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2691,11 +2571,7 @@ const opDescribeReplicationTaskAssessmentResults = "DescribeReplicationTaskAsses
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults
->>>>>>> Working on getting compiling
 func (c *DatabaseMigrationService) DescribeReplicationTaskAssessmentResultsRequest(input *DescribeReplicationTaskAssessmentResultsInput) (req *request.Request, output *DescribeReplicationTaskAssessmentResultsOutput) {
 	op := &request.Operation{
 		Name:       opDescribeReplicationTaskAssessmentResults,
@@ -2734,11 +2610,7 @@ func (c *DatabaseMigrationService) DescribeReplicationTaskAssessmentResultsReque
 //   * ErrCodeResourceNotFoundFault "ResourceNotFoundFault"
 //   The resource could not be found.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResults
->>>>>>> Working on getting compiling
 func (c *DatabaseMigrationService) DescribeReplicationTaskAssessmentResults(input *DescribeReplicationTaskAssessmentResultsInput) (*DescribeReplicationTaskAssessmentResultsOutput, error) {
 	req, out := c.DescribeReplicationTaskAssessmentResultsRequest(input)
 	return out, req.Send()
@@ -3091,7 +2963,6 @@ const opDescribeTableStatistics = "DescribeTableStatistics"
 // client's request for the DescribeTableStatistics operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3099,15 +2970,6 @@ const opDescribeTableStatistics = "DescribeTableStatistics"
 // See DescribeTableStatistics for more information on using the DescribeTableStatistics
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeTableStatistics for more information on using the DescribeTableStatistics
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3245,7 +3107,6 @@ const opImportCertificate = "ImportCertificate"
 // client's request for the ImportCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3253,15 +3114,6 @@ const opImportCertificate = "ImportCertificate"
 // See ImportCertificate for more information on using the ImportCertificate
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ImportCertificate for more information on using the ImportCertificate
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3596,7 +3448,6 @@ const opModifyReplicationInstance = "ModifyReplicationInstance"
 // client's request for the ModifyReplicationInstance operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3604,15 +3455,6 @@ const opModifyReplicationInstance = "ModifyReplicationInstance"
 // See ModifyReplicationInstance for more information on using the ModifyReplicationInstance
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ModifyReplicationInstance for more information on using the ModifyReplicationInstance
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3705,7 +3547,6 @@ const opModifyReplicationSubnetGroup = "ModifyReplicationSubnetGroup"
 // client's request for the ModifyReplicationSubnetGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3713,15 +3554,6 @@ const opModifyReplicationSubnetGroup = "ModifyReplicationSubnetGroup"
 // See ModifyReplicationSubnetGroup for more information on using the ModifyReplicationSubnetGroup
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ModifyReplicationSubnetGroup for more information on using the ModifyReplicationSubnetGroup
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3810,7 +3642,6 @@ const opModifyReplicationTask = "ModifyReplicationTask"
 // client's request for the ModifyReplicationTask operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3818,15 +3649,6 @@ const opModifyReplicationTask = "ModifyReplicationTask"
 // See ModifyReplicationTask for more information on using the ModifyReplicationTask
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ModifyReplicationTask for more information on using the ModifyReplicationTask
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3915,7 +3737,6 @@ const opRefreshSchemas = "RefreshSchemas"
 // client's request for the RefreshSchemas operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3923,15 +3744,6 @@ const opRefreshSchemas = "RefreshSchemas"
 // See RefreshSchemas for more information on using the RefreshSchemas
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See RefreshSchemas for more information on using the RefreshSchemas
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4016,7 +3828,6 @@ const opReloadTables = "ReloadTables"
 // client's request for the ReloadTables operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4024,15 +3835,6 @@ const opReloadTables = "ReloadTables"
 // See ReloadTables for more information on using the ReloadTables
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ReloadTables for more information on using the ReloadTables
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4109,7 +3911,6 @@ const opRemoveTagsFromResource = "RemoveTagsFromResource"
 // client's request for the RemoveTagsFromResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4117,15 +3918,6 @@ const opRemoveTagsFromResource = "RemoveTagsFromResource"
 // See RemoveTagsFromResource for more information on using the RemoveTagsFromResource
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See RemoveTagsFromResource for more information on using the RemoveTagsFromResource
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4198,7 +3990,6 @@ const opStartReplicationTask = "StartReplicationTask"
 // client's request for the StartReplicationTask operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4206,15 +3997,6 @@ const opStartReplicationTask = "StartReplicationTask"
 // See StartReplicationTask for more information on using the StartReplicationTask
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See StartReplicationTask for more information on using the StartReplicationTask
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4372,97 +4154,12 @@ func (c *DatabaseMigrationService) StartReplicationTaskAssessmentWithContext(ctx
 	return out, req.Send()
 }
 
-const opStartReplicationTaskAssessment = "StartReplicationTaskAssessment"
-
-// StartReplicationTaskAssessmentRequest generates a "aws/request.Request" representing the
-// client's request for the StartReplicationTaskAssessment operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See StartReplicationTaskAssessment for more information on using the StartReplicationTaskAssessment
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the StartReplicationTaskAssessmentRequest method.
-//    req, resp := client.StartReplicationTaskAssessmentRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessment
-func (c *DatabaseMigrationService) StartReplicationTaskAssessmentRequest(input *StartReplicationTaskAssessmentInput) (req *request.Request, output *StartReplicationTaskAssessmentOutput) {
-	op := &request.Operation{
-		Name:       opStartReplicationTaskAssessment,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &StartReplicationTaskAssessmentInput{}
-	}
-
-	output = &StartReplicationTaskAssessmentOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// StartReplicationTaskAssessment API operation for AWS Database Migration Service.
-//
-// Starts the replication task assessment for unsupported data types in the
-// source database.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS Database Migration Service's
-// API operation StartReplicationTaskAssessment for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeInvalidResourceStateFault "InvalidResourceStateFault"
-//   The resource is in a state that prevents it from being used for database
-//   migration.
-//
-//   * ErrCodeResourceNotFoundFault "ResourceNotFoundFault"
-//   The resource could not be found.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessment
-func (c *DatabaseMigrationService) StartReplicationTaskAssessment(input *StartReplicationTaskAssessmentInput) (*StartReplicationTaskAssessmentOutput, error) {
-	req, out := c.StartReplicationTaskAssessmentRequest(input)
-	return out, req.Send()
-}
-
-// StartReplicationTaskAssessmentWithContext is the same as StartReplicationTaskAssessment with the addition of
-// the ability to pass a context and additional request options.
-//
-// See StartReplicationTaskAssessment for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *DatabaseMigrationService) StartReplicationTaskAssessmentWithContext(ctx aws.Context, input *StartReplicationTaskAssessmentInput, opts ...request.Option) (*StartReplicationTaskAssessmentOutput, error) {
-	req, out := c.StartReplicationTaskAssessmentRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
 const opStopReplicationTask = "StopReplicationTask"
 
 // StopReplicationTaskRequest generates a "aws/request.Request" representing the
 // client's request for the StopReplicationTask operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4470,15 +4167,6 @@ const opStopReplicationTask = "StopReplicationTask"
 // See StopReplicationTask for more information on using the StopReplicationTask
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See StopReplicationTask for more information on using the StopReplicationTask
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4555,7 +4243,6 @@ const opTestConnection = "TestConnection"
 // client's request for the TestConnection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4563,15 +4250,6 @@ const opTestConnection = "TestConnection"
 // See TestConnection for more information on using the TestConnection
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See TestConnection for more information on using the TestConnection
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7377,11 +7055,7 @@ func (s *DescribeReplicationSubnetGroupsOutput) SetReplicationSubnetGroups(v []*
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResultsMessage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResultsMessage
->>>>>>> Working on getting compiling
 type DescribeReplicationTaskAssessmentResultsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7433,11 +7107,7 @@ func (s *DescribeReplicationTaskAssessmentResultsInput) SetReplicationTaskArn(v 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResultsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTaskAssessmentResultsResponse
->>>>>>> Working on getting compiling
 type DescribeReplicationTaskAssessmentResultsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7481,11 +7151,7 @@ func (s *DescribeReplicationTaskAssessmentResultsOutput) SetReplicationTaskAsses
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTasksMessage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeReplicationTasksMessage
->>>>>>> Working on getting compiling
 type DescribeReplicationTasksInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7703,15 +7369,7 @@ type DescribeTableStatisticsInput struct {
 	//
 	// A combination of filters creates an AND condition where each record matches
 	// all specified filters.
-<<<<<<< HEAD
-<<<<<<< HEAD
 	Filters []*Filter `type:"list"`
-=======
-	Filters []*Filter `locationNameList:"Filter" type:"list"`
->>>>>>> Initial dep workover
-=======
-	Filters []*Filter `type:"list"`
->>>>>>> Working on getting compiling
 
 	// An optional pagination token provided by a previous request. If this parameter
 	// is specified, the response includes only records beyond the marker, up to
@@ -10188,11 +9846,7 @@ func (s *ReplicationTask) SetTargetEndpointArn(v string) *ReplicationTask {
 }
 
 // The task assessment report in JSON format.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTaskAssessmentResult
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTaskAssessmentResult
->>>>>>> Working on getting compiling
 type ReplicationTaskAssessmentResult struct {
 	_ struct{} `type:"structure"`
 
@@ -10271,11 +9925,7 @@ func (s *ReplicationTaskAssessmentResult) SetS3ObjectUrl(v string) *ReplicationT
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTaskStats
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/ReplicationTaskStats
->>>>>>> Working on getting compiling
 type ReplicationTaskStats struct {
 	_ struct{} `type:"structure"`
 
@@ -10427,11 +10077,7 @@ func (s *S3Settings) SetServiceAccessRoleArn(v string) *S3Settings {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentMessage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentMessage
->>>>>>> Working on getting compiling
 type StartReplicationTaskAssessmentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10470,11 +10116,7 @@ func (s *StartReplicationTaskAssessmentInput) SetReplicationTaskArn(v string) *S
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskAssessmentResponse
->>>>>>> Working on getting compiling
 type StartReplicationTaskAssessmentOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -10498,11 +10140,7 @@ func (s *StartReplicationTaskAssessmentOutput) SetReplicationTask(v *Replication
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskMessage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartReplicationTaskMessage
->>>>>>> Working on getting compiling
 type StartReplicationTaskInput struct {
 	_ struct{} `type:"structure"`
 
@@ -10917,11 +10555,7 @@ func (s *TableStatistics) SetValidationSuspendedRecords(v int64) *TableStatistic
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/TableToReload
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/TableToReload
->>>>>>> Working on getting compiling
 type TableToReload struct {
 	_ struct{} `type:"structure"`
 

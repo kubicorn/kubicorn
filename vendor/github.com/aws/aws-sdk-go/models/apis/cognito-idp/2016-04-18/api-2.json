@@ -906,10 +906,6 @@
         {"shape":"InternalErrorException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DescribeRiskConfiguration":{
       "name":"DescribeRiskConfiguration",
       "http":{
@@ -927,11 +923,6 @@
         {"shape":"InternalErrorException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DescribeUserImportJob":{
       "name":"DescribeUserImportJob",
       "http":{
@@ -1451,61 +1442,6 @@
         {"shape":"UserPoolAddOnNotEnabledException"},
         {"shape":"CodeDeliveryFailureException"},
         {"shape":"InvalidEmailRoleAccessPolicyException"},
-<<<<<<< HEAD
-        {"shape":"InternalErrorException"}
-      ]
-    },
-    "SetUICustomization":{
-      "name":"SetUICustomization",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"SetUICustomizationRequest"},
-      "output":{"shape":"SetUICustomizationResponse"},
-      "errors":[
-        {"shape":"InvalidParameterException"},
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"NotAuthorizedException"},
-        {"shape":"TooManyRequestsException"},
-        {"shape":"InternalErrorException"}
-      ]
-    },
-    "SetUserMFAPreference":{
-      "name":"SetUserMFAPreference",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"SetUserMFAPreferenceRequest"},
-      "output":{"shape":"SetUserMFAPreferenceResponse"},
-      "errors":[
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"InvalidParameterException"},
-        {"shape":"NotAuthorizedException"},
-        {"shape":"PasswordResetRequiredException"},
-        {"shape":"UserNotFoundException"},
-        {"shape":"UserNotConfirmedException"},
-        {"shape":"InternalErrorException"}
-      ]
-    },
-    "SetUserPoolMfaConfig":{
-      "name":"SetUserPoolMfaConfig",
-      "http":{
-        "method":"POST",
-        "requestUri":"/"
-      },
-      "input":{"shape":"SetUserPoolMfaConfigRequest"},
-      "output":{"shape":"SetUserPoolMfaConfigResponse"},
-      "errors":[
-        {"shape":"InvalidParameterException"},
-        {"shape":"TooManyRequestsException"},
-        {"shape":"ResourceNotFoundException"},
-        {"shape":"InvalidSmsRoleAccessPolicyException"},
-        {"shape":"InvalidSmsRoleTrustRelationshipException"},
-        {"shape":"NotAuthorizedException"},
-=======
->>>>>>> Working on getting compiling
         {"shape":"InternalErrorException"}
       ]
     },
@@ -3107,10 +3043,6 @@
         "ResourceServer":{"shape":"ResourceServerType"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DescribeRiskConfigurationRequest":{
       "type":"structure",
       "required":["UserPoolId"],
@@ -3126,11 +3058,6 @@
         "RiskConfiguration":{"shape":"RiskConfigurationType"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DescribeUserImportJobRequest":{
       "type":"structure",
       "required":[
@@ -3292,10 +3219,6 @@
         "ReplyToEmailAddress":{"shape":"EmailAddressType"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "EmailNotificationBodyType":{
       "type":"string",
       "max":20000,
@@ -3308,11 +3231,6 @@
       "min":1,
       "pattern":"[\\p{L}\\p{M}\\p{S}\\p{N}\\p{P}\\s]+"
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "EmailVerificationMessageByLinkType":{
       "type":"string",
       "max":20000,
@@ -4403,10 +4321,6 @@
       "max":2048,
       "min":20
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "SetRiskConfigurationRequest":{
       "type":"structure",
       "required":["UserPoolId"],
@@ -4425,11 +4339,6 @@
         "RiskConfiguration":{"shape":"RiskConfigurationType"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "SetUICustomizationRequest":{
       "type":"structure",
       "required":["UserPoolId"],
@@ -4447,10 +4356,6 @@
         "UICustomization":{"shape":"UICustomizationType"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "SetUserMFAPreferenceRequest":{
       "type":"structure",
       "required":["AccessToken"],
@@ -4483,11 +4388,6 @@
         "MfaConfiguration":{"shape":"UserPoolMfaType"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "SetUserSettingsRequest":{
       "type":"structure",
       "required":[

@@ -2892,11 +2892,7 @@ func (s *ComplianceSummaryByResourceType) SetResourceType(v string) *ComplianceS
 // Provides status of the delivery of the snapshot or the configuration history
 // to the specified Amazon S3 bucket. Also provides the status of notifications
 // about the Amazon S3 delivery to the specified Amazon SNS topic.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/ConfigExportDeliveryInfo
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/ConfigExportDeliveryInfo
->>>>>>> Initial dep workover
 type ConfigExportDeliveryInfo struct {
 	_ struct{} `type:"structure"`
 

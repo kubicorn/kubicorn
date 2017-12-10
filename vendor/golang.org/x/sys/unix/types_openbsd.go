@@ -17,6 +17,7 @@ package unix
 #define KERNEL
 #include <dirent.h>
 #include <fcntl.h>
+#include <poll.h>
 #include <signal.h>
 #include <termios.h>
 #include <stdio.h>
@@ -244,13 +245,14 @@ type BpfTimeval C.struct_bpf_timeval
 
 type Termios C.struct_termios
 
+type Winsize C.struct_winsize
+
 // fchmodat-like syscalls.
 
 const (
 	AT_FDCWD            = C.AT_FDCWD
 	AT_SYMLINK_NOFOLLOW = C.AT_SYMLINK_NOFOLLOW
 )
-<<<<<<< HEAD
 
 // poll
 
@@ -268,12 +270,7 @@ const (
 	POLLWRBAND = C.POLLWRBAND
 	POLLWRNORM = C.POLLWRNORM
 )
-<<<<<<< HEAD
 
 // Uname
 
 type Utsname C.struct_utsname
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling

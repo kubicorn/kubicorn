@@ -1279,14 +1279,7 @@
         {"shape":"AutomationExecutionLimitExceededException"},
         {"shape":"AutomationDefinitionVersionNotFoundException"},
         {"shape":"IdempotentParameterMismatch"},
-<<<<<<< HEAD
-<<<<<<< HEAD
         {"shape":"InvalidTarget"},
-=======
->>>>>>> Initial dep workover
-=======
-        {"shape":"InvalidTarget"},
->>>>>>> Working on getting compiling
         {"shape":"InternalServerError"}
       ]
     },
@@ -2086,8 +2079,6 @@
     },
     "CompletedCount":{"type":"integer"},
     "ComplianceExecutionId":{
-<<<<<<< HEAD
-=======
       "type":"string",
       "max":100
     },
@@ -2156,204 +2147,6 @@
     "ComplianceItemList":{
       "type":"list",
       "member":{"shape":"ComplianceItem"}
-    },
-    "ComplianceItemTitle":{
-      "type":"string",
-      "max":500
-    },
-    "ComplianceQueryOperatorType":{
-      "type":"string",
-      "enum":[
-        "EQUAL",
-        "NOT_EQUAL",
-        "BEGIN_WITH",
-        "LESS_THAN",
-        "GREATER_THAN"
-      ]
-    },
-    "ComplianceResourceId":{
-      "type":"string",
-      "max":100,
-      "min":1
-    },
-    "ComplianceResourceIdList":{
-      "type":"list",
-      "member":{"shape":"ComplianceResourceId"},
-      "min":1
-    },
-    "ComplianceResourceType":{
-      "type":"string",
-      "max":50,
-      "min":1
-    },
-    "ComplianceResourceTypeList":{
-      "type":"list",
-      "member":{"shape":"ComplianceResourceType"},
-      "min":1
-    },
-    "ComplianceSeverity":{
-      "type":"string",
-      "enum":[
-        "CRITICAL",
-        "HIGH",
-        "MEDIUM",
-        "LOW",
-        "INFORMATIONAL",
-        "UNSPECIFIED"
-      ]
-    },
-    "ComplianceStatus":{
-      "type":"string",
-      "enum":[
-        "COMPLIANT",
-        "NON_COMPLIANT"
-      ]
-    },
-    "ComplianceStringFilter":{
-      "type":"structure",
-      "members":{
-        "Key":{"shape":"ComplianceStringFilterKey"},
-        "Values":{"shape":"ComplianceStringFilterValueList"},
-        "Type":{"shape":"ComplianceQueryOperatorType"}
-      }
-    },
-    "ComplianceStringFilterKey":{
-      "type":"string",
-      "max":200,
-      "min":1
-    },
-    "ComplianceStringFilterList":{
-      "type":"list",
-      "member":{"shape":"ComplianceStringFilter"}
-    },
-    "ComplianceStringFilterValueList":{
-      "type":"list",
-      "member":{"shape":"ComplianceFilterValue"},
-      "max":20,
-      "min":1
-    },
-    "ComplianceSummaryCount":{"type":"integer"},
-    "ComplianceSummaryItem":{
-      "type":"structure",
-      "members":{
-        "ComplianceType":{"shape":"ComplianceTypeName"},
-        "CompliantSummary":{"shape":"CompliantSummary"},
-        "NonCompliantSummary":{"shape":"NonCompliantSummary"}
-      }
-    },
-    "ComplianceSummaryItemList":{
-      "type":"list",
-      "member":{"shape":"ComplianceSummaryItem"}
-    },
-    "ComplianceTypeCountLimitExceededException":{
-      "type":"structure",
-      "members":{
-        "Message":{"shape":"String"}
-      },
-      "exception":true
-    },
-    "ComplianceTypeName":{
-      "type":"string",
-      "max":100,
-      "min":1,
-      "pattern":"[A-Za-z0-9_\\-]\\w+|Custom:[a-zA-Z0-9_\\-]\\w+"
-    },
-    "CompliantSummary":{
-      "type":"structure",
-      "members":{
-        "CompliantCount":{"shape":"ComplianceSummaryCount"},
-        "SeveritySummary":{"shape":"SeveritySummary"}
-      }
-    },
-    "ComputerName":{
->>>>>>> Initial dep workover
-      "type":"string",
-      "max":100
-    },
-    "ComplianceExecutionSummary":{
-      "type":"structure",
-      "required":["ExecutionTime"],
-      "members":{
-        "ExecutionTime":{"shape":"DateTime"},
-        "ExecutionId":{"shape":"ComplianceExecutionId"},
-        "ExecutionType":{"shape":"ComplianceExecutionType"}
-      }
-    },
-    "ComplianceExecutionType":{
-      "type":"string",
-      "max":50
-    },
-    "ComplianceFilterValue":{"type":"string"},
-    "ComplianceItem":{
-      "type":"structure",
-      "members":{
-        "ComplianceType":{"shape":"ComplianceTypeName"},
-        "ResourceType":{"shape":"ComplianceResourceType"},
-        "ResourceId":{"shape":"ComplianceResourceId"},
-        "Id":{"shape":"ComplianceItemId"},
-        "Title":{"shape":"ComplianceItemTitle"},
-        "Status":{"shape":"ComplianceStatus"},
-        "Severity":{"shape":"ComplianceSeverity"},
-        "ExecutionSummary":{"shape":"ComplianceExecutionSummary"},
-        "Details":{"shape":"ComplianceItemDetails"}
-      }
-    },
-    "ComplianceItemContentHash":{
-      "type":"string",
-      "max":256
-    },
-    "ComplianceItemDetails":{
-      "type":"map",
-      "key":{"shape":"AttributeName"},
-      "value":{"shape":"AttributeValue"}
-    },
-    "ComplianceItemEntry":{
-      "type":"structure",
-      "required":[
-        "Severity",
-        "Status"
-      ],
-      "members":{
-        "Id":{"shape":"ComplianceItemId"},
-        "Title":{"shape":"ComplianceItemTitle"},
-        "Severity":{"shape":"ComplianceSeverity"},
-        "Status":{"shape":"ComplianceStatus"},
-        "Details":{"shape":"ComplianceItemDetails"}
-      }
-    },
-    "ComplianceItemEntryList":{
-      "type":"list",
-<<<<<<< HEAD
-      "member":{"shape":"ComplianceItemEntry"},
-      "max":10000,
-      "min":0
-    },
-    "ComplianceItemId":{
-      "type":"string",
-      "max":100,
-      "min":1
-    },
-    "ComplianceItemList":{
-      "type":"list",
-      "member":{"shape":"ComplianceItem"}
-=======
-      "member":{"shape":"CreateAssociationBatchRequestEntry"},
-      "min":1
-    },
-    "CreateAssociationBatchRequestEntry":{
-      "type":"structure",
-      "required":["Name"],
-      "members":{
-        "Name":{"shape":"DocumentName"},
-        "InstanceId":{"shape":"InstanceId"},
-        "Parameters":{"shape":"Parameters"},
-        "DocumentVersion":{"shape":"DocumentVersion"},
-        "Targets":{"shape":"Targets"},
-        "ScheduleExpression":{"shape":"ScheduleExpression"},
-        "OutputLocation":{"shape":"InstanceAssociationOutputLocation"},
-        "AssociationName":{"shape":"AssociationName"}
-      }
->>>>>>> Initial dep workover
     },
     "ComplianceItemTitle":{
       "type":"string",
@@ -3331,16 +3124,8 @@
         "SchemaVersion":{"shape":"DocumentSchemaVersion"},
         "LatestVersion":{"shape":"DocumentVersion"},
         "DefaultVersion":{"shape":"DocumentVersion"},
-<<<<<<< HEAD
-<<<<<<< HEAD
         "DocumentFormat":{"shape":"DocumentFormat"},
         "TargetType":{"shape":"TargetType"},
-=======
->>>>>>> Initial dep workover
-=======
-        "DocumentFormat":{"shape":"DocumentFormat"},
-        "TargetType":{"shape":"TargetType"},
->>>>>>> Working on getting compiling
         "Tags":{"shape":"TagList"}
       }
     },
@@ -3400,23 +3185,14 @@
         "DocumentVersion":{"shape":"DocumentVersion"},
         "DocumentType":{"shape":"DocumentType"},
         "SchemaVersion":{"shape":"DocumentSchemaVersion"},
-<<<<<<< HEAD
-<<<<<<< HEAD
         "DocumentFormat":{"shape":"DocumentFormat"},
         "TargetType":{"shape":"TargetType"},
-=======
->>>>>>> Initial dep workover
-=======
-        "DocumentFormat":{"shape":"DocumentFormat"},
-        "TargetType":{"shape":"TargetType"},
->>>>>>> Working on getting compiling
         "Tags":{"shape":"TagList"}
       }
     },
     "DocumentIdentifierList":{
       "type":"list",
       "member":{"shape":"DocumentIdentifier"}
-<<<<<<< HEAD
     },
     "DocumentKeyValuesFilter":{
       "type":"structure",
@@ -3434,40 +3210,6 @@
       "type":"list",
       "member":{"shape":"DocumentKeyValuesFilter"},
       "max":6,
-<<<<<<< HEAD
-      "min":0
-    },
-    "DocumentKeyValuesFilterValue":{
-      "type":"string",
-      "max":256,
-      "min":1
-    },
-    "DocumentKeyValuesFilterValues":{
-      "type":"list",
-      "member":{"shape":"DocumentKeyValuesFilterValue"}
-    },
-    "DocumentLimitExceeded":{
-=======
-    },
-    "DocumentKeyValuesFilter":{
->>>>>>> Initial dep workover
-      "type":"structure",
-      "members":{
-        "Key":{"shape":"DocumentKeyValuesFilterKey"},
-        "Values":{"shape":"DocumentKeyValuesFilterValues"}
-      }
-    },
-    "DocumentKeyValuesFilterKey":{
-      "type":"string",
-      "max":128,
-      "min":1
-    },
-    "DocumentKeyValuesFilterList":{
-      "type":"list",
-      "member":{"shape":"DocumentKeyValuesFilter"},
-      "max":5,
-=======
->>>>>>> Working on getting compiling
       "min":0
     },
     "DocumentKeyValuesFilterValue":{
@@ -6250,10 +5992,6 @@
       "members":{
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "ResolvedTargets":{
       "type":"structure",
       "members":{
@@ -6261,11 +5999,6 @@
         "Truncated":{"shape":"Boolean"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "ResourceComplianceSummaryItem":{
       "type":"structure",
       "members":{
@@ -6546,22 +6279,12 @@
           "box":true
         },
         "Parameters":{"shape":"AutomationParameterMap"},
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
         "ClientToken":{"shape":"IdempotencyToken"},
         "Mode":{"shape":"ExecutionMode"},
         "TargetParameterName":{"shape":"AutomationParameterKey"},
         "Targets":{"shape":"Targets"},
         "MaxConcurrency":{"shape":"MaxConcurrency"},
         "MaxErrors":{"shape":"MaxErrors"}
-<<<<<<< HEAD
-=======
-        "ClientToken":{"shape":"IdempotencyToken"}
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
       }
     },
     "StartAutomationExecutionResult":{
@@ -6616,7 +6339,6 @@
         "FailureDetails":{"shape":"FailureDetails"},
         "StepExecutionId":{"shape":"String"},
         "OverriddenParameters":{"shape":"AutomationParameterMap"}
-<<<<<<< HEAD
       }
     },
     "StepExecutionFilter":{
@@ -6630,21 +6352,6 @@
         "Values":{"shape":"StepExecutionFilterValueList"}
       }
     },
-=======
-      }
-    },
-    "StepExecutionFilter":{
-      "type":"structure",
-      "required":[
-        "Key",
-        "Values"
-      ],
-      "members":{
-        "Key":{"shape":"StepExecutionFilterKey"},
-        "Values":{"shape":"StepExecutionFilterValueList"}
-      }
-    },
->>>>>>> Working on getting compiling
     "StepExecutionFilterKey":{
       "type":"string",
       "enum":[

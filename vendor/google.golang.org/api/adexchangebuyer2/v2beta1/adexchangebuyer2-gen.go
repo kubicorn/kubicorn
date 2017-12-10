@@ -1647,43 +1647,19 @@ type FilterSet struct {
 
 	// CreativeId: The ID of the creative on which to filter; optional. This
 	// field may be set
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// only for a filter set that accesses account-level troubleshooting
 	// data,
 	// i.e. one whose name matches the
 	// `bidders/*/accounts/*/filterSets/*`
-<<<<<<< HEAD
-=======
-	// only for a filter set that accesses buyer-level troubleshooting data,
-	// i.e.
-	// one whose name matches the `bidders/*/accounts/*/filterSets/*`
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// pattern.
 	CreativeId string `json:"creativeId,omitempty"`
 
 	// DealId: The ID of the deal on which to filter; optional. This field
 	// may be set
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// only for a filter set that accesses account-level troubleshooting
 	// data,
 	// i.e. one whose name matches the
 	// `bidders/*/accounts/*/filterSets/*`
-<<<<<<< HEAD
-=======
-	// only for a filter set that accesses buyer-level troubleshooting data,
-	// i.e.
-	// one whose name matches the `bidders/*/accounts/*/filterSets/*`
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// pattern.
 	DealId int64 `json:"dealId,omitempty,string"`
 
@@ -1715,15 +1691,7 @@ type FilterSet struct {
 	// troubleshooting
 	// data)
 	// - `bidders/*/accounts/*/filterSets/*` (for accessing
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// account-level
-=======
-	// buyer-level
->>>>>>> Initial dep workover
-=======
-	// account-level
->>>>>>> Working on getting compiling
 	// troubleshooting data)
 	//
 	// This field is required in create operations.

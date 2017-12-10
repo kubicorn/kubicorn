@@ -80,7 +80,6 @@ func (d DefaultRetryer) shouldThrottle(r *request.Request) bool {
 	case 504:
 	default:
 		return r.IsErrorThrottle()
-<<<<<<< HEAD
 	}
 
 	return true
@@ -98,25 +97,6 @@ func getRetryDelay(r *request.Request) (time.Duration, bool) {
 		return 0, false
 	}
 
-=======
-	}
-
-	return true
-}
-
-// This will look in the Retry-After header, RFC 7231, for how long
-// it will wait before attempting another request
-func getRetryDelay(r *request.Request) (time.Duration, bool) {
-	if !canUseRetryAfterHeader(r) {
-		return 0, false
-	}
-
-	delayStr := r.HTTPResponse.Header.Get("Retry-After")
-	if len(delayStr) == 0 {
-		return 0, false
-	}
-
->>>>>>> Initial dep workover
 	delay, err := strconv.Atoi(delayStr)
 	if err != nil {
 		return 0, false

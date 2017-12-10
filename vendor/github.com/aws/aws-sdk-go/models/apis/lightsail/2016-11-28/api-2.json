@@ -48,10 +48,6 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "AttachInstancesToLoadBalancer":{
       "name":"AttachInstancesToLoadBalancer",
       "http":{
@@ -88,11 +84,6 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "AttachStaticIp":{
       "name":"AttachStaticIp",
       "http":{
@@ -291,10 +282,6 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "CreateLoadBalancer":{
       "name":"CreateLoadBalancer",
       "http":{
@@ -331,11 +318,6 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DeleteDisk":{
       "name":"DeleteDisk",
       "http":{
@@ -462,10 +444,6 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DeleteLoadBalancer":{
       "name":"DeleteLoadBalancer",
       "http":{
@@ -502,11 +480,6 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DetachDisk":{
       "name":"DetachDisk",
       "http":{
@@ -525,10 +498,6 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DetachInstancesFromLoadBalancer":{
       "name":"DetachInstancesFromLoadBalancer",
       "http":{
@@ -547,11 +516,6 @@
         {"shape":"UnauthenticatedException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DetachStaticIp":{
       "name":"DetachStaticIp",
       "http":{
@@ -1387,10 +1351,6 @@
         "operations":{"shape":"OperationList"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "AttachInstancesToLoadBalancerRequest":{
       "type":"structure",
       "required":[
@@ -1425,11 +1385,6 @@
         "operations":{"shape":"OperationList"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "AttachStaticIpRequest":{
       "type":"structure",
       "required":[
@@ -1700,10 +1655,6 @@
         "operation":{"shape":"Operation"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "CreateLoadBalancerRequest":{
       "type":"structure",
       "required":[
@@ -1745,11 +1696,6 @@
         "operations":{"shape":"OperationList"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DeleteDiskRequest":{
       "type":"structure",
       "required":["diskName"],
@@ -1845,10 +1791,6 @@
         "operation":{"shape":"Operation"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DeleteLoadBalancerRequest":{
       "type":"structure",
       "required":["loadBalancerName"],
@@ -1880,11 +1822,6 @@
         "operations":{"shape":"OperationList"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DetachDiskRequest":{
       "type":"structure",
       "required":["diskName"],
@@ -1898,10 +1835,6 @@
         "operations":{"shape":"OperationList"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DetachInstancesFromLoadBalancerRequest":{
       "type":"structure",
       "required":[
@@ -1919,18 +1852,12 @@
         "operations":{"shape":"OperationList"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DetachStaticIpRequest":{
       "type":"structure",
       "required":["staticIpName"],
       "members":{
         "staticIpName":{"shape":"ResourceName"}
       }
-<<<<<<< HEAD
     },
     "DetachStaticIpResult":{
       "type":"structure",
@@ -1967,75 +1894,6 @@
     "DiskList":{
       "type":"list",
       "member":{"shape":"Disk"}
-=======
->>>>>>> Initial dep workover
-    },
-    "DiskMap":{
-      "type":"structure",
-      "members":{
-        "originalDiskPath":{"shape":"NonEmptyString"},
-        "newDiskName":{"shape":"ResourceName"}
-      }
-    },
-    "DiskMapList":{
-      "type":"list",
-      "member":{"shape":"DiskMap"}
-    },
-    "DiskSnapshot":{
-      "type":"structure",
-      "members":{
-        "name":{"shape":"ResourceName"},
-        "arn":{"shape":"NonEmptyString"},
-        "supportCode":{"shape":"string"},
-        "createdAt":{"shape":"IsoDate"},
-        "location":{"shape":"ResourceLocation"},
-        "resourceType":{"shape":"ResourceType"},
-        "sizeInGb":{"shape":"integer"},
-<<<<<<< HEAD
-        "state":{"shape":"DiskSnapshotState"},
-        "progress":{"shape":"string"},
-        "fromDiskName":{"shape":"ResourceName"},
-        "fromDiskArn":{"shape":"NonEmptyString"}
-=======
-        "isSystemDisk":{"shape":"boolean"},
-        "iops":{"shape":"integer"},
-        "path":{"shape":"string"},
-        "state":{"shape":"DiskState"},
-        "attachedTo":{"shape":"ResourceName"},
-        "isAttached":{"shape":"boolean"},
-        "attachmentState":{
-          "shape":"string",
-          "deprecated":true
-        },
-        "gbInUse":{
-          "shape":"integer",
-          "deprecated":true
-        }
->>>>>>> Initial dep workover
-      }
-    },
-    "DiskSnapshotList":{
-      "type":"list",
-      "member":{"shape":"DiskSnapshot"}
-    },
-    "DiskSnapshotState":{
-      "type":"string",
-      "enum":[
-        "pending",
-        "completed",
-        "error",
-        "unknown"
-      ]
-    },
-    "DiskState":{
-      "type":"string",
-      "enum":[
-        "pending",
-        "error",
-        "available",
-        "in-use",
-        "unknown"
-      ]
     },
     "DiskMap":{
       "type":"structure",
@@ -3190,10 +3048,6 @@
         "CreateInstanceSnapshot",
         "DeleteInstanceSnapshot",
         "CreateInstancesFromSnapshot",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
         "CreateLoadBalancer",
         "DeleteLoadBalancer",
         "AttachInstancesToLoadBalancer",
@@ -3202,11 +3056,6 @@
         "CreateLoadBalancerTlsCertificate",
         "DeleteLoadBalancerTlsCertificate",
         "AttachLoadBalancerTlsCertificate",
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
         "CreateDisk",
         "DeleteDisk",
         "AttachDisk",
@@ -3366,16 +3215,8 @@
         "InstanceSnapshot",
         "Domain",
         "PeeredVpc",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "LoadBalancer",
         "LoadBalancerTlsCertificate",
-=======
->>>>>>> Initial dep workover
-=======
-        "LoadBalancer",
-        "LoadBalancerTlsCertificate",
->>>>>>> Working on getting compiling
         "Disk",
         "DiskSnapshot"
       ]

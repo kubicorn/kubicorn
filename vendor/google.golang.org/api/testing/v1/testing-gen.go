@@ -1204,15 +1204,7 @@ type Locale struct {
 	// @OutputOnly
 	Name string `json:"name,omitempty"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// Region: A human-friendly string representing the region for this
-=======
-	// Region: A human-friendy string representing the region for this
->>>>>>> Initial dep workover
-=======
-	// Region: A human-friendly string representing the region for this
->>>>>>> Working on getting compiling
 	// locale.
 	// Example: "United States"
 	// Not present for every locale.

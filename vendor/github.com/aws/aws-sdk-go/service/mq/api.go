@@ -33,11 +33,7 @@ const opCreateBroker = "CreateBroker"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBroker
->>>>>>> Working on getting compiling
 func (c *MQ) CreateBrokerRequest(input *CreateBrokerRequest) (req *request.Request, output *CreateBrokerResponse) {
 	op := &request.Operation{
 		Name:       opCreateBroker,
@@ -81,11 +77,7 @@ func (c *MQ) CreateBrokerRequest(input *CreateBrokerRequest) (req *request.Reque
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBroker
->>>>>>> Working on getting compiling
 func (c *MQ) CreateBroker(input *CreateBrokerRequest) (*CreateBrokerResponse, error) {
 	req, out := c.CreateBrokerRequest(input)
 	return out, req.Send()
@@ -132,11 +124,7 @@ const opCreateConfiguration = "CreateConfiguration"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration
->>>>>>> Working on getting compiling
 func (c *MQ) CreateConfigurationRequest(input *CreateConfigurationRequest) (req *request.Request, output *CreateConfigurationResponse) {
 	op := &request.Operation{
 		Name:       opCreateConfiguration,
@@ -179,11 +167,7 @@ func (c *MQ) CreateConfigurationRequest(input *CreateConfigurationRequest) (req 
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfiguration
->>>>>>> Working on getting compiling
 func (c *MQ) CreateConfiguration(input *CreateConfigurationRequest) (*CreateConfigurationResponse, error) {
 	req, out := c.CreateConfigurationRequest(input)
 	return out, req.Send()
@@ -230,11 +214,7 @@ const opCreateUser = "CreateUser"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateUser
->>>>>>> Working on getting compiling
 func (c *MQ) CreateUserRequest(input *CreateUserRequest) (req *request.Request, output *CreateUserOutput) {
 	op := &request.Operation{
 		Name:       opCreateUser,
@@ -278,11 +258,7 @@ func (c *MQ) CreateUserRequest(input *CreateUserRequest) (req *request.Request, 
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateUser
->>>>>>> Working on getting compiling
 func (c *MQ) CreateUser(input *CreateUserRequest) (*CreateUserOutput, error) {
 	req, out := c.CreateUserRequest(input)
 	return out, req.Send()
@@ -329,11 +305,7 @@ const opDeleteBroker = "DeleteBroker"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteBroker
->>>>>>> Working on getting compiling
 func (c *MQ) DeleteBrokerRequest(input *DeleteBrokerInput) (req *request.Request, output *DeleteBrokerResponse) {
 	op := &request.Operation{
 		Name:       opDeleteBroker,
@@ -374,11 +346,7 @@ func (c *MQ) DeleteBrokerRequest(input *DeleteBrokerInput) (req *request.Request
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteBroker
->>>>>>> Working on getting compiling
 func (c *MQ) DeleteBroker(input *DeleteBrokerInput) (*DeleteBrokerResponse, error) {
 	req, out := c.DeleteBrokerRequest(input)
 	return out, req.Send()
@@ -425,11 +393,7 @@ const opDeleteUser = "DeleteUser"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUser
->>>>>>> Working on getting compiling
 func (c *MQ) DeleteUserRequest(input *DeleteUserInput) (req *request.Request, output *DeleteUserOutput) {
 	op := &request.Operation{
 		Name:       opDeleteUser,
@@ -470,11 +434,7 @@ func (c *MQ) DeleteUserRequest(input *DeleteUserInput) (req *request.Request, ou
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUser
->>>>>>> Working on getting compiling
 func (c *MQ) DeleteUser(input *DeleteUserInput) (*DeleteUserOutput, error) {
 	req, out := c.DeleteUserRequest(input)
 	return out, req.Send()
@@ -521,11 +481,7 @@ const opDescribeBroker = "DescribeBroker"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBroker
->>>>>>> Working on getting compiling
 func (c *MQ) DescribeBrokerRequest(input *DescribeBrokerInput) (req *request.Request, output *DescribeBrokerResponse) {
 	op := &request.Operation{
 		Name:       opDescribeBroker,
@@ -566,11 +522,7 @@ func (c *MQ) DescribeBrokerRequest(input *DescribeBrokerInput) (req *request.Req
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBroker
->>>>>>> Working on getting compiling
 func (c *MQ) DescribeBroker(input *DescribeBrokerInput) (*DescribeBrokerResponse, error) {
 	req, out := c.DescribeBrokerRequest(input)
 	return out, req.Send()
@@ -617,11 +569,7 @@ const opDescribeConfiguration = "DescribeConfiguration"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfiguration
->>>>>>> Working on getting compiling
 func (c *MQ) DescribeConfigurationRequest(input *DescribeConfigurationInput) (req *request.Request, output *DescribeConfigurationOutput) {
 	op := &request.Operation{
 		Name:       opDescribeConfiguration,
@@ -662,11 +610,7 @@ func (c *MQ) DescribeConfigurationRequest(input *DescribeConfigurationInput) (re
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfiguration
->>>>>>> Working on getting compiling
 func (c *MQ) DescribeConfiguration(input *DescribeConfigurationInput) (*DescribeConfigurationOutput, error) {
 	req, out := c.DescribeConfigurationRequest(input)
 	return out, req.Send()
@@ -713,11 +657,7 @@ const opDescribeConfigurationRevision = "DescribeConfigurationRevision"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRevision
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRevision
->>>>>>> Working on getting compiling
 func (c *MQ) DescribeConfigurationRevisionRequest(input *DescribeConfigurationRevisionInput) (req *request.Request, output *DescribeConfigurationRevisionResponse) {
 	op := &request.Operation{
 		Name:       opDescribeConfigurationRevision,
@@ -758,11 +698,7 @@ func (c *MQ) DescribeConfigurationRevisionRequest(input *DescribeConfigurationRe
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRevision
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRevision
->>>>>>> Working on getting compiling
 func (c *MQ) DescribeConfigurationRevision(input *DescribeConfigurationRevisionInput) (*DescribeConfigurationRevisionResponse, error) {
 	req, out := c.DescribeConfigurationRevisionRequest(input)
 	return out, req.Send()
@@ -809,11 +745,7 @@ const opDescribeUser = "DescribeUser"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeUser
->>>>>>> Working on getting compiling
 func (c *MQ) DescribeUserRequest(input *DescribeUserInput) (req *request.Request, output *DescribeUserResponse) {
 	op := &request.Operation{
 		Name:       opDescribeUser,
@@ -854,11 +786,7 @@ func (c *MQ) DescribeUserRequest(input *DescribeUserInput) (req *request.Request
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeUser
->>>>>>> Working on getting compiling
 func (c *MQ) DescribeUser(input *DescribeUserInput) (*DescribeUserResponse, error) {
 	req, out := c.DescribeUserRequest(input)
 	return out, req.Send()
@@ -905,11 +833,7 @@ const opListBrokers = "ListBrokers"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListBrokers
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListBrokers
->>>>>>> Working on getting compiling
 func (c *MQ) ListBrokersRequest(input *ListBrokersInput) (req *request.Request, output *ListBrokersResponse) {
 	op := &request.Operation{
 		Name:       opListBrokers,
@@ -947,11 +871,7 @@ func (c *MQ) ListBrokersRequest(input *ListBrokersInput) (req *request.Request, 
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListBrokers
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListBrokers
->>>>>>> Working on getting compiling
 func (c *MQ) ListBrokers(input *ListBrokersInput) (*ListBrokersResponse, error) {
 	req, out := c.ListBrokersRequest(input)
 	return out, req.Send()
@@ -998,11 +918,7 @@ const opListConfigurationRevisions = "ListConfigurationRevisions"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationRevisions
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationRevisions
->>>>>>> Working on getting compiling
 func (c *MQ) ListConfigurationRevisionsRequest(input *ListConfigurationRevisionsInput) (req *request.Request, output *ListConfigurationRevisionsResponse) {
 	op := &request.Operation{
 		Name:       opListConfigurationRevisions,
@@ -1043,11 +959,7 @@ func (c *MQ) ListConfigurationRevisionsRequest(input *ListConfigurationRevisions
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationRevisions
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationRevisions
->>>>>>> Working on getting compiling
 func (c *MQ) ListConfigurationRevisions(input *ListConfigurationRevisionsInput) (*ListConfigurationRevisionsResponse, error) {
 	req, out := c.ListConfigurationRevisionsRequest(input)
 	return out, req.Send()
@@ -1094,11 +1006,7 @@ const opListConfigurations = "ListConfigurations"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurations
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurations
->>>>>>> Working on getting compiling
 func (c *MQ) ListConfigurationsRequest(input *ListConfigurationsInput) (req *request.Request, output *ListConfigurationsResponse) {
 	op := &request.Operation{
 		Name:       opListConfigurations,
@@ -1136,11 +1044,7 @@ func (c *MQ) ListConfigurationsRequest(input *ListConfigurationsInput) (req *req
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurations
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurations
->>>>>>> Working on getting compiling
 func (c *MQ) ListConfigurations(input *ListConfigurationsInput) (*ListConfigurationsResponse, error) {
 	req, out := c.ListConfigurationsRequest(input)
 	return out, req.Send()
@@ -1187,11 +1091,7 @@ const opListUsers = "ListUsers"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsers
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsers
->>>>>>> Working on getting compiling
 func (c *MQ) ListUsersRequest(input *ListUsersInput) (req *request.Request, output *ListUsersResponse) {
 	op := &request.Operation{
 		Name:       opListUsers,
@@ -1232,11 +1132,7 @@ func (c *MQ) ListUsersRequest(input *ListUsersInput) (req *request.Request, outp
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsers
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsers
->>>>>>> Working on getting compiling
 func (c *MQ) ListUsers(input *ListUsersInput) (*ListUsersResponse, error) {
 	req, out := c.ListUsersRequest(input)
 	return out, req.Send()
@@ -1283,11 +1179,7 @@ const opRebootBroker = "RebootBroker"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/RebootBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/RebootBroker
->>>>>>> Working on getting compiling
 func (c *MQ) RebootBrokerRequest(input *RebootBrokerInput) (req *request.Request, output *RebootBrokerOutput) {
 	op := &request.Operation{
 		Name:       opRebootBroker,
@@ -1328,11 +1220,7 @@ func (c *MQ) RebootBrokerRequest(input *RebootBrokerInput) (req *request.Request
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/RebootBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/RebootBroker
->>>>>>> Working on getting compiling
 func (c *MQ) RebootBroker(input *RebootBrokerInput) (*RebootBrokerOutput, error) {
 	req, out := c.RebootBrokerRequest(input)
 	return out, req.Send()
@@ -1379,11 +1267,7 @@ const opUpdateBroker = "UpdateBroker"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBroker
->>>>>>> Working on getting compiling
 func (c *MQ) UpdateBrokerRequest(input *UpdateBrokerRequest) (req *request.Request, output *UpdateBrokerResponse) {
 	op := &request.Operation{
 		Name:       opUpdateBroker,
@@ -1424,11 +1308,7 @@ func (c *MQ) UpdateBrokerRequest(input *UpdateBrokerRequest) (req *request.Reque
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBroker
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBroker
->>>>>>> Working on getting compiling
 func (c *MQ) UpdateBroker(input *UpdateBrokerRequest) (*UpdateBrokerResponse, error) {
 	req, out := c.UpdateBrokerRequest(input)
 	return out, req.Send()
@@ -1475,11 +1355,7 @@ const opUpdateConfiguration = "UpdateConfiguration"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfiguration
->>>>>>> Working on getting compiling
 func (c *MQ) UpdateConfigurationRequest(input *UpdateConfigurationRequest) (req *request.Request, output *UpdateConfigurationResponse) {
 	op := &request.Operation{
 		Name:       opUpdateConfiguration,
@@ -1523,11 +1399,7 @@ func (c *MQ) UpdateConfigurationRequest(input *UpdateConfigurationRequest) (req 
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfiguration
->>>>>>> Working on getting compiling
 func (c *MQ) UpdateConfiguration(input *UpdateConfigurationRequest) (*UpdateConfigurationResponse, error) {
 	req, out := c.UpdateConfigurationRequest(input)
 	return out, req.Send()
@@ -1574,11 +1446,7 @@ const opUpdateUser = "UpdateUser"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUser
->>>>>>> Working on getting compiling
 func (c *MQ) UpdateUserRequest(input *UpdateUserRequest) (req *request.Request, output *UpdateUserOutput) {
 	op := &request.Operation{
 		Name:       opUpdateUser,
@@ -1622,11 +1490,7 @@ func (c *MQ) UpdateUserRequest(input *UpdateUserRequest) (req *request.Request, 
 //   * ErrCodeForbiddenException "ForbiddenException"
 //   Returns information about an error.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUser
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUser
->>>>>>> Working on getting compiling
 func (c *MQ) UpdateUser(input *UpdateUserRequest) (*UpdateUserOutput, error) {
 	req, out := c.UpdateUserRequest(input)
 	return out, req.Send()
@@ -1649,11 +1513,7 @@ func (c *MQ) UpdateUserWithContext(ctx aws.Context, input *UpdateUserRequest, op
 }
 
 // Returns information about all brokers.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/BrokerInstance
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/BrokerInstance
->>>>>>> Working on getting compiling
 type BrokerInstance struct {
 	_ struct{} `type:"structure"`
 
@@ -1687,11 +1547,7 @@ func (s *BrokerInstance) SetEndpoints(v []*string) *BrokerInstance {
 }
 
 // The Amazon Resource Name (ARN) of the broker.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/BrokerSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/BrokerSummary
->>>>>>> Working on getting compiling
 type BrokerSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -1768,11 +1624,7 @@ func (s *BrokerSummary) SetHostInstanceType(v string) *BrokerSummary {
 }
 
 // Returns information about all configurations.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/Configuration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/Configuration
->>>>>>> Working on getting compiling
 type Configuration struct {
 	_ struct{} `type:"structure"`
 
@@ -1854,11 +1706,7 @@ func (s *Configuration) SetName(v string) *Configuration {
 }
 
 // A list of information about the configuration.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ConfigurationId
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ConfigurationId
->>>>>>> Working on getting compiling
 type ConfigurationId struct {
 	_ struct{} `type:"structure"`
 
@@ -1892,11 +1740,7 @@ func (s *ConfigurationId) SetRevision(v int64) *ConfigurationId {
 }
 
 // Returns information about the specified configuration revision.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ConfigurationRevision
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ConfigurationRevision
->>>>>>> Working on getting compiling
 type ConfigurationRevision struct {
 	_ struct{} `type:"structure"`
 
@@ -1930,11 +1774,7 @@ func (s *ConfigurationRevision) SetRevision(v int64) *ConfigurationRevision {
 }
 
 // Broker configuration information
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/Configurations
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/Configurations
->>>>>>> Working on getting compiling
 type Configurations struct {
 	_ struct{} `type:"structure"`
 
@@ -1976,11 +1816,7 @@ func (s *Configurations) SetPending(v *ConfigurationId) *Configurations {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBrokerRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBrokerRequest
->>>>>>> Working on getting compiling
 type CreateBrokerRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -2106,11 +1942,7 @@ func (s *CreateBrokerRequest) SetUsers(v []*User) *CreateBrokerRequest {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBrokerResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBrokerResponse
->>>>>>> Working on getting compiling
 type CreateBrokerResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -2141,11 +1973,7 @@ func (s *CreateBrokerResponse) SetBrokerId(v string) *CreateBrokerResponse {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfigurationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfigurationRequest
->>>>>>> Working on getting compiling
 type CreateConfigurationRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -2185,11 +2013,7 @@ func (s *CreateConfigurationRequest) SetName(v string) *CreateConfigurationReque
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfigurationResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateConfigurationResponse
->>>>>>> Working on getting compiling
 type CreateConfigurationResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -2237,11 +2061,7 @@ func (s *CreateConfigurationResponse) SetName(v string) *CreateConfigurationResp
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateUserResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateUserResponse
->>>>>>> Working on getting compiling
 type CreateUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2256,11 +2076,7 @@ func (s CreateUserOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateUserRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateUserRequest
->>>>>>> Working on getting compiling
 type CreateUserRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -2333,11 +2149,7 @@ func (s *CreateUserRequest) SetUsername(v string) *CreateUserRequest {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteBrokerRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteBrokerRequest
->>>>>>> Working on getting compiling
 type DeleteBrokerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2374,11 +2186,7 @@ func (s *DeleteBrokerInput) SetBrokerId(v string) *DeleteBrokerInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteBrokerResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteBrokerResponse
->>>>>>> Working on getting compiling
 type DeleteBrokerResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -2401,11 +2209,7 @@ func (s *DeleteBrokerResponse) SetBrokerId(v string) *DeleteBrokerResponse {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUserRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUserRequest
->>>>>>> Working on getting compiling
 type DeleteUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2454,11 +2258,7 @@ func (s *DeleteUserInput) SetUsername(v string) *DeleteUserInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUserResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DeleteUserResponse
->>>>>>> Working on getting compiling
 type DeleteUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -2473,11 +2273,7 @@ func (s DeleteUserOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerRequest
->>>>>>> Working on getting compiling
 type DescribeBrokerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2514,11 +2310,7 @@ func (s *DescribeBrokerInput) SetBrokerId(v string) *DescribeBrokerInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeBrokerResponse
->>>>>>> Working on getting compiling
 type DescribeBrokerResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -2670,11 +2462,7 @@ func (s *DescribeBrokerResponse) SetUsers(v []*UserSummary) *DescribeBrokerRespo
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRequest
->>>>>>> Working on getting compiling
 type DescribeConfigurationInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2711,11 +2499,7 @@ func (s *DescribeConfigurationInput) SetConfigurationId(v string) *DescribeConfi
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationResponse
->>>>>>> Working on getting compiling
 type DescribeConfigurationOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2788,11 +2572,7 @@ func (s *DescribeConfigurationOutput) SetName(v string) *DescribeConfigurationOu
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRevisionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRevisionRequest
->>>>>>> Working on getting compiling
 type DescribeConfigurationRevisionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2841,11 +2621,7 @@ func (s *DescribeConfigurationRevisionInput) SetConfigurationRevision(v string) 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRevisionResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeConfigurationRevisionResponse
->>>>>>> Working on getting compiling
 type DescribeConfigurationRevisionResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -2884,11 +2660,7 @@ func (s *DescribeConfigurationRevisionResponse) SetDescription(v string) *Descri
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeUserRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeUserRequest
->>>>>>> Working on getting compiling
 type DescribeUserInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2937,11 +2709,7 @@ func (s *DescribeUserInput) SetUsername(v string) *DescribeUserInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeUserResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/DescribeUserResponse
->>>>>>> Working on getting compiling
 type DescribeUserResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -2998,11 +2766,7 @@ func (s *DescribeUserResponse) SetUsername(v string) *DescribeUserResponse {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListBrokersRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListBrokersRequest
->>>>>>> Working on getting compiling
 type ListBrokersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3046,11 +2810,7 @@ func (s *ListBrokersInput) SetNextToken(v string) *ListBrokersInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListBrokersResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListBrokersResponse
->>>>>>> Working on getting compiling
 type ListBrokersResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -3081,11 +2841,7 @@ func (s *ListBrokersResponse) SetNextToken(v string) *ListBrokersResponse {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationRevisionsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationRevisionsRequest
->>>>>>> Working on getting compiling
 type ListConfigurationRevisionsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3141,11 +2897,7 @@ func (s *ListConfigurationRevisionsInput) SetNextToken(v string) *ListConfigurat
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationRevisionsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationRevisionsResponse
->>>>>>> Working on getting compiling
 type ListConfigurationRevisionsResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -3192,11 +2944,7 @@ func (s *ListConfigurationRevisionsResponse) SetRevisions(v []*ConfigurationRevi
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationsRequest
->>>>>>> Working on getting compiling
 type ListConfigurationsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3240,11 +2988,7 @@ func (s *ListConfigurationsInput) SetNextToken(v string) *ListConfigurationsInpu
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListConfigurationsResponse
->>>>>>> Working on getting compiling
 type ListConfigurationsResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -3283,11 +3027,7 @@ func (s *ListConfigurationsResponse) SetNextToken(v string) *ListConfigurationsR
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsersRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsersRequest
->>>>>>> Working on getting compiling
 type ListUsersInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3343,11 +3083,7 @@ func (s *ListUsersInput) SetNextToken(v string) *ListUsersInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsersResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/ListUsersResponse
->>>>>>> Working on getting compiling
 type ListUsersResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -3394,11 +3130,7 @@ func (s *ListUsersResponse) SetUsers(v []*UserSummary) *ListUsersResponse {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/RebootBrokerRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/RebootBrokerRequest
->>>>>>> Working on getting compiling
 type RebootBrokerInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3435,11 +3167,7 @@ func (s *RebootBrokerInput) SetBrokerId(v string) *RebootBrokerInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/RebootBrokerResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/RebootBrokerResponse
->>>>>>> Working on getting compiling
 type RebootBrokerOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3456,11 +3184,7 @@ func (s RebootBrokerOutput) GoString() string {
 
 // Returns information about the XML element or attribute that was sanitized
 // in the configuration.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/SanitizationWarning
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/SanitizationWarning
->>>>>>> Working on getting compiling
 type SanitizationWarning struct {
 	_ struct{} `type:"structure"`
 
@@ -3508,11 +3232,7 @@ func (s *SanitizationWarning) SetReason(v string) *SanitizationWarning {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBrokerRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBrokerRequest
->>>>>>> Working on getting compiling
 type UpdateBrokerRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -3558,11 +3278,7 @@ func (s *UpdateBrokerRequest) SetConfiguration(v *ConfigurationId) *UpdateBroker
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBrokerResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateBrokerResponse
->>>>>>> Working on getting compiling
 type UpdateBrokerResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -3594,11 +3310,7 @@ func (s *UpdateBrokerResponse) SetConfiguration(v *ConfigurationId) *UpdateBroke
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfigurationRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfigurationRequest
->>>>>>> Working on getting compiling
 type UpdateConfigurationRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -3651,11 +3363,7 @@ func (s *UpdateConfigurationRequest) SetDescription(v string) *UpdateConfigurati
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfigurationResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateConfigurationResponse
->>>>>>> Working on getting compiling
 type UpdateConfigurationResponse struct {
 	_ struct{} `type:"structure"`
 
@@ -3711,11 +3419,7 @@ func (s *UpdateConfigurationResponse) SetWarnings(v []*SanitizationWarning) *Upd
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUserResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUserResponse
->>>>>>> Working on getting compiling
 type UpdateUserOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -3730,11 +3434,7 @@ func (s UpdateUserOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUserRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UpdateUserRequest
->>>>>>> Working on getting compiling
 type UpdateUserRequest struct {
 	_ struct{} `type:"structure"`
 
@@ -3808,11 +3508,7 @@ func (s *UpdateUserRequest) SetUsername(v string) *UpdateUserRequest {
 }
 
 // An ActiveMQ user associated with the broker.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/User
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/User
->>>>>>> Working on getting compiling
 type User struct {
 	_ struct{} `type:"structure"`
 
@@ -3871,11 +3567,7 @@ func (s *User) SetUsername(v string) *User {
 
 // Returns information about the status of the changes pending for the ActiveMQ
 // user.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UserPendingChanges
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UserPendingChanges
->>>>>>> Working on getting compiling
 type UserPendingChanges struct {
 	_ struct{} `type:"structure"`
 
@@ -3921,11 +3613,7 @@ func (s *UserPendingChanges) SetPendingChange(v string) *UserPendingChanges {
 }
 
 // Returns a list of all ActiveMQ users.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UserSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/UserSummary
->>>>>>> Working on getting compiling
 type UserSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -3963,11 +3651,7 @@ func (s *UserSummary) SetUsername(v string) *UserSummary {
 
 // The scheduled time period relative to UTC during which Amazon MQ begins to
 // apply pending updates or patches to the broker.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/WeeklyStartTime
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/WeeklyStartTime
->>>>>>> Working on getting compiling
 type WeeklyStartTime struct {
 	_ struct{} `type:"structure"`
 

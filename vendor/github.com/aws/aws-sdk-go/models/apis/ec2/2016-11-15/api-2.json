@@ -4810,35 +4810,6 @@
         "ClientToken":{
           "shape":"String",
           "locationName":"clientToken"
-<<<<<<< HEAD
-        }
-      }
-    },
-    "CreateVpcEndpointServiceConfigurationRequest":{
-      "type":"structure",
-      "required":["NetworkLoadBalancerArns"],
-      "members":{
-        "DryRun":{"shape":"Boolean"},
-        "AcceptanceRequired":{"shape":"Boolean"},
-        "NetworkLoadBalancerArns":{
-          "shape":"ValueStringList",
-          "locationName":"NetworkLoadBalancerArn"
-        },
-        "ClientToken":{"shape":"String"}
-      }
-    },
-    "CreateVpcEndpointServiceConfigurationResult":{
-      "type":"structure",
-      "members":{
-        "ServiceConfiguration":{
-          "shape":"ServiceConfiguration",
-          "locationName":"serviceConfiguration"
-        },
-        "ClientToken":{
-          "shape":"String",
-          "locationName":"clientToken"
-=======
->>>>>>> Initial dep workover
         }
       }
     },
@@ -7632,18 +7603,7 @@
       "type":"structure",
       "members":{
         "DryRun":{"shape":"Boolean"},
-<<<<<<< HEAD
-<<<<<<< HEAD
         "ConnectionNotificationId":{"shape":"String"},
-=======
-        "ServiceNames":{
-          "shape":"ValueStringList",
-          "locationName":"ServiceName"
-        },
->>>>>>> Initial dep workover
-=======
-        "ConnectionNotificationId":{"shape":"String"},
->>>>>>> Working on getting compiling
         "Filters":{
           "shape":"FilterList",
           "locationName":"Filter"
@@ -7655,10 +7615,6 @@
     "DescribeVpcEndpointConnectionNotificationsResult":{
       "type":"structure",
       "members":{
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
         "ConnectionNotificationSet":{
           "shape":"ConnectionNotificationSet",
           "locationName":"connectionNotificationSet"
@@ -7716,18 +7672,6 @@
         "ServiceConfigurations":{
           "shape":"ServiceConfigurationSet",
           "locationName":"serviceConfigurationSet"
-<<<<<<< HEAD
-=======
-        "ServiceNames":{
-          "shape":"ValueStringList",
-          "locationName":"serviceNameSet"
-        },
-        "ServiceDetails":{
-          "shape":"ServiceDetailSet",
-          "locationName":"serviceDetailSet"
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
         },
         "NextToken":{
           "shape":"String",
@@ -7740,28 +7684,13 @@
       "required":["ServiceId"],
       "members":{
         "DryRun":{"shape":"Boolean"},
-<<<<<<< HEAD
-<<<<<<< HEAD
         "ServiceId":{"shape":"String"},
-=======
-        "VpcEndpointIds":{
-          "shape":"ValueStringList",
-          "locationName":"VpcEndpointId"
-        },
->>>>>>> Initial dep workover
-=======
-        "ServiceId":{"shape":"String"},
->>>>>>> Working on getting compiling
         "Filters":{
           "shape":"FilterList",
           "locationName":"Filter"
         },
         "MaxResults":{"shape":"Integer"},
         "NextToken":{"shape":"String"}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
       }
     },
     "DescribeVpcEndpointServicePermissionsResult":{
@@ -7775,11 +7704,6 @@
           "shape":"String",
           "locationName":"nextToken"
         }
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
       }
     },
     "DescribeVpcEndpointServicesRequest":{
@@ -7801,7 +7725,6 @@
     "DescribeVpcEndpointServicesResult":{
       "type":"structure",
       "members":{
-<<<<<<< HEAD
         "ServiceNames":{
           "shape":"ValueStringList",
           "locationName":"serviceNameSet"
@@ -7835,8 +7758,6 @@
     "DescribeVpcEndpointsResult":{
       "type":"structure",
       "members":{
-=======
->>>>>>> Initial dep workover
         "VpcEndpoints":{
           "shape":"VpcEndpointSet",
           "locationName":"vpcEndpointSet"
@@ -8515,32 +8436,6 @@
       }
     },
     "ElasticGpuSpecificationList":{
-<<<<<<< HEAD
-      "type":"list",
-      "member":{
-        "shape":"ElasticGpuSpecification",
-        "locationName":"ElasticGpuSpecification"
-      }
-    },
-    "ElasticGpuSpecificationResponse":{
-      "type":"structure",
-      "members":{
-        "Type":{
-          "shape":"String",
-          "locationName":"type"
-        }
-      }
-    },
-    "ElasticGpuSpecificationResponseList":{
-      "type":"list",
-      "member":{
-        "shape":"ElasticGpuSpecificationResponse",
-        "locationName":"item"
-      }
-    },
-    "ElasticGpuSpecifications":{
-=======
->>>>>>> Working on getting compiling
       "type":"list",
       "member":{
         "shape":"ElasticGpuSpecification",
@@ -8980,7 +8875,6 @@
         "Public":{
           "shape":"Boolean",
           "locationName":"public"
-<<<<<<< HEAD
         }
       }
     },
@@ -9009,36 +8903,6 @@
         }
       }
     },
-=======
-        }
-      }
-    },
-    "FpgaImageAttribute":{
-      "type":"structure",
-      "members":{
-        "FpgaImageId":{
-          "shape":"String",
-          "locationName":"fpgaImageId"
-        },
-        "Name":{
-          "shape":"String",
-          "locationName":"name"
-        },
-        "Description":{
-          "shape":"String",
-          "locationName":"description"
-        },
-        "LoadPermissions":{
-          "shape":"LoadPermissionList",
-          "locationName":"loadPermissions"
-        },
-        "ProductCodes":{
-          "shape":"ProductCodeList",
-          "locationName":"productCodes"
-        }
-      }
-    },
->>>>>>> Initial dep workover
     "FpgaImageAttributeName":{
       "type":"string",
       "enum":[
@@ -9299,16 +9163,6 @@
       }
     },
     "GroupIdentifierSet":{
-<<<<<<< HEAD
-      "type":"list",
-      "member":{
-        "shape":"SecurityGroupIdentifier",
-        "locationName":"item"
-      }
-    },
-    "GroupIds":{
-=======
->>>>>>> Initial dep workover
       "type":"list",
       "member":{
         "shape":"SecurityGroupIdentifier",
@@ -10718,14 +10572,7 @@
     "InstanceInterruptionBehavior":{
       "type":"string",
       "enum":[
-<<<<<<< HEAD
-<<<<<<< HEAD
         "hibernate",
-=======
->>>>>>> Initial dep workover
-=======
-        "hibernate",
->>>>>>> Working on getting compiling
         "stop",
         "terminate"
       ]
@@ -11571,658 +11418,7 @@
       "member":{
         "shape":"SpotFleetLaunchSpecification",
         "locationName":"item"
-<<<<<<< HEAD
       }
-    },
-    "LaunchTemplate":{
-=======
-      },
-      "min":1
-    },
-    "ListingState":{
-      "type":"string",
-      "enum":[
-        "available",
-        "sold",
-        "cancelled",
-        "pending"
-      ]
-    },
-    "ListingStatus":{
-      "type":"string",
-      "enum":[
-        "active",
-        "pending",
-        "cancelled",
-        "closed"
-      ]
-    },
-    "LoadBalancersConfig":{
-      "type":"structure",
-      "members":{
-        "ClassicLoadBalancersConfig":{
-          "shape":"ClassicLoadBalancersConfig",
-          "locationName":"classicLoadBalancersConfig"
-        },
-        "TargetGroupsConfig":{
-          "shape":"TargetGroupsConfig",
-          "locationName":"targetGroupsConfig"
-        }
-      }
-    },
-    "LoadPermission":{
-      "type":"structure",
-      "members":{
-        "UserId":{
-          "shape":"String",
-          "locationName":"userId"
-        },
-        "Group":{
-          "shape":"PermissionGroup",
-          "locationName":"group"
-        }
-      }
-    },
-    "LoadPermissionList":{
-      "type":"list",
-      "member":{
-        "shape":"LoadPermission",
-        "locationName":"item"
-      }
-    },
-    "LoadPermissionListRequest":{
-      "type":"list",
-      "member":{
-        "shape":"LoadPermissionRequest",
-        "locationName":"item"
-      }
-    },
-    "LoadPermissionModifications":{
-      "type":"structure",
-      "members":{
-        "Add":{"shape":"LoadPermissionListRequest"},
-        "Remove":{"shape":"LoadPermissionListRequest"}
-      }
-    },
-    "LoadPermissionRequest":{
-      "type":"structure",
-      "members":{
-        "Group":{"shape":"PermissionGroup"},
-        "UserId":{"shape":"String"}
-      }
-    },
-    "Long":{"type":"long"},
-    "MaxResults":{
-      "type":"integer",
-      "max":255,
-      "min":5
-    },
-    "ModifyFpgaImageAttributeRequest":{
-      "type":"structure",
-      "required":["FpgaImageId"],
-      "members":{
-        "DryRun":{"shape":"Boolean"},
-        "FpgaImageId":{"shape":"String"},
-        "Attribute":{"shape":"FpgaImageAttributeName"},
-        "OperationType":{"shape":"OperationType"},
-        "UserIds":{
-          "shape":"UserIdStringList",
-          "locationName":"UserId"
-        },
-        "UserGroups":{
-          "shape":"UserGroupStringList",
-          "locationName":"UserGroup"
-        },
-        "ProductCodes":{
-          "shape":"ProductCodeStringList",
-          "locationName":"ProductCode"
-        },
-        "LoadPermission":{"shape":"LoadPermissionModifications"},
-        "Description":{"shape":"String"},
-        "Name":{"shape":"String"}
-      }
-    },
-    "ModifyFpgaImageAttributeResult":{
-      "type":"structure",
-      "members":{
-        "FpgaImageAttribute":{
-          "shape":"FpgaImageAttribute",
-          "locationName":"fpgaImageAttribute"
-        }
-      }
-    },
-    "ModifyHostsRequest":{
->>>>>>> Initial dep workover
-      "type":"structure",
-      "members":{
-        "LaunchTemplateId":{
-          "shape":"String",
-          "locationName":"launchTemplateId"
-        },
-        "LaunchTemplateName":{
-          "shape":"LaunchTemplateName",
-          "locationName":"launchTemplateName"
-        },
-        "CreateTime":{
-          "shape":"DateTime",
-          "locationName":"createTime"
-        },
-        "CreatedBy":{
-          "shape":"String",
-          "locationName":"createdBy"
-        },
-        "DefaultVersionNumber":{
-          "shape":"Long",
-          "locationName":"defaultVersionNumber"
-        },
-        "LatestVersionNumber":{
-          "shape":"Long",
-          "locationName":"latestVersionNumber"
-        },
-        "Tags":{
-          "shape":"TagList",
-          "locationName":"tagSet"
-        }
-      }
-    },
-    "LaunchTemplateBlockDeviceMapping":{
-      "type":"structure",
-      "members":{
-        "DeviceName":{
-          "shape":"String",
-          "locationName":"deviceName"
-        },
-        "VirtualName":{
-          "shape":"String",
-          "locationName":"virtualName"
-        },
-        "Ebs":{
-          "shape":"LaunchTemplateEbsBlockDevice",
-          "locationName":"ebs"
-        },
-        "NoDevice":{
-          "shape":"String",
-          "locationName":"noDevice"
-        }
-      }
-    },
-    "LaunchTemplateBlockDeviceMappingList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateBlockDeviceMapping",
-        "locationName":"item"
-      }
-    },
-    "LaunchTemplateBlockDeviceMappingRequest":{
-      "type":"structure",
-      "members":{
-        "DeviceName":{"shape":"String"},
-        "VirtualName":{"shape":"String"},
-        "Ebs":{"shape":"LaunchTemplateEbsBlockDeviceRequest"},
-        "NoDevice":{"shape":"String"}
-      }
-    },
-    "LaunchTemplateBlockDeviceMappingRequestList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateBlockDeviceMappingRequest",
-        "locationName":"BlockDeviceMapping"
-      }
-    },
-    "LaunchTemplateConfig":{
-      "type":"structure",
-      "members":{
-        "LaunchTemplateSpecification":{
-          "shape":"FleetLaunchTemplateSpecification",
-          "locationName":"launchTemplateSpecification"
-        },
-        "Overrides":{
-          "shape":"LaunchTemplateOverridesList",
-          "locationName":"overrides"
-        }
-      }
-    },
-    "LaunchTemplateConfigList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateConfig",
-        "locationName":"item"
-      }
-    },
-    "LaunchTemplateEbsBlockDevice":{
-      "type":"structure",
-      "members":{
-        "Encrypted":{
-          "shape":"Boolean",
-          "locationName":"encrypted"
-        },
-        "DeleteOnTermination":{
-          "shape":"Boolean",
-          "locationName":"deleteOnTermination"
-        },
-        "Iops":{
-          "shape":"Integer",
-          "locationName":"iops"
-        },
-        "KmsKeyId":{
-          "shape":"String",
-          "locationName":"kmsKeyId"
-        },
-        "SnapshotId":{
-          "shape":"String",
-          "locationName":"snapshotId"
-        },
-        "VolumeSize":{
-          "shape":"Integer",
-          "locationName":"volumeSize"
-        },
-        "VolumeType":{
-          "shape":"VolumeType",
-          "locationName":"volumeType"
-        }
-      }
-    },
-    "LaunchTemplateEbsBlockDeviceRequest":{
-      "type":"structure",
-      "members":{
-        "Encrypted":{"shape":"Boolean"},
-        "DeleteOnTermination":{"shape":"Boolean"},
-        "Iops":{"shape":"Integer"},
-        "KmsKeyId":{"shape":"String"},
-        "SnapshotId":{"shape":"String"},
-        "VolumeSize":{"shape":"Integer"},
-        "VolumeType":{"shape":"VolumeType"}
-      }
-    },
-    "LaunchTemplateErrorCode":{
-      "type":"string",
-      "enum":[
-        "launchTemplateIdDoesNotExist",
-        "launchTemplateIdMalformed",
-        "launchTemplateNameDoesNotExist",
-        "launchTemplateNameMalformed",
-        "launchTemplateVersionDoesNotExist",
-        "unexpectedError"
-      ]
-    },
-    "LaunchTemplateIamInstanceProfileSpecification":{
-      "type":"structure",
-      "members":{
-        "Arn":{
-          "shape":"String",
-          "locationName":"arn"
-        },
-        "Name":{
-          "shape":"String",
-          "locationName":"name"
-        }
-      }
-    },
-    "LaunchTemplateIamInstanceProfileSpecificationRequest":{
-      "type":"structure",
-      "members":{
-        "Arn":{"shape":"String"},
-        "Name":{"shape":"String"}
-      }
-    },
-    "LaunchTemplateInstanceMarketOptions":{
-      "type":"structure",
-      "members":{
-        "MarketType":{
-          "shape":"MarketType",
-          "locationName":"marketType"
-        },
-        "SpotOptions":{
-          "shape":"LaunchTemplateSpotMarketOptions",
-          "locationName":"spotOptions"
-        }
-      }
-    },
-    "LaunchTemplateInstanceMarketOptionsRequest":{
-      "type":"structure",
-      "members":{
-        "MarketType":{"shape":"MarketType"},
-        "SpotOptions":{"shape":"LaunchTemplateSpotMarketOptionsRequest"}
-      }
-    },
-    "LaunchTemplateInstanceNetworkInterfaceSpecification":{
-      "type":"structure",
-      "members":{
-        "AssociatePublicIpAddress":{
-          "shape":"Boolean",
-          "locationName":"associatePublicIpAddress"
-        },
-        "DeleteOnTermination":{
-          "shape":"Boolean",
-          "locationName":"deleteOnTermination"
-        },
-        "Description":{
-          "shape":"String",
-          "locationName":"description"
-        },
-        "DeviceIndex":{
-          "shape":"Integer",
-          "locationName":"deviceIndex"
-        },
-        "Groups":{
-          "shape":"GroupIdStringList",
-          "locationName":"groupSet"
-        },
-        "Ipv6AddressCount":{
-          "shape":"Integer",
-          "locationName":"ipv6AddressCount"
-        },
-        "Ipv6Addresses":{
-          "shape":"InstanceIpv6AddressList",
-          "locationName":"ipv6AddressesSet"
-        },
-        "NetworkInterfaceId":{
-          "shape":"String",
-          "locationName":"networkInterfaceId"
-        },
-        "PrivateIpAddress":{
-          "shape":"String",
-          "locationName":"privateIpAddress"
-        },
-        "PrivateIpAddresses":{
-          "shape":"PrivateIpAddressSpecificationList",
-          "locationName":"privateIpAddressesSet"
-        },
-        "SecondaryPrivateIpAddressCount":{
-          "shape":"Integer",
-          "locationName":"secondaryPrivateIpAddressCount"
-        },
-        "SubnetId":{
-          "shape":"String",
-          "locationName":"subnetId"
-        }
-      }
-    },
-    "LaunchTemplateInstanceNetworkInterfaceSpecificationList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateInstanceNetworkInterfaceSpecification",
-        "locationName":"item"
-      }
-    },
-    "LaunchTemplateInstanceNetworkInterfaceSpecificationRequest":{
-      "type":"structure",
-      "members":{
-        "AssociatePublicIpAddress":{"shape":"Boolean"},
-        "DeleteOnTermination":{"shape":"Boolean"},
-        "Description":{"shape":"String"},
-        "DeviceIndex":{"shape":"Integer"},
-        "Groups":{
-          "shape":"SecurityGroupIdStringList",
-          "locationName":"SecurityGroupId"
-        },
-        "Ipv6AddressCount":{"shape":"Integer"},
-        "Ipv6Addresses":{"shape":"InstanceIpv6AddressListRequest"},
-        "NetworkInterfaceId":{"shape":"String"},
-        "PrivateIpAddress":{"shape":"String"},
-        "PrivateIpAddresses":{"shape":"PrivateIpAddressSpecificationList"},
-        "SecondaryPrivateIpAddressCount":{"shape":"Integer"},
-        "SubnetId":{"shape":"String"}
-      }
-    },
-    "LaunchTemplateInstanceNetworkInterfaceSpecificationRequestList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateInstanceNetworkInterfaceSpecificationRequest",
-        "locationName":"InstanceNetworkInterfaceSpecification"
-      }
-    },
-    "LaunchTemplateName":{
-      "type":"string",
-      "max":128,
-      "min":3,
-      "pattern":"[a-zA-Z0-9\\(\\)\\.-/_]+"
-    },
-    "LaunchTemplateNameStringList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateName",
-        "locationName":"item"
-      }
-    },
-    "LaunchTemplateOverrides":{
-      "type":"structure",
-      "members":{
-        "InstanceType":{
-          "shape":"InstanceType",
-          "locationName":"instanceType"
-        },
-        "SpotPrice":{
-          "shape":"String",
-          "locationName":"spotPrice"
-        },
-        "SubnetId":{
-          "shape":"String",
-          "locationName":"subnetId"
-        },
-        "AvailabilityZone":{
-          "shape":"String",
-          "locationName":"availabilityZone"
-        },
-        "WeightedCapacity":{
-          "shape":"Double",
-          "locationName":"weightedCapacity"
-        }
-      }
-    },
-    "LaunchTemplateOverridesList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateOverrides",
-        "locationName":"item"
-      }
-    },
-    "LaunchTemplatePlacement":{
-      "type":"structure",
-      "members":{
-        "AvailabilityZone":{
-          "shape":"String",
-          "locationName":"availabilityZone"
-        },
-        "Affinity":{
-          "shape":"String",
-          "locationName":"affinity"
-        },
-        "GroupName":{
-          "shape":"String",
-          "locationName":"groupName"
-        },
-        "HostId":{
-          "shape":"String",
-          "locationName":"hostId"
-        },
-        "Tenancy":{
-          "shape":"Tenancy",
-          "locationName":"tenancy"
-        },
-        "SpreadDomain":{
-          "shape":"String",
-          "locationName":"spreadDomain"
-        }
-      }
-    },
-    "LaunchTemplatePlacementRequest":{
-      "type":"structure",
-      "members":{
-        "AvailabilityZone":{"shape":"String"},
-        "Affinity":{"shape":"String"},
-        "GroupName":{"shape":"String"},
-        "HostId":{"shape":"String"},
-        "Tenancy":{"shape":"Tenancy"},
-        "SpreadDomain":{"shape":"String"}
-      }
-    },
-    "LaunchTemplateSet":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplate",
-        "locationName":"item"
-      }
-    },
-    "LaunchTemplateSpecification":{
-      "type":"structure",
-      "members":{
-        "LaunchTemplateId":{"shape":"String"},
-        "LaunchTemplateName":{"shape":"String"},
-        "Version":{"shape":"String"}
-      }
-    },
-    "LaunchTemplateSpotMarketOptions":{
-      "type":"structure",
-      "members":{
-        "MaxPrice":{
-          "shape":"String",
-          "locationName":"maxPrice"
-        },
-        "SpotInstanceType":{
-          "shape":"SpotInstanceType",
-          "locationName":"spotInstanceType"
-        },
-        "BlockDurationMinutes":{
-          "shape":"Integer",
-          "locationName":"blockDurationMinutes"
-        },
-        "ValidUntil":{
-          "shape":"DateTime",
-          "locationName":"validUntil"
-        },
-        "InstanceInterruptionBehavior":{
-          "shape":"InstanceInterruptionBehavior",
-          "locationName":"instanceInterruptionBehavior"
-        }
-      }
-    },
-    "LaunchTemplateSpotMarketOptionsRequest":{
-      "type":"structure",
-      "members":{
-        "MaxPrice":{"shape":"String"},
-        "SpotInstanceType":{"shape":"SpotInstanceType"},
-        "BlockDurationMinutes":{"shape":"Integer"},
-        "ValidUntil":{"shape":"DateTime"},
-        "InstanceInterruptionBehavior":{"shape":"InstanceInterruptionBehavior"}
-      }
-    },
-    "LaunchTemplateTagSpecification":{
-      "type":"structure",
-      "members":{
-        "ResourceType":{
-          "shape":"ResourceType",
-          "locationName":"resourceType"
-        },
-        "Tags":{
-          "shape":"TagList",
-          "locationName":"tagSet"
-        }
-      }
-    },
-    "LaunchTemplateTagSpecificationList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateTagSpecification",
-        "locationName":"item"
-      }
-    },
-    "LaunchTemplateTagSpecificationRequest":{
-      "type":"structure",
-      "members":{
-        "ResourceType":{"shape":"ResourceType"},
-        "Tags":{
-          "shape":"TagList",
-          "locationName":"Tag"
-        }
-      }
-    },
-    "LaunchTemplateTagSpecificationRequestList":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateTagSpecificationRequest",
-        "locationName":"LaunchTemplateTagSpecificationRequest"
-      }
-    },
-    "LaunchTemplateVersion":{
-      "type":"structure",
-      "members":{
-        "LaunchTemplateId":{
-          "shape":"String",
-          "locationName":"launchTemplateId"
-        },
-        "LaunchTemplateName":{
-          "shape":"LaunchTemplateName",
-          "locationName":"launchTemplateName"
-        },
-        "VersionNumber":{
-          "shape":"Long",
-          "locationName":"versionNumber"
-        },
-        "VersionDescription":{
-          "shape":"VersionDescription",
-          "locationName":"versionDescription"
-        },
-        "CreateTime":{
-          "shape":"DateTime",
-          "locationName":"createTime"
-        },
-        "CreatedBy":{
-          "shape":"String",
-          "locationName":"createdBy"
-        },
-        "DefaultVersion":{
-          "shape":"Boolean",
-          "locationName":"defaultVersion"
-        },
-        "LaunchTemplateData":{
-          "shape":"ResponseLaunchTemplateData",
-          "locationName":"launchTemplateData"
-        }
-      }
-    },
-    "LaunchTemplateVersionSet":{
-      "type":"list",
-      "member":{
-        "shape":"LaunchTemplateVersion",
-        "locationName":"item"
-      }
-<<<<<<< HEAD
-    },
-    "LaunchTemplatesMonitoring":{
-      "type":"structure",
-      "members":{
-        "Enabled":{
-          "shape":"Boolean",
-          "locationName":"enabled"
-        }
-      }
-    },
-    "LaunchTemplatesMonitoringRequest":{
-      "type":"structure",
-      "members":{
-        "Enabled":{"shape":"Boolean"}
-      }
-    },
-    "ListingState":{
-      "type":"string",
-      "enum":[
-        "available",
-        "sold",
-        "cancelled",
-        "pending"
-      ]
-    },
-    "ListingStatus":{
-      "type":"string",
-      "enum":[
-        "active",
-        "pending",
-        "cancelled",
-        "closed"
-      ]
-=======
->>>>>>> Working on getting compiling
     },
     "LaunchTemplate":{
       "type":"structure",
@@ -12321,21 +11517,7 @@
         "locationName":"item"
       }
     },
-<<<<<<< HEAD
-    "Long":{"type":"long"},
-    "MarketType":{
-      "type":"string",
-      "enum":["spot"]
-    },
-    "MaxResults":{
-      "type":"integer",
-      "max":255,
-      "min":5
-    },
-    "ModifyFpgaImageAttributeRequest":{
-=======
     "LaunchTemplateEbsBlockDevice":{
->>>>>>> Working on getting compiling
       "type":"structure",
       "members":{
         "Encrypted":{
@@ -13318,7 +12500,6 @@
           "locationName":"RemoveSecurityGroupId"
         },
         "PrivateDnsEnabled":{"shape":"Boolean"}
-<<<<<<< HEAD
       }
     },
     "ModifyVpcEndpointResult":{
@@ -13364,11 +12545,6 @@
         "ServiceId":{"shape":"String"},
         "AddAllowedPrincipals":{"shape":"ValueStringList"},
         "RemoveAllowedPrincipals":{"shape":"ValueStringList"}
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
       }
     },
     "ModifyVpcEndpointServicePermissionsResult":{
@@ -16832,86 +16008,6 @@
         "locationName":"item"
       }
     },
-<<<<<<< HEAD
-    "ServiceDetail":{
-      "type":"structure",
-      "members":{
-        "ServiceName":{
-          "shape":"String",
-          "locationName":"serviceName"
-        },
-        "ServiceType":{
-          "shape":"ServiceTypeDetailSet",
-          "locationName":"serviceType"
-        },
-        "AvailabilityZones":{
-          "shape":"ValueStringList",
-          "locationName":"availabilityZoneSet"
-        },
-        "Owner":{
-          "shape":"String",
-          "locationName":"owner"
-        },
-        "BaseEndpointDnsNames":{
-          "shape":"ValueStringList",
-          "locationName":"baseEndpointDnsNameSet"
-        },
-        "PrivateDnsName":{
-          "shape":"String",
-          "locationName":"privateDnsName"
-        },
-        "VpcEndpointPolicySupported":{
-          "shape":"Boolean",
-          "locationName":"vpcEndpointPolicySupported"
-        },
-        "AcceptanceRequired":{
-          "shape":"Boolean",
-          "locationName":"acceptanceRequired"
-        }
-      }
-    },
-    "ServiceDetailSet":{
-      "type":"list",
-      "member":{
-        "shape":"ServiceDetail",
-        "locationName":"item"
-      }
-    },
-    "ServiceState":{
-      "type":"string",
-      "enum":[
-        "Pending",
-        "Available",
-        "Deleting",
-        "Deleted",
-        "Failed"
-      ]
-    },
-    "ServiceType":{
-      "type":"string",
-      "enum":[
-        "Interface",
-        "Gateway"
-      ]
-    },
-    "ServiceTypeDetail":{
-      "type":"structure",
-      "members":{
-        "ServiceType":{
-          "shape":"ServiceType",
-          "locationName":"serviceType"
-        }
-      }
-    },
-    "ServiceTypeDetailSet":{
-      "type":"list",
-      "member":{
-        "shape":"ServiceTypeDetail",
-        "locationName":"item"
-      }
-    },
-=======
->>>>>>> Working on getting compiling
     "ServiceDetail":{
       "type":"structure",
       "members":{
@@ -19052,7 +18148,6 @@
           "locationName":"state"
         },
         "PolicyDocument":{
-<<<<<<< HEAD
           "shape":"String",
           "locationName":"policyDocument"
         },
@@ -19086,61 +18181,6 @@
         }
       }
     },
-    "VpcEndpointConnection":{
-      "type":"structure",
-      "members":{
-        "ServiceId":{
-          "shape":"String",
-          "locationName":"serviceId"
-        },
-        "VpcEndpointId":{
-=======
->>>>>>> Initial dep workover
-          "shape":"String",
-          "locationName":"policyDocument"
-        },
-<<<<<<< HEAD
-        "VpcEndpointOwner":{
-          "shape":"String",
-          "locationName":"vpcEndpointOwner"
-        },
-        "VpcEndpointState":{
-          "shape":"State",
-          "locationName":"vpcEndpointState"
-=======
-        "RouteTableIds":{
-          "shape":"ValueStringList",
-          "locationName":"routeTableIdSet"
-        },
-        "SubnetIds":{
-          "shape":"ValueStringList",
-          "locationName":"subnetIdSet"
-        },
-        "Groups":{
-          "shape":"GroupIdentifierSet",
-          "locationName":"groupSet"
-        },
-        "PrivateDnsEnabled":{
-          "shape":"Boolean",
-          "locationName":"privateDnsEnabled"
-        },
-        "NetworkInterfaceIds":{
-          "shape":"ValueStringList",
-          "locationName":"networkInterfaceIdSet"
-        },
-        "DnsEntries":{
-          "shape":"DnsEntrySet",
-          "locationName":"dnsEntrySet"
->>>>>>> Initial dep workover
-        },
-        "CreationTimestamp":{
-          "shape":"DateTime",
-          "locationName":"creationTimestamp"
-        }
-      }
-    },
-<<<<<<< HEAD
-=======
     "VpcEndpointConnection":{
       "type":"structure",
       "members":{
@@ -19166,7 +18206,6 @@
         }
       }
     },
->>>>>>> Working on getting compiling
     "VpcEndpointConnectionSet":{
       "type":"list",
       "member":{

@@ -17,9 +17,7 @@
 //go:generate go run cbt.go -o cbtdoc.go doc
 
 /*
-Cbt is a tool for doing basic interactions with Cloud Bigtable. To learn how to
-install the cbt tool, see the
-[cbt overview](https://cloud.google.com/bigtable/docs/go/cbt-overview).
+Cbt is a tool for doing basic interactions with Cloud Bigtable.
 
 Usage:
 
@@ -30,7 +28,6 @@ The commands are:
 	count                     Count rows in a table
 	createfamily              Create a column family
 	createtable               Create a table
-	deletecolumn              Delete all cells in a column
 	deletefamily              Delete a column family
 	deleterow                 Delete a row
 	deletetable               Delete a table
@@ -43,14 +40,13 @@ The commands are:
 	read                      Read rows
 	set                       Set value of a cell
 	setgcpolicy               Set the GC policy for a column family
-	version                   Print the current cbt version
 
 Use "cbt help <command>" for more information about a command.
 
 The options are:
 
 	-project string
-		project ID, if unset uses gcloud configured project
+		project ID
 	-instance string
 		Cloud Bigtable instance
 	-creds string
@@ -76,16 +72,7 @@ Usage:
 Create a table
 
 Usage:
-	cbt createtable <table> [initial_splits...]
-	  initial_splits=row		A row key to be used to initially split the table into multiple tablets. Can be repeated to create multiple splits.
-
-
-
-
-Delete all cells in a column
-
-Usage:
-	cbt deletecolumn <table> <row> <family> <column>
+	cbt createtable <table>
 
 
 
@@ -166,11 +153,10 @@ Usage:
 Read rows
 
 Usage:
-	cbt read <table> [start=<row>] [end=<row>] [prefix=<prefix>] [regex=<regex>] [count=<n>]
+	cbt read <table> [start=<row>] [end=<row>] [prefix=<prefix>] [count=<n>]
 	  start=<row>		Start reading at this row
 	  end=<row>		Stop reading before this row
 	  prefix=<prefix>	Read rows with this prefix
-	  regex=<regex> 	Read rows with keys matching this regex
 	  count=<n>		Read only this many rows
 
 
@@ -197,14 +183,6 @@ Usage:
 
 	  maxage=<d>		Maximum timestamp age to preserve (e.g. "1h", "4d")
 	  maxversions=<n>	Maximum number of versions to preserve
-
-
-
-
-Print the current cbt version
-
-Usage:
-	cbt version
 
 
 

@@ -121,6 +121,9 @@ func setup() {
 	}))
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	mux.HandleFunc("/cachederror", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		etag := "abc"
 		if r.Header.Get("if-none-match") == etag {
@@ -132,8 +135,11 @@ func setup() {
 		w.Write([]byte("Not found"))
 	}))
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	updateFieldsCounter := 0
 	mux.HandleFunc("/updatefields", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Counter", strconv.Itoa(updateFieldsCounter))
@@ -229,6 +235,30 @@ func TestCacheableMethod(t *testing.T) {
 		if resp.Header.Get(XFromCache) != "" {
 			t.Errorf("XFromCache header isn't blank")
 		}
+	}
+}
+
+func TestDontServeHeadResponseToGetRequest(t *testing.T) {
+	resetTest()
+	url := s.server.URL + "/"
+	req, err := http.NewRequest(http.MethodHead, url, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = s.client.Do(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+	req, err = http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	resp, err := s.client.Do(req)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if resp.Header.Get(XFromCache) != "" {
+		t.Errorf("Cache should not match")
 	}
 }
 
@@ -864,6 +894,9 @@ func TestUpdateFields(t *testing.T) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 // This tests the fix for https://github.com/gregjones/httpcache/issues/74.
 // Previously, after validating a cached response, its StatusCode
 // was incorrectly being replaced.
@@ -893,8 +926,11 @@ func TestCachedErrorsKeepStatus(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func TestParseCacheControl(t *testing.T) {
 	resetTest()
 	h := http.Header{}
@@ -1378,6 +1414,9 @@ func TestStaleIfErrorResponseLifetime(t *testing.T) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 // This tests the fix for https://github.com/gregjones/httpcache/issues/74.
 // Previously, after a stale response was used after encountering an error,
 // its StatusCode was being incorrectly replaced.
@@ -1429,8 +1468,11 @@ func TestStaleIfErrorKeepsStatus(t *testing.T) {
 	}
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 // Test that http.Client.Timeout is respected when cache transport is used.
 // That is so as long as request cancellation is propagated correctly.
 // In the past, that required CancelRequest to be implemented correctly,

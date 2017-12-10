@@ -301,11 +301,7 @@ const opCreateGeoMatchSet = "CreateGeoMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateGeoMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateGeoMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateGeoMatchSetRequest(input *waf.CreateGeoMatchSetInput) (req *request.Request, output *waf.CreateGeoMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opCreateGeoMatchSet,
@@ -404,11 +400,7 @@ func (c *WAFRegional) CreateGeoMatchSetRequest(input *waf.CreateGeoMatchSetInput
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateGeoMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateGeoMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateGeoMatchSet(input *waf.CreateGeoMatchSetInput) (*waf.CreateGeoMatchSetOutput, error) {
 	req, out := c.CreateGeoMatchSetRequest(input)
 	return out, req.Send()
@@ -784,11 +776,7 @@ const opCreateRegexMatchSet = "CreateRegexMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRegexMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRegexMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateRegexMatchSetRequest(input *waf.CreateRegexMatchSetInput) (req *request.Request, output *waf.CreateRegexMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opCreateRegexMatchSet,
@@ -806,7 +794,6 @@ func (c *WAFRegional) CreateRegexMatchSetRequest(input *waf.CreateRegexMatchSetI
 }
 
 // CreateRegexMatchSet API operation for AWS WAF Regional.
-<<<<<<< HEAD
 //
 // Creates a RegexMatchSet. You then use UpdateRegexMatchSet to identify the
 // part of a web request that you want AWS WAF to inspect, such as the values
@@ -815,16 +802,6 @@ func (c *WAFRegional) CreateRegexMatchSetRequest(input *waf.CreateRegexMatchSetI
 // with User-Agent headers that match a RegexPatternSet with pattern B[a@]dB[o0]t.
 // You can then configure AWS WAF to reject those requests.
 //
-=======
-//
-// Creates a RegexMatchSet. You then use UpdateRegexMatchSet to identify the
-// part of a web request that you want AWS WAF to inspect, such as the values
-// of the User-Agent header or the query string. For example, you can create
-// a RegexMatchSet that contains a RegexMatchTuple that looks for any requests
-// with User-Agent headers that match a RegexPatternSet with pattern B[a@]dB[o0]t.
-// You can then configure AWS WAF to reject those requests.
-//
->>>>>>> Initial dep workover
 // To create and configure a RegexMatchSet, perform the following steps:
 //
 // Use GetChangeToken to get the change token that you provide in the ChangeToken
@@ -867,11 +844,7 @@ func (c *WAFRegional) CreateRegexMatchSetRequest(input *waf.CreateRegexMatchSetI
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRegexMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRegexMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateRegexMatchSet(input *waf.CreateRegexMatchSetInput) (*waf.CreateRegexMatchSetOutput, error) {
 	req, out := c.CreateRegexMatchSetRequest(input)
 	return out, req.Send()
@@ -918,11 +891,7 @@ const opCreateRegexPatternSet = "CreateRegexPatternSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRegexPatternSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRegexPatternSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateRegexPatternSetRequest(input *waf.CreateRegexPatternSetInput) (req *request.Request, output *waf.CreateRegexPatternSetOutput) {
 	op := &request.Operation{
 		Name:       opCreateRegexPatternSet,
@@ -986,11 +955,7 @@ func (c *WAFRegional) CreateRegexPatternSetRequest(input *waf.CreateRegexPattern
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRegexPatternSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRegexPatternSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateRegexPatternSet(input *waf.CreateRegexPatternSetInput) (*waf.CreateRegexPatternSetOutput, error) {
 	req, out := c.CreateRegexPatternSetRequest(input)
 	return out, req.Send()
@@ -1018,7 +983,6 @@ const opCreateRule = "CreateRule"
 // client's request for the CreateRule operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1029,21 +993,6 @@ const opCreateRule = "CreateRule"
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateRule for more information on using the CreateRule
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the CreateRuleRequest method.
-//    req, resp := client.CreateRuleRequest(params)
->>>>>>> Initial dep workover
 //
 //    // Example sending a request using the CreateRuleRequest method.
 //    req, resp := client.CreateRuleRequest(params)
@@ -1053,11 +1002,7 @@ const opCreateRule = "CreateRule"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateRuleRequest(input *waf.CreateRuleInput) (req *request.Request, output *waf.CreateRuleOutput) {
 	op := &request.Operation{
 		Name:       opCreateRule,
@@ -1161,7 +1106,6 @@ func (c *WAFRegional) CreateRuleRequest(input *waf.CreateRuleInput) (req *reques
 //      * Your request references an ARN that is malformed, or corresponds to
 //      a resource with which a web ACL cannot be associated.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFLimitsExceededException "WAFLimitsExceededException"
 //   The operation exceeds a resource limit, for example, the maximum number of
 //   WebACL objects that you can create for an AWS account. For more information,
@@ -1268,139 +1212,13 @@ func (c *WAFRegional) CreateRuleGroupRequest(input *waf.CreateRuleGroupInput) (r
 //   * ErrCodeWAFDisallowedNameException "WAFDisallowedNameException"
 //   The name specified is invalid.
 //
-=======
->>>>>>> Initial dep workover
 //   * ErrCodeWAFLimitsExceededException "WAFLimitsExceededException"
 //   The operation exceeds a resource limit, for example, the maximum number of
 //   WebACL objects that you can create for an AWS account. For more information,
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRuleGroup
-func (c *WAFRegional) CreateRuleGroup(input *waf.CreateRuleGroupInput) (*waf.CreateRuleGroupOutput, error) {
-	req, out := c.CreateRuleGroupRequest(input)
-	return out, req.Send()
-}
-
-// CreateRuleGroupWithContext is the same as CreateRuleGroup with the addition of
-// the ability to pass a context and additional request options.
-//
-// See CreateRuleGroup for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRule
-func (c *WAFRegional) CreateRule(input *waf.CreateRuleInput) (*waf.CreateRuleOutput, error) {
-	req, out := c.CreateRuleRequest(input)
-	return out, req.Send()
-}
-
-// CreateRuleWithContext is the same as CreateRule with the addition of
-// the ability to pass a context and additional request options.
-//
-// See CreateRule for details on how to use this API operation.
->>>>>>> Initial dep workover
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-<<<<<<< HEAD
-func (c *WAFRegional) CreateRuleGroupWithContext(ctx aws.Context, input *waf.CreateRuleGroupInput, opts ...request.Option) (*waf.CreateRuleGroupOutput, error) {
-	req, out := c.CreateRuleGroupRequest(input)
-=======
-func (c *WAFRegional) CreateRuleWithContext(ctx aws.Context, input *waf.CreateRuleInput, opts ...request.Option) (*waf.CreateRuleOutput, error) {
-	req, out := c.CreateRuleRequest(input)
->>>>>>> Initial dep workover
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opCreateRuleGroup = "CreateRuleGroup"
-
-// CreateRuleGroupRequest generates a "aws/request.Request" representing the
-// client's request for the CreateRuleGroup operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateRuleGroup for more information on using the CreateRuleGroup
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the CreateRuleGroupRequest method.
-//    req, resp := client.CreateRuleGroupRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRuleGroup
-func (c *WAFRegional) CreateRuleGroupRequest(input *waf.CreateRuleGroupInput) (req *request.Request, output *waf.CreateRuleGroupOutput) {
-	op := &request.Operation{
-		Name:       opCreateRuleGroup,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &waf.CreateRuleGroupInput{}
-	}
-
-	output = &waf.CreateRuleGroupOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// CreateRuleGroup API operation for AWS WAF Regional.
-//
-// Creates a RuleGroup. A rule group is a collection of predefined rules that
-// you add to a web ACL. You use UpdateRuleGroup to add rules to the rule group.
-//
-// Rule groups are subject to the following limits:
-//
-//    * Three rule groups per account. You can request an increase to this limit
-//    by contacting customer support.
-//
-//    * One rule group per web ACL.
-//
-//    * Ten rules per rule group.
-//
-// For more information about how to use the AWS WAF API to allow or block HTTP
-// requests, see the AWS WAF Developer Guide (http://docs.aws.amazon.com/waf/latest/developerguide/).
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation CreateRuleGroup for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeWAFStaleDataException "WAFStaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFDisallowedNameException "WAFDisallowedNameException"
-//   The name specified is invalid.
-//
-//   * ErrCodeWAFLimitsExceededException "WAFLimitsExceededException"
-//   The operation exceeds a resource limit, for example, the maximum number of
-//   WebACL objects that you can create for an AWS account. For more information,
-//   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
-//   in the AWS WAF Developer Guide.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateRuleGroup
 func (c *WAFRegional) CreateRuleGroup(input *waf.CreateRuleGroupInput) (*waf.CreateRuleGroupOutput, error) {
 	req, out := c.CreateRuleGroupRequest(input)
 	return out, req.Send()
@@ -1447,11 +1265,7 @@ const opCreateSizeConstraintSet = "CreateSizeConstraintSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateSizeConstraintSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateSizeConstraintSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateSizeConstraintSetRequest(input *waf.CreateSizeConstraintSetInput) (req *request.Request, output *waf.CreateSizeConstraintSetOutput) {
 	op := &request.Operation{
 		Name:       opCreateSizeConstraintSet,
@@ -1552,11 +1366,7 @@ func (c *WAFRegional) CreateSizeConstraintSetRequest(input *waf.CreateSizeConstr
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateSizeConstraintSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateSizeConstraintSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateSizeConstraintSet(input *waf.CreateSizeConstraintSetInput) (*waf.CreateSizeConstraintSetOutput, error) {
 	req, out := c.CreateSizeConstraintSetRequest(input)
 	return out, req.Send()
@@ -1603,11 +1413,7 @@ const opCreateSqlInjectionMatchSet = "CreateSqlInjectionMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateSqlInjectionMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateSqlInjectionMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateSqlInjectionMatchSetRequest(input *waf.CreateSqlInjectionMatchSetInput) (req *request.Request, output *waf.CreateSqlInjectionMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opCreateSqlInjectionMatchSet,
@@ -1704,11 +1510,7 @@ func (c *WAFRegional) CreateSqlInjectionMatchSetRequest(input *waf.CreateSqlInje
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateSqlInjectionMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateSqlInjectionMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateSqlInjectionMatchSet(input *waf.CreateSqlInjectionMatchSetInput) (*waf.CreateSqlInjectionMatchSetOutput, error) {
 	req, out := c.CreateSqlInjectionMatchSetRequest(input)
 	return out, req.Send()
@@ -1755,11 +1557,7 @@ const opCreateWebACL = "CreateWebACL"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateWebACL
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateWebACL
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateWebACLRequest(input *waf.CreateWebACLInput) (req *request.Request, output *waf.CreateWebACLOutput) {
 	op := &request.Operation{
 		Name:       opCreateWebACL,
@@ -1868,11 +1666,7 @@ func (c *WAFRegional) CreateWebACLRequest(input *waf.CreateWebACLInput) (req *re
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateWebACL
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateWebACL
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateWebACL(input *waf.CreateWebACLInput) (*waf.CreateWebACLOutput, error) {
 	req, out := c.CreateWebACLRequest(input)
 	return out, req.Send()
@@ -1919,11 +1713,7 @@ const opCreateXssMatchSet = "CreateXssMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateXssMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateXssMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateXssMatchSetRequest(input *waf.CreateXssMatchSetInput) (req *request.Request, output *waf.CreateXssMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opCreateXssMatchSet,
@@ -2021,11 +1811,7 @@ func (c *WAFRegional) CreateXssMatchSetRequest(input *waf.CreateXssMatchSetInput
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateXssMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/CreateXssMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) CreateXssMatchSet(input *waf.CreateXssMatchSetInput) (*waf.CreateXssMatchSetOutput, error) {
 	req, out := c.CreateXssMatchSetRequest(input)
 	return out, req.Send()
@@ -2072,11 +1858,7 @@ const opDeleteByteMatchSet = "DeleteByteMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteByteMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteByteMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteByteMatchSetRequest(input *waf.DeleteByteMatchSetInput) (req *request.Request, output *waf.DeleteByteMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opDeleteByteMatchSet,
@@ -2156,11 +1938,7 @@ func (c *WAFRegional) DeleteByteMatchSetRequest(input *waf.DeleteByteMatchSetInp
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteByteMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteByteMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteByteMatchSet(input *waf.DeleteByteMatchSetInput) (*waf.DeleteByteMatchSetOutput, error) {
 	req, out := c.DeleteByteMatchSetRequest(input)
 	return out, req.Send()
@@ -2207,11 +1985,7 @@ const opDeleteGeoMatchSet = "DeleteGeoMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteGeoMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteGeoMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteGeoMatchSetRequest(input *waf.DeleteGeoMatchSetInput) (req *request.Request, output *waf.DeleteGeoMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opDeleteGeoMatchSet,
@@ -2290,11 +2064,7 @@ func (c *WAFRegional) DeleteGeoMatchSetRequest(input *waf.DeleteGeoMatchSetInput
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteGeoMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteGeoMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteGeoMatchSet(input *waf.DeleteGeoMatchSetInput) (*waf.DeleteGeoMatchSetOutput, error) {
 	req, out := c.DeleteGeoMatchSetRequest(input)
 	return out, req.Send()
@@ -2341,11 +2111,7 @@ const opDeleteIPSet = "DeleteIPSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteIPSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteIPSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteIPSetRequest(input *waf.DeleteIPSetInput) (req *request.Request, output *waf.DeleteIPSetOutput) {
 	op := &request.Operation{
 		Name:       opDeleteIPSet,
@@ -2424,11 +2190,7 @@ func (c *WAFRegional) DeleteIPSetRequest(input *waf.DeleteIPSetInput) (req *requ
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteIPSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteIPSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteIPSet(input *waf.DeleteIPSetInput) (*waf.DeleteIPSetOutput, error) {
 	req, out := c.DeleteIPSetRequest(input)
 	return out, req.Send()
@@ -2475,11 +2237,7 @@ const opDeleteRateBasedRule = "DeleteRateBasedRule"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRateBasedRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRateBasedRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteRateBasedRuleRequest(input *waf.DeleteRateBasedRuleInput) (req *request.Request, output *waf.DeleteRateBasedRuleOutput) {
 	op := &request.Operation{
 		Name:       opDeleteRateBasedRule,
@@ -2560,11 +2318,7 @@ func (c *WAFRegional) DeleteRateBasedRuleRequest(input *waf.DeleteRateBasedRuleI
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRateBasedRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRateBasedRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteRateBasedRule(input *waf.DeleteRateBasedRuleInput) (*waf.DeleteRateBasedRuleOutput, error) {
 	req, out := c.DeleteRateBasedRuleRequest(input)
 	return out, req.Send()
@@ -2611,11 +2365,7 @@ const opDeleteRegexMatchSet = "DeleteRegexMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRegexMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRegexMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteRegexMatchSetRequest(input *waf.DeleteRegexMatchSetInput) (req *request.Request, output *waf.DeleteRegexMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opDeleteRegexMatchSet,
@@ -2695,11 +2445,7 @@ func (c *WAFRegional) DeleteRegexMatchSetRequest(input *waf.DeleteRegexMatchSetI
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRegexMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRegexMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteRegexMatchSet(input *waf.DeleteRegexMatchSetInput) (*waf.DeleteRegexMatchSetOutput, error) {
 	req, out := c.DeleteRegexMatchSetRequest(input)
 	return out, req.Send()
@@ -2746,11 +2492,7 @@ const opDeleteRegexPatternSet = "DeleteRegexPatternSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRegexPatternSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRegexPatternSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteRegexPatternSetRequest(input *waf.DeleteRegexPatternSetInput) (req *request.Request, output *waf.DeleteRegexPatternSetOutput) {
 	op := &request.Operation{
 		Name:       opDeleteRegexPatternSet,
@@ -2818,11 +2560,7 @@ func (c *WAFRegional) DeleteRegexPatternSetRequest(input *waf.DeleteRegexPattern
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRegexPatternSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRegexPatternSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteRegexPatternSet(input *waf.DeleteRegexPatternSetInput) (*waf.DeleteRegexPatternSetOutput, error) {
 	req, out := c.DeleteRegexPatternSetRequest(input)
 	return out, req.Send()
@@ -2869,11 +2607,7 @@ const opDeleteRule = "DeleteRule"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteRuleRequest(input *waf.DeleteRuleInput) (req *request.Request, output *waf.DeleteRuleOutput) {
 	op := &request.Operation{
 		Name:       opDeleteRule,
@@ -2895,20 +2629,6 @@ func (c *WAFRegional) DeleteRuleRequest(input *waf.DeleteRuleInput) (req *reques
 // Permanently deletes a Rule. You can't delete a Rule if it's still used in
 // any WebACL objects or if it still includes any predicates, such as ByteMatchSet
 // objects.
-<<<<<<< HEAD
-//
-// If you just want to remove a Rule from a WebACL, use UpdateWebACL.
-//
-// To permanently delete a Rule from AWS WAF, perform the following steps:
-//
-// Update the Rule to remove predicates, if any. For more information, see UpdateRule.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of a DeleteRule request.
-//
-// Submit a DeleteRule request.
-=======
->>>>>>> Initial dep workover
 //
 // If you just want to remove a Rule from a WebACL, use UpdateWebACL.
 //
@@ -2966,11 +2686,7 @@ func (c *WAFRegional) DeleteRuleRequest(input *waf.DeleteRuleInput) (req *reques
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) DeleteRule(input *waf.DeleteRuleInput) (*waf.DeleteRuleOutput, error) {
 	req, out := c.DeleteRuleRequest(input)
 	return out, req.Send()
@@ -2992,17 +2708,10 @@ func (c *WAFRegional) DeleteRuleWithContext(ctx aws.Context, input *waf.DeleteRu
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 const opDeleteRuleGroup = "DeleteRuleGroup"
 
 // DeleteRuleGroupRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteRuleGroup operation. The "output" return
-<<<<<<< HEAD
-=======
-=======
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
@@ -3024,7 +2733,7 @@ const opDeleteRuleGroup = "DeleteRuleGroup"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRuleGroup
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRuleGroup
 func (c *WAFRegional) DeleteRuleGroupRequest(input *waf.DeleteRuleGroupInput) (req *request.Request, output *waf.DeleteRuleGroupOutput) {
 	op := &request.Operation{
 		Name:       opDeleteRuleGroup,
@@ -3098,7 +2807,7 @@ func (c *WAFRegional) DeleteRuleGroupRequest(input *waf.DeleteRuleGroupInput) (r
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRuleGroup
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRuleGroup
 func (c *WAFRegional) DeleteRuleGroup(input *waf.DeleteRuleGroupInput) (*waf.DeleteRuleGroupOutput, error) {
 	req, out := c.DeleteRuleGroupRequest(input)
 	return out, req.Send()
@@ -3120,90 +2829,48 @@ func (c *WAFRegional) DeleteRuleGroupWithContext(ctx aws.Context, input *waf.Del
 	return out, req.Send()
 }
 
->>>>>>> Working on getting compiling
 const opDeleteSizeConstraintSet = "DeleteSizeConstraintSet"
 
 // DeleteSizeConstraintSetRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteSizeConstraintSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
-// See DeleteRuleGroup for more information on using the DeleteRuleGroup
-=======
 // See DeleteSizeConstraintSet for more information on using the DeleteSizeConstraintSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
-//    // Example sending a request using the DeleteRuleGroupRequest method.
-//    req, resp := client.DeleteRuleGroupRequest(params)
-=======
 //    // Example sending a request using the DeleteSizeConstraintSetRequest method.
 //    req, resp := client.DeleteSizeConstraintSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRuleGroup
-func (c *WAFRegional) DeleteRuleGroupRequest(input *waf.DeleteRuleGroupInput) (req *request.Request, output *waf.DeleteRuleGroupOutput) {
-	op := &request.Operation{
-		Name:       opDeleteRuleGroup,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSizeConstraintSet
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSizeConstraintSet
 func (c *WAFRegional) DeleteSizeConstraintSetRequest(input *waf.DeleteSizeConstraintSetInput) (req *request.Request, output *waf.DeleteSizeConstraintSetOutput) {
 	op := &request.Operation{
 		Name:       opDeleteSizeConstraintSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
-		input = &waf.DeleteRuleGroupInput{}
-	}
-
-	output = &waf.DeleteRuleGroupOutput{}
-=======
 		input = &waf.DeleteSizeConstraintSetInput{}
 	}
 
 	output = &waf.DeleteSizeConstraintSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
-// DeleteRuleGroup API operation for AWS WAF Regional.
-//
-// Permanently deletes a RuleGroup. You can't delete a RuleGroup if it's still
-// used in any WebACL objects or if it still includes any rules.
-//
-// If you just want to remove a RuleGroup from a WebACL, use UpdateWebACL.
-//
-// To permanently delete a RuleGroup from AWS WAF, perform the following steps:
-//
-// Update the RuleGroup to remove rules, if any. For more information, see UpdateRuleGroup.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of a DeleteRuleGroup request.
-//
-// Submit a DeleteRuleGroup request.
-=======
 // DeleteSizeConstraintSet API operation for AWS WAF Regional.
 //
 // Permanently deletes a SizeConstraintSet. You can't delete a SizeConstraintSet
@@ -3221,18 +2888,13 @@ func (c *WAFRegional) DeleteSizeConstraintSetRequest(input *waf.DeleteSizeConstr
 // parameter of a DeleteSizeConstraintSet request.
 //
 // Submit a DeleteSizeConstraintSet request.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
-// API operation DeleteRuleGroup for usage and error information.
-=======
 // API operation DeleteSizeConstraintSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFStaleDataException "WAFStaleDataException"
@@ -3242,6 +2904,10 @@ func (c *WAFRegional) DeleteSizeConstraintSetRequest(input *waf.DeleteSizeConstr
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
+//
+//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
+//   The operation failed because you tried to create, update, or delete an object
+//   by using an invalid account identifier.
 //
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
@@ -3268,19 +2934,7 @@ func (c *WAFRegional) DeleteSizeConstraintSetRequest(input *waf.DeleteSizeConstr
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteRuleGroup
-func (c *WAFRegional) DeleteRuleGroup(input *waf.DeleteRuleGroupInput) (*waf.DeleteRuleGroupOutput, error) {
-	req, out := c.DeleteRuleGroupRequest(input)
-	return out, req.Send()
-}
-
-// DeleteRuleGroupWithContext is the same as DeleteRuleGroup with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteRuleGroup for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSizeConstraintSet
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSizeConstraintSet
 func (c *WAFRegional) DeleteSizeConstraintSet(input *waf.DeleteSizeConstraintSetInput) (*waf.DeleteSizeConstraintSetOutput, error) {
 	req, out := c.DeleteSizeConstraintSetRequest(input)
 	return out, req.Send()
@@ -3290,115 +2944,60 @@ func (c *WAFRegional) DeleteSizeConstraintSet(input *waf.DeleteSizeConstraintSet
 // the ability to pass a context and additional request options.
 //
 // See DeleteSizeConstraintSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
-func (c *WAFRegional) DeleteRuleGroupWithContext(ctx aws.Context, input *waf.DeleteRuleGroupInput, opts ...request.Option) (*waf.DeleteRuleGroupOutput, error) {
-	req, out := c.DeleteRuleGroupRequest(input)
-=======
 func (c *WAFRegional) DeleteSizeConstraintSetWithContext(ctx aws.Context, input *waf.DeleteSizeConstraintSetInput, opts ...request.Option) (*waf.DeleteSizeConstraintSetOutput, error) {
 	req, out := c.DeleteSizeConstraintSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
-const opDeleteSizeConstraintSet = "DeleteSizeConstraintSet"
-
-// DeleteSizeConstraintSetRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteSizeConstraintSet operation. The "output" return
-=======
 const opDeleteSqlInjectionMatchSet = "DeleteSqlInjectionMatchSet"
 
 // DeleteSqlInjectionMatchSetRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteSqlInjectionMatchSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
-// See DeleteSizeConstraintSet for more information on using the DeleteSizeConstraintSet
-=======
 // See DeleteSqlInjectionMatchSet for more information on using the DeleteSqlInjectionMatchSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
-//    // Example sending a request using the DeleteSizeConstraintSetRequest method.
-//    req, resp := client.DeleteSizeConstraintSetRequest(params)
-=======
 //    // Example sending a request using the DeleteSqlInjectionMatchSetRequest method.
 //    req, resp := client.DeleteSqlInjectionMatchSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSizeConstraintSet
-func (c *WAFRegional) DeleteSizeConstraintSetRequest(input *waf.DeleteSizeConstraintSetInput) (req *request.Request, output *waf.DeleteSizeConstraintSetOutput) {
-	op := &request.Operation{
-		Name:       opDeleteSizeConstraintSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSqlInjectionMatchSet
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSqlInjectionMatchSet
 func (c *WAFRegional) DeleteSqlInjectionMatchSetRequest(input *waf.DeleteSqlInjectionMatchSetInput) (req *request.Request, output *waf.DeleteSqlInjectionMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opDeleteSqlInjectionMatchSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
-		input = &waf.DeleteSizeConstraintSetInput{}
-	}
-
-	output = &waf.DeleteSizeConstraintSetOutput{}
-=======
 		input = &waf.DeleteSqlInjectionMatchSetInput{}
 	}
 
 	output = &waf.DeleteSqlInjectionMatchSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
-// DeleteSizeConstraintSet API operation for AWS WAF Regional.
-//
-// Permanently deletes a SizeConstraintSet. You can't delete a SizeConstraintSet
-// if it's still used in any Rules or if it still includes any SizeConstraint
-// objects (any filters).
-//
-// If you just want to remove a SizeConstraintSet from a Rule, use UpdateRule.
-//
-// To permanently delete a SizeConstraintSet, perform the following steps:
-//
-// Update the SizeConstraintSet to remove filters, if any. For more information,
-// see UpdateSizeConstraintSet.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of a DeleteSizeConstraintSet request.
-//
-// Submit a DeleteSizeConstraintSet request.
-=======
 // DeleteSqlInjectionMatchSet API operation for AWS WAF Regional.
 //
 // Permanently deletes a SqlInjectionMatchSet. You can't delete a SqlInjectionMatchSet
@@ -3417,24 +3016,15 @@ func (c *WAFRegional) DeleteSqlInjectionMatchSetRequest(input *waf.DeleteSqlInje
 // parameter of a DeleteSqlInjectionMatchSet request.
 //
 // Submit a DeleteSqlInjectionMatchSet request.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
-// API operation DeleteSizeConstraintSet for usage and error information.
-=======
 // API operation DeleteSqlInjectionMatchSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
-//   * ErrCodeWAFStaleDataException "WAFStaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
@@ -3454,13 +3044,10 @@ func (c *WAFRegional) DeleteSqlInjectionMatchSetRequest(input *waf.DeleteSqlInje
 //
 //      * You tried to delete a Rule that is still referenced by a WebACL.
 //
-<<<<<<< HEAD
-=======
 //   * ErrCodeWAFStaleDataException "WAFStaleDataException"
 //   The operation failed because you tried to create, update, or delete an object
 //   by using a change token that has already been used.
 //
->>>>>>> Initial dep workover
 //   * ErrCodeWAFNonEmptyEntityException "WAFNonEmptyEntityException"
 //   The operation failed because you tried to delete an object that isn't empty.
 //   For example:
@@ -3475,19 +3062,7 @@ func (c *WAFRegional) DeleteSqlInjectionMatchSetRequest(input *waf.DeleteSqlInje
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSizeConstraintSet
-func (c *WAFRegional) DeleteSizeConstraintSet(input *waf.DeleteSizeConstraintSetInput) (*waf.DeleteSizeConstraintSetOutput, error) {
-	req, out := c.DeleteSizeConstraintSetRequest(input)
-	return out, req.Send()
-}
-
-// DeleteSizeConstraintSetWithContext is the same as DeleteSizeConstraintSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteSizeConstraintSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSqlInjectionMatchSet
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSqlInjectionMatchSet
 func (c *WAFRegional) DeleteSqlInjectionMatchSet(input *waf.DeleteSqlInjectionMatchSetInput) (*waf.DeleteSqlInjectionMatchSetOutput, error) {
 	req, out := c.DeleteSqlInjectionMatchSetRequest(input)
 	return out, req.Send()
@@ -3497,116 +3072,60 @@ func (c *WAFRegional) DeleteSqlInjectionMatchSet(input *waf.DeleteSqlInjectionMa
 // the ability to pass a context and additional request options.
 //
 // See DeleteSqlInjectionMatchSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
-func (c *WAFRegional) DeleteSizeConstraintSetWithContext(ctx aws.Context, input *waf.DeleteSizeConstraintSetInput, opts ...request.Option) (*waf.DeleteSizeConstraintSetOutput, error) {
-	req, out := c.DeleteSizeConstraintSetRequest(input)
-=======
 func (c *WAFRegional) DeleteSqlInjectionMatchSetWithContext(ctx aws.Context, input *waf.DeleteSqlInjectionMatchSetInput, opts ...request.Option) (*waf.DeleteSqlInjectionMatchSetOutput, error) {
 	req, out := c.DeleteSqlInjectionMatchSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
-const opDeleteSqlInjectionMatchSet = "DeleteSqlInjectionMatchSet"
-
-// DeleteSqlInjectionMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteSqlInjectionMatchSet operation. The "output" return
-=======
 const opDeleteWebACL = "DeleteWebACL"
 
 // DeleteWebACLRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteWebACL operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
-// See DeleteSqlInjectionMatchSet for more information on using the DeleteSqlInjectionMatchSet
-=======
 // See DeleteWebACL for more information on using the DeleteWebACL
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
-//    // Example sending a request using the DeleteSqlInjectionMatchSetRequest method.
-//    req, resp := client.DeleteSqlInjectionMatchSetRequest(params)
-=======
 //    // Example sending a request using the DeleteWebACLRequest method.
 //    req, resp := client.DeleteWebACLRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSqlInjectionMatchSet
-func (c *WAFRegional) DeleteSqlInjectionMatchSetRequest(input *waf.DeleteSqlInjectionMatchSetInput) (req *request.Request, output *waf.DeleteSqlInjectionMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opDeleteSqlInjectionMatchSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteWebACL
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteWebACL
 func (c *WAFRegional) DeleteWebACLRequest(input *waf.DeleteWebACLInput) (req *request.Request, output *waf.DeleteWebACLOutput) {
 	op := &request.Operation{
 		Name:       opDeleteWebACL,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
-		input = &waf.DeleteSqlInjectionMatchSetInput{}
-	}
-
-	output = &waf.DeleteSqlInjectionMatchSetOutput{}
-=======
 		input = &waf.DeleteWebACLInput{}
 	}
 
 	output = &waf.DeleteWebACLOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
-// DeleteSqlInjectionMatchSet API operation for AWS WAF Regional.
-//
-// Permanently deletes a SqlInjectionMatchSet. You can't delete a SqlInjectionMatchSet
-// if it's still used in any Rules or if it still contains any SqlInjectionMatchTuple
-// objects.
-//
-// If you just want to remove a SqlInjectionMatchSet from a Rule, use UpdateRule.
-//
-// To permanently delete a SqlInjectionMatchSet from AWS WAF, perform the following
-// steps:
-//
-// Update the SqlInjectionMatchSet to remove filters, if any. For more information,
-// see UpdateSqlInjectionMatchSet.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of a DeleteSqlInjectionMatchSet request.
-//
-// Submit a DeleteSqlInjectionMatchSet request.
-=======
 // DeleteWebACL API operation for AWS WAF Regional.
 //
 // Permanently deletes a WebACL. You can't delete a WebACL if it still contains
@@ -3620,222 +3139,13 @@ func (c *WAFRegional) DeleteWebACLRequest(input *waf.DeleteWebACLInput) (req *re
 // parameter of a DeleteWebACL request.
 //
 // Submit a DeleteWebACL request.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
-// API operation DeleteSqlInjectionMatchSet for usage and error information.
-//
-// Returned Error Codes:
-=======
 // API operation DeleteWebACL for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeWAFStaleDataException "WAFStaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
->>>>>>> Initial dep workover
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-//   * ErrCodeWAFReferencedItemException "WAFReferencedItemException"
-//   The operation failed because you tried to delete an object that is still
-//   in use. For example:
-//
-//      * You tried to delete a ByteMatchSet that is still referenced by a Rule.
-//
-//      * You tried to delete a Rule that is still referenced by a WebACL.
-//
-<<<<<<< HEAD
-//   * ErrCodeWAFStaleDataException "WAFStaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
-=======
->>>>>>> Initial dep workover
-//   * ErrCodeWAFNonEmptyEntityException "WAFNonEmptyEntityException"
-//   The operation failed because you tried to delete an object that isn't empty.
-//   For example:
-//
-//      * You tried to delete a WebACL that still contains one or more Rule objects.
-//
-//      * You tried to delete a Rule that still contains one or more ByteMatchSet
-//      objects or other predicates.
-//
-//      * You tried to delete a ByteMatchSet that contains one or more ByteMatchTuple
-//      objects.
-//
-//      * You tried to delete an IPSet that references one or more IP addresses.
-//
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteSqlInjectionMatchSet
-func (c *WAFRegional) DeleteSqlInjectionMatchSet(input *waf.DeleteSqlInjectionMatchSetInput) (*waf.DeleteSqlInjectionMatchSetOutput, error) {
-	req, out := c.DeleteSqlInjectionMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// DeleteSqlInjectionMatchSetWithContext is the same as DeleteSqlInjectionMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteSqlInjectionMatchSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteWebACL
-func (c *WAFRegional) DeleteWebACL(input *waf.DeleteWebACLInput) (*waf.DeleteWebACLOutput, error) {
-	req, out := c.DeleteWebACLRequest(input)
-	return out, req.Send()
-}
-
-// DeleteWebACLWithContext is the same as DeleteWebACL with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteWebACL for details on how to use this API operation.
->>>>>>> Initial dep workover
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-<<<<<<< HEAD
-func (c *WAFRegional) DeleteSqlInjectionMatchSetWithContext(ctx aws.Context, input *waf.DeleteSqlInjectionMatchSetInput, opts ...request.Option) (*waf.DeleteSqlInjectionMatchSetOutput, error) {
-	req, out := c.DeleteSqlInjectionMatchSetRequest(input)
-=======
-func (c *WAFRegional) DeleteWebACLWithContext(ctx aws.Context, input *waf.DeleteWebACLInput, opts ...request.Option) (*waf.DeleteWebACLOutput, error) {
-	req, out := c.DeleteWebACLRequest(input)
->>>>>>> Initial dep workover
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-<<<<<<< HEAD
-const opDeleteWebACL = "DeleteWebACL"
-
-// DeleteWebACLRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteWebACL operation. The "output" return
-=======
-const opDeleteXssMatchSet = "DeleteXssMatchSet"
-
-// DeleteXssMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteXssMatchSet operation. The "output" return
->>>>>>> Initial dep workover
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-<<<<<<< HEAD
-// See DeleteWebACL for more information on using the DeleteWebACL
-=======
-// See DeleteXssMatchSet for more information on using the DeleteXssMatchSet
->>>>>>> Initial dep workover
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-<<<<<<< HEAD
-//    // Example sending a request using the DeleteWebACLRequest method.
-//    req, resp := client.DeleteWebACLRequest(params)
-=======
-//    // Example sending a request using the DeleteXssMatchSetRequest method.
-//    req, resp := client.DeleteXssMatchSetRequest(params)
->>>>>>> Initial dep workover
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteWebACL
-func (c *WAFRegional) DeleteWebACLRequest(input *waf.DeleteWebACLInput) (req *request.Request, output *waf.DeleteWebACLOutput) {
-	op := &request.Operation{
-		Name:       opDeleteWebACL,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteXssMatchSet
-func (c *WAFRegional) DeleteXssMatchSetRequest(input *waf.DeleteXssMatchSetInput) (req *request.Request, output *waf.DeleteXssMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opDeleteXssMatchSet,
->>>>>>> Initial dep workover
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-<<<<<<< HEAD
-		input = &waf.DeleteWebACLInput{}
-	}
-
-	output = &waf.DeleteWebACLOutput{}
-=======
-		input = &waf.DeleteXssMatchSetInput{}
-	}
-
-	output = &waf.DeleteXssMatchSetOutput{}
->>>>>>> Initial dep workover
-	req = c.newRequest(op, input, output)
-	return
-}
-
-<<<<<<< HEAD
-// DeleteWebACL API operation for AWS WAF Regional.
-//
-// Permanently deletes a WebACL. You can't delete a WebACL if it still contains
-// any Rules.
-//
-// To delete a WebACL, perform the following steps:
-//
-// Update the WebACL to remove Rules, if any. For more information, see UpdateWebACL.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of a DeleteWebACL request.
-//
-// Submit a DeleteWebACL request.
-=======
-// DeleteXssMatchSet API operation for AWS WAF Regional.
-//
-// Permanently deletes an XssMatchSet. You can't delete an XssMatchSet if it's
-// still used in any Rules or if it still contains any XssMatchTuple objects.
-//
-// If you just want to remove an XssMatchSet from a Rule, use UpdateRule.
-//
-// To permanently delete an XssMatchSet from AWS WAF, perform the following
-// steps:
-//
-// Update the XssMatchSet to remove filters, if any. For more information, see
-// UpdateXssMatchSet.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of a DeleteXssMatchSet request.
-//
-// Submit a DeleteXssMatchSet request.
->>>>>>> Initial dep workover
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
-// API operation DeleteWebACL for usage and error information.
-=======
-// API operation DeleteXssMatchSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFStaleDataException "WAFStaleDataException"
@@ -3861,13 +3171,6 @@ func (c *WAFRegional) DeleteXssMatchSetRequest(input *waf.DeleteXssMatchSetInput
 //
 //      * You tried to delete a Rule that is still referenced by a WebACL.
 //
-<<<<<<< HEAD
-=======
-//   * ErrCodeWAFStaleDataException "WAFStaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
->>>>>>> Initial dep workover
 //   * ErrCodeWAFNonEmptyEntityException "WAFNonEmptyEntityException"
 //   The operation failed because you tried to delete an object that isn't empty.
 //   For example:
@@ -3882,7 +3185,6 @@ func (c *WAFRegional) DeleteXssMatchSetRequest(input *waf.DeleteXssMatchSetInput
 //
 //      * You tried to delete an IPSet that references one or more IP addresses.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteWebACL
 func (c *WAFRegional) DeleteWebACL(input *waf.DeleteWebACLInput) (*waf.DeleteWebACLOutput, error) {
 	req, out := c.DeleteWebACLRequest(input)
@@ -3893,108 +3195,60 @@ func (c *WAFRegional) DeleteWebACL(input *waf.DeleteWebACLInput) (*waf.DeleteWeb
 // the ability to pass a context and additional request options.
 //
 // See DeleteWebACL for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteXssMatchSet
-func (c *WAFRegional) DeleteXssMatchSet(input *waf.DeleteXssMatchSetInput) (*waf.DeleteXssMatchSetOutput, error) {
-	req, out := c.DeleteXssMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// DeleteXssMatchSetWithContext is the same as DeleteXssMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteXssMatchSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) DeleteWebACLWithContext(ctx aws.Context, input *waf.DeleteWebACLInput, opts ...request.Option) (*waf.DeleteWebACLOutput, error) {
 	req, out := c.DeleteWebACLRequest(input)
-=======
-func (c *WAFRegional) DeleteXssMatchSetWithContext(ctx aws.Context, input *waf.DeleteXssMatchSetInput, opts ...request.Option) (*waf.DeleteXssMatchSetOutput, error) {
-	req, out := c.DeleteXssMatchSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opDeleteXssMatchSet = "DeleteXssMatchSet"
 
 // DeleteXssMatchSetRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteXssMatchSet operation. The "output" return
-=======
-const opDisassociateWebACL = "DisassociateWebACL"
-
-// DisassociateWebACLRequest generates a "aws/request.Request" representing the
-// client's request for the DisassociateWebACL operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See DeleteXssMatchSet for more information on using the DeleteXssMatchSet
-=======
-// See DisassociateWebACL for more information on using the DisassociateWebACL
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the DeleteXssMatchSetRequest method.
 //    req, resp := client.DeleteXssMatchSetRequest(params)
-=======
-//    // Example sending a request using the DisassociateWebACLRequest method.
-//    req, resp := client.DisassociateWebACLRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DeleteXssMatchSet
 func (c *WAFRegional) DeleteXssMatchSetRequest(input *waf.DeleteXssMatchSetInput) (req *request.Request, output *waf.DeleteXssMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opDeleteXssMatchSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DisassociateWebACL
-func (c *WAFRegional) DisassociateWebACLRequest(input *DisassociateWebACLInput) (req *request.Request, output *DisassociateWebACLOutput) {
-	op := &request.Operation{
-		Name:       opDisassociateWebACL,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.DeleteXssMatchSetInput{}
 	}
 
 	output = &waf.DeleteXssMatchSetOutput{}
-=======
-		input = &DisassociateWebACLInput{}
-	}
-
-	output = &DisassociateWebACLOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // DeleteXssMatchSet API operation for AWS WAF Regional.
 //
 // Permanently deletes an XssMatchSet. You can't delete an XssMatchSet if it's
@@ -4012,22 +3266,13 @@ func (c *WAFRegional) DisassociateWebACLRequest(input *DisassociateWebACLInput) 
 // parameter of a DeleteXssMatchSet request.
 //
 // Submit a DeleteXssMatchSet request.
-=======
-// DisassociateWebACL API operation for AWS WAF Regional.
-//
-// Removes a web ACL from the specified resource.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation DeleteXssMatchSet for usage and error information.
-=======
-// API operation DisassociateWebACL for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -4038,39 +3283,9 @@ func (c *WAFRegional) DisassociateWebACLRequest(input *DisassociateWebACLInput) 
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-//   * ErrCodeWAFInvalidParameterException "WAFInvalidParameterException"
-//   The operation failed because AWS WAF didn't recognize a parameter in the
-//   request. For example:
-//
-//      * You specified an invalid parameter name.
-//
-//      * You specified an invalid value.
-//
-//      * You tried to update an object (ByteMatchSet, IPSet, Rule, or WebACL)
-//      using an action other than INSERT or DELETE.
-//
-//      * You tried to create a WebACL with a DefaultActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to create a RateBasedRule with a RateKey value other than
-//      IP.
-//
-//      * You tried to update a WebACL with a WafActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to update a ByteMatchSet with a FieldToMatchType other than
-//      HEADER, METHOD, QUERY_STRING, URI, or BODY.
-//
-//      * You tried to update a ByteMatchSet with a Field of HEADER but no value
-//      for Data.
-//
-//      * Your request references an ARN that is malformed, or corresponds to
-//      a resource with which a web ACL cannot be associated.
-//
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFReferencedItemException "WAFReferencedItemException"
 //   The operation failed because you tried to delete an object that is still
 //   in use. For example:
@@ -4107,127 +3322,70 @@ func (c *WAFRegional) DeleteXssMatchSet(input *waf.DeleteXssMatchSetInput) (*waf
 // the ability to pass a context and additional request options.
 //
 // See DeleteXssMatchSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DisassociateWebACL
-func (c *WAFRegional) DisassociateWebACL(input *DisassociateWebACLInput) (*DisassociateWebACLOutput, error) {
-	req, out := c.DisassociateWebACLRequest(input)
-	return out, req.Send()
-}
-
-// DisassociateWebACLWithContext is the same as DisassociateWebACL with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DisassociateWebACL for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) DeleteXssMatchSetWithContext(ctx aws.Context, input *waf.DeleteXssMatchSetInput, opts ...request.Option) (*waf.DeleteXssMatchSetOutput, error) {
 	req, out := c.DeleteXssMatchSetRequest(input)
-=======
-func (c *WAFRegional) DisassociateWebACLWithContext(ctx aws.Context, input *DisassociateWebACLInput, opts ...request.Option) (*DisassociateWebACLOutput, error) {
-	req, out := c.DisassociateWebACLRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opDisassociateWebACL = "DisassociateWebACL"
 
 // DisassociateWebACLRequest generates a "aws/request.Request" representing the
 // client's request for the DisassociateWebACL operation. The "output" return
-=======
-const opGetByteMatchSet = "GetByteMatchSet"
-
-// GetByteMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the GetByteMatchSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See DisassociateWebACL for more information on using the DisassociateWebACL
-=======
-// See GetByteMatchSet for more information on using the GetByteMatchSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the DisassociateWebACLRequest method.
 //    req, resp := client.DisassociateWebACLRequest(params)
-=======
-//    // Example sending a request using the GetByteMatchSetRequest method.
-//    req, resp := client.GetByteMatchSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DisassociateWebACL
 func (c *WAFRegional) DisassociateWebACLRequest(input *DisassociateWebACLInput) (req *request.Request, output *DisassociateWebACLOutput) {
 	op := &request.Operation{
 		Name:       opDisassociateWebACL,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetByteMatchSet
-func (c *WAFRegional) GetByteMatchSetRequest(input *waf.GetByteMatchSetInput) (req *request.Request, output *waf.GetByteMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opGetByteMatchSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &DisassociateWebACLInput{}
 	}
 
 	output = &DisassociateWebACLOutput{}
-=======
-		input = &waf.GetByteMatchSetInput{}
-	}
-
-	output = &waf.GetByteMatchSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // DisassociateWebACL API operation for AWS WAF Regional.
 //
 // Removes a web ACL from the specified resource.
-=======
-// GetByteMatchSet API operation for AWS WAF Regional.
-//
-// Returns the ByteMatchSet specified by ByteMatchSetId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation DisassociateWebACL for usage and error information.
-=======
-// API operation GetByteMatchSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -4238,7 +3396,6 @@ func (c *WAFRegional) GetByteMatchSetRequest(input *waf.GetByteMatchSetInput) (r
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFInvalidParameterException "WAFInvalidParameterException"
 //   The operation failed because AWS WAF didn't recognize a parameter in the
 //   request. For example:
@@ -4281,151 +3438,76 @@ func (c *WAFRegional) DisassociateWebACL(input *DisassociateWebACLInput) (*Disas
 // the ability to pass a context and additional request options.
 //
 // See DisassociateWebACL for details on how to use this API operation.
-=======
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetByteMatchSet
-func (c *WAFRegional) GetByteMatchSet(input *waf.GetByteMatchSetInput) (*waf.GetByteMatchSetOutput, error) {
-	req, out := c.GetByteMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// GetByteMatchSetWithContext is the same as GetByteMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetByteMatchSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) DisassociateWebACLWithContext(ctx aws.Context, input *DisassociateWebACLInput, opts ...request.Option) (*DisassociateWebACLOutput, error) {
 	req, out := c.DisassociateWebACLRequest(input)
-=======
-func (c *WAFRegional) GetByteMatchSetWithContext(ctx aws.Context, input *waf.GetByteMatchSetInput, opts ...request.Option) (*waf.GetByteMatchSetOutput, error) {
-	req, out := c.GetByteMatchSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetByteMatchSet = "GetByteMatchSet"
 
 // GetByteMatchSetRequest generates a "aws/request.Request" representing the
 // client's request for the GetByteMatchSet operation. The "output" return
-=======
-const opGetChangeToken = "GetChangeToken"
-
-// GetChangeTokenRequest generates a "aws/request.Request" representing the
-// client's request for the GetChangeToken operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetByteMatchSet for more information on using the GetByteMatchSet
-=======
-// See GetChangeToken for more information on using the GetChangeToken
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetByteMatchSetRequest method.
 //    req, resp := client.GetByteMatchSetRequest(params)
-=======
-//    // Example sending a request using the GetChangeTokenRequest method.
-//    req, resp := client.GetChangeTokenRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetByteMatchSet
 func (c *WAFRegional) GetByteMatchSetRequest(input *waf.GetByteMatchSetInput) (req *request.Request, output *waf.GetByteMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opGetByteMatchSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetChangeToken
-func (c *WAFRegional) GetChangeTokenRequest(input *waf.GetChangeTokenInput) (req *request.Request, output *waf.GetChangeTokenOutput) {
-	op := &request.Operation{
-		Name:       opGetChangeToken,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetByteMatchSetInput{}
 	}
 
 	output = &waf.GetByteMatchSetOutput{}
-=======
-		input = &waf.GetChangeTokenInput{}
-	}
-
-	output = &waf.GetChangeTokenOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetByteMatchSet API operation for AWS WAF Regional.
 //
 // Returns the ByteMatchSet specified by ByteMatchSetId.
-=======
-// GetChangeToken API operation for AWS WAF Regional.
-//
-// When you want to create, update, or delete AWS WAF objects, get a change
-// token and include the change token in the create, update, or delete request.
-// Change tokens ensure that your application doesn't submit conflicting requests
-// to AWS WAF.
-//
-// Each create, update, or delete request must use a unique change token. If
-// your application submits a GetChangeToken request and then submits a second
-// GetChangeToken request before submitting a create, update, or delete request,
-// the second GetChangeToken request returns the same value as the first GetChangeToken
-// request.
-//
-// When you use a change token in a create, update, or delete request, the status
-// of the change token changes to PENDING, which indicates that AWS WAF is propagating
-// the change to all AWS WAF servers. Use GetChangeTokenStatus to determine
-// the status of your change token.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetByteMatchSet for usage and error information.
-=======
-// API operation GetChangeToken for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
@@ -4443,108 +3525,60 @@ func (c *WAFRegional) GetByteMatchSet(input *waf.GetByteMatchSetInput) (*waf.Get
 // the ability to pass a context and additional request options.
 //
 // See GetByteMatchSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetChangeToken
-func (c *WAFRegional) GetChangeToken(input *waf.GetChangeTokenInput) (*waf.GetChangeTokenOutput, error) {
-	req, out := c.GetChangeTokenRequest(input)
-	return out, req.Send()
-}
-
-// GetChangeTokenWithContext is the same as GetChangeToken with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetChangeToken for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetByteMatchSetWithContext(ctx aws.Context, input *waf.GetByteMatchSetInput, opts ...request.Option) (*waf.GetByteMatchSetOutput, error) {
 	req, out := c.GetByteMatchSetRequest(input)
-=======
-func (c *WAFRegional) GetChangeTokenWithContext(ctx aws.Context, input *waf.GetChangeTokenInput, opts ...request.Option) (*waf.GetChangeTokenOutput, error) {
-	req, out := c.GetChangeTokenRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetChangeToken = "GetChangeToken"
 
 // GetChangeTokenRequest generates a "aws/request.Request" representing the
 // client's request for the GetChangeToken operation. The "output" return
-=======
-const opGetChangeTokenStatus = "GetChangeTokenStatus"
-
-// GetChangeTokenStatusRequest generates a "aws/request.Request" representing the
-// client's request for the GetChangeTokenStatus operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetChangeToken for more information on using the GetChangeToken
-=======
-// See GetChangeTokenStatus for more information on using the GetChangeTokenStatus
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetChangeTokenRequest method.
 //    req, resp := client.GetChangeTokenRequest(params)
-=======
-//    // Example sending a request using the GetChangeTokenStatusRequest method.
-//    req, resp := client.GetChangeTokenStatusRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetChangeToken
 func (c *WAFRegional) GetChangeTokenRequest(input *waf.GetChangeTokenInput) (req *request.Request, output *waf.GetChangeTokenOutput) {
 	op := &request.Operation{
 		Name:       opGetChangeToken,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetChangeTokenStatus
-func (c *WAFRegional) GetChangeTokenStatusRequest(input *waf.GetChangeTokenStatusInput) (req *request.Request, output *waf.GetChangeTokenStatusOutput) {
-	op := &request.Operation{
-		Name:       opGetChangeTokenStatus,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetChangeTokenInput{}
 	}
 
 	output = &waf.GetChangeTokenOutput{}
-=======
-		input = &waf.GetChangeTokenStatusInput{}
-	}
-
-	output = &waf.GetChangeTokenStatusOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetChangeToken API operation for AWS WAF Regional.
 //
 // When you want to create, update, or delete AWS WAF objects, get a change
@@ -4562,39 +3596,19 @@ func (c *WAFRegional) GetChangeTokenStatusRequest(input *waf.GetChangeTokenStatu
 // of the change token changes to PENDING, which indicates that AWS WAF is propagating
 // the change to all AWS WAF servers. Use GetChangeTokenStatus to determine
 // the status of your change token.
-=======
-// GetChangeTokenStatus API operation for AWS WAF Regional.
-//
-// Returns the status of a ChangeToken that you got by calling GetChangeToken.
-// ChangeTokenStatus is one of the following values:
-//
-//    * PROVISIONED: You requested the change token by calling GetChangeToken,
-//    but you haven't used it yet in a call to create, update, or delete an
-//    AWS WAF object.
-//
-//    * PENDING: AWS WAF is propagating the create, update, or delete request
-//    to all AWS WAF servers.
-//
-//    * IN_SYNC: Propagation is complete.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetChangeToken for usage and error information.
-=======
-// API operation GetChangeTokenStatus for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetChangeToken
 func (c *WAFRegional) GetChangeToken(input *waf.GetChangeTokenInput) (*waf.GetChangeTokenOutput, error) {
 	req, out := c.GetChangeTokenRequest(input)
@@ -4605,108 +3619,60 @@ func (c *WAFRegional) GetChangeToken(input *waf.GetChangeTokenInput) (*waf.GetCh
 // the ability to pass a context and additional request options.
 //
 // See GetChangeToken for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetChangeTokenStatus
-func (c *WAFRegional) GetChangeTokenStatus(input *waf.GetChangeTokenStatusInput) (*waf.GetChangeTokenStatusOutput, error) {
-	req, out := c.GetChangeTokenStatusRequest(input)
-	return out, req.Send()
-}
-
-// GetChangeTokenStatusWithContext is the same as GetChangeTokenStatus with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetChangeTokenStatus for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetChangeTokenWithContext(ctx aws.Context, input *waf.GetChangeTokenInput, opts ...request.Option) (*waf.GetChangeTokenOutput, error) {
 	req, out := c.GetChangeTokenRequest(input)
-=======
-func (c *WAFRegional) GetChangeTokenStatusWithContext(ctx aws.Context, input *waf.GetChangeTokenStatusInput, opts ...request.Option) (*waf.GetChangeTokenStatusOutput, error) {
-	req, out := c.GetChangeTokenStatusRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetChangeTokenStatus = "GetChangeTokenStatus"
 
 // GetChangeTokenStatusRequest generates a "aws/request.Request" representing the
 // client's request for the GetChangeTokenStatus operation. The "output" return
-=======
-const opGetGeoMatchSet = "GetGeoMatchSet"
-
-// GetGeoMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the GetGeoMatchSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetChangeTokenStatus for more information on using the GetChangeTokenStatus
-=======
-// See GetGeoMatchSet for more information on using the GetGeoMatchSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetChangeTokenStatusRequest method.
 //    req, resp := client.GetChangeTokenStatusRequest(params)
-=======
-//    // Example sending a request using the GetGeoMatchSetRequest method.
-//    req, resp := client.GetGeoMatchSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetChangeTokenStatus
 func (c *WAFRegional) GetChangeTokenStatusRequest(input *waf.GetChangeTokenStatusInput) (req *request.Request, output *waf.GetChangeTokenStatusOutput) {
 	op := &request.Operation{
 		Name:       opGetChangeTokenStatus,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetGeoMatchSet
-func (c *WAFRegional) GetGeoMatchSetRequest(input *waf.GetGeoMatchSetInput) (req *request.Request, output *waf.GetGeoMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opGetGeoMatchSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetChangeTokenStatusInput{}
 	}
 
 	output = &waf.GetChangeTokenStatusOutput{}
-=======
-		input = &waf.GetGeoMatchSetInput{}
-	}
-
-	output = &waf.GetGeoMatchSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetChangeTokenStatus API operation for AWS WAF Regional.
 //
 // Returns the status of a ChangeToken that you got by calling GetChangeToken.
@@ -4720,22 +3686,13 @@ func (c *WAFRegional) GetGeoMatchSetRequest(input *waf.GetGeoMatchSetInput) (req
 //    to all AWS WAF servers.
 //
 //    * IN_SYNC: Propagation is complete.
-=======
-// GetGeoMatchSet API operation for AWS WAF Regional.
-//
-// Returns the GeoMatchSet that is specified by GeoMatchSetId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetChangeTokenStatus for usage and error information.
-=======
-// API operation GetGeoMatchSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
@@ -4745,7 +3702,6 @@ func (c *WAFRegional) GetGeoMatchSetRequest(input *waf.GetGeoMatchSetInput) (req
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetChangeTokenStatus
 func (c *WAFRegional) GetChangeTokenStatus(input *waf.GetChangeTokenStatusInput) (*waf.GetChangeTokenStatusOutput, error) {
 	req, out := c.GetChangeTokenStatusRequest(input)
@@ -4756,134 +3712,70 @@ func (c *WAFRegional) GetChangeTokenStatus(input *waf.GetChangeTokenStatusInput)
 // the ability to pass a context and additional request options.
 //
 // See GetChangeTokenStatus for details on how to use this API operation.
-=======
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetGeoMatchSet
-func (c *WAFRegional) GetGeoMatchSet(input *waf.GetGeoMatchSetInput) (*waf.GetGeoMatchSetOutput, error) {
-	req, out := c.GetGeoMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// GetGeoMatchSetWithContext is the same as GetGeoMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetGeoMatchSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetChangeTokenStatusWithContext(ctx aws.Context, input *waf.GetChangeTokenStatusInput, opts ...request.Option) (*waf.GetChangeTokenStatusOutput, error) {
 	req, out := c.GetChangeTokenStatusRequest(input)
-=======
-func (c *WAFRegional) GetGeoMatchSetWithContext(ctx aws.Context, input *waf.GetGeoMatchSetInput, opts ...request.Option) (*waf.GetGeoMatchSetOutput, error) {
-	req, out := c.GetGeoMatchSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetGeoMatchSet = "GetGeoMatchSet"
 
 // GetGeoMatchSetRequest generates a "aws/request.Request" representing the
 // client's request for the GetGeoMatchSet operation. The "output" return
-=======
-const opGetIPSet = "GetIPSet"
-
-// GetIPSetRequest generates a "aws/request.Request" representing the
-// client's request for the GetIPSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetGeoMatchSet for more information on using the GetGeoMatchSet
-=======
-// See GetIPSet for more information on using the GetIPSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetGeoMatchSetRequest method.
 //    req, resp := client.GetGeoMatchSetRequest(params)
-=======
-//    // Example sending a request using the GetIPSetRequest method.
-//    req, resp := client.GetIPSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetGeoMatchSet
 func (c *WAFRegional) GetGeoMatchSetRequest(input *waf.GetGeoMatchSetInput) (req *request.Request, output *waf.GetGeoMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opGetGeoMatchSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetIPSet
-func (c *WAFRegional) GetIPSetRequest(input *waf.GetIPSetInput) (req *request.Request, output *waf.GetIPSetOutput) {
-	op := &request.Operation{
-		Name:       opGetIPSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetGeoMatchSetInput{}
 	}
 
 	output = &waf.GetGeoMatchSetOutput{}
-=======
-		input = &waf.GetIPSetInput{}
-	}
-
-	output = &waf.GetIPSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetGeoMatchSet API operation for AWS WAF Regional.
 //
 // Returns the GeoMatchSet that is specified by GeoMatchSetId.
-=======
-// GetIPSet API operation for AWS WAF Regional.
-//
-// Returns the IPSet that is specified by IPSetId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetGeoMatchSet for usage and error information.
-=======
-// API operation GetIPSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -4897,7 +3789,6 @@ func (c *WAFRegional) GetIPSetRequest(input *waf.GetIPSetInput) (req *request.Re
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetGeoMatchSet
 func (c *WAFRegional) GetGeoMatchSet(input *waf.GetGeoMatchSetInput) (*waf.GetGeoMatchSetOutput, error) {
 	req, out := c.GetGeoMatchSetRequest(input)
@@ -4908,128 +3799,70 @@ func (c *WAFRegional) GetGeoMatchSet(input *waf.GetGeoMatchSetInput) (*waf.GetGe
 // the ability to pass a context and additional request options.
 //
 // See GetGeoMatchSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetIPSet
-func (c *WAFRegional) GetIPSet(input *waf.GetIPSetInput) (*waf.GetIPSetOutput, error) {
-	req, out := c.GetIPSetRequest(input)
-	return out, req.Send()
-}
-
-// GetIPSetWithContext is the same as GetIPSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetIPSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetGeoMatchSetWithContext(ctx aws.Context, input *waf.GetGeoMatchSetInput, opts ...request.Option) (*waf.GetGeoMatchSetOutput, error) {
 	req, out := c.GetGeoMatchSetRequest(input)
-=======
-func (c *WAFRegional) GetIPSetWithContext(ctx aws.Context, input *waf.GetIPSetInput, opts ...request.Option) (*waf.GetIPSetOutput, error) {
-	req, out := c.GetIPSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetIPSet = "GetIPSet"
 
 // GetIPSetRequest generates a "aws/request.Request" representing the
 // client's request for the GetIPSet operation. The "output" return
-=======
-const opGetRateBasedRule = "GetRateBasedRule"
-
-// GetRateBasedRuleRequest generates a "aws/request.Request" representing the
-// client's request for the GetRateBasedRule operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetIPSet for more information on using the GetIPSet
-=======
-// See GetRateBasedRule for more information on using the GetRateBasedRule
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetIPSetRequest method.
 //    req, resp := client.GetIPSetRequest(params)
-=======
-//    // Example sending a request using the GetRateBasedRuleRequest method.
-//    req, resp := client.GetRateBasedRuleRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetIPSet
 func (c *WAFRegional) GetIPSetRequest(input *waf.GetIPSetInput) (req *request.Request, output *waf.GetIPSetOutput) {
 	op := &request.Operation{
 		Name:       opGetIPSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRateBasedRule
-func (c *WAFRegional) GetRateBasedRuleRequest(input *waf.GetRateBasedRuleInput) (req *request.Request, output *waf.GetRateBasedRuleOutput) {
-	op := &request.Operation{
-		Name:       opGetRateBasedRule,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetIPSetInput{}
 	}
 
 	output = &waf.GetIPSetOutput{}
-=======
-		input = &waf.GetRateBasedRuleInput{}
-	}
-
-	output = &waf.GetRateBasedRuleOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetIPSet API operation for AWS WAF Regional.
 //
 // Returns the IPSet that is specified by IPSetId.
-=======
-// GetRateBasedRule API operation for AWS WAF Regional.
-//
-// Returns the RateBasedRule that is specified by the RuleId that you included
-// in the GetRateBasedRule request.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetIPSet for usage and error information.
-=======
-// API operation GetRateBasedRule for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -5043,7 +3876,6 @@ func (c *WAFRegional) GetRateBasedRuleRequest(input *waf.GetRateBasedRuleInput) 
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetIPSet
 func (c *WAFRegional) GetIPSet(input *waf.GetIPSetInput) (*waf.GetIPSetOutput, error) {
 	req, out := c.GetIPSetRequest(input)
@@ -5054,131 +3886,71 @@ func (c *WAFRegional) GetIPSet(input *waf.GetIPSetInput) (*waf.GetIPSetOutput, e
 // the ability to pass a context and additional request options.
 //
 // See GetIPSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRateBasedRule
-func (c *WAFRegional) GetRateBasedRule(input *waf.GetRateBasedRuleInput) (*waf.GetRateBasedRuleOutput, error) {
-	req, out := c.GetRateBasedRuleRequest(input)
-	return out, req.Send()
-}
-
-// GetRateBasedRuleWithContext is the same as GetRateBasedRule with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetRateBasedRule for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetIPSetWithContext(ctx aws.Context, input *waf.GetIPSetInput, opts ...request.Option) (*waf.GetIPSetOutput, error) {
 	req, out := c.GetIPSetRequest(input)
-=======
-func (c *WAFRegional) GetRateBasedRuleWithContext(ctx aws.Context, input *waf.GetRateBasedRuleInput, opts ...request.Option) (*waf.GetRateBasedRuleOutput, error) {
-	req, out := c.GetRateBasedRuleRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetRateBasedRule = "GetRateBasedRule"
 
 // GetRateBasedRuleRequest generates a "aws/request.Request" representing the
 // client's request for the GetRateBasedRule operation. The "output" return
-=======
-const opGetRateBasedRuleManagedKeys = "GetRateBasedRuleManagedKeys"
-
-// GetRateBasedRuleManagedKeysRequest generates a "aws/request.Request" representing the
-// client's request for the GetRateBasedRuleManagedKeys operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetRateBasedRule for more information on using the GetRateBasedRule
-=======
-// See GetRateBasedRuleManagedKeys for more information on using the GetRateBasedRuleManagedKeys
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetRateBasedRuleRequest method.
 //    req, resp := client.GetRateBasedRuleRequest(params)
-=======
-//    // Example sending a request using the GetRateBasedRuleManagedKeysRequest method.
-//    req, resp := client.GetRateBasedRuleManagedKeysRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRateBasedRule
 func (c *WAFRegional) GetRateBasedRuleRequest(input *waf.GetRateBasedRuleInput) (req *request.Request, output *waf.GetRateBasedRuleOutput) {
 	op := &request.Operation{
 		Name:       opGetRateBasedRule,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRateBasedRuleManagedKeys
-func (c *WAFRegional) GetRateBasedRuleManagedKeysRequest(input *waf.GetRateBasedRuleManagedKeysInput) (req *request.Request, output *waf.GetRateBasedRuleManagedKeysOutput) {
-	op := &request.Operation{
-		Name:       opGetRateBasedRuleManagedKeys,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetRateBasedRuleInput{}
 	}
 
 	output = &waf.GetRateBasedRuleOutput{}
-=======
-		input = &waf.GetRateBasedRuleManagedKeysInput{}
-	}
-
-	output = &waf.GetRateBasedRuleManagedKeysOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetRateBasedRule API operation for AWS WAF Regional.
 //
 // Returns the RateBasedRule that is specified by the RuleId that you included
 // in the GetRateBasedRule request.
-=======
-// GetRateBasedRuleManagedKeys API operation for AWS WAF Regional.
-//
-// Returns an array of IP addresses currently being blocked by the RateBasedRule
-// that is specified by the RuleId. The maximum number of managed keys that
-// will be blocked is 10,000. If more than 10,000 addresses exceed the rate
-// limit, the 10,000 addresses with the highest rates will be blocked.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetRateBasedRule for usage and error information.
-=======
-// API operation GetRateBasedRuleManagedKeys for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -5192,7 +3964,6 @@ func (c *WAFRegional) GetRateBasedRuleManagedKeysRequest(input *waf.GetRateBased
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRateBasedRule
 func (c *WAFRegional) GetRateBasedRule(input *waf.GetRateBasedRuleInput) (*waf.GetRateBasedRuleOutput, error) {
 	req, out := c.GetRateBasedRuleRequest(input)
@@ -5203,159 +3974,73 @@ func (c *WAFRegional) GetRateBasedRule(input *waf.GetRateBasedRuleInput) (*waf.G
 // the ability to pass a context and additional request options.
 //
 // See GetRateBasedRule for details on how to use this API operation.
-=======
-//   * ErrCodeWAFInvalidParameterException "WAFInvalidParameterException"
-//   The operation failed because AWS WAF didn't recognize a parameter in the
-//   request. For example:
-//
-//      * You specified an invalid parameter name.
-//
-//      * You specified an invalid value.
-//
-//      * You tried to update an object (ByteMatchSet, IPSet, Rule, or WebACL)
-//      using an action other than INSERT or DELETE.
-//
-//      * You tried to create a WebACL with a DefaultActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to create a RateBasedRule with a RateKey value other than
-//      IP.
-//
-//      * You tried to update a WebACL with a WafActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to update a ByteMatchSet with a FieldToMatchType other than
-//      HEADER, METHOD, QUERY_STRING, URI, or BODY.
-//
-//      * You tried to update a ByteMatchSet with a Field of HEADER but no value
-//      for Data.
-//
-//      * Your request references an ARN that is malformed, or corresponds to
-//      a resource with which a web ACL cannot be associated.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRateBasedRuleManagedKeys
-func (c *WAFRegional) GetRateBasedRuleManagedKeys(input *waf.GetRateBasedRuleManagedKeysInput) (*waf.GetRateBasedRuleManagedKeysOutput, error) {
-	req, out := c.GetRateBasedRuleManagedKeysRequest(input)
-	return out, req.Send()
-}
-
-// GetRateBasedRuleManagedKeysWithContext is the same as GetRateBasedRuleManagedKeys with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetRateBasedRuleManagedKeys for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetRateBasedRuleWithContext(ctx aws.Context, input *waf.GetRateBasedRuleInput, opts ...request.Option) (*waf.GetRateBasedRuleOutput, error) {
 	req, out := c.GetRateBasedRuleRequest(input)
-=======
-func (c *WAFRegional) GetRateBasedRuleManagedKeysWithContext(ctx aws.Context, input *waf.GetRateBasedRuleManagedKeysInput, opts ...request.Option) (*waf.GetRateBasedRuleManagedKeysOutput, error) {
-	req, out := c.GetRateBasedRuleManagedKeysRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetRateBasedRuleManagedKeys = "GetRateBasedRuleManagedKeys"
 
 // GetRateBasedRuleManagedKeysRequest generates a "aws/request.Request" representing the
 // client's request for the GetRateBasedRuleManagedKeys operation. The "output" return
-=======
-const opGetRegexMatchSet = "GetRegexMatchSet"
-
-// GetRegexMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the GetRegexMatchSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetRateBasedRuleManagedKeys for more information on using the GetRateBasedRuleManagedKeys
-=======
-// See GetRegexMatchSet for more information on using the GetRegexMatchSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetRateBasedRuleManagedKeysRequest method.
 //    req, resp := client.GetRateBasedRuleManagedKeysRequest(params)
-=======
-//    // Example sending a request using the GetRegexMatchSetRequest method.
-//    req, resp := client.GetRegexMatchSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRateBasedRuleManagedKeys
 func (c *WAFRegional) GetRateBasedRuleManagedKeysRequest(input *waf.GetRateBasedRuleManagedKeysInput) (req *request.Request, output *waf.GetRateBasedRuleManagedKeysOutput) {
 	op := &request.Operation{
 		Name:       opGetRateBasedRuleManagedKeys,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRegexMatchSet
-func (c *WAFRegional) GetRegexMatchSetRequest(input *waf.GetRegexMatchSetInput) (req *request.Request, output *waf.GetRegexMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opGetRegexMatchSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetRateBasedRuleManagedKeysInput{}
 	}
 
 	output = &waf.GetRateBasedRuleManagedKeysOutput{}
-=======
-		input = &waf.GetRegexMatchSetInput{}
-	}
-
-	output = &waf.GetRegexMatchSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetRateBasedRuleManagedKeys API operation for AWS WAF Regional.
 //
 // Returns an array of IP addresses currently being blocked by the RateBasedRule
 // that is specified by the RuleId. The maximum number of managed keys that
 // will be blocked is 10,000. If more than 10,000 addresses exceed the rate
 // limit, the 10,000 addresses with the highest rates will be blocked.
-=======
-// GetRegexMatchSet API operation for AWS WAF Regional.
-//
-// Returns the RegexMatchSet specified by RegexMatchSetId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetRateBasedRuleManagedKeys for usage and error information.
-=======
-// API operation GetRegexMatchSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -5369,7 +4054,6 @@ func (c *WAFRegional) GetRegexMatchSetRequest(input *waf.GetRegexMatchSetInput) 
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFInvalidParameterException "WAFInvalidParameterException"
 //   The operation failed because AWS WAF didn't recognize a parameter in the
 //   request. For example:
@@ -5409,127 +4093,70 @@ func (c *WAFRegional) GetRateBasedRuleManagedKeys(input *waf.GetRateBasedRuleMan
 // the ability to pass a context and additional request options.
 //
 // See GetRateBasedRuleManagedKeys for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRegexMatchSet
-func (c *WAFRegional) GetRegexMatchSet(input *waf.GetRegexMatchSetInput) (*waf.GetRegexMatchSetOutput, error) {
-	req, out := c.GetRegexMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// GetRegexMatchSetWithContext is the same as GetRegexMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetRegexMatchSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetRateBasedRuleManagedKeysWithContext(ctx aws.Context, input *waf.GetRateBasedRuleManagedKeysInput, opts ...request.Option) (*waf.GetRateBasedRuleManagedKeysOutput, error) {
 	req, out := c.GetRateBasedRuleManagedKeysRequest(input)
-=======
-func (c *WAFRegional) GetRegexMatchSetWithContext(ctx aws.Context, input *waf.GetRegexMatchSetInput, opts ...request.Option) (*waf.GetRegexMatchSetOutput, error) {
-	req, out := c.GetRegexMatchSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetRegexMatchSet = "GetRegexMatchSet"
 
 // GetRegexMatchSetRequest generates a "aws/request.Request" representing the
 // client's request for the GetRegexMatchSet operation. The "output" return
-=======
-const opGetRegexPatternSet = "GetRegexPatternSet"
-
-// GetRegexPatternSetRequest generates a "aws/request.Request" representing the
-// client's request for the GetRegexPatternSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetRegexMatchSet for more information on using the GetRegexMatchSet
-=======
-// See GetRegexPatternSet for more information on using the GetRegexPatternSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetRegexMatchSetRequest method.
 //    req, resp := client.GetRegexMatchSetRequest(params)
-=======
-//    // Example sending a request using the GetRegexPatternSetRequest method.
-//    req, resp := client.GetRegexPatternSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRegexMatchSet
 func (c *WAFRegional) GetRegexMatchSetRequest(input *waf.GetRegexMatchSetInput) (req *request.Request, output *waf.GetRegexMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opGetRegexMatchSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRegexPatternSet
-func (c *WAFRegional) GetRegexPatternSetRequest(input *waf.GetRegexPatternSetInput) (req *request.Request, output *waf.GetRegexPatternSetOutput) {
-	op := &request.Operation{
-		Name:       opGetRegexPatternSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetRegexMatchSetInput{}
 	}
 
 	output = &waf.GetRegexMatchSetOutput{}
-=======
-		input = &waf.GetRegexPatternSetInput{}
-	}
-
-	output = &waf.GetRegexPatternSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetRegexMatchSet API operation for AWS WAF Regional.
 //
 // Returns the RegexMatchSet specified by RegexMatchSetId.
-=======
-// GetRegexPatternSet API operation for AWS WAF Regional.
-//
-// Returns the RegexPatternSet specified by RegexPatternSetId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetRegexMatchSet for usage and error information.
-=======
-// API operation GetRegexPatternSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -5543,7 +4170,6 @@ func (c *WAFRegional) GetRegexPatternSetRequest(input *waf.GetRegexPatternSetInp
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRegexMatchSet
 func (c *WAFRegional) GetRegexMatchSet(input *waf.GetRegexMatchSetInput) (*waf.GetRegexMatchSetOutput, error) {
 	req, out := c.GetRegexMatchSetRequest(input)
@@ -5554,128 +4180,70 @@ func (c *WAFRegional) GetRegexMatchSet(input *waf.GetRegexMatchSetInput) (*waf.G
 // the ability to pass a context and additional request options.
 //
 // See GetRegexMatchSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRegexPatternSet
-func (c *WAFRegional) GetRegexPatternSet(input *waf.GetRegexPatternSetInput) (*waf.GetRegexPatternSetOutput, error) {
-	req, out := c.GetRegexPatternSetRequest(input)
-	return out, req.Send()
-}
-
-// GetRegexPatternSetWithContext is the same as GetRegexPatternSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetRegexPatternSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetRegexMatchSetWithContext(ctx aws.Context, input *waf.GetRegexMatchSetInput, opts ...request.Option) (*waf.GetRegexMatchSetOutput, error) {
 	req, out := c.GetRegexMatchSetRequest(input)
-=======
-func (c *WAFRegional) GetRegexPatternSetWithContext(ctx aws.Context, input *waf.GetRegexPatternSetInput, opts ...request.Option) (*waf.GetRegexPatternSetOutput, error) {
-	req, out := c.GetRegexPatternSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetRegexPatternSet = "GetRegexPatternSet"
 
 // GetRegexPatternSetRequest generates a "aws/request.Request" representing the
 // client's request for the GetRegexPatternSet operation. The "output" return
-=======
-const opGetRule = "GetRule"
-
-// GetRuleRequest generates a "aws/request.Request" representing the
-// client's request for the GetRule operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetRegexPatternSet for more information on using the GetRegexPatternSet
-=======
-// See GetRule for more information on using the GetRule
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetRegexPatternSetRequest method.
 //    req, resp := client.GetRegexPatternSetRequest(params)
-=======
-//    // Example sending a request using the GetRuleRequest method.
-//    req, resp := client.GetRuleRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRegexPatternSet
 func (c *WAFRegional) GetRegexPatternSetRequest(input *waf.GetRegexPatternSetInput) (req *request.Request, output *waf.GetRegexPatternSetOutput) {
 	op := &request.Operation{
 		Name:       opGetRegexPatternSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRule
-func (c *WAFRegional) GetRuleRequest(input *waf.GetRuleInput) (req *request.Request, output *waf.GetRuleOutput) {
-	op := &request.Operation{
-		Name:       opGetRule,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetRegexPatternSetInput{}
 	}
 
 	output = &waf.GetRegexPatternSetOutput{}
-=======
-		input = &waf.GetRuleInput{}
-	}
-
-	output = &waf.GetRuleOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetRegexPatternSet API operation for AWS WAF Regional.
 //
 // Returns the RegexPatternSet specified by RegexPatternSetId.
-=======
-// GetRule API operation for AWS WAF Regional.
-//
-// Returns the Rule that is specified by the RuleId that you included in the
-// GetRule request.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetRegexPatternSet for usage and error information.
-=======
-// API operation GetRule for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -5689,7 +4257,6 @@ func (c *WAFRegional) GetRuleRequest(input *waf.GetRuleInput) (req *request.Requ
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRegexPatternSet
 func (c *WAFRegional) GetRegexPatternSet(input *waf.GetRegexPatternSetInput) (*waf.GetRegexPatternSetOutput, error) {
 	req, out := c.GetRegexPatternSetRequest(input)
@@ -5700,237 +4267,77 @@ func (c *WAFRegional) GetRegexPatternSet(input *waf.GetRegexPatternSetInput) (*w
 // the ability to pass a context and additional request options.
 //
 // See GetRegexPatternSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRule
-func (c *WAFRegional) GetRule(input *waf.GetRuleInput) (*waf.GetRuleOutput, error) {
-	req, out := c.GetRuleRequest(input)
-	return out, req.Send()
-}
-
-// GetRuleWithContext is the same as GetRule with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetRule for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetRegexPatternSetWithContext(ctx aws.Context, input *waf.GetRegexPatternSetInput, opts ...request.Option) (*waf.GetRegexPatternSetOutput, error) {
 	req, out := c.GetRegexPatternSetRequest(input)
-=======
-func (c *WAFRegional) GetRuleWithContext(ctx aws.Context, input *waf.GetRuleInput, opts ...request.Option) (*waf.GetRuleOutput, error) {
-	req, out := c.GetRuleRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 const opGetRule = "GetRule"
 
 // GetRuleRequest generates a "aws/request.Request" representing the
 // client's request for the GetRule operation. The "output" return
-=======
-=======
-const opGetRuleGroup = "GetRuleGroup"
-
-// GetRuleGroupRequest generates a "aws/request.Request" representing the
-// client's request for the GetRuleGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-// See GetRuleGroup for more information on using the GetRuleGroup
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the GetRuleGroupRequest method.
-//    req, resp := client.GetRuleGroupRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRuleGroup
-func (c *WAFRegional) GetRuleGroupRequest(input *waf.GetRuleGroupInput) (req *request.Request, output *waf.GetRuleGroupOutput) {
-	op := &request.Operation{
-		Name:       opGetRuleGroup,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &waf.GetRuleGroupInput{}
-	}
-
-	output = &waf.GetRuleGroupOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// GetRuleGroup API operation for AWS WAF Regional.
-//
-// Returns the RuleGroup that is specified by the RuleGroupId that you included
-// in the GetRuleGroup request.
-//
-// To view the rules in a rule group, use ListActivatedRulesInRuleGroup.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation GetRuleGroup for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRuleGroup
-func (c *WAFRegional) GetRuleGroup(input *waf.GetRuleGroupInput) (*waf.GetRuleGroupOutput, error) {
-	req, out := c.GetRuleGroupRequest(input)
-	return out, req.Send()
-}
-
-// GetRuleGroupWithContext is the same as GetRuleGroup with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetRuleGroup for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAFRegional) GetRuleGroupWithContext(ctx aws.Context, input *waf.GetRuleGroupInput, opts ...request.Option) (*waf.GetRuleGroupOutput, error) {
-	req, out := c.GetRuleGroupRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
->>>>>>> Working on getting compiling
-const opGetSampledRequests = "GetSampledRequests"
-
-// GetSampledRequestsRequest generates a "aws/request.Request" representing the
-// client's request for the GetSampledRequests operation. The "output" return
->>>>>>> Initial dep workover
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-<<<<<<< HEAD
 // See GetRule for more information on using the GetRule
-=======
-// See GetSampledRequests for more information on using the GetSampledRequests
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetRuleRequest method.
 //    req, resp := client.GetRuleRequest(params)
-=======
-//    // Example sending a request using the GetSampledRequestsRequest method.
-//    req, resp := client.GetSampledRequestsRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRule
 func (c *WAFRegional) GetRuleRequest(input *waf.GetRuleInput) (req *request.Request, output *waf.GetRuleOutput) {
 	op := &request.Operation{
 		Name:       opGetRule,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSampledRequests
-func (c *WAFRegional) GetSampledRequestsRequest(input *waf.GetSampledRequestsInput) (req *request.Request, output *waf.GetSampledRequestsOutput) {
-	op := &request.Operation{
-		Name:       opGetSampledRequests,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetRuleInput{}
 	}
 
 	output = &waf.GetRuleOutput{}
-=======
-		input = &waf.GetSampledRequestsInput{}
-	}
-
-	output = &waf.GetSampledRequestsOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetRule API operation for AWS WAF Regional.
 //
 // Returns the Rule that is specified by the RuleId that you included in the
 // GetRule request.
-=======
-// GetSampledRequests API operation for AWS WAF Regional.
-//
-// Gets detailed information about a specified number of requests--a sample--that
-// AWS WAF randomly selects from among the first 5,000 requests that your AWS
-// resource received during a time range that you choose. You can specify a
-// sample size of up to 500 requests, and you can specify any time range in
-// the previous three hours.
-//
-// GetSampledRequests returns a time range, which is usually the time range
-// that you specified. However, if your resource (such as a CloudFront distribution)
-// received 5,000 requests before the specified time range elapsed, GetSampledRequests
-// returns an updated time range. This new time range indicates the actual period
-// during which AWS WAF selected the requests in the sample.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetRule for usage and error information.
-=======
-// API operation GetSampledRequests for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
@@ -5948,130 +4355,73 @@ func (c *WAFRegional) GetRule(input *waf.GetRuleInput) (*waf.GetRuleOutput, erro
 // the ability to pass a context and additional request options.
 //
 // See GetRule for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSampledRequests
-func (c *WAFRegional) GetSampledRequests(input *waf.GetSampledRequestsInput) (*waf.GetSampledRequestsOutput, error) {
-	req, out := c.GetSampledRequestsRequest(input)
-	return out, req.Send()
-}
-
-// GetSampledRequestsWithContext is the same as GetSampledRequests with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetSampledRequests for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetRuleWithContext(ctx aws.Context, input *waf.GetRuleInput, opts ...request.Option) (*waf.GetRuleOutput, error) {
 	req, out := c.GetRuleRequest(input)
-=======
-func (c *WAFRegional) GetSampledRequestsWithContext(ctx aws.Context, input *waf.GetSampledRequestsInput, opts ...request.Option) (*waf.GetSampledRequestsOutput, error) {
-	req, out := c.GetSampledRequestsRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetRuleGroup = "GetRuleGroup"
 
 // GetRuleGroupRequest generates a "aws/request.Request" representing the
 // client's request for the GetRuleGroup operation. The "output" return
-=======
-const opGetSizeConstraintSet = "GetSizeConstraintSet"
-
-// GetSizeConstraintSetRequest generates a "aws/request.Request" representing the
-// client's request for the GetSizeConstraintSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetRuleGroup for more information on using the GetRuleGroup
-=======
-// See GetSizeConstraintSet for more information on using the GetSizeConstraintSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetRuleGroupRequest method.
 //    req, resp := client.GetRuleGroupRequest(params)
-=======
-//    // Example sending a request using the GetSizeConstraintSetRequest method.
-//    req, resp := client.GetSizeConstraintSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRuleGroup
 func (c *WAFRegional) GetRuleGroupRequest(input *waf.GetRuleGroupInput) (req *request.Request, output *waf.GetRuleGroupOutput) {
 	op := &request.Operation{
 		Name:       opGetRuleGroup,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSizeConstraintSet
-func (c *WAFRegional) GetSizeConstraintSetRequest(input *waf.GetSizeConstraintSetInput) (req *request.Request, output *waf.GetSizeConstraintSetOutput) {
-	op := &request.Operation{
-		Name:       opGetSizeConstraintSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetRuleGroupInput{}
 	}
 
 	output = &waf.GetRuleGroupOutput{}
-=======
-		input = &waf.GetSizeConstraintSetInput{}
-	}
-
-	output = &waf.GetSizeConstraintSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetRuleGroup API operation for AWS WAF Regional.
 //
 // Returns the RuleGroup that is specified by the RuleGroupId that you included
 // in the GetRuleGroup request.
 //
 // To view the rules in a rule group, use ListActivatedRulesInRuleGroup.
-=======
-// GetSizeConstraintSet API operation for AWS WAF Regional.
-//
-// Returns the SizeConstraintSet specified by SizeConstraintSetId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetRuleGroup for usage and error information.
-=======
-// API operation GetSizeConstraintSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -6081,7 +4431,6 @@ func (c *WAFRegional) GetSizeConstraintSetRequest(input *waf.GetSizeConstraintSe
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetRuleGroup
 func (c *WAFRegional) GetRuleGroup(input *waf.GetRuleGroupInput) (*waf.GetRuleGroupOutput, error) {
 	req, out := c.GetRuleGroupRequest(input)
@@ -6092,108 +4441,60 @@ func (c *WAFRegional) GetRuleGroup(input *waf.GetRuleGroupInput) (*waf.GetRuleGr
 // the ability to pass a context and additional request options.
 //
 // See GetRuleGroup for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSizeConstraintSet
-func (c *WAFRegional) GetSizeConstraintSet(input *waf.GetSizeConstraintSetInput) (*waf.GetSizeConstraintSetOutput, error) {
-	req, out := c.GetSizeConstraintSetRequest(input)
-	return out, req.Send()
-}
-
-// GetSizeConstraintSetWithContext is the same as GetSizeConstraintSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetSizeConstraintSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetRuleGroupWithContext(ctx aws.Context, input *waf.GetRuleGroupInput, opts ...request.Option) (*waf.GetRuleGroupOutput, error) {
 	req, out := c.GetRuleGroupRequest(input)
-=======
-func (c *WAFRegional) GetSizeConstraintSetWithContext(ctx aws.Context, input *waf.GetSizeConstraintSetInput, opts ...request.Option) (*waf.GetSizeConstraintSetOutput, error) {
-	req, out := c.GetSizeConstraintSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetSampledRequests = "GetSampledRequests"
 
 // GetSampledRequestsRequest generates a "aws/request.Request" representing the
 // client's request for the GetSampledRequests operation. The "output" return
-=======
-const opGetSqlInjectionMatchSet = "GetSqlInjectionMatchSet"
-
-// GetSqlInjectionMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the GetSqlInjectionMatchSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetSampledRequests for more information on using the GetSampledRequests
-=======
-// See GetSqlInjectionMatchSet for more information on using the GetSqlInjectionMatchSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetSampledRequestsRequest method.
 //    req, resp := client.GetSampledRequestsRequest(params)
-=======
-//    // Example sending a request using the GetSqlInjectionMatchSetRequest method.
-//    req, resp := client.GetSqlInjectionMatchSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSampledRequests
 func (c *WAFRegional) GetSampledRequestsRequest(input *waf.GetSampledRequestsInput) (req *request.Request, output *waf.GetSampledRequestsOutput) {
 	op := &request.Operation{
 		Name:       opGetSampledRequests,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSqlInjectionMatchSet
-func (c *WAFRegional) GetSqlInjectionMatchSetRequest(input *waf.GetSqlInjectionMatchSetInput) (req *request.Request, output *waf.GetSqlInjectionMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opGetSqlInjectionMatchSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetSampledRequestsInput{}
 	}
 
 	output = &waf.GetSampledRequestsOutput{}
-=======
-		input = &waf.GetSqlInjectionMatchSetInput{}
-	}
-
-	output = &waf.GetSqlInjectionMatchSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetSampledRequests API operation for AWS WAF Regional.
 //
 // Gets detailed information about a specified number of requests--a sample--that
@@ -6207,22 +4508,13 @@ func (c *WAFRegional) GetSqlInjectionMatchSetRequest(input *waf.GetSqlInjectionM
 // received 5,000 requests before the specified time range elapsed, GetSampledRequests
 // returns an updated time range. This new time range indicates the actual period
 // during which AWS WAF selected the requests in the sample.
-=======
-// GetSqlInjectionMatchSet API operation for AWS WAF Regional.
-//
-// Returns the SqlInjectionMatchSet that is specified by SqlInjectionMatchSetId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetSampledRequests for usage and error information.
-=======
-// API operation GetSqlInjectionMatchSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
@@ -6232,7 +4524,6 @@ func (c *WAFRegional) GetSqlInjectionMatchSetRequest(input *waf.GetSqlInjectionM
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSampledRequests
 func (c *WAFRegional) GetSampledRequests(input *waf.GetSampledRequestsInput) (*waf.GetSampledRequestsOutput, error) {
 	req, out := c.GetSampledRequestsRequest(input)
@@ -6243,134 +4534,70 @@ func (c *WAFRegional) GetSampledRequests(input *waf.GetSampledRequestsInput) (*w
 // the ability to pass a context and additional request options.
 //
 // See GetSampledRequests for details on how to use this API operation.
-=======
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSqlInjectionMatchSet
-func (c *WAFRegional) GetSqlInjectionMatchSet(input *waf.GetSqlInjectionMatchSetInput) (*waf.GetSqlInjectionMatchSetOutput, error) {
-	req, out := c.GetSqlInjectionMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// GetSqlInjectionMatchSetWithContext is the same as GetSqlInjectionMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetSqlInjectionMatchSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetSampledRequestsWithContext(ctx aws.Context, input *waf.GetSampledRequestsInput, opts ...request.Option) (*waf.GetSampledRequestsOutput, error) {
 	req, out := c.GetSampledRequestsRequest(input)
-=======
-func (c *WAFRegional) GetSqlInjectionMatchSetWithContext(ctx aws.Context, input *waf.GetSqlInjectionMatchSetInput, opts ...request.Option) (*waf.GetSqlInjectionMatchSetOutput, error) {
-	req, out := c.GetSqlInjectionMatchSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetSizeConstraintSet = "GetSizeConstraintSet"
 
 // GetSizeConstraintSetRequest generates a "aws/request.Request" representing the
 // client's request for the GetSizeConstraintSet operation. The "output" return
-=======
-const opGetWebACL = "GetWebACL"
-
-// GetWebACLRequest generates a "aws/request.Request" representing the
-// client's request for the GetWebACL operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetSizeConstraintSet for more information on using the GetSizeConstraintSet
-=======
-// See GetWebACL for more information on using the GetWebACL
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetSizeConstraintSetRequest method.
 //    req, resp := client.GetSizeConstraintSetRequest(params)
-=======
-//    // Example sending a request using the GetWebACLRequest method.
-//    req, resp := client.GetWebACLRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSizeConstraintSet
 func (c *WAFRegional) GetSizeConstraintSetRequest(input *waf.GetSizeConstraintSetInput) (req *request.Request, output *waf.GetSizeConstraintSetOutput) {
 	op := &request.Operation{
 		Name:       opGetSizeConstraintSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACL
-func (c *WAFRegional) GetWebACLRequest(input *waf.GetWebACLInput) (req *request.Request, output *waf.GetWebACLOutput) {
-	op := &request.Operation{
-		Name:       opGetWebACL,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetSizeConstraintSetInput{}
 	}
 
 	output = &waf.GetSizeConstraintSetOutput{}
-=======
-		input = &waf.GetWebACLInput{}
-	}
-
-	output = &waf.GetWebACLOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetSizeConstraintSet API operation for AWS WAF Regional.
 //
 // Returns the SizeConstraintSet specified by SizeConstraintSetId.
-=======
-// GetWebACL API operation for AWS WAF Regional.
-//
-// Returns the WebACL that is specified by WebACLId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetSizeConstraintSet for usage and error information.
-=======
-// API operation GetWebACL for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -6384,7 +4611,6 @@ func (c *WAFRegional) GetWebACLRequest(input *waf.GetWebACLInput) (req *request.
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSizeConstraintSet
 func (c *WAFRegional) GetSizeConstraintSet(input *waf.GetSizeConstraintSetInput) (*waf.GetSizeConstraintSetOutput, error) {
 	req, out := c.GetSizeConstraintSetRequest(input)
@@ -6395,127 +4621,70 @@ func (c *WAFRegional) GetSizeConstraintSet(input *waf.GetSizeConstraintSetInput)
 // the ability to pass a context and additional request options.
 //
 // See GetSizeConstraintSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACL
-func (c *WAFRegional) GetWebACL(input *waf.GetWebACLInput) (*waf.GetWebACLOutput, error) {
-	req, out := c.GetWebACLRequest(input)
-	return out, req.Send()
-}
-
-// GetWebACLWithContext is the same as GetWebACL with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetWebACL for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetSizeConstraintSetWithContext(ctx aws.Context, input *waf.GetSizeConstraintSetInput, opts ...request.Option) (*waf.GetSizeConstraintSetOutput, error) {
 	req, out := c.GetSizeConstraintSetRequest(input)
-=======
-func (c *WAFRegional) GetWebACLWithContext(ctx aws.Context, input *waf.GetWebACLInput, opts ...request.Option) (*waf.GetWebACLOutput, error) {
-	req, out := c.GetWebACLRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetSqlInjectionMatchSet = "GetSqlInjectionMatchSet"
 
 // GetSqlInjectionMatchSetRequest generates a "aws/request.Request" representing the
 // client's request for the GetSqlInjectionMatchSet operation. The "output" return
-=======
-const opGetWebACLForResource = "GetWebACLForResource"
-
-// GetWebACLForResourceRequest generates a "aws/request.Request" representing the
-// client's request for the GetWebACLForResource operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetSqlInjectionMatchSet for more information on using the GetSqlInjectionMatchSet
-=======
-// See GetWebACLForResource for more information on using the GetWebACLForResource
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetSqlInjectionMatchSetRequest method.
 //    req, resp := client.GetSqlInjectionMatchSetRequest(params)
-=======
-//    // Example sending a request using the GetWebACLForResourceRequest method.
-//    req, resp := client.GetWebACLForResourceRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSqlInjectionMatchSet
 func (c *WAFRegional) GetSqlInjectionMatchSetRequest(input *waf.GetSqlInjectionMatchSetInput) (req *request.Request, output *waf.GetSqlInjectionMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opGetSqlInjectionMatchSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACLForResource
-func (c *WAFRegional) GetWebACLForResourceRequest(input *GetWebACLForResourceInput) (req *request.Request, output *GetWebACLForResourceOutput) {
-	op := &request.Operation{
-		Name:       opGetWebACLForResource,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetSqlInjectionMatchSetInput{}
 	}
 
 	output = &waf.GetSqlInjectionMatchSetOutput{}
-=======
-		input = &GetWebACLForResourceInput{}
-	}
-
-	output = &GetWebACLForResourceOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetSqlInjectionMatchSet API operation for AWS WAF Regional.
 //
 // Returns the SqlInjectionMatchSet that is specified by SqlInjectionMatchSetId.
-=======
-// GetWebACLForResource API operation for AWS WAF Regional.
-//
-// Returns the web ACL for the specified resource.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetSqlInjectionMatchSet for usage and error information.
-=======
-// API operation GetWebACLForResource for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -6529,7 +4698,6 @@ func (c *WAFRegional) GetWebACLForResourceRequest(input *GetWebACLForResourceInp
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetSqlInjectionMatchSet
 func (c *WAFRegional) GetSqlInjectionMatchSet(input *waf.GetSqlInjectionMatchSetInput) (*waf.GetSqlInjectionMatchSetOutput, error) {
 	req, out := c.GetSqlInjectionMatchSetRequest(input)
@@ -6540,160 +4708,70 @@ func (c *WAFRegional) GetSqlInjectionMatchSet(input *waf.GetSqlInjectionMatchSet
 // the ability to pass a context and additional request options.
 //
 // See GetSqlInjectionMatchSet for details on how to use this API operation.
-=======
-//   * ErrCodeWAFInvalidParameterException "WAFInvalidParameterException"
-//   The operation failed because AWS WAF didn't recognize a parameter in the
-//   request. For example:
-//
-//      * You specified an invalid parameter name.
-//
-//      * You specified an invalid value.
-//
-//      * You tried to update an object (ByteMatchSet, IPSet, Rule, or WebACL)
-//      using an action other than INSERT or DELETE.
-//
-//      * You tried to create a WebACL with a DefaultActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to create a RateBasedRule with a RateKey value other than
-//      IP.
-//
-//      * You tried to update a WebACL with a WafActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to update a ByteMatchSet with a FieldToMatchType other than
-//      HEADER, METHOD, QUERY_STRING, URI, or BODY.
-//
-//      * You tried to update a ByteMatchSet with a Field of HEADER but no value
-//      for Data.
-//
-//      * Your request references an ARN that is malformed, or corresponds to
-//      a resource with which a web ACL cannot be associated.
-//
-//   * ErrCodeWAFUnavailableEntityException "WAFUnavailableEntityException"
-//   The operation failed because the entity referenced is temporarily unavailable.
-//   Retry your request.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACLForResource
-func (c *WAFRegional) GetWebACLForResource(input *GetWebACLForResourceInput) (*GetWebACLForResourceOutput, error) {
-	req, out := c.GetWebACLForResourceRequest(input)
-	return out, req.Send()
-}
-
-// GetWebACLForResourceWithContext is the same as GetWebACLForResource with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetWebACLForResource for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetSqlInjectionMatchSetWithContext(ctx aws.Context, input *waf.GetSqlInjectionMatchSetInput, opts ...request.Option) (*waf.GetSqlInjectionMatchSetOutput, error) {
 	req, out := c.GetSqlInjectionMatchSetRequest(input)
-=======
-func (c *WAFRegional) GetWebACLForResourceWithContext(ctx aws.Context, input *GetWebACLForResourceInput, opts ...request.Option) (*GetWebACLForResourceOutput, error) {
-	req, out := c.GetWebACLForResourceRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetWebACL = "GetWebACL"
 
 // GetWebACLRequest generates a "aws/request.Request" representing the
 // client's request for the GetWebACL operation. The "output" return
-=======
-const opGetXssMatchSet = "GetXssMatchSet"
-
-// GetXssMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the GetXssMatchSet operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetWebACL for more information on using the GetWebACL
-=======
-// See GetXssMatchSet for more information on using the GetXssMatchSet
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetWebACLRequest method.
 //    req, resp := client.GetWebACLRequest(params)
-=======
-//    // Example sending a request using the GetXssMatchSetRequest method.
-//    req, resp := client.GetXssMatchSetRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACL
 func (c *WAFRegional) GetWebACLRequest(input *waf.GetWebACLInput) (req *request.Request, output *waf.GetWebACLOutput) {
 	op := &request.Operation{
 		Name:       opGetWebACL,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetXssMatchSet
-func (c *WAFRegional) GetXssMatchSetRequest(input *waf.GetXssMatchSetInput) (req *request.Request, output *waf.GetXssMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opGetXssMatchSet,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetWebACLInput{}
 	}
 
 	output = &waf.GetWebACLOutput{}
-=======
-		input = &waf.GetXssMatchSetInput{}
-	}
-
-	output = &waf.GetXssMatchSetOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetWebACL API operation for AWS WAF Regional.
 //
 // Returns the WebACL that is specified by WebACLId.
-=======
-// GetXssMatchSet API operation for AWS WAF Regional.
-//
-// Returns the XssMatchSet that is specified by XssMatchSetId.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetWebACL for usage and error information.
-=======
-// API operation GetXssMatchSet for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -6707,7 +4785,6 @@ func (c *WAFRegional) GetXssMatchSetRequest(input *waf.GetXssMatchSetInput) (req
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACL
 func (c *WAFRegional) GetWebACL(input *waf.GetWebACLInput) (*waf.GetWebACLOutput, error) {
 	req, out := c.GetWebACLRequest(input)
@@ -6718,242 +4795,70 @@ func (c *WAFRegional) GetWebACL(input *waf.GetWebACLInput) (*waf.GetWebACLOutput
 // the ability to pass a context and additional request options.
 //
 // See GetWebACL for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetXssMatchSet
-func (c *WAFRegional) GetXssMatchSet(input *waf.GetXssMatchSetInput) (*waf.GetXssMatchSetOutput, error) {
-	req, out := c.GetXssMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// GetXssMatchSetWithContext is the same as GetXssMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetXssMatchSet for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetWebACLWithContext(ctx aws.Context, input *waf.GetWebACLInput, opts ...request.Option) (*waf.GetWebACLOutput, error) {
 	req, out := c.GetWebACLRequest(input)
-=======
-func (c *WAFRegional) GetXssMatchSetWithContext(ctx aws.Context, input *waf.GetXssMatchSetInput, opts ...request.Option) (*waf.GetXssMatchSetOutput, error) {
-	req, out := c.GetXssMatchSetRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 const opGetWebACLForResource = "GetWebACLForResource"
 
 // GetWebACLForResourceRequest generates a "aws/request.Request" representing the
 // client's request for the GetWebACLForResource operation. The "output" return
-=======
-=======
-const opListActivatedRulesInRuleGroup = "ListActivatedRulesInRuleGroup"
-
-// ListActivatedRulesInRuleGroupRequest generates a "aws/request.Request" representing the
-// client's request for the ListActivatedRulesInRuleGroup operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-// See ListActivatedRulesInRuleGroup for more information on using the ListActivatedRulesInRuleGroup
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the ListActivatedRulesInRuleGroupRequest method.
-//    req, resp := client.ListActivatedRulesInRuleGroupRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListActivatedRulesInRuleGroup
-func (c *WAFRegional) ListActivatedRulesInRuleGroupRequest(input *waf.ListActivatedRulesInRuleGroupInput) (req *request.Request, output *waf.ListActivatedRulesInRuleGroupOutput) {
-	op := &request.Operation{
-		Name:       opListActivatedRulesInRuleGroup,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &waf.ListActivatedRulesInRuleGroupInput{}
-	}
-
-	output = &waf.ListActivatedRulesInRuleGroupOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// ListActivatedRulesInRuleGroup API operation for AWS WAF Regional.
-//
-// Returns an array of ActivatedRule objects.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation ListActivatedRulesInRuleGroup for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-//   * ErrCodeWAFInvalidParameterException "WAFInvalidParameterException"
-//   The operation failed because AWS WAF didn't recognize a parameter in the
-//   request. For example:
-//
-//      * You specified an invalid parameter name.
-//
-//      * You specified an invalid value.
-//
-//      * You tried to update an object (ByteMatchSet, IPSet, Rule, or WebACL)
-//      using an action other than INSERT or DELETE.
-//
-//      * You tried to create a WebACL with a DefaultActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to create a RateBasedRule with a RateKey value other than
-//      IP.
-//
-//      * You tried to update a WebACL with a WafActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to update a ByteMatchSet with a FieldToMatchType other than
-//      HEADER, METHOD, QUERY_STRING, URI, or BODY.
-//
-//      * You tried to update a ByteMatchSet with a Field of HEADER but no value
-//      for Data.
-//
-//      * Your request references an ARN that is malformed, or corresponds to
-//      a resource with which a web ACL cannot be associated.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListActivatedRulesInRuleGroup
-func (c *WAFRegional) ListActivatedRulesInRuleGroup(input *waf.ListActivatedRulesInRuleGroupInput) (*waf.ListActivatedRulesInRuleGroupOutput, error) {
-	req, out := c.ListActivatedRulesInRuleGroupRequest(input)
-	return out, req.Send()
-}
-
-// ListActivatedRulesInRuleGroupWithContext is the same as ListActivatedRulesInRuleGroup with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListActivatedRulesInRuleGroup for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAFRegional) ListActivatedRulesInRuleGroupWithContext(ctx aws.Context, input *waf.ListActivatedRulesInRuleGroupInput, opts ...request.Option) (*waf.ListActivatedRulesInRuleGroupOutput, error) {
-	req, out := c.ListActivatedRulesInRuleGroupRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
->>>>>>> Working on getting compiling
-const opListByteMatchSets = "ListByteMatchSets"
-
-// ListByteMatchSetsRequest generates a "aws/request.Request" representing the
-// client's request for the ListByteMatchSets operation. The "output" return
->>>>>>> Initial dep workover
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-<<<<<<< HEAD
 // See GetWebACLForResource for more information on using the GetWebACLForResource
-=======
-// See ListByteMatchSets for more information on using the ListByteMatchSets
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetWebACLForResourceRequest method.
 //    req, resp := client.GetWebACLForResourceRequest(params)
-=======
-//    // Example sending a request using the ListByteMatchSetsRequest method.
-//    req, resp := client.ListByteMatchSetsRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACLForResource
 func (c *WAFRegional) GetWebACLForResourceRequest(input *GetWebACLForResourceInput) (req *request.Request, output *GetWebACLForResourceOutput) {
 	op := &request.Operation{
 		Name:       opGetWebACLForResource,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListByteMatchSets
-func (c *WAFRegional) ListByteMatchSetsRequest(input *waf.ListByteMatchSetsInput) (req *request.Request, output *waf.ListByteMatchSetsOutput) {
-	op := &request.Operation{
-		Name:       opListByteMatchSets,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &GetWebACLForResourceInput{}
 	}
 
 	output = &GetWebACLForResourceOutput{}
-=======
-		input = &waf.ListByteMatchSetsInput{}
-	}
-
-	output = &waf.ListByteMatchSetsOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetWebACLForResource API operation for AWS WAF Regional.
 //
 // Returns the web ACL for the specified resource.
-=======
-// ListByteMatchSets API operation for AWS WAF Regional.
-//
-// Returns an array of ByteMatchSetSummary objects.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation GetWebACLForResource for usage and error information.
-=======
-// API operation ListByteMatchSets for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -6964,7 +4869,6 @@ func (c *WAFRegional) ListByteMatchSetsRequest(input *waf.ListByteMatchSetsInput
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
@@ -7011,108 +4915,60 @@ func (c *WAFRegional) GetWebACLForResource(input *GetWebACLForResourceInput) (*G
 // the ability to pass a context and additional request options.
 //
 // See GetWebACLForResource for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListByteMatchSets
-func (c *WAFRegional) ListByteMatchSets(input *waf.ListByteMatchSetsInput) (*waf.ListByteMatchSetsOutput, error) {
-	req, out := c.ListByteMatchSetsRequest(input)
-	return out, req.Send()
-}
-
-// ListByteMatchSetsWithContext is the same as ListByteMatchSets with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListByteMatchSets for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) GetWebACLForResourceWithContext(ctx aws.Context, input *GetWebACLForResourceInput, opts ...request.Option) (*GetWebACLForResourceOutput, error) {
 	req, out := c.GetWebACLForResourceRequest(input)
-=======
-func (c *WAFRegional) ListByteMatchSetsWithContext(ctx aws.Context, input *waf.ListByteMatchSetsInput, opts ...request.Option) (*waf.ListByteMatchSetsOutput, error) {
-	req, out := c.ListByteMatchSetsRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opGetXssMatchSet = "GetXssMatchSet"
 
 // GetXssMatchSetRequest generates a "aws/request.Request" representing the
 // client's request for the GetXssMatchSet operation. The "output" return
-=======
-const opListGeoMatchSets = "ListGeoMatchSets"
-
-// ListGeoMatchSetsRequest generates a "aws/request.Request" representing the
-// client's request for the ListGeoMatchSets operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See GetXssMatchSet for more information on using the GetXssMatchSet
-=======
-// See ListGeoMatchSets for more information on using the ListGeoMatchSets
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the GetXssMatchSetRequest method.
 //    req, resp := client.GetXssMatchSetRequest(params)
-=======
-//    // Example sending a request using the ListGeoMatchSetsRequest method.
-//    req, resp := client.ListGeoMatchSetsRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetXssMatchSet
 func (c *WAFRegional) GetXssMatchSetRequest(input *waf.GetXssMatchSetInput) (req *request.Request, output *waf.GetXssMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opGetXssMatchSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListGeoMatchSets
-func (c *WAFRegional) ListGeoMatchSetsRequest(input *waf.ListGeoMatchSetsInput) (req *request.Request, output *waf.ListGeoMatchSetsOutput) {
-	op := &request.Operation{
-		Name:       opListGeoMatchSets,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.GetXssMatchSetInput{}
 	}
 
 	output = &waf.GetXssMatchSetOutput{}
-=======
-		input = &waf.ListGeoMatchSetsInput{}
-	}
-
-	output = &waf.ListGeoMatchSetsOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // GetXssMatchSet API operation for AWS WAF Regional.
 //
 // Returns the XssMatchSet that is specified by XssMatchSetId.
@@ -7203,29 +5059,19 @@ func (c *WAFRegional) ListActivatedRulesInRuleGroupRequest(input *waf.ListActiva
 // ListActivatedRulesInRuleGroup API operation for AWS WAF Regional.
 //
 // Returns an array of ActivatedRule objects.
-=======
-// ListGeoMatchSets API operation for AWS WAF Regional.
-//
-// Returns an array of GeoMatchSetSummary objects in the response.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation ListActivatedRulesInRuleGroup for usage and error information.
-=======
-// API operation ListGeoMatchSets for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
@@ -7236,60 +5082,28 @@ func (c *WAFRegional) ListActivatedRulesInRuleGroupRequest(input *waf.ListActiva
 //      * You specified an invalid parameter name.
 //
 //      * You specified an invalid value.
-=======
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListGeoMatchSets
-func (c *WAFRegional) ListGeoMatchSets(input *waf.ListGeoMatchSetsInput) (*waf.ListGeoMatchSetsOutput, error) {
-	req, out := c.ListGeoMatchSetsRequest(input)
-	return out, req.Send()
-}
-
-// ListGeoMatchSetsWithContext is the same as ListGeoMatchSets with the addition of
-// the ability to pass a context and additional request options.
->>>>>>> Initial dep workover
+//      * You tried to update an object (ByteMatchSet, IPSet, Rule, or WebACL)
+//      using an action other than INSERT or DELETE.
 //
-// See ListGeoMatchSets for details on how to use this API operation.
+//      * You tried to create a WebACL with a DefaultActionType other than ALLOW,
+//      BLOCK, or COUNT.
 //
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAFRegional) ListGeoMatchSetsWithContext(ctx aws.Context, input *waf.ListGeoMatchSetsInput, opts ...request.Option) (*waf.ListGeoMatchSetsOutput, error) {
-	req, out := c.ListGeoMatchSetsRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opListIPSets = "ListIPSets"
-
-// ListIPSetsRequest generates a "aws/request.Request" representing the
-// client's request for the ListIPSets operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
+//      * You tried to create a RateBasedRule with a RateKey value other than
+//      IP.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
+//      * You tried to update a WebACL with a WafActionType other than ALLOW,
+//      BLOCK, or COUNT.
 //
-// See ListIPSets for more information on using the ListIPSets
-// API call, and error handling.
-//
-<<<<<<< HEAD
 //      * You tried to update a ByteMatchSet with a FieldToMatchType other than
 //      HEADER, METHOD, QUERY_STRING, URI, or BODY.
-=======
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
->>>>>>> Initial dep workover
 //
+//      * You tried to update a ByteMatchSet with a Field of HEADER but no value
+//      for Data.
 //
-//    // Example sending a request using the ListIPSetsRequest method.
-//    req, resp := client.ListIPSetsRequest(params)
+//      * Your request references an ARN that is malformed, or corresponds to
+//      a resource with which a web ACL cannot be associated.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListActivatedRulesInRuleGroup
 func (c *WAFRegional) ListActivatedRulesInRuleGroup(input *waf.ListActivatedRulesInRuleGroupInput) (*waf.ListActivatedRulesInRuleGroupOutput, error) {
 	req, out := c.ListActivatedRulesInRuleGroupRequest(input)
@@ -7300,150 +5114,60 @@ func (c *WAFRegional) ListActivatedRulesInRuleGroup(input *waf.ListActivatedRule
 // the ability to pass a context and additional request options.
 //
 // See ListActivatedRulesInRuleGroup for details on how to use this API operation.
-=======
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListIPSets
-func (c *WAFRegional) ListIPSetsRequest(input *waf.ListIPSetsInput) (req *request.Request, output *waf.ListIPSetsOutput) {
-	op := &request.Operation{
-		Name:       opListIPSets,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &waf.ListIPSetsInput{}
-	}
-
-	output = &waf.ListIPSetsOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// ListIPSets API operation for AWS WAF Regional.
-//
-// Returns an array of IPSetSummary objects in the response.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation ListIPSets for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListIPSets
-func (c *WAFRegional) ListIPSets(input *waf.ListIPSetsInput) (*waf.ListIPSetsOutput, error) {
-	req, out := c.ListIPSetsRequest(input)
-	return out, req.Send()
-}
-
-// ListIPSetsWithContext is the same as ListIPSets with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListIPSets for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) ListActivatedRulesInRuleGroupWithContext(ctx aws.Context, input *waf.ListActivatedRulesInRuleGroupInput, opts ...request.Option) (*waf.ListActivatedRulesInRuleGroupOutput, error) {
 	req, out := c.ListActivatedRulesInRuleGroupRequest(input)
-=======
-func (c *WAFRegional) ListIPSetsWithContext(ctx aws.Context, input *waf.ListIPSetsInput, opts ...request.Option) (*waf.ListIPSetsOutput, error) {
-	req, out := c.ListIPSetsRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opListByteMatchSets = "ListByteMatchSets"
 
 // ListByteMatchSetsRequest generates a "aws/request.Request" representing the
 // client's request for the ListByteMatchSets operation. The "output" return
-=======
-const opListRateBasedRules = "ListRateBasedRules"
-
-// ListRateBasedRulesRequest generates a "aws/request.Request" representing the
-// client's request for the ListRateBasedRules operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See ListByteMatchSets for more information on using the ListByteMatchSets
-=======
-// See ListRateBasedRules for more information on using the ListRateBasedRules
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the ListByteMatchSetsRequest method.
 //    req, resp := client.ListByteMatchSetsRequest(params)
-=======
-//    // Example sending a request using the ListRateBasedRulesRequest method.
-//    req, resp := client.ListRateBasedRulesRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListByteMatchSets
 func (c *WAFRegional) ListByteMatchSetsRequest(input *waf.ListByteMatchSetsInput) (req *request.Request, output *waf.ListByteMatchSetsOutput) {
 	op := &request.Operation{
 		Name:       opListByteMatchSets,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRateBasedRules
-func (c *WAFRegional) ListRateBasedRulesRequest(input *waf.ListRateBasedRulesInput) (req *request.Request, output *waf.ListRateBasedRulesOutput) {
-	op := &request.Operation{
-		Name:       opListRateBasedRules,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.ListByteMatchSetsInput{}
 	}
 
 	output = &waf.ListByteMatchSetsOutput{}
-=======
-		input = &waf.ListRateBasedRulesInput{}
-	}
-
-	output = &waf.ListRateBasedRulesOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // ListByteMatchSets API operation for AWS WAF Regional.
 //
 // Returns an array of ByteMatchSetSummary objects.
@@ -7531,22 +5255,13 @@ func (c *WAFRegional) ListGeoMatchSetsRequest(input *waf.ListGeoMatchSetsInput) 
 // ListGeoMatchSets API operation for AWS WAF Regional.
 //
 // Returns an array of GeoMatchSetSummary objects in the response.
-=======
-// ListRateBasedRules API operation for AWS WAF Regional.
-//
-// Returns an array of RuleSummary objects.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation ListGeoMatchSets for usage and error information.
-=======
-// API operation ListRateBasedRules for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -7557,7 +5272,6 @@ func (c *WAFRegional) ListGeoMatchSetsRequest(input *waf.ListGeoMatchSetsInput) 
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListGeoMatchSets
 func (c *WAFRegional) ListGeoMatchSets(input *waf.ListGeoMatchSetsInput) (*waf.ListGeoMatchSetsOutput, error) {
 	req, out := c.ListGeoMatchSetsRequest(input)
@@ -7664,200 +5378,69 @@ func (c *WAFRegional) ListIPSetsWithContext(ctx aws.Context, input *waf.ListIPSe
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opListRateBasedRules = "ListRateBasedRules"
 
 // ListRateBasedRulesRequest generates a "aws/request.Request" representing the
 // client's request for the ListRateBasedRules operation. The "output" return
-=======
-const opListResourcesForWebACL = "ListResourcesForWebACL"
-
-// ListResourcesForWebACLRequest generates a "aws/request.Request" representing the
-// client's request for the ListResourcesForWebACL operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-// See ListResourcesForWebACL for more information on using the ListResourcesForWebACL
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the ListResourcesForWebACLRequest method.
-//    req, resp := client.ListResourcesForWebACLRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACL
-func (c *WAFRegional) ListResourcesForWebACLRequest(input *ListResourcesForWebACLInput) (req *request.Request, output *ListResourcesForWebACLOutput) {
-	op := &request.Operation{
-		Name:       opListResourcesForWebACL,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &ListResourcesForWebACLInput{}
-	}
-
-	output = &ListResourcesForWebACLOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// ListResourcesForWebACL API operation for AWS WAF Regional.
-//
-// Returns an array of resources associated with the specified web ACL.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation ListResourcesForWebACL for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACL
-func (c *WAFRegional) ListResourcesForWebACL(input *ListResourcesForWebACLInput) (*ListResourcesForWebACLOutput, error) {
-	req, out := c.ListResourcesForWebACLRequest(input)
-	return out, req.Send()
-}
-
-// ListResourcesForWebACLWithContext is the same as ListResourcesForWebACL with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListResourcesForWebACL for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAFRegional) ListResourcesForWebACLWithContext(ctx aws.Context, input *ListResourcesForWebACLInput, opts ...request.Option) (*ListResourcesForWebACLOutput, error) {
-	req, out := c.ListResourcesForWebACLRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opListRuleGroups = "ListRuleGroups"
-
-// ListRuleGroupsRequest generates a "aws/request.Request" representing the
-// client's request for the ListRuleGroups operation. The "output" return
->>>>>>> Working on getting compiling
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-<<<<<<< HEAD
 // See ListRateBasedRules for more information on using the ListRateBasedRules
-=======
-// See ListRuleGroups for more information on using the ListRuleGroups
->>>>>>> Working on getting compiling
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the ListRateBasedRulesRequest method.
 //    req, resp := client.ListRateBasedRulesRequest(params)
-=======
-//    // Example sending a request using the ListRuleGroupsRequest method.
-//    req, resp := client.ListRuleGroupsRequest(params)
->>>>>>> Working on getting compiling
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRateBasedRules
 func (c *WAFRegional) ListRateBasedRulesRequest(input *waf.ListRateBasedRulesInput) (req *request.Request, output *waf.ListRateBasedRulesOutput) {
 	op := &request.Operation{
 		Name:       opListRateBasedRules,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRuleGroups
-func (c *WAFRegional) ListRuleGroupsRequest(input *waf.ListRuleGroupsInput) (req *request.Request, output *waf.ListRuleGroupsOutput) {
-	op := &request.Operation{
-		Name:       opListRuleGroups,
->>>>>>> Working on getting compiling
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.ListRateBasedRulesInput{}
 	}
 
 	output = &waf.ListRateBasedRulesOutput{}
-=======
-		input = &waf.ListRuleGroupsInput{}
-	}
-
-	output = &waf.ListRuleGroupsOutput{}
->>>>>>> Working on getting compiling
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // ListRateBasedRules API operation for AWS WAF Regional.
 //
 // Returns an array of RuleSummary objects.
-=======
-// ListRuleGroups API operation for AWS WAF Regional.
-//
-// Returns an array of RuleGroup objects.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation ListRateBasedRules for usage and error information.
-=======
-// API operation ListRuleGroups for usage and error information.
->>>>>>> Working on getting compiling
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
 //   The operation failed because of a system problem, even though the request
 //   was valid. Retry your request.
 //
-<<<<<<< HEAD
 //   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRateBasedRules
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRateBasedRules
->>>>>>> Initial dep workover
 func (c *WAFRegional) ListRateBasedRules(input *waf.ListRateBasedRulesInput) (*waf.ListRateBasedRulesOutput, error) {
 	req, out := c.ListRateBasedRulesRequest(input)
 	return out, req.Send()
@@ -7904,11 +5487,7 @@ const opListRegexMatchSets = "ListRegexMatchSets"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRegexMatchSets
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRegexMatchSets
->>>>>>> Initial dep workover
 func (c *WAFRegional) ListRegexMatchSetsRequest(input *waf.ListRegexMatchSetsInput) (req *request.Request, output *waf.ListRegexMatchSetsOutput) {
 	op := &request.Operation{
 		Name:       opListRegexMatchSets,
@@ -7926,7 +5505,6 @@ func (c *WAFRegional) ListRegexMatchSetsRequest(input *waf.ListRegexMatchSetsInp
 }
 
 // ListRegexMatchSets API operation for AWS WAF Regional.
-<<<<<<< HEAD
 //
 // Returns an array of RegexMatchSetSummary objects.
 //
@@ -8013,21 +5591,13 @@ func (c *WAFRegional) ListRegexPatternSetsRequest(input *waf.ListRegexPatternSet
 // ListRegexPatternSets API operation for AWS WAF Regional.
 //
 // Returns an array of RegexPatternSetSummary objects.
-=======
-//
-// Returns an array of RegexMatchSetSummary objects.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation ListRegexPatternSets for usage and error information.
-=======
-// API operation ListRegexMatchSets for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -8038,7 +5608,6 @@ func (c *WAFRegional) ListRegexPatternSetsRequest(input *waf.ListRegexPatternSet
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRegexPatternSets
 func (c *WAFRegional) ListRegexPatternSets(input *waf.ListRegexPatternSetsInput) (*waf.ListRegexPatternSetsOutput, error) {
 	req, out := c.ListRegexPatternSetsRequest(input)
@@ -8049,153 +5618,6 @@ func (c *WAFRegional) ListRegexPatternSets(input *waf.ListRegexPatternSetsInput)
 // the ability to pass a context and additional request options.
 //
 // See ListRegexPatternSets for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRegexMatchSets
-func (c *WAFRegional) ListRegexMatchSets(input *waf.ListRegexMatchSetsInput) (*waf.ListRegexMatchSetsOutput, error) {
-	req, out := c.ListRegexMatchSetsRequest(input)
-	return out, req.Send()
-}
-
-// ListRegexMatchSetsWithContext is the same as ListRegexMatchSets with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListRegexMatchSets for details on how to use this API operation.
->>>>>>> Initial dep workover
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-<<<<<<< HEAD
-func (c *WAFRegional) ListRegexPatternSetsWithContext(ctx aws.Context, input *waf.ListRegexPatternSetsInput, opts ...request.Option) (*waf.ListRegexPatternSetsOutput, error) {
-	req, out := c.ListRegexPatternSetsRequest(input)
-=======
-func (c *WAFRegional) ListRegexMatchSetsWithContext(ctx aws.Context, input *waf.ListRegexMatchSetsInput, opts ...request.Option) (*waf.ListRegexMatchSetsOutput, error) {
-	req, out := c.ListRegexMatchSetsRequest(input)
->>>>>>> Initial dep workover
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-<<<<<<< HEAD
-const opListResourcesForWebACL = "ListResourcesForWebACL"
-
-// ListResourcesForWebACLRequest generates a "aws/request.Request" representing the
-// client's request for the ListResourcesForWebACL operation. The "output" return
-=======
-const opListRegexPatternSets = "ListRegexPatternSets"
-
-// ListRegexPatternSetsRequest generates a "aws/request.Request" representing the
-// client's request for the ListRegexPatternSets operation. The "output" return
->>>>>>> Initial dep workover
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-<<<<<<< HEAD
-// See ListResourcesForWebACL for more information on using the ListResourcesForWebACL
-=======
-// See ListRegexPatternSets for more information on using the ListRegexPatternSets
->>>>>>> Initial dep workover
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-<<<<<<< HEAD
-//    // Example sending a request using the ListResourcesForWebACLRequest method.
-//    req, resp := client.ListResourcesForWebACLRequest(params)
-=======
-//    // Example sending a request using the ListRegexPatternSetsRequest method.
-//    req, resp := client.ListRegexPatternSetsRequest(params)
->>>>>>> Initial dep workover
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACL
-func (c *WAFRegional) ListResourcesForWebACLRequest(input *ListResourcesForWebACLInput) (req *request.Request, output *ListResourcesForWebACLOutput) {
-	op := &request.Operation{
-		Name:       opListResourcesForWebACL,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRegexPatternSets
-func (c *WAFRegional) ListRegexPatternSetsRequest(input *waf.ListRegexPatternSetsInput) (req *request.Request, output *waf.ListRegexPatternSetsOutput) {
-	op := &request.Operation{
-		Name:       opListRegexPatternSets,
->>>>>>> Initial dep workover
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-<<<<<<< HEAD
-		input = &ListResourcesForWebACLInput{}
-	}
-
-	output = &ListResourcesForWebACLOutput{}
-=======
-		input = &waf.ListRegexPatternSetsInput{}
-	}
-
-	output = &waf.ListRegexPatternSetsOutput{}
->>>>>>> Initial dep workover
-	req = c.newRequest(op, input, output)
-	return
-}
-
-<<<<<<< HEAD
-// ListResourcesForWebACL API operation for AWS WAF Regional.
-//
-// Returns an array of resources associated with the specified web ACL.
-=======
-// ListRegexPatternSets API operation for AWS WAF Regional.
-//
-// Returns an array of RegexPatternSetSummary objects.
->>>>>>> Initial dep workover
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
-// API operation ListResourcesForWebACL for usage and error information.
-=======
-// API operation ListRegexPatternSets for usage and error information.
->>>>>>> Initial dep workover
-//
-// Returned Error Codes:
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-<<<<<<< HEAD
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACL
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRegexPatternSets
-func (c *WAFRegional) ListRegexPatternSets(input *waf.ListRegexPatternSetsInput) (*waf.ListRegexPatternSetsOutput, error) {
-	req, out := c.ListRegexPatternSetsRequest(input)
-	return out, req.Send()
-}
-
-// ListRegexPatternSetsWithContext is the same as ListRegexPatternSets with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListRegexPatternSets for details on how to use this API operation.
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
@@ -8233,7 +5655,7 @@ const opListResourcesForWebACL = "ListResourcesForWebACL"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACL
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACL
 func (c *WAFRegional) ListResourcesForWebACLRequest(input *ListResourcesForWebACLInput) (req *request.Request, output *ListResourcesForWebACLOutput) {
 	op := &request.Operation{
 		Name:       opListResourcesForWebACL,
@@ -8273,8 +5695,7 @@ func (c *WAFRegional) ListResourcesForWebACLRequest(input *ListResourcesForWebAC
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACL
->>>>>>> Initial dep workover
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACL
 func (c *WAFRegional) ListResourcesForWebACL(input *ListResourcesForWebACLInput) (*ListResourcesForWebACLOutput, error) {
 	req, out := c.ListResourcesForWebACLRequest(input)
 	return out, req.Send()
@@ -8296,79 +5717,48 @@ func (c *WAFRegional) ListResourcesForWebACLWithContext(ctx aws.Context, input *
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opListRuleGroups = "ListRuleGroups"
 
 // ListRuleGroupsRequest generates a "aws/request.Request" representing the
 // client's request for the ListRuleGroups operation. The "output" return
-=======
-const opListRules = "ListRules"
-
-// ListRulesRequest generates a "aws/request.Request" representing the
-// client's request for the ListRules operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See ListRuleGroups for more information on using the ListRuleGroups
-=======
-// See ListRules for more information on using the ListRules
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the ListRuleGroupsRequest method.
 //    req, resp := client.ListRuleGroupsRequest(params)
-=======
-//    // Example sending a request using the ListRulesRequest method.
-//    req, resp := client.ListRulesRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRuleGroups
 func (c *WAFRegional) ListRuleGroupsRequest(input *waf.ListRuleGroupsInput) (req *request.Request, output *waf.ListRuleGroupsOutput) {
 	op := &request.Operation{
 		Name:       opListRuleGroups,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRules
-func (c *WAFRegional) ListRulesRequest(input *waf.ListRulesInput) (req *request.Request, output *waf.ListRulesOutput) {
-	op := &request.Operation{
-		Name:       opListRules,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.ListRuleGroupsInput{}
 	}
 
 	output = &waf.ListRuleGroupsOutput{}
-=======
-		input = &waf.ListRulesInput{}
-	}
-
-	output = &waf.ListRulesOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // ListRuleGroups API operation for AWS WAF Regional.
 //
 // Returns an array of RuleGroup objects.
@@ -8451,10 +5841,6 @@ func (c *WAFRegional) ListRulesRequest(input *waf.ListRulesInput) (req *request.
 
 // ListRules API operation for AWS WAF Regional.
 //
-=======
-// ListRules API operation for AWS WAF Regional.
-//
->>>>>>> Initial dep workover
 // Returns an array of RuleSummary objects.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
@@ -8473,11 +5859,7 @@ func (c *WAFRegional) ListRulesRequest(input *waf.ListRulesInput) (req *request.
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRules
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRules
->>>>>>> Initial dep workover
 func (c *WAFRegional) ListRules(input *waf.ListRulesInput) (*waf.ListRulesOutput, error) {
 	req, out := c.ListRulesRequest(input)
 	return out, req.Send()
@@ -8524,11 +5906,7 @@ const opListSizeConstraintSets = "ListSizeConstraintSets"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSizeConstraintSets
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSizeConstraintSets
->>>>>>> Initial dep workover
 func (c *WAFRegional) ListSizeConstraintSetsRequest(input *waf.ListSizeConstraintSetsInput) (req *request.Request, output *waf.ListSizeConstraintSetsOutput) {
 	op := &request.Operation{
 		Name:       opListSizeConstraintSets,
@@ -8565,7 +5943,6 @@ func (c *WAFRegional) ListSizeConstraintSetsRequest(input *waf.ListSizeConstrain
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSizeConstraintSets
 func (c *WAFRegional) ListSizeConstraintSets(input *waf.ListSizeConstraintSetsInput) (*waf.ListSizeConstraintSetsOutput, error) {
 	req, out := c.ListSizeConstraintSetsRequest(input)
@@ -8660,108 +6037,60 @@ func (c *WAFRegional) ListSqlInjectionMatchSets(input *waf.ListSqlInjectionMatch
 // the ability to pass a context and additional request options.
 //
 // See ListSqlInjectionMatchSets for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSizeConstraintSets
-func (c *WAFRegional) ListSizeConstraintSets(input *waf.ListSizeConstraintSetsInput) (*waf.ListSizeConstraintSetsOutput, error) {
-	req, out := c.ListSizeConstraintSetsRequest(input)
-	return out, req.Send()
-}
-
-// ListSizeConstraintSetsWithContext is the same as ListSizeConstraintSets with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListSizeConstraintSets for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) ListSqlInjectionMatchSetsWithContext(ctx aws.Context, input *waf.ListSqlInjectionMatchSetsInput, opts ...request.Option) (*waf.ListSqlInjectionMatchSetsOutput, error) {
 	req, out := c.ListSqlInjectionMatchSetsRequest(input)
-=======
-func (c *WAFRegional) ListSizeConstraintSetsWithContext(ctx aws.Context, input *waf.ListSizeConstraintSetsInput, opts ...request.Option) (*waf.ListSizeConstraintSetsOutput, error) {
-	req, out := c.ListSizeConstraintSetsRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opListSubscribedRuleGroups = "ListSubscribedRuleGroups"
 
 // ListSubscribedRuleGroupsRequest generates a "aws/request.Request" representing the
 // client's request for the ListSubscribedRuleGroups operation. The "output" return
-=======
-const opListSqlInjectionMatchSets = "ListSqlInjectionMatchSets"
-
-// ListSqlInjectionMatchSetsRequest generates a "aws/request.Request" representing the
-// client's request for the ListSqlInjectionMatchSets operation. The "output" return
->>>>>>> Initial dep workover
 // value will be populated with the request's response once the request complets
 // successfuly.
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
 //
-<<<<<<< HEAD
 // See ListSubscribedRuleGroups for more information on using the ListSubscribedRuleGroups
-=======
-// See ListSqlInjectionMatchSets for more information on using the ListSqlInjectionMatchSets
->>>>>>> Initial dep workover
 // API call, and error handling.
 //
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
 //
-<<<<<<< HEAD
 //    // Example sending a request using the ListSubscribedRuleGroupsRequest method.
 //    req, resp := client.ListSubscribedRuleGroupsRequest(params)
-=======
-//    // Example sending a request using the ListSqlInjectionMatchSetsRequest method.
-//    req, resp := client.ListSqlInjectionMatchSetsRequest(params)
->>>>>>> Initial dep workover
 //
 //    err := req.Send()
 //    if err == nil { // resp is now filled
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSubscribedRuleGroups
 func (c *WAFRegional) ListSubscribedRuleGroupsRequest(input *waf.ListSubscribedRuleGroupsInput) (req *request.Request, output *waf.ListSubscribedRuleGroupsOutput) {
 	op := &request.Operation{
 		Name:       opListSubscribedRuleGroups,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSqlInjectionMatchSets
-func (c *WAFRegional) ListSqlInjectionMatchSetsRequest(input *waf.ListSqlInjectionMatchSetsInput) (req *request.Request, output *waf.ListSqlInjectionMatchSetsOutput) {
-	op := &request.Operation{
-		Name:       opListSqlInjectionMatchSets,
->>>>>>> Initial dep workover
 		HTTPMethod: "POST",
 		HTTPPath:   "/",
 	}
 
 	if input == nil {
-<<<<<<< HEAD
 		input = &waf.ListSubscribedRuleGroupsInput{}
 	}
 
 	output = &waf.ListSubscribedRuleGroupsOutput{}
-=======
-		input = &waf.ListSqlInjectionMatchSetsInput{}
-	}
-
-	output = &waf.ListSqlInjectionMatchSetsOutput{}
->>>>>>> Initial dep workover
 	req = c.newRequest(op, input, output)
 	return
 }
 
-<<<<<<< HEAD
 // ListSubscribedRuleGroups API operation for AWS WAF Regional.
 //
 // Returns an array of RuleGroup objects that you are subscribed to.
@@ -8791,30 +6120,13 @@ func (c *WAFRegional) ListSubscribedRuleGroups(input *waf.ListSubscribedRuleGrou
 // the ability to pass a context and additional request options.
 //
 // See ListSubscribedRuleGroups for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListRuleGroups
-func (c *WAFRegional) ListRuleGroups(input *waf.ListRuleGroupsInput) (*waf.ListRuleGroupsOutput, error) {
-	req, out := c.ListRuleGroupsRequest(input)
-	return out, req.Send()
-}
-
-// ListRuleGroupsWithContext is the same as ListRuleGroups with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListRuleGroups for details on how to use this API operation.
->>>>>>> Working on getting compiling
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) ListSubscribedRuleGroupsWithContext(ctx aws.Context, input *waf.ListSubscribedRuleGroupsInput, opts ...request.Option) (*waf.ListSubscribedRuleGroupsOutput, error) {
 	req, out := c.ListSubscribedRuleGroupsRequest(input)
-=======
-func (c *WAFRegional) ListRuleGroupsWithContext(ctx aws.Context, input *waf.ListRuleGroupsInput, opts ...request.Option) (*waf.ListRuleGroupsOutput, error) {
-	req, out := c.ListRuleGroupsRequest(input)
->>>>>>> Working on getting compiling
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
@@ -8865,22 +6177,13 @@ func (c *WAFRegional) ListWebACLsRequest(input *waf.ListWebACLsInput) (req *requ
 // ListWebACLs API operation for AWS WAF Regional.
 //
 // Returns an array of WebACLSummary objects in the response.
-=======
-// ListSqlInjectionMatchSets API operation for AWS WAF Regional.
-//
-// Returns an array of SqlInjectionMatchSet objects.
->>>>>>> Initial dep workover
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
 // the error.
 //
 // See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
 // API operation ListWebACLs for usage and error information.
-=======
-// API operation ListSqlInjectionMatchSets for usage and error information.
->>>>>>> Initial dep workover
 //
 // Returned Error Codes:
 //   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
@@ -8891,7 +6194,6 @@ func (c *WAFRegional) ListWebACLsRequest(input *waf.ListWebACLsInput) (req *requ
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListWebACLs
 func (c *WAFRegional) ListWebACLs(input *waf.ListWebACLsInput) (*waf.ListWebACLsOutput, error) {
 	req, out := c.ListWebACLsRequest(input)
@@ -9133,187 +6435,48 @@ func (c *WAFRegional) UpdateByteMatchSetRequest(input *waf.UpdateByteMatchSetInp
 //
 //      * You tried to create a RateBasedRule with a RateKey value other than
 //      IP.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSqlInjectionMatchSets
-func (c *WAFRegional) ListSqlInjectionMatchSets(input *waf.ListSqlInjectionMatchSetsInput) (*waf.ListSqlInjectionMatchSetsOutput, error) {
-	req, out := c.ListSqlInjectionMatchSetsRequest(input)
-	return out, req.Send()
-}
-
-// ListSqlInjectionMatchSetsWithContext is the same as ListSqlInjectionMatchSets with the addition of
-// the ability to pass a context and additional request options.
->>>>>>> Initial dep workover
 //
-// See ListSqlInjectionMatchSets for details on how to use this API operation.
+//      * You tried to update a WebACL with a WafActionType other than ALLOW,
+//      BLOCK, or COUNT.
 //
-<<<<<<< HEAD
 //      * You tried to update a ByteMatchSet with a FieldToMatchType other than
 //      HEADER, METHOD, QUERY_STRING, URI, or BODY.
-=======
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAFRegional) ListSqlInjectionMatchSetsWithContext(ctx aws.Context, input *waf.ListSqlInjectionMatchSetsInput, opts ...request.Option) (*waf.ListSqlInjectionMatchSetsOutput, error) {
-	req, out := c.ListSqlInjectionMatchSetsRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opListSubscribedRuleGroups = "ListSubscribedRuleGroups"
-
-// ListSubscribedRuleGroupsRequest generates a "aws/request.Request" representing the
-// client's request for the ListSubscribedRuleGroups operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
 //
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
+//      * You tried to update a ByteMatchSet with a Field of HEADER but no value
+//      for Data.
 //
-// See ListSubscribedRuleGroups for more information on using the ListSubscribedRuleGroups
-// API call, and error handling.
+//      * Your request references an ARN that is malformed, or corresponds to
+//      a resource with which a web ACL cannot be associated.
 //
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
+//   * ErrCodeWAFNonexistentContainerException "WAFNonexistentContainerException"
+//   The operation failed because you tried to add an object to or delete an object
+//   from another object that doesn't exist. For example:
 //
+//      * You tried to add a Rule to or delete a Rule from a WebACL that doesn't
+//      exist.
 //
-//    // Example sending a request using the ListSubscribedRuleGroupsRequest method.
-//    req, resp := client.ListSubscribedRuleGroupsRequest(params)
+//      * You tried to add a ByteMatchSet to or delete a ByteMatchSet from a Rule
+//      that doesn't exist.
 //
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
+//      * You tried to add an IP address to or delete an IP address from an IPSet
+//      that doesn't exist.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSubscribedRuleGroups
-func (c *WAFRegional) ListSubscribedRuleGroupsRequest(input *waf.ListSubscribedRuleGroupsInput) (req *request.Request, output *waf.ListSubscribedRuleGroupsOutput) {
-	op := &request.Operation{
-		Name:       opListSubscribedRuleGroups,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &waf.ListSubscribedRuleGroupsInput{}
-	}
-
-	output = &waf.ListSubscribedRuleGroupsOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// ListSubscribedRuleGroups API operation for AWS WAF Regional.
+//      * You tried to add a ByteMatchTuple to or delete a ByteMatchTuple from
+//      a ByteMatchSet that doesn't exist.
 //
-// Returns an array of RuleGroup objects that you are subscribed to.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation ListSubscribedRuleGroups for usage and error information.
-//
-// Returned Error Codes:
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListSubscribedRuleGroups
-func (c *WAFRegional) ListSubscribedRuleGroups(input *waf.ListSubscribedRuleGroupsInput) (*waf.ListSubscribedRuleGroupsOutput, error) {
-	req, out := c.ListSubscribedRuleGroupsRequest(input)
-	return out, req.Send()
-}
-
-// ListSubscribedRuleGroupsWithContext is the same as ListSubscribedRuleGroups with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListSubscribedRuleGroups for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAFRegional) ListSubscribedRuleGroupsWithContext(ctx aws.Context, input *waf.ListSubscribedRuleGroupsInput, opts ...request.Option) (*waf.ListSubscribedRuleGroupsOutput, error) {
-	req, out := c.ListSubscribedRuleGroupsRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opListWebACLs = "ListWebACLs"
-
-// ListWebACLsRequest generates a "aws/request.Request" representing the
-// client's request for the ListWebACLs operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
->>>>>>> Initial dep workover
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListWebACLs for more information on using the ListWebACLs
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the ListWebACLsRequest method.
-//    req, resp := client.ListWebACLsRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListWebACLs
-func (c *WAFRegional) ListWebACLsRequest(input *waf.ListWebACLsInput) (req *request.Request, output *waf.ListWebACLsOutput) {
-	op := &request.Operation{
-		Name:       opListWebACLs,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &waf.ListWebACLsInput{}
-	}
-
-	output = &waf.ListWebACLsOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// ListWebACLs API operation for AWS WAF Regional.
-//
-// Returns an array of WebACLSummary objects in the response.
-//
-<<<<<<< HEAD
 //   * ErrCodeWAFStaleDataException "WAFStaleDataException"
 //   The operation failed because you tried to create, update, or delete an object
 //   by using a change token that has already been used.
-=======
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
 //
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation ListWebACLs for usage and error information.
+//   * ErrCodeWAFLimitsExceededException "WAFLimitsExceededException"
+//   The operation exceeds a resource limit, for example, the maximum number of
+//   WebACL objects that you can create for an AWS account. For more information,
+//   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
+//   in the AWS WAF Developer Guide.
 //
-// Returned Error Codes:
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
->>>>>>> Initial dep workover
-//
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateByteMatchSet
 func (c *WAFRegional) UpdateByteMatchSet(input *waf.UpdateByteMatchSetInput) (*waf.UpdateByteMatchSetOutput, error) {
 	req, out := c.UpdateByteMatchSetRequest(input)
@@ -9324,410 +6487,18 @@ func (c *WAFRegional) UpdateByteMatchSet(input *waf.UpdateByteMatchSetInput) (*w
 // the ability to pass a context and additional request options.
 //
 // See UpdateByteMatchSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListWebACLs
-func (c *WAFRegional) ListWebACLs(input *waf.ListWebACLsInput) (*waf.ListWebACLsOutput, error) {
-	req, out := c.ListWebACLsRequest(input)
-	return out, req.Send()
-}
-
-// ListWebACLsWithContext is the same as ListWebACLs with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListWebACLs for details on how to use this API operation.
->>>>>>> Initial dep workover
 //
 // The context must be non-nil and will be used for request cancellation. If
 // the context is nil a panic will occur. In the future the SDK may create
 // sub-contexts for http.Requests. See https://golang.org/pkg/context/
 // for more information on using Contexts.
-<<<<<<< HEAD
 func (c *WAFRegional) UpdateByteMatchSetWithContext(ctx aws.Context, input *waf.UpdateByteMatchSetInput, opts ...request.Option) (*waf.UpdateByteMatchSetOutput, error) {
 	req, out := c.UpdateByteMatchSetRequest(input)
-=======
-func (c *WAFRegional) ListWebACLsWithContext(ctx aws.Context, input *waf.ListWebACLsInput, opts ...request.Option) (*waf.ListWebACLsOutput, error) {
-	req, out := c.ListWebACLsRequest(input)
->>>>>>> Initial dep workover
 	req.SetContext(ctx)
 	req.ApplyOptions(opts...)
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
-const opUpdateGeoMatchSet = "UpdateGeoMatchSet"
-
-// UpdateGeoMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateGeoMatchSet operation. The "output" return
-=======
-const opListXssMatchSets = "ListXssMatchSets"
-
-// ListXssMatchSetsRequest generates a "aws/request.Request" representing the
-// client's request for the ListXssMatchSets operation. The "output" return
->>>>>>> Initial dep workover
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-<<<<<<< HEAD
-// See UpdateGeoMatchSet for more information on using the UpdateGeoMatchSet
-=======
-// See ListXssMatchSets for more information on using the ListXssMatchSets
->>>>>>> Initial dep workover
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-<<<<<<< HEAD
-//    // Example sending a request using the UpdateGeoMatchSetRequest method.
-//    req, resp := client.UpdateGeoMatchSetRequest(params)
-=======
-//    // Example sending a request using the ListXssMatchSetsRequest method.
-//    req, resp := client.ListXssMatchSetsRequest(params)
->>>>>>> Initial dep workover
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateGeoMatchSet
-func (c *WAFRegional) UpdateGeoMatchSetRequest(input *waf.UpdateGeoMatchSetInput) (req *request.Request, output *waf.UpdateGeoMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opUpdateGeoMatchSet,
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListXssMatchSets
-func (c *WAFRegional) ListXssMatchSetsRequest(input *waf.ListXssMatchSetsInput) (req *request.Request, output *waf.ListXssMatchSetsOutput) {
-	op := &request.Operation{
-		Name:       opListXssMatchSets,
->>>>>>> Initial dep workover
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-<<<<<<< HEAD
-		input = &waf.UpdateGeoMatchSetInput{}
-	}
-
-	output = &waf.UpdateGeoMatchSetOutput{}
-=======
-		input = &waf.ListXssMatchSetsInput{}
-	}
-
-	output = &waf.ListXssMatchSetsOutput{}
->>>>>>> Initial dep workover
-	req = c.newRequest(op, input, output)
-	return
-}
-
-<<<<<<< HEAD
-// UpdateGeoMatchSet API operation for AWS WAF Regional.
-//
-// Inserts or deletes GeoMatchConstraint objects in an GeoMatchSet. For each
-// GeoMatchConstraint object, you specify the following values:
-//
-//    * Whether to insert or delete the object from the array. If you want to
-//    change an GeoMatchConstraint object, you delete the existing object and
-//    add a new one.
-//
-//    * The Type. The only valid value for Type is Country.
-//
-//    * The Value, which is a two character code for the country to add to the
-//    GeoMatchConstraint object. Valid codes are listed in GeoMatchConstraint$Value.
-//
-// To create and configure an GeoMatchSet, perform the following steps:
-//
-// Submit a CreateGeoMatchSet request.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of an UpdateGeoMatchSet request.
-//
-// Submit an UpdateGeoMatchSet request to specify the country that you want
-// AWS WAF to watch for.
-//
-// When you update an GeoMatchSet, you specify the country that you want to
-// add and/or the country that you want to delete. If you want to change a country,
-// you delete the existing country and add the new one.
-=======
-// ListXssMatchSets API operation for AWS WAF Regional.
->>>>>>> Initial dep workover
-//
-// Returns an array of XssMatchSet objects.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-<<<<<<< HEAD
-// API operation UpdateGeoMatchSet for usage and error information.
-=======
-// API operation ListXssMatchSets for usage and error information.
->>>>>>> Initial dep workover
-//
-// Returned Error Codes:
-//   * ErrCodeWAFStaleDataException "WAFStaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListXssMatchSets
-func (c *WAFRegional) ListXssMatchSets(input *waf.ListXssMatchSetsInput) (*waf.ListXssMatchSetsOutput, error) {
-	req, out := c.ListXssMatchSetsRequest(input)
-	return out, req.Send()
-}
-
-// ListXssMatchSetsWithContext is the same as ListXssMatchSets with the addition of
-// the ability to pass a context and additional request options.
-//
-// See ListXssMatchSets for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAFRegional) ListXssMatchSetsWithContext(ctx aws.Context, input *waf.ListXssMatchSetsInput, opts ...request.Option) (*waf.ListXssMatchSetsOutput, error) {
-	req, out := c.ListXssMatchSetsRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opUpdateByteMatchSet = "UpdateByteMatchSet"
-
-// UpdateByteMatchSetRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateByteMatchSet operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateByteMatchSet for more information on using the UpdateByteMatchSet
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdateByteMatchSetRequest method.
-//    req, resp := client.UpdateByteMatchSetRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateByteMatchSet
-func (c *WAFRegional) UpdateByteMatchSetRequest(input *waf.UpdateByteMatchSetInput) (req *request.Request, output *waf.UpdateByteMatchSetOutput) {
-	op := &request.Operation{
-		Name:       opUpdateByteMatchSet,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &waf.UpdateByteMatchSetInput{}
-	}
-
-	output = &waf.UpdateByteMatchSetOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// UpdateByteMatchSet API operation for AWS WAF Regional.
-//
-// Inserts or deletes ByteMatchTuple objects (filters) in a ByteMatchSet. For
-// each ByteMatchTuple object, you specify the following values:
-//
-//    * Whether to insert or delete the object from the array. If you want to
-//    change a ByteMatchSetUpdate object, you delete the existing object and
-//    add a new one.
-//
-//    * The part of a web request that you want AWS WAF to inspect, such as
-//    a query string or the value of the User-Agent header.
-//
-//    * The bytes (typically a string that corresponds with ASCII characters)
-//    that you want AWS WAF to look for. For more information, including how
-//    you specify the values for the AWS WAF API and the AWS CLI or SDKs, see
-//    TargetString in the ByteMatchTuple data type.
-//
-//    * Where to look, such as at the beginning or the end of a query string.
-//
-//    * Whether to perform any conversions on the request, such as converting
-//    it to lowercase, before inspecting it for the specified string.
-//
-// For example, you can add a ByteMatchSetUpdate object that matches web requests
-// in which User-Agent headers contain the string BadBot. You can then configure
-// AWS WAF to block those requests.
-//
-// To create and configure a ByteMatchSet, perform the following steps:
-//
-// Create a ByteMatchSet. For more information, see CreateByteMatchSet.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of an UpdateByteMatchSet request.
-//
-// Submit an UpdateByteMatchSet request to specify the part of the request that
-// you want AWS WAF to inspect (for example, the header or the URI) and the
-// value that you want AWS WAF to watch for.
-//
-// For more information about how to use the AWS WAF API to allow or block HTTP
-// requests, see the AWS WAF Developer Guide (http://docs.aws.amazon.com/waf/latest/developerguide/).
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation UpdateByteMatchSet for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFInvalidAccountException "WAFInvalidAccountException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using an invalid account identifier.
-//
-//   * ErrCodeWAFInvalidOperationException "WAFInvalidOperationException"
-//   The operation failed because there was nothing to do. For example:
-//
-//      * You tried to remove a Rule from a WebACL, but the Rule isn't in the
-//      specified WebACL.
-//
-//      * You tried to remove an IP address from an IPSet, but the IP address
-//      isn't in the specified IPSet.
-//
-//      * You tried to remove a ByteMatchTuple from a ByteMatchSet, but the ByteMatchTuple
-//      isn't in the specified WebACL.
-//
-//      * You tried to add a Rule to a WebACL, but the Rule already exists in
-//      the specified WebACL.
-//
-//      * You tried to add an IP address to an IPSet, but the IP address already
-//      exists in the specified IPSet.
-//
-//      * You tried to add a ByteMatchTuple to a ByteMatchSet, but the ByteMatchTuple
-//      already exists in the specified WebACL.
-//
-//   * ErrCodeWAFInvalidParameterException "WAFInvalidParameterException"
-//   The operation failed because AWS WAF didn't recognize a parameter in the
-//   request. For example:
-//
-//      * You specified an invalid parameter name.
-//
-//      * You specified an invalid value.
-//
-//      * You tried to update an object (ByteMatchSet, IPSet, Rule, or WebACL)
-//      using an action other than INSERT or DELETE.
-//
-//      * You tried to create a WebACL with a DefaultActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to create a RateBasedRule with a RateKey value other than
-//      IP.
-//
-//      * You tried to update a WebACL with a WafActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to update a ByteMatchSet with a FieldToMatchType other than
-//      HEADER, METHOD, QUERY_STRING, URI, or BODY.
-//
-//      * You tried to update a ByteMatchSet with a Field of HEADER but no value
-//      for Data.
-//
-//      * Your request references an ARN that is malformed, or corresponds to
-//      a resource with which a web ACL cannot be associated.
-//
-//   * ErrCodeWAFNonexistentContainerException "WAFNonexistentContainerException"
-//   The operation failed because you tried to add an object to or delete an object
-//   from another object that doesn't exist. For example:
-//
-//      * You tried to add a Rule to or delete a Rule from a WebACL that doesn't
-//      exist.
-//
-//      * You tried to add a ByteMatchSet to or delete a ByteMatchSet from a Rule
-//      that doesn't exist.
-//
-//      * You tried to add an IP address to or delete an IP address from an IPSet
-//      that doesn't exist.
-//
-//      * You tried to add a ByteMatchTuple to or delete a ByteMatchTuple from
-//      a ByteMatchSet that doesn't exist.
-//
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-//   * ErrCodeWAFReferencedItemException "WAFReferencedItemException"
-//   The operation failed because you tried to delete an object that is still
-//   in use. For example:
-//
-//      * You tried to delete a ByteMatchSet that is still referenced by a Rule.
-//
-//      * You tried to delete a Rule that is still referenced by a WebACL.
-//
-//   * ErrCodeWAFLimitsExceededException "WAFLimitsExceededException"
-//   The operation exceeds a resource limit, for example, the maximum number of
-//   WebACL objects that you can create for an AWS account. For more information,
-//   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
-//   in the AWS WAF Developer Guide.
-//
-<<<<<<< HEAD
-// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateGeoMatchSet
-func (c *WAFRegional) UpdateGeoMatchSet(input *waf.UpdateGeoMatchSetInput) (*waf.UpdateGeoMatchSetOutput, error) {
-	req, out := c.UpdateGeoMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// UpdateGeoMatchSetWithContext is the same as UpdateGeoMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateGeoMatchSet for details on how to use this API operation.
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateByteMatchSet
-func (c *WAFRegional) UpdateByteMatchSet(input *waf.UpdateByteMatchSetInput) (*waf.UpdateByteMatchSetOutput, error) {
-	req, out := c.UpdateByteMatchSetRequest(input)
-	return out, req.Send()
-}
-
-// UpdateByteMatchSetWithContext is the same as UpdateByteMatchSet with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateByteMatchSet for details on how to use this API operation.
->>>>>>> Initial dep workover
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-<<<<<<< HEAD
-func (c *WAFRegional) UpdateGeoMatchSetWithContext(ctx aws.Context, input *waf.UpdateGeoMatchSetInput, opts ...request.Option) (*waf.UpdateGeoMatchSetOutput, error) {
-	req, out := c.UpdateGeoMatchSetRequest(input)
-=======
-func (c *WAFRegional) UpdateByteMatchSetWithContext(ctx aws.Context, input *waf.UpdateByteMatchSetInput, opts ...request.Option) (*waf.UpdateByteMatchSetOutput, error) {
-	req, out := c.UpdateByteMatchSetRequest(input)
->>>>>>> Initial dep workover
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-<<<<<<< HEAD
-=======
 const opUpdateGeoMatchSet = "UpdateGeoMatchSet"
 
 // UpdateGeoMatchSetRequest generates a "aws/request.Request" representing the
@@ -9753,7 +6524,7 @@ const opUpdateGeoMatchSet = "UpdateGeoMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateGeoMatchSet
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateGeoMatchSet
 func (c *WAFRegional) UpdateGeoMatchSetRequest(input *waf.UpdateGeoMatchSetInput) (req *request.Request, output *waf.UpdateGeoMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opUpdateGeoMatchSet,
@@ -9904,7 +6675,7 @@ func (c *WAFRegional) UpdateGeoMatchSetRequest(input *waf.UpdateGeoMatchSetInput
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateGeoMatchSet
+// See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateGeoMatchSet
 func (c *WAFRegional) UpdateGeoMatchSet(input *waf.UpdateGeoMatchSetInput) (*waf.UpdateGeoMatchSetOutput, error) {
 	req, out := c.UpdateGeoMatchSetRequest(input)
 	return out, req.Send()
@@ -9926,7 +6697,6 @@ func (c *WAFRegional) UpdateGeoMatchSetWithContext(ctx aws.Context, input *waf.U
 	return out, req.Send()
 }
 
->>>>>>> Initial dep workover
 const opUpdateIPSet = "UpdateIPSet"
 
 // UpdateIPSetRequest generates a "aws/request.Request" representing the
@@ -9952,11 +6722,7 @@ const opUpdateIPSet = "UpdateIPSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateIPSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateIPSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateIPSetRequest(input *waf.UpdateIPSetInput) (req *request.Request, output *waf.UpdateIPSetOutput) {
 	op := &request.Operation{
 		Name:       opUpdateIPSet,
@@ -10128,11 +6894,7 @@ func (c *WAFRegional) UpdateIPSetRequest(input *waf.UpdateIPSetInput) (req *requ
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateIPSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateIPSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateIPSet(input *waf.UpdateIPSetInput) (*waf.UpdateIPSetOutput, error) {
 	req, out := c.UpdateIPSetRequest(input)
 	return out, req.Send()
@@ -10179,11 +6941,7 @@ const opUpdateRateBasedRule = "UpdateRateBasedRule"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRateBasedRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRateBasedRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateRateBasedRuleRequest(input *waf.UpdateRateBasedRuleInput) (req *request.Request, output *waf.UpdateRateBasedRuleOutput) {
 	op := &request.Operation{
 		Name:       opUpdateRateBasedRule,
@@ -10344,11 +7102,7 @@ func (c *WAFRegional) UpdateRateBasedRuleRequest(input *waf.UpdateRateBasedRuleI
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRateBasedRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRateBasedRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateRateBasedRule(input *waf.UpdateRateBasedRuleInput) (*waf.UpdateRateBasedRuleOutput, error) {
 	req, out := c.UpdateRateBasedRuleRequest(input)
 	return out, req.Send()
@@ -10395,11 +7149,7 @@ const opUpdateRegexMatchSet = "UpdateRegexMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRegexMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRegexMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateRegexMatchSetRequest(input *waf.UpdateRegexMatchSetInput) (req *request.Request, output *waf.UpdateRegexMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opUpdateRegexMatchSet,
@@ -10418,33 +7168,15 @@ func (c *WAFRegional) UpdateRegexMatchSetRequest(input *waf.UpdateRegexMatchSetI
 
 // UpdateRegexMatchSet API operation for AWS WAF Regional.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Inserts or deletes RegexMatchTuple objects (filters) in a RegexMatchSet.
-=======
-// Inserts or deletes RegexMatchSetUpdate objects (filters) in a RegexMatchSet.
->>>>>>> Initial dep workover
-=======
-// Inserts or deletes RegexMatchTuple objects (filters) in a RegexMatchSet.
->>>>>>> Working on getting compiling
 // For each RegexMatchSetUpdate object, you specify the following values:
 //
 //    * Whether to insert or delete the object from the array. If you want to
 //    change a RegexMatchSetUpdate object, you delete the existing object and
 //    add a new one.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 //    * The part of a web request that you want AWS WAF to inspectupdate, such
 //    as a query string or the value of the User-Agent header.
-=======
-//    * The part of a web request that you want AWS WAF to inspect, such as
-//    a query string or the value of the User-Agent header.
->>>>>>> Initial dep workover
-=======
-//    * The part of a web request that you want AWS WAF to inspectupdate, such
-//    as a query string or the value of the User-Agent header.
->>>>>>> Working on getting compiling
 //
 //    * The identifier of the pattern (a regular expression) that you want AWS
 //    WAF to look for. For more information, see RegexPatternSet.
@@ -10540,11 +7272,7 @@ func (c *WAFRegional) UpdateRegexMatchSetRequest(input *waf.UpdateRegexMatchSetI
 //   The operation failed because you tried to create, update, or delete an object
 //   by using an invalid account identifier.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRegexMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRegexMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateRegexMatchSet(input *waf.UpdateRegexMatchSetInput) (*waf.UpdateRegexMatchSetOutput, error) {
 	req, out := c.UpdateRegexMatchSetRequest(input)
 	return out, req.Send()
@@ -10591,11 +7319,7 @@ const opUpdateRegexPatternSet = "UpdateRegexPatternSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRegexPatternSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRegexPatternSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateRegexPatternSetRequest(input *waf.UpdateRegexPatternSetInput) (req *request.Request, output *waf.UpdateRegexPatternSetOutput) {
 	op := &request.Operation{
 		Name:       opUpdateRegexPatternSet,
@@ -10614,30 +7338,12 @@ func (c *WAFRegional) UpdateRegexPatternSetRequest(input *waf.UpdateRegexPattern
 
 // UpdateRegexPatternSet API operation for AWS WAF Regional.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Inserts or deletes RegexPatternString objects in a RegexPatternSet. For each
 // RegexPatternString object, you specify the following values:
 //
 //    * Whether to insert or delete the RegexPatternString.
 //
 //    * The regular expression pattern that you want to insert or delete. For
-=======
-// Inserts or deletes RegexMatchSetUpdate objects (filters) in a RegexPatternSet.
-// For each RegexPatternSet object, you specify the following values:
-=======
-// Inserts or deletes RegexPatternString objects in a RegexPatternSet. For each
-// RegexPatternString object, you specify the following values:
->>>>>>> Working on getting compiling
-//
-//    * Whether to insert or delete the RegexPatternString.
-//
-<<<<<<< HEAD
-//    * The regular expression pattern that you want AWS WAF to look for. For
->>>>>>> Initial dep workover
-=======
-//    * The regular expression pattern that you want to insert or delete. For
->>>>>>> Working on getting compiling
 //    more information, see RegexPatternSet.
 //
 // For example, you can create a RegexPatternString such as B[a@]dB[o0]t. AWS
@@ -10686,18 +7392,9 @@ func (c *WAFRegional) UpdateRegexPatternSetRequest(input *waf.UpdateRegexPattern
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 //   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
 //   The operation failed because the referenced object doesn't exist.
 //
-=======
->>>>>>> Initial dep workover
-=======
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
->>>>>>> Working on getting compiling
 //   * ErrCodeWAFNonexistentContainerException "WAFNonexistentContainerException"
 //   The operation failed because you tried to add an object to or delete an object
 //   from another object that doesn't exist. For example:
@@ -10742,11 +7439,7 @@ func (c *WAFRegional) UpdateRegexPatternSetRequest(input *waf.UpdateRegexPattern
 //   * ErrCodeWAFInvalidRegexPatternException "WAFInvalidRegexPatternException"
 //   The regular expression (regex) you specified in RegexPatternString is invalid.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRegexPatternSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRegexPatternSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateRegexPatternSet(input *waf.UpdateRegexPatternSetInput) (*waf.UpdateRegexPatternSetOutput, error) {
 	req, out := c.UpdateRegexPatternSetRequest(input)
 	return out, req.Send()
@@ -10793,11 +7486,7 @@ const opUpdateRule = "UpdateRule"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateRuleRequest(input *waf.UpdateRuleInput) (req *request.Request, output *waf.UpdateRuleOutput) {
 	op := &request.Operation{
 		Name:       opUpdateRule,
@@ -10953,11 +7642,7 @@ func (c *WAFRegional) UpdateRuleRequest(input *waf.UpdateRuleInput) (req *reques
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRule
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRule
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateRule(input *waf.UpdateRuleInput) (*waf.UpdateRuleOutput, error) {
 	req, out := c.UpdateRuleRequest(input)
 	return out, req.Send()
@@ -10979,7 +7664,6 @@ func (c *WAFRegional) UpdateRuleWithContext(ctx aws.Context, input *waf.UpdateRu
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 const opUpdateRuleGroup = "UpdateRuleGroup"
 
 // UpdateRuleGroupRequest generates a "aws/request.Request" representing the
@@ -11161,192 +7845,6 @@ func (c *WAFRegional) UpdateRuleGroupWithContext(ctx aws.Context, input *waf.Upd
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
-const opUpdateRuleGroup = "UpdateRuleGroup"
-
-// UpdateRuleGroupRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateRuleGroup operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateRuleGroup for more information on using the UpdateRuleGroup
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdateRuleGroupRequest method.
-//    req, resp := client.UpdateRuleGroupRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRuleGroup
-func (c *WAFRegional) UpdateRuleGroupRequest(input *waf.UpdateRuleGroupInput) (req *request.Request, output *waf.UpdateRuleGroupOutput) {
-	op := &request.Operation{
-		Name:       opUpdateRuleGroup,
-		HTTPMethod: "POST",
-		HTTPPath:   "/",
-	}
-
-	if input == nil {
-		input = &waf.UpdateRuleGroupInput{}
-	}
-
-	output = &waf.UpdateRuleGroupOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// UpdateRuleGroup API operation for AWS WAF Regional.
-//
-// Inserts or deletes ActivatedRule objects in a RuleGroup.
-//
-// You can only insert REGULAR rules into a rule group.
-//
-// You can have a maximum of ten rules per rule group.
-//
-// To create and configure a RuleGroup, perform the following steps:
-//
-// Create and update the Rules that you want to include in the RuleGroup. See
-// CreateRule.
-//
-// Use GetChangeToken to get the change token that you provide in the ChangeToken
-// parameter of an UpdateRuleGroup request.
-//
-// Submit an UpdateRuleGroup request to add Rules to the RuleGroup.
-//
-// Create and update a WebACL that contains the RuleGroup. See CreateWebACL.
-//
-// If you want to replace one Rule with another, you delete the existing one
-// and add the new one.
-//
-// For more information about how to use the AWS WAF API to allow or block HTTP
-// requests, see the AWS WAF Developer Guide (http://docs.aws.amazon.com/waf/latest/developerguide/).
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for AWS WAF Regional's
-// API operation UpdateRuleGroup for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeWAFStaleDataException "WAFStaleDataException"
-//   The operation failed because you tried to create, update, or delete an object
-//   by using a change token that has already been used.
-//
-//   * ErrCodeWAFInternalErrorException "WAFInternalErrorException"
-//   The operation failed because of a system problem, even though the request
-//   was valid. Retry your request.
-//
-//   * ErrCodeWAFNonexistentContainerException "WAFNonexistentContainerException"
-//   The operation failed because you tried to add an object to or delete an object
-//   from another object that doesn't exist. For example:
-//
-//      * You tried to add a Rule to or delete a Rule from a WebACL that doesn't
-//      exist.
-//
-//      * You tried to add a ByteMatchSet to or delete a ByteMatchSet from a Rule
-//      that doesn't exist.
-//
-//      * You tried to add an IP address to or delete an IP address from an IPSet
-//      that doesn't exist.
-//
-//      * You tried to add a ByteMatchTuple to or delete a ByteMatchTuple from
-//      a ByteMatchSet that doesn't exist.
-//
-//   * ErrCodeWAFNonexistentItemException "WAFNonexistentItemException"
-//   The operation failed because the referenced object doesn't exist.
-//
-//   * ErrCodeWAFInvalidOperationException "WAFInvalidOperationException"
-//   The operation failed because there was nothing to do. For example:
-//
-//      * You tried to remove a Rule from a WebACL, but the Rule isn't in the
-//      specified WebACL.
-//
-//      * You tried to remove an IP address from an IPSet, but the IP address
-//      isn't in the specified IPSet.
-//
-//      * You tried to remove a ByteMatchTuple from a ByteMatchSet, but the ByteMatchTuple
-//      isn't in the specified WebACL.
-//
-//      * You tried to add a Rule to a WebACL, but the Rule already exists in
-//      the specified WebACL.
-//
-//      * You tried to add an IP address to an IPSet, but the IP address already
-//      exists in the specified IPSet.
-//
-//      * You tried to add a ByteMatchTuple to a ByteMatchSet, but the ByteMatchTuple
-//      already exists in the specified WebACL.
-//
-//   * ErrCodeWAFLimitsExceededException "WAFLimitsExceededException"
-//   The operation exceeds a resource limit, for example, the maximum number of
-//   WebACL objects that you can create for an AWS account. For more information,
-//   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
-//   in the AWS WAF Developer Guide.
-//
-//   * ErrCodeWAFInvalidParameterException "WAFInvalidParameterException"
-//   The operation failed because AWS WAF didn't recognize a parameter in the
-//   request. For example:
-//
-//      * You specified an invalid parameter name.
-//
-//      * You specified an invalid value.
-//
-//      * You tried to update an object (ByteMatchSet, IPSet, Rule, or WebACL)
-//      using an action other than INSERT or DELETE.
-//
-//      * You tried to create a WebACL with a DefaultActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to create a RateBasedRule with a RateKey value other than
-//      IP.
-//
-//      * You tried to update a WebACL with a WafActionType other than ALLOW,
-//      BLOCK, or COUNT.
-//
-//      * You tried to update a ByteMatchSet with a FieldToMatchType other than
-//      HEADER, METHOD, QUERY_STRING, URI, or BODY.
-//
-//      * You tried to update a ByteMatchSet with a Field of HEADER but no value
-//      for Data.
-//
-//      * Your request references an ARN that is malformed, or corresponds to
-//      a resource with which a web ACL cannot be associated.
-//
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateRuleGroup
-func (c *WAFRegional) UpdateRuleGroup(input *waf.UpdateRuleGroupInput) (*waf.UpdateRuleGroupOutput, error) {
-	req, out := c.UpdateRuleGroupRequest(input)
-	return out, req.Send()
-}
-
-// UpdateRuleGroupWithContext is the same as UpdateRuleGroup with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateRuleGroup for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *WAFRegional) UpdateRuleGroupWithContext(ctx aws.Context, input *waf.UpdateRuleGroupInput, opts ...request.Option) (*waf.UpdateRuleGroupOutput, error) {
-	req, out := c.UpdateRuleGroupRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
->>>>>>> Working on getting compiling
 const opUpdateSizeConstraintSet = "UpdateSizeConstraintSet"
 
 // UpdateSizeConstraintSetRequest generates a "aws/request.Request" representing the
@@ -11372,11 +7870,7 @@ const opUpdateSizeConstraintSet = "UpdateSizeConstraintSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateSizeConstraintSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateSizeConstraintSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateSizeConstraintSetRequest(input *waf.UpdateSizeConstraintSetInput) (req *request.Request, output *waf.UpdateSizeConstraintSetOutput) {
 	op := &request.Operation{
 		Name:       opUpdateSizeConstraintSet,
@@ -11538,11 +8032,7 @@ func (c *WAFRegional) UpdateSizeConstraintSetRequest(input *waf.UpdateSizeConstr
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateSizeConstraintSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateSizeConstraintSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateSizeConstraintSet(input *waf.UpdateSizeConstraintSetInput) (*waf.UpdateSizeConstraintSetOutput, error) {
 	req, out := c.UpdateSizeConstraintSetRequest(input)
 	return out, req.Send()
@@ -11589,11 +8079,7 @@ const opUpdateSqlInjectionMatchSet = "UpdateSqlInjectionMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateSqlInjectionMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateSqlInjectionMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateSqlInjectionMatchSetRequest(input *waf.UpdateSqlInjectionMatchSetInput) (req *request.Request, output *waf.UpdateSqlInjectionMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opUpdateSqlInjectionMatchSet,
@@ -11740,11 +8226,7 @@ func (c *WAFRegional) UpdateSqlInjectionMatchSetRequest(input *waf.UpdateSqlInje
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateSqlInjectionMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateSqlInjectionMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateSqlInjectionMatchSet(input *waf.UpdateSqlInjectionMatchSetInput) (*waf.UpdateSqlInjectionMatchSetOutput, error) {
 	req, out := c.UpdateSqlInjectionMatchSetRequest(input)
 	return out, req.Send()
@@ -11791,11 +8273,7 @@ const opUpdateWebACL = "UpdateWebACL"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateWebACL
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateWebACL
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateWebACLRequest(input *waf.UpdateWebACLInput) (req *request.Request, output *waf.UpdateWebACLOutput) {
 	op := &request.Operation{
 		Name:       opUpdateWebACL,
@@ -11966,20 +8444,10 @@ func (c *WAFRegional) UpdateWebACLRequest(input *waf.UpdateWebACLInput) (req *re
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 //   * ErrCodeWAFSubscriptionNotFoundException "WAFSubscriptionNotFoundException"
 //   The specified subscription does not exist.
 //
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateWebACL
-=======
-=======
-//   * ErrCodeWAFSubscriptionNotFoundException "WAFSubscriptionNotFoundException"
-//   The specified subscription does not exist.
-//
->>>>>>> Working on getting compiling
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateWebACL
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateWebACL(input *waf.UpdateWebACLInput) (*waf.UpdateWebACLOutput, error) {
 	req, out := c.UpdateWebACLRequest(input)
 	return out, req.Send()
@@ -12026,11 +8494,7 @@ const opUpdateXssMatchSet = "UpdateXssMatchSet"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateXssMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateXssMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateXssMatchSetRequest(input *waf.UpdateXssMatchSetInput) (req *request.Request, output *waf.UpdateXssMatchSetOutput) {
 	op := &request.Operation{
 		Name:       opUpdateXssMatchSet,
@@ -12177,11 +8641,7 @@ func (c *WAFRegional) UpdateXssMatchSetRequest(input *waf.UpdateXssMatchSetInput
 //   see Limits (http://docs.aws.amazon.com/waf/latest/developerguide/limits.html)
 //   in the AWS WAF Developer Guide.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateXssMatchSet
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/UpdateXssMatchSet
->>>>>>> Initial dep workover
 func (c *WAFRegional) UpdateXssMatchSet(input *waf.UpdateXssMatchSetInput) (*waf.UpdateXssMatchSetOutput, error) {
 	req, out := c.UpdateXssMatchSetRequest(input)
 	return out, req.Send()
@@ -12203,11 +8663,7 @@ func (c *WAFRegional) UpdateXssMatchSetWithContext(ctx aws.Context, input *waf.U
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/AssociateWebACLRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/AssociateWebACLRequest
->>>>>>> Initial dep workover
 type AssociateWebACLInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12266,11 +8722,7 @@ func (s *AssociateWebACLInput) SetWebACLId(v string) *AssociateWebACLInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/AssociateWebACLResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/AssociateWebACLResponse
->>>>>>> Initial dep workover
 type AssociateWebACLOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12285,11 +8737,7 @@ func (s AssociateWebACLOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DisassociateWebACLRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DisassociateWebACLRequest
->>>>>>> Initial dep workover
 type DisassociateWebACLInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12332,11 +8780,7 @@ func (s *DisassociateWebACLInput) SetResourceArn(v string) *DisassociateWebACLIn
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DisassociateWebACLResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/DisassociateWebACLResponse
->>>>>>> Initial dep workover
 type DisassociateWebACLOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -12351,11 +8795,7 @@ func (s DisassociateWebACLOutput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACLForResourceRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACLForResourceRequest
->>>>>>> Initial dep workover
 type GetWebACLForResourceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12397,11 +8837,7 @@ func (s *GetWebACLForResourceInput) SetResourceArn(v string) *GetWebACLForResour
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACLForResourceResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/GetWebACLForResourceResponse
->>>>>>> Initial dep workover
 type GetWebACLForResourceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -12426,11 +8862,7 @@ func (s *GetWebACLForResourceOutput) SetWebACLSummary(v *waf.WebACLSummary) *Get
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACLRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACLRequest
->>>>>>> Initial dep workover
 type ListResourcesForWebACLInput struct {
 	_ struct{} `type:"structure"`
 
@@ -12473,11 +8905,7 @@ func (s *ListResourcesForWebACLInput) SetWebACLId(v string) *ListResourcesForWeb
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACLResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/waf-regional-2016-11-28/ListResourcesForWebACLResponse
->>>>>>> Initial dep workover
 type ListResourcesForWebACLOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -13111,7 +9539,6 @@ const (
 
 	// GeoMatchConstraintValueLc is a GeoMatchConstraintValue enum value
 	GeoMatchConstraintValueLc = "LC"
-<<<<<<< HEAD
 
 	// GeoMatchConstraintValueMf is a GeoMatchConstraintValue enum value
 	GeoMatchConstraintValueMf = "MF"
@@ -13284,180 +9711,6 @@ const (
 	// GeoMatchConstraintValueWf is a GeoMatchConstraintValue enum value
 	GeoMatchConstraintValueWf = "WF"
 
-=======
-
-	// GeoMatchConstraintValueMf is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueMf = "MF"
-
-	// GeoMatchConstraintValuePm is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValuePm = "PM"
-
-	// GeoMatchConstraintValueVc is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueVc = "VC"
-
-	// GeoMatchConstraintValueWs is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueWs = "WS"
-
-	// GeoMatchConstraintValueSm is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSm = "SM"
-
-	// GeoMatchConstraintValueSt is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSt = "ST"
-
-	// GeoMatchConstraintValueSa is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSa = "SA"
-
-	// GeoMatchConstraintValueSn is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSn = "SN"
-
-	// GeoMatchConstraintValueRs is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueRs = "RS"
-
-	// GeoMatchConstraintValueSc is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSc = "SC"
-
-	// GeoMatchConstraintValueSl is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSl = "SL"
-
-	// GeoMatchConstraintValueSg is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSg = "SG"
-
-	// GeoMatchConstraintValueSx is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSx = "SX"
-
-	// GeoMatchConstraintValueSk is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSk = "SK"
-
-	// GeoMatchConstraintValueSi is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSi = "SI"
-
-	// GeoMatchConstraintValueSb is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSb = "SB"
-
-	// GeoMatchConstraintValueSo is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSo = "SO"
-
-	// GeoMatchConstraintValueZa is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueZa = "ZA"
-
-	// GeoMatchConstraintValueGs is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueGs = "GS"
-
-	// GeoMatchConstraintValueSs is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSs = "SS"
-
-	// GeoMatchConstraintValueEs is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueEs = "ES"
-
-	// GeoMatchConstraintValueLk is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueLk = "LK"
-
-	// GeoMatchConstraintValueSd is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSd = "SD"
-
-	// GeoMatchConstraintValueSr is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSr = "SR"
-
-	// GeoMatchConstraintValueSj is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSj = "SJ"
-
-	// GeoMatchConstraintValueSz is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSz = "SZ"
-
-	// GeoMatchConstraintValueSe is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSe = "SE"
-
-	// GeoMatchConstraintValueCh is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueCh = "CH"
-
-	// GeoMatchConstraintValueSy is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueSy = "SY"
-
-	// GeoMatchConstraintValueTw is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTw = "TW"
-
-	// GeoMatchConstraintValueTj is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTj = "TJ"
-
-	// GeoMatchConstraintValueTz is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTz = "TZ"
-
-	// GeoMatchConstraintValueTh is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTh = "TH"
-
-	// GeoMatchConstraintValueTl is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTl = "TL"
-
-	// GeoMatchConstraintValueTg is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTg = "TG"
-
-	// GeoMatchConstraintValueTk is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTk = "TK"
-
-	// GeoMatchConstraintValueTo is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTo = "TO"
-
-	// GeoMatchConstraintValueTt is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTt = "TT"
-
-	// GeoMatchConstraintValueTn is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTn = "TN"
-
-	// GeoMatchConstraintValueTr is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTr = "TR"
-
-	// GeoMatchConstraintValueTm is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTm = "TM"
-
-	// GeoMatchConstraintValueTc is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTc = "TC"
-
-	// GeoMatchConstraintValueTv is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueTv = "TV"
-
-	// GeoMatchConstraintValueUg is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueUg = "UG"
-
-	// GeoMatchConstraintValueUa is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueUa = "UA"
-
-	// GeoMatchConstraintValueAe is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueAe = "AE"
-
-	// GeoMatchConstraintValueGb is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueGb = "GB"
-
-	// GeoMatchConstraintValueUs is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueUs = "US"
-
-	// GeoMatchConstraintValueUm is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueUm = "UM"
-
-	// GeoMatchConstraintValueUy is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueUy = "UY"
-
-	// GeoMatchConstraintValueUz is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueUz = "UZ"
-
-	// GeoMatchConstraintValueVu is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueVu = "VU"
-
-	// GeoMatchConstraintValueVe is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueVe = "VE"
-
-	// GeoMatchConstraintValueVn is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueVn = "VN"
-
-	// GeoMatchConstraintValueVg is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueVg = "VG"
-
-	// GeoMatchConstraintValueVi is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueVi = "VI"
-
-	// GeoMatchConstraintValueWf is a GeoMatchConstraintValue enum value
-	GeoMatchConstraintValueWf = "WF"
-
->>>>>>> Initial dep workover
 	// GeoMatchConstraintValueEh is a GeoMatchConstraintValue enum value
 	GeoMatchConstraintValueEh = "EH"
 

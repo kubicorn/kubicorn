@@ -20,10 +20,6 @@ Many of the most widely used Go projects are built using Cobra including:
 * [Nanobox](https://github.com/nanobox-io/nanobox)/[Nanopack](https://github.com/nanopack)
 * [rclone](http://rclone.org/)
 * [nehm](https://github.com/bogem/nehm)
-<<<<<<< HEAD
-* [Pouch](https://github.com/alibaba/pouch)
-=======
->>>>>>> Initial dep workover
 
 [![Build Status](https://travis-ci.org/spf13/cobra.svg "Travis CI status")](https://travis-ci.org/spf13/cobra)
 [![CircleCI status](https://circleci.com/gh/spf13/cobra.png?circle-token=:circle-token "CircleCI status")](https://circleci.com/gh/spf13/cobra)
@@ -162,14 +158,10 @@ import (
 )
 
 func main() {
-<<<<<<< HEAD
-  cmd.Execute()
-=======
   if err := cmd.RootCmd.Execute(); err != nil {
     fmt.Println(err)
     os.Exit(1)
   }
->>>>>>> Initial dep workover
 }
 ```
 
@@ -182,11 +174,7 @@ commands you want. It's the easiest way to incorporate Cobra into your applicati
 
 ## Using the Cobra Library
 
-<<<<<<< HEAD
-To manually implement Cobra you need to create a bare main.go file and a rootCmd file.
-=======
 To manually implement Cobra you need to create a bare main.go file and a RootCmd file.
->>>>>>> Initial dep workover
 You will optionally provide additional commands as you see fit.
 
 ### Create rootCmd
@@ -196,11 +184,7 @@ Cobra doesn't require any special constructors. Simply create your commands.
 Ideally you place this in app/cmd/root.go:
 
 ```go
-<<<<<<< HEAD
-var rootCmd = &cobra.Command{
-=======
 var RootCmd = &cobra.Command{
->>>>>>> Initial dep workover
   Use:   "hugo",
   Short: "Hugo is a very fast static site generator",
   Long: `A Fast and Flexible Static Site Generator built with
@@ -228,18 +212,6 @@ import (
 
 func init() {
   cobra.OnInitialize(initConfig)
-<<<<<<< HEAD
-  rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobra.yaml)")
-  rootCmd.PersistentFlags().StringVarP(&projectBase, "projectbase", "b", "", "base project directory eg. github.com/spf13/")
-  rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "Author name for copyright attribution")
-  rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "Name of license for the project (can provide `licensetext` in config)")
-  rootCmd.PersistentFlags().Bool("viper", true, "Use Viper for configuration")
-  viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
-  viper.BindPFlag("projectbase", rootCmd.PersistentFlags().Lookup("projectbase"))
-  viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
-  viper.SetDefault("author", "NAME HERE <EMAIL ADDRESS>")
-  viper.SetDefault("license", "apache")
-=======
   RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobra.yaml)")
   RootCmd.PersistentFlags().StringVarP(&projectBase, "projectbase", "b", "", "base project directory eg. github.com/spf13/")
   RootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "Author name for copyright attribution")
@@ -254,7 +226,6 @@ func init() {
 
 func Execute() {
   RootCmd.Execute()
->>>>>>> Initial dep workover
 }
 
 func initConfig() {
@@ -300,14 +271,10 @@ import (
 )
 
 func main() {
-<<<<<<< HEAD
-  cmd.Execute()
-=======
   if err := cmd.RootCmd.Execute(); err != nil {
     fmt.Println(err)
     os.Exit(1)
   }
->>>>>>> Initial dep workover
 }
 ```
 
@@ -323,22 +290,12 @@ populate it with the following:
 package cmd
 
 import (
-<<<<<<< HEAD
-  "fmt"
-
-  "github.com/spf13/cobra"
-)
-
-func init() {
-  rootCmd.AddCommand(versionCmd)
-=======
   "github.com/spf13/cobra"
   "fmt"
 )
 
 func init() {
   RootCmd.AddCommand(versionCmd)
->>>>>>> Initial dep workover
 }
 
 var versionCmd = &cobra.Command{
@@ -375,7 +332,7 @@ command it's assigned to as well as every command under that command. For
 global flags, assign a flag as a persistent flag on the root.
 
 ```go
-rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")
+RootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")
 ```
 
 ### Local Flags
@@ -383,20 +340,7 @@ rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose out
 A flag can also be assigned locally which will only apply to that specific command.
 
 ```go
-rootCmd.Flags().StringVarP(&Source, "source", "s", "", "Source directory to read from")
-```
-
-### Local Flag on Parent Commands
-
-By default Cobra only parses local flags on the target command, any local flags on 
-parent commands are ignored. By enabling `Command.TraverseChildren` Cobra will 
-parse local flags on each command before executing the target command.
-
-```go
-command := cobra.Command{
-  Use: "print [OPTIONS] [COMMANDS]",
-  TraverseChildren: true,
-}
+RootCmd.Flags().StringVarP(&Source, "source", "s", "", "Source directory to read from")
 ```
 
 ### Local Flag on Parent Commands
@@ -419,13 +363,8 @@ You can also bind your flags with [viper](https://github.com/spf13/viper):
 var author string
 
 func init() {
-<<<<<<< HEAD
-  rootCmd.PersistentFlags().StringVar(&author, "author", "YOUR NAME", "Author name for copyright attribution")
-  viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
-=======
   RootCmd.PersistentFlags().StringVar(&author, "author", "YOUR NAME", "Author name for copyright attribution")
   viper.BindPFlag("author", RootCmd.PersistentFlags().Lookup("author"))
->>>>>>> Initial dep workover
 }
 ```
 
@@ -504,7 +443,6 @@ For many years people have printed back to the screen.`,
       fmt.Println("Print: " + strings.Join(args, " "))
     },
   }
-<<<<<<< HEAD
 
   var cmdEcho = &cobra.Command{
     Use:   "echo [string to echo]",
@@ -517,20 +455,6 @@ Echo works a lot like print, except it has a child command.`,
     },
   }
 
-=======
-
-  var cmdEcho = &cobra.Command{
-    Use:   "echo [string to echo]",
-    Short: "Echo anything to the screen",
-    Long: `echo is for echoing anything back.
-Echo works a lot like print, except it has a child command.`,
-    Args: cobra.MinimumNArgs(1),
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("Print: " + strings.Join(args, " "))
-    },
-  }
-
->>>>>>> Initial dep workover
   var cmdTimes = &cobra.Command{
     Use:   "times [# times] [string to echo]",
     Short: "Echo anything to the screen more times",
@@ -598,11 +522,7 @@ around it. In fact, you can provide your own if you want.
 ### Defining your own help
 
 You can provide your own Help command or your own template for the default command to use
-<<<<<<< HEAD
-with following functions:
-=======
 with followind functions:
->>>>>>> Initial dep workover
 
 ```go
 cmd.SetHelpCommand(cmd *Command)
@@ -648,16 +568,6 @@ Like help, the function and template are overridable through public methods:
 cmd.SetUsageFunc(f func(*Command) error)
 cmd.SetUsageTemplate(s string)
 ```
-<<<<<<< HEAD
-
-## Version Flag
-
-Cobra adds a top-level '--version' flag if the Version field is set on the root command.
-Running an application with the '--version' flag will print the version to stdout using
-the version template. The template can be customized using the
-`cmd.SetVersionTemplate(s string)` function.
-=======
->>>>>>> Initial dep workover
 
 ## PreRun and PostRun Hooks
 

@@ -334,12 +334,8 @@
       "errors":[
         {"shape":"ResourceNotAvailableException"},
         {"shape":"ResourceNotFoundException"},
-<<<<<<< HEAD
         {"shape":"ConcurrentModificationException"},
         {"shape":"IncompatibleImageException"}
-=======
-        {"shape":"ConcurrentModificationException"}
->>>>>>> Initial dep workover
       ]
     },
     "StopFleet":{
@@ -571,12 +567,8 @@
         "DisplayName":{"shape":"DisplayName"},
         "VpcConfig":{"shape":"VpcConfig"},
         "EnableDefaultInternetAccess":{"shape":"BooleanObject"},
-<<<<<<< HEAD
         "DomainJoinInfo":{"shape":"DomainJoinInfo"},
         "AppstreamAgentVersion":{"shape":"AppstreamAgentVersion"}
-=======
-        "DomainJoinInfo":{"shape":"DomainJoinInfo"}
->>>>>>> Initial dep workover
       }
     },
     "CreateImageBuilderResult":{
@@ -1025,53 +1017,6 @@
         "Message":{"shape":"String"}
       }
     },
-<<<<<<< HEAD
-=======
-    "ImageBuilder":{
-      "type":"structure",
-      "required":["Name"],
-      "members":{
-        "Name":{"shape":"String"},
-        "Arn":{"shape":"Arn"},
-        "ImageArn":{"shape":"Arn"},
-        "Description":{"shape":"String"},
-        "DisplayName":{"shape":"String"},
-        "VpcConfig":{"shape":"VpcConfig"},
-        "InstanceType":{"shape":"String"},
-        "Platform":{"shape":"PlatformType"},
-        "State":{"shape":"ImageBuilderState"},
-        "StateChangeReason":{"shape":"ImageBuilderStateChangeReason"},
-        "CreatedTime":{"shape":"Timestamp"},
-        "EnableDefaultInternetAccess":{"shape":"BooleanObject"},
-        "DomainJoinInfo":{"shape":"DomainJoinInfo"},
-        "ImageBuilderErrors":{"shape":"ResourceErrors"}
-      }
-    },
-    "ImageBuilderList":{
-      "type":"list",
-      "member":{"shape":"ImageBuilder"}
-    },
-    "ImageBuilderState":{
-      "type":"string",
-      "enum":[
-        "PENDING",
-        "RUNNING",
-        "STOPPING",
-        "STOPPED",
-        "REBOOTING",
-        "SNAPSHOTTING",
-        "DELETING",
-        "FAILED"
-      ]
-    },
-    "ImageBuilderStateChangeReason":{
-      "type":"structure",
-      "members":{
-        "Code":{"shape":"ImageBuilderStateChangeReasonCode"},
-        "Message":{"shape":"String"}
-      }
-    },
->>>>>>> Initial dep workover
     "ImageBuilderStateChangeReasonCode":{
       "type":"string",
       "enum":[
@@ -1335,12 +1280,8 @@
       "type":"structure",
       "required":["Name"],
       "members":{
-<<<<<<< HEAD
         "Name":{"shape":"String"},
         "AppstreamAgentVersion":{"shape":"AppstreamAgentVersion"}
-=======
-        "Name":{"shape":"String"}
->>>>>>> Initial dep workover
       }
     },
     "StartImageBuilderResult":{

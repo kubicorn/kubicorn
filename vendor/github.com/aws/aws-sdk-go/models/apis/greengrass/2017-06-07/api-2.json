@@ -3730,19 +3730,10 @@
         "shape" : "__string"
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "Permission" : {
       "type" : "string",
       "enum" : [ "ro", "rw" ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "ResetDeploymentsRequest" : {
       "type" : "structure",
       "members" : {
@@ -3773,10 +3764,6 @@
         }
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "Resource" : {
       "type" : "structure",
       "members" : {
@@ -3828,11 +3815,6 @@
       "type" : "string",
       "enum" : [ "core", "ota_agent" ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "Subscription" : {
       "type" : "structure",
       "members" : {

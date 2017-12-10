@@ -151,14 +151,20 @@ func (m *StorageClass) MarshalTo(dAtA []byte) (int, error) {
 		i++
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	if m.VolumeBindingMode != nil {
 		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintGenerated(dAtA, i, uint64(len(*m.VolumeBindingMode)))
 		i += copy(dAtA[i:], *m.VolumeBindingMode)
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return i, nil
 }
 
@@ -256,12 +262,18 @@ func (m *StorageClass) Size() (n int) {
 		n += 2
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	if m.VolumeBindingMode != nil {
 		l = len(*m.VolumeBindingMode)
 		n += 1 + l + sovGenerated(uint64(l))
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return n
 }
 
@@ -314,9 +326,13 @@ func (this *StorageClass) String() string {
 		`MountOptions:` + fmt.Sprintf("%v", this.MountOptions) + `,`,
 		`AllowVolumeExpansion:` + valueToStringGenerated(this.AllowVolumeExpansion) + `,`,
 <<<<<<< HEAD
+<<<<<<< HEAD
 		`VolumeBindingMode:` + valueToStringGenerated(this.VolumeBindingMode) + `,`,
 =======
 >>>>>>> Initial dep workover
+=======
+		`VolumeBindingMode:` + valueToStringGenerated(this.VolumeBindingMode) + `,`,
+>>>>>>> moar deps
 		`}`,
 	}, "")
 	return s
@@ -625,6 +641,9 @@ func (m *StorageClass) Unmarshal(dAtA []byte) error {
 			b := bool(v != 0)
 			m.AllowVolumeExpansion = &b
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field VolumeBindingMode", wireType)
@@ -655,8 +674,11 @@ func (m *StorageClass) Unmarshal(dAtA []byte) error {
 			s := VolumeBindingMode(dAtA[iNdEx:postIndex])
 			m.VolumeBindingMode = &s
 			iNdEx = postIndex
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenerated(dAtA[iNdEx:])
@@ -900,6 +922,9 @@ func init() {
 
 var fileDescriptorGenerated = []byte{
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	// 623 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0x4f, 0x6f, 0xd3, 0x3c,
 	0x18, 0x6f, 0xda, 0xb7, 0x2f, 0x9b, 0xbb, 0x89, 0x2e, 0x0c, 0x29, 0xea, 0x21, 0xa9, 0xc6, 0xa5,
@@ -940,6 +965,7 @@ var fileDescriptorGenerated = []byte{
 	0xcc, 0xda, 0xd9, 0x85, 0x59, 0x3b, 0xbf, 0x30, 0x6b, 0xdf, 0x32, 0x53, 0x3b, 0xcd, 0x4c, 0xed,
 	0x2c, 0x33, 0xb5, 0xf3, 0xcc, 0xd4, 0x7e, 0x65, 0xa6, 0xf6, 0xfd, 0xb7, 0x59, 0x7b, 0x5f, 0x4f,
 	0xfa, 0x7f, 0x02, 0x00, 0x00, 0xff, 0xff, 0xee, 0x56, 0xcc, 0xfd, 0x0a, 0x05, 0x00, 0x00,
+<<<<<<< HEAD
 =======
 	// 593 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x92, 0x41, 0x6f, 0xd3, 0x3e,
@@ -981,4 +1007,6 @@ var fileDescriptorGenerated = []byte{
 	0x5d, 0x33, 0x19, 0xfd, 0x09, 0x00, 0x00, 0xff, 0xff, 0xbb, 0x57, 0xe7, 0x15, 0xb0, 0x04, 0x00,
 	0x00,
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 }

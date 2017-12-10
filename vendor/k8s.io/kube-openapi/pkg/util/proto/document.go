@@ -210,7 +210,6 @@ func (d *Definitions) parseKind(s *openapi_v2.Schema, path *Path) (Schema, error
 	}, nil
 }
 
-<<<<<<< HEAD
 func (d *Definitions) parseArbitrary(s *openapi_v2.Schema, path *Path) (Schema, error) {
 	return &Arbitrary{
 		BaseSchema: d.parseBaseSchema(s, path),
@@ -223,13 +222,6 @@ func (d *Definitions) ParseSchema(s *openapi_v2.Schema, path *Path) (Schema, err
 	objectTypes := s.GetType().GetValue()
 	if len(objectTypes) == 1 {
 		t := objectTypes[0]
-=======
-// ParseSchema creates a walkable Schema from an openapi schema. While
-// this function is public, it doesn't leak through the interface.
-func (d *Definitions) ParseSchema(s *openapi_v2.Schema, path *Path) (Schema, error) {
-	if len(s.GetType().GetValue()) == 1 {
-		t := s.GetType().GetValue()[0]
->>>>>>> Initial dep workover
 		switch t {
 		case object:
 			return d.parseMap(s, path)
@@ -244,12 +236,9 @@ func (d *Definitions) ParseSchema(s *openapi_v2.Schema, path *Path) (Schema, err
 	if s.GetProperties() != nil {
 		return d.parseKind(s, path)
 	}
-<<<<<<< HEAD
 	if len(objectTypes) == 0 || (len(objectTypes) == 1 && objectTypes[0] == "") {
 		return d.parseArbitrary(s, path)
 	}
-=======
->>>>>>> Initial dep workover
 	return d.parsePrimitive(s, path)
 }
 

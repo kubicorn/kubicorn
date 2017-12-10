@@ -64,18 +64,8 @@ func (c *ECS) CreateClusterRequest(input *CreateClusterInput) (req *request.Requ
 // AWS services can be managed on your behalf. However, if the IAM user that
 // makes the call does not have permissions to create the service-linked role,
 // it is not created. For more information, see Using Service-Linked Roles for
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Amazon ECS (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
 // in the Amazon Elastic Container Service Developer Guide.
-=======
-// Amazon ECS (http://docs.aws.amazon.com/AmazonECS/latest/developerguideusing-service-linked-roles.html)
-// in the Amazon EC2 Container Service Developer Guide.
->>>>>>> Initial dep workover
-=======
-// Amazon ECS (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
-// in the Amazon Elastic Container Service Developer Guide.
->>>>>>> Working on getting compiling
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -125,7 +115,6 @@ const opCreateService = "CreateService"
 // client's request for the CreateService operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -133,15 +122,6 @@ const opCreateService = "CreateService"
 // See CreateService for more information on using the CreateService
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateService for more information on using the CreateService
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -270,11 +250,7 @@ func (c *ECS) CreateServiceRequest(input *CreateServiceInput) (req *request.Requ
 //   * ErrCodeAccessDeniedException "AccessDeniedException"
 //   You do not have authorization to perform the requested action.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/CreateService
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/CreateService
->>>>>>> Working on getting compiling
 func (c *ECS) CreateService(input *CreateServiceInput) (*CreateServiceOutput, error) {
 	req, out := c.CreateServiceRequest(input)
 	return out, req.Send()
@@ -302,7 +278,6 @@ const opDeleteAttributes = "DeleteAttributes"
 // client's request for the DeleteAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -310,15 +285,6 @@ const opDeleteAttributes = "DeleteAttributes"
 // See DeleteAttributes for more information on using the DeleteAttributes
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteAttributes for more information on using the DeleteAttributes
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -401,7 +367,6 @@ const opDeleteCluster = "DeleteCluster"
 // client's request for the DeleteCluster operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -409,15 +374,6 @@ const opDeleteCluster = "DeleteCluster"
 // See DeleteCluster for more information on using the DeleteCluster
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteCluster for more information on using the DeleteCluster
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -490,11 +446,7 @@ func (c *ECS) DeleteClusterRequest(input *DeleteClusterInput) (req *request.Requ
 //   * ErrCodeClusterContainsTasksException "ClusterContainsTasksException"
 //   You cannot delete a cluster that has active tasks.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DeleteCluster
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DeleteCluster
->>>>>>> Working on getting compiling
 func (c *ECS) DeleteCluster(input *DeleteClusterInput) (*DeleteClusterOutput, error) {
 	req, out := c.DeleteClusterRequest(input)
 	return out, req.Send()
@@ -522,7 +474,6 @@ const opDeleteService = "DeleteService"
 // client's request for the DeleteService operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -530,15 +481,6 @@ const opDeleteService = "DeleteService"
 // See DeleteService for more information on using the DeleteService
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteService for more information on using the DeleteService
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -641,7 +583,6 @@ const opDeregisterContainerInstance = "DeregisterContainerInstance"
 // client's request for the DeregisterContainerInstance operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -649,15 +590,6 @@ const opDeregisterContainerInstance = "DeregisterContainerInstance"
 // See DeregisterContainerInstance for more information on using the DeregisterContainerInstance
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeregisterContainerInstance for more information on using the DeregisterContainerInstance
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -757,7 +689,6 @@ const opDeregisterTaskDefinition = "DeregisterTaskDefinition"
 // client's request for the DeregisterTaskDefinition operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -765,15 +696,6 @@ const opDeregisterTaskDefinition = "DeregisterTaskDefinition"
 // See DeregisterTaskDefinition for more information on using the DeregisterTaskDefinition
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeregisterTaskDefinition for more information on using the DeregisterTaskDefinition
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -869,7 +791,6 @@ const opDescribeClusters = "DescribeClusters"
 // client's request for the DescribeClusters operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -877,15 +798,6 @@ const opDescribeClusters = "DescribeClusters"
 // See DescribeClusters for more information on using the DescribeClusters
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeClusters for more information on using the DescribeClusters
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -967,7 +879,6 @@ const opDescribeContainerInstances = "DescribeContainerInstances"
 // client's request for the DescribeContainerInstances operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -975,15 +886,6 @@ const opDescribeContainerInstances = "DescribeContainerInstances"
 // See DescribeContainerInstances for more information on using the DescribeContainerInstances
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeContainerInstances for more information on using the DescribeContainerInstances
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1070,7 +972,6 @@ const opDescribeServices = "DescribeServices"
 // client's request for the DescribeServices operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1078,15 +979,6 @@ const opDescribeServices = "DescribeServices"
 // See DescribeServices for more information on using the DescribeServices
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeServices for more information on using the DescribeServices
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1172,7 +1064,6 @@ const opDescribeTaskDefinition = "DescribeTaskDefinition"
 // client's request for the DescribeTaskDefinition operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1180,15 +1071,6 @@ const opDescribeTaskDefinition = "DescribeTaskDefinition"
 // See DescribeTaskDefinition for more information on using the DescribeTaskDefinition
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeTaskDefinition for more information on using the DescribeTaskDefinition
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2138,7 +2020,6 @@ const opListTaskDefinitions = "ListTaskDefinitions"
 // client's request for the ListTaskDefinitions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2146,15 +2027,6 @@ const opListTaskDefinitions = "ListTaskDefinitions"
 // See ListTaskDefinitions for more information on using the ListTaskDefinitions
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListTaskDefinitions for more information on using the ListTaskDefinitions
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2294,7 +2166,6 @@ const opListTasks = "ListTasks"
 // client's request for the ListTasks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2302,15 +2173,6 @@ const opListTasks = "ListTasks"
 // See ListTasks for more information on using the ListTasks
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListTasks for more information on using the ListTasks
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2461,7 +2323,6 @@ const opPutAttributes = "PutAttributes"
 // client's request for the PutAttributes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2469,15 +2330,6 @@ const opPutAttributes = "PutAttributes"
 // See PutAttributes for more information on using the PutAttributes
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PutAttributes for more information on using the PutAttributes
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2858,11 +2710,7 @@ func (c *ECS) RunTaskRequest(input *RunTaskInput) (req *request.Request, output 
 //   Your AWS account has been blocked. Contact AWS Customer Support (http://aws.amazon.com/contact-us/)
 //   for more information.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/RunTask
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/RunTask
->>>>>>> Working on getting compiling
 func (c *ECS) RunTask(input *RunTaskInput) (*RunTaskOutput, error) {
 	req, out := c.RunTaskRequest(input)
 	return out, req.Send()
@@ -3180,7 +3028,6 @@ const opSubmitTaskStateChange = "SubmitTaskStateChange"
 // client's request for the SubmitTaskStateChange operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3188,15 +3035,6 @@ const opSubmitTaskStateChange = "SubmitTaskStateChange"
 // See SubmitTaskStateChange for more information on using the SubmitTaskStateChange
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See SubmitTaskStateChange for more information on using the SubmitTaskStateChange
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3706,11 +3544,7 @@ func (c *ECS) UpdateServiceWithContext(ctx aws.Context, input *UpdateServiceInpu
 }
 
 // An object representing a container instance or task attachment.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Attachment
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Attachment
->>>>>>> Initial dep workover
 type Attachment struct {
 	_ struct{} `type:"structure"`
 
@@ -3765,11 +3599,7 @@ func (s *Attachment) SetType(v string) *Attachment {
 }
 
 // An object representing a change in state for a task attachment.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/AttachmentStateChange
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/AttachmentStateChange
->>>>>>> Initial dep workover
 type AttachmentStateChange struct {
 	_ struct{} `type:"structure"`
 
@@ -3826,11 +3656,7 @@ func (s *AttachmentStateChange) SetStatus(v string) *AttachmentStateChange {
 // enable you to extend the Amazon ECS data model by adding custom metadata
 // to your resources. For more information, see Attributes (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes)
 // in the Amazon Elastic Container Service Developer Guide.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Attribute
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Attribute
->>>>>>> Working on getting compiling
 type Attribute struct {
 	_ struct{} `type:"structure"`
 
@@ -3902,8 +3728,6 @@ func (s *Attribute) SetValue(v string) *Attribute {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // An object representing the networking details for a task or service.
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/AwsVpcConfiguration
 type AwsVpcConfiguration struct {
@@ -3913,23 +3737,6 @@ type AwsVpcConfiguration struct {
 	// public IP address.
 	AssignPublicIp *string `locationName:"assignPublicIp" type:"string" enum:"AssignPublicIp"`
 
-=======
-// An object representing the subnets and security groups for a task or service.
-=======
-// An object representing the networking details for a task or service.
->>>>>>> Working on getting compiling
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/AwsVpcConfiguration
-type AwsVpcConfiguration struct {
-	_ struct{} `type:"structure"`
-
-<<<<<<< HEAD
->>>>>>> Initial dep workover
-=======
-	// Specifies whether or not the task's elastic network interface receives a
-	// public IP address.
-	AssignPublicIp *string `locationName:"assignPublicIp" type:"string" enum:"AssignPublicIp"`
-
->>>>>>> Working on getting compiling
 	// The security groups associated with the task or service. If you do not specify
 	// a security group, the default security group for the VPC is used.
 	SecurityGroups []*string `locationName:"securityGroups" type:"list"`
@@ -3963,21 +3770,12 @@ func (s *AwsVpcConfiguration) Validate() error {
 	return nil
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetAssignPublicIp sets the AssignPublicIp field's value.
 func (s *AwsVpcConfiguration) SetAssignPublicIp(v string) *AwsVpcConfiguration {
 	s.AssignPublicIp = &v
 	return s
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 // SetSecurityGroups sets the SecurityGroups field's value.
 func (s *AwsVpcConfiguration) SetSecurityGroups(v []*string) *AwsVpcConfiguration {
 	s.SecurityGroups = v
@@ -4207,31 +4005,8 @@ type ContainerDefinition struct {
 	// (https://docs.docker.com/engine/reference/builder/#cmd).
 	Command []*string `locationName:"command" type:"list"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// The number of cpu units reserved for the container. This parameter maps to
 	// CpuShares in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
-=======
-	// The number of cpu units reserved for the container. A container instance
-	// has 1,024 cpu units for every CPU core. This parameter specifies the minimum
-	// amount of CPU to reserve for a container, and containers share unallocated
-	// CPU units with other containers on the instance with the same ratio as their
-	// allocated amount. This parameter maps to CpuShares in the Create a container
-	// (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Initial dep workover
-=======
-	// The number of cpu units reserved for the container. If your containers will
-	// be part of a task using the Fargate launch type, this field is optional and
-	// the only requirement is that the total amount of CPU reserved for all containers
-	// within a task be lower than the task cpu value.
-	//
-	// For containers that will be part of a task using the EC2 launch type, a container
-	// instance has 1,024 cpu units for every CPU core. This parameter specifies
-	// the minimum amount of CPU to reserve for a container, and containers share
-	// unallocated CPU units with other containers on the instance with the same
-	// ratio as their allocated amount. This parameter maps to CpuShares in the
-	// Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Working on getting compiling
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/)
 	// and the --cpu-shares option to docker run (https://docs.docker.com/engine/reference/run/).
 	//
@@ -4289,11 +4064,8 @@ type ContainerDefinition struct {
 	// When this parameter is true, networking is disabled within the container.
 	// This parameter maps to NetworkDisabled in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/).
-<<<<<<< HEAD
 	//
 	// This parameter is not supported for Windows containers.
-=======
->>>>>>> Initial dep workover
 	DisableNetworking *bool `locationName:"disableNetworking" type:"boolean"`
 
 	// A list of DNS search domains that are presented to the container. This parameter
@@ -4323,21 +4095,10 @@ type ContainerDefinition struct {
 	DockerLabels map[string]*string `locationName:"dockerLabels" type:"map"`
 
 	// A list of strings to provide custom labels for SELinux and AppArmor multi-level
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// security systems. This field is not valid for containers in tasks using the
 	// Fargate launch type.
 	//
 	// This parameter maps to SecurityOpt in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
-<<<<<<< HEAD
-=======
-	// security systems. This parameter maps to SecurityOpt in the Create a container
-	// (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/)
 	// and the --security-opt option to docker run (https://docs.docker.com/engine/reference/run/).
 	//
@@ -4347,11 +4108,8 @@ type ContainerDefinition struct {
 	// options. For more information, see Amazon ECS Container Agent Configuration
 	// (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html)
 	// in the Amazon Elastic Container Service Developer Guide.
-<<<<<<< HEAD
 	//
 	// This parameter is not supported for Windows containers.
-=======
->>>>>>> Working on getting compiling
 	DockerSecurityOptions []*string `locationName:"dockerSecurityOptions" type:"list"`
 
 	// Early versions of the Amazon ECS container agent do not properly handle entryPoint
@@ -4390,20 +4148,9 @@ type ContainerDefinition struct {
 	Essential *bool `locationName:"essential" type:"boolean"`
 
 	// A list of hostnames and IP address mappings to append to the /etc/hosts file
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// on the container. If using the Fargate launch type, this may be used to list
 	// non-Fargate hosts you want the container to talk to. This parameter maps
 	// to ExtraHosts in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
-=======
-	// on the container. This parameter maps to ExtraHosts in the Create a container
-	// (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Initial dep workover
-=======
-	// on the container. If using the Fargate launch type, this may be used to list
-	// non-Fargate hosts you want the container to talk to. This parameter maps
-	// to ExtraHosts in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Working on getting compiling
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/)
 	// and the --add-host option to docker run (https://docs.docker.com/engine/reference/run/).
 	//
@@ -4443,30 +4190,17 @@ type ContainerDefinition struct {
 	Image *string `locationName:"image" type:"string"`
 
 	// The link parameter allows containers to communicate with each other without
-<<<<<<< HEAD
 	// the need for port mappings. Only supported if the network mode of a task
 	// definition is set to bridge. The name:internalName construct is analogous
 	// to name:alias in Docker links. Up to 255 letters (uppercase and lowercase),
 	// numbers, hyphens, and underscores are allowed. For more information about
 	// linking Docker containers, go to https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/
-=======
-	// the need for port mappings, using the name parameter and optionally, an alias
-	// for the link. This construct is analogous to name:alias in Docker links.
-	// This field is not valid for containers in tasks using the Fargate launch
-	// type. Up to 255 letters (uppercase and lowercase), numbers, hyphens, and
-	// underscores are allowed for each name and alias. For more information on
-	// linking Docker containers, see https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/
->>>>>>> Working on getting compiling
 	// (https://docs.docker.com/engine/userguide/networking/default_network/dockerlinks/).
 	// This parameter maps to Links in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/)
-<<<<<<< HEAD
 	// and the --link option to docker run (https://docs.docker.com/engine/reference/commandline/run/).
 	//
 	// This parameter is not supported for Windows containers.
-=======
-	// and the --link option to docker run (https://docs.docker.com/engine/reference/run/).
->>>>>>> Initial dep workover
 	//
 	// Containers that are collocated on a single container instance may be able
 	// to communicate with each other without requiring links or host port mappings.
@@ -4475,9 +4209,7 @@ type ContainerDefinition struct {
 	Links []*string `locationName:"links" type:"list"`
 
 	// Linux-specific modifications that are applied to the container, such as Linux
-<<<<<<< HEAD
 	// KernelCapabilities.
-<<<<<<< HEAD
 	//
 	// This parameter is not supported for Windows containers or tasks using the
 	// Fargate launch type.
@@ -4488,23 +4220,6 @@ type ContainerDefinition struct {
 	// If using the Fargate launch type, the only supported value is awslogs.
 	//
 	// This parameter maps to LogConfig in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
-=======
-	LinuxParameters *LinuxParameters `locationName:"linuxParameters" type:"structure"`
-
-	// The log configuration specification for the container. This parameter maps
-	// to LogConfig in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Initial dep workover
-=======
-	// KernelCapabilities. This field is not valid for containers in tasks using
-	// the Fargate launch type.
-	LinuxParameters *LinuxParameters `locationName:"linuxParameters" type:"structure"`
-
-	// The log configuration specification for the container.
-	//
-	// If using the Fargate launch type, the only supported value is awslogs.
-	//
-	// This parameter maps to LogConfig in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Working on getting compiling
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/)
 	// and the --log-driver option to docker run (https://docs.docker.com/engine/reference/run/).
 	// By default, containers use the same logging driver that the Docker daemon
@@ -4579,22 +4294,9 @@ type ContainerDefinition struct {
 	// more memory resources when needed.
 	MemoryReservation *int64 `locationName:"memoryReservation" type:"integer"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// The mount points for data volumes in your container.
 	//
 	// This parameter maps to Volumes in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
-=======
-	// The mount points for data volumes in your container. This parameter maps
-	// to Volumes in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Initial dep workover
-=======
-	// The mount points for data volumes in your container.
-	//
-	// If using the Fargate launch type, the sourceVolume parameter is not supported.
-	//
-	// This parameter maps to Volumes in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
->>>>>>> Working on getting compiling
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/)
 	// and the --volume option to docker run (https://docs.docker.com/engine/reference/run/).
 	//
@@ -4614,8 +4316,6 @@ type ContainerDefinition struct {
 
 	// The list of port mappings for the container. Port mappings allow containers
 	// to access ports on the host container instance to send or receive traffic.
-<<<<<<< HEAD
-<<<<<<< HEAD
 	//
 	// For task definitions that use the awsvpc network mode, you should only specify
 	// the containerPort. The hostPort can be left blank or it must be the same
@@ -4625,15 +4325,6 @@ type ContainerDefinition struct {
 	// There is no loopback for port mappings on Windows, so you cannot access a
 	// container's mapped port from the host itself.
 	//
-=======
->>>>>>> Initial dep workover
-=======
-	//
-	// If using containers in a task with the Fargate, exposed ports should be specified
-	// using containerPort. The hostPort can be left blank or it must be the same
-	// value as the containerPort.
-	//
->>>>>>> Working on getting compiling
 	// This parameter maps to PortBindings in the Create a container (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/#create-a-container)
 	// section of the Docker Remote API (https://docs.docker.com/engine/reference/api/docker_remote_api_v1.27/)
 	// and the --publish option to docker run (https://docs.docker.com/engine/reference/run/).
@@ -5166,11 +4857,7 @@ func (s *ContainerOverride) SetName(v string) *ContainerOverride {
 }
 
 // An object representing a change in state for a container.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ContainerStateChange
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ContainerStateChange
->>>>>>> Initial dep workover
 type ContainerStateChange struct {
 	_ struct{} `type:"structure"`
 
@@ -5231,11 +4918,7 @@ func (s *ContainerStateChange) SetStatus(v string) *ContainerStateChange {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/CreateClusterRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/CreateClusterRequest
->>>>>>> Initial dep workover
 type CreateClusterInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5333,18 +5016,8 @@ type CreateServiceInput struct {
 	// The network configuration for the service. This parameter is required for
 	// task definitions that use the awsvpc network mode to receive their own Elastic
 	// Network Interface, and it is not supported for other network modes. For more
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
 	// in the Amazon Elastic Container Service Developer Guide.
-=======
-	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguidetask-networking.html)
-	// in the Amazon EC2 Container Service Developer Guide.
->>>>>>> Initial dep workover
-=======
-	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
-	// in the Amazon Elastic Container Service Developer Guide.
->>>>>>> Working on getting compiling
 	NetworkConfiguration *NetworkConfiguration `locationName:"networkConfiguration" type:"structure"`
 
 	// An array of placement constraint objects to use for tasks in your service.
@@ -5371,18 +5044,8 @@ type CreateServiceInput struct {
 	// role is used by default for your service unless you specify a role here.
 	// The service-linked role is required if your task definition uses the awsvpc
 	// network mode, in which case you should not specify a role here. For more
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// information, see Using Service-Linked Roles for Amazon ECS (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
 	// in the Amazon Elastic Container Service Developer Guide.
-=======
-	// information, see Using Service-Linked Roles for Amazon ECS (http://docs.aws.amazon.com/AmazonECS/latest/developerguideusing-service-linked-roles.html)
-	// in the Amazon EC2 Container Service Developer Guide.
->>>>>>> Initial dep workover
-=======
-	// information, see Using Service-Linked Roles for Amazon ECS (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
-	// in the Amazon Elastic Container Service Developer Guide.
->>>>>>> Working on getting compiling
 	//
 	// If your specified role has a path other than /, then you must either specify
 	// the full role ARN (this is recommended) or prefix the role name with the
@@ -5783,18 +5446,9 @@ type Deployment struct {
 	// The ID of the deployment.
 	Id *string `locationName:"id" type:"string"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// The launch type on which your service is running.
 	LaunchType *string `locationName:"launchType" type:"string" enum:"LaunchType"`
 
-=======
->>>>>>> Initial dep workover
-=======
-	// The launch type on which your service is running.
-	LaunchType *string `locationName:"launchType" type:"string" enum:"LaunchType"`
-
->>>>>>> Working on getting compiling
 	// The VPC subnet and security group configuration for tasks that receive their
 	// own Elastic Network Interface by using the awsvpc networking mode.
 	NetworkConfiguration *NetworkConfiguration `locationName:"networkConfiguration" type:"structure"`
@@ -5849,21 +5503,12 @@ func (s *Deployment) SetId(v string) *Deployment {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetLaunchType sets the LaunchType field's value.
 func (s *Deployment) SetLaunchType(v string) *Deployment {
 	s.LaunchType = &v
 	return s
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 // SetNetworkConfiguration sets the NetworkConfiguration field's value.
 func (s *Deployment) SetNetworkConfiguration(v *NetworkConfiguration) *Deployment {
 	s.NetworkConfiguration = v
@@ -5975,21 +5620,9 @@ type DeregisterContainerInstanceInput struct {
 	// of that task, on a different container instance if possible.
 	//
 	// Any containers in orphaned service tasks that are registered with a Classic
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// Load Balancer or an Application Load Balancer target group are deregistered.
 	// They begin connection draining according to the settings on the load balancer
 	// or target group.
-=======
-	// Load Balancer or an Application Load Balancer target group are deregistered,
-	// and they will begin connection draining according to the settings on the
-	// load balancer or target group.
->>>>>>> Initial dep workover
-=======
-	// Load Balancer or an Application Load Balancer target group are deregistered.
-	// They begin connection draining according to the settings on the load balancer
-	// or target group.
->>>>>>> Working on getting compiling
 	Force *bool `locationName:"force" type:"boolean"`
 }
 
@@ -6173,11 +5806,7 @@ func (s *DescribeClustersInput) SetInclude(v []*string) *DescribeClustersInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DescribeClustersResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DescribeClustersResponse
->>>>>>> Working on getting compiling
 type DescribeClustersOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6526,11 +6155,7 @@ func (s *DescribeTasksOutput) SetTasks(v []*Task) *DescribeTasksOutput {
 }
 
 // An object representing a container instance host device.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Device
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/Device
->>>>>>> Initial dep workover
 type Device struct {
 	_ struct{} `type:"structure"`
 
@@ -6543,15 +6168,7 @@ type Device struct {
 	HostPath *string `locationName:"hostPath" type:"string" required:"true"`
 
 	// The explicit permissions to provide to the container for the device. By default,
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// the container has permissions for read, write, and mknod for the device.
-=======
-	// the container will be able to read, write, and mknod the device.
->>>>>>> Initial dep workover
-=======
-	// the container has permissions for read, write, and mknod for the device.
->>>>>>> Working on getting compiling
 	Permissions []*string `locationName:"permissions" type:"list"`
 }
 
@@ -6596,11 +6213,7 @@ func (s *Device) SetPermissions(v []*string) *Device {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DiscoverPollEndpointRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DiscoverPollEndpointRequest
->>>>>>> Initial dep workover
 type DiscoverPollEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6772,12 +6385,8 @@ type HostVolumeProperties struct {
 	// on the host container instance, the Docker daemon creates it. If the location
 	// does exist, the contents of the source path folder are exported.
 	//
-<<<<<<< HEAD
 	// If you are using the Fargate launch type, the sourcePath parameter is not
 	// supported.
-=======
-	// If you are using the Fargate launch type, the host parameter is not supported.
->>>>>>> Working on getting compiling
 	SourcePath *string `locationName:"sourcePath" type:"string"`
 }
 
@@ -6804,11 +6413,7 @@ func (s *HostVolumeProperties) SetSourcePath(v string) *HostVolumeProperties {
 // in the Docker run reference. For more detailed information on these Linux
 // capabilities, see the capabilities(7) (http://man7.org/linux/man-pages/man7/capabilities.7.html)
 // Linux manual page.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/KernelCapabilities
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/KernelCapabilities
->>>>>>> Initial dep workover
 type KernelCapabilities struct {
 	_ struct{} `type:"structure"`
 
@@ -6904,11 +6509,7 @@ func (s *KeyValuePair) SetValue(v string) *KeyValuePair {
 }
 
 // Linux-specific options that are applied to the container, such as Linux KernelCapabilities.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/LinuxParameters
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/LinuxParameters
->>>>>>> Initial dep workover
 type LinuxParameters struct {
 	_ struct{} `type:"structure"`
 
@@ -6926,15 +6527,7 @@ type LinuxParameters struct {
 	// processes. This parameter maps to the --init option to docker run (https://docs.docker.com/engine/reference/run/).
 	// This parameter requires version 1.25 of the Docker Remote API or greater
 	// on your container instance. To check the Docker Remote API version on your
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// container instance, log in to your container instance and run the following
-=======
-	// container instance, log into your container instance and run the following
->>>>>>> Initial dep workover
-=======
-	// container instance, log in to your container instance and run the following
->>>>>>> Working on getting compiling
 	// command: sudo docker version | grep "Server API version"
 	InitProcessEnabled *bool `locationName:"initProcessEnabled" type:"boolean"`
 }
@@ -6987,11 +6580,7 @@ func (s *LinuxParameters) SetInitProcessEnabled(v bool) *LinuxParameters {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ListAttributesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ListAttributesRequest
->>>>>>> Initial dep workover
 type ListAttributesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7335,18 +6924,9 @@ type ListServicesInput struct {
 	// is assumed.
 	Cluster *string `locationName:"cluster" type:"string"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// The launch type for services you want to list.
 	LaunchType *string `locationName:"launchType" type:"string" enum:"LaunchType"`
 
-=======
->>>>>>> Initial dep workover
-=======
-	// The launch type for services you want to list.
-	LaunchType *string `locationName:"launchType" type:"string" enum:"LaunchType"`
-
->>>>>>> Working on getting compiling
 	// The maximum number of service results returned by ListServices in paginated
 	// output. When this parameter is used, ListServices only returns maxResults
 	// results in a single page along with a nextToken response element. The remaining
@@ -7966,8 +7546,7 @@ type MountPoint struct {
 	// value is false.
 	ReadOnly *bool `locationName:"readOnly" type:"boolean"`
 
-	// The name of the volume to mount. If using the Fargate launch type, the sourceVolume
-	// parameter is not supported.
+	// The name of the volume to mount.
 	SourceVolume *string `locationName:"sourceVolume" type:"string"`
 }
 
@@ -8055,11 +7634,7 @@ func (s *NetworkBinding) SetProtocol(v string) *NetworkBinding {
 }
 
 // An object representing the network configuration for a task or service.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/NetworkConfiguration
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/NetworkConfiguration
->>>>>>> Initial dep workover
 type NetworkConfiguration struct {
 	_ struct{} `type:"structure"`
 
@@ -8100,11 +7675,7 @@ func (s *NetworkConfiguration) SetAwsvpcConfiguration(v *AwsVpcConfiguration) *N
 
 // An object representing the Elastic Network Interface for tasks that use the
 // awsvpc network mode.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/NetworkInterface
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/NetworkInterface
->>>>>>> Initial dep workover
 type NetworkInterface struct {
 	_ struct{} `type:"structure"`
 
@@ -8149,11 +7720,7 @@ func (s *NetworkInterface) SetPrivateIpv4Address(v string) *NetworkInterface {
 // An object representing a constraint on task placement. For more information,
 // see Task Placement Constraints (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html)
 // in the Amazon Elastic Container Service Developer Guide.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/PlacementConstraint
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/PlacementConstraint
->>>>>>> Working on getting compiling
 type PlacementConstraint struct {
 	_ struct{} `type:"structure"`
 
@@ -8195,11 +7762,7 @@ func (s *PlacementConstraint) SetType(v string) *PlacementConstraint {
 // The task placement strategy for a task or service. For more information,
 // see Task Placement Strategies (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html)
 // in the Amazon Elastic Container Service Developer Guide.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/PlacementStrategy
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/PlacementStrategy
->>>>>>> Working on getting compiling
 type PlacementStrategy struct {
 	_ struct{} `type:"structure"`
 
@@ -8254,11 +7817,7 @@ func (s *PlacementStrategy) SetType(v string) *PlacementStrategy {
 // After a task reaches the RUNNING status, manual and automatic host and container
 // port assignments are visible in the networkBindings section of DescribeTasks
 // API responses.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/PortMapping
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/PortMapping
->>>>>>> Working on getting compiling
 type PortMapping struct {
 	_ struct{} `type:"structure"`
 
@@ -8614,10 +8173,6 @@ type RegisterTaskDefinitionInput struct {
 
 	// The Docker networking mode to use for the containers in the task. The valid
 	// values are none, bridge, awsvpc, and host. The default Docker network mode
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// is bridge. If using the Fargate launch type, the awsvpc network mode is required.
 	// If using the EC2 launch type, any network mode can be used. If the network
 	// mode is set to none, you can't specify port mappings in your container definitions,
@@ -8625,37 +8180,15 @@ type RegisterTaskDefinitionInput struct {
 	// awsvpc network modes offer the highest networking performance for containers
 	// because they use the EC2 network stack instead of the virtualized network
 	// stack provided by the bridge mode.
-<<<<<<< HEAD
 	//
 	// With the host and awsvpc network modes, exposed container ports are mapped
 	// directly to the corresponding host port (for the host network mode) or the
 	// attached elastic network interface port (for the awsvpc network mode), so
 	// you cannot take advantage of dynamic host port mappings.
-=======
-	// is bridge. If the network mode is set to none, you cannot specify port mappings
-	// in your container definitions, and the task's containers do not have external
-	// connectivity. The host and awsvpc network modes offer the highest networking
-	// performance for containers because they use the EC2 network stack instead
-	// of the virtualized network stack provided by the bridge mode.
-	//
-	// With the host and awsvpc network modes, exposed container ports are mapped
-	// directly to the corresponding host port (for the host network mode) or the
-	// attached ENI port (for the awsvpc network mode), so you cannot take advantage
-	// of dynamic host port mappings.
->>>>>>> Initial dep workover
-=======
-	//
-	// With the host and awsvpc network modes, exposed container ports are mapped
-	// directly to the corresponding host port (for the host network mode) or the
-	// attached elastic network interface port (for the awsvpc network mode), so
-	// you cannot take advantage of dynamic host port mappings.
->>>>>>> Working on getting compiling
 	//
 	// If the network mode is awsvpc, the task is allocated an Elastic Network Interface,
 	// and you must specify a NetworkConfiguration when you create a service or
 	// run a task with the task definition. For more information, see Task Networking
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
 	// in the Amazon Elastic Container Service Developer Guide.
 	//
@@ -8665,17 +8198,6 @@ type RegisterTaskDefinitionInput struct {
 	// Docker for Windows uses different network modes than Docker for Linux. When
 	// you register a task definition with Windows containers, you must not specify
 	// a network mode.
-=======
-	// (http://docs.aws.amazon.com/AmazonECS/latest/developerguidetask-networking.html)
-	// in the Amazon EC2 Container Service Developer Guide.
-=======
-	// (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
-	// in the Amazon Elastic Container Service Developer Guide.
->>>>>>> Working on getting compiling
-	//
-	// If the network mode is host, you can't run multiple instantiations of the
-	// same task on a single container instance when port mappings are used.
->>>>>>> Initial dep workover
 	//
 	// For more information, see Network settings (https://docs.docker.com/engine/reference/run/#network-settings)
 	// in the Docker run reference.
@@ -8912,8 +8434,6 @@ type RunTaskInput struct {
 	// is the family name of the task definition (for example, family:my-family-name).
 	Group *string `locationName:"group" type:"string"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// The launch type on which to run your task.
 	LaunchType *string `locationName:"launchType" type:"string" enum:"LaunchType"`
 
@@ -8922,23 +8442,6 @@ type RunTaskInput struct {
 	// Network Interface, and it is not supported for other network modes. For more
 	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
 	// in the Amazon Elastic Container Service Developer Guide.
-=======
-	// The network configuration for the task. This parameter is required for task
-	// definitions that use the awsvpc network mode to receive their own Elastic
-	// Network Interface, and it is not supported for other network modes. For more
-	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguidetask-networking.html)
-	// in the Amazon EC2 Container Service Developer Guide.
->>>>>>> Initial dep workover
-=======
-	// The launch type on which to run your task.
-	LaunchType *string `locationName:"launchType" type:"string" enum:"LaunchType"`
-
-	// The network configuration for the task. This parameter is required for task
-	// definitions that use the awsvpc network mode to receive their own Elastic
-	// Network Interface, and it is not supported for other network modes. For more
-	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
-	// in the Amazon Elastic Container Service Developer Guide.
->>>>>>> Working on getting compiling
 	NetworkConfiguration *NetworkConfiguration `locationName:"networkConfiguration" type:"structure"`
 
 	// A list of container overrides in JSON format that specify the name of a container
@@ -9030,21 +8533,12 @@ func (s *RunTaskInput) SetGroup(v string) *RunTaskInput {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetLaunchType sets the LaunchType field's value.
 func (s *RunTaskInput) SetLaunchType(v string) *RunTaskInput {
 	s.LaunchType = &v
 	return s
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 // SetNetworkConfiguration sets the NetworkConfiguration field's value.
 func (s *RunTaskInput) SetNetworkConfiguration(v *NetworkConfiguration) *RunTaskInput {
 	s.NetworkConfiguration = v
@@ -9733,10 +9227,6 @@ type SubmitTaskStateChangeInput struct {
 	// Any containers associated with the state change request.
 	Containers []*ContainerStateChange `locationName:"containers" type:"list"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// The Unix timestamp for when the task execution stopped.
 	ExecutionStoppedAt *time.Time `locationName:"executionStoppedAt" type:"timestamp" timestampFormat:"unix"`
 
@@ -9746,11 +9236,6 @@ type SubmitTaskStateChangeInput struct {
 	// The Unix time stamp for when the container image pull completed.
 	PullStoppedAt *time.Time `locationName:"pullStoppedAt" type:"timestamp" timestampFormat:"unix"`
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// The reason for the state change request.
 	Reason *string `locationName:"reason" type:"string"`
 
@@ -9809,10 +9294,6 @@ func (s *SubmitTaskStateChangeInput) SetContainers(v []*ContainerStateChange) *S
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetExecutionStoppedAt sets the ExecutionStoppedAt field's value.
 func (s *SubmitTaskStateChangeInput) SetExecutionStoppedAt(v time.Time) *SubmitTaskStateChangeInput {
 	s.ExecutionStoppedAt = &v
@@ -9831,11 +9312,6 @@ func (s *SubmitTaskStateChangeInput) SetPullStoppedAt(v time.Time) *SubmitTaskSt
 	return s
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 // SetReason sets the Reason field's value.
 func (s *SubmitTaskStateChangeInput) SetReason(v string) *SubmitTaskStateChangeInput {
 	s.Reason = &v
@@ -9887,15 +9363,7 @@ type Task struct {
 	// awsvpc network mode.
 	Attachments []*Attachment `locationName:"attachments" type:"list"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// The ARN of the cluster that hosts the task.
-=======
-	// The Amazon Resource Name (ARN) of the cluster that hosts the task.
->>>>>>> Initial dep workover
-=======
-	// The ARN of the cluster that hosts the task.
->>>>>>> Working on getting compiling
 	ClusterArn *string `locationName:"clusterArn" type:"string"`
 
 	// The connectivity status of a task.
@@ -10242,10 +9710,6 @@ type TaskDefinition struct {
 	Memory *string `locationName:"memory" type:"string"`
 
 	// The Docker networking mode to use for the containers in the task. The valid
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// values are none, bridge, awsvpc, and host. The default Docker network mode
 	// is bridge. If using the Fargate launch type, the awsvpc network mode is required.
 	// If using the EC2 launch type, any network mode can be used. If the network
@@ -10254,7 +9718,6 @@ type TaskDefinition struct {
 	// awsvpc network modes offer the highest networking performance for containers
 	// because they use the EC2 network stack instead of the virtualized network
 	// stack provided by the bridge mode.
-<<<<<<< HEAD
 	//
 	// With the host and awsvpc network modes, exposed container ports are mapped
 	// directly to the corresponding host port (for the host network mode) or the
@@ -10278,32 +9741,6 @@ type TaskDefinition struct {
 	// you register a task definition with Windows containers, you must not specify
 	// a network mode. If you use the console to register a task definition with
 	// Windows containers, you must choose the <default> network mode object.
-=======
-	// values are none, bridge, awsvpc, and host.
-	//
-	// If the network mode is none, the containers do not have external connectivity.
-	// The default Docker network mode is bridge. If the network mode is awsvpc,
-	// the task is allocated an Elastic Network Interface. The host and awsvpc network
-	// modes offer the highest networking performance for containers because they
-	// use the EC2 network stack instead of the virtualized network stack provided
-	// by the bridge mode.
->>>>>>> Initial dep workover
-=======
-	//
-	// With the host and awsvpc network modes, exposed container ports are mapped
-	// directly to the corresponding host port (for the host network mode) or the
-	// attached elastic network interface port (for the awsvpc network mode), so
-	// you cannot take advantage of dynamic host port mappings.
-	//
-	// If the network mode is awsvpc, the task is allocated an Elastic Network Interface,
-	// and you must specify a NetworkConfiguration when you create a service or
-	// run a task with the task definition. For more information, see Task Networking
-	// (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
-	// in the Amazon Elastic Container Service Developer Guide.
-	//
-	// If the network mode is host, you can't run multiple instantiations of the
-	// same task on a single container instance when port mappings are used.
->>>>>>> Working on getting compiling
 	//
 	// For more information, see Network settings (https://docs.docker.com/engine/reference/run/#network-settings)
 	// in the Docker run reference.
@@ -10335,15 +9772,12 @@ type TaskDefinition struct {
 
 	// The ARN of the IAM role that containers in this task can assume. All containers
 	// in this task are granted the permissions that are specified in this role.
-<<<<<<< HEAD
 	//
 	// IAM roles for tasks on Windows require that the -EnableTaskIAMRole option
 	// is set when you launch the Amazon ECS-optimized Windows AMI. Your containers
 	// must also run some configuration code in order to take advantage of the feature.
 	// For more information, see Windows IAM Roles for Tasks (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/windows_task_IAM_roles.html)
 	// in the Amazon Elastic Container Service Developer Guide.
-=======
->>>>>>> Working on getting compiling
 	TaskRoleArn *string `locationName:"taskRoleArn" type:"string"`
 
 	// The list of volumes in a task.
@@ -10464,11 +9898,7 @@ func (s *TaskDefinition) SetVolumes(v []*Volume) *TaskDefinition {
 //
 // For more information, see Task Placement Constraints (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html)
 // in the Amazon Elastic Container Service Developer Guide.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/TaskDefinitionPlacementConstraint
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/TaskDefinitionPlacementConstraint
->>>>>>> Working on getting compiling
 type TaskDefinitionPlacementConstraint struct {
 	_ struct{} `type:"structure"`
 
@@ -10808,8 +10238,6 @@ type UpdateServiceInput struct {
 	// service.
 	DesiredCount *int64 `locationName:"desiredCount" type:"integer"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// Whether or not to force a new deployment of the service.
 	ForceNewDeployment *bool `locationName:"forceNewDeployment" type:"boolean"`
 
@@ -10818,23 +10246,6 @@ type UpdateServiceInput struct {
 	// Network Interface, and it is not supported for other network modes. For more
 	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
 	// in the Amazon Elastic Container Service Developer Guide.
-=======
-	// The network configuration for the service. This parameter is required for
-	// task definitions that use the awsvpc network mode to receive their own Elastic
-	// Network Interface, and it is not supported for other network modes. For more
-	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguidetask-networking.html)
-	// in the Amazon EC2 Container Service Developer Guide.
->>>>>>> Initial dep workover
-=======
-	// Whether or not to force a new deployment of the service.
-	ForceNewDeployment *bool `locationName:"forceNewDeployment" type:"boolean"`
-
-	// The network configuration for the service. This parameter is required for
-	// task definitions that use the awsvpc network mode to receive their own Elastic
-	// Network Interface, and it is not supported for other network modes. For more
-	// information, see Task Networking (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
-	// in the Amazon Elastic Container Service Developer Guide.
->>>>>>> Working on getting compiling
 	//
 	// Updating a service to add a subnet to a list of existing subnets does not
 	// trigger a service deployment. For example, if your network configuration
@@ -10842,18 +10253,9 @@ type UpdateServiceInput struct {
 	// network configuration, this does not trigger a new service deployment.
 	NetworkConfiguration *NetworkConfiguration `locationName:"networkConfiguration" type:"structure"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// The platform version you want to update your service to run.
 	PlatformVersion *string `locationName:"platformVersion" type:"string"`
 
-=======
->>>>>>> Initial dep workover
-=======
-	// The platform version you want to update your service to run.
-	PlatformVersion *string `locationName:"platformVersion" type:"string"`
-
->>>>>>> Working on getting compiling
 	// The name of the service to update.
 	//
 	// Service is a required field
@@ -10913,42 +10315,24 @@ func (s *UpdateServiceInput) SetDesiredCount(v int64) *UpdateServiceInput {
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetForceNewDeployment sets the ForceNewDeployment field's value.
 func (s *UpdateServiceInput) SetForceNewDeployment(v bool) *UpdateServiceInput {
 	s.ForceNewDeployment = &v
 	return s
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 // SetNetworkConfiguration sets the NetworkConfiguration field's value.
 func (s *UpdateServiceInput) SetNetworkConfiguration(v *NetworkConfiguration) *UpdateServiceInput {
 	s.NetworkConfiguration = v
 	return s
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 // SetPlatformVersion sets the PlatformVersion field's value.
 func (s *UpdateServiceInput) SetPlatformVersion(v string) *UpdateServiceInput {
 	s.PlatformVersion = &v
 	return s
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 // SetService sets the Service field's value.
 func (s *UpdateServiceInput) SetService(v string) *UpdateServiceInput {
 	s.Service = &v
@@ -11041,14 +10425,10 @@ type Volume struct {
 	// but the data is not guaranteed to persist after the containers associated
 	// with it stop running.
 	//
-<<<<<<< HEAD
 	// Windows containers can mount whole directories on the same drive as $env:ProgramData.
 	// Windows containers cannot mount directories on a different drive, and mount
 	// point cannot be across drives. For example, you can mount C:\my\path:C:\my\path
 	// and D:\:D:\, but not D:\my\path:C:\my\path or D:\:C:\my\path.
-=======
-	// If you are using the Fargate launch type, the host parameter is not supported.
->>>>>>> Working on getting compiling
 	Host *HostVolumeProperties `locationName:"host" type:"structure"`
 
 	// The name of the volume. Up to 255 letters (uppercase and lowercase), numbers,
@@ -11196,10 +10576,6 @@ const (
 )
 
 const (
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// LaunchTypeEc2 is a LaunchType enum value
 	LaunchTypeEc2 = "EC2"
 
@@ -11208,11 +10584,6 @@ const (
 )
 
 const (
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// LogDriverJsonFile is a LogDriver enum value
 	LogDriverJsonFile = "json-file"
 

@@ -206,7 +206,6 @@ const opDeleteProtection = "DeleteProtection"
 // client's request for the DeleteProtection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -214,15 +213,6 @@ const opDeleteProtection = "DeleteProtection"
 // See DeleteProtection for more information on using the DeleteProtection
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteProtection for more information on using the DeleteProtection
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -303,7 +293,6 @@ const opDeleteSubscription = "DeleteSubscription"
 // client's request for the DeleteSubscription operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -311,15 +300,6 @@ const opDeleteSubscription = "DeleteSubscription"
 // See DeleteSubscription for more information on using the DeleteSubscription
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteSubscription for more information on using the DeleteSubscription
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -402,7 +382,6 @@ const opDescribeAttack = "DescribeAttack"
 // client's request for the DescribeAttack operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -410,15 +389,6 @@ const opDescribeAttack = "DescribeAttack"
 // See DescribeAttack for more information on using the DescribeAttack
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeAttack for more information on using the DescribeAttack
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -495,7 +465,6 @@ const opDescribeProtection = "DescribeProtection"
 // client's request for the DescribeProtection operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -503,15 +472,6 @@ const opDescribeProtection = "DescribeProtection"
 // See DescribeProtection for more information on using the DescribeProtection
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeProtection for more information on using the DescribeProtection
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -690,11 +650,7 @@ const opGetSubscriptionState = "GetSubscriptionState"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionState
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionState
->>>>>>> Working on getting compiling
 func (c *Shield) GetSubscriptionStateRequest(input *GetSubscriptionStateInput) (req *request.Request, output *GetSubscriptionStateOutput) {
 	op := &request.Operation{
 		Name:       opGetSubscriptionState,
@@ -727,11 +683,7 @@ func (c *Shield) GetSubscriptionStateRequest(input *GetSubscriptionStateInput) (
 //   Exception that indicates that a problem occurred with the service infrastructure.
 //   You can retry the request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionState
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionState
->>>>>>> Working on getting compiling
 func (c *Shield) GetSubscriptionState(input *GetSubscriptionStateInput) (*GetSubscriptionStateOutput, error) {
 	req, out := c.GetSubscriptionStateRequest(input)
 	return out, req.Send()
@@ -759,7 +711,6 @@ const opListAttacks = "ListAttacks"
 // client's request for the ListAttacks operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -767,15 +718,6 @@ const opListAttacks = "ListAttacks"
 // See ListAttacks for more information on using the ListAttacks
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListAttacks for more information on using the ListAttacks
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1026,11 +968,7 @@ func (s *AttackDetail) SetSubResources(v []*SubResourceSummary) *AttackDetail {
 }
 
 // Details of the described attack.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/AttackProperty
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/AttackProperty
->>>>>>> Working on getting compiling
 type AttackProperty struct {
 	_ struct{} `type:"structure"`
 
@@ -1214,11 +1152,7 @@ func (s *AttackVectorDescription) SetVectorType(v string) *AttackVectorDescripti
 }
 
 // A contributor to the attack and their contribution.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/Contributor
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/Contributor
->>>>>>> Working on getting compiling
 type Contributor struct {
 	_ struct{} `type:"structure"`
 
@@ -1254,11 +1188,7 @@ func (s *Contributor) SetValue(v int64) *Contributor {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateProtectionRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/CreateProtectionRequest
->>>>>>> Working on getting compiling
 type CreateProtectionInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1641,11 +1571,7 @@ func (s *DescribeSubscriptionOutput) SetSubscription(v *Subscription) *DescribeS
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateRequest
->>>>>>> Working on getting compiling
 type GetSubscriptionStateInput struct {
 	_ struct{} `type:"structure"`
 }
@@ -1660,11 +1586,7 @@ func (s GetSubscriptionStateInput) GoString() string {
 	return s.String()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/GetSubscriptionStateResponse
->>>>>>> Working on getting compiling
 type GetSubscriptionStateOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1690,11 +1612,7 @@ func (s *GetSubscriptionStateOutput) SetSubscriptionState(v string) *GetSubscrip
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/ListAttacksRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/shield-2016-06-02/ListAttacksRequest
->>>>>>> Working on getting compiling
 type ListAttacksInput struct {
 	_ struct{} `type:"structure"`
 

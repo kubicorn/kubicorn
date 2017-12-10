@@ -15,9 +15,8 @@
 package datastore
 
 import (
+	"reflect"
 	"testing"
-
-	"cloud.google.com/go/internal/testutil"
 
 	pb "google.golang.org/genproto/googleapis/datastore/v1"
 )
@@ -188,7 +187,7 @@ func TestSaveEntityNested(t *testing.T) {
 			continue
 		}
 
-		if !testutil.Equal(tc.want, got) {
+		if !reflect.DeepEqual(tc.want, got) {
 			t.Errorf("%s: compare:\ngot:  %#v\nwant: %#v", tc.desc, got, tc.want)
 		}
 	}

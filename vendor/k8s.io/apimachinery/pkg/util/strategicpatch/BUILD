@@ -9,17 +9,11 @@ load(
 go_test(
     name = "go_default_test",
     srcs = ["patch_test.go"],
-<<<<<<< HEAD
-<<<<<<< HEAD
     data = [
         "testdata/swagger-merge-item.json",
         "testdata/swagger-precision-item.json",
     ],
-=======
->>>>>>> Initial dep workover
     importpath = "k8s.io/apimachinery/pkg/util/strategicpatch",
-=======
->>>>>>> Working on getting compiling
     library = ":go_default_library",
     deps = [
         "//vendor/github.com/davecgh/go-spew/spew:go_default_library",
@@ -34,20 +28,13 @@ go_test(
 
 go_library(
     name = "go_default_library",
-<<<<<<< HEAD
     srcs = [
         "errors.go",
         "meta.go",
         "patch.go",
         "types.go",
     ],
-=======
-    srcs = ["patch.go"],
-<<<<<<< HEAD
->>>>>>> Initial dep workover
     importpath = "k8s.io/apimachinery/pkg/util/strategicpatch",
-=======
->>>>>>> Working on getting compiling
     deps = [
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1/unstructured:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/util/json:go_default_library",
@@ -66,13 +53,9 @@ filegroup(
 
 filegroup(
     name = "all-srcs",
-<<<<<<< HEAD
     srcs = [
         ":package-srcs",
         "//staging/src/k8s.io/apimachinery/pkg/util/strategicpatch/testing:all-srcs",
     ],
-=======
-    srcs = [":package-srcs"],
->>>>>>> Initial dep workover
     tags = ["automanaged"],
 )

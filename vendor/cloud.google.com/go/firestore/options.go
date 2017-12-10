@@ -30,14 +30,9 @@ type Precondition interface {
 	preconditionProto() (*pb.Precondition, error)
 }
 
-// Exists is a Precondition that checks for the existence of a resource before
-// writing to it. If the check fails, the write does not occur.
-var Exists Precondition
-
-func init() {
-	// Initialize here so godoc doesn't show the internal value.
-	Exists = exists(true)
-}
+// Exists returns a Precondition that checks for the existence or non-existence
+// of a resource before writing to it. If the check fails, the write does not occur.
+func Exists(b bool) Precondition { return exists(b) }
 
 type exists bool
 
@@ -47,13 +42,7 @@ func (e exists) preconditionProto() (*pb.Precondition, error) {
 	}, nil
 }
 
-func (e exists) String() string {
-	if e {
-		return "Exists"
-	} else {
-		return "DoesNotExist"
-	}
-}
+func (e exists) String() string { return fmt.Sprintf("Exists(%t)", e) }
 
 // LastUpdateTime returns a Precondition that checks that a resource must exist and
 // must have last been updated at the given time. If the check fails, the write
@@ -127,7 +116,23 @@ var MergeAll SetOption = merge{all: true}
 // overwritten. Other fields on the existing document will be untouched. It is an
 // error if a provided field path does not refer to a value in the data passed to
 // Set.
-func Merge(fps ...FieldPath) SetOption {
+//
+// Each element of fieldPaths must be a single field or a dot-separated sequence of
+// fields, none of which contain the runes "˜*/[]". Use MergePaths instead for such
+// paths.
+func Merge(fieldPaths ...string) SetOption {
+	fps, err := parseDotSeparatedStrings(fieldPaths)
+	if err != nil {
+		return merge{err: err}
+	}
+	return merge{paths: fps}
+}
+
+// MergePaths returns a SetOption that causes only the given field paths to be
+// overwritten. Other fields on the existing document will be untouched. It is an
+// error if a provided field path does not refer to a value in the data passed to
+// Set.
+func MergePaths(fps ...FieldPath) SetOption {
 	for _, fp := range fps {
 		if err := fp.validate(); err != nil {
 			return merge{err: err}

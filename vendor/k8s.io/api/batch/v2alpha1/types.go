@@ -101,13 +101,19 @@ type CronJobSpec struct {
 
 	// Specifies how to treat concurrent executions of a Job.
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	// Valid values are:
 	// - "Allow" (default): allows CronJobs to run concurrently;
 	// - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet;
 	// - "Replace": cancels currently running job and replaces it with a new one
+<<<<<<< HEAD
 =======
 	// Defaults to Allow.
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	// +optional
 	ConcurrencyPolicy ConcurrencyPolicy `json:"concurrencyPolicy,omitempty" protobuf:"bytes,3,opt,name=concurrencyPolicy,casttype=ConcurrencyPolicy"`
 

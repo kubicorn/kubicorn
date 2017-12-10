@@ -1608,20 +1608,10 @@
     },
     "LifecycleHookSpecification":{
       "type":"structure",
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
       "required":[
         "LifecycleHookName",
         "LifecycleTransition"
       ],
-<<<<<<< HEAD
-=======
-      "required":["LifecycleHookName"],
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
       "members":{
         "LifecycleHookName":{"shape":"AsciiStringMaxLen255"},
         "LifecycleTransition":{"shape":"LifecycleTransition"},

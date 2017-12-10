@@ -1219,8 +1219,6 @@
       }
     },
     "GetFaceSearchRequest":{
-<<<<<<< HEAD
-=======
       "type":"structure",
       "required":["JobId"],
       "members":{
@@ -1241,45 +1239,15 @@
       }
     },
     "GetLabelDetectionRequest":{
->>>>>>> Working on getting compiling
       "type":"structure",
       "required":["JobId"],
       "members":{
         "JobId":{"shape":"JobId"},
         "MaxResults":{"shape":"MaxResults"},
         "NextToken":{"shape":"PaginationToken"},
-<<<<<<< HEAD
-        "SortBy":{"shape":"FaceSearchSortBy"}
-      }
-    },
-    "GetFaceSearchResponse":{
-      "type":"structure",
-      "members":{
-        "JobStatus":{"shape":"VideoJobStatus"},
-        "StatusMessage":{"shape":"StatusMessage"},
-        "NextToken":{"shape":"PaginationToken"},
-        "VideoMetadata":{"shape":"VideoMetadata"},
-        "Persons":{"shape":"PersonMatches"}
-      }
-    },
-    "GetLabelDetectionRequest":{
-=======
         "SortBy":{"shape":"LabelDetectionSortBy"}
       }
     },
-    "GetLabelDetectionResponse":{
->>>>>>> Working on getting compiling
-      "type":"structure",
-      "required":["JobId"],
-      "members":{
-<<<<<<< HEAD
-        "JobId":{"shape":"JobId"},
-        "MaxResults":{"shape":"MaxResults"},
-        "NextToken":{"shape":"PaginationToken"},
-        "SortBy":{"shape":"LabelDetectionSortBy"}
-      }
-    },
-<<<<<<< HEAD
     "GetLabelDetectionResponse":{
       "type":"structure",
       "members":{
@@ -1289,24 +1257,7 @@
         "NextToken":{"shape":"PaginationToken"},
         "Labels":{"shape":"LabelDetections"}
       }
-=======
-    "GenderType":{
-      "type":"string",
-      "enum":[
-        "Male",
-        "Female"
-      ]
->>>>>>> Initial dep workover
     },
-=======
-        "JobStatus":{"shape":"VideoJobStatus"},
-        "StatusMessage":{"shape":"StatusMessage"},
-        "VideoMetadata":{"shape":"VideoMetadata"},
-        "NextToken":{"shape":"PaginationToken"},
-        "Labels":{"shape":"LabelDetections"}
-      }
-    },
->>>>>>> Working on getting compiling
     "GetPersonTrackingRequest":{
       "type":"structure",
       "required":["JobId"],

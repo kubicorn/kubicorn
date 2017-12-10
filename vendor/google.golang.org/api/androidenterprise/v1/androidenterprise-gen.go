@@ -2086,52 +2086,6 @@ type Permission struct {
 func (s *Permission) MarshalJSON() ([]byte, error) {
 	type NoMethod Permission
 	raw := NoMethod(*s)
-<<<<<<< HEAD
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// Policy: The device policy for a given managed device.
-type Policy struct {
-	// ProductAvailabilityPolicy: The availability granted to the device for
-	// the specified products. "all" gives the device access to all
-	// products, regardless of approval status. "allApproved" entitles the
-	// device to access all products that are approved for the enterprise.
-	// "allApproved" and "all" do not enable automatic visibility of "alpha"
-	// or "beta" tracks. "whitelist" grants the device access the products
-	// specified in productPolicy[]. Only products that are approved or
-	// products that were previously approved (products with revoked
-	// approval) by the enterprise can be whitelisted. If no value is
-	// provided, the availability set at the user level is applied by
-	// default.
-	ProductAvailabilityPolicy string `json:"productAvailabilityPolicy,omitempty"`
-
-	// ProductPolicy: The list of product policies.
-	ProductPolicy []*ProductPolicy `json:"productPolicy,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g.
-	// "ProductAvailabilityPolicy") to unconditionally include in API
-	// requests. By default, fields with empty values are omitted from API
-	// requests. However, any non-pointer, non-interface field appearing in
-	// ForceSendFields will be sent to the server regardless of whether the
-	// field is empty or not. This may be used to include empty fields in
-	// Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g.
-	// "ProductAvailabilityPolicy") to include in API requests with the JSON
-	// null value. By default, fields with empty values are omitted from API
-	// requests. However, any field with an empty value appearing in
-	// NullFields will be sent to the server as null. It is an error if a
-	// field in this list has a non-empty value. This may be used to include
-	// null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *Policy) MarshalJSON() ([]byte, error) {
-	type NoMethod Policy
-	raw := NoMethod(*s)
-=======
->>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
@@ -2194,10 +2148,6 @@ type Product struct {
 	// app developer).
 	AuthorName string `json:"authorName,omitempty"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// AvailableCountries: The countries which this app is available in.
 	AvailableCountries []string `json:"availableCountries,omitempty"`
 
@@ -2213,14 +2163,6 @@ type Product struct {
 	// Description: A localized promotional description, if available.
 	Description string `json:"description,omitempty"`
 
-<<<<<<< HEAD
-=======
-	// AvailableTracks: The tracks that are visible to the enterprise.
-	AvailableTracks []string `json:"availableTracks,omitempty"`
-
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// DetailsUrl: A link to the (consumer) Google Play details page for the
 	// product.
 	DetailsUrl string `json:"detailsUrl,omitempty"`
@@ -2270,18 +2212,9 @@ type Product struct {
 	// RequiresContainerApp: Deprecated.
 	RequiresContainerApp bool `json:"requiresContainerApp,omitempty"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// ScreenshotUrls: A list of screenshot links representing the app.
 	ScreenshotUrls []string `json:"screenshotUrls,omitempty"`
 
-=======
->>>>>>> Initial dep workover
-=======
-	// ScreenshotUrls: A list of screenshot links representing the app.
-	ScreenshotUrls []string `json:"screenshotUrls,omitempty"`
-
->>>>>>> Working on getting compiling
 	// SigningCertificate: The certificate used to sign this product.
 	SigningCertificate *ProductSigningCertificate `json:"signingCertificate,omitempty"`
 
@@ -2469,56 +2402,6 @@ type ProductPermissions struct {
 func (s *ProductPermissions) MarshalJSON() ([]byte, error) {
 	type NoMethod ProductPermissions
 	raw := NoMethod(*s)
-<<<<<<< HEAD
-	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
-}
-
-// ProductPolicy: The policy for a product.
-type ProductPolicy struct {
-	// ProductId: The ID of the product. For example,
-	// "app:com.google.android.gm".
-	ProductId string `json:"productId,omitempty"`
-
-	// Tracks: Grants visibility to the specified track(s) of the product to
-	// the device. The track available to the device is based on the
-	// following order of preference: alpha, beta, production. For example,
-	// if an app has a prod version, a beta version and an alpha version and
-	// the enterprise has been granted visibility to both the alpha and beta
-	// tracks, if tracks is {"beta", "production"} then the beta version of
-	// the app is made available to the device. If there are no app versions
-	// in the specified track adding the "alpha" and "beta" values to the
-	// list of tracks will have no effect. Note that the enterprise requires
-	// access to alpha and/or beta tracks before users can be granted
-	// visibility to apps in those tracks.
-	//
-	// The allowed sets are: {} (considered equivalent to {"production"})
-	// {"production"} {"beta", "production"} {"alpha", "beta", "production"}
-	// The order of elements is not relevant. Any other set of tracks will
-	// be rejected with an error.
-	Tracks []string `json:"tracks,omitempty"`
-
-	// ForceSendFields is a list of field names (e.g. "ProductId") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
-	ForceSendFields []string `json:"-"`
-
-	// NullFields is a list of field names (e.g. "ProductId") to include in
-	// API requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
-	NullFields []string `json:"-"`
-}
-
-func (s *ProductPolicy) MarshalJSON() ([]byte, error) {
-	type NoMethod ProductPolicy
-	raw := NoMethod(*s)
-=======
->>>>>>> Initial dep workover
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 

@@ -125,7 +125,6 @@ func Getfsstat(buf []Statfs_t, flags int) (n int, err error) {
 	return
 }
 
-<<<<<<< HEAD
 func setattrlistTimes(path string, times []Timespec, flags int) error {
 	// used on Darwin for UtimesNano
 	return ENOSYS
@@ -170,7 +169,6 @@ func IoctlGetTermios(fd int, req uint) (*Termios, error) {
 	return &value, err
 }
 
-<<<<<<< HEAD
 func sysctlUname(mib []_C_int, old *byte, oldlen *uintptr) error {
 	err := sysctl(mib, old, oldlen, nil, 0)
 	if err != nil {
@@ -234,10 +232,6 @@ func Uname(uname *Utsname) error {
 	return nil
 }
 
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 /*
  * Exposed directly
  */
@@ -338,7 +332,6 @@ func Uname(uname *Utsname) error {
 // Getlogin
 // Sigpending
 // Sigaltstack
-// Ioctl
 // Reboot
 // Execve
 // Vfork
@@ -370,7 +363,6 @@ func Uname(uname *Utsname) error {
 // Searchfs
 // Delete
 // Copyfile
-// Poll
 // Watchevent
 // Waitevent
 // Modwatch
@@ -516,7 +508,6 @@ func Uname(uname *Utsname) error {
 // Pread_nocancel
 // Pwrite_nocancel
 // Waitid_nocancel
-// Poll_nocancel
 // Msgsnd_nocancel
 // Msgrcv_nocancel
 // Sem_wait_nocancel

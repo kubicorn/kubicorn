@@ -494,15 +494,10 @@
         "S3BackupUpdate":{"shape":"S3DestinationUpdate"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "HECAcknowledgmentTimeoutInSeconds":{
       "type":"integer",
       "max":600,
       "min":180
-<<<<<<< HEAD
     },
     "HECEndpoint":{"type":"string"},
     "HECEndpointType":{
@@ -513,30 +508,6 @@
       ]
     },
     "HECToken":{"type":"string"},
-=======
-    "FirehoseSource":{"type":"string"},
-    "GetKinesisStreamInput":{
-      "type":"structure",
-      "required":["DeliveryStreamARN"],
-      "members":{
-        "DeliveryStreamARN":{"shape":"DeliveryStreamARN"}
-      }
-=======
->>>>>>> Working on getting compiling
-    },
-    "HECEndpoint":{"type":"string"},
-    "HECEndpointType":{
-      "type":"string",
-      "enum":[
-        "Raw",
-        "Event"
-      ]
-    },
-<<<<<<< HEAD
->>>>>>> Initial dep workover
-=======
-    "HECToken":{"type":"string"},
->>>>>>> Working on getting compiling
     "IntervalInSeconds":{
       "type":"integer",
       "max":900,
@@ -984,69 +955,6 @@
         "DurationInSeconds":{"shape":"SplunkRetryDurationInSeconds"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "SplunkDestinationConfiguration":{
-      "type":"structure",
-      "required":[
-        "HECEndpoint",
-        "HECEndpointType",
-        "HECToken",
-        "S3Configuration"
-      ],
-      "members":{
-        "HECEndpoint":{"shape":"HECEndpoint"},
-        "HECEndpointType":{"shape":"HECEndpointType"},
-        "HECToken":{"shape":"HECToken"},
-        "HECAcknowledgmentTimeoutInSeconds":{"shape":"HECAcknowledgmentTimeoutInSeconds"},
-        "RetryOptions":{"shape":"SplunkRetryOptions"},
-        "S3BackupMode":{"shape":"SplunkS3BackupMode"},
-        "S3Configuration":{"shape":"S3DestinationConfiguration"},
-        "ProcessingConfiguration":{"shape":"ProcessingConfiguration"},
-        "CloudWatchLoggingOptions":{"shape":"CloudWatchLoggingOptions"}
-      }
-    },
-    "SplunkDestinationDescription":{
-      "type":"structure",
-      "members":{
-        "HECEndpoint":{"shape":"HECEndpoint"},
-        "HECEndpointType":{"shape":"HECEndpointType"},
-        "HECToken":{"shape":"HECToken"},
-        "HECAcknowledgmentTimeoutInSeconds":{"shape":"HECAcknowledgmentTimeoutInSeconds"},
-        "RetryOptions":{"shape":"SplunkRetryOptions"},
-        "S3BackupMode":{"shape":"SplunkS3BackupMode"},
-        "S3DestinationDescription":{"shape":"S3DestinationDescription"},
-        "ProcessingConfiguration":{"shape":"ProcessingConfiguration"},
-        "CloudWatchLoggingOptions":{"shape":"CloudWatchLoggingOptions"}
-      }
-    },
-    "SplunkDestinationUpdate":{
-      "type":"structure",
-      "members":{
-        "HECEndpoint":{"shape":"HECEndpoint"},
-        "HECEndpointType":{"shape":"HECEndpointType"},
-        "HECToken":{"shape":"HECToken"},
-        "HECAcknowledgmentTimeoutInSeconds":{"shape":"HECAcknowledgmentTimeoutInSeconds"},
-        "RetryOptions":{"shape":"SplunkRetryOptions"},
-        "S3BackupMode":{"shape":"SplunkS3BackupMode"},
-        "S3Update":{"shape":"S3DestinationUpdate"},
-        "ProcessingConfiguration":{"shape":"ProcessingConfiguration"},
-        "CloudWatchLoggingOptions":{"shape":"CloudWatchLoggingOptions"}
-      }
-    },
-    "SplunkRetryDurationInSeconds":{
-      "type":"integer",
-      "max":7200,
-      "min":0
-    },
-    "SplunkRetryOptions":{
-      "type":"structure",
-      "members":{
-        "DurationInSeconds":{"shape":"SplunkRetryDurationInSeconds"}
-      }
-    },
-=======
->>>>>>> Working on getting compiling
     "SplunkS3BackupMode":{
       "type":"string",
       "enum":[
@@ -1054,11 +962,6 @@
         "AllEvents"
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "Timestamp":{"type":"timestamp"},
     "UpdateDestinationInput":{
       "type":"structure",

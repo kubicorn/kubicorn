@@ -14,11 +14,7 @@ func TestLookupPtrToStruct(t *testing.T) {
 		Inner []Elem `json:"inner" patchStrategy:"merge" patchMergeKey:"key"`
 	}
 	outer := &Outer{}
-<<<<<<< HEAD
 	elemType, patchStrategies, patchMergeKey, err := LookupPatchMetadataForStruct(reflect.TypeOf(outer), "inner")
-=======
-	elemType, patchStrategies, patchMergeKey, err := LookupPatchMetadata(reflect.TypeOf(outer), "inner")
->>>>>>> Initial dep workover
 	if err != nil {
 		t.Fatal(err)
 	}

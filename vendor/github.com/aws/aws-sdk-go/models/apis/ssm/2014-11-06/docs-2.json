@@ -1,14 +1,6 @@
 {
   "version": "2.0",
-<<<<<<< HEAD
-<<<<<<< HEAD
   "service": "<fullname>AWS Systems Manager</fullname> <p>AWS Systems Manager is a collection of capabilities that helps you automate management tasks such as collecting system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images (AMIs), and configuring operating systems (OSs) and applications at scale. Systems Manager lets you remotely and securely manage the configuration of your managed instances. A <i>managed instance</i> is any Amazon EC2 instance or on-premises machine in your hybrid environment that has been configured for Systems Manager.</p> <p>This reference is intended to be used with the <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/\">AWS Systems Manager User Guide</a>.</p> <p>To get started, verify prerequisites and configure managed instances. For more information, see <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html\">Systems Manager Prerequisites</a>.</p> <p>For information about other API actions you can perform on Amazon EC2 instances, see the <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/APIReference/\">Amazon EC2 API Reference</a>. For information about how to use a Query API, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html\">Making API Requests</a>. </p>",
-=======
-  "service": "<fullname>Amazon EC2 Systems Manager</fullname> <p>Amazon EC2 Systems Manager is a collection of capabilities that helps you automate management tasks such as collecting system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images (AMIs), and configuring operating systems (OSs) and applications at scale. Systems Manager lets you remotely and securely manage the configuration of your managed instances. A <i>managed instance</i> is any Amazon EC2 instance or on-premises machine in your hybrid environment that has been configured for Systems Manager.</p> <p>This reference is intended to be used with the <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/\">Amazon EC2 Systems Manager User Guide</a>.</p> <p>To get started, verify prerequisites and configure managed instances. For more information, see <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html\">Systems Manager Prerequisites</a>.</p> <p>For information about other API actions you can perform on Amazon EC2 instances, see the <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/APIReference/\">Amazon EC2 API Reference</a>. For information about how to use a Query API, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html\">Making API Requests</a>. </p>",
->>>>>>> Initial dep workover
-=======
-  "service": "<fullname>AWS Systems Manager</fullname> <p>AWS Systems Manager is a collection of capabilities that helps you automate management tasks such as collecting system inventory, applying operating system (OS) patches, automating the creation of Amazon Machine Images (AMIs), and configuring operating systems (OSs) and applications at scale. Systems Manager lets you remotely and securely manage the configuration of your managed instances. A <i>managed instance</i> is any Amazon EC2 instance or on-premises machine in your hybrid environment that has been configured for Systems Manager.</p> <p>This reference is intended to be used with the <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/\">AWS Systems Manager User Guide</a>.</p> <p>To get started, verify prerequisites and configure managed instances. For more information, see <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html\">Systems Manager Prerequisites</a>.</p> <p>For information about other API actions you can perform on Amazon EC2 instances, see the <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/APIReference/\">Amazon EC2 API Reference</a>. For information about how to use a Query API, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html\">Making API Requests</a>. </p>",
->>>>>>> Working on getting compiling
   "operations": {
     "AddTagsToResource": "<p>Adds or overwrites one or more tags for the specified resource. Tags are metadata that you can assign to your documents, managed instances, Maintenance Windows, Parameter Store parameters, and patch baselines. Tags enable you to categorize your resources in different ways, for example, by purpose, owner, or environment. Each tag consists of a key and an optional value, both of which you define. For example, you could define a set of tags for your account's managed instances that helps you track each instance's owner and stack level. For example: Key=Owner and Value=DbAdmin, SysAdmin, or Dev. Or Key=Stack and Value=Production, Pre-Production, or Test.</p> <p>Each resource can have a maximum of 10 tags. </p> <p>We recommend that you devise a set of tag keys that meets your needs for each resource type. Using a consistent set of tag keys makes it easier for you to manage your resources. You can search and filter the resources based on the tags you add. Tags don't have any semantic meaning to Amazon EC2 and are interpreted strictly as a string of characters. </p> <p>For more information about tags, see <a href=\"http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html\">Tagging Your Amazon EC2 Resources</a> in the <i>Amazon EC2 User Guide</i>.</p>",
     "CancelCommand": "<p>Attempts to cancel the command specified by the Command ID. There is no guarantee that the command will be terminated and the underlying process stopped.</p>",
@@ -556,19 +548,9 @@
       "base": null,
       "refs": {
         "Activation$Expired": "<p>Whether or not the activation is expired.</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "AutomationExecution$StepExecutionsTruncated": "<p>A boolean value that indicates if the response contains the full list of the Automation step executions. If true, use the DescribeAutomationStepExecutions API action to get the full list of step executions.</p>",
         "DeregisterTargetFromMaintenanceWindowRequest$Safe": "<p>The system checks if the target is being referenced by a task. If the target is being referenced, the system returns an error and does not deregister the target from the Maintenance Window.</p>",
         "DescribeAutomationStepExecutionsRequest$ReverseOrder": "<p>A boolean that indicates whether to list step executions in reverse order by start time. The default value is false.</p>",
-=======
-        "DeregisterTargetFromMaintenanceWindowRequest$Safe": "<p>The system checks if the target is being referenced by a task. If the target is being referenced, the system returns an error and does not deregister the target from the Maintenance Window.</p>",
->>>>>>> Initial dep workover
-=======
-        "AutomationExecution$StepExecutionsTruncated": "<p>A boolean value that indicates if the response contains the full list of the Automation step executions. If true, use the DescribeAutomationStepExecutions API action to get the full list of step executions.</p>",
-        "DeregisterTargetFromMaintenanceWindowRequest$Safe": "<p>The system checks if the target is being referenced by a task. If the target is being referenced, the system returns an error and does not deregister the target from the Maintenance Window.</p>",
-        "DescribeAutomationStepExecutionsRequest$ReverseOrder": "<p>A boolean that indicates whether to list step executions in reverse order by start time. The default value is false.</p>",
->>>>>>> Working on getting compiling
         "DocumentVersionInfo$IsDefaultVersion": "<p>An identifier for the default version of the document.</p>",
         "GetParameterHistoryRequest$WithDecryption": "<p>Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter types.</p>",
         "GetParameterRequest$WithDecryption": "<p>Return decrypted values for secure string parameters. This flag is ignored for String and StringList parameter types.</p>",
@@ -578,14 +560,7 @@
         "InstanceInformation$IsLatestVersion": "<p>Indicates whether latest version of the SSM Agent is running on your instance. </p>",
         "ListCommandInvocationsRequest$Details": "<p>(Optional) If set this returns the response of the command executions and any command output. By default this is set to False. </p>",
         "PutParameterRequest$Overwrite": "<p>Overwrite an existing parameter. If not specified, will default to \"false\".</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "ResolvedTargets$Truncated": "<p>A boolean value indicating whether the resolved target list is truncated.</p>",
-=======
->>>>>>> Initial dep workover
-=======
-        "ResolvedTargets$Truncated": "<p>A boolean value indicating whether the resolved target list is truncated.</p>",
->>>>>>> Working on getting compiling
         "UpdateMaintenanceWindowRequest$Replace": "<p>If True, then all fields that are required by the CreateMaintenanceWindow action are also required for this API request. Optional fields that are not specified are set to null. </p>",
         "UpdateMaintenanceWindowTargetRequest$Replace": "<p>If True, then all fields that are required by the RegisterTargetWithMaintenanceWindow action are also required for this API request. Optional fields that are not specified are set to null.</p>",
         "UpdateMaintenanceWindowTaskRequest$Replace": "<p>If True, then all fields that are required by the RegisterTaskWithMaintenanceWndow action are also required for this API request. Optional fields that are not specified are set to null.</p>"
@@ -1514,15 +1489,7 @@
     "DocumentContent": {
       "base": null,
       "refs": {
-<<<<<<< HEAD
-<<<<<<< HEAD
         "CreateDocumentRequest$Content": "<p>A valid JSON or YAML string.</p>",
-=======
-        "CreateDocumentRequest$Content": "<p>A valid JSON string.</p>",
->>>>>>> Initial dep workover
-=======
-        "CreateDocumentRequest$Content": "<p>A valid JSON or YAML string.</p>",
->>>>>>> Working on getting compiling
         "GetDocumentResult$Content": "<p>The contents of the Systems Manager document.</p>",
         "InstanceAssociation$Content": "<p>The content of the association document for the instance(s).</p>",
         "UpdateDocumentRequest$Content": "<p>The content in a document that you want to update.</p>"
@@ -2744,15 +2711,6 @@
       "base": null,
       "refs": {
         "InventoryResultEntity$Data": "<p>The data section in the inventory result entity JSON.</p>"
-<<<<<<< HEAD
-      }
-    },
-    "InventoryTypeDisplayName": {
-      "base": null,
-      "refs": {
-        "InventoryItemSchema$DisplayName": "<p>The alias name of the inventory type. The alias name is used for display purposes.</p>"
-=======
->>>>>>> Working on getting compiling
       }
     },
     "InventoryTypeDisplayName": {
@@ -2940,15 +2898,6 @@
         "RegisterTaskWithMaintenanceWindowRequest$LoggingInfo": "<p>A structure containing information about an Amazon S3 bucket to write instance-level logs to. </p>",
         "UpdateMaintenanceWindowTaskRequest$LoggingInfo": "<p>The new logging location in Amazon S3 to specify.</p>",
         "UpdateMaintenanceWindowTaskResult$LoggingInfo": "<p>The updated logging information in Amazon S3.</p>"
-<<<<<<< HEAD
-      }
-    },
-    "Long": {
-      "base": null,
-      "refs": {
-        "StepExecution$TimeoutSeconds": "<p>The timeout seconds of the step.</p>"
-=======
->>>>>>> Initial dep workover
       }
     },
     "Long": {
@@ -3465,14 +3414,7 @@
         "MaintenanceWindowTask$MaxConcurrency": "<p>The maximum number of targets this task can be run for in parallel.</p>",
         "RegisterTaskWithMaintenanceWindowRequest$MaxConcurrency": "<p>The maximum number of targets this task can be run for in parallel.</p>",
         "SendCommandRequest$MaxConcurrency": "<p>(Optional) The maximum number of instances that are allowed to execute the command at the same time. You can specify a number such as 10 or a percentage such as 10%. The default value is 50. For more information about how to use MaxConcurrency, see <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-velocity.html\">Using Concurrency Controls</a>.</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "StartAutomationExecutionRequest$MaxConcurrency": "<p>The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10, or a percentage, such as 10%. The default value is 10.</p>",
-=======
->>>>>>> Initial dep workover
-=======
-        "StartAutomationExecutionRequest$MaxConcurrency": "<p>The maximum number of targets allowed to run this task in parallel. You can specify a number, such as 10, or a percentage, such as 10%. The default value is 10.</p>",
->>>>>>> Working on getting compiling
         "UpdateMaintenanceWindowTaskRequest$MaxConcurrency": "<p>The new <code>MaxConcurrency</code> value you want to specify. <code>MaxConcurrency</code> is the number of targets that are allowed to run this task in parallel.</p>",
         "UpdateMaintenanceWindowTaskResult$MaxConcurrency": "<p>The updated MaxConcurrency value.</p>"
       }
@@ -3493,14 +3435,7 @@
         "MaintenanceWindowTask$MaxErrors": "<p>The maximum number of errors allowed before this task stops being scheduled.</p>",
         "RegisterTaskWithMaintenanceWindowRequest$MaxErrors": "<p>The maximum number of errors allowed before this task stops being scheduled.</p>",
         "SendCommandRequest$MaxErrors": "<p>The maximum number of errors allowed without the command failing. When the command fails one more time beyond the value of MaxErrors, the systems stops sending the command to additional targets. You can specify a number like 10 or a percentage like 10%. The default value is 50. For more information about how to use MaxErrors, see <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-maxerrors.html\">Using Error Controls</a>.</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "StartAutomationExecutionRequest$MaxErrors": "<p>The number of errors that are allowed before the system stops running the automation on additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the target set, for example 10%. If you specify 3, for example, the system stops running the automation when the fourth error is received. If you specify 0, then the system stops running the automation on additional targets after the first error result is returned. If you run an automation on 50 resources and set max-errors to 10%, then the system stops running the automation on additional targets when the sixth error is received.</p> <p>Executions that are already running an automation when max-errors is reached are allowed to complete, but some of these executions may fail as well. If you need to ensure that there won't be more than max-errors failed executions, set max-concurrency to 1 so the executions proceed one at a time.</p>",
-=======
->>>>>>> Initial dep workover
-=======
-        "StartAutomationExecutionRequest$MaxErrors": "<p>The number of errors that are allowed before the system stops running the automation on additional targets. You can specify either an absolute number of errors, for example 10, or a percentage of the target set, for example 10%. If you specify 3, for example, the system stops running the automation when the fourth error is received. If you specify 0, then the system stops running the automation on additional targets after the first error result is returned. If you run an automation on 50 resources and set max-errors to 10%, then the system stops running the automation on additional targets when the sixth error is received.</p> <p>Executions that are already running an automation when max-errors is reached are allowed to complete, but some of these executions may fail as well. If you need to ensure that there won't be more than max-errors failed executions, set max-concurrency to 1 so the executions proceed one at a time.</p>",
->>>>>>> Working on getting compiling
         "UpdateMaintenanceWindowTaskRequest$MaxErrors": "<p>The new <code>MaxErrors</code> value to specify. <code>MaxErrors</code> is the maximum number of errors that are allowed before the task stops being scheduled.</p>",
         "UpdateMaintenanceWindowTaskResult$MaxErrors": "<p>The updated MaxErrors value.</p>"
       }
@@ -4383,10 +4318,6 @@
       "refs": {
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "ResolvedTargets": {
       "base": "<p>Information about targets that resolved during the Automation execution.</p>",
       "refs": {
@@ -4394,11 +4325,6 @@
         "AutomationExecutionMetadata$ResolvedTargets": "<p>A list of targets that resolved during the execution.</p>"
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "ResourceComplianceSummaryItem": {
       "base": "<p>Compliance summary information for a specific resource. </p>",
       "refs": {
@@ -4805,14 +4731,7 @@
         "AutomationExecutionMetadata$FailureMessage": "<p>The list of execution outputs as defined in the Automation document.</p>",
         "AutomationExecutionMetadata$Target": "<p>The list of execution outputs as defined in the Automation document.</p>",
         "AutomationExecutionNotFoundException$Message": null,
-<<<<<<< HEAD
-<<<<<<< HEAD
         "AutomationStepNotFoundException$Message": null,
-=======
->>>>>>> Initial dep workover
-=======
-        "AutomationStepNotFoundException$Message": null,
->>>>>>> Working on getting compiling
         "ComplianceTypeCountLimitExceededException$Message": null,
         "CustomSchemaCountLimitExceededException$Message": null,
         "DocumentAlreadyExists$Message": null,
@@ -4999,16 +4918,8 @@
         "Association$Targets": "<p>The instances targeted by the request to create an association. </p>",
         "AssociationDescription$Targets": "<p>The instances targeted by the request. </p>",
         "AssociationVersionInfo$Targets": "<p>The targets specified for the association when the association version was created. </p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "AutomationExecution$Targets": "<p>The specified targets.</p>",
         "AutomationExecutionMetadata$Targets": "<p>The targets defined by the user when starting the Automation.</p>",
-=======
->>>>>>> Initial dep workover
-=======
-        "AutomationExecution$Targets": "<p>The specified targets.</p>",
-        "AutomationExecutionMetadata$Targets": "<p>The targets defined by the user when starting the Automation.</p>",
->>>>>>> Working on getting compiling
         "Command$Targets": "<p>An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is required if you don't provide one or more instance IDs in the call.</p>",
         "CreateAssociationBatchRequestEntry$Targets": "<p>The instances targeted by the request.</p>",
         "CreateAssociationRequest$Targets": "<p>The targets (either instances or tags) for the association.</p>",
@@ -5018,14 +4929,7 @@
         "RegisterTargetWithMaintenanceWindowRequest$Targets": "<p>The targets (either instances or tags). Instances are specified using Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag name&gt;,Values=&lt;tag value&gt;.</p>",
         "RegisterTaskWithMaintenanceWindowRequest$Targets": "<p>The targets (either instances or tags). Instances are specified using Key=instanceids,Values=&lt;instanceid1&gt;,&lt;instanceid2&gt;. Tags are specified using Key=&lt;tag name&gt;,Values=&lt;tag value&gt;.</p>",
         "SendCommandRequest$Targets": "<p>(Optional) An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is required if you don't provide one or more instance IDs in the call. For more information about how to use Targets, see <a href=\"http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html\">Sending Commands to a Fleet</a>.</p>",
-<<<<<<< HEAD
-<<<<<<< HEAD
         "StartAutomationExecutionRequest$Targets": "<p>A key-value mapping to target resources. Required if you specify TargetParameterName.</p>",
-=======
->>>>>>> Initial dep workover
-=======
-        "StartAutomationExecutionRequest$Targets": "<p>A key-value mapping to target resources. Required if you specify TargetParameterName.</p>",
->>>>>>> Working on getting compiling
         "UpdateAssociationRequest$Targets": "<p>The targets of the association.</p>",
         "UpdateMaintenanceWindowTargetRequest$Targets": "<p>The targets to add or replace.</p>",
         "UpdateMaintenanceWindowTargetResult$Targets": "<p>The updated targets.</p>",

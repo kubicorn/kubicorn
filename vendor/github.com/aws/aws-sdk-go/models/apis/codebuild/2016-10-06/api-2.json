@@ -102,10 +102,6 @@
         {"shape":"OAuthProviderException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "InvalidateProjectCache":{
       "name":"InvalidateProjectCache",
       "http":{
@@ -119,11 +115,6 @@
         {"shape":"ResourceNotFoundException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "ListBuilds":{
       "name":"ListBuilds",
       "http":{
@@ -366,10 +357,6 @@
       "type":"list",
       "member":{"shape":"BuildNotDeleted"}
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "CacheType":{
       "type":"string",
       "enum":[
@@ -377,11 +364,6 @@
         "S3"
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "ComputeType":{
       "type":"string",
       "enum":[
@@ -670,19 +652,9 @@
         "tags":{"shape":"TagList"},
         "created":{"shape":"Timestamp"},
         "lastModified":{"shape":"Timestamp"},
-<<<<<<< HEAD
-<<<<<<< HEAD
         "webhook":{"shape":"Webhook"},
         "vpcConfig":{"shape":"VpcConfig"},
         "badge":{"shape":"ProjectBadge"}
-=======
-        "webhook":{"shape":"Webhook"}
->>>>>>> Initial dep workover
-=======
-        "webhook":{"shape":"Webhook"},
-        "vpcConfig":{"shape":"VpcConfig"},
-        "badge":{"shape":"ProjectBadge"}
->>>>>>> Working on getting compiling
       }
     },
     "ProjectArtifacts":{
@@ -909,10 +881,6 @@
       "min":1,
       "pattern":"^([\\\\p{L}\\\\p{Z}\\\\p{N}_.:/=@+\\\\-]*)$"
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "VpcConfig":{
       "type":"structure",
       "members":{
@@ -921,11 +889,6 @@
         "securityGroupIds":{"shape":"SecurityGroupIds"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "Webhook":{
       "type":"structure",
       "members":{

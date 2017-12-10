@@ -15,10 +15,14 @@ limitations under the License.
 */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // +k8s:deepcopy-gen=package
 =======
 // +k8s:deepcopy-gen=package,register
 >>>>>>> Initial dep workover
+=======
+// +k8s:deepcopy-gen=package
+>>>>>>> moar deps
 
 // Package policy is for any kind of policy object.  Suitable examples, even if
 // they aren't all here, are PodDisruptionBudget, PodSecurityPolicy,

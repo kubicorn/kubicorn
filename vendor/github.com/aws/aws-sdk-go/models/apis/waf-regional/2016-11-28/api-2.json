@@ -985,14 +985,7 @@
         {"shape":"WAFStaleDataException"},
         {"shape":"WAFInternalErrorException"},
         {"shape":"WAFLimitsExceededException"},
-<<<<<<< HEAD
-<<<<<<< HEAD
         {"shape":"WAFNonexistentItemException"},
-=======
->>>>>>> Initial dep workover
-=======
-        {"shape":"WAFNonexistentItemException"},
->>>>>>> Working on getting compiling
         {"shape":"WAFNonexistentContainerException"},
         {"shape":"WAFInvalidOperationException"},
         {"shape":"WAFInvalidAccountException"},
@@ -1266,27 +1259,6 @@
       }
     },
     "CreateGeoMatchSetRequest":{
-<<<<<<< HEAD
-=======
-      "type":"structure",
-      "required":[
-        "Name",
-        "ChangeToken"
-      ],
-      "members":{
-        "Name":{"shape":"ResourceName"},
-        "ChangeToken":{"shape":"ChangeToken"}
-      }
-    },
-    "CreateGeoMatchSetResponse":{
-      "type":"structure",
-      "members":{
-        "GeoMatchSet":{"shape":"GeoMatchSet"},
-        "ChangeToken":{"shape":"ChangeToken"}
-      }
-    },
-    "CreateIPSetRequest":{
->>>>>>> Initial dep workover
       "type":"structure",
       "required":[
         "Name",
@@ -1382,10 +1354,6 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "CreateRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -1406,11 +1374,6 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "CreateRuleRequest":{
       "type":"structure",
       "required":[
@@ -1609,10 +1572,6 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DeleteRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -1630,11 +1589,6 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DeleteRuleRequest":{
       "type":"structure",
       "required":[
@@ -2173,10 +2127,6 @@
         "RegexPatternSet":{"shape":"RegexPatternSet"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "GetRuleGroupRequest":{
       "type":"structure",
       "required":["RuleGroupId"],
@@ -2190,11 +2140,6 @@
         "RuleGroup":{"shape":"RuleGroup"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "GetRuleRequest":{
       "type":"structure",
       "required":["RuleId"],
@@ -3242,10 +3187,6 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "UpdateRuleGroupRequest":{
       "type":"structure",
       "required":[
@@ -3265,11 +3206,6 @@
         "ChangeToken":{"shape":"ChangeToken"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "UpdateRuleRequest":{
       "type":"structure",
       "required":[

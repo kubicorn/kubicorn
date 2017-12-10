@@ -6585,11 +6585,7 @@ func (s *EC2TagSet) SetEc2TagSetList(v [][]*EC2TagFilter) *EC2TagSet {
 // Information about a load balancer in Elastic Load Balancing to use in a deployment.
 // Instances are registered directly with a load balancer, and traffic is routed
 // to the load balancer.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ELBInfo
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/ELBInfo
->>>>>>> Initial dep workover
 type ELBInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -8435,11 +8431,7 @@ func (s *ListOnPremisesInstancesOutput) SetNextToken(v string) *ListOnPremisesIn
 
 // Information about the Elastic Load Balancing load balancer or target group
 // used in a deployment.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/LoadBalancerInfo
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/LoadBalancerInfo
->>>>>>> Initial dep workover
 type LoadBalancerInfo struct {
 	_ struct{} `type:"structure"`
 
@@ -9207,11 +9199,7 @@ func (s *TagFilter) SetValue(v string) *TagFilter {
 // Information about a target group in Elastic Load Balancing to use in a deployment.
 // Instances are registered as targets in a target group, and traffic is routed
 // to the target group.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/TargetGroupInfo
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/TargetGroupInfo
->>>>>>> Initial dep workover
 type TargetGroupInfo struct {
 	_ struct{} `type:"structure"`
 

@@ -1080,10 +1080,6 @@ func (s *HttpLoadBalancing) MarshalJSON() ([]byte, error) {
 // IPAllocationPolicy: Configuration for controlling how IPs are
 // allocated in the cluster.
 type IPAllocationPolicy struct {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// AllowRouteOverlap: If true, allow allocation of cluster CIDR ranges
 	// that overlap with certain
 	// kinds of network routes. By default we do not allow cluster CIDR
@@ -1104,11 +1100,6 @@ type IPAllocationPolicy struct {
 	//    fully-specified.
 	AllowRouteOverlap bool `json:"allowRouteOverlap,omitempty"`
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	// ClusterIpv4Cidr: This field is deprecated, use
 	// cluster_ipv4_cidr_block.
 	ClusterIpv4Cidr string `json:"clusterIpv4Cidr,omitempty"`
@@ -1227,33 +1218,15 @@ type IPAllocationPolicy struct {
 	// cluster.
 	UseIpAliases bool `json:"useIpAliases,omitempty"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// ForceSendFields is a list of field names (e.g. "AllowRouteOverlap")
 	// to unconditionally include in API requests. By default, fields with
-=======
-	// ForceSendFields is a list of field names (e.g. "ClusterIpv4Cidr") to
-	// unconditionally include in API requests. By default, fields with
->>>>>>> Initial dep workover
-=======
-	// ForceSendFields is a list of field names (e.g. "AllowRouteOverlap")
-	// to unconditionally include in API requests. By default, fields with
->>>>>>> Working on getting compiling
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
 	// server regardless of whether the field is empty or not. This may be
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// NullFields is a list of field names (e.g. "AllowRouteOverlap") to
-=======
-	// NullFields is a list of field names (e.g. "ClusterIpv4Cidr") to
->>>>>>> Initial dep workover
-=======
-	// NullFields is a list of field names (e.g. "AllowRouteOverlap") to
->>>>>>> Working on getting compiling
 	// include in API requests with the JSON null value. By default, fields
 	// with empty values are omitted from API requests. However, any field
 	// with an empty value appearing in NullFields will be sent to the

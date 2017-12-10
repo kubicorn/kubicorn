@@ -1,9 +1,13 @@
 /*
 <<<<<<< HEAD
+<<<<<<< HEAD
 Copyright 2018 The Kubernetes Authors.
 =======
 Copyright 2017 The Kubernetes Authors.
 >>>>>>> Initial dep workover
+=======
+Copyright 2017 The Kubernetes Authors.
+>>>>>>> moar deps
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -30,18 +34,27 @@ limitations under the License.
 
 	It has these top-level messages:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 		ControllerRevision
 		ControllerRevisionList
 		DaemonSet
 		DaemonSetCondition
+<<<<<<< HEAD
 =======
 		DaemonSet
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		DaemonSetList
 		DaemonSetSpec
 		DaemonSetStatus
 		DaemonSetUpdateStrategy
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 		Deployment
 		DeploymentCondition
 		DeploymentList
@@ -62,9 +75,12 @@ limitations under the License.
 		StatefulSetSpec
 		StatefulSetStatus
 		StatefulSetUpdateStrategy
+<<<<<<< HEAD
 =======
 		RollingUpdateDaemonSet
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 */
 package v1
 
@@ -73,10 +89,15 @@ import fmt "fmt"
 import math "math"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import k8s_io_api_core_v1 "k8s.io/api/core/v1"
 
 =======
 >>>>>>> Initial dep workover
+=======
+import k8s_io_api_core_v1 "k8s.io/api/core/v1"
+
+>>>>>>> moar deps
 import k8s_io_apimachinery_pkg_apis_meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 import k8s_io_apimachinery_pkg_util_intstr "k8s.io/apimachinery/pkg/util/intstr"
@@ -98,6 +119,9 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *ControllerRevision) Reset()                    { *m = ControllerRevision{} }
 func (*ControllerRevision) ProtoMessage()               {}
 func (*ControllerRevision) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{0} }
@@ -221,6 +245,7 @@ func init() {
 	proto.RegisterType((*ControllerRevisionList)(nil), "k8s.io.api.apps.v1.ControllerRevisionList")
 	proto.RegisterType((*DaemonSet)(nil), "k8s.io.api.apps.v1.DaemonSet")
 	proto.RegisterType((*DaemonSetCondition)(nil), "k8s.io.api.apps.v1.DaemonSetCondition")
+<<<<<<< HEAD
 =======
 func (m *DaemonSet) Reset()                    { *m = DaemonSet{} }
 func (*DaemonSet) ProtoMessage()               {}
@@ -249,11 +274,16 @@ func (*RollingUpdateDaemonSet) Descriptor() ([]byte, []int) { return fileDescrip
 func init() {
 	proto.RegisterType((*DaemonSet)(nil), "k8s.io.api.apps.v1.DaemonSet")
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	proto.RegisterType((*DaemonSetList)(nil), "k8s.io.api.apps.v1.DaemonSetList")
 	proto.RegisterType((*DaemonSetSpec)(nil), "k8s.io.api.apps.v1.DaemonSetSpec")
 	proto.RegisterType((*DaemonSetStatus)(nil), "k8s.io.api.apps.v1.DaemonSetStatus")
 	proto.RegisterType((*DaemonSetUpdateStrategy)(nil), "k8s.io.api.apps.v1.DaemonSetUpdateStrategy")
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	proto.RegisterType((*Deployment)(nil), "k8s.io.api.apps.v1.Deployment")
 	proto.RegisterType((*DeploymentCondition)(nil), "k8s.io.api.apps.v1.DeploymentCondition")
 	proto.RegisterType((*DeploymentList)(nil), "k8s.io.api.apps.v1.DeploymentList")
@@ -350,10 +380,13 @@ func (m *ControllerRevisionList) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
+<<<<<<< HEAD
 =======
 	proto.RegisterType((*RollingUpdateDaemonSet)(nil), "k8s.io.api.apps.v1.RollingUpdateDaemonSet")
 }
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (m *DaemonSet) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -373,6 +406,9 @@ func (m *DaemonSet) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	n4, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -436,6 +472,7 @@ func (m *DaemonSetCondition) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(len(m.Message)))
 	i += copy(dAtA[i:], m.Message)
+<<<<<<< HEAD
 =======
 	n1, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
@@ -459,6 +496,8 @@ func (m *DaemonSetCondition) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n3
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return i, nil
 }
 
@@ -481,11 +520,15 @@ func (m *DaemonSetList) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	n8, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n8
+<<<<<<< HEAD
 =======
 	n4, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
@@ -493,6 +536,8 @@ func (m *DaemonSetList) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n4
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -528,11 +573,15 @@ func (m *DaemonSetSpec) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintGenerated(dAtA, i, uint64(m.Selector.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 		n9, err := m.Selector.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n9
+<<<<<<< HEAD
 =======
 		n5, err := m.Selector.MarshalTo(dAtA[i:])
 		if err != nil {
@@ -540,11 +589,16 @@ func (m *DaemonSetSpec) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n5
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	}
 	dAtA[i] = 0x12
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.Template.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	n10, err := m.Template.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -558,6 +612,7 @@ func (m *DaemonSetSpec) MarshalTo(dAtA []byte) (int, error) {
 		return 0, err
 	}
 	i += n11
+<<<<<<< HEAD
 =======
 	n6, err := m.Template.MarshalTo(dAtA[i:])
 	if err != nil {
@@ -573,6 +628,8 @@ func (m *DaemonSetSpec) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n7
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	dAtA[i] = 0x20
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.MinReadySeconds))
@@ -629,6 +686,9 @@ func (m *DaemonSetStatus) MarshalTo(dAtA []byte) (int, error) {
 		i = encodeVarintGenerated(dAtA, i, uint64(*m.CollisionCount))
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	if len(m.Conditions) > 0 {
 		for _, msg := range m.Conditions {
 			dAtA[i] = 0x52
@@ -641,8 +701,11 @@ func (m *DaemonSetStatus) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return i, nil
 }
 
@@ -670,11 +733,15 @@ func (m *DaemonSetUpdateStrategy) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintGenerated(dAtA, i, uint64(m.RollingUpdate.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 		n12, err := m.RollingUpdate.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
 		i += n12
+<<<<<<< HEAD
 =======
 		n8, err := m.RollingUpdate.MarshalTo(dAtA[i:])
 		if err != nil {
@@ -682,15 +749,21 @@ func (m *DaemonSetUpdateStrategy) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n8
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	}
 	return i, nil
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (m *Deployment) Marshal() (dAtA []byte, err error) {
 =======
 func (m *RollingUpdateDaemonSet) Marshal() (dAtA []byte, err error) {
 >>>>>>> Initial dep workover
+=======
+func (m *Deployment) Marshal() (dAtA []byte, err error) {
+>>>>>>> moar deps
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalTo(dAtA)
@@ -701,15 +774,22 @@ func (m *RollingUpdateDaemonSet) Marshal() (dAtA []byte, err error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (m *Deployment) MarshalTo(dAtA []byte) (int, error) {
 =======
 func (m *RollingUpdateDaemonSet) MarshalTo(dAtA []byte) (int, error) {
 >>>>>>> Initial dep workover
+=======
+func (m *Deployment) MarshalTo(dAtA []byte) (int, error) {
+>>>>>>> moar deps
 	var i int
 	_ = i
 	var l int
 	_ = l
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	dAtA[i] = 0xa
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
@@ -5743,6 +5823,7 @@ func (m *RollingUpdateStatefulSetStrategy) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *StatefulSet) Unmarshal(dAtA []byte) error {
+<<<<<<< HEAD
 =======
 	if m.MaxUnavailable != nil {
 		dAtA[i] = 0xa
@@ -5966,6 +6047,8 @@ func valueToStringGenerated(v interface{}) string {
 }
 func (m *DaemonSet) Unmarshal(dAtA []byte) error {
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -5989,16 +6072,22 @@ func (m *DaemonSet) Unmarshal(dAtA []byte) error {
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			return fmt.Errorf("proto: StatefulSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: StatefulSet: illegal tag %d (wire type %d)", fieldNum, wire)
+<<<<<<< HEAD
 =======
 			return fmt.Errorf("proto: DaemonSet: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: DaemonSet: illegal tag %d (wire type %d)", fieldNum, wire)
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		}
 		switch fieldNum {
 		case 1:
@@ -6113,6 +6202,9 @@ func (m *DaemonSet) Unmarshal(dAtA []byte) error {
 	return nil
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 func (m *StatefulSetCondition) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -6310,9 +6402,12 @@ func (m *StatefulSetCondition) Unmarshal(dAtA []byte) error {
 	return nil
 }
 func (m *StatefulSetList) Unmarshal(dAtA []byte) error {
+<<<<<<< HEAD
 =======
 func (m *DaemonSetList) Unmarshal(dAtA []byte) error {
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -6336,16 +6431,22 @@ func (m *DaemonSetList) Unmarshal(dAtA []byte) error {
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			return fmt.Errorf("proto: StatefulSetList: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: StatefulSetList: illegal tag %d (wire type %d)", fieldNum, wire)
+<<<<<<< HEAD
 =======
 			return fmt.Errorf("proto: DaemonSetList: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: DaemonSetList: illegal tag %d (wire type %d)", fieldNum, wire)
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		}
 		switch fieldNum {
 		case 1:
@@ -6405,10 +6506,14 @@ func (m *DaemonSetList) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
 			m.Items = append(m.Items, StatefulSet{})
 =======
 			m.Items = append(m.Items, DaemonSet{})
 >>>>>>> Initial dep workover
+=======
+			m.Items = append(m.Items, StatefulSet{})
+>>>>>>> moar deps
 			if err := m.Items[len(m.Items)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
@@ -6435,10 +6540,14 @@ func (m *DaemonSetList) Unmarshal(dAtA []byte) error {
 	return nil
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (m *StatefulSetSpec) Unmarshal(dAtA []byte) error {
 =======
 func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 >>>>>>> Initial dep workover
+=======
+func (m *StatefulSetSpec) Unmarshal(dAtA []byte) error {
+>>>>>>> moar deps
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -6462,6 +6571,9 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			return fmt.Errorf("proto: StatefulSetSpec: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
@@ -6489,6 +6601,7 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 			}
 			m.Replicas = &v
 		case 2:
+<<<<<<< HEAD
 =======
 			return fmt.Errorf("proto: DaemonSetSpec: wiretype end group for non-group")
 		}
@@ -6498,6 +6611,8 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Selector", wireType)
 			}
@@ -6531,10 +6646,14 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 <<<<<<< HEAD
+<<<<<<< HEAD
 		case 3:
 =======
 		case 2:
 >>>>>>> Initial dep workover
+=======
+		case 3:
+>>>>>>> moar deps
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Template", wireType)
 			}
@@ -6565,6 +6684,7 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 <<<<<<< HEAD
+<<<<<<< HEAD
 		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field VolumeClaimTemplates", wireType)
@@ -6573,6 +6693,11 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UpdateStrategy", wireType)
 >>>>>>> Initial dep workover
+=======
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VolumeClaimTemplates", wireType)
+>>>>>>> moar deps
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -6597,6 +6722,9 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			m.VolumeClaimTemplates = append(m.VolumeClaimTemplates, k8s_io_api_core_v1.PersistentVolumeClaim{})
 			if err := m.VolumeClaimTemplates[len(m.VolumeClaimTemplates)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -6607,6 +6735,7 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 				return fmt.Errorf("proto: wrong wireType = %d for field ServiceName", wireType)
 			}
 			var stringLen uint64
+<<<<<<< HEAD
 =======
 			if err := m.UpdateStrategy.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -6618,6 +6747,8 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 			}
 			m.MinReadySeconds = 0
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -6628,15 +6759,22 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				stringLen |= (uint64(b) & 0x7F) << shift
 =======
 				m.MinReadySeconds |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				stringLen |= (uint64(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			intStringLen := int(stringLen)
 			if intStringLen < 0 {
 				return ErrInvalidLengthGenerated
@@ -6707,9 +6845,12 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 8:
+<<<<<<< HEAD
 =======
 		case 6:
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RevisionHistoryLimit", wireType)
 			}
@@ -6751,10 +6892,14 @@ func (m *DaemonSetSpec) Unmarshal(dAtA []byte) error {
 	return nil
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (m *StatefulSetStatus) Unmarshal(dAtA []byte) error {
 =======
 func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 >>>>>>> Initial dep workover
+=======
+func (m *StatefulSetStatus) Unmarshal(dAtA []byte) error {
+>>>>>>> moar deps
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -6778,20 +6923,27 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			return fmt.Errorf("proto: StatefulSetStatus: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: StatefulSetStatus: illegal tag %d (wire type %d)", fieldNum, wire)
+<<<<<<< HEAD
 =======
 			return fmt.Errorf("proto: DaemonSetStatus: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: DaemonSetStatus: illegal tag %d (wire type %d)", fieldNum, wire)
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 0 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 				return fmt.Errorf("proto: wrong wireType = %d for field ObservedGeneration", wireType)
 			}
@@ -6801,6 +6953,11 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.CurrentNumberScheduled = 0
 >>>>>>> Initial dep workover
+=======
+				return fmt.Errorf("proto: wrong wireType = %d for field ObservedGeneration", wireType)
+			}
+			m.ObservedGeneration = 0
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -6811,16 +6968,21 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				m.ObservedGeneration |= (int64(b) & 0x7F) << shift
 =======
 				m.CurrentNumberScheduled |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				m.ObservedGeneration |= (int64(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 		case 2:
 			if wireType != 0 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 				return fmt.Errorf("proto: wrong wireType = %d for field Replicas", wireType)
 			}
@@ -6830,6 +6992,11 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.NumberMisscheduled = 0
 >>>>>>> Initial dep workover
+=======
+				return fmt.Errorf("proto: wrong wireType = %d for field Replicas", wireType)
+			}
+			m.Replicas = 0
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -6840,16 +7007,21 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				m.Replicas |= (int32(b) & 0x7F) << shift
 =======
 				m.NumberMisscheduled |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				m.Replicas |= (int32(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 		case 3:
 			if wireType != 0 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 				return fmt.Errorf("proto: wrong wireType = %d for field ReadyReplicas", wireType)
 			}
@@ -6859,6 +7031,11 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.DesiredNumberScheduled = 0
 >>>>>>> Initial dep workover
+=======
+				return fmt.Errorf("proto: wrong wireType = %d for field ReadyReplicas", wireType)
+			}
+			m.ReadyReplicas = 0
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -6869,16 +7046,21 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				m.ReadyReplicas |= (int32(b) & 0x7F) << shift
 =======
 				m.DesiredNumberScheduled |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				m.ReadyReplicas |= (int32(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 		case 4:
 			if wireType != 0 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 				return fmt.Errorf("proto: wrong wireType = %d for field CurrentReplicas", wireType)
 			}
@@ -6888,6 +7070,11 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.NumberReady = 0
 >>>>>>> Initial dep workover
+=======
+				return fmt.Errorf("proto: wrong wireType = %d for field CurrentReplicas", wireType)
+			}
+			m.CurrentReplicas = 0
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -6898,16 +7085,21 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				m.CurrentReplicas |= (int32(b) & 0x7F) << shift
 =======
 				m.NumberReady |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				m.CurrentReplicas |= (int32(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 		case 5:
 			if wireType != 0 {
+<<<<<<< HEAD
 <<<<<<< HEAD
 				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedReplicas", wireType)
 			}
@@ -6917,6 +7109,11 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.ObservedGeneration = 0
 >>>>>>> Initial dep workover
+=======
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedReplicas", wireType)
+			}
+			m.UpdatedReplicas = 0
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -6927,26 +7124,36 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				m.UpdatedReplicas |= (int32(b) & 0x7F) << shift
 =======
 				m.ObservedGeneration |= (int64(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				m.UpdatedReplicas |= (int32(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 		case 6:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field CurrentRevision", wireType)
 			}
 			var stringLen uint64
+<<<<<<< HEAD
 =======
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UpdatedNumberScheduled", wireType)
 			}
 			m.UpdatedNumberScheduled = 0
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -6957,15 +7164,22 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				stringLen |= (uint64(b) & 0x7F) << shift
 =======
 				m.UpdatedNumberScheduled |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				stringLen |= (uint64(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			intStringLen := int(stringLen)
 			if intStringLen < 0 {
 				return ErrInvalidLengthGenerated
@@ -6981,6 +7195,7 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				return fmt.Errorf("proto: wrong wireType = %d for field UpdateRevision", wireType)
 			}
 			var stringLen uint64
+<<<<<<< HEAD
 =======
 		case 7:
 			if wireType != 0 {
@@ -6988,6 +7203,8 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.NumberAvailable = 0
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -6998,15 +7215,22 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				stringLen |= (uint64(b) & 0x7F) << shift
 =======
 				m.NumberAvailable |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				stringLen |= (uint64(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			intStringLen := int(stringLen)
 			if intStringLen < 0 {
 				return ErrInvalidLengthGenerated
@@ -7022,6 +7246,7 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				return fmt.Errorf("proto: wrong wireType = %d for field CollisionCount", wireType)
 			}
 			var v int32
+<<<<<<< HEAD
 =======
 		case 8:
 			if wireType != 0 {
@@ -7029,6 +7254,8 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			m.NumberUnavailable = 0
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -7039,21 +7266,29 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				v |= (int32(b) & 0x7F) << shift
 =======
 				m.NumberUnavailable |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				v |= (int32(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			m.CollisionCount = &v
 		case 10:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Conditions", wireType)
 			}
 			var msglen int
+<<<<<<< HEAD
 =======
 		case 9:
 			if wireType != 0 {
@@ -7061,6 +7296,8 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 			}
 			var v int32
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowGenerated
@@ -7071,15 +7308,22 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 <<<<<<< HEAD
+<<<<<<< HEAD
 				msglen |= (int(b) & 0x7F) << shift
 =======
 				v |= (int32(b) & 0x7F) << shift
 >>>>>>> Initial dep workover
+=======
+				msglen |= (int(b) & 0x7F) << shift
+>>>>>>> moar deps
 				if b < 0x80 {
 					break
 				}
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			if msglen < 0 {
 				return ErrInvalidLengthGenerated
 			}
@@ -7092,9 +7336,12 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
+<<<<<<< HEAD
 =======
 			m.CollisionCount = &v
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenerated(dAtA[iNdEx:])
@@ -7117,10 +7364,14 @@ func (m *DaemonSetStatus) Unmarshal(dAtA []byte) error {
 	return nil
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 func (m *StatefulSetUpdateStrategy) Unmarshal(dAtA []byte) error {
 =======
 func (m *DaemonSetUpdateStrategy) Unmarshal(dAtA []byte) error {
 >>>>>>> Initial dep workover
+=======
+func (m *StatefulSetUpdateStrategy) Unmarshal(dAtA []byte) error {
+>>>>>>> moar deps
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -7144,16 +7395,22 @@ func (m *DaemonSetUpdateStrategy) Unmarshal(dAtA []byte) error {
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 			return fmt.Errorf("proto: StatefulSetUpdateStrategy: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: StatefulSetUpdateStrategy: illegal tag %d (wire type %d)", fieldNum, wire)
+<<<<<<< HEAD
 =======
 			return fmt.Errorf("proto: DaemonSetUpdateStrategy: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: DaemonSetUpdateStrategy: illegal tag %d (wire type %d)", fieldNum, wire)
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		}
 		switch fieldNum {
 		case 1:
@@ -7184,10 +7441,14 @@ func (m *DaemonSetUpdateStrategy) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
 			m.Type = StatefulSetUpdateStrategyType(dAtA[iNdEx:postIndex])
 =======
 			m.Type = DaemonSetUpdateStrategyType(dAtA[iNdEx:postIndex])
 >>>>>>> Initial dep workover
+=======
+			m.Type = StatefulSetUpdateStrategyType(dAtA[iNdEx:postIndex])
+>>>>>>> moar deps
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -7217,10 +7478,14 @@ func (m *DaemonSetUpdateStrategy) Unmarshal(dAtA []byte) error {
 			}
 			if m.RollingUpdate == nil {
 <<<<<<< HEAD
+<<<<<<< HEAD
 				m.RollingUpdate = &RollingUpdateStatefulSetStrategy{}
 =======
 				m.RollingUpdate = &RollingUpdateDaemonSet{}
 >>>>>>> Initial dep workover
+=======
+				m.RollingUpdate = &RollingUpdateStatefulSetStrategy{}
+>>>>>>> moar deps
 			}
 			if err := m.RollingUpdate.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
@@ -7247,6 +7512,7 @@ func (m *DaemonSetUpdateStrategy) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 func (m *RollingUpdateDaemonSet) Unmarshal(dAtA []byte) error {
@@ -7333,6 +7599,8 @@ func (m *RollingUpdateDaemonSet) Unmarshal(dAtA []byte) error {
 	return nil
 }
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func skipGenerated(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0
@@ -7444,6 +7712,9 @@ func init() {
 
 var fileDescriptorGenerated = []byte{
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	// 2051 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x5a, 0xcd, 0x6f, 0x24, 0x47,
 	0x1d, 0x75, 0xcf, 0x87, 0x3d, 0x2e, 0xaf, 0xed, 0xdd, 0xb2, 0xb1, 0x27, 0xbb, 0x64, 0x66, 0x19,
@@ -7574,6 +7845,7 @@ var fileDescriptorGenerated = []byte{
 	0x9a, 0xf2, 0xd1, 0xb8, 0xa6, 0x7c, 0x3c, 0xae, 0x29, 0xff, 0x1c, 0xd7, 0x94, 0xdf, 0x7e, 0x52,
 	0x9b, 0x79, 0x58, 0x18, 0x6e, 0xfe, 0x2f, 0x00, 0x00, 0xff, 0xff, 0x70, 0x5f, 0xbf, 0x58, 0x3d,
 	0x26, 0x00, 0x00,
+<<<<<<< HEAD
 =======
 	// 928 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x95, 0xcf, 0x73, 0xdb, 0x44,
@@ -7635,4 +7907,6 @@ var fileDescriptorGenerated = []byte{
 	0x62, 0x6a, 0x19, 0x2f, 0xa7, 0x96, 0xf1, 0xf7, 0xd4, 0x32, 0xfe, 0xf8, 0xc7, 0xaa, 0x7c, 0xbf,
 	0x31, 0xea, 0xfc, 0x1f, 0x00, 0x00, 0xff, 0xff, 0x89, 0x78, 0x09, 0x33, 0x43, 0x09, 0x00, 0x00,
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 }

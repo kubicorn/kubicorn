@@ -735,6 +735,9 @@ func (m *SubjectAccessReviewStatus) MarshalTo(dAtA []byte) (int, error) {
 	i = encodeVarintGenerated(dAtA, i, uint64(len(m.EvaluationError)))
 	i += copy(dAtA[i:], m.EvaluationError)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	dAtA[i] = 0x20
 	i++
 	if m.Denied {
@@ -743,8 +746,11 @@ func (m *SubjectAccessReviewStatus) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0
 	}
 	i++
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 	return i, nil
 }
 
@@ -1031,9 +1037,13 @@ func (m *SubjectAccessReviewStatus) Size() (n int) {
 	l = len(m.EvaluationError)
 	n += 1 + l + sovGenerated(uint64(l))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n += 2
 =======
 >>>>>>> Initial dep workover
+=======
+	n += 2
+>>>>>>> moar deps
 	return n
 }
 
@@ -1225,9 +1235,13 @@ func (this *SubjectAccessReviewStatus) String() string {
 		`Reason:` + fmt.Sprintf("%v", this.Reason) + `,`,
 		`EvaluationError:` + fmt.Sprintf("%v", this.EvaluationError) + `,`,
 <<<<<<< HEAD
+<<<<<<< HEAD
 		`Denied:` + fmt.Sprintf("%v", this.Denied) + `,`,
 =======
 >>>>>>> Initial dep workover
+=======
+		`Denied:` + fmt.Sprintf("%v", this.Denied) + `,`,
+>>>>>>> moar deps
 		`}`,
 	}, "")
 	return s
@@ -3154,6 +3168,9 @@ func (m *SubjectAccessReviewStatus) Unmarshal(dAtA []byte) error {
 			m.EvaluationError = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Denied", wireType)
@@ -3174,8 +3191,11 @@ func (m *SubjectAccessReviewStatus) Unmarshal(dAtA []byte) error {
 				}
 			}
 			m.Denied = bool(v != 0)
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenerated(dAtA[iNdEx:])
@@ -3469,6 +3489,9 @@ func init() {
 
 var fileDescriptorGenerated = []byte{
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	// 1154 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x56, 0x4d, 0x6f, 0x1b, 0xc5,
 	0x1b, 0xf7, 0xfa, 0x25, 0xb1, 0xc7, 0xcd, 0x3f, 0xe9, 0x44, 0x69, 0xb6, 0xf9, 0x0b, 0xdb, 0x32,
@@ -3543,6 +3566,7 @@ var fileDescriptorGenerated = []byte{
 	0xf6, 0x32, 0x28, 0x69, 0xe7, 0x41, 0x49, 0xfb, 0x2b, 0x28, 0x69, 0x3f, 0xfc, 0x5d, 0x4a, 0x7d,
 	0x36, 0xaf, 0x6e, 0xf8, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xcc, 0xb3, 0x5e, 0x05, 0xd9, 0x0f,
 	0x00, 0x00,
+<<<<<<< HEAD
 =======
 	// 1139 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x56, 0xcf, 0x6f, 0x1b, 0x45,
@@ -3618,4 +3642,6 @@ var fileDescriptorGenerated = []byte{
 	0xe6, 0x8b, 0x59, 0x75, 0xc3, 0xff, 0x03, 0x00, 0x00, 0xff, 0xff, 0x29, 0xa9, 0x9d, 0x7c, 0xb1,
 	0x0f, 0x00, 0x00,
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 }

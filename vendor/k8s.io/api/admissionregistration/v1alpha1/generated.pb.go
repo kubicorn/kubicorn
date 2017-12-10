@@ -30,21 +30,27 @@ limitations under the License.
 
 	It has these top-level messages:
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		AdmissionHookClientConfig
 		ExternalAdmissionHook
 		ExternalAdmissionHookConfiguration
 		ExternalAdmissionHookConfigurationList
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 		Initializer
 		InitializerConfiguration
 		InitializerConfigurationList
 		Rule
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		RuleWithOperations
 		ServiceReference
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 */
 package v1alpha1
 
@@ -68,6 +74,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (m *Initializer) Reset()                    { *m = Initializer{} }
 func (*Initializer) ProtoMessage()               {}
@@ -101,29 +108,43 @@ func (m *Initializer) Reset()                    { *m = Initializer{} }
 func (*Initializer) ProtoMessage()               {}
 func (*Initializer) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{4} }
 >>>>>>> Initial dep workover
+=======
+func (m *Initializer) Reset()                    { *m = Initializer{} }
+func (*Initializer) ProtoMessage()               {}
+func (*Initializer) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{0} }
+>>>>>>> moar deps
 
 func (m *InitializerConfiguration) Reset()      { *m = InitializerConfiguration{} }
 func (*InitializerConfiguration) ProtoMessage() {}
 func (*InitializerConfiguration) Descriptor() ([]byte, []int) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return fileDescriptorGenerated, []int{1}
 =======
 	return fileDescriptorGenerated, []int{5}
 >>>>>>> Initial dep workover
+=======
+	return fileDescriptorGenerated, []int{1}
+>>>>>>> moar deps
 }
 
 func (m *InitializerConfigurationList) Reset()      { *m = InitializerConfigurationList{} }
 func (*InitializerConfigurationList) ProtoMessage() {}
 func (*InitializerConfigurationList) Descriptor() ([]byte, []int) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return fileDescriptorGenerated, []int{2}
 =======
 	return fileDescriptorGenerated, []int{6}
 >>>>>>> Initial dep workover
+=======
+	return fileDescriptorGenerated, []int{2}
+>>>>>>> moar deps
 }
 
 func (m *Rule) Reset()                    { *m = Rule{} }
 func (*Rule) ProtoMessage()               {}
+<<<<<<< HEAD
 <<<<<<< HEAD
 func (*Rule) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{3} }
 
@@ -145,10 +166,16 @@ func init() {
 	proto.RegisterType((*ExternalAdmissionHookConfiguration)(nil), "k8s.io.api.admissionregistration.v1alpha1.ExternalAdmissionHookConfiguration")
 	proto.RegisterType((*ExternalAdmissionHookConfigurationList)(nil), "k8s.io.api.admissionregistration.v1alpha1.ExternalAdmissionHookConfigurationList")
 >>>>>>> Initial dep workover
+=======
+func (*Rule) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{3} }
+
+func init() {
+>>>>>>> moar deps
 	proto.RegisterType((*Initializer)(nil), "k8s.io.api.admissionregistration.v1alpha1.Initializer")
 	proto.RegisterType((*InitializerConfiguration)(nil), "k8s.io.api.admissionregistration.v1alpha1.InitializerConfiguration")
 	proto.RegisterType((*InitializerConfigurationList)(nil), "k8s.io.api.admissionregistration.v1alpha1.InitializerConfigurationList")
 	proto.RegisterType((*Rule)(nil), "k8s.io.api.admissionregistration.v1alpha1.Rule")
+<<<<<<< HEAD
 <<<<<<< HEAD
 }
 =======
@@ -312,6 +339,9 @@ func (m *ExternalAdmissionHookConfigurationList) MarshalTo(dAtA []byte) (int, er
 }
 
 >>>>>>> Initial dep workover
+=======
+}
+>>>>>>> moar deps
 func (m *Initializer) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -365,6 +395,7 @@ func (m *InitializerConfiguration) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n1, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -377,6 +408,13 @@ func (m *InitializerConfiguration) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n5
 >>>>>>> Initial dep workover
+=======
+	n1, err := m.ObjectMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n1
+>>>>>>> moar deps
 	if len(m.Initializers) > 0 {
 		for _, msg := range m.Initializers {
 			dAtA[i] = 0x12
@@ -411,6 +449,7 @@ func (m *InitializerConfigurationList) MarshalTo(dAtA []byte) (int, error) {
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
 <<<<<<< HEAD
+<<<<<<< HEAD
 	n2, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
@@ -423,6 +462,13 @@ func (m *InitializerConfigurationList) MarshalTo(dAtA []byte) (int, error) {
 	}
 	i += n6
 >>>>>>> Initial dep workover
+=======
+	n2, err := m.ListMeta.MarshalTo(dAtA[i:])
+	if err != nil {
+		return 0, err
+	}
+	i += n2
+>>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -502,6 +548,7 @@ func (m *Rule) MarshalTo(dAtA []byte) (int, error) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func (m *RuleWithOperations) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
@@ -571,6 +618,8 @@ func (m *ServiceReference) MarshalTo(dAtA []byte) (int, error) {
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func encodeFixed64Generated(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	dAtA[offset+1] = uint8(v >> 8)
@@ -598,6 +647,7 @@ func encodeVarintGenerated(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return offset + 1
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 func (m *AdmissionHookClientConfig) Size() (n int) {
@@ -661,6 +711,8 @@ func (m *ExternalAdmissionHookConfigurationList) Size() (n int) {
 }
 
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func (m *Initializer) Size() (n int) {
 	var l int
 	_ = l
@@ -728,6 +780,7 @@ func (m *Rule) Size() (n int) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func sovGenerated(x uint64) (n int) {
 	for {
 		n++
@@ -765,6 +818,8 @@ func (m *ServiceReference) Size() (n int) {
 	return n
 }
 
+=======
+>>>>>>> moar deps
 func sovGenerated(x uint64) (n int) {
 	for {
 		n++
@@ -778,6 +833,7 @@ func sovGenerated(x uint64) (n int) {
 func sozGenerated(x uint64) (n int) {
 	return sovGenerated(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
+<<<<<<< HEAD
 func (this *AdmissionHookClientConfig) String() string {
 	if this == nil {
 		return "nil"
@@ -825,6 +881,8 @@ func (this *ExternalAdmissionHookConfigurationList) String() string {
 	return s
 >>>>>>> Initial dep workover
 }
+=======
+>>>>>>> moar deps
 func (this *Initializer) String() string {
 	if this == nil {
 		return "nil"
@@ -839,6 +897,7 @@ func (this *Initializer) String() string {
 func (this *InitializerConfiguration) String() string {
 	if this == nil {
 		return "nil"
+<<<<<<< HEAD
 	}
 	s := strings.Join([]string{`&InitializerConfiguration{`,
 		`ObjectMeta:` + strings.Replace(strings.Replace(this.ObjectMeta.String(), "ObjectMeta", "k8s_io_apimachinery_pkg_apis_meta_v1.ObjectMeta", 1), `&`, ``, 1) + `,`,
@@ -1420,6 +1479,46 @@ func (m *ExternalAdmissionHookConfigurationList) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 >>>>>>> Initial dep workover
+=======
+	}
+	s := strings.Join([]string{`&InitializerConfiguration{`,
+		`ObjectMeta:` + strings.Replace(strings.Replace(this.ObjectMeta.String(), "ObjectMeta", "k8s_io_apimachinery_pkg_apis_meta_v1.ObjectMeta", 1), `&`, ``, 1) + `,`,
+		`Initializers:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Initializers), "Initializer", "Initializer", 1), `&`, ``, 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *InitializerConfigurationList) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&InitializerConfigurationList{`,
+		`ListMeta:` + strings.Replace(strings.Replace(this.ListMeta.String(), "ListMeta", "k8s_io_apimachinery_pkg_apis_meta_v1.ListMeta", 1), `&`, ``, 1) + `,`,
+		`Items:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Items), "InitializerConfiguration", "InitializerConfiguration", 1), `&`, ``, 1) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *Rule) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&Rule{`,
+		`APIGroups:` + fmt.Sprintf("%v", this.APIGroups) + `,`,
+		`APIVersions:` + fmt.Sprintf("%v", this.APIVersions) + `,`,
+		`Resources:` + fmt.Sprintf("%v", this.Resources) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func valueToStringGenerated(v interface{}) string {
+	rv := reflect.ValueOf(v)
+	if rv.IsNil() {
+		return "nil"
+	}
+	pv := reflect.Indirect(rv).Interface()
+	return fmt.Sprintf("*%v", pv)
+>>>>>>> moar deps
 }
 func (m *Initializer) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -1891,6 +1990,7 @@ func (m *Rule) Unmarshal(dAtA []byte) error {
 	return nil
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 func (m *RuleWithOperations) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -2110,6 +2210,8 @@ func (m *ServiceReference) Unmarshal(dAtA []byte) error {
 	return nil
 }
 >>>>>>> Initial dep workover
+=======
+>>>>>>> moar deps
 func skipGenerated(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0
@@ -2222,6 +2324,9 @@ func init() {
 var fileDescriptorGenerated = []byte{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 	// 545 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x51, 0x4d, 0x8b, 0x13, 0x3f,
 	0x18, 0x6f, 0xfe, 0xdb, 0x42, 0x9b, 0x76, 0xf9, 0xcb, 0xe0, 0xa1, 0x14, 0x99, 0x96, 0x9e, 0x2a,
@@ -2258,6 +2363,7 @@ var fileDescriptorGenerated = []byte{
 	0x76, 0xd1, 0x45, 0xec, 0xa2, 0xcb, 0xd8, 0x45, 0x5f, 0x63, 0x17, 0x7d, 0xfe, 0xe6, 0x56, 0x5e,
 	0xd7, 0xf3, 0xd2, 0x3f, 0x03, 0x00, 0x00, 0xff, 0xff, 0x1d, 0xfb, 0x23, 0x89, 0xaa, 0x04, 0x00,
 	0x00,
+<<<<<<< HEAD
 =======
 	// 893 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x55, 0xcf, 0x8b, 0x23, 0x45,
@@ -2375,4 +2481,6 @@ var fileDescriptorGenerated = []byte{
 	0x86, 0x7e, 0xfe, 0x4b, 0xab, 0x7c, 0x55, 0x2f, 0xf4, 0xfe, 0x17, 0x00, 0x00, 0xff, 0xff, 0xe7,
 	0xb5, 0x5f, 0xd5, 0xfb, 0x09, 0x00, 0x00,
 >>>>>>> Working on getting compiling
+=======
+>>>>>>> moar deps
 }

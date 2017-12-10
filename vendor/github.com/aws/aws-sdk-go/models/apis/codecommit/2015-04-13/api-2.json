@@ -134,10 +134,6 @@
         {"shape":"EncryptionKeyUnavailableException"}
       ]
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DeleteCommentContent":{
       "name":"DeleteCommentContent",
       "http":{
@@ -153,11 +149,6 @@
         {"shape":"CommentDeletedException"}
       ]
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DeleteRepository":{
       "name":"DeleteRepository",
       "http":{
@@ -1125,10 +1116,6 @@
         "deletedBranch":{"shape":"BranchInfo"}
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "DeleteCommentContentInput":{
       "type":"structure",
       "required":["commentId"],
@@ -1142,11 +1129,6 @@
         "comment":{"shape":"Comment"}
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "DeleteRepositoryInput":{
       "type":"structure",
       "required":["repositoryName"],

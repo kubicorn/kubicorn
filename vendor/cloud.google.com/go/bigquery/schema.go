@@ -141,7 +141,6 @@ func InferSchema(st interface{}) (Schema, error) {
 	return inferSchemaReflectCached(reflect.TypeOf(st))
 }
 
-// TODO(jba): replace with sync.Map for Go 1.9.
 var schemaCache atomiccache.Cache
 
 type cacheVal struct {
@@ -185,21 +184,21 @@ func inferStruct(t reflect.Type) (Schema, error) {
 }
 
 // inferFieldSchema infers the FieldSchema for a Go type
-func inferFieldSchema(rt reflect.Type, nullable bool) (*FieldSchema, error) {
+func inferFieldSchema(rt reflect.Type) (*FieldSchema, error) {
 	switch rt {
 	case typeOfByteSlice:
-		return &FieldSchema{Required: !nullable, Type: BytesFieldType}, nil
+		return &FieldSchema{Required: true, Type: BytesFieldType}, nil
 	case typeOfGoTime:
-		return &FieldSchema{Required: !nullable, Type: TimestampFieldType}, nil
+		return &FieldSchema{Required: true, Type: TimestampFieldType}, nil
 	case typeOfDate:
-		return &FieldSchema{Required: !nullable, Type: DateFieldType}, nil
+		return &FieldSchema{Required: true, Type: DateFieldType}, nil
 	case typeOfTime:
-		return &FieldSchema{Required: !nullable, Type: TimeFieldType}, nil
+		return &FieldSchema{Required: true, Type: TimeFieldType}, nil
 	case typeOfDateTime:
-		return &FieldSchema{Required: !nullable, Type: DateTimeFieldType}, nil
+		return &FieldSchema{Required: true, Type: DateTimeFieldType}, nil
 	}
 	if isSupportedIntType(rt) {
-		return &FieldSchema{Required: !nullable, Type: IntegerFieldType}, nil
+		return &FieldSchema{Required: true, Type: IntegerFieldType}, nil
 	}
 	switch rt.Kind() {
 	case reflect.Slice, reflect.Array:
@@ -209,7 +208,7 @@ func inferFieldSchema(rt reflect.Type, nullable bool) (*FieldSchema, error) {
 			return nil, errUnsupportedFieldType
 		}
 
-		f, err := inferFieldSchema(et, false)
+		f, err := inferFieldSchema(et)
 		if err != nil {
 			return nil, err
 		}
@@ -221,13 +220,13 @@ func inferFieldSchema(rt reflect.Type, nullable bool) (*FieldSchema, error) {
 		if err != nil {
 			return nil, err
 		}
-		return &FieldSchema{Required: !nullable, Type: RecordFieldType, Schema: nested}, nil
+		return &FieldSchema{Required: true, Type: RecordFieldType, Schema: nested}, nil
 	case reflect.String:
-		return &FieldSchema{Required: !nullable, Type: StringFieldType}, nil
+		return &FieldSchema{Required: true, Type: StringFieldType}, nil
 	case reflect.Bool:
-		return &FieldSchema{Required: !nullable, Type: BooleanFieldType}, nil
+		return &FieldSchema{Required: true, Type: BooleanFieldType}, nil
 	case reflect.Float32, reflect.Float64:
-		return &FieldSchema{Required: !nullable, Type: FloatFieldType}, nil
+		return &FieldSchema{Required: true, Type: FloatFieldType}, nil
 	default:
 		return nil, errUnsupportedFieldType
 	}
@@ -241,14 +240,7 @@ func inferFields(rt reflect.Type) (Schema, error) {
 		return nil, err
 	}
 	for _, field := range fields {
-		var nullable bool
-		for _, opt := range field.ParsedTag.([]string) {
-			if opt == nullableTagOption {
-				nullable = true
-				break
-			}
-		}
-		f, err := inferFieldSchema(field.Type, nullable)
+		f, err := inferFieldSchema(field.Type)
 		if err != nil {
 			return nil, err
 		}

@@ -580,7 +580,6 @@ const opCreateDomainName = "CreateDomainName"
 // client's request for the CreateDomainName operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -588,15 +587,6 @@ const opCreateDomainName = "CreateDomainName"
 // See CreateDomainName for more information on using the CreateDomainName
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateDomainName for more information on using the CreateDomainName
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -678,7 +668,6 @@ const opCreateModel = "CreateModel"
 // client's request for the CreateModel operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -686,15 +675,6 @@ const opCreateModel = "CreateModel"
 // See CreateModel for more information on using the CreateModel
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateModel for more information on using the CreateModel
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -782,7 +762,6 @@ const opCreateRequestValidator = "CreateRequestValidator"
 // client's request for the CreateRequestValidator operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -790,15 +769,6 @@ const opCreateRequestValidator = "CreateRequestValidator"
 // See CreateRequestValidator for more information on using the CreateRequestValidator
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateRequestValidator for more information on using the CreateRequestValidator
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -882,7 +852,6 @@ const opCreateResource = "CreateResource"
 // client's request for the CreateResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -890,15 +859,6 @@ const opCreateResource = "CreateResource"
 // See CreateResource for more information on using the CreateResource
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateResource for more information on using the CreateResource
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -986,7 +946,6 @@ const opCreateRestApi = "CreateRestApi"
 // client's request for the CreateRestApi operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -994,15 +953,6 @@ const opCreateRestApi = "CreateRestApi"
 // See CreateRestApi for more information on using the CreateRestApi
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateRestApi for more information on using the CreateRestApi
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1083,7 +1033,6 @@ const opCreateStage = "CreateStage"
 // client's request for the CreateStage operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1091,15 +1040,6 @@ const opCreateStage = "CreateStage"
 // See CreateStage for more information on using the CreateStage
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateStage for more information on using the CreateStage
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1188,7 +1128,6 @@ const opCreateUsagePlan = "CreateUsagePlan"
 // client's request for the CreateUsagePlan operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1196,15 +1135,6 @@ const opCreateUsagePlan = "CreateUsagePlan"
 // See CreateUsagePlan for more information on using the CreateUsagePlan
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See CreateUsagePlan for more information on using the CreateUsagePlan
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1744,7 +1674,6 @@ const opDeleteClientCertificate = "DeleteClientCertificate"
 // client's request for the DeleteClientCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1752,15 +1681,6 @@ const opDeleteClientCertificate = "DeleteClientCertificate"
 // See DeleteClientCertificate for more information on using the DeleteClientCertificate
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteClientCertificate for more information on using the DeleteClientCertificate
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1843,7 +1763,6 @@ const opDeleteDeployment = "DeleteDeployment"
 // client's request for the DeleteDeployment operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1851,15 +1770,6 @@ const opDeleteDeployment = "DeleteDeployment"
 // See DeleteDeployment for more information on using the DeleteDeployment
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteDeployment for more information on using the DeleteDeployment
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2210,7 +2120,6 @@ const opDeleteGatewayResponse = "DeleteGatewayResponse"
 // client's request for the DeleteGatewayResponse operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2218,15 +2127,6 @@ const opDeleteGatewayResponse = "DeleteGatewayResponse"
 // See DeleteGatewayResponse for more information on using the DeleteGatewayResponse
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteGatewayResponse for more information on using the DeleteGatewayResponse
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2314,7 +2214,6 @@ const opDeleteIntegration = "DeleteIntegration"
 // client's request for the DeleteIntegration operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2322,15 +2221,6 @@ const opDeleteIntegration = "DeleteIntegration"
 // See DeleteIntegration for more information on using the DeleteIntegration
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteIntegration for more information on using the DeleteIntegration
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2413,7 +2303,6 @@ const opDeleteIntegrationResponse = "DeleteIntegrationResponse"
 // client's request for the DeleteIntegrationResponse operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2421,15 +2310,6 @@ const opDeleteIntegrationResponse = "DeleteIntegrationResponse"
 // See DeleteIntegrationResponse for more information on using the DeleteIntegrationResponse
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteIntegrationResponse for more information on using the DeleteIntegrationResponse
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2516,7 +2396,6 @@ const opDeleteMethod = "DeleteMethod"
 // client's request for the DeleteMethod operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2524,15 +2403,6 @@ const opDeleteMethod = "DeleteMethod"
 // See DeleteMethod for more information on using the DeleteMethod
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteMethod for more information on using the DeleteMethod
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2615,7 +2485,6 @@ const opDeleteMethodResponse = "DeleteMethodResponse"
 // client's request for the DeleteMethodResponse operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2623,15 +2492,6 @@ const opDeleteMethodResponse = "DeleteMethodResponse"
 // See DeleteMethodResponse for more information on using the DeleteMethodResponse
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteMethodResponse for more information on using the DeleteMethodResponse
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2718,7 +2578,6 @@ const opDeleteModel = "DeleteModel"
 // client's request for the DeleteModel operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2726,15 +2585,6 @@ const opDeleteModel = "DeleteModel"
 // See DeleteModel for more information on using the DeleteModel
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteModel for more information on using the DeleteModel
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2821,7 +2671,6 @@ const opDeleteRequestValidator = "DeleteRequestValidator"
 // client's request for the DeleteRequestValidator operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2829,15 +2678,6 @@ const opDeleteRequestValidator = "DeleteRequestValidator"
 // See DeleteRequestValidator for more information on using the DeleteRequestValidator
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteRequestValidator for more information on using the DeleteRequestValidator
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3195,7 +3035,6 @@ const opDeleteUsagePlan = "DeleteUsagePlan"
 // client's request for the DeleteUsagePlan operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3203,15 +3042,6 @@ const opDeleteUsagePlan = "DeleteUsagePlan"
 // See DeleteUsagePlan for more information on using the DeleteUsagePlan
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteUsagePlan for more information on using the DeleteUsagePlan
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3294,7 +3124,6 @@ const opDeleteUsagePlanKey = "DeleteUsagePlanKey"
 // client's request for the DeleteUsagePlanKey operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3302,15 +3131,6 @@ const opDeleteUsagePlanKey = "DeleteUsagePlanKey"
 // See DeleteUsagePlanKey for more information on using the DeleteUsagePlanKey
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteUsagePlanKey for more information on using the DeleteUsagePlanKey
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3393,98 +3213,6 @@ func (c *APIGateway) DeleteUsagePlanKeyWithContext(ctx aws.Context, input *Delet
 }
 
 const opDeleteVpcLink = "DeleteVpcLink"
-<<<<<<< HEAD
-=======
-
-// DeleteVpcLinkRequest generates a "aws/request.Request" representing the
-// client's request for the DeleteVpcLink operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DeleteVpcLink for more information on using the DeleteVpcLink
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the DeleteVpcLinkRequest method.
-//    req, resp := client.DeleteVpcLinkRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-func (c *APIGateway) DeleteVpcLinkRequest(input *DeleteVpcLinkInput) (req *request.Request, output *DeleteVpcLinkOutput) {
-	op := &request.Operation{
-		Name:       opDeleteVpcLink,
-		HTTPMethod: "DELETE",
-		HTTPPath:   "/vpclinks/{vpclink_id}",
-	}
-
-	if input == nil {
-		input = &DeleteVpcLinkInput{}
-	}
-
-	output = &DeleteVpcLinkOutput{}
-	req = c.newRequest(op, input, output)
-	req.Handlers.Unmarshal.Remove(restjson.UnmarshalHandler)
-	req.Handlers.Unmarshal.PushBackNamed(protocol.UnmarshalDiscardBodyHandler)
-	return
-}
-
-// DeleteVpcLink API operation for Amazon API Gateway.
-//
-// Deletes an existing VpcLink of a specified identifier.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for Amazon API Gateway's
-// API operation DeleteVpcLink for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeUnauthorizedException "UnauthorizedException"
-//   The request is denied because the caller has insufficient permissions.
-//
-//   * ErrCodeNotFoundException "NotFoundException"
-//   The requested resource is not found. Make sure that the request URI is correct.
-//
-//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-//   The request has reached its throttling limit. Retry after the specified time
-//   period.
-//
-//   * ErrCodeBadRequestException "BadRequestException"
-//   The submitted request is not valid, for example, the input is incomplete
-//   or incorrect. See the accompanying error message for details.
-//
-func (c *APIGateway) DeleteVpcLink(input *DeleteVpcLinkInput) (*DeleteVpcLinkOutput, error) {
-	req, out := c.DeleteVpcLinkRequest(input)
-	return out, req.Send()
-}
-
-// DeleteVpcLinkWithContext is the same as DeleteVpcLink with the addition of
-// the ability to pass a context and additional request options.
-//
-// See DeleteVpcLink for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *APIGateway) DeleteVpcLinkWithContext(ctx aws.Context, input *DeleteVpcLinkInput, opts ...request.Option) (*DeleteVpcLinkOutput, error) {
-	req, out := c.DeleteVpcLinkRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opFlushStageAuthorizersCache = "FlushStageAuthorizersCache"
->>>>>>> Working on getting compiling
 
 // DeleteVpcLinkRequest generates a "aws/request.Request" representing the
 // client's request for the DeleteVpcLink operation. The "output" return
@@ -3579,7 +3307,6 @@ const opFlushStageAuthorizersCache = "FlushStageAuthorizersCache"
 // client's request for the FlushStageAuthorizersCache operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -3587,15 +3314,6 @@ const opFlushStageAuthorizersCache = "FlushStageAuthorizersCache"
 // See FlushStageAuthorizersCache for more information on using the FlushStageAuthorizersCache
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See FlushStageAuthorizersCache for more information on using the FlushStageAuthorizersCache
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4330,7 +4048,6 @@ const opGetBasePathMapping = "GetBasePathMapping"
 // client's request for the GetBasePathMapping operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4338,15 +4055,6 @@ const opGetBasePathMapping = "GetBasePathMapping"
 // See GetBasePathMapping for more information on using the GetBasePathMapping
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetBasePathMapping for more information on using the GetBasePathMapping
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4423,7 +4131,6 @@ const opGetBasePathMappings = "GetBasePathMappings"
 // client's request for the GetBasePathMappings operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4431,15 +4138,6 @@ const opGetBasePathMappings = "GetBasePathMappings"
 // See GetBasePathMappings for more information on using the GetBasePathMappings
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetBasePathMappings for more information on using the GetBasePathMappings
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -4572,7 +4270,6 @@ const opGetClientCertificate = "GetClientCertificate"
 // client's request for the GetClientCertificate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -4580,15 +4277,6 @@ const opGetClientCertificate = "GetClientCertificate"
 // See GetClientCertificate for more information on using the GetClientCertificate
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetClientCertificate for more information on using the GetClientCertificate
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5036,7 +4724,6 @@ const opGetDocumentationPart = "GetDocumentationPart"
 // client's request for the GetDocumentationPart operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5044,15 +4731,6 @@ const opGetDocumentationPart = "GetDocumentationPart"
 // See GetDocumentationPart for more information on using the GetDocumentationPart
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetDocumentationPart for more information on using the GetDocumentationPart
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5127,7 +4805,6 @@ const opGetDocumentationParts = "GetDocumentationParts"
 // client's request for the GetDocumentationParts operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5135,15 +4812,6 @@ const opGetDocumentationParts = "GetDocumentationParts"
 // See GetDocumentationParts for more information on using the GetDocumentationParts
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetDocumentationParts for more information on using the GetDocumentationParts
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5222,7 +4890,6 @@ const opGetDocumentationVersion = "GetDocumentationVersion"
 // client's request for the GetDocumentationVersion operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5230,15 +4897,6 @@ const opGetDocumentationVersion = "GetDocumentationVersion"
 // See GetDocumentationVersion for more information on using the GetDocumentationVersion
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetDocumentationVersion for more information on using the GetDocumentationVersion
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5313,7 +4971,6 @@ const opGetDocumentationVersions = "GetDocumentationVersions"
 // client's request for the GetDocumentationVersions operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5321,15 +4978,6 @@ const opGetDocumentationVersions = "GetDocumentationVersions"
 // See GetDocumentationVersions for more information on using the GetDocumentationVersions
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetDocumentationVersions for more information on using the GetDocumentationVersions
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5408,7 +5056,6 @@ const opGetDomainName = "GetDomainName"
 // client's request for the GetDomainName operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5416,15 +5063,6 @@ const opGetDomainName = "GetDomainName"
 // See GetDomainName for more information on using the GetDomainName
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetDomainName for more information on using the GetDomainName
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5506,7 +5144,6 @@ const opGetDomainNames = "GetDomainNames"
 // client's request for the GetDomainNames operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5514,15 +5151,6 @@ const opGetDomainNames = "GetDomainNames"
 // See GetDomainNames for more information on using the GetDomainNames
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetDomainNames for more information on using the GetDomainNames
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -5656,7 +5284,6 @@ const opGetExport = "GetExport"
 // client's request for the GetExport operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -5664,15 +5291,6 @@ const opGetExport = "GetExport"
 // See GetExport for more information on using the GetExport
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetExport for more information on using the GetExport
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6345,7 +5963,6 @@ const opGetModelTemplate = "GetModelTemplate"
 // client's request for the GetModelTemplate operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6353,15 +5970,6 @@ const opGetModelTemplate = "GetModelTemplate"
 // See GetModelTemplate for more information on using the GetModelTemplate
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetModelTemplate for more information on using the GetModelTemplate
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6443,7 +6051,6 @@ const opGetModels = "GetModels"
 // client's request for the GetModels operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6451,15 +6058,6 @@ const opGetModels = "GetModels"
 // See GetModels for more information on using the GetModels
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetModels for more information on using the GetModels
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6596,7 +6194,6 @@ const opGetRequestValidator = "GetRequestValidator"
 // client's request for the GetRequestValidator operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6604,15 +6201,6 @@ const opGetRequestValidator = "GetRequestValidator"
 // See GetRequestValidator for more information on using the GetRequestValidator
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetRequestValidator for more information on using the GetRequestValidator
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6689,7 +6277,6 @@ const opGetRequestValidators = "GetRequestValidators"
 // client's request for the GetRequestValidators operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6697,15 +6284,6 @@ const opGetRequestValidators = "GetRequestValidators"
 // See GetRequestValidators for more information on using the GetRequestValidators
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetRequestValidators for more information on using the GetRequestValidators
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6786,7 +6364,6 @@ const opGetResource = "GetResource"
 // client's request for the GetResource operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6794,15 +6371,6 @@ const opGetResource = "GetResource"
 // See GetResource for more information on using the GetResource
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetResource for more information on using the GetResource
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -6879,7 +6447,6 @@ const opGetResources = "GetResources"
 // client's request for the GetResources operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -6887,15 +6454,6 @@ const opGetResources = "GetResources"
 // See GetResources for more information on using the GetResources
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetResources for more information on using the GetResources
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7032,7 +6590,6 @@ const opGetRestApi = "GetRestApi"
 // client's request for the GetRestApi operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7040,15 +6597,6 @@ const opGetRestApi = "GetRestApi"
 // See GetRestApi for more information on using the GetRestApi
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetRestApi for more information on using the GetRestApi
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7437,7 +6985,6 @@ const opGetSdkTypes = "GetSdkTypes"
 // client's request for the GetSdkTypes operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7445,15 +6992,6 @@ const opGetSdkTypes = "GetSdkTypes"
 // See GetSdkTypes for more information on using the GetSdkTypes
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetSdkTypes for more information on using the GetSdkTypes
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7525,7 +7063,6 @@ const opGetStage = "GetStage"
 // client's request for the GetStage operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7533,15 +7070,6 @@ const opGetStage = "GetStage"
 // See GetStage for more information on using the GetStage
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetStage for more information on using the GetStage
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -7618,7 +7146,6 @@ const opGetStages = "GetStages"
 // client's request for the GetStages operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -7626,15 +7153,6 @@ const opGetStages = "GetStages"
 // See GetStages for more information on using the GetStages
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetStages for more information on using the GetStages
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -8315,290 +7833,6 @@ func (c *APIGateway) GetUsagePlansPagesWithContext(ctx aws.Context, input *GetUs
 
 const opGetVpcLink = "GetVpcLink"
 
-<<<<<<< HEAD
-// GetVpcLinkRequest generates a "aws/request.Request" representing the
-// client's request for the GetVpcLink operation. The "output" return
-=======
-// ImportApiKeysRequest generates a "aws/request.Request" representing the
-// client's request for the ImportApiKeys operation. The "output" return
->>>>>>> Initial dep workover
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-<<<<<<< HEAD
-// See GetVpcLink for more information on using the GetVpcLink
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// See ImportApiKeys for more information on using the ImportApiKeys
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-//
-//    // Example sending a request using the GetVpcLinkRequest method.
-//    req, resp := client.GetVpcLinkRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-func (c *APIGateway) GetVpcLinkRequest(input *GetVpcLinkInput) (req *request.Request, output *UpdateVpcLinkOutput) {
-	op := &request.Operation{
-		Name:       opGetVpcLink,
-		HTTPMethod: "GET",
-		HTTPPath:   "/vpclinks/{vpclink_id}",
-	}
-
-	if input == nil {
-		input = &GetVpcLinkInput{}
-	}
-
-	output = &UpdateVpcLinkOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// GetVpcLink API operation for Amazon API Gateway.
-//
-// Gets a specified VPC link under the caller's account in a region.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for Amazon API Gateway's
-// API operation GetVpcLink for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeUnauthorizedException "UnauthorizedException"
-//   The request is denied because the caller has insufficient permissions.
-//
-//   * ErrCodeNotFoundException "NotFoundException"
-//   The requested resource is not found. Make sure that the request URI is correct.
-//
-//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-//   The request has reached its throttling limit. Retry after the specified time
-//   period.
-//
-<<<<<<< HEAD
-func (c *APIGateway) GetVpcLink(input *GetVpcLinkInput) (*UpdateVpcLinkOutput, error) {
-	req, out := c.GetVpcLinkRequest(input)
-=======
-//   * ErrCodeLimitExceededException "LimitExceededException"
-//   The request exceeded the rate limit. Retry after the specified time period.
-//
-//   * ErrCodeBadRequestException "BadRequestException"
-//   The submitted request is not valid, for example, the input is incomplete
-//   or incorrect. See the accompanying error message for details.
-//
-//   * ErrCodeConflictException "ConflictException"
-//   The request configuration has conflicts. For details, see the accompanying
-//   error message.
-//
-func (c *APIGateway) ImportApiKeys(input *ImportApiKeysInput) (*ImportApiKeysOutput, error) {
-	req, out := c.ImportApiKeysRequest(input)
->>>>>>> Initial dep workover
-	return out, req.Send()
-}
-
-// GetVpcLinkWithContext is the same as GetVpcLink with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetVpcLink for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *APIGateway) GetVpcLinkWithContext(ctx aws.Context, input *GetVpcLinkInput, opts ...request.Option) (*UpdateVpcLinkOutput, error) {
-	req, out := c.GetVpcLinkRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-const opGetVpcLinks = "GetVpcLinks"
-
-<<<<<<< HEAD
-// GetVpcLinksRequest generates a "aws/request.Request" representing the
-// client's request for the GetVpcLinks operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See GetVpcLinks for more information on using the GetVpcLinks
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-=======
-// ImportDocumentationPartsRequest generates a "aws/request.Request" representing the
-// client's request for the ImportDocumentationParts operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ImportDocumentationParts for more information on using the ImportDocumentationParts
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
->>>>>>> Initial dep workover
-//
-//
-//    // Example sending a request using the GetVpcLinksRequest method.
-//    req, resp := client.GetVpcLinksRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-func (c *APIGateway) GetVpcLinksRequest(input *GetVpcLinksInput) (req *request.Request, output *GetVpcLinksOutput) {
-	op := &request.Operation{
-		Name:       opGetVpcLinks,
-		HTTPMethod: "GET",
-		HTTPPath:   "/vpclinks",
-		Paginator: &request.Paginator{
-			InputTokens:     []string{"position"},
-			OutputTokens:    []string{"position"},
-			LimitToken:      "limit",
-			TruncationToken: "",
-		},
-	}
-
-	if input == nil {
-		input = &GetVpcLinksInput{}
-	}
-
-	output = &GetVpcLinksOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// GetVpcLinks API operation for Amazon API Gateway.
-//
-// Gets the VpcLinks collection under the caller's account in a selected region.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for Amazon API Gateway's
-// API operation GetVpcLinks for usage and error information.
-//
-// Returned Error Codes:
-<<<<<<< HEAD
-=======
-//   * ErrCodeUnauthorizedException "UnauthorizedException"
-//   The request is denied because the caller has insufficient permissions.
-//
-//   * ErrCodeNotFoundException "NotFoundException"
-//   The requested resource is not found. Make sure that the request URI is correct.
-//
->>>>>>> Initial dep workover
-//   * ErrCodeBadRequestException "BadRequestException"
-//   The submitted request is not valid, for example, the input is incomplete
-//   or incorrect. See the accompanying error message for details.
-//
-<<<<<<< HEAD
-//   * ErrCodeUnauthorizedException "UnauthorizedException"
-//   The request is denied because the caller has insufficient permissions.
-=======
-//   * ErrCodeLimitExceededException "LimitExceededException"
-//   The request exceeded the rate limit. Retry after the specified time period.
->>>>>>> Initial dep workover
-//
-//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-//   The request has reached its throttling limit. Retry after the specified time
-//   period.
-//
-func (c *APIGateway) GetVpcLinks(input *GetVpcLinksInput) (*GetVpcLinksOutput, error) {
-	req, out := c.GetVpcLinksRequest(input)
-	return out, req.Send()
-}
-
-// GetVpcLinksWithContext is the same as GetVpcLinks with the addition of
-// the ability to pass a context and additional request options.
-//
-// See GetVpcLinks for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *APIGateway) GetVpcLinksWithContext(ctx aws.Context, input *GetVpcLinksInput, opts ...request.Option) (*GetVpcLinksOutput, error) {
-	req, out := c.GetVpcLinksRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
-// GetVpcLinksPages iterates over the pages of a GetVpcLinks operation,
-// calling the "fn" function with the response data for each page. To stop
-// iterating, return false from the fn function.
-//
-// See GetVpcLinks method for more information on how to use this operation.
-//
-// Note: This operation can generate multiple requests to a service.
-//
-//    // Example iterating over at most 3 pages of a GetVpcLinks operation.
-//    pageNum := 0
-//    err := client.GetVpcLinksPages(params,
-//        func(page *GetVpcLinksOutput, lastPage bool) bool {
-//            pageNum++
-//            fmt.Println(page)
-//            return pageNum <= 3
-//        })
-//
-func (c *APIGateway) GetVpcLinksPages(input *GetVpcLinksInput, fn func(*GetVpcLinksOutput, bool) bool) error {
-	return c.GetVpcLinksPagesWithContext(aws.BackgroundContext(), input, fn)
-}
-
-// GetVpcLinksPagesWithContext same as GetVpcLinksPages except
-// it takes a Context and allows setting request options on the pages.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *APIGateway) GetVpcLinksPagesWithContext(ctx aws.Context, input *GetVpcLinksInput, fn func(*GetVpcLinksOutput, bool) bool, opts ...request.Option) error {
-	p := request.Pagination{
-		NewRequest: func() (*request.Request, error) {
-			var inCpy *GetVpcLinksInput
-			if input != nil {
-				tmp := *input
-				inCpy = &tmp
-			}
-			req, _ := c.GetVpcLinksRequest(inCpy)
-			req.SetContext(ctx)
-			req.ApplyOptions(opts...)
-			return req, nil
-		},
-	}
-
-	cont := true
-	for p.Next() && cont {
-		cont = fn(p.Page().(*GetVpcLinksOutput), !p.HasNextPage())
-	}
-	return p.Err()
-}
-
-const opGetVpcLink = "GetVpcLink"
-
 // GetVpcLinkRequest generates a "aws/request.Request" representing the
 // client's request for the GetVpcLink operation. The "output" return
 // value will be populated with the request's response once the request complets
@@ -9008,7 +8242,6 @@ const opImportRestApi = "ImportRestApi"
 // client's request for the ImportRestApi operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9016,15 +8249,6 @@ const opImportRestApi = "ImportRestApi"
 // See ImportRestApi for more information on using the ImportRestApi
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ImportRestApi for more information on using the ImportRestApi
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9110,7 +8334,6 @@ const opPutGatewayResponse = "PutGatewayResponse"
 // client's request for the PutGatewayResponse operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9118,15 +8341,6 @@ const opPutGatewayResponse = "PutGatewayResponse"
 // See PutGatewayResponse for more information on using the PutGatewayResponse
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PutGatewayResponse for more information on using the PutGatewayResponse
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9211,7 +8425,6 @@ const opPutIntegration = "PutIntegration"
 // client's request for the PutIntegration operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9219,15 +8432,6 @@ const opPutIntegration = "PutIntegration"
 // See PutIntegration for more information on using the PutIntegration
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PutIntegration for more information on using the PutIntegration
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9594,7 +8798,6 @@ const opPutRestApi = "PutRestApi"
 // client's request for the PutRestApi operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9602,15 +8805,6 @@ const opPutRestApi = "PutRestApi"
 // See PutRestApi for more information on using the PutRestApi
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See PutRestApi for more information on using the PutRestApi
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9701,7 +8895,6 @@ const opTestInvokeAuthorizer = "TestInvokeAuthorizer"
 // client's request for the TestInvokeAuthorizer operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9709,15 +8902,6 @@ const opTestInvokeAuthorizer = "TestInvokeAuthorizer"
 // See TestInvokeAuthorizer for more information on using the TestInvokeAuthorizer
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See TestInvokeAuthorizer for more information on using the TestInvokeAuthorizer
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9801,7 +8985,6 @@ const opTestInvokeMethod = "TestInvokeMethod"
 // client's request for the TestInvokeMethod operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9809,15 +8992,6 @@ const opTestInvokeMethod = "TestInvokeMethod"
 // See TestInvokeMethod for more information on using the TestInvokeMethod
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See TestInvokeMethod for more information on using the TestInvokeMethod
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9899,7 +9073,6 @@ const opUpdateAccount = "UpdateAccount"
 // client's request for the UpdateAccount operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -9907,15 +9080,6 @@ const opUpdateAccount = "UpdateAccount"
 // See UpdateAccount for more information on using the UpdateAccount
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateAccount for more information on using the UpdateAccount
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -9996,7 +9160,6 @@ const opUpdateApiKey = "UpdateApiKey"
 // client's request for the UpdateApiKey operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10004,15 +9167,6 @@ const opUpdateApiKey = "UpdateApiKey"
 // See UpdateApiKey for more information on using the UpdateApiKey
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateApiKey for more information on using the UpdateApiKey
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10097,7 +9251,6 @@ const opUpdateAuthorizer = "UpdateAuthorizer"
 // client's request for the UpdateAuthorizer operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10105,15 +9258,6 @@ const opUpdateAuthorizer = "UpdateAuthorizer"
 // See UpdateAuthorizer for more information on using the UpdateAuthorizer
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateAuthorizer for more information on using the UpdateAuthorizer
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10196,7 +9340,6 @@ const opUpdateBasePathMapping = "UpdateBasePathMapping"
 // client's request for the UpdateBasePathMapping operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10204,15 +9347,6 @@ const opUpdateBasePathMapping = "UpdateBasePathMapping"
 // See UpdateBasePathMapping for more information on using the UpdateBasePathMapping
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateBasePathMapping for more information on using the UpdateBasePathMapping
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10567,7 +9701,6 @@ const opUpdateDocumentationVersion = "UpdateDocumentationVersion"
 // client's request for the UpdateDocumentationVersion operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10575,15 +9708,6 @@ const opUpdateDocumentationVersion = "UpdateDocumentationVersion"
 // See UpdateDocumentationVersion for more information on using the UpdateDocumentationVersion
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateDocumentationVersion for more information on using the UpdateDocumentationVersion
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10666,7 +9790,6 @@ const opUpdateDomainName = "UpdateDomainName"
 // client's request for the UpdateDomainName operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10674,15 +9797,6 @@ const opUpdateDomainName = "UpdateDomainName"
 // See UpdateDomainName for more information on using the UpdateDomainName
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateDomainName for more information on using the UpdateDomainName
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -10767,7 +9881,6 @@ const opUpdateGatewayResponse = "UpdateGatewayResponse"
 // client's request for the UpdateGatewayResponse operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -10775,15 +9888,6 @@ const opUpdateGatewayResponse = "UpdateGatewayResponse"
 // See UpdateGatewayResponse for more information on using the UpdateGatewayResponse
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateGatewayResponse for more information on using the UpdateGatewayResponse
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11500,7 +10604,6 @@ const opUpdateRestApi = "UpdateRestApi"
 // client's request for the UpdateRestApi operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11508,15 +10611,6 @@ const opUpdateRestApi = "UpdateRestApi"
 // See UpdateRestApi for more information on using the UpdateRestApi
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateRestApi for more information on using the UpdateRestApi
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11601,7 +10695,6 @@ const opUpdateStage = "UpdateStage"
 // client's request for the UpdateStage operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11609,15 +10702,6 @@ const opUpdateStage = "UpdateStage"
 // See UpdateStage for more information on using the UpdateStage
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateStage for more information on using the UpdateStage
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11702,7 +10786,6 @@ const opUpdateUsage = "UpdateUsage"
 // client's request for the UpdateUsage operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11710,15 +10793,6 @@ const opUpdateUsage = "UpdateUsage"
 // See UpdateUsage for more information on using the UpdateUsage
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateUsage for more information on using the UpdateUsage
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11800,7 +10874,6 @@ const opUpdateUsagePlan = "UpdateUsagePlan"
 // client's request for the UpdateUsagePlan operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -11808,15 +10881,6 @@ const opUpdateUsagePlan = "UpdateUsagePlan"
 // See UpdateUsagePlan for more information on using the UpdateUsagePlan
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateUsagePlan for more information on using the UpdateUsagePlan
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -11986,100 +11050,6 @@ func (c *APIGateway) UpdateVpcLinkWithContext(ctx aws.Context, input *UpdateVpcL
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
-=======
-const opUpdateVpcLink = "UpdateVpcLink"
-
-// UpdateVpcLinkRequest generates a "aws/request.Request" representing the
-// client's request for the UpdateVpcLink operation. The "output" return
-// value will be populated with the request's response once the request complets
-// successfuly.
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateVpcLink for more information on using the UpdateVpcLink
-// API call, and error handling.
-//
-// This method is useful when you want to inject custom logic or configuration
-// into the SDK's request lifecycle. Such as custom headers, or retry logic.
-//
-//
-//    // Example sending a request using the UpdateVpcLinkRequest method.
-//    req, resp := client.UpdateVpcLinkRequest(params)
-//
-//    err := req.Send()
-//    if err == nil { // resp is now filled
-//        fmt.Println(resp)
-//    }
-func (c *APIGateway) UpdateVpcLinkRequest(input *UpdateVpcLinkInput) (req *request.Request, output *UpdateVpcLinkOutput) {
-	op := &request.Operation{
-		Name:       opUpdateVpcLink,
-		HTTPMethod: "PATCH",
-		HTTPPath:   "/vpclinks/{vpclink_id}",
-	}
-
-	if input == nil {
-		input = &UpdateVpcLinkInput{}
-	}
-
-	output = &UpdateVpcLinkOutput{}
-	req = c.newRequest(op, input, output)
-	return
-}
-
-// UpdateVpcLink API operation for Amazon API Gateway.
-//
-// Updates an existing VpcLink of a specified identifier.
-//
-// Returns awserr.Error for service API and SDK errors. Use runtime type assertions
-// with awserr.Error's Code and Message methods to get detailed information about
-// the error.
-//
-// See the AWS API reference guide for Amazon API Gateway's
-// API operation UpdateVpcLink for usage and error information.
-//
-// Returned Error Codes:
-//   * ErrCodeUnauthorizedException "UnauthorizedException"
-//   The request is denied because the caller has insufficient permissions.
-//
-//   * ErrCodeNotFoundException "NotFoundException"
-//   The requested resource is not found. Make sure that the request URI is correct.
-//
-//   * ErrCodeBadRequestException "BadRequestException"
-//   The submitted request is not valid, for example, the input is incomplete
-//   or incorrect. See the accompanying error message for details.
-//
-//   * ErrCodeConflictException "ConflictException"
-//   The request configuration has conflicts. For details, see the accompanying
-//   error message.
-//
-//   * ErrCodeTooManyRequestsException "TooManyRequestsException"
-//   The request has reached its throttling limit. Retry after the specified time
-//   period.
-//
-func (c *APIGateway) UpdateVpcLink(input *UpdateVpcLinkInput) (*UpdateVpcLinkOutput, error) {
-	req, out := c.UpdateVpcLinkRequest(input)
-	return out, req.Send()
-}
-
-// UpdateVpcLinkWithContext is the same as UpdateVpcLink with the addition of
-// the ability to pass a context and additional request options.
-//
-// See UpdateVpcLink for details on how to use this API operation.
-//
-// The context must be non-nil and will be used for request cancellation. If
-// the context is nil a panic will occur. In the future the SDK may create
-// sub-contexts for http.Requests. See https://golang.org/pkg/context/
-// for more information on using Contexts.
-func (c *APIGateway) UpdateVpcLinkWithContext(ctx aws.Context, input *UpdateVpcLinkInput, opts ...request.Option) (*UpdateVpcLinkOutput, error) {
-	req, out := c.UpdateVpcLinkRequest(input)
-	req.SetContext(ctx)
-	req.ApplyOptions(opts...)
-	return out, req.Send()
-}
-
->>>>>>> Working on getting compiling
 // Access log settings, including the access log format and access log destination
 // ARN.
 type AccessLogSettings struct {
@@ -12349,23 +11319,10 @@ type Authorizer struct {
 	// functional impact.
 	AuthType *string `locationName:"authType" type:"string"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// Specifies the required credentials as an IAM role for API Gateway to invoke
 	// the authorizer. To specify an IAM role for API Gateway to assume, use the
 	// role's Amazon Resource Name (ARN). To use resource-based permissions on the
 	// Lambda function, specify null.
-<<<<<<< HEAD
-=======
-	// Specifies the required credentials as an IAM role for Amazon API Gateway
-	// to invoke the authorizer. To specify an IAM role for Amazon API Gateway to
-	// assume, use the role's Amazon Resource Name (ARN). To use resource-based
-	// permissions on the Lambda function, specify null.
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	AuthorizerCredentials *string `locationName:"authorizerCredentials" type:"string"`
 
 	// The TTL in seconds of cached authorizer results. If it equals 0, authorization
@@ -12409,18 +11366,8 @@ type Authorizer struct {
 	IdentitySource *string `locationName:"identitySource" type:"string"`
 
 	// A validation expression for the incoming identity token. For TOKEN authorizers,
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// this value is a regular expression. API Gateway will match the incoming token
 	// from the client against the specified regular expression. It will invoke
-=======
-	// this value is a regular expression. Amazon API Gateway will match the incoming
-	// token from the client against the specified regular expression. It will invoke
->>>>>>> Initial dep workover
-=======
-	// this value is a regular expression. API Gateway will match the incoming token
-	// from the client against the specified regular expression. It will invoke
->>>>>>> Working on getting compiling
 	// the authorizer's Lambda function there is a match. Otherwise, it will return
 	// a 401 Unauthorized response without calling the Lambda function. The validation
 	// expression does not apply to the REQUEST authorizer.
@@ -12768,23 +11715,10 @@ type CreateAuthorizerInput struct {
 	// functional impact.
 	AuthType *string `locationName:"authType" type:"string"`
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
 	// Specifies the required credentials as an IAM role for API Gateway to invoke
 	// the authorizer. To specify an IAM role for API Gateway to assume, use the
 	// role's Amazon Resource Name (ARN). To use resource-based permissions on the
 	// Lambda function, specify null.
-<<<<<<< HEAD
-=======
-	// Specifies the required credentials as an IAM role for Amazon API Gateway
-	// to invoke the authorizer. To specify an IAM role for Amazon API Gateway to
-	// assume, use the role's Amazon Resource Name (ARN). To use resource-based
-	// permissions on the Lambda function, specify null.
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	AuthorizerCredentials *string `locationName:"authorizerCredentials" type:"string"`
 
 	// The TTL in seconds of cached authorizer results. If it equals 0, authorization
@@ -12825,18 +11759,8 @@ type CreateAuthorizerInput struct {
 	IdentitySource *string `locationName:"identitySource" type:"string"`
 
 	// A validation expression for the incoming identity token. For TOKEN authorizers,
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// this value is a regular expression. API Gateway will match the incoming token
 	// from the client against the specified regular expression. It will invoke
-=======
-	// this value is a regular expression. Amazon API Gateway will match the incoming
-	// token from the client against the specified regular expression. It will invoke
->>>>>>> Initial dep workover
-=======
-	// this value is a regular expression. API Gateway will match the incoming token
-	// from the client against the specified regular expression. It will invoke
->>>>>>> Working on getting compiling
 	// the authorizer's Lambda function there is a match. Otherwise, it will return
 	// a 401 Unauthorized response without calling the Lambda function. The validation
 	// expression does not apply to the REQUEST authorizer.
@@ -15483,60 +14407,6 @@ func (s DeleteVpcLinkOutput) GoString() string {
 	return s.String()
 }
 
-// Deletes an existing VpcLink of a specified identifier.
-type DeleteVpcLinkInput struct {
-	_ struct{} `type:"structure"`
-
-	// [Required] The identifier of the VpcLink. It is used in an Integration to
-	// reference this VpcLink.
-	//
-	// VpcLinkId is a required field
-	VpcLinkId *string `location:"uri" locationName:"vpclink_id" type:"string" required:"true"`
-}
-
-// String returns the string representation
-func (s DeleteVpcLinkInput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteVpcLinkInput) GoString() string {
-	return s.String()
-}
-
-// Validate inspects the fields of the type to determine if they are valid.
-func (s *DeleteVpcLinkInput) Validate() error {
-	invalidParams := request.ErrInvalidParams{Context: "DeleteVpcLinkInput"}
-	if s.VpcLinkId == nil {
-		invalidParams.Add(request.NewErrParamRequired("VpcLinkId"))
-	}
-
-	if invalidParams.Len() > 0 {
-		return invalidParams
-	}
-	return nil
-}
-
-// SetVpcLinkId sets the VpcLinkId field's value.
-func (s *DeleteVpcLinkInput) SetVpcLinkId(v string) *DeleteVpcLinkInput {
-	s.VpcLinkId = &v
-	return s
-}
-
-type DeleteVpcLinkOutput struct {
-	_ struct{} `type:"structure"`
-}
-
-// String returns the string representation
-func (s DeleteVpcLinkOutput) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s DeleteVpcLinkOutput) GoString() string {
-	return s.String()
-}
-
 // An immutable representation of a RestApi resource that can be called by users
 // using Stages. A deployment must be associated with a Stage for it to be callable
 // over the Internet.
@@ -15862,18 +14732,8 @@ func (s *DocumentationVersion) SetVersion(v string) *DocumentationVersion {
 
 // Represents a custom domain name as a user-friendly host name of an API (RestApi).
 //
-<<<<<<< HEAD
-<<<<<<< HEAD
 // When you deploy an API, API Gateway creates a default host name for the API.
 // This default API host name is of the {restapi-id}.execute-api.{region}.amazonaws.com
-=======
-// When you deploy an API, Amazon API Gateway creates a default host name for
-// the API. This default API host name is of the {restapi-id}.execute-api.{region}.amazonaws.com
->>>>>>> Initial dep workover
-=======
-// When you deploy an API, API Gateway creates a default host name for the API.
-// This default API host name is of the {restapi-id}.execute-api.{region}.amazonaws.com
->>>>>>> Working on getting compiling
 // format. With the default host name, you can access the API's root resource
 // with the URL of https://{restapi-id}.execute-api.{region}.amazonaws.com/{stage}/.
 // When you set up a custom domain name of apis.example.com for this API, you
@@ -15929,15 +14789,7 @@ type DomainName struct {
 	// The domain name associated with the regional endpoint for this custom domain
 	// name. You set up this association by adding a DNS record that points the
 	// custom domain name to this regional domain name. The regional domain name
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// is returned by API Gateway when you create a regional endpoint.
-=======
-	// is returned by Amazon API Gateway when you create a regional endpoint.
->>>>>>> Initial dep workover
-=======
-	// is returned by API Gateway when you create a regional endpoint.
->>>>>>> Working on getting compiling
 	RegionalDomainName *string `locationName:"regionalDomainName" type:"string"`
 
 	// The region-specific Amazon Route 53 Hosted Zone ID of the regional endpoint.
@@ -15989,76 +14841,6 @@ func (s *DomainName) SetDistributionHostedZoneId(v string) *DomainName {
 // SetDomainName sets the DomainName field's value.
 func (s *DomainName) SetDomainName(v string) *DomainName {
 	s.DomainName = &v
-	return s
-}
-
-// SetEndpointConfiguration sets the EndpointConfiguration field's value.
-func (s *DomainName) SetEndpointConfiguration(v *EndpointConfiguration) *DomainName {
-	s.EndpointConfiguration = v
-	return s
-}
-
-// SetRegionalCertificateArn sets the RegionalCertificateArn field's value.
-func (s *DomainName) SetRegionalCertificateArn(v string) *DomainName {
-	s.RegionalCertificateArn = &v
-	return s
-}
-
-// SetRegionalCertificateName sets the RegionalCertificateName field's value.
-func (s *DomainName) SetRegionalCertificateName(v string) *DomainName {
-	s.RegionalCertificateName = &v
-	return s
-}
-
-// SetRegionalDomainName sets the RegionalDomainName field's value.
-func (s *DomainName) SetRegionalDomainName(v string) *DomainName {
-	s.RegionalDomainName = &v
-	return s
-}
-
-// SetRegionalHostedZoneId sets the RegionalHostedZoneId field's value.
-func (s *DomainName) SetRegionalHostedZoneId(v string) *DomainName {
-	s.RegionalHostedZoneId = &v
-	return s
-}
-
-// The endpoint configuration to indicate the types of endpoints an API (RestApi)
-// or its custom domain name (DomainName) has.
-type EndpointConfiguration struct {
-	_ struct{} `type:"structure"`
-
-	// A list of endpoint types of an API (RestApi) or its custom domain name (DomainName).
-	// For an edge-optimized API and its custom domain name, the endpoint type is
-	// "EDGE". For a regional API and its custom domain name, the endpoint type
-	// is REGIONAL.
-	Types []*string `locationName:"types" type:"list"`
-}
-
-// String returns the string representation
-func (s EndpointConfiguration) String() string {
-	return awsutil.Prettify(s)
-}
-
-// GoString returns the string representation
-func (s EndpointConfiguration) GoString() string {
-	return s.String()
-}
-
-<<<<<<< HEAD
-// SetTypes sets the Types field's value.
-func (s *EndpointConfiguration) SetTypes(v []*string) *EndpointConfiguration {
-	s.Types = v
-=======
-// SetDistributionHostedZoneId sets the DistributionHostedZoneId field's value.
-func (s *DomainName) SetDistributionHostedZoneId(v string) *DomainName {
-	s.DistributionHostedZoneId = &v
-	return s
-}
-
-// SetDomainName sets the DomainName field's value.
-func (s *DomainName) SetDomainName(v string) *DomainName {
-	s.DomainName = &v
->>>>>>> Initial dep workover
 	return s
 }
 
@@ -18894,15 +17676,7 @@ type GetSdkInput struct {
 	RestApiId *string `location:"uri" locationName:"restapi_id" type:"string" required:"true"`
 
 	// The language for the generated SDK. Currently java, javascript, android,
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// objectivec (for iOS), swift (for iOS), and ruby are supported.
-=======
-	// objectivec and swift (for iOS) are supported.
->>>>>>> Initial dep workover
-=======
-	// objectivec (for iOS), swift (for iOS), and ruby are supported.
->>>>>>> Working on getting compiling
 	//
 	// SdkType is a required field
 	SdkType *string `location:"uri" locationName:"sdk_type" type:"string" required:"true"`

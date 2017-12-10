@@ -15,6 +15,7 @@
 package internal
 
 import (
+	"fmt"
 	"time"
 
 	gax "github.com/googleapis/gax-go"
@@ -47,7 +48,7 @@ func retry(ctx context.Context, bo gax.Backoff, f func() (stop bool, err error),
 		p := bo.Pause()
 		if cerr := sleep(ctx, p); cerr != nil {
 			if lastErr != nil {
-				return Annotatef(lastErr, "retry failed with %v; last error", cerr)
+				return fmt.Errorf("%v; last function err: %v", cerr, lastErr)
 			}
 			return cerr
 		}

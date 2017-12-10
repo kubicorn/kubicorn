@@ -2,15 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package message implements formatted I/O for localized strings with functions
-// analogous to the fmt's print functions.
-//
-// These are the important differences with fmt:
-//   - Output varies per locale.
-//   - The '#' flag is used to bypass localization.
-//
-// NOTE: Under construction. See https://golang.org/design/12750-localization
-// and its corresponding proposal issue https://golang.org/issues/12750.
 package message // import "golang.org/x/text/message"
 
 import (
@@ -167,17 +158,9 @@ func lookupAndFormat(p *printer, r Reference, a []interface{}) {
 
 // Arg implements catmsg.Renderer.
 func (p *printer) Arg(i int) interface{} { // TODO, also return "ok" bool
-<<<<<<< HEAD
 	i--
-<<<<<<< HEAD
 	if uint(i) < uint(len(p.fmt.Args)) {
 		return p.fmt.Args[i]
-=======
-=======
->>>>>>> Working on getting compiling
-	if uint(i) < uint(len(p.args)) {
-		return p.args[i]
->>>>>>> Initial dep workover
 	}
 	return nil
 }

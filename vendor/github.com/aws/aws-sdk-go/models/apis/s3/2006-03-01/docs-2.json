@@ -895,27 +895,15 @@
         "ListObjectsV2Request$Delimiter": "A delimiter is a character you use to group keys."
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "Description": {
       "base": null,
       "refs": {
         "RestoreRequest$Description": "The optional description for the job."
       }
     },
-<<<<<<< HEAD
     "Destination": {
       "base": "Container for replication destination information.",
       "refs": {
-=======
-=======
->>>>>>> Working on getting compiling
-    "Destination": {
-      "base": "Container for replication destination information.",
-      "refs": {
->>>>>>> Initial dep workover
         "ReplicationRule$Destination": "Container for replication destination information."
       }
     },
@@ -962,21 +950,12 @@
         "ListObjectsV2Request$EncodingType": "Encoding type used by Amazon S3 to encode object keys in the response."
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "Encryption": {
       "base": "Describes the server-side encryption that will be applied to the restore results.",
       "refs": {
         "S3Location$Encryption": null
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "EncryptionConfiguration": {
       "base": "Container for information regarding encryption based configuration for replicas.",
       "refs": {
@@ -2847,21 +2826,12 @@
         "InventoryEncryption$SSES3": "Specifies the use of SSE-S3 to encrypt delievered Inventory reports."
       }
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Working on getting compiling
     "SelectParameters": {
       "base": "Describes the parameters for Select job types.",
       "refs": {
         "RestoreRequest$SelectParameters": "Describes the parameters for Select job types."
       }
     },
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
     "ServerSideEncryption": {
       "base": null,
       "refs": {

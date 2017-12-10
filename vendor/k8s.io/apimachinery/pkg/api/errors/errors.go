@@ -434,17 +434,6 @@ func IsResourceExpired(err error) bool {
 	return ReasonForError(err) == metav1.StatusReasonExpired
 }
 
-// IsGone is true if the error indicates the requested resource is no longer available.
-func IsGone(err error) bool {
-	return reasonForError(err) == metav1.StatusReasonGone
-}
-
-// IsResourceExpired is true if the error indicates the resource has expired and the current action is
-// no longer possible.
-func IsResourceExpired(err error) bool {
-	return reasonForError(err) == metav1.StatusReasonExpired
-}
-
 // IsMethodNotSupported determines if the err is an error which indicates the provided action could not
 // be performed because it is not supported by the server.
 func IsMethodNotSupported(err error) bool {
@@ -454,11 +443,6 @@ func IsMethodNotSupported(err error) bool {
 // IsServiceUnavailable is true if the error indicates the underlying service is no longer available.
 func IsServiceUnavailable(err error) bool {
 	return ReasonForError(err) == metav1.StatusReasonServiceUnavailable
-}
-
-// IsServiceUnavailable is true if the error indicates the underlying service is no longer available.
-func IsServiceUnavailable(err error) bool {
-	return reasonForError(err) == metav1.StatusReasonServiceUnavailable
 }
 
 // IsBadRequest determines if err is an error which indicates that the request is invalid.
@@ -498,11 +482,7 @@ func IsInternalError(err error) bool {
 // IsTooManyRequests determines if err is an error which indicates that there are too many requests
 // that the server cannot handle.
 func IsTooManyRequests(err error) bool {
-<<<<<<< HEAD
 	if ReasonForError(err) == metav1.StatusReasonTooManyRequests {
-=======
-	if reasonForError(err) == metav1.StatusReasonTooManyRequests {
->>>>>>> Initial dep workover
 		return true
 	}
 	switch t := err.(type) {

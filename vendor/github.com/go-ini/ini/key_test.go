@@ -474,7 +474,6 @@ func TestKey_SetValue(t *testing.T) {
 		So(err, ShouldBeNil)
 		So(k, ShouldNotBeNil)
 		So(k.Value(), ShouldEqual, "ini")
-<<<<<<< HEAD
 
 		k.SetValue("ini.v1")
 		So(k.Value(), ShouldEqual, "ini.v1")
@@ -508,14 +507,6 @@ s3                    =
   max_queue_size=1000
 
 `)
-<<<<<<< HEAD
-=======
-
-		k.SetValue("ini.v1")
-		So(k.Value(), ShouldEqual, "ini.v1")
->>>>>>> Initial dep workover
-=======
->>>>>>> Working on getting compiling
 	})
 }
 

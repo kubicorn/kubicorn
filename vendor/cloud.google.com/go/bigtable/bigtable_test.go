@@ -19,12 +19,11 @@ package bigtable
 import (
 	"fmt"
 	"math/rand"
+	"reflect"
 	"strings"
 	"sync"
 	"testing"
 	"time"
-
-	"cloud.google.com/go/internal/testutil"
 
 	"golang.org/x/net/context"
 )
@@ -68,16 +67,14 @@ func TestClientIntegration(t *testing.T) {
 		t.Fatalf("IntegrationEnv: %v", err)
 	}
 
-	var timeout time.Duration
+	timeout := 30 * time.Second
 	if testEnv.Config().UseProd {
 		timeout = 5 * time.Minute
 		t.Logf("Running test against production")
 	} else {
-		timeout = 1 * time.Minute
 		t.Logf("bttest.Server running on %s", testEnv.Config().AdminEndpoint)
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
+	ctx, _ := context.WithTimeout(context.Background(), timeout)
 
 	client, err := testEnv.NewClient()
 	if err != nil {
@@ -159,7 +156,7 @@ func TestClientIntegration(t *testing.T) {
 			{Row: "jadams", Column: "follows:tjefferson", Value: []byte("1")},
 		},
 	}
-	if !testutil.Equal(row, wantRow) {
+	if !reflect.DeepEqual(row, wantRow) {
 		t.Errorf("Read row mismatch.\n got %#v\nwant %#v", row, wantRow)
 	}
 	checkpoint("tested ReadRow")
@@ -322,12 +319,6 @@ func TestClientIntegration(t *testing.T) {
 			filter: ConditionFilter(ChainFilters(ColumnFilter(".*j.*"), ColumnFilter(".*mckinley.*")), StripValueFilter(), nil),
 			want:   "",
 		},
-		{
-			desc:   "chain that ends with an interleave that has no match. covers #804",
-			rr:     RowRange{},
-			filter: ConditionFilter(ChainFilters(ColumnFilter(".*j.*"), InterleaveFilters(ColumnFilter(".*x.*"), ColumnFilter(".*z.*"))), StripValueFilter(), nil),
-			want:   "",
-		},
 	}
 	for _, tc := range readTests {
 		var opts []ReadOption
@@ -451,13 +442,9 @@ func TestClientIntegration(t *testing.T) {
 		if err != nil {
 			t.Fatalf("ApplyReadModifyWrite %+v: %v", step.rmw, err)
 		}
-		// Make sure the modified cell returned by the RMW operation has a timestamp.
-		if row["counter"][0].Timestamp == 0 {
-			t.Errorf("RMW returned cell timestamp: got %v, want > 0", row["counter"][0].Timestamp)
-		}
 		clearTimestamps(row)
 		wantRow := Row{"counter": []ReadItem{{Row: "gwashington", Column: "counter:likes", Value: step.want}}}
-		if !testutil.Equal(row, wantRow) {
+		if !reflect.DeepEqual(row, wantRow) {
 			t.Fatalf("After %s,\n got %v\nwant %v", step.desc, row, wantRow)
 		}
 	}
@@ -511,7 +498,7 @@ func TestClientIntegration(t *testing.T) {
 		{Row: "testrow", Column: "ts:col2", Timestamp: 1000, Value: []byte("val-1")},
 		{Row: "testrow", Column: "ts:col2", Timestamp: 0, Value: []byte("val-0")},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell with multiple versions,\n got %v\nwant %v", r, wantRow)
 	}
 	// Do the same read, but filter to the latest two versions.
@@ -525,7 +512,7 @@ func TestClientIntegration(t *testing.T) {
 		{Row: "testrow", Column: "ts:col2", Timestamp: 3000, Value: []byte("val-3")},
 		{Row: "testrow", Column: "ts:col2", Timestamp: 2000, Value: []byte("val-2")},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell with multiple versions and LatestNFilter(2),\n got %v\nwant %v", r, wantRow)
 	}
 	// Check cell offset / limit
@@ -538,7 +525,7 @@ func TestClientIntegration(t *testing.T) {
 		{Row: "testrow", Column: "ts:col", Timestamp: 2000, Value: []byte("val-2")},
 		{Row: "testrow", Column: "ts:col", Timestamp: 1000, Value: []byte("val-1")},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell with multiple versions and CellsPerRowLimitFilter(3),\n got %v\nwant %v", r, wantRow)
 	}
 	r, err = tbl.ReadRow(ctx, "testrow", RowFilter(CellsPerRowOffsetFilter(3)))
@@ -552,7 +539,7 @@ func TestClientIntegration(t *testing.T) {
 		{Row: "testrow", Column: "ts:col2", Timestamp: 1000, Value: []byte("val-1")},
 		{Row: "testrow", Column: "ts:col2", Timestamp: 0, Value: []byte("val-0")},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell with multiple versions and CellsPerRowOffsetFilter(3),\n got %v\nwant %v", r, wantRow)
 	}
 	// Check timestamp range filtering (with truncation)
@@ -566,7 +553,7 @@ func TestClientIntegration(t *testing.T) {
 		{Row: "testrow", Column: "ts:col2", Timestamp: 2000, Value: []byte("val-2")},
 		{Row: "testrow", Column: "ts:col2", Timestamp: 1000, Value: []byte("val-1")},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell with multiple versions and TimestampRangeFilter(1000, 3000),\n got %v\nwant %v", r, wantRow)
 	}
 	r, err = tbl.ReadRow(ctx, "testrow", RowFilter(TimestampRangeFilterMicros(1000, 0)))
@@ -581,7 +568,7 @@ func TestClientIntegration(t *testing.T) {
 		{Row: "testrow", Column: "ts:col2", Timestamp: 2000, Value: []byte("val-2")},
 		{Row: "testrow", Column: "ts:col2", Timestamp: 1000, Value: []byte("val-1")},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell with multiple versions and TimestampRangeFilter(1000, 0),\n got %v\nwant %v", r, wantRow)
 	}
 	// Delete non-existing cells, no such column family in this row
@@ -598,7 +585,7 @@ func TestClientIntegration(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Reading row: %v", err)
 	}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell was deleted unexpectly,\n got %v\nwant %v", r, wantRow)
 	}
 	// Delete non-existing cells, no such column in this column family
@@ -612,7 +599,7 @@ func TestClientIntegration(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Reading row: %v", err)
 	}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell was deleted unexpectly,\n got %v\nwant %v", r, wantRow)
 	}
 	// Delete the cell with timestamp 2000 and repeat the last read,
@@ -632,7 +619,7 @@ func TestClientIntegration(t *testing.T) {
 		{Row: "testrow", Column: "ts:col2", Timestamp: 3000, Value: []byte("val-3")},
 		{Row: "testrow", Column: "ts:col2", Timestamp: 2000, Value: []byte("val-2")},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Cell with multiple versions and LatestNFilter(2), after deleting timestamp 2000,\n got %v\nwant %v", r, wantRow)
 	}
 	checkpoint("tested multiple versions in a cell")
@@ -667,7 +654,7 @@ func TestClientIntegration(t *testing.T) {
 	wantRow = Row{"ts": []ReadItem{
 		{Row: "row1", Column: "ts:col", Timestamp: 0, Value: []byte("3")},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("column family was not deleted.\n got %v\n want %v", r, wantRow)
 	}
 
@@ -685,7 +672,7 @@ func TestClientIntegration(t *testing.T) {
 			{Row: "row2", Column: "status:start", Timestamp: 0, Value: []byte("1")},
 		},
 	}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Column family was deleted unexpectly.\n got %v\n want %v", r, wantRow)
 	}
 	checkpoint("tested family delete")
@@ -713,7 +700,7 @@ func TestClientIntegration(t *testing.T) {
 			{Row: "row3", Column: "status:start", Timestamp: 0, Value: []byte("1")},
 		},
 	}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Column was not deleted.\n got %v\n want %v", r, wantRow)
 	}
 	mut = NewMutation()
@@ -730,7 +717,7 @@ func TestClientIntegration(t *testing.T) {
 			{Row: "row3", Column: "status:end", Timestamp: 0, Value: []byte("3")},
 		},
 	}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Column was not deleted.\n got %v\n want %v", r, wantRow)
 	}
 	mut = NewMutation()
@@ -755,7 +742,7 @@ func TestClientIntegration(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Reading row: %v", err)
 	}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Column was not deleted correctly.\n got %v\n want %v", r, wantRow)
 	}
 	checkpoint("tested column delete")
@@ -804,7 +791,7 @@ func TestClientIntegration(t *testing.T) {
 	wantRow = Row{"ts": []ReadItem{
 		{Row: "bigrow", Column: "ts:col", Value: bigBytes},
 	}}
-	if !testutil.Equal(r, wantRow) {
+	if !reflect.DeepEqual(r, wantRow) {
 		t.Errorf("Big read returned incorrect bytes: %v", r)
 	}
 	// Now write 1000 rows, each with 82 KB values, then scan them all.
@@ -892,7 +879,7 @@ func TestClientIntegration(t *testing.T) {
 			wantItems = append(wantItems, ReadItem{Row: rowKey, Column: "bulk:" + val, Value: []byte("1")})
 		}
 		wantRow := Row{"bulk": wantItems}
-		if !testutil.Equal(row, wantRow) {
+		if !reflect.DeepEqual(row, wantRow) {
 			t.Errorf("Read row mismatch.\n got %#v\nwant %#v", row, wantRow)
 		}
 	}

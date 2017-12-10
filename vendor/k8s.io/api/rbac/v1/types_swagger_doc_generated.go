@@ -28,6 +28,9 @@ package v1
 
 // AUTO-GENERATED FUNCTIONS START HERE
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> moar deps
 var map_AggregationRule = map[string]string{
 	"": "AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole",
 	"clusterRoleSelectors": "ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added",
@@ -37,6 +40,7 @@ func (AggregationRule) SwaggerDoc() map[string]string {
 	return map_AggregationRule
 }
 
+<<<<<<< HEAD
 var map_ClusterRole = map[string]string{
 	"":                "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.",
 	"metadata":        "Standard object's metadata.",
@@ -48,6 +52,13 @@ var map_ClusterRole = map[string]string{
 	"metadata": "Standard object's metadata.",
 	"rules":    "Rules holds all the PolicyRules for this ClusterRole",
 >>>>>>> Initial dep workover
+=======
+var map_ClusterRole = map[string]string{
+	"":                "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.",
+	"metadata":        "Standard object's metadata.",
+	"rules":           "Rules holds all the PolicyRules for this ClusterRole",
+	"aggregationRule": "AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.",
+>>>>>>> moar deps
 }
 
 func (ClusterRole) SwaggerDoc() map[string]string {

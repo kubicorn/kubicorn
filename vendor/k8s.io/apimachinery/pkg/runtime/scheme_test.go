@@ -810,7 +810,6 @@ func TestConvertToVersion(t *testing.T) {
 		},
 	}
 	for i, test := range testCases {
-<<<<<<< HEAD
 		t.Run(fmt.Sprintf("%d", i), func(t *testing.T) {
 			original := test.in.DeepCopyObject()
 			out, err := test.scheme.ConvertToVersion(test.in, test.gv)
@@ -825,14 +824,6 @@ func TestConvertToVersion(t *testing.T) {
 			}
 			if out == test.in {
 				t.Fatalf("ConvertToVersion should always copy out: %#v", out)
-=======
-		original := test.in.DeepCopyObject()
-		out, err := test.scheme.ConvertToVersion(test.in, test.gv)
-		switch {
-		case test.errFn != nil:
-			if !test.errFn(err) {
-				t.Errorf("%d: unexpected error: %v", i, err)
->>>>>>> Initial dep workover
 			}
 
 			if test.same {

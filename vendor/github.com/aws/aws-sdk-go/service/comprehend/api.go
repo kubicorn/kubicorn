@@ -35,11 +35,7 @@ const opBatchDetectDominantLanguage = "BatchDetectDominantLanguage"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguage
->>>>>>> Working on getting compiling
 func (c *Comprehend) BatchDetectDominantLanguageRequest(input *BatchDetectDominantLanguageInput) (req *request.Request, output *BatchDetectDominantLanguageOutput) {
 	op := &request.Operation{
 		Name:       opBatchDetectDominantLanguage,
@@ -83,11 +79,7 @@ func (c *Comprehend) BatchDetectDominantLanguageRequest(input *BatchDetectDomina
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguage
->>>>>>> Working on getting compiling
 func (c *Comprehend) BatchDetectDominantLanguage(input *BatchDetectDominantLanguageInput) (*BatchDetectDominantLanguageOutput, error) {
 	req, out := c.BatchDetectDominantLanguageRequest(input)
 	return out, req.Send()
@@ -134,11 +126,7 @@ const opBatchDetectEntities = "BatchDetectEntities"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntities
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntities
->>>>>>> Working on getting compiling
 func (c *Comprehend) BatchDetectEntitiesRequest(input *BatchDetectEntitiesInput) (req *request.Request, output *BatchDetectEntitiesOutput) {
 	op := &request.Operation{
 		Name:       opBatchDetectEntities,
@@ -187,11 +175,7 @@ func (c *Comprehend) BatchDetectEntitiesRequest(input *BatchDetectEntitiesInput)
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntities
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntities
->>>>>>> Working on getting compiling
 func (c *Comprehend) BatchDetectEntities(input *BatchDetectEntitiesInput) (*BatchDetectEntitiesOutput, error) {
 	req, out := c.BatchDetectEntitiesRequest(input)
 	return out, req.Send()
@@ -238,11 +222,7 @@ const opBatchDetectKeyPhrases = "BatchDetectKeyPhrases"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrases
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrases
->>>>>>> Working on getting compiling
 func (c *Comprehend) BatchDetectKeyPhrasesRequest(input *BatchDetectKeyPhrasesInput) (req *request.Request, output *BatchDetectKeyPhrasesOutput) {
 	op := &request.Operation{
 		Name:       opBatchDetectKeyPhrases,
@@ -290,11 +270,7 @@ func (c *Comprehend) BatchDetectKeyPhrasesRequest(input *BatchDetectKeyPhrasesIn
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrases
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrases
->>>>>>> Working on getting compiling
 func (c *Comprehend) BatchDetectKeyPhrases(input *BatchDetectKeyPhrasesInput) (*BatchDetectKeyPhrasesOutput, error) {
 	req, out := c.BatchDetectKeyPhrasesRequest(input)
 	return out, req.Send()
@@ -341,11 +317,7 @@ const opBatchDetectSentiment = "BatchDetectSentiment"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentiment
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentiment
->>>>>>> Working on getting compiling
 func (c *Comprehend) BatchDetectSentimentRequest(input *BatchDetectSentimentInput) (req *request.Request, output *BatchDetectSentimentOutput) {
 	op := &request.Operation{
 		Name:       opBatchDetectSentiment,
@@ -394,11 +366,7 @@ func (c *Comprehend) BatchDetectSentimentRequest(input *BatchDetectSentimentInpu
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentiment
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentiment
->>>>>>> Working on getting compiling
 func (c *Comprehend) BatchDetectSentiment(input *BatchDetectSentimentInput) (*BatchDetectSentimentOutput, error) {
 	req, out := c.BatchDetectSentimentRequest(input)
 	return out, req.Send()
@@ -445,11 +413,7 @@ const opDescribeTopicsDetectionJob = "DescribeTopicsDetectionJob"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTopicsDetectionJob
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTopicsDetectionJob
->>>>>>> Working on getting compiling
 func (c *Comprehend) DescribeTopicsDetectionJobRequest(input *DescribeTopicsDetectionJobInput) (req *request.Request, output *DescribeTopicsDetectionJobOutput) {
 	op := &request.Operation{
 		Name:       opDescribeTopicsDetectionJob,
@@ -491,11 +455,7 @@ func (c *Comprehend) DescribeTopicsDetectionJobRequest(input *DescribeTopicsDete
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTopicsDetectionJob
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTopicsDetectionJob
->>>>>>> Working on getting compiling
 func (c *Comprehend) DescribeTopicsDetectionJob(input *DescribeTopicsDetectionJobInput) (*DescribeTopicsDetectionJobOutput, error) {
 	req, out := c.DescribeTopicsDetectionJobRequest(input)
 	return out, req.Send()
@@ -542,11 +502,7 @@ const opDetectDominantLanguage = "DetectDominantLanguage"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectDominantLanguage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectDominantLanguage
->>>>>>> Working on getting compiling
 func (c *Comprehend) DetectDominantLanguageRequest(input *DetectDominantLanguageInput) (req *request.Request, output *DetectDominantLanguageOutput) {
 	op := &request.Operation{
 		Name:       opDetectDominantLanguage,
@@ -586,11 +542,7 @@ func (c *Comprehend) DetectDominantLanguageRequest(input *DetectDominantLanguage
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectDominantLanguage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectDominantLanguage
->>>>>>> Working on getting compiling
 func (c *Comprehend) DetectDominantLanguage(input *DetectDominantLanguageInput) (*DetectDominantLanguageOutput, error) {
 	req, out := c.DetectDominantLanguageRequest(input)
 	return out, req.Send()
@@ -637,11 +589,7 @@ const opDetectEntities = "DetectEntities"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectEntities
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectEntities
->>>>>>> Working on getting compiling
 func (c *Comprehend) DetectEntitiesRequest(input *DetectEntitiesInput) (req *request.Request, output *DetectEntitiesOutput) {
 	op := &request.Operation{
 		Name:       opDetectEntities,
@@ -686,11 +634,7 @@ func (c *Comprehend) DetectEntitiesRequest(input *DetectEntitiesInput) (req *req
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectEntities
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectEntities
->>>>>>> Working on getting compiling
 func (c *Comprehend) DetectEntities(input *DetectEntitiesInput) (*DetectEntitiesOutput, error) {
 	req, out := c.DetectEntitiesRequest(input)
 	return out, req.Send()
@@ -737,11 +681,7 @@ const opDetectKeyPhrases = "DetectKeyPhrases"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectKeyPhrases
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectKeyPhrases
->>>>>>> Working on getting compiling
 func (c *Comprehend) DetectKeyPhrasesRequest(input *DetectKeyPhrasesInput) (req *request.Request, output *DetectKeyPhrasesOutput) {
 	op := &request.Operation{
 		Name:       opDetectKeyPhrases,
@@ -785,11 +725,7 @@ func (c *Comprehend) DetectKeyPhrasesRequest(input *DetectKeyPhrasesInput) (req 
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectKeyPhrases
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectKeyPhrases
->>>>>>> Working on getting compiling
 func (c *Comprehend) DetectKeyPhrases(input *DetectKeyPhrasesInput) (*DetectKeyPhrasesOutput, error) {
 	req, out := c.DetectKeyPhrasesRequest(input)
 	return out, req.Send()
@@ -836,11 +772,7 @@ const opDetectSentiment = "DetectSentiment"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectSentiment
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectSentiment
->>>>>>> Working on getting compiling
 func (c *Comprehend) DetectSentimentRequest(input *DetectSentimentInput) (req *request.Request, output *DetectSentimentOutput) {
 	op := &request.Operation{
 		Name:       opDetectSentiment,
@@ -885,11 +817,7 @@ func (c *Comprehend) DetectSentimentRequest(input *DetectSentimentInput) (req *r
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectSentiment
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectSentiment
->>>>>>> Working on getting compiling
 func (c *Comprehend) DetectSentiment(input *DetectSentimentInput) (*DetectSentimentOutput, error) {
 	req, out := c.DetectSentimentRequest(input)
 	return out, req.Send()
@@ -936,11 +864,7 @@ const opListTopicsDetectionJobs = "ListTopicsDetectionJobs"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTopicsDetectionJobs
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTopicsDetectionJobs
->>>>>>> Working on getting compiling
 func (c *Comprehend) ListTopicsDetectionJobsRequest(input *ListTopicsDetectionJobsInput) (req *request.Request, output *ListTopicsDetectionJobsOutput) {
 	op := &request.Operation{
 		Name:       opListTopicsDetectionJobs,
@@ -988,11 +912,7 @@ func (c *Comprehend) ListTopicsDetectionJobsRequest(input *ListTopicsDetectionJo
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTopicsDetectionJobs
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTopicsDetectionJobs
->>>>>>> Working on getting compiling
 func (c *Comprehend) ListTopicsDetectionJobs(input *ListTopicsDetectionJobsInput) (*ListTopicsDetectionJobsOutput, error) {
 	req, out := c.ListTopicsDetectionJobsRequest(input)
 	return out, req.Send()
@@ -1089,11 +1009,7 @@ const opStartTopicsDetectionJob = "StartTopicsDetectionJob"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTopicsDetectionJob
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTopicsDetectionJob
->>>>>>> Working on getting compiling
 func (c *Comprehend) StartTopicsDetectionJobRequest(input *StartTopicsDetectionJobInput) (req *request.Request, output *StartTopicsDetectionJobOutput) {
 	op := &request.Operation{
 		Name:       opStartTopicsDetectionJob,
@@ -1132,11 +1048,7 @@ func (c *Comprehend) StartTopicsDetectionJobRequest(input *StartTopicsDetectionJ
 //   * ErrCodeInternalServerException "InternalServerException"
 //   An internal server error occurred. Retry your request.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTopicsDetectionJob
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTopicsDetectionJob
->>>>>>> Working on getting compiling
 func (c *Comprehend) StartTopicsDetectionJob(input *StartTopicsDetectionJobInput) (*StartTopicsDetectionJobOutput, error) {
 	req, out := c.StartTopicsDetectionJobRequest(input)
 	return out, req.Send()
@@ -1158,11 +1070,7 @@ func (c *Comprehend) StartTopicsDetectionJobWithContext(ctx aws.Context, input *
 	return out, req.Send()
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguageRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguageRequest
->>>>>>> Working on getting compiling
 type BatchDetectDominantLanguageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1205,11 +1113,7 @@ func (s *BatchDetectDominantLanguageInput) SetTextList(v []*string) *BatchDetect
 
 // The result of calling the operation. The operation returns one object for
 // each document that is successfully processed by the operation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguageItemResult
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguageItemResult
->>>>>>> Working on getting compiling
 type BatchDetectDominantLanguageItemResult struct {
 	_ struct{} `type:"structure"`
 
@@ -1243,11 +1147,7 @@ func (s *BatchDetectDominantLanguageItemResult) SetLanguages(v []*DominantLangua
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguageResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectDominantLanguageResponse
->>>>>>> Working on getting compiling
 type BatchDetectDominantLanguageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1290,11 +1190,7 @@ func (s *BatchDetectDominantLanguageOutput) SetResultList(v []*BatchDetectDomina
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntitiesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntitiesRequest
->>>>>>> Working on getting compiling
 type BatchDetectEntitiesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1354,11 +1250,7 @@ func (s *BatchDetectEntitiesInput) SetTextList(v []*string) *BatchDetectEntities
 
 // The result of calling the operation. The operation returns one object for
 // each document that is successfully processed by the operation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntitiesItemResult
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntitiesItemResult
->>>>>>> Working on getting compiling
 type BatchDetectEntitiesItemResult struct {
 	_ struct{} `type:"structure"`
 
@@ -1391,11 +1283,7 @@ func (s *BatchDetectEntitiesItemResult) SetIndex(v int64) *BatchDetectEntitiesIt
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntitiesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectEntitiesResponse
->>>>>>> Working on getting compiling
 type BatchDetectEntitiesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1438,11 +1326,7 @@ func (s *BatchDetectEntitiesOutput) SetResultList(v []*BatchDetectEntitiesItemRe
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrasesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrasesRequest
->>>>>>> Working on getting compiling
 type BatchDetectKeyPhrasesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1502,11 +1386,7 @@ func (s *BatchDetectKeyPhrasesInput) SetTextList(v []*string) *BatchDetectKeyPhr
 
 // The result of calling the operation. The operation returns one object for
 // each document that is successfully processed by the operation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrasesItemResult
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrasesItemResult
->>>>>>> Working on getting compiling
 type BatchDetectKeyPhrasesItemResult struct {
 	_ struct{} `type:"structure"`
 
@@ -1539,11 +1419,7 @@ func (s *BatchDetectKeyPhrasesItemResult) SetKeyPhrases(v []*KeyPhrase) *BatchDe
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrasesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectKeyPhrasesResponse
->>>>>>> Working on getting compiling
 type BatchDetectKeyPhrasesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1586,11 +1462,7 @@ func (s *BatchDetectKeyPhrasesOutput) SetResultList(v []*BatchDetectKeyPhrasesIt
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentimentRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentimentRequest
->>>>>>> Working on getting compiling
 type BatchDetectSentimentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1650,11 +1522,7 @@ func (s *BatchDetectSentimentInput) SetTextList(v []*string) *BatchDetectSentime
 
 // The result of calling the operation. The operation returns one object for
 // each document that is successfully processed by the operation.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentimentItemResult
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentimentItemResult
->>>>>>> Working on getting compiling
 type BatchDetectSentimentItemResult struct {
 	_ struct{} `type:"structure"`
 
@@ -1697,11 +1565,7 @@ func (s *BatchDetectSentimentItemResult) SetSentimentScore(v *SentimentScore) *B
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentimentResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchDetectSentimentResponse
->>>>>>> Working on getting compiling
 type BatchDetectSentimentOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1747,11 +1611,7 @@ func (s *BatchDetectSentimentOutput) SetResultList(v []*BatchDetectSentimentItem
 // Describes an error that occurred while processing a document in a batch.
 // The operation returns on BatchItemError object for each document that contained
 // an error.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchItemError
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/BatchItemError
->>>>>>> Working on getting compiling
 type BatchItemError struct {
 	_ struct{} `type:"structure"`
 
@@ -1793,11 +1653,7 @@ func (s *BatchItemError) SetIndex(v int64) *BatchItemError {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTopicsDetectionJobRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTopicsDetectionJobRequest
->>>>>>> Working on getting compiling
 type DescribeTopicsDetectionJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1839,11 +1695,7 @@ func (s *DescribeTopicsDetectionJobInput) SetJobId(v string) *DescribeTopicsDete
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTopicsDetectionJobResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DescribeTopicsDetectionJobResponse
->>>>>>> Working on getting compiling
 type DescribeTopicsDetectionJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1867,11 +1719,7 @@ func (s *DescribeTopicsDetectionJobOutput) SetTopicsDetectionJobProperties(v *To
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectDominantLanguageRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectDominantLanguageRequest
->>>>>>> Working on getting compiling
 type DetectDominantLanguageInput struct {
 	_ struct{} `type:"structure"`
 
@@ -1914,11 +1762,7 @@ func (s *DetectDominantLanguageInput) SetText(v string) *DetectDominantLanguageI
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectDominantLanguageResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectDominantLanguageResponse
->>>>>>> Working on getting compiling
 type DetectDominantLanguageOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -1946,11 +1790,7 @@ func (s *DetectDominantLanguageOutput) SetLanguages(v []*DominantLanguage) *Dete
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectEntitiesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectEntitiesRequest
->>>>>>> Working on getting compiling
 type DetectEntitiesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2011,11 +1851,7 @@ func (s *DetectEntitiesInput) SetText(v string) *DetectEntitiesInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectEntitiesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectEntitiesResponse
->>>>>>> Working on getting compiling
 type DetectEntitiesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2042,11 +1878,7 @@ func (s *DetectEntitiesOutput) SetEntities(v []*Entity) *DetectEntitiesOutput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectKeyPhrasesRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectKeyPhrasesRequest
->>>>>>> Working on getting compiling
 type DetectKeyPhrasesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2108,11 +1940,7 @@ func (s *DetectKeyPhrasesInput) SetText(v string) *DetectKeyPhrasesInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectKeyPhrasesResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectKeyPhrasesResponse
->>>>>>> Working on getting compiling
 type DetectKeyPhrasesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2139,11 +1967,7 @@ func (s *DetectKeyPhrasesOutput) SetKeyPhrases(v []*KeyPhrase) *DetectKeyPhrases
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectSentimentRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectSentimentRequest
->>>>>>> Working on getting compiling
 type DetectSentimentInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2205,11 +2029,7 @@ func (s *DetectSentimentInput) SetText(v string) *DetectSentimentInput {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectSentimentResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DetectSentimentResponse
->>>>>>> Working on getting compiling
 type DetectSentimentOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2245,11 +2065,7 @@ func (s *DetectSentimentOutput) SetSentimentScore(v *SentimentScore) *DetectSent
 
 // Returns the code for the dominant language in the input text and the level
 // of confidence that Amazon Comprehend has in the accuracy of the detection.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DominantLanguage
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/DominantLanguage
->>>>>>> Working on getting compiling
 type DominantLanguage struct {
 	_ struct{} `type:"structure"`
 
@@ -2284,11 +2100,7 @@ func (s *DominantLanguage) SetScore(v float64) *DominantLanguage {
 }
 
 // Provides information about an entity.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/Entity
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/Entity
->>>>>>> Working on getting compiling
 type Entity struct {
 	_ struct{} `type:"structure"`
 
@@ -2357,11 +2169,7 @@ func (s *Entity) SetType(v string) *Entity {
 }
 
 // The input properties for a topic detection job.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/InputDataConfig
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/InputDataConfig
->>>>>>> Working on getting compiling
 type InputDataConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -2424,11 +2232,7 @@ func (s *InputDataConfig) SetS3Uri(v string) *InputDataConfig {
 }
 
 // Describes a key noun phrase.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/KeyPhrase
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/KeyPhrase
->>>>>>> Working on getting compiling
 type KeyPhrase struct {
 	_ struct{} `type:"structure"`
 
@@ -2487,11 +2291,7 @@ func (s *KeyPhrase) SetText(v string) *KeyPhrase {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTopicsDetectionJobsRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTopicsDetectionJobsRequest
->>>>>>> Working on getting compiling
 type ListTopicsDetectionJobsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2556,11 +2356,7 @@ func (s *ListTopicsDetectionJobsInput) SetNextToken(v string) *ListTopicsDetecti
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTopicsDetectionJobsResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/ListTopicsDetectionJobsResponse
->>>>>>> Working on getting compiling
 type ListTopicsDetectionJobsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2594,11 +2390,7 @@ func (s *ListTopicsDetectionJobsOutput) SetTopicsDetectionJobPropertiesList(v []
 }
 
 // Provides configuration parameters for the output of topic detection jobs.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/OutputDataConfig
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/OutputDataConfig
->>>>>>> Working on getting compiling
 type OutputDataConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -2645,11 +2437,7 @@ func (s *OutputDataConfig) SetS3Uri(v string) *OutputDataConfig {
 
 // Describes the level of confidence that Amazon Comprehend has in the accuracy
 // of its detection of sentiments.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/SentimentScore
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/SentimentScore
->>>>>>> Working on getting compiling
 type SentimentScore struct {
 	_ struct{} `type:"structure"`
 
@@ -2704,11 +2492,7 @@ func (s *SentimentScore) SetPositive(v float64) *SentimentScore {
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTopicsDetectionJobRequest
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTopicsDetectionJobRequest
->>>>>>> Working on getting compiling
 type StartTopicsDetectionJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2823,11 +2607,7 @@ func (s *StartTopicsDetectionJobInput) SetOutputDataConfig(v *OutputDataConfig) 
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTopicsDetectionJobResponse
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/StartTopicsDetectionJobResponse
->>>>>>> Working on getting compiling
 type StartTopicsDetectionJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2872,11 +2652,7 @@ func (s *StartTopicsDetectionJobOutput) SetJobStatus(v string) *StartTopicsDetec
 
 // Provides information for filtering topic detection jobs. For more information,
 // see .
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/TopicsDetectionJobFilter
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/TopicsDetectionJobFilter
->>>>>>> Working on getting compiling
 type TopicsDetectionJobFilter struct {
 	_ struct{} `type:"structure"`
 
@@ -2945,11 +2721,7 @@ func (s *TopicsDetectionJobFilter) SetSubmitTimeBefore(v time.Time) *TopicsDetec
 }
 
 // Provides information about a topic detection job.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/TopicsDetectionJobProperties
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/comprehend-2017-11-27/TopicsDetectionJobProperties
->>>>>>> Working on getting compiling
 type TopicsDetectionJobProperties struct {
 	_ struct{} `type:"structure"`
 

@@ -17,6 +17,7 @@ go_library(
         "watch.go",
         "zz_generated.deepcopy.go",
     ],
+    importpath = "k8s.io/apimachinery/pkg/watch",
     deps = [
         "//vendor/github.com/golang/glog:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",
@@ -35,6 +36,7 @@ go_test(
         "streamwatcher_test.go",
         "watch_test.go",
     ],
+    importpath = "k8s.io/apimachinery/pkg/watch_test",
     deps = [
         "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
@@ -46,6 +48,7 @@ go_test(
 go_test(
     name = "go_default_test",
     srcs = ["until_test.go"],
+    importpath = "k8s.io/apimachinery/pkg/watch",
     library = ":go_default_library",
     deps = [
         "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",

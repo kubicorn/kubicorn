@@ -244,7 +244,6 @@ const opDecreaseStreamRetentionPeriod = "DecreaseStreamRetentionPeriod"
 // client's request for the DecreaseStreamRetentionPeriod operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -252,15 +251,6 @@ const opDecreaseStreamRetentionPeriod = "DecreaseStreamRetentionPeriod"
 // See DecreaseStreamRetentionPeriod for more information on using the DecreaseStreamRetentionPeriod
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DecreaseStreamRetentionPeriod for more information on using the DecreaseStreamRetentionPeriod
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -540,7 +530,6 @@ const opDescribeStream = "DescribeStream"
 // client's request for the DescribeStream operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -548,15 +537,6 @@ const opDescribeStream = "DescribeStream"
 // See DescribeStream for more information on using the DescribeStream
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DescribeStream for more information on using the DescribeStream
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -727,11 +707,7 @@ const opDescribeStreamSummary = "DescribeStreamSummary"
 //        fmt.Println(resp)
 //    }
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary
->>>>>>> Working on getting compiling
 func (c *Kinesis) DescribeStreamSummaryRequest(input *DescribeStreamSummaryInput) (req *request.Request, output *DescribeStreamSummaryOutput) {
 	op := &request.Operation{
 		Name:       opDescribeStreamSummary,
@@ -773,11 +749,7 @@ func (c *Kinesis) DescribeStreamSummaryRequest(input *DescribeStreamSummaryInput
 //   The requested resource exceeds the maximum number allowed, or the number
 //   of concurrent stream requests exceeds the maximum number allowed.
 //
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary
->>>>>>> Working on getting compiling
 func (c *Kinesis) DescribeStreamSummary(input *DescribeStreamSummaryInput) (*DescribeStreamSummaryOutput, error) {
 	req, out := c.DescribeStreamSummaryRequest(input)
 	return out, req.Send()
@@ -805,7 +777,6 @@ const opDisableEnhancedMonitoring = "DisableEnhancedMonitoring"
 // client's request for the DisableEnhancedMonitoring operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -813,15 +784,6 @@ const opDisableEnhancedMonitoring = "DisableEnhancedMonitoring"
 // See DisableEnhancedMonitoring for more information on using the DisableEnhancedMonitoring
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See DisableEnhancedMonitoring for more information on using the DisableEnhancedMonitoring
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -907,7 +869,6 @@ const opEnableEnhancedMonitoring = "EnableEnhancedMonitoring"
 // client's request for the EnableEnhancedMonitoring operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -915,15 +876,6 @@ const opEnableEnhancedMonitoring = "EnableEnhancedMonitoring"
 // See EnableEnhancedMonitoring for more information on using the EnableEnhancedMonitoring
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See EnableEnhancedMonitoring for more information on using the EnableEnhancedMonitoring
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1411,7 +1363,6 @@ const opListStreams = "ListStreams"
 // client's request for the ListStreams operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1419,15 +1370,6 @@ const opListStreams = "ListStreams"
 // See ListStreams for more information on using the ListStreams
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListStreams for more information on using the ListStreams
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -1572,7 +1514,6 @@ const opListTagsForStream = "ListTagsForStream"
 // client's request for the ListTagsForStream operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -1580,15 +1521,6 @@ const opListTagsForStream = "ListTagsForStream"
 // See ListTagsForStream for more information on using the ListTagsForStream
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See ListTagsForStream for more information on using the ListTagsForStream
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2365,7 +2297,6 @@ const opStartStreamEncryption = "StartStreamEncryption"
 // client's request for the StartStreamEncryption operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2373,15 +2304,6 @@ const opStartStreamEncryption = "StartStreamEncryption"
 // See StartStreamEncryption for more information on using the StartStreamEncryption
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See StartStreamEncryption for more information on using the StartStreamEncryption
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2512,7 +2434,6 @@ const opStopStreamEncryption = "StopStreamEncryption"
 // client's request for the StopStreamEncryption operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2520,15 +2441,6 @@ const opStopStreamEncryption = "StopStreamEncryption"
 // See StopStreamEncryption for more information on using the StopStreamEncryption
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See StopStreamEncryption for more information on using the StopStreamEncryption
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -2633,7 +2545,6 @@ const opUpdateShardCount = "UpdateShardCount"
 // client's request for the UpdateShardCount operation. The "output" return
 // value will be populated with the request's response once the request complets
 // successfuly.
-<<<<<<< HEAD
 //
 // Use "Send" method on the returned Request to send the API call to the service.
 // the "output" return value is not valid until after Send returns without error.
@@ -2641,15 +2552,6 @@ const opUpdateShardCount = "UpdateShardCount"
 // See UpdateShardCount for more information on using the UpdateShardCount
 // API call, and error handling.
 //
-=======
-//
-// Use "Send" method on the returned Request to send the API call to the service.
-// the "output" return value is not valid until after Send returns without error.
-//
-// See UpdateShardCount for more information on using the UpdateShardCount
-// API call, and error handling.
-//
->>>>>>> Initial dep workover
 // This method is useful when you want to inject custom logic or configuration
 // into the SDK's request lifecycle. Such as custom headers, or retry logic.
 //
@@ -3202,11 +3104,7 @@ func (s *DescribeStreamOutput) SetStreamDescription(v *StreamDescription) *Descr
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummaryInput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummaryInput
->>>>>>> Working on getting compiling
 type DescribeStreamSummaryInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3248,11 +3146,7 @@ func (s *DescribeStreamSummaryInput) SetStreamName(v string) *DescribeStreamSumm
 	return s
 }
 
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummaryOutput
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummaryOutput
->>>>>>> Working on getting compiling
 type DescribeStreamSummaryOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4625,11 +4519,7 @@ func (s *PutRecordsResultEntry) SetShardId(v string) *PutRecordsResultEntry {
 
 // The unit of data of the Kinesis stream, which is composed of a sequence number,
 // a partition key, and a data blob.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/Record
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/Record
->>>>>>> Working on getting compiling
 type Record struct {
 	_ struct{} `type:"structure"`
 
@@ -4820,11 +4710,7 @@ func (s *SequenceNumberRange) SetStartingSequenceNumber(v string) *SequenceNumbe
 }
 
 // A uniquely identified group of data records in a Kinesis stream.
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/Shard
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/Shard
->>>>>>> Working on getting compiling
 type Shard struct {
 	_ struct{} `type:"structure"`
 
@@ -5345,11 +5231,7 @@ func (s *StreamDescription) SetStreamStatus(v string) *StreamDescription {
 }
 
 // Represents the output for DescribeStreamSummary
-<<<<<<< HEAD
 // See also, https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/StreamDescriptionSummary
-=======
-// Please also see https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/StreamDescriptionSummary
->>>>>>> Working on getting compiling
 type StreamDescriptionSummary struct {
 	_ struct{} `type:"structure"`
 
