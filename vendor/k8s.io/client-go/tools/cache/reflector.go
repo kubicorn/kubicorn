@@ -110,10 +110,14 @@ func NewNamedReflector(name string, lw ListerWatcher, expectedType interface{}, 
 		name: name,
 		// we need this to be unique per process (some names are still the same)but obvious who it belongs to
 <<<<<<< HEAD
+<<<<<<< HEAD
 		metrics:       newReflectorMetrics(makeValidPromethusMetricLabel(fmt.Sprintf("reflector_"+name+"_%d", reflectorSuffix))),
 =======
 		metrics:       newReflectorMetrics(makeValidPromethusMetricName(fmt.Sprintf("reflector_"+name+"_%d", reflectorSuffix))),
 >>>>>>> Initial dep workover
+=======
+		metrics:       newReflectorMetrics(makeValidPromethusMetricLabel(fmt.Sprintf("reflector_"+name+"_%d", reflectorSuffix))),
+>>>>>>> omg dep constraints
 		listerWatcher: lw,
 		store:         store,
 		expectedType:  reflect.TypeOf(expectedType),
@@ -125,6 +129,7 @@ func NewNamedReflector(name string, lw ListerWatcher, expectedType interface{}, 
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 func makeValidPromethusMetricLabel(in string) string {
 	// this isn't perfect, but it removes our common characters
 	return strings.NewReplacer("/", "_", ".", "_", "-", "_", ":", "_").Replace(in)
@@ -133,6 +138,11 @@ func makeValidPromethusMetricName(in string) string {
 	// this isn't perfect, but it removes our common characters
 	return strings.NewReplacer("/", "_", ".", "_", "-", "_").Replace(in)
 >>>>>>> Initial dep workover
+=======
+func makeValidPromethusMetricLabel(in string) string {
+	// this isn't perfect, but it removes our common characters
+	return strings.NewReplacer("/", "_", ".", "_", "-", "_", ":", "_").Replace(in)
+>>>>>>> omg dep constraints
 }
 
 // internalPackages are packages that ignored when creating a default reflector name. These packages are in the common

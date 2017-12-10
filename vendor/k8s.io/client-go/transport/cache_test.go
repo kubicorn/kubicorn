@@ -63,6 +63,9 @@ func TestTLSConfigKey(t *testing.T) {
 			},
 		},
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> omg dep constraints
 		"cert 1, key 1, servername 1": {
 			TLS: TLSConfig{
 				CertData:   []byte{1},
@@ -77,8 +80,11 @@ func TestTLSConfigKey(t *testing.T) {
 				ServerName: "2",
 			},
 		},
+<<<<<<< HEAD
 =======
 >>>>>>> Initial dep workover
+=======
+>>>>>>> omg dep constraints
 		"cert 1, key 2": {
 			TLS: TLSConfig{
 				CertData: []byte{1},

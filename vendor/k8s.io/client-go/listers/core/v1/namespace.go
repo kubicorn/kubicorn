@@ -26,9 +26,12 @@ import (
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 >>>>>>> Initial dep workover
+=======
+>>>>>>> omg dep constraints
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/tools/cache"
 )
@@ -63,11 +66,15 @@ func (s *namespaceLister) List(selector labels.Selector) (ret []*v1.Namespace, e
 // Get retrieves the Namespace from the index for a given name.
 func (s *namespaceLister) Get(name string) (*v1.Namespace, error) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	obj, exists, err := s.indexer.GetByKey(name)
 =======
 	key := &v1.Namespace{ObjectMeta: meta_v1.ObjectMeta{Name: name}}
 	obj, exists, err := s.indexer.Get(key)
 >>>>>>> Initial dep workover
+=======
+	obj, exists, err := s.indexer.GetByKey(name)
+>>>>>>> omg dep constraints
 	if err != nil {
 		return nil, err
 	}

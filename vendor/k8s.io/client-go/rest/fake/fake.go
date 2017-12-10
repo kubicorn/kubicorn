@@ -23,9 +23,12 @@ import (
 	"net/url"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	"k8s.io/apimachinery/pkg/apimachinery/registered"
 >>>>>>> Initial dep workover
+=======
+>>>>>>> omg dep constraints
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
@@ -50,11 +53,15 @@ type RESTClient struct {
 	Client               *http.Client
 	NegotiatedSerializer runtime.NegotiatedSerializer
 <<<<<<< HEAD
+<<<<<<< HEAD
 	GroupVersion         schema.GroupVersion
 =======
 	GroupName            string
 	APIRegistry          *registered.APIRegistrationManager
 >>>>>>> Initial dep workover
+=======
+	GroupVersion         schema.GroupVersion
+>>>>>>> omg dep constraints
 	VersionedAPIPath     string
 
 	Req  *http.Request
@@ -88,10 +95,14 @@ func (c *RESTClient) Verb(verb string) *restclient.Request {
 
 func (c *RESTClient) APIVersion() schema.GroupVersion {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return c.GroupVersion
 =======
 	return c.APIRegistry.GroupOrDie("").GroupVersion
 >>>>>>> Initial dep workover
+=======
+	return c.GroupVersion
+>>>>>>> omg dep constraints
 }
 
 func (c *RESTClient) GetRateLimiter() flowcontrol.RateLimiter {
@@ -101,6 +112,7 @@ func (c *RESTClient) GetRateLimiter() flowcontrol.RateLimiter {
 func (c *RESTClient) request(verb string) *restclient.Request {
 	config := restclient.ContentConfig{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		ContentType:          runtime.ContentTypeJSON,
 		GroupVersion:         &c.GroupVersion,
 =======
@@ -108,12 +120,17 @@ func (c *RESTClient) request(verb string) *restclient.Request {
 		// TODO this was hardcoded before, but it doesn't look right
 		GroupVersion:         &c.APIRegistry.GroupOrDie("").GroupVersion,
 >>>>>>> Initial dep workover
+=======
+		ContentType:          runtime.ContentTypeJSON,
+		GroupVersion:         &c.GroupVersion,
+>>>>>>> omg dep constraints
 		NegotiatedSerializer: c.NegotiatedSerializer,
 	}
 
 	ns := c.NegotiatedSerializer
 	info, _ := runtime.SerializerInfoForMediaType(ns.SupportedMediaTypes(), runtime.ContentTypeJSON)
 	internalVersion := schema.GroupVersion{
+<<<<<<< HEAD
 <<<<<<< HEAD
 		Group:   c.GroupVersion.Group,
 		Version: runtime.APIVersionInternal,
@@ -123,13 +140,19 @@ func (c *RESTClient) request(verb string) *restclient.Request {
 		Encoder: ns.EncoderForVersion(info.Serializer, c.GroupVersion),
 =======
 		Group:   c.APIRegistry.GroupOrDie(c.GroupName).GroupVersion.Group,
+=======
+		Group:   c.GroupVersion.Group,
+>>>>>>> omg dep constraints
 		Version: runtime.APIVersionInternal,
 	}
-	internalVersion.Version = runtime.APIVersionInternal
 	serializers := restclient.Serializers{
 		// TODO this was hardcoded before, but it doesn't look right
+<<<<<<< HEAD
 		Encoder: ns.EncoderForVersion(info.Serializer, c.APIRegistry.GroupOrDie("").GroupVersion),
 >>>>>>> Initial dep workover
+=======
+		Encoder: ns.EncoderForVersion(info.Serializer, c.GroupVersion),
+>>>>>>> omg dep constraints
 		Decoder: ns.DecoderToVersion(info.Serializer, internalVersion),
 	}
 	if info.StreamSerializer != nil {

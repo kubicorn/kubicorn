@@ -14,6 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Package waitgroup implements SafeWaitGroup wrap of sync.WaitGroup.
-// Add with positive delta when waiting will fail, to prevent sync.WaitGroup race issue.
-package waitgroup // import "k8s.io/apimachinery/pkg/util/waitgroup"
+// Package unstructured provides conversion from runtime objects
+// to map[string]interface{} representation.
+package unstructured // import "k8s.io/apimachinery/pkg/conversion/unstructured"

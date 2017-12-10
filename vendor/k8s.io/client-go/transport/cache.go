@@ -89,8 +89,12 @@ func tlsConfigKey(c *Config) (string, error) {
 	}
 	// Only include the things that actually affect the tls.Config
 <<<<<<< HEAD
+<<<<<<< HEAD
 	return fmt.Sprintf("%v/%x/%x/%x/%v", c.TLS.Insecure, c.TLS.CAData, c.TLS.CertData, c.TLS.KeyData, c.TLS.ServerName), nil
 =======
 	return fmt.Sprintf("%v/%x/%x/%x", c.TLS.Insecure, c.TLS.CAData, c.TLS.CertData, c.TLS.KeyData), nil
 >>>>>>> Initial dep workover
+=======
+	return fmt.Sprintf("%v/%x/%x/%x/%v", c.TLS.Insecure, c.TLS.CAData, c.TLS.CertData, c.TLS.KeyData, c.TLS.ServerName), nil
+>>>>>>> omg dep constraints
 }
