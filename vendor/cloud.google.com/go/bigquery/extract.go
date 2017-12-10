@@ -21,9 +21,6 @@ import (
 
 // ExtractConfig holds the configuration for an extract job.
 type ExtractConfig struct {
-	// JobID is the ID to use for the extract job. If empty, a job ID will be automatically created.
-	JobID string
-
 	// Src is the table from which data will be extracted.
 	Src *Table
 
@@ -32,10 +29,52 @@ type ExtractConfig struct {
 
 	// DisableHeader disables the printing of a header row in exported data.
 	DisableHeader bool
+
+	// The labels associated with this job.
+	Labels map[string]string
+}
+
+func (e *ExtractConfig) toBQ() *bq.JobConfiguration {
+	var printHeader *bool
+	if e.DisableHeader {
+		f := false
+		printHeader = &f
+	}
+	return &bq.JobConfiguration{
+		Labels: e.Labels,
+		Extract: &bq.JobConfigurationExtract{
+			DestinationUris:   append([]string{}, e.Dst.URIs...),
+			Compression:       string(e.Dst.Compression),
+			DestinationFormat: string(e.Dst.DestinationFormat),
+			FieldDelimiter:    e.Dst.FieldDelimiter,
+			SourceTable:       e.Src.toBQ(),
+			PrintHeader:       printHeader,
+		},
+	}
+}
+
+func bqToExtractConfig(q *bq.JobConfiguration, c *Client) *ExtractConfig {
+	qe := q.Extract
+	return &ExtractConfig{
+		Labels: q.Labels,
+		Dst: &GCSReference{
+			URIs:              qe.DestinationUris,
+			Compression:       Compression(qe.Compression),
+			DestinationFormat: DataFormat(qe.DestinationFormat),
+			FileConfig: FileConfig{
+				CSVOptions: CSVOptions{
+					FieldDelimiter: qe.FieldDelimiter,
+				},
+			},
+		},
+		DisableHeader: qe.PrintHeader != nil && !*qe.PrintHeader,
+		Src:           bqToTable(qe.SourceTable, c),
+	}
 }
 
 // An Extractor extracts data from a BigQuery table into Google Cloud Storage.
 type Extractor struct {
+	JobIDConfig
 	ExtractConfig
 	c *Client
 }
@@ -55,22 +94,12 @@ func (t *Table) ExtractorTo(dst *GCSReference) *Extractor {
 
 // Run initiates an extract job.
 func (e *Extractor) Run(ctx context.Context) (*Job, error) {
-	conf := &bq.JobConfigurationExtract{}
-	job := &bq.Job{Configuration: &bq.JobConfiguration{Extract: conf}}
+	return e.c.insertJob(ctx, e.newJob(), nil)
+}
 
-	setJobRef(job, e.JobID, e.c.projectID)
-
-	conf.DestinationUris = append([]string{}, e.Dst.uris...)
-	conf.Compression = string(e.Dst.Compression)
-	conf.DestinationFormat = string(e.Dst.DestinationFormat)
-	conf.FieldDelimiter = e.Dst.FieldDelimiter
-
-	conf.SourceTable = e.Src.tableRefProto()
-
-	if e.DisableHeader {
-		f := false
-		conf.PrintHeader = &f
+func (e *Extractor) newJob() *bq.Job {
+	return &bq.Job{
+		JobReference:  e.JobIDConfig.createJobRef(e.c.projectID),
+		Configuration: e.ExtractConfig.toBQ(),
 	}
-
-	return e.c.insertJob(ctx, &insertJobConf{job: job})
 }

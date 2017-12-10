@@ -88,6 +88,35 @@ func TestDocument_GetWordBeforeCursor(t *testing.T) {
 	}
 }
 
+func TestDocument_GetWordBeforeCursorWithSpace(t *testing.T) {
+	pattern := []struct {
+		document *Document
+		expected string
+	}{
+		{
+			document: &Document{
+				Text:           "apple bana ",
+				CursorPosition: len("apple bana "),
+			},
+			expected: "bana ",
+		},
+		{
+			document: &Document{
+				Text:           "apple ",
+				CursorPosition: len("apple "),
+			},
+			expected: "apple ",
+		},
+	}
+
+	for _, p := range pattern {
+		ac := p.document.GetWordBeforeCursorWithSpace()
+		if ac != p.expected {
+			t.Errorf("Should be %#v, got %#v", p.expected, ac)
+		}
+	}
+}
+
 func TestDocument_FindStartOfPreviousWord(t *testing.T) {
 	pattern := []struct {
 		document *Document
@@ -111,6 +140,35 @@ func TestDocument_FindStartOfPreviousWord(t *testing.T) {
 
 	for _, p := range pattern {
 		ac := p.document.FindStartOfPreviousWord()
+		if ac != p.expected {
+			t.Errorf("Should be %#v, got %#v", p.expected, ac)
+		}
+	}
+}
+
+func TestDocument_FindStartOfPreviousWordWithSpace(t *testing.T) {
+	pattern := []struct {
+		document *Document
+		expected int
+	}{
+		{
+			document: &Document{
+				Text:           "apple bana ",
+				CursorPosition: len("apple bana "),
+			},
+			expected: len("apple "),
+		},
+		{
+			document: &Document{
+				Text:           "apple ",
+				CursorPosition: len("apple "),
+			},
+			expected: len(""),
+		},
+	}
+
+	for _, p := range pattern {
+		ac := p.document.FindStartOfPreviousWordWithSpace()
 		if ac != p.expected {
 			t.Errorf("Should be %#v, got %#v", p.expected, ac)
 		}
@@ -324,12 +382,12 @@ func TestDocument_OnLastLine(t *testing.T) {
 		CursorPosition: len("line 1\nline"),
 	}
 	ac := d.OnLastLine()
-	if ac != false {
+	if ac {
 		t.Errorf("Should be %#v, got %#v", false, ac)
 	}
 	d.CursorPosition = len("line 1\nline 2\nline")
 	ac = d.OnLastLine()
-	if ac != true {
+	if !ac {
 		t.Errorf("Should be %#v, got %#v", true, ac)
 	}
 }

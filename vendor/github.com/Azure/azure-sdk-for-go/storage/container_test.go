@@ -1,10 +1,26 @@
 package storage
 
+// Copyright 2017 Microsoft Corporation
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+
 import (
+	"net/url"
 	"sort"
 	"strconv"
 	"time"
 
+	"github.com/Azure/go-autorest/autorest/azure"
 	chk "gopkg.in/check.v1"
 )
 
@@ -39,6 +55,11 @@ func (s *ContainerSuite) TestListContainersPagination(c *chk.C) {
 		cnt := cli.GetContainerReference(cntNames[i])
 		c.Assert(cnt.Create(nil), chk.IsNil)
 		created = append(created, cnt)
+		cnt.Metadata = map[string]string{
+			"hello": "world",
+			"name":  cnt.Name,
+		}
+		c.Assert(cnt.SetMetadata(nil), chk.IsNil)
 		defer cnt.Delete(nil)
 	}
 
@@ -48,7 +69,9 @@ func (s *ContainerSuite) TestListContainersPagination(c *chk.C) {
 	for {
 		resp, err := cli.ListContainers(ListContainersParameters{
 			MaxResults: pageSize,
-			Marker:     marker})
+			Marker:     marker,
+			Include:    "metadata",
+		})
 
 		c.Assert(err, chk.IsNil)
 
@@ -68,6 +91,7 @@ func (s *ContainerSuite) TestListContainersPagination(c *chk.C) {
 
 	for i := range created {
 		c.Assert(seen[i].Name, chk.DeepEquals, created[i].Name)
+		c.Assert(seen[i].Metadata, chk.DeepEquals, created[i].Metadata)
 	}
 }
 
@@ -82,11 +106,63 @@ func (s *ContainerSuite) TestContainerExists(c *chk.C) {
 	c.Assert(err, chk.IsNil)
 	c.Assert(ok, chk.Equals, false)
 
-	// COntainer exists
+	// Container exists
 	cnt2 := cli.GetContainerReference(containerName(c, "2"))
-	c.Assert(cnt2.Create(nil), chk.IsNil)
+	err = cnt2.Create(nil)
 	defer cnt2.Delete(nil)
+	c.Assert(err, chk.IsNil)
 	ok, err = cnt2.Exists()
+	c.Assert(err, chk.IsNil)
+	c.Assert(ok, chk.Equals, true)
+
+	// Service SASURI test (funcs should fail, service SAS has not enough permissions)
+	sasuriOptions := ContainerSASOptions{}
+	sasuriOptions.Expiry = fixedTime
+	sasuriOptions.Read = true
+	sasuriOptions.Add = true
+	sasuriOptions.Create = true
+	sasuriOptions.Write = true
+	sasuriOptions.Delete = true
+	sasuriOptions.List = true
+
+	sasuriString1, err := cnt1.GetSASURI(sasuriOptions)
+	c.Assert(err, chk.IsNil)
+	sasuri1, err := url.Parse(sasuriString1)
+	c.Assert(err, chk.IsNil)
+	cntServiceSAS1, err := GetContainerReferenceFromSASURI(*sasuri1)
+	c.Assert(err, chk.IsNil)
+	cntServiceSAS1.Client().HTTPClient = cli.client.HTTPClient
+
+	ok, err = cntServiceSAS1.Exists()
+	c.Assert(err, chk.NotNil)
+	c.Assert(ok, chk.Equals, false)
+
+	sasuriString2, err := cnt2.GetSASURI(sasuriOptions)
+	c.Assert(err, chk.IsNil)
+	sasuri2, err := url.Parse(sasuriString2)
+	c.Assert(err, chk.IsNil)
+	cntServiceSAS2, err := GetContainerReferenceFromSASURI(*sasuri2)
+	c.Assert(err, chk.IsNil)
+	cntServiceSAS2.Client().HTTPClient = cli.client.HTTPClient
+
+	ok, err = cntServiceSAS2.Exists()
+	c.Assert(err, chk.NotNil)
+	c.Assert(ok, chk.Equals, false)
+
+	// Account SASURI test
+	token, err := cli.client.GetAccountSASToken(accountSASOptions)
+	c.Assert(err, chk.IsNil)
+	SAScli := NewAccountSASClient(cli.client.accountName, token, azure.PublicCloud).GetBlobService()
+
+	cntAccountSAS1 := SAScli.GetContainerReference(cnt1.Name)
+	cntAccountSAS1.Client().HTTPClient = cli.client.HTTPClient
+	ok, err = cntAccountSAS1.Exists()
+	c.Assert(err, chk.IsNil)
+	c.Assert(ok, chk.Equals, false)
+
+	cntAccountSAS2 := SAScli.GetContainerReference(cnt2.Name)
+	cntAccountSAS2.Client().HTTPClient = cli.client.HTTPClient
+	ok, err = cntAccountSAS2.Exists()
 	c.Assert(err, chk.IsNil)
 	c.Assert(ok, chk.Equals, true)
 }
@@ -157,10 +233,12 @@ func (s *ContainerSuite) TestListBlobsPagination(c *chk.C) {
 	defer rec.Stop()
 	cnt := cli.GetContainerReference(containerName(c))
 
-	c.Assert(cnt.Create(nil), chk.IsNil)
+	err := cnt.Create(nil)
 	defer cnt.Delete(nil)
+	c.Assert(err, chk.IsNil)
 
 	blobs := []string{}
+	types := []BlobType{}
 	const n = 5
 	const pageSize = 2
 	for i := 0; i < n; i++ {
@@ -168,11 +246,47 @@ func (s *ContainerSuite) TestListBlobsPagination(c *chk.C) {
 		b := cnt.GetBlobReference(name)
 		c.Assert(b.putSingleBlockBlob([]byte("Hello, world!")), chk.IsNil)
 		blobs = append(blobs, name)
+		types = append(types, b.Properties.BlobType)
 	}
 	sort.Strings(blobs)
 
+	listBlobsPagination(c, cnt, pageSize, blobs, types)
+
+	// Service SAS test
+	sasuriOptions := ContainerSASOptions{}
+	sasuriOptions.Expiry = fixedTime
+	sasuriOptions.Read = true
+	sasuriOptions.Add = true
+	sasuriOptions.Create = true
+	sasuriOptions.Write = true
+	sasuriOptions.Delete = true
+	sasuriOptions.List = true
+
+	sasuriString, err := cnt.GetSASURI(sasuriOptions)
+	c.Assert(err, chk.IsNil)
+	sasuri, err := url.Parse(sasuriString)
+	c.Assert(err, chk.IsNil)
+	cntServiceSAS, err := GetContainerReferenceFromSASURI(*sasuri)
+	c.Assert(err, chk.IsNil)
+	cntServiceSAS.Client().HTTPClient = cli.client.HTTPClient
+
+	listBlobsPagination(c, cntServiceSAS, pageSize, blobs, types)
+
+	// Account SAS test
+	token, err := cli.client.GetAccountSASToken(accountSASOptions)
+	c.Assert(err, chk.IsNil)
+	SAScli := NewAccountSASClient(cli.client.accountName, token, azure.PublicCloud).GetBlobService()
+
+	cntAccountSAS := SAScli.GetContainerReference(cnt.Name)
+	cntAccountSAS.Client().HTTPClient = cli.client.HTTPClient
+
+	listBlobsPagination(c, cntAccountSAS, pageSize, blobs, types)
+}
+
+func listBlobsPagination(c *chk.C, cnt *Container, pageSize uint, blobs []string, types []BlobType) {
 	// Paginate
 	seen := []string{}
+	seenTypes := []BlobType{}
 	marker := ""
 	for {
 		resp, err := cnt.ListBlobs(ListBlobsParameters{
@@ -182,6 +296,7 @@ func (s *ContainerSuite) TestListBlobsPagination(c *chk.C) {
 
 		for _, b := range resp.Blobs {
 			seen = append(seen, b.Name)
+			seenTypes = append(seenTypes, b.Properties.BlobType)
 			c.Assert(b.Container, chk.Equals, cnt)
 		}
 
@@ -193,6 +308,7 @@ func (s *ContainerSuite) TestListBlobsPagination(c *chk.C) {
 
 	// Compare
 	c.Assert(seen, chk.DeepEquals, blobs)
+	c.Assert(seenTypes, chk.DeepEquals, types)
 }
 
 // listBlobsAsFiles is a helper function to list blobs as "folders" and "files".
@@ -528,6 +644,39 @@ func (s *ContainerSuite) TestSetThenGetContainerPermissionsOnlySuccessfully(c *c
 
 	// fixedTime check there are NO policies set
 	c.Assert(newPerms.AccessPolicies, chk.HasLen, 0)
+}
+
+func (s *ContainerSuite) TestGetAndSetContainerMetadata(c *chk.C) {
+	cli := getBlobClient(c)
+	rec := cli.client.appendRecorder(c)
+	defer rec.Stop()
+
+	// Get empty metadata
+	cnt1 := cli.GetContainerReference(containerName(c, "1"))
+	c.Assert(cnt1.Create(nil), chk.IsNil)
+	defer cnt1.Delete(nil)
+
+	err := cnt1.GetMetadata(nil)
+	c.Assert(err, chk.IsNil)
+	c.Assert(cnt1.Metadata, chk.HasLen, 0)
+
+	// Get and set the metadata
+	cnt2 := cli.GetContainerReference(containerName(c, "2"))
+	c.Assert(cnt2.Create(nil), chk.IsNil)
+	defer cnt2.Delete(nil)
+
+	metaPut := map[string]string{
+		"lol":      "rofl",
+		"rofl_baz": "waz qux",
+	}
+	cnt2.Metadata = metaPut
+
+	err = cnt2.SetMetadata(nil)
+	c.Assert(err, chk.IsNil)
+
+	err = cnt2.GetMetadata(nil)
+	c.Assert(err, chk.IsNil)
+	c.Check(cnt2.Metadata, chk.DeepEquals, metaPut)
 }
 
 func (cli *BlobStorageClient) deleteTestContainers(c *chk.C) error {

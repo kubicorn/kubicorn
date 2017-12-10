@@ -16,6 +16,7 @@ package storage_test
 
 import (
 	"fmt"
+	"hash/crc32"
 	"io"
 	"io/ioutil"
 	"log"
@@ -25,10 +26,14 @@ import (
 	"cloud.google.com/go/storage"
 	"golang.org/x/net/context"
 	"google.golang.org/api/iterator"
+	"google.golang.org/api/option"
 )
 
 func ExampleNewClient() {
 	ctx := context.Background()
+	// Use Google Application Default Credentials to authorize and authenticate the client.
+	// More information about Application Default Credentials and how to enable is at
+	// https://developers.google.com/identity/protocols/application-default-credentials.
 	client, err := storage.NewClient(ctx)
 	if err != nil {
 		// TODO: handle error.
@@ -41,21 +46,19 @@ func ExampleNewClient() {
 	}
 }
 
-func ExampleNewClient_auth() {
+// This example shows how to create an unauthenticated client, which
+// can be used to access public data.
+func ExampleNewClient_unauthenticated() {
 	ctx := context.Background()
-	// Use Google Application Default Credentials to authorize and authenticate the client.
-	// More information about Application Default Credentials and how to enable is at
-	// https://developers.google.com/identity/protocols/application-default-credentials.
-	client, err := storage.NewClient(ctx)
+	client, err := storage.NewClient(ctx, option.WithoutAuthentication())
 	if err != nil {
-		log.Fatal(err)
+		// TODO: handle error.
 	}
-
 	// Use the client.
 
 	// Close the client when finished.
 	if err := client.Close(); err != nil {
-		log.Fatal(err)
+		// TODO: handle error.
 	}
 }
 
@@ -173,6 +176,57 @@ func ExampleBucketHandle_Objects() {
 	}
 	it := client.Bucket("my-bucket").Objects(ctx, nil)
 	_ = it // TODO: iterate using Next or iterator.Pager.
+}
+
+func ExampleBucketHandle_AddNotification() {
+	ctx := context.Background()
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		// TODO: handle error.
+	}
+	b := client.Bucket("my-bucket")
+	n, err := b.AddNotification(ctx, &storage.Notification{
+		TopicProjectID: "my-project",
+		TopicID:        "my-topic",
+		PayloadFormat:  storage.JSONPayload,
+	})
+	if err != nil {
+		// TODO: handle error.
+	}
+	fmt.Println(n.ID)
+}
+
+func ExampleBucketHandle_Notifications() {
+	ctx := context.Background()
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		// TODO: handle error.
+	}
+	b := client.Bucket("my-bucket")
+	ns, err := b.Notifications(ctx)
+	if err != nil {
+		// TODO: handle error.
+	}
+	for id, n := range ns {
+		fmt.Printf("%s: %+v\n", id, n)
+	}
+}
+
+var notificationID string
+
+func ExampleBucketHandle_DeleteNotification() {
+	ctx := context.Background()
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		// TODO: handle error.
+	}
+	b := client.Bucket("my-bucket")
+	// TODO: Obtain notificationID from BucketHandle.AddNotification
+	// or BucketHandle.Notifications.
+	err = b.DeleteNotification(ctx, notificationID)
+	if err != nil {
+		// TODO: handle error.
+	}
 }
 
 func ExampleObjectIterator_Next() {
@@ -321,6 +375,31 @@ func ExampleWriter_Write() {
 	wc.ACL = []storage.ACLRule{{storage.AllUsers, storage.RoleReader}}
 	if _, err := wc.Write([]byte("hello world")); err != nil {
 		// TODO: handle error.
+		// Note that Write may return nil in some error situations,
+		// so always check the error from Close.
+	}
+	if err := wc.Close(); err != nil {
+		// TODO: handle error.
+	}
+	fmt.Println("updated object:", wc.Attrs())
+}
+
+// To make sure the data you write is uncorrupted, use an MD5 or CRC32c
+// checksum. This example illustrates CRC32c.
+func ExampleWriter_Write_checksum() {
+	ctx := context.Background()
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		// TODO: handle error.
+	}
+	data := []byte("verify me")
+	wc := client.Bucket("bucketname").Object("filename1").NewWriter(ctx)
+	wc.CRC32C = crc32.Checksum(data, crc32.MakeTable(crc32.Castagnoli))
+	wc.SendCRC32C = true
+	if _, err := wc.Write([]byte("hello world")); err != nil {
+		// TODO: handle error.
+		// Note that Write may return nil in some error situations,
+		// so always check the error from Close.
 	}
 	if err := wc.Close(); err != nil {
 		// TODO: handle error.

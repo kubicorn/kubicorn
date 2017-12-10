@@ -24,6 +24,7 @@ type RouteBuilder struct {
 	httpMethod  string        // required
 	function    RouteFunction // required
 	filters     []FilterFunction
+	conditions []RouteSelectionConditionFunction
 
 	typeNameHandleFunc TypeNameHandleFunction // required
 
@@ -89,7 +90,7 @@ func (b *RouteBuilder) Doc(documentation string) *RouteBuilder {
 	return b
 }
 
-// A verbose explanation of the operation behavior. Optional.
+// Notes is a verbose explanation of the operation behavior. Optional.
 func (b *RouteBuilder) Notes(notes string) *RouteBuilder {
 	b.notes = notes
 	return b
@@ -156,9 +157,10 @@ func (b *RouteBuilder) ReturnsError(code int, message string, model interface{})
 // The model parameter is optional ; either pass a struct instance or use nil if not applicable.
 func (b *RouteBuilder) Returns(code int, message string, model interface{}) *RouteBuilder {
 	err := ResponseError{
-		Code:    code,
-		Message: message,
-		Model:   model,
+		Code:      code,
+		Message:   message,
+		Model:     model,
+		IsDefault: false,
 	}
 	// lazy init because there is no NewRouteBuilder (yet)
 	if b.errorMap == nil {
@@ -168,6 +170,22 @@ func (b *RouteBuilder) Returns(code int, message string, model interface{}) *Rou
 	return b
 }
 
+// DefaultReturns is a special Returns call that sets the default of the response ; the code is zero.
+func (b *RouteBuilder) DefaultReturns(message string, model interface{}) *RouteBuilder {
+	b.Returns(0, message, model)
+	// Modify the ResponseError just added/updated
+	re := b.errorMap[0]
+	// errorMap is initialized
+	b.errorMap[0] = ResponseError{
+		Code:      re.Code,
+		Message:   re.Message,
+		Model:     re.Model,
+		IsDefault: true,
+	}
+	return b
+}
+
+// Metadata adds or updates a key=value pair to the metadata map.
 func (b *RouteBuilder) Metadata(key string, value interface{}) *RouteBuilder {
 	if b.metadata == nil {
 		b.metadata = map[string]interface{}{}
@@ -176,10 +194,12 @@ func (b *RouteBuilder) Metadata(key string, value interface{}) *RouteBuilder {
 	return b
 }
 
+// ResponseError represents a response; not necessarily an error.
 type ResponseError struct {
-	Code    int
-	Message string
-	Model   interface{}
+	Code      int
+	Message   string
+	Model     interface{}
+	IsDefault bool
 }
 
 func (b *RouteBuilder) servicePath(path string) *RouteBuilder {
@@ -190,6 +210,21 @@ func (b *RouteBuilder) servicePath(path string) *RouteBuilder {
 // Filter appends a FilterFunction to the end of filters for this Route to build.
 func (b *RouteBuilder) Filter(filter FilterFunction) *RouteBuilder {
 	b.filters = append(b.filters, filter)
+	return b
+}
+
+// If sets a condition function that controls matching the Route based on custom logic.
+// The condition function is provided the HTTP request and should return true if the route
+// should be considered.
+//
+// Efficiency note: the condition function is called before checking the method, produces, and
+// consumes criteria, so that the correct HTTP status code can be returned.
+//
+// Lifecycle note: no filter functions have been called prior to calling the condition function,
+// so the condition function should not depend on any context that might be set up by container
+// or route filters.
+func (b *RouteBuilder) If(condition RouteSelectionConditionFunction) *RouteBuilder {
+	b.conditions = append(b.conditions, condition)
 	return b
 }
 
@@ -235,6 +270,7 @@ func (b *RouteBuilder) Build() Route {
 		Consumes:       b.consumes,
 		Function:       b.function,
 		Filters:        b.filters,
+		If:             b.conditions,
 		relativePath:   b.currentPath,
 		pathExpr:       pathExpr,
 		Doc:            b.doc,

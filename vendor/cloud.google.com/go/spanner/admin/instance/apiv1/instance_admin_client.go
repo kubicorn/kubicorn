@@ -33,12 +33,7 @@ import (
 	instancepb "google.golang.org/genproto/googleapis/spanner/admin/instance/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-)
-
-var (
-	instanceAdminProjectPathTemplate        = gax.MustCompilePathTemplate("projects/{project}")
-	instanceAdminInstanceConfigPathTemplate = gax.MustCompilePathTemplate("projects/{project}/instanceConfigs/{instance_config}")
-	instanceAdminInstancePathTemplate       = gax.MustCompilePathTemplate("projects/{project}/instances/{instance}")
+	"google.golang.org/grpc/metadata"
 )
 
 // InstanceAdminCallOptions contains the retry settings for each method of InstanceAdminClient.
@@ -108,7 +103,7 @@ type InstanceAdminClient struct {
 	CallOptions *InstanceAdminCallOptions
 
 	// The metadata to be sent with each request.
-	xGoogHeader []string
+	Metadata metadata.MD
 }
 
 // NewInstanceAdminClient creates a new instance admin client.
@@ -145,7 +140,7 @@ func NewInstanceAdminClient(ctx context.Context, opts ...option.ClientOption) (*
 
 		instanceAdminClient: instancepb.NewInstanceAdminClient(conn),
 	}
-	c.SetGoogleClientInfo()
+	c.setGoogleClientInfo()
 
 	c.LROClient, err = lroauto.NewOperationsClient(ctx, option.WithGRPCConn(conn))
 	if err != nil {
@@ -171,53 +166,46 @@ func (c *InstanceAdminClient) Close() error {
 	return c.conn.Close()
 }
 
-// SetGoogleClientInfo sets the name and version of the application in
+// setGoogleClientInfo sets the name and version of the application in
 // the `x-goog-api-client` header passed on each request. Intended for
 // use by Google-written clients.
-func (c *InstanceAdminClient) SetGoogleClientInfo(keyval ...string) {
+func (c *InstanceAdminClient) setGoogleClientInfo(keyval ...string) {
 	kv := append([]string{"gl-go", version.Go()}, keyval...)
 	kv = append(kv, "gapic", version.Repo, "gax", gax.Version, "grpc", grpc.Version)
-	c.xGoogHeader = []string{gax.XGoogHeader(kv...)}
+	c.Metadata = metadata.Pairs("x-goog-api-client", gax.XGoogHeader(kv...))
 }
 
 // InstanceAdminProjectPath returns the path for the project resource.
 func InstanceAdminProjectPath(project string) string {
-	path, err := instanceAdminProjectPathTemplate.Render(map[string]string{
-		"project": project,
-	})
-	if err != nil {
-		panic(err)
-	}
-	return path
+	return "" +
+		"projects/" +
+		project +
+		""
 }
 
 // InstanceAdminInstanceConfigPath returns the path for the instance config resource.
 func InstanceAdminInstanceConfigPath(project, instanceConfig string) string {
-	path, err := instanceAdminInstanceConfigPathTemplate.Render(map[string]string{
-		"project":         project,
-		"instance_config": instanceConfig,
-	})
-	if err != nil {
-		panic(err)
-	}
-	return path
+	return "" +
+		"projects/" +
+		project +
+		"/instanceConfigs/" +
+		instanceConfig +
+		""
 }
 
 // InstanceAdminInstancePath returns the path for the instance resource.
 func InstanceAdminInstancePath(project, instance string) string {
-	path, err := instanceAdminInstancePathTemplate.Render(map[string]string{
-		"project":  project,
-		"instance": instance,
-	})
-	if err != nil {
-		panic(err)
-	}
-	return path
+	return "" +
+		"projects/" +
+		project +
+		"/instances/" +
+		instance +
+		""
 }
 
 // ListInstanceConfigs lists the supported instance configurations for a given project.
 func (c *InstanceAdminClient) ListInstanceConfigs(ctx context.Context, req *instancepb.ListInstanceConfigsRequest, opts ...gax.CallOption) *InstanceConfigIterator {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.ListInstanceConfigs[0:len(c.CallOptions.ListInstanceConfigs):len(c.CallOptions.ListInstanceConfigs)], opts...)
 	it := &InstanceConfigIterator{}
 	it.InternalFetch = func(pageSize int, pageToken string) ([]*instancepb.InstanceConfig, string, error) {
@@ -252,7 +240,7 @@ func (c *InstanceAdminClient) ListInstanceConfigs(ctx context.Context, req *inst
 
 // GetInstanceConfig gets information about a particular instance configuration.
 func (c *InstanceAdminClient) GetInstanceConfig(ctx context.Context, req *instancepb.GetInstanceConfigRequest, opts ...gax.CallOption) (*instancepb.InstanceConfig, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.GetInstanceConfig[0:len(c.CallOptions.GetInstanceConfig):len(c.CallOptions.GetInstanceConfig)], opts...)
 	var resp *instancepb.InstanceConfig
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -268,7 +256,7 @@ func (c *InstanceAdminClient) GetInstanceConfig(ctx context.Context, req *instan
 
 // ListInstances lists all instances in the given project.
 func (c *InstanceAdminClient) ListInstances(ctx context.Context, req *instancepb.ListInstancesRequest, opts ...gax.CallOption) *InstanceIterator {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.ListInstances[0:len(c.CallOptions.ListInstances):len(c.CallOptions.ListInstances)], opts...)
 	it := &InstanceIterator{}
 	it.InternalFetch = func(pageSize int, pageToken string) ([]*instancepb.Instance, string, error) {
@@ -303,7 +291,7 @@ func (c *InstanceAdminClient) ListInstances(ctx context.Context, req *instancepb
 
 // GetInstance gets information about a particular instance.
 func (c *InstanceAdminClient) GetInstance(ctx context.Context, req *instancepb.GetInstanceRequest, opts ...gax.CallOption) (*instancepb.Instance, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.GetInstance[0:len(c.CallOptions.GetInstance):len(c.CallOptions.GetInstance)], opts...)
 	var resp *instancepb.Instance
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -321,38 +309,43 @@ func (c *InstanceAdminClient) GetInstance(ctx context.Context, req *instancepb.G
 // returned [long-running operation][google.longrunning.Operation]
 // can be used to track the progress of preparing the new
 // instance. The instance name is assigned by the caller. If the
-// named instance already exists, `CreateInstance` returns
-// `ALREADY_EXISTS`.
+// named instance already exists, CreateInstance returns
+// ALREADY_EXISTS.
 //
 // Immediately upon completion of this request:
 //
-//   * The instance is readable via the API, with all requested attributes
-//     but no allocated resources. Its state is `CREATING`.
+//   The instance is readable via the API, with all requested attributes
+//   but no allocated resources. Its state is CREATING.
 //
 // Until completion of the returned operation:
 //
-//   * Cancelling the operation renders the instance immediately unreadable
-//     via the API.
-//   * The instance can be deleted.
-//   * All other attempts to modify the instance are rejected.
+//   Cancelling the operation renders the instance immediately unreadable
+//   via the API.
+//
+//   The instance can be deleted.
+//
+//   All other attempts to modify the instance are rejected.
 //
 // Upon completion of the returned operation:
 //
-//   * Billing for all successfully-allocated resources begins (some types
-//     may have lower than the requested levels).
-//   * Databases can be created in the instance.
-//   * The instance's allocated resource levels are readable via the API.
-//   * The instance's state becomes `READY`.
+//   Billing for all successfully-allocated resources begins (some types
+//   may have lower than the requested levels).
+//
+//   Databases can be created in the instance.
+//
+//   The instance's allocated resource levels are readable via the API.
+//
+//   The instance's state becomes READY.
 //
 // The returned [long-running operation][google.longrunning.Operation] will
-// have a name of the format `<instance_name>/operations/<operation_id>` and
+// have a name of the format <instance_name>/operations/<operation_id> and
 // can be used to track creation of the instance.  The
 // [metadata][google.longrunning.Operation.metadata] field type is
 // [CreateInstanceMetadata][google.spanner.admin.instance.v1.CreateInstanceMetadata].
 // The [response][google.longrunning.Operation.response] field type is
 // [Instance][google.spanner.admin.instance.v1.Instance], if successful.
 func (c *InstanceAdminClient) CreateInstance(ctx context.Context, req *instancepb.CreateInstanceRequest, opts ...gax.CallOption) (*CreateInstanceOperation, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.CreateInstance[0:len(c.CallOptions.CreateInstance):len(c.CallOptions.CreateInstance)], opts...)
 	var resp *longrunningpb.Operation
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -372,44 +365,48 @@ func (c *InstanceAdminClient) CreateInstance(ctx context.Context, req *instancep
 // as requested. The returned [long-running
 // operation][google.longrunning.Operation] can be used to track the
 // progress of updating the instance. If the named instance does not
-// exist, returns `NOT_FOUND`.
+// exist, returns NOT_FOUND.
 //
 // Immediately upon completion of this request:
 //
-//   * For resource types for which a decrease in the instance's allocation
-//     has been requested, billing is based on the newly-requested level.
+//   For resource types for which a decrease in the instance's allocation
+//   has been requested, billing is based on the newly-requested level.
 //
 // Until completion of the returned operation:
 //
-//   * Cancelling the operation sets its metadata's
-//     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time], and begins
-//     restoring resources to their pre-request values. The operation
-//     is guaranteed to succeed at undoing all resource changes,
-//     after which point it terminates with a `CANCELLED` status.
-//   * All other attempts to modify the instance are rejected.
-//   * Reading the instance via the API continues to give the pre-request
-//     resource levels.
+//   Cancelling the operation sets its metadata's
+//   [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time], and begins
+//   restoring resources to their pre-request values. The operation
+//   is guaranteed to succeed at undoing all resource changes,
+//   after which point it terminates with a CANCELLED status.
+//
+//   All other attempts to modify the instance are rejected.
+//
+//   Reading the instance via the API continues to give the pre-request
+//   resource levels.
 //
 // Upon completion of the returned operation:
 //
-//   * Billing begins for all successfully-allocated resources (some types
-//     may have lower than the requested levels).
-//   * All newly-reserved resources are available for serving the instance's
-//     tables.
-//   * The instance's new resource levels are readable via the API.
+//   Billing begins for all successfully-allocated resources (some types
+//   may have lower than the requested levels).
+//
+//   All newly-reserved resources are available for serving the instance's
+//   tables.
+//
+//   The instance's new resource levels are readable via the API.
 //
 // The returned [long-running operation][google.longrunning.Operation] will
-// have a name of the format `<instance_name>/operations/<operation_id>` and
+// have a name of the format <instance_name>/operations/<operation_id> and
 // can be used to track the instance modification.  The
 // [metadata][google.longrunning.Operation.metadata] field type is
 // [UpdateInstanceMetadata][google.spanner.admin.instance.v1.UpdateInstanceMetadata].
 // The [response][google.longrunning.Operation.response] field type is
 // [Instance][google.spanner.admin.instance.v1.Instance], if successful.
 //
-// Authorization requires `spanner.instances.update` permission on
+// Authorization requires spanner.instances.update permission on
 // resource [name][google.spanner.admin.instance.v1.Instance.name].
 func (c *InstanceAdminClient) UpdateInstance(ctx context.Context, req *instancepb.UpdateInstanceRequest, opts ...gax.CallOption) (*UpdateInstanceOperation, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.UpdateInstance[0:len(c.CallOptions.UpdateInstance):len(c.CallOptions.UpdateInstance)], opts...)
 	var resp *longrunningpb.Operation
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -429,15 +426,15 @@ func (c *InstanceAdminClient) UpdateInstance(ctx context.Context, req *instancep
 //
 // Immediately upon completion of the request:
 //
-//   * Billing ceases for all of the instance's reserved resources.
+//   Billing ceases for all of the instance's reserved resources.
 //
 // Soon afterward:
 //
-//   * The instance and *all of its databases* immediately and
-//     irrevocably disappear from the API. All data in the databases
-//     is permanently deleted.
+//   The instance and all of its databases immediately and
+//   irrevocably disappear from the API. All data in the databases
+//   is permanently deleted.
 func (c *InstanceAdminClient) DeleteInstance(ctx context.Context, req *instancepb.DeleteInstanceRequest, opts ...gax.CallOption) error {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.DeleteInstance[0:len(c.CallOptions.DeleteInstance):len(c.CallOptions.DeleteInstance)], opts...)
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
 		var err error
@@ -450,10 +447,10 @@ func (c *InstanceAdminClient) DeleteInstance(ctx context.Context, req *instancep
 // SetIamPolicy sets the access control policy on an instance resource. Replaces any
 // existing policy.
 //
-// Authorization requires `spanner.instances.setIamPolicy` on
+// Authorization requires spanner.instances.setIamPolicy on
 // [resource][google.iam.v1.SetIamPolicyRequest.resource].
 func (c *InstanceAdminClient) SetIamPolicy(ctx context.Context, req *iampb.SetIamPolicyRequest, opts ...gax.CallOption) (*iampb.Policy, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.SetIamPolicy[0:len(c.CallOptions.SetIamPolicy):len(c.CallOptions.SetIamPolicy)], opts...)
 	var resp *iampb.Policy
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -470,10 +467,10 @@ func (c *InstanceAdminClient) SetIamPolicy(ctx context.Context, req *iampb.SetIa
 // GetIamPolicy gets the access control policy for an instance resource. Returns an empty
 // policy if an instance exists but does not have a policy set.
 //
-// Authorization requires `spanner.instances.getIamPolicy` on
+// Authorization requires spanner.instances.getIamPolicy on
 // [resource][google.iam.v1.GetIamPolicyRequest.resource].
 func (c *InstanceAdminClient) GetIamPolicy(ctx context.Context, req *iampb.GetIamPolicyRequest, opts ...gax.CallOption) (*iampb.Policy, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.GetIamPolicy[0:len(c.CallOptions.GetIamPolicy):len(c.CallOptions.GetIamPolicy)], opts...)
 	var resp *iampb.Policy
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -490,11 +487,11 @@ func (c *InstanceAdminClient) GetIamPolicy(ctx context.Context, req *iampb.GetIa
 // TestIamPermissions returns permissions that the caller has on the specified instance resource.
 //
 // Attempting this RPC on a non-existent Cloud Spanner instance resource will
-// result in a NOT_FOUND error if the user has `spanner.instances.list`
+// result in a NOT_FOUND error if the user has spanner.instances.list
 // permission on the containing Google Cloud Project. Otherwise returns an
 // empty set of permissions.
 func (c *InstanceAdminClient) TestIamPermissions(ctx context.Context, req *iampb.TestIamPermissionsRequest, opts ...gax.CallOption) (*iampb.TestIamPermissionsResponse, error) {
-	ctx = insertXGoog(ctx, c.xGoogHeader)
+	ctx = insertMetadata(ctx, c.Metadata)
 	opts = append(c.CallOptions.TestIamPermissions[0:len(c.CallOptions.TestIamPermissions):len(c.CallOptions.TestIamPermissions)], opts...)
 	var resp *iampb.TestIamPermissionsResponse
 	err := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
@@ -610,7 +607,7 @@ func (c *InstanceAdminClient) CreateInstanceOperation(name string) *CreateInstan
 // See documentation of Poll for error-handling information.
 func (op *CreateInstanceOperation) Wait(ctx context.Context, opts ...gax.CallOption) (*instancepb.Instance, error) {
 	var resp instancepb.Instance
-	if err := op.lro.Wait(ctx, &resp, opts...); err != nil {
+	if err := op.lro.WaitWithInterval(ctx, &resp, 45000*time.Millisecond, opts...); err != nil {
 		return nil, err
 	}
 	return &resp, nil
@@ -679,7 +676,7 @@ func (c *InstanceAdminClient) UpdateInstanceOperation(name string) *UpdateInstan
 // See documentation of Poll for error-handling information.
 func (op *UpdateInstanceOperation) Wait(ctx context.Context, opts ...gax.CallOption) (*instancepb.Instance, error) {
 	var resp instancepb.Instance
-	if err := op.lro.Wait(ctx, &resp, opts...); err != nil {
+	if err := op.lro.WaitWithInterval(ctx, &resp, 45000*time.Millisecond, opts...); err != nil {
 		return nil, err
 	}
 	return &resp, nil
