@@ -170,8 +170,8 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 	if isEqual {
 		return immutable, applyResource, nil
 	}
-	logger.Debug("Actual: %#v", actual)
-	logger.Debug("Expectd: %#v", expected)
+	//logger.Debug("Actual: %#v", actual)
+	//logger.Debug("Expectd: %#v", expected)
 	newResource := &InstanceProfile{}
 	//TODO fill in instanceprofile attributes
 

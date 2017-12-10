@@ -90,7 +90,14 @@ func (h *Handler) Register() {
 						continue
 					}
 					h.signalReceived = signalTerminate
-					debug.PrintStack()
+					logger.Critical("---------------------------------------------------------------------------------------")
+					logger.Critical(string(debug.Stack()))
+					logger.Critical("---------------------------------------------------------------------------------------")
+					logger.Critical("Terminating kubicorn early via ^C is not encouraged and can cause unwanted behavior")
+					logger.Critical("If you experienced a problem with the program please open up a bug so we can fix it.")
+					logger.Critical("https://github.com/kris-nova/kubicorn/issues/new?title=Logs%20from%20Kubicorn%20error")
+					logger.Critical("")
+					logger.Critical("Thanks, the kubicorn team.")
 					os.Exit(130)
 					break
 				case s == syscall.SIGQUIT:

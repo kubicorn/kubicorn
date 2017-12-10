@@ -33,6 +33,7 @@ import (
 	"github.com/yuroyoro/swalker"
 	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 	"github.com/kris-nova/kubicorn/profiles"
+	"github.com/kris-nova/kubicorn/crd"
 )
 
 type ApplyOptions struct {
@@ -185,10 +186,7 @@ func RunApply(options *ApplyOptions) error {
 	}
 
 	logger.Info("Reconciling")
-	newCluster, err := reconciler.Reconcile(actual, expected)
-	if err != nil {
-		return fmt.Errorf("Unable to reconcile cluster: %v", err)
-	}
+	newCluster, reconcileErr := reconciler.Reconcile(actual, expected)
 
 	providerConfig, err := profiles.SerializeProviderConfig(newCluster)
 	if err != nil {
@@ -202,10 +200,27 @@ func RunApply(options *ApplyOptions) error {
 	}
 
 	logger.Info("Updating state store for cluster [%s]", options.Name)
+	if reconcileErr != nil {
+		return fmt.Errorf("Unable to reconcile cluster: %v", err)
+	}
 
 	err = kubeconfig.RetryGetConfig(newCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to write kubeconfig: %v", err)
+	}
+
+	logger.Info("Found kubeconfig")
+	manager, err := crd.NewCRDManager(newCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to initialize CRD manager: %v", err)
+	}
+	err = manager.CreateClusters()
+	if err != nil {
+		return fmt.Errorf("Unable to create Clusters CRD: %v", err)
+	}
+	err = manager.CreateMachines()
+	if err != nil {
+		return fmt.Errorf("Unable to create Machines CRD: %v", err)
 	}
 
 	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)

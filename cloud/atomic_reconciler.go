@@ -25,6 +25,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/defaults"
 	"github.com/kris-nova/kubicorn/cutil/hang"
 	"github.com/kris-nova/kubicorn/cutil/logger"
+	"fmt"
 )
 
 var sigCaught = false
@@ -125,7 +126,7 @@ func (r *AtomicReconciler) Reconcile(actual, expected *cluster.Cluster) (reconci
 				logger.Critical("Failure during cleanup! Abandoned resources!")
 				return nil, err
 			}
-			return nil, nil
+			return reconciledCluster, fmt.Errorf("Atomic cleanup successful!")
 		}
 		reconciledCluster = newCluster
 		createdResources[i] = appliedResource

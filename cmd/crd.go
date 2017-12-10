@@ -15,14 +15,20 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
-	"github.com/kris-nova/kubicorn/cutil/logger"
-	"os"
-	"github.com/golang/glog"
-	"time"
+	"github.com/kris-nova/kubicorn/crd"
+
+
+	"errors"
 	"fmt"
-	clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
-	"k8s.io/kube-deploy/cluster-api/util"
+	"os"
+
+	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/state"
+	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/jsonfs"
+	"github.com/spf13/cobra"
+	"github.com/kris-nova/kubicorn/profiles"
+	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 )
 
 const (
@@ -45,10 +51,18 @@ var crdo = &CRDOptions{}
 func CRDCommand() *cobra.Command {
 	var crdCmd = &cobra.Command{
 		Use:   "crd <TYPE>",
-		Short: "Used to create a CRD in Kubernetes",
-		Long: `Used to create a CRD in Kubernetes`,
+		Short: "Used to create a clusters and machines CRD in Kubernetes based on a state store",
+		Long: `This command will create a machines CRD and clusters CRD based on a written state store.`,
 		Run: func(cmd *cobra.Command, args []string) {
 
+			if len(args) == 0 {
+				crdo.Name = strEnvDef("KUBICORN_NAME", "")
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				crdo.Name = args[0]
+			}
 			err := RunCRDCreate(crdo)
 			if err != nil {
 				logger.Critical(err.Error())
@@ -58,9 +72,8 @@ func CRDCommand() *cobra.Command {
 		},
 	}
 
-	//getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	//getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-
+	crdCmd.Flags().StringVarP(&crdo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	crdCmd.Flags().StringVarP(&crdo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	crdCmd.Flags().StringVarP(&crdo.KubeConfigPath, "kube-config-path", "k", "/Users/knova/.kube/config", "The path to use for the kube config")
 
 	return crdCmd
@@ -68,29 +81,62 @@ func CRDCommand() *cobra.Command {
 
 func RunCRDCreate(options *CRDOptions) error {
 
+	// Ensure we have a name
+	name := options.Name
+	if name == "" {
+		return errors.New("Empty name. Must specify the name of the cluster to apply")
+	}
 
-	cs, err := util.NewClientSet(options.KubeConfigPath)
+	// Expand state store path
+	options.StateStorePath = expandPath(options.StateStorePath)
+
+	// Register state store
+	var stateStore state.ClusterStorer
+	switch options.StateStore {
+	case "fs":
+		logger.Info("Selected [fs] state store")
+		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
+	case "jsonfs":
+		logger.Info("Selected [jsonfs] state store")
+		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+		})
+	}
+
+	kubicornCluster, err := stateStore.GetCluster()
 	if err != nil {
-		return fmt.Errorf("unable to initialize new client set: %v", err)
+		return fmt.Errorf("unable to get cluster [%s]: %v", name, err)
 	}
 
-	// Create CRD for Machines
-	success := false
-	for i := 0; i <= RetryAttempts; i++ {
-		if _, err = clusterv1.CreateMachinesCRD(cs); err != nil {
-			glog.Info("Failure creating Machines CRD (will retry).")
-			time.Sleep(time.Duration(SleepSecondsPerAttempt) * time.Second)
-			continue
-		}
-		success = true
-		logger.Info("Machines CRD created successfully!")
-		break
+
+	// Translate into an API cluster
+	apiCluster, ok := kubicornCluster.(*v1alpha1.Cluster)
+	if !ok {
+		return fmt.Errorf("unable to unmarshal cluster, major error")
 	}
 
-	if !success {
-		return fmt.Errorf("error creating Machines CRD: %v", err)
+	cluster, err := profiles.DeserializeProviderConfig(apiCluster.Spec.ProviderConfig)
+	if err != nil {
+		return fmt.Errorf("unable to deserialize provider config: %v", err)
 	}
-	return nil
 
+
+	logger.Info("Loaded cluster: %s", cluster.Name)
+
+
+	manager, err := crd.NewCRDManager(cluster)
+
+	err = manager.CreateMachines()
+	if err != nil {
+		logger.Critical("Unable to create machines CRD: %v", err)
+	}
+	err = manager.CreateClusters()
+	if err != nil {
+		logger.Critical("Unable to create clusters CRD: %v", err)
+	}
 	return nil
 }

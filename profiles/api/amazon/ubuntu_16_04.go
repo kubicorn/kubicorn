@@ -144,8 +144,8 @@ func NewUbuntuControlPlane(name string) apis.KubicornCluster {
 
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s.node", name),
-				MaxCount: 0,
-				MinCount: 0,
+				MaxCount: 3,
+				MinCount: 3,
 				Image:    "ami-835b4efa",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{

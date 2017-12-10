@@ -161,8 +161,12 @@ func (r *Asg) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster)
 
 	newResource.Name = r.Name
 	newResource.Identifier = r.Name
-	newResource.MaxCount = r.MaxCount
-	newResource.MinCount = r.MinCount
+	newResource.MaxCount = actual.(*Asg).MaxCount
+	newResource.MinCount = actual.(*Asg).MinCount
+	newResource.ServerPool = &cluster.ServerPool{
+		MaxCount: actual.(*Asg).MaxCount,
+		MinCount: actual.(*Asg).MinCount,
+	}
 
 	err = newResource.tag(applyResource.Tags)
 	if err != nil {
@@ -194,6 +198,10 @@ func (r *Asg) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluste
 	newResource.Tags = actual.(*Asg).Tags
 	newResource.MaxCount = actual.(*Asg).MaxCount
 	newResource.MinCount = actual.(*Asg).MinCount
+	newResource.ServerPool = &cluster.ServerPool{
+		MaxCount: actual.(*Asg).MaxCount,
+		MinCount: actual.(*Asg).MinCount,
+	}
 
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
