@@ -32,7 +32,8 @@ import (
 	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
 	"github.com/kris-nova/kubicorn/apis"
-	"github.com/kris-nova/kubicorn/profiles/packet"
+	//"github.com/kris-nova/kubicorn/profiles/packet"
+	"github.com/kris-nova/kubicorn/profiles/api/amazon"
 )
 
 type CreateOptions struct {
@@ -141,14 +142,14 @@ var profileMapIndexed = map[string]profileMap{
 	//	profileFunc: amazon.NewCentosCluster,
 	//	description: "CentOS on Amazon",
 	//},
-	"packet": {
-		profileFunc: packet.NewUbuntuCluster,
-		description: "Ubuntu on Packet x86",
-	},
-	"packet-ubuntu": {
-		profileFunc: packet.NewUbuntuCluster,
-		description: "Ubuntu on Packet x86",
-	},
+	//"packet": {
+	//	profileFunc: packet.NewUbuntuCluster,
+	//	description: "Ubuntu on Packet x86",
+	//},
+	//"packet-ubuntu": {
+	//	profileFunc: packet.NewUbuntuCluster,
+	//	description: "Ubuntu on Packet x86",
+	//},
 	//"do-centos": {
 	//	profileFunc: digitalocean.NewCentosCluster,
 	//	description: "CentOS on DigitalOcean",
@@ -159,6 +160,10 @@ var profileMapIndexed = map[string]profileMap{
 	//},
 	"do-ubuntu": {
 		profileFunc: newdigitalocean.NewUbuntuCluster,
+		description: "New Cluster API Ubuntu on Digital Ocean",
+	},
+	"aws-ubuntu": {
+		profileFunc: amazon.NewUbuntuCluster,
 		description: "New Cluster API Ubuntu on Digital Ocean",
 	},
 }
