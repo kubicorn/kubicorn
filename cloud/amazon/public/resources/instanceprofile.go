@@ -222,24 +222,46 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 		Description:              S("Kubicorn Role"),
 		Path:                     S("/"),
 	}
+	createRole := true
 	outInstanceRole, err := Sdk.IAM.CreateRole(roleinput)
+	var newIamRole *IAMRole
 	if err != nil {
 		logger.Debug("CreateRole error: %v", err)
 		if err.(awserr.Error).Code() != iam.ErrCodeEntityAlreadyExistsException {
 			return nil, nil, err
+		}else if err.(awserr.Error).Code() == iam.ErrCodeEntityAlreadyExistsException {
+			createRole = false
+			input := &iam.GetRoleInput{
+				RoleName:  &expected.(*InstanceProfile).Role.Name,
+			}
+			role, err := Sdk.IAM.GetRole(input)
+			if err != nil {
+				return nil, nil, err
+			}
+			newIamRole = &IAMRole{
+				Shared: Shared{
+					Name: *role.Role.RoleName,
+				},
+			}
 		}
 	}
-	newIamRole := &IAMRole{
-		Shared: Shared{
-			Name: *outInstanceRole.Role.RoleName,
-			Tags: map[string]string{
-				"Name":              r.Name,
-				"KubernetesCluster": immutable.Name,
+
+	if createRole {
+		newIamRole = &IAMRole{
+			Shared: Shared{
+				Name: *outInstanceRole.Role.RoleName,
+				Tags: map[string]string{
+					"Name":              r.Name,
+					"KubernetesCluster": immutable.Name,
+				},
 			},
-		},
-		Policies: []*IAMPolicy{},
+			Policies: []*IAMPolicy{},
+		}
+		logger.Info("Role created")
 	}
-	logger.Info("Role created")
+
+	createPolicy := true
+
 	//Attach Policy to Role
 	for _, policy := range expected.(*InstanceProfile).Role.Policies {
 		policyinput := &iam.PutRolePolicyInput{
@@ -252,20 +274,24 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 			logger.Debug("PutRolePolicy error: %v", err)
 			if err.(awserr.Error).Code() != iam.ErrCodeLimitExceededException {
 				return nil, nil, err
+			}else if err.(awserr.Error).Code() == iam.ErrCodeLimitExceededException {
+				createPolicy = false
 			}
 		}
-		newPolicy := &IAMPolicy{
-			Shared: Shared{
-				Name: policy.Name,
-				Tags: map[string]string{
-					"Name":              r.Name,
-					"KubernetesCluster": immutable.Name,
+		if createPolicy {
+			newPolicy := &IAMPolicy{
+				Shared: Shared{
+					Name: policy.Name,
+					Tags: map[string]string{
+						"Name":              r.Name,
+						"KubernetesCluster": immutable.Name,
+					},
 				},
-			},
-			Document: policy.Document,
+				Document: policy.Document,
+			}
+			newIamRole.Policies = append(newIamRole.Policies, newPolicy)
+			logger.Info("Policy created")
 		}
-		newIamRole.Policies = append(newIamRole.Policies, newPolicy)
-		logger.Info("Policy created")
 	}
 	//Attach Role to Profile
 	roletoprofile := &iam.AddRoleToInstanceProfileInput{

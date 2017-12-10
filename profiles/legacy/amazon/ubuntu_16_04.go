@@ -20,11 +20,10 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/kubeadm"
 	"github.com/kris-nova/kubicorn/cutil/uuid"
-	"github.com/kris-nova/kubicorn/apis"
 )
 
 // NewUbuntuCluster creates a simple Ubuntu Amazon cluster
-func NewUbuntuCluster(name string) apis.KubicornCluster {
+func NewUbuntuCluster(name string) *cluster.Cluster {
 	return &cluster.Cluster{
 		Name:     name,
 		Cloud:    cluster.CloudAmazon,
@@ -127,8 +126,8 @@ func NewUbuntuCluster(name string) apis.KubicornCluster {
 			{
 				Type:     cluster.ServerPoolTypeNode,
 				Name:     fmt.Sprintf("%s.node", name),
-				MaxCount: 1,
-				MinCount: 1,
+				MaxCount: 3,
+				MinCount: 3,
 				Image:    "ami-835b4efa",
 				Size:     "t2.medium",
 				BootstrapScripts: []string{
@@ -148,8 +147,11 @@ func NewUbuntuCluster(name string) apis.KubicornCluster {
 										"Effect": "Allow",
 										"Action": [
 										   "ec2:Describe*",
+<<<<<<< HEAD
 										   "ec2:AttachVolume",
 										   "ec2:DetachVolume",
+=======
+>>>>>>> Really pretty machines
 										   "ecr:GetAuthorizationToken",
 										   "ecr:BatchCheckLayerAvailability",
 										   "ecr:GetDownloadUrlForLayer",

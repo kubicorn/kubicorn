@@ -5,13 +5,14 @@ import (
 	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/kris-nova/kubicorn/profiles"
+	//"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/kris-nova/kubicorn/profiles/legacy/amazon"
 )
 
-// NewUbuntuCluster creates a basic Azure cluster profile, to bootstrap Kubernetes.
-func NewUbuntuCluster(name string) apis.KubicornCluster {
+// NewCentosCluster creates a basic Azure cluster profile, to bootstrap Kubernetes.
+func NewCentosCluster(name string) apis.KubicornCluster {
 
-	providerConfig, _ := profiles.SerializeProviderConfig(amazon.NewUbuntuCluster(name))
+	providerConfig, _ := profiles.SerializeProviderConfig(amazon.NewCentosCluster(name))
 
 	cluster := v1alpha1.Cluster{
 		ObjectMeta: metav1.ObjectMeta{

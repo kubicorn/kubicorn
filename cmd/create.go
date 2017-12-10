@@ -23,7 +23,6 @@ import (
 	"strings"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/namer"
-	newdigitalocean "github.com/kris-nova/kubicorn/profiles/api/digitalocean"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/git"
@@ -32,8 +31,11 @@ import (
 	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
 	"github.com/kris-nova/kubicorn/apis"
-	//"github.com/kris-nova/kubicorn/profiles/packet"
 	"github.com/kris-nova/kubicorn/profiles/api/amazon"
+	"github.com/kris-nova/kubicorn/profiles/api/googlecompute"
+	"github.com/kris-nova/kubicorn/profiles/api/azure"
+	"github.com/kris-nova/kubicorn/profiles/api/packet"
+	"github.com/kris-nova/kubicorn/profiles/api/digitalocean"
 )
 
 type CreateOptions struct {
@@ -98,74 +100,78 @@ type profileMap struct {
 }
 
 var profileMapIndexed = map[string]profileMap{
-	//"azure": {
-	//	profileFunc: azure.NewUbuntuCluster,
-	//	description: "Ubuntu on Azure",
-	//},
-	//"azure-ubuntu": {
-	//	profileFunc: azure.NewUbuntuCluster,
-	//	description: "Ubuntu on Azure",
-	//},
-	//"amazon": {
-	//	profileFunc: amazon.NewUbuntuCluster,
-	//	description: "Ubuntu on Amazon",
-	//},
-	//"aws": {
-	//	profileFunc: amazon.NewUbuntuCluster,
-	//	description: "Ubuntu on Amazon",
-	//},
-	//"do": {
-	//	profileFunc: digitalocean.NewUbuntuCluster,
-	//	description: "Ubuntu on DigitalOcean",
-	//},
-	//"google": {
-	//	profileFunc: googlecompute.NewUbuntuCluster,
-	//	description: "Ubuntu on Google Compute",
-	//},
-	//"digitalocean": {
-	//	profileFunc: digitalocean.NewUbuntuCluster,
-	//	description: "Ubuntu on DigitalOcean",
-	//},
-	//"do-ubuntu": {
-	//	profileFunc: digitalocean.NewUbuntuCluster,
-	//	description: "Ubuntu on DigitalOcean",
-	//},
-	//"aws-ubuntu": {
-	//	profileFunc: amazon.NewUbuntuCluster,
-	//	description: "Ubuntu on Amazon",
-	//},
-	//"do-centos": {
-	//	profileFunc: digitalocean.NewCentosCluster,
-	//	description: "CentOS on DigitalOcean",
-	//},
-	//"aws-centos": {
-	//	profileFunc: amazon.NewCentosCluster,
-	//	description: "CentOS on Amazon",
-	//},
-	//"packet": {
-	//	profileFunc: packet.NewUbuntuCluster,
-	//	description: "Ubuntu on Packet x86",
-	//},
-	//"packet-ubuntu": {
-	//	profileFunc: packet.NewUbuntuCluster,
-	//	description: "Ubuntu on Packet x86",
-	//},
-	//"do-centos": {
-	//	profileFunc: digitalocean.NewCentosCluster,
-	//	description: "CentOS on DigitalOcean",
-	//},
-	//"aws-centos": {
-	//	profileFunc: amazon.NewCentosCluster,
-	//	description: "CentOS on Amazon",
-	//},
-	"do-ubuntu": {
-		profileFunc: newdigitalocean.NewUbuntuCluster,
-		description: "New Cluster API Ubuntu on Digital Ocean",
+
+
+	// ---------------------- Azure ----------------------
+	"azure": {
+		profileFunc: azure.NewUbuntuCluster,
+		description: "Ubuntu on Azure",
+	},
+	"azure-ubuntu": {
+		profileFunc: azure.NewUbuntuCluster,
+		description: "Ubuntu on Azure",
+	},
+
+
+	// --------------------- Amazon ----------------------
+	"amazon": {
+		profileFunc: amazon.NewUbuntuCluster,
+		description: "Ubuntu on Amazon",
+	},
+	"aws": {
+		profileFunc: amazon.NewUbuntuCluster,
+		description: "Ubuntu on Amazon",
 	},
 	"aws-ubuntu": {
 		profileFunc: amazon.NewUbuntuCluster,
-		description: "New Cluster API Ubuntu on Digital Ocean",
+		description: "Ubuntu on Amazon",
 	},
+	"aws-centos": {
+		profileFunc: amazon.NewCentosCluster,
+		description: "CentOS on Amazon",
+	},
+
+
+	// ------------------ Digital Ocean ------------------
+	"do": {
+		profileFunc: digitalocean.NewUbuntuCluster,
+		description: "Ubuntu on DigitalOcean",
+	},
+	"digitalocean": {
+		profileFunc: digitalocean.NewUbuntuCluster,
+		description: "Ubuntu on DigitalOcean",
+	},
+	"do-ubuntu": {
+		profileFunc: digitalocean.NewUbuntuCluster,
+		description: "Ubuntu on DigitalOcean",
+	},
+	"do-centos": {
+		profileFunc: digitalocean.NewCentosCluster,
+		description: "CentOS on DigitalOcean",
+	},
+
+
+	// --------------------- Google -----------------------
+	"google": {
+		profileFunc: googlecompute.NewUbuntuCluster,
+		description: "Ubuntu on Google Compute",
+	},
+	"google-ubuntu": {
+		profileFunc: googlecompute.NewUbuntuCluster,
+		description: "Ubuntu on Google Compute",
+	},
+
+
+	// --------------------- Packet ----------------------
+	"packet": {
+		profileFunc: packet.NewUbuntuCluster,
+		description: "Ubuntu on Packet x86",
+	},
+	"packet-ubuntu": {
+		profileFunc: packet.NewUbuntuCluster,
+		description: "Ubuntu on Packet x86",
+	},
+
 }
 
 // RunCreate is the starting point when a user runs the create command.

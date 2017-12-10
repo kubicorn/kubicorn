@@ -1,19 +1,20 @@
-package amazon
+package packet
 
 import (
 	"github.com/kris-nova/kubicorn/apis"
 	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/kris-nova/kubicorn/profiles"
-	"github.com/kris-nova/kubicorn/profiles/legacy/amazon"
+	"github.com/kris-nova/kubicorn/profiles/legacy/packet"
 )
 
 // NewUbuntuCluster creates a basic Azure cluster profile, to bootstrap Kubernetes.
 func NewUbuntuCluster(name string) apis.KubicornCluster {
 
-	providerConfig, _ := profiles.SerializeProviderConfig(amazon.NewUbuntuCluster(name))
+	providerConfig, _ := profiles.SerializeProviderConfig(packet.NewUbuntuCluster(name))
 
 	cluster := v1alpha1.Cluster{
+
 		ObjectMeta: metav1.ObjectMeta{
 			// ------------------------------------------------------------------
 			Name: name,
@@ -30,7 +31,6 @@ func NewUbuntuCluster(name string) apis.KubicornCluster {
 		},
 	}
 
-
 	return &cluster
-
 }
+
