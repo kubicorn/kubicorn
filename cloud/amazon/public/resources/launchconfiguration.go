@@ -130,8 +130,8 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	if isEqual {
 		return immutable, applyResource, nil
 	}
-	logger.Debug("Actual: %#v", actual)
-	logger.Debug("Expectd: %#v", expected)
+	//logger.Debug("Actual: %#v", actual)
+	//logger.Debug("Expectd: %#v", expected)
 	var sgs []*string
 	found := false
 	for _, serverPool := range immutable.ServerPools {
