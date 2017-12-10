@@ -410,7 +410,7 @@
 [[projects]]
   name = "k8s.io/client-go"
   packages = ["discovery","kubernetes/scheme","pkg/version","plugin/pkg/client/auth/gcp","rest","rest/watch","third_party/forked/golang/template","tools/auth","tools/clientcmd","tools/clientcmd/api","tools/clientcmd/api/latest","tools/clientcmd/api/v1","tools/metrics","transport","util/cert","util/flowcontrol","util/homedir","util/integer","util/jsonpath"]
-  revision = "2ae454230481a7cb5544325e12ad7658ecccd19b"
+  revision = "3c9596422809744570e7b344a5597b4ad8aaabfb"
   version = "v5.0.1"
 
 [[projects]]
