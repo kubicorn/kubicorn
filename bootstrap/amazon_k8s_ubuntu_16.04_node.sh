@@ -9,6 +9,7 @@ touch /etc/apt/sources.list.d/kubernetes.list
 sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
 
 # Has to be configured before installing kubelet, or kubelet has to be restarted to pick up changes
+mkdir -p /etc/systemd/system/kubelet.service.d
 touch /etc/systemd/system/kubelet.service.d/20-cloud-provider.conf
 cat << EOF  > /etc/systemd/system/kubelet.service.d/20-cloud-provider.conf
 [Service]
