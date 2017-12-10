@@ -236,6 +236,12 @@
   version = "v1.3.0"
 
 [[projects]]
+  name = "github.com/tcnksm/go-gitconfig"
+  packages = ["."]
+  revision = "d154598bacbf4501c095a309753c5d4af66caa81"
+  version = "v0.1.2"
+
+[[projects]]
   branch = "master"
   name = "github.com/tent/http-link-go"
   packages = ["."]
@@ -322,6 +328,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9e80e08cdec0005d5ebaf4df54e51d19c10109c0067d05c6cd8aa62579d21c06"
+  inputs-digest = "909a87a76d9b33f0bcffc5122367bead20130f24a39897313a9bce385baa7060"
   solver-name = "gps-cdcl"
   solver-version = 1
