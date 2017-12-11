@@ -15,6 +15,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"os"
@@ -79,6 +80,7 @@ func CreateCmd() *cobra.Command {
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
 	createCmd.Flags().StringVarP(&co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
 	createCmd.Flags().StringVarP(&co.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
+	createCmd.Flags().StringVarP(&co.GitRemote, "git-config", "g", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
@@ -200,7 +202,9 @@ func RunCreate(options *CreateOptions) error {
 		})
 	case "git":
 		logger.Info("Selected [git] state store")
-		remote, _ := gg.OriginURL()
+		if options.GitRemote == "" {
+			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
+		}
 		user, _ := gg.Global("user.name")
 		email, _ := gg.Email()
 
@@ -210,7 +214,7 @@ func RunCreate(options *CreateOptions) error {
 			CommitConfig: &git.JSONGitCommitConfig{
 				Name:   user,
 				Email:  email,
-				Remote: remote,
+				Remote: options.GitRemote,
 			},
 		})
 	case "jsonfs":

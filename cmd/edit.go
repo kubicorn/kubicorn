@@ -15,6 +15,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -65,6 +66,7 @@ func EditCmd() *cobra.Command {
 	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", strEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
+	editCmd.Flags().StringVarP(&eo.GitRemote, "git-config", "g", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
 
 	return editCmd
 }
@@ -84,7 +86,9 @@ func RunEdit(options *EditOptions) error {
 		})
 	case "git":
 		logger.Info("Selected [git] state store")
-		remote, _ := gg.OriginURL()
+		if options.GitRemote == "" {
+			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
+		}
 		user, _ := gg.Global("user.name")
 		email, _ := gg.Email()
 
@@ -94,7 +98,7 @@ func RunEdit(options *EditOptions) error {
 			CommitConfig: &git.JSONGitCommitConfig{
 				Name:   user,
 				Email:  email,
-				Remote: remote,
+				Remote: options.GitRemote,
 			},
 		})
 	case "jsonfs":

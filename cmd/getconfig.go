@@ -66,6 +66,7 @@ func GetConfigCmd() *cobra.Command {
 
 	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	getConfigCmd.Flags().StringVarP(&cro.GitRemote, "git-config", "g", strEnvDef("KUBICORN", "git"), "The git remote url to use")
 
 	return getConfigCmd
 }
@@ -95,7 +96,9 @@ func RunGetConfig(options *GetConfigOptions) error {
 		})
 	case "git":
 		logger.Info("Selected [git] state store")
-		remote, _ := gg.OriginURL()
+		if options.GitRemote == "" {
+			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
+		}
 		user, _ := gg.Global("user.name")
 		email, _ := gg.Email()
 
@@ -105,7 +108,7 @@ func RunGetConfig(options *GetConfigOptions) error {
 			CommitConfig: &git.JSONGitCommitConfig{
 				Name:   user,
 				Email:  email,
-				Remote: remote,
+				Remote: options.GitRemote,
 			},
 		})
 	case "jsonfs":

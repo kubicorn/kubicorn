@@ -79,6 +79,7 @@ type Options struct {
 	CloudId        string
 	Set            string
 	AwsProfile     string
+	GitRemote      string
 }
 
 func Execute() {
