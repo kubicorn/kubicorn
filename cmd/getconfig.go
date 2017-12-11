@@ -98,11 +98,10 @@ func RunGetConfig(options *GetConfigOptions) error {
 		remote, _ := gg.OriginURL()
 		user, _ := gg.Global("user.name")
 		email, _ := gg.Email()
-		repo, _ := gg.Repository()
 
 		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
 			BasePath:    options.StateStorePath,
-			ClusterName: repo,
+			ClusterName: name,
 			CommitConfig: &git.JSONGitCommitConfig{
 				Name:   user,
 				Email:  email,
