@@ -10,6 +10,7 @@ Variable | Type | Description
 --- | --- | ---
 KUBICORN_STATE_STORE | string | The state store type to use for the cluster
 KUBICORN_STATE_STORE_PATH | string | The state store path to use
+KUBICORN_GIT_CONFIG | string | The git remote ulr to use
 KUBICORN_NAME | string | The name of the cluster to use
 KUBICORN_PROFILE | string | The profile name to create new clusters APIs with
 KUBICORN_SET | string | Set custom property for the cluster

@@ -15,6 +15,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -24,8 +25,10 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
+	gg "github.com/tcnksm/go-gitconfig"
 )
 
 type EditOptions struct {
@@ -63,6 +66,7 @@ func EditCmd() *cobra.Command {
 	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", strEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
+	editCmd.Flags().StringVarP(&eo.GitRemote, "git-config", "g", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
 
 	return editCmd
 }
@@ -79,6 +83,23 @@ func RunEdit(options *EditOptions) error {
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
+		})
+	case "git":
+		logger.Info("Selected [git] state store")
+		if options.GitRemote == "" {
+			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
+		}
+		user, _ := gg.Global("user.name")
+		email, _ := gg.Email()
+
+		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+			CommitConfig: &git.JSONGitCommitConfig{
+				Name:   user,
+				Email:  email,
+				Remote: options.GitRemote,
+			},
 		})
 	case "jsonfs":
 		logger.Info("Selected [jsonfs] state store")

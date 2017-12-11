@@ -21,6 +21,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
 )
@@ -66,6 +67,14 @@ func RunList(options *ListOptions) error {
 			logger.Info("Selected [fs] state store")
 		}
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
+			BasePath: options.StateStorePath,
+		})
+
+	case "git":
+		if !noHeaders {
+			logger.Info("Selected [git] state store")
+		}
+		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
 			BasePath: options.StateStorePath,
 		})
 	case "jsonfs":

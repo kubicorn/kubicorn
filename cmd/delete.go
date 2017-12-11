@@ -24,9 +24,11 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/task"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	gg "github.com/tcnksm/go-gitconfig"
 )
 
 type DeleteOptions struct {
@@ -71,6 +73,7 @@ func DeleteCmd() *cobra.Command {
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
 	deleteCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
+	deleteCmd.Flags().StringVar(&ao.GitRemote, "git-config", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
 
 	return deleteCmd
 }
@@ -93,6 +96,23 @@ func RunDelete(options *DeleteOptions) error {
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
+		})
+	case "git":
+		logger.Info("Selected [git] state store")
+		if options.GitRemote == "" {
+			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
+		}
+		user, _ := gg.Global("user.name")
+		email, _ := gg.Email()
+
+		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+			CommitConfig: &git.JSONGitCommitConfig{
+				Name:   user,
+				Email:  email,
+				Remote: options.GitRemote,
+			},
 		})
 	case "jsonfs":
 		logger.Info("Selected [jsonfs] state store")

@@ -27,8 +27,10 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
+	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
+	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
 )
 
@@ -70,6 +72,7 @@ func ApplyCmd() *cobra.Command {
 	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	applyCmd.Flags().StringVarP(&ao.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
 	applyCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
+	applyCmd.Flags().StringVar(&ao.GitRemote, "git-config", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to be used for saving the git state for the cluster.")
 
 	return applyCmd
 }
@@ -96,6 +99,23 @@ func RunApply(options *ApplyOptions) error {
 		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
+		})
+	case "git":
+		logger.Info("Selected [git] state store")
+		if options.GitRemote == "" {
+			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
+		}
+		user, _ := gg.Global("user.name")
+		email, _ := gg.Email()
+
+		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: name,
+			CommitConfig: &git.JSONGitCommitConfig{
+				Name:   user,
+				Email:  email,
+				Remote: options.GitRemote,
+			},
 		})
 	case "jsonfs":
 		logger.Info("Selected [jsonfs] state store")
