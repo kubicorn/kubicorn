@@ -147,6 +147,8 @@ func NewCentosCluster(name string) *cluster.Cluster {
 										"Effect": "Allow",
 										"Action": [
 										   "ec2:Describe*",
+										   "ec2:AttachVolume",
+										   "ec2:DetachVolume",
 										   "ecr:GetAuthorizationToken",
 										   "ecr:BatchCheckLayerAvailability",
 										   "ecr:GetDownloadUrlForLayer",
