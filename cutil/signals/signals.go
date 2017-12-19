@@ -89,7 +89,9 @@ func (h *Handler) Register() {
 				case s == os.Interrupt:
 					if h.signalReceived == 0 {
 						h.signalReceived = 1
+						mtx.Lock()
 						logger.Debug("SIGINT Received")
+						mtx.Unlock()
 						continue
 					}
 					h.signalReceived = signalTerminate
