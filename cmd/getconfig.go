@@ -85,6 +85,7 @@ func RunGetConfig(options *cli.GetConfigOptions) error {
 	}
 	logger.Info("Loaded cluster: %s", cluster.Name)
 
+	logger.Info("Init Cluster")
 	cluster, err = initapi.InitCluster(cluster)
 	if err != nil {
 		return err

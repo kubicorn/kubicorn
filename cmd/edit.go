@@ -119,6 +119,7 @@ func RunEdit(options *cli.EditOptions) error {
 		return err
 	}
 
+	logger.Info("Init Cluster")
 	cluster, err = initapi.InitCluster(cluster)
 	if err != nil {
 		os.Remove(fpath)

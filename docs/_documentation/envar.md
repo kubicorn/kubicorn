@@ -16,6 +16,7 @@ KUBICORN_PROFILE | string | The profile name to create new clusters APIs with
 KUBICORN_SET | string | Set custom property for the cluster
 KUBICORN_TRUECOLOR | bool | Always run `kubicorn` with lolgopher truecolor
 KUBICORN_ENVIRONMENT | string | If it's set to `LOCAL`, `kubicorn` will use bootstrap local bootstrap scripts instead of remote ones. 
+KUBICORN_OUTPUT | string | Set output format for command
 KUBICORN_FORCE_DELETE_KEY | bool | Force delete key for AWS or Packet
 KUBICORN_FORCE_DISABLE_SSH_AGENT | bool | Force SCP and SSH to never use SSH agent
 --- | --- | ---

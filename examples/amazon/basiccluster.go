@@ -23,6 +23,7 @@ import (
 
 func main() {
 	logger.Level = 4
+	logger.Info("Init Cluster")
 	cluster := amazon.NewUbuntuCluster("myCluster")
 	cluster, err := initapi.InitCluster(cluster)
 	if err != nil {
