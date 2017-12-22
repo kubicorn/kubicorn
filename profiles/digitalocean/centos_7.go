@@ -47,7 +47,6 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Image:    "centos-7-x64",
 				Size:     "2gb",
 				BootstrapScripts: []string{
-					"bootstrap/vpn/openvpnMaster-centos.sh",
 					"bootstrap/digitalocean_k8s_centos_7_master.sh",
 				},
 			},
@@ -58,7 +57,6 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Image:    "centos-7-x64",
 				Size:     "1gb",
 				BootstrapScripts: []string{
-					"bootstrap/vpn/openvpnNode-centos.sh",
 					"bootstrap/digitalocean_k8s_centos_7_node.sh",
 				},
 			},
