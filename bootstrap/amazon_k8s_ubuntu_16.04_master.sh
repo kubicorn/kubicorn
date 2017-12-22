@@ -28,7 +28,7 @@ apt-get install -y \
     docker.io \
     apt-transport-https \
     kubelet \
-    kubeadm=${KUBERNETES_VERSION} \
+    kubeadm=${KUBERNETES_VERSION}-00 \
     cloud-utils \
     jq
 
