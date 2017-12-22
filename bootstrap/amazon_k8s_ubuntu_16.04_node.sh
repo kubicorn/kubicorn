@@ -4,6 +4,9 @@
 # and the shell script real work. If you need conditional logic, write it in bash or make another shell script.
 # ------------------------------------------------------------------------------------------------------------------------
 
+# Specify the Kubernetes version to use
+KUBERNETES_VERSION="1.8.4-00"
+
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 touch /etc/apt/sources.list.d/kubernetes.list
 sh -c 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
@@ -25,7 +28,7 @@ apt-get install -y \
     docker.io \
     apt-transport-https \
     kubelet \
-    kubeadm=1.8.4-00 \
+    kubeadm=${KUBERNETES_VERSION} \
     jq
 
 systemctl enable docker
