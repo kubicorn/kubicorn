@@ -20,6 +20,8 @@ import (
 	"os"
 	"time"
 
+	"path/filepath"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/agent"
 	"github.com/kris-nova/kubicorn/cutil/local"
@@ -36,7 +38,7 @@ func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
 	}
 
 	address := fmt.Sprintf("%s:%s", existing.KubernetesAPI.Endpoint, existing.SSH.Port)
-	localDir := fmt.Sprintf("%s/.kube", local.Home())
+	localDir := filepath.Join(local.Home(), "/.kube")
 	localPath, err := getKubeConfigPath(localDir)
 	if err != nil {
 		return err
@@ -49,7 +51,7 @@ func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
 	if user == "root" {
 		remotePath = "/root/.kube/config"
 	} else {
-		remotePath = fmt.Sprintf("/home/%s/.kube/config", user)
+		remotePath = filepath.Join("/home", user, ".kube/config")
 	}
 
 	// Check for key
@@ -133,5 +135,5 @@ func getKubeConfigPath(path string) (string, error) {
 			return "", err
 		}
 	}
-	return fmt.Sprintf("%s/config", path), nil
+	return filepath.Join(path, "/config"), nil
 }
