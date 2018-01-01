@@ -55,7 +55,9 @@ Next, you need to specify your AWS credentials to use - you can select one of th
     ```
     
 
- * Shared Credentials file - The `~/.aws/credentials` file stores your credentials based on a profile name 
+ * Shared Credentials file - The `~/.aws/credentials` file stores your credentials based on a profile name. You can
+     specify the profile using the `--aws-profile` flag or the `KUBICORN_AWS_PROFILE` environment variable, otherwise
+     the `default` profile will be used.
 
  * EC2 Instance Role Credentials - Use EC2 Instance Role to assign credentials to application running on an EC2 instance. 
 

@@ -14,6 +14,7 @@ KUBICORN_GIT_CONFIG | string | The git remote ulr to use
 KUBICORN_NAME | string | The name of the cluster to use
 KUBICORN_PROFILE | string | The profile name to create new clusters APIs with
 KUBICORN_SET | string | Set custom property for the cluster
+KUBICORN_AWS_PROFILE | string | The name of the Amazon profile stored in `~/.aws/credentials`
 KUBICORN_TRUECOLOR | bool | Always run `kubicorn` with lolgopher truecolor
 KUBICORN_FORCE_DELETE_KEY | bool | Force delete key for AWS or Packet
 KUBICORN_FORCE_DISABLE_SSH_AGENT | bool | Force SCP and SSH to never use SSH agent
