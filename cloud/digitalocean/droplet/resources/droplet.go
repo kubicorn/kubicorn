@@ -72,17 +72,15 @@ func (r *Droplet) Actual(immutable *cluster.Cluster) (*cluster.Cluster, cloud.Re
 
 		// Todo (@kris-nova) once we start to test these implementations we really need to work on the droplet logic. Right now we just pick the first one..
 		droplet := droplets[0]
-		id := strconv.Itoa(droplet.ID)
 		newResource.Name = droplet.Name
-		newResource.CloudID = id
 		newResource.Size = droplet.Size.Slug
 		newResource.Image = droplet.Image.Slug
 		newResource.Region = droplet.Region.Slug
 	}
+	newResource.Count = ld
 	newResource.BootstrapScripts = r.ServerPool.BootstrapScripts
 	newResource.SSHFingerprint = immutable.SSH.PublicKeyFingerprint
 	newResource.Name = r.ServerPool.Name
-	newResource.Count = r.ServerPool.MaxCount
 	newResource.Image = r.ServerPool.Image
 	newResource.Size = r.ServerPool.Size
 
@@ -215,7 +213,8 @@ func (r *Droplet) Apply(actual, expected cloud.Resource, immutable *cluster.Clus
 	}
 
 	var droplet *godo.Droplet
-	for j := 0; j < expected.(*Droplet).Count; j++ {
+	// create only as much droplets as needed to fulfill the expected count
+	for j := actual.(*Droplet).Count; j < expected.(*Droplet).Count; j++ {
 		createRequest := &godo.DropletCreateRequest{
 			Name:   fmt.Sprintf("%s-%d", expected.(*Droplet).Name, j),
 			Region: expected.(*Droplet).Region,
@@ -271,7 +270,7 @@ func (r *Droplet) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cl
 	}
 	if len(droplets) != actual.(*Droplet).Count {
 		for i := 0; i < DeleteAttempts; i++ {
-			logger.Info("Droplet count mis-match, trying query again")
+			logger.Info("Droplet count mis-match, trying query again, expected=%d, actual=%d, tag=%s", len(droplets), actual.(*Droplet).Count, r.Name)
 			time.Sleep(5 * time.Second)
 			droplets, _, err = Sdk.Client.Droplets.ListByTag(context.TODO(), r.Name, &godo.ListOptions{})
 			if err != nil {
