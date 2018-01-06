@@ -70,6 +70,7 @@ func (m *Model) Resources() map[int]cloud.Resource {
 				},
 				Tags:       []string{serverPool.Name},
 				ServerPool: serverPool,
+				FirewallID: firewall.Identifier,
 			}
 
 			for _, rule := range firewall.IngressRules {
@@ -118,6 +119,7 @@ func (m *Model) Resources() map[int]cloud.Resource {
 				}
 				f.OutboundRules = append(f.OutboundRules, OutboundRule)
 			}
+			f.Finish()
 			r[i] = f
 			i++
 		}
