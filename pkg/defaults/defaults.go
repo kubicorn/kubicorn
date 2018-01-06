@@ -15,26 +15,23 @@
 package defaults
 
 import (
-	"github.com/kubicorn/kubicorn/apis/cluster"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+        "encoding/json"
+
+        "github.com/kubicorn/kubicorn/apis/cluster"
 )
 
 func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
-	new := &cluster.Cluster{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: base.ObjectMeta.Annotations,
-		},
-		Name:          base.Name,
-		CloudId:       base.CloudId,
-		Cloud:         base.Cloud,
-		Location:      base.Location,
-		Network:       base.Network,
-		SSH:           base.SSH,
-		Values:        base.Values,
-		KubernetesAPI: base.KubernetesAPI,
-		ServerPools:   base.ServerPools,
-		Project:       base.Project,
-		Components:    base.Components,
-	}
-	return new
+        // we need a deep clone, and also a copy of our pointer values
+        // because the result of this function will be used for writing.
+        // if we do not create copy's for the pointer values, we will
+        // write into the original values!
+
+        // this is ugly, because we ignore the errors, but otherwise
+        // i'd have to change the signature of this func.
+        // but i know that these structs are json serializable!
+        var newcluster cluster.Cluster
+        buf, _ := json.Marshal(base)
+        json.Unmarshal(buf, &newcluster)
+        return &newcluster
 }
+
