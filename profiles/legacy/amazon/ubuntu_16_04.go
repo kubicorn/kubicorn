@@ -147,11 +147,8 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 										"Effect": "Allow",
 										"Action": [
 										   "ec2:Describe*",
-<<<<<<< HEAD
 										   "ec2:AttachVolume",
 										   "ec2:DetachVolume",
-=======
->>>>>>> Really pretty machines
 										   "ecr:GetAuthorizationToken",
 										   "ecr:BatchCheckLayerAvailability",
 										   "ecr:GetDownloadUrlForLayer",
