@@ -10,64 +10,6 @@ Curtis Schiewek <curtis.schiewek@gmail.com>
 Darron Froese <dfroese@salesforce.com>
 Ellen Körbes <ellenkorbes@gmail.com>
 Eric Hole <eric.hole@gmail.com>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> omg this is a huge refactor for the API
-=======
->>>>>>> #kubecon hacking on #kubicorn
-=======
->>>>>>> dep update
-=======
->>>>>>> omfg its compiling
-<<<<<<< HEAD
-fabriziopandini <fabrizio.pandini@gmail.com>
-=======
->>>>>>> Initial dep workover
-<<<<<<< HEAD
->>>>>>> Initial dep workover
-=======
-=======
-fabriziopandini <fabrizio.pandini@gmail.com>
->>>>>>> omg this is a huge refactor for the API
-<<<<<<< HEAD
->>>>>>> omg this is a huge refactor for the API
-=======
-=======
->>>>>>> #kubecon hacking on #kubicorn
-<<<<<<< HEAD
->>>>>>> #kubecon hacking on #kubicorn
-=======
-=======
-fabriziopandini <fabrizio.pandini@gmail.com>
->>>>>>> dep update
-<<<<<<< HEAD
->>>>>>> dep update
-=======
-=======
->>>>>>> omfg its compiling
->>>>>>> omfg its compiling
-=======
->>>>>>> working on deps
-=======
-fabriziopandini <fabrizio.pandini@gmail.com>
->>>>>>> moar deps
-=======
->>>>>>> Moving back to linux computer
-=======
-fabriziopandini <fabrizio.pandini@gmail.com>
->>>>>>> omg dep constraints
-=======
->>>>>>> Okay back to compiling after rebase
 Gar Morley <garmorley@gmail.com>
 Igor Vuk <parcijala@gmail.com>
 Jacopo Nardiello <jacopo@sighup.io>
@@ -86,84 +28,8 @@ Mario Mazo <mario.mazo@affinitas.de>
 Mario Mazo <mario.mazo@ravencall.io>
 Marko Mudrinić <mudrinic.mare@gmail.com>
 Martin Etmajer <martin@etmajer.com>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 Michael Hausenblas <michael.hausenblas@gmail.com>
 Michael Zamot <michael@zamot.io>
-=======
-<<<<<<< HEAD
->>>>>>> #kubecon hacking on #kubicorn
-=======
-<<<<<<< HEAD
-=======
-=======
->>>>>>> dep update
-=======
->>>>>>> omfg its compiling
-<<<<<<< HEAD
-=======
->>>>>>> omg this is a huge refactor for the API
->>>>>>> omg this is a huge refactor for the API
-matyix <janos.matyas@gmail.com>
-matyix <lalyos@yahoo.com>
-Michael Hausenblas <michael.hausenblas@gmail.com>
-Michael Zamot <michael@zamot.io>
-name <email@email.com>
-<<<<<<< HEAD
-=======
-Michael Hausenblas <michael.hausenblas@gmail.com>
-Michael Zamot <michael@zamot.io>
->>>>>>> Initial dep workover
-<<<<<<< HEAD
->>>>>>> Initial dep workover
-=======
-=======
->>>>>>> omg this is a huge refactor for the API
->>>>>>> omg this is a huge refactor for the API
-=======
-Michael Hausenblas <michael.hausenblas@gmail.com>
-Michael Zamot <michael@zamot.io>
->>>>>>> #kubecon hacking on #kubicorn
-=======
-matyix <janos.matyas@gmail.com>
-matyix <lalyos@yahoo.com>
-Michael Hausenblas <michael.hausenblas@gmail.com>
-Michael Zamot <michael@zamot.io>
-name <email@email.com>
->>>>>>> dep update
-=======
-=======
->>>>>>> working on deps
-=======
-matyix <janos.matyas@gmail.com>
-matyix <lalyos@yahoo.com>
->>>>>>> moar deps
-Michael Hausenblas <michael.hausenblas@gmail.com>
-Michael Zamot <michael@zamot.io>
-name <email@email.com>
-=======
-Michael Hausenblas <michael.hausenblas@gmail.com>
-Michael Zamot <michael@zamot.io>
->>>>>>> Moving back to linux computer
-=======
-matyix <janos.matyas@gmail.com>
-matyix <lalyos@yahoo.com>
-Michael Hausenblas <michael.hausenblas@gmail.com>
-Michael Zamot <michael@zamot.io>
-name <email@email.com>
->>>>>>> omg dep constraints
-=======
-Michael Hausenblas <michael.hausenblas@gmail.com>
-Michael Zamot <michael@zamot.io>
->>>>>>> Okay back to compiling after rebase
 Nolan Brubaker <nolan@heptio.com>
 Nyah Check <check.nyah@gmail.com>
 Paul Czarkowski <username.taken@gmail.com>
@@ -171,32 +37,7 @@ Peter Smeets <p.e.smeets@gmail.com>
 Prateek Gogia <pgogia@varmour.com>
 Prateek Gogia <prateekgogia@hotmail.com>
 Robert Bailey <robertbailey@google.com>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 S.Çağlar Onur <caglar@digitalocean.com>
-=======
->>>>>>> #kubecon hacking on #kubicorn
-=======
-robjloranger <robjloranger@protonmail.com>
-=======
->>>>>>> omfg its compiling
-=======
-robjloranger <robjloranger@protonmail.com>
->>>>>>> moar deps
-=======
->>>>>>> Moving back to linux computer
-=======
-robjloranger <robjloranger@protonmail.com>
->>>>>>> omg dep constraints
-=======
->>>>>>> Okay back to compiling after rebase
-S.Çağlar Onur <caglar@digitalocean.com>
->>>>>>> dep update
 Steven Klassen <sklassen@gmail.com>
 Ted Wood <ted@xy0.org>
 William Stewart <zoidbergwill@gmail.com>
