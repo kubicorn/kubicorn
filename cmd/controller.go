@@ -22,8 +22,11 @@ import (
 	"k8s.io/kube-deploy/cluster-api/client"
 	//clusterv1 "k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
-	"github.com/aws/aws-sdk-go/service/autoscaling"
+	//"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
+	//"github.com/aws/aws-sdk-go/service/autoscaling"
+	"fmt"
+	"path"
+	"github.com/kris-nova/kubicorn/cutil/local"
 )
 
 type ControllerOptions struct {
@@ -53,12 +56,12 @@ func ControllerCmd() *cobra.Command {
 	//getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	//getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 
-	//crdCmd.Flags().StringVarP(&crdo.KubeConfigPath, "kube-config-path", "k", "/Users/knova/.kube/config", "The path to use for the kube config")
+	ctlCmd.Flags().StringVarP(&ctlo.KubeConfigPath, "kube-config-path", "k", path.Join(local.Home(),".kube","config"), "The path to use for the kube config")
 	return ctlCmd
 }
 
 func RunController(options *ControllerOptions) error {
-
+	
 
 	// Config
 	config, err := clientcmd.BuildConfigFromFlags("", options.KubeConfigPath)
@@ -73,38 +76,9 @@ func RunController(options *ControllerOptions) error {
 		return err
 	}
 
-	cachedCount := -1
+	fmt.Println(machines)
 
-
-	// Loop indefinitely
-	for {
-
-		// Hard code AWS for demo
-		sdk, err := awsSdkGo.NewSdk("us-west-2", "default")
-		if err != nil {
-			logger.Critical(err.Error())
-			continue
-		}
-		machineCount := len(machines.Items)
-		name := ""
-		m := int64(machineCount)
-		if machineCount != cachedCount {
-			input := &autoscaling.UpdateAutoScalingGroupInput{
-				MaxSize: &m,
-				MinSize: &m,
-				LaunchConfigurationName: &name,
-			}
-			_, err := sdk.ASG.UpdateAutoScalingGroup(input)
-			if err != nil {
-				logger.Critical("unable to update ASG: %v", err)
-
-			}else {
-				cachedCount = machineCount
-				logger.Info("updated machine count [%d]", machineCount)
-			}
-		}
-	}
-
+	return nil
 
 
 }
