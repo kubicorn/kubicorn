@@ -46,7 +46,7 @@ type OutputData struct {
 
 var exo = &ExplainOptions{}
 
-// ExpalinCmd represents the explain command
+// ExplainCmd represents the explain command
 func ExplainCmd() *cobra.Command {
 	var cmd = &cobra.Command{
 		Use:   "explain",
