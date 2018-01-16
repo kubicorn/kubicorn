@@ -45,7 +45,7 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
 				Image:    "centos-7-x64",
-				Size:     "2gb",
+				Size:     "s-2vcpu-2gb",
 				BootstrapScripts: []string{
 					"bootstrap/vpn/openvpnMaster-centos.sh",
 					"bootstrap/digitalocean_k8s_centos_7_master.sh",
@@ -56,7 +56,7 @@ func NewCentosCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-node", name),
 				MaxCount: 1,
 				Image:    "centos-7-x64",
-				Size:     "1gb",
+				Size:     "s-1vcpu-2gb",
 				BootstrapScripts: []string{
 					"bootstrap/vpn/openvpnNode-centos.sh",
 					"bootstrap/digitalocean_k8s_centos_7_node.sh",
