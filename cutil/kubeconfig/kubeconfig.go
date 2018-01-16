@@ -30,6 +30,12 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
+const (
+	// ClusterAnnotationKubeconfigLocalFile is a cluster API annotation that allows to
+	// specify the local file where to store the kubeconfig get from the cluster
+	ClusterAnnotationKubeconfigLocalFile = "cluster.alpha.kubicorn.io/kubeconfig-local-file"
+)
+
 func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
 	user := existing.SSH.User
 	pubKeyPath := local.Expand(existing.SSH.PublicKeyPath)
@@ -38,11 +44,18 @@ func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
 	}
 
 	address := fmt.Sprintf("%s:%s", existing.KubernetesAPI.Endpoint, existing.SSH.Port)
-	localDir := filepath.Join(local.Home(), "/.kube")
-	localPath, err := getKubeConfigPath(localDir)
-	if err != nil {
-		return err
+	localPath, localPathAnnotationDefined := existing.Annotations[ClusterAnnotationKubeconfigLocalFile]
+	if localPathAnnotationDefined {
+		localPath = local.Expand(localPath)
+	} else {
+		var err error
+		localDir := filepath.Join(local.Home(), "/.kube")
+		localPath, err = getKubeConfigPath(localDir)
+		if err != nil {
+			return err
+		}
 	}
+
 	sshConfig := &ssh.ClientConfig{
 		User:            user,
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
@@ -88,7 +101,7 @@ func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
 		return err
 	}
 
-	if _, err := os.Stat(localPath); os.IsNotExist(err) {
+	if _, err := os.Stat(localPath); os.IsNotExist(err) || localPathAnnotationDefined {
 		empty := []byte("")
 		err := ioutil.WriteFile(localPath, empty, 0755)
 		if err != nil {

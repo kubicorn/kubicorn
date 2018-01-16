@@ -14,10 +14,16 @@
 
 package defaults
 
-import "github.com/kris-nova/kubicorn/apis/cluster"
+import (
+	"github.com/kris-nova/kubicorn/apis/cluster"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
 func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 	new := &cluster.Cluster{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: base.ObjectMeta.Annotations,
+		},
 		Name:          base.Name,
 		CloudId:       base.CloudId,
 		Cloud:         base.Cloud,
