@@ -45,7 +45,7 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-master", name),
 				MaxCount: 1,
 				Image:    "ubuntu-16-04-x64",
-				Size:     "2gb",
+				Size:     "s-2vcpu-2gb",
 				BootstrapScripts: []string{
 					"bootstrap/vpn/openvpnMaster.sh",
 					"bootstrap/digitalocean_k8s_ubuntu_16.04_master.sh",
@@ -95,7 +95,7 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				Name:     fmt.Sprintf("%s-node", name),
 				MaxCount: 2,
 				Image:    "ubuntu-16-04-x64",
-				Size:     "2gb",
+				Size:     "s-1vcpu-2gb",
 				BootstrapScripts: []string{
 					"bootstrap/vpn/openvpnNode.sh",
 					"bootstrap/digitalocean_k8s_ubuntu_16.04_node.sh",
