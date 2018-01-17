@@ -61,7 +61,7 @@ func ControllerCmd() *cobra.Command {
 }
 
 func RunController(options *ControllerOptions) error {
-	
+
 
 	// Config
 	config, err := clientcmd.BuildConfigFromFlags("", options.KubeConfigPath)
