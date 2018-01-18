@@ -18,7 +18,7 @@ import "fmt"
 
 const (
 	githubProtocol = "https://"
-	githubRepo     = "raw.githubusercontent.com/cschiewek/kubicorn"
+	githubRepo     = "raw.githubusercontent.com/kris-nova/kubicorn"
 	githubBranch   = "master"
 )
 
