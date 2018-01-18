@@ -3,7 +3,7 @@ ifndef VERBOSE
 endif
 
 PKGS=$(shell go list ./... | grep -v /vendor)
-CI_PKGS=$(shell go list ./... | grep -v /vendor | grep -v test)
+CI_PKGS=$(shell go list ./... | grep -v /vendor | grep -v test | grep -v e2e)
 FMT_PKGS=$(shell go list -f {{.Dir}} ./... | grep -v vendor | grep -v test | tail -n +2)
 SHELL_IMAGE=golang:1.8.3
 GIT_SHA=$(shell git rev-parse --verify HEAD)
