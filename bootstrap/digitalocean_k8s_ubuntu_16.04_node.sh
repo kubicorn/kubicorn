@@ -15,7 +15,7 @@ sudo apt-get install -y \
     docker.io \
     apt-transport-https \
     kubelet \
-    kubeadm=1.7.0-00 \
+    kubeadm=1.9.1-00 \
     jq
 
 sudo systemctl enable docker
