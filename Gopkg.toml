@@ -64,3 +64,15 @@
 [[constraint]]
   name = "github.com/c-bata/go-prompt"
   version = "0.1.0"
+
+[[constraint]]
+  name = "k8s.io/client-go"
+  revision = "9389c055a838d4f208b699b3c7c51b70f2368861"
+
+[[constraint]]
+  name = "k8s.io/apimachinery"
+  revision = "68f9c3a1feb3140df59c67ced62d3a5df8e6c9c2"
+
+[[constraint]]
+  name = "k8s.io/api"
+  revision = "006a217681ae70cbacdd66a5e2fca1a61a8ff28e"

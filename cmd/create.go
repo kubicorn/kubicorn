@@ -77,7 +77,7 @@ func CreateCmd() *cobra.Command {
 
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "azure"), "The cluster profile to use")
+	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "google"), "The cluster profile to use")
 	createCmd.Flags().StringVarP(&co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
 	createCmd.Flags().StringVarP(&co.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
 	createCmd.Flags().StringVarP(&co.GitRemote, "git-config", "g", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
@@ -85,14 +85,10 @@ func CreateCmd() *cobra.Command {
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
 
+	createCmd.SetUsageTemplate(usageTemplate)
+
 	return createCmd
 }
-
-// TODO(xmudrii): revisit this part
-/*func init() {
-	RootCmd.SetUsageTemplate(usageTemplate)
-	RootCmd.AddCommand(createCmd)
-}*/
 
 type profileFunc func(name string) *cluster.Cluster
 

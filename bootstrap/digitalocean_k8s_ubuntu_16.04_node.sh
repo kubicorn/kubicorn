@@ -15,7 +15,7 @@ sudo apt-get install -y \
     docker.io \
     apt-transport-https \
     kubelet \
-    kubeadm=1.7.0-00 \
+    kubeadm=1.9.1-00 \
     jq
 
 sudo systemctl enable docker
@@ -25,4 +25,4 @@ TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDTOKEN')
 MASTER=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDMASTER')
 
 sudo -E kubeadm reset
-sudo -E kubeadm join --token ${TOKEN} ${MASTER}
+sudo -E kubeadm join --discovery-token-unsafe-skip-ca-verification --token ${TOKEN} ${MASTER}
