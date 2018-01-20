@@ -197,6 +197,11 @@ func (r *SecurityGroup) Apply(actual, expected cloud.Resource, immutable *cluste
 		})
 
 	}
+	//Tag new security group
+	err = newResource.tag(applyResource.Tags)
+	if err != nil {
+		return nil, nil, fmt.Errorf("Unable to tag new VPC: %v", err)
+	}
 	newCluster := r.immutableRender(newResource, immutable)
 	return newCluster, newResource, nil
 }
@@ -304,4 +309,23 @@ func strToInt(s string) (int, error) {
 		return 0, fmt.Errorf("failed to convert string to int err: ", err)
 	}
 	return i, nil
+}
+
+func (r *SecurityGroup) tag(tags map[string]string) error {
+	logger.Debug("vpc.Tag")
+	tagInput := &ec2.CreateTagsInput{
+		Resources: []*string{&r.Identifier},
+	}
+	for key, val := range tags {
+		logger.Debug("Registering Vpc tag [%s] %s", key, val)
+		tagInput.Tags = append(tagInput.Tags, &ec2.Tag{
+			Key:   S("%s", key),
+			Value: S("%s", val),
+		})
+	}
+	_, err := Sdk.Ec2.CreateTags(tagInput)
+	if err != nil {
+		return err
+	}
+	return nil
 }
