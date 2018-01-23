@@ -18,7 +18,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
+	"github.com/kris-nova/kubicorn/profiles/legacy/amazon"
 )
 
 func main() {

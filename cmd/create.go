@@ -21,15 +21,8 @@ import (
 	"os"
 	"os/user"
 	"strings"
-
-	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/namer"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
-	"github.com/kris-nova/kubicorn/profiles/azure"
-	"github.com/kris-nova/kubicorn/profiles/digitalocean"
-	"github.com/kris-nova/kubicorn/profiles/googlecompute"
-	"github.com/kris-nova/kubicorn/profiles/packet"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/git"
@@ -37,6 +30,12 @@ import (
 	"github.com/spf13/cobra"
 	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
+	"github.com/kris-nova/kubicorn/apis"
+	"github.com/kris-nova/kubicorn/profiles/api/amazon"
+	"github.com/kris-nova/kubicorn/profiles/api/googlecompute"
+	"github.com/kris-nova/kubicorn/profiles/api/azure"
+	"github.com/kris-nova/kubicorn/profiles/api/packet"
+	"github.com/kris-nova/kubicorn/profiles/api/digitalocean"
 )
 
 type CreateOptions struct {
@@ -49,6 +48,7 @@ var co = &CreateOptions{}
 // CreateCmd represents create command
 func CreateCmd() *cobra.Command {
 	var createCmd = &cobra.Command{
+
 		Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
 		Short: "Create a Kubicorn API model from a profile",
 		Long: `Use this command to create a Kubicorn API model in a defined state store.
@@ -75,6 +75,8 @@ func CreateCmd() *cobra.Command {
 		},
 	}
 
+	createCmd.SetUsageTemplate(usageTemplate)
+
 	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "google"), "The cluster profile to use")
@@ -90,7 +92,7 @@ func CreateCmd() *cobra.Command {
 	return createCmd
 }
 
-type profileFunc func(name string) *cluster.Cluster
+type profileFunc func(name string) apis.KubicornCluster
 
 type profileMap struct {
 	profileFunc profileFunc
@@ -98,6 +100,9 @@ type profileMap struct {
 }
 
 var profileMapIndexed = map[string]profileMap{
+
+
+	// ---------------------- Azure ----------------------
 	"azure": {
 		profileFunc: azure.NewUbuntuCluster,
 		description: "Ubuntu on Azure",
@@ -106,6 +111,9 @@ var profileMapIndexed = map[string]profileMap{
 		profileFunc: azure.NewUbuntuCluster,
 		description: "Ubuntu on Azure",
 	},
+
+
+	// --------------------- Amazon ----------------------
 	"amazon": {
 		profileFunc: amazon.NewUbuntuCluster,
 		description: "Ubuntu on Amazon",
@@ -114,13 +122,20 @@ var profileMapIndexed = map[string]profileMap{
 		profileFunc: amazon.NewUbuntuCluster,
 		description: "Ubuntu on Amazon",
 	},
+	"aws-ubuntu": {
+		profileFunc: amazon.NewUbuntuCluster,
+		description: "Ubuntu on Amazon",
+	},
+	"aws-centos": {
+		profileFunc: amazon.NewCentosCluster,
+		description: "CentOS on Amazon",
+	},
+
+
+	// ------------------ Digital Ocean ------------------
 	"do": {
 		profileFunc: digitalocean.NewUbuntuCluster,
 		description: "Ubuntu on DigitalOcean",
-	},
-	"google": {
-		profileFunc: googlecompute.NewUbuntuCluster,
-		description: "Ubuntu on Google Compute",
 	},
 	"digitalocean": {
 		profileFunc: digitalocean.NewUbuntuCluster,
@@ -130,18 +145,24 @@ var profileMapIndexed = map[string]profileMap{
 		profileFunc: digitalocean.NewUbuntuCluster,
 		description: "Ubuntu on DigitalOcean",
 	},
-	"aws-ubuntu": {
-		profileFunc: amazon.NewUbuntuCluster,
-		description: "Ubuntu on Amazon",
-	},
 	"do-centos": {
 		profileFunc: digitalocean.NewCentosCluster,
 		description: "CentOS on DigitalOcean",
 	},
-	"aws-centos": {
-		profileFunc: amazon.NewCentosCluster,
-		description: "CentOS on Amazon",
+
+
+	// --------------------- Google -----------------------
+	"google": {
+		profileFunc: googlecompute.NewUbuntuCluster,
+		description: "Ubuntu on Google Compute",
 	},
+	"google-ubuntu": {
+		profileFunc: googlecompute.NewUbuntuCluster,
+		description: "Ubuntu on Google Compute",
+	},
+
+
+	// --------------------- Packet ----------------------
 	"packet": {
 		profileFunc: packet.NewUbuntuCluster,
 		description: "Ubuntu on Packet x86",
@@ -150,6 +171,7 @@ var profileMapIndexed = map[string]profileMap{
 		profileFunc: packet.NewUbuntuCluster,
 		description: "Ubuntu on Packet x86",
 	},
+
 }
 
 // RunCreate is the starting point when a user runs the create command.
@@ -157,7 +179,7 @@ func RunCreate(options *CreateOptions) error {
 
 	// Create our cluster resource
 	name := options.Name
-	var newCluster *cluster.Cluster
+	var newCluster apis.KubicornCluster
 	if _, ok := profileMapIndexed[options.Profile]; ok {
 		newCluster = profileMapIndexed[options.Profile].profileFunc(name)
 	} else {
@@ -178,10 +200,21 @@ func RunCreate(options *CreateOptions) error {
 		}
 	}
 
-	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
-		return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
-	}
-	newCluster.CloudId = options.CloudId
+	// ----- Legacy API ------
+	//var newCluster *cluster.Cluster
+	//if _, ok := kubicornCluster.(*cluster.Cluster); ok {
+	//	newCluster = kubicornCluster.(*cluster.Cluster)
+	//}else if _, ok := kubicornCluster.(*v1alpha1.Cluster); ok{
+	//
+	//}
+	//
+
+
+	// TODO: Move this to validation
+	//if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
+	//	return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
+	//}
+	//newCluster.CloudId = options.CloudId
 
 	// Expand state store path
 	// Todo (@kris-nova) please pull this into a filepath package or something

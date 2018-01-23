@@ -1,5 +1,5 @@
 /*
-Copyright 2018 The Kubernetes Authors.
+Copyright 2017 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -35,32 +35,30 @@ type Interface interface {
 }
 
 type version struct {
-	factory          internalinterfaces.SharedInformerFactory
-	namespace        string
-	tweakListOptions internalinterfaces.TweakListOptionsFunc
+	internalinterfaces.SharedInformerFactory
 }
 
 // New returns a new Interface.
-func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakListOptions internalinterfaces.TweakListOptionsFunc) Interface {
-	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
+func New(f internalinterfaces.SharedInformerFactory) Interface {
+	return &version{f}
 }
 
 // ClusterRoles returns a ClusterRoleInformer.
 func (v *version) ClusterRoles() ClusterRoleInformer {
-	return &clusterRoleInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &clusterRoleInformer{factory: v.SharedInformerFactory}
 }
 
 // ClusterRoleBindings returns a ClusterRoleBindingInformer.
 func (v *version) ClusterRoleBindings() ClusterRoleBindingInformer {
-	return &clusterRoleBindingInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &clusterRoleBindingInformer{factory: v.SharedInformerFactory}
 }
 
 // Roles returns a RoleInformer.
 func (v *version) Roles() RoleInformer {
-	return &roleInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &roleInformer{factory: v.SharedInformerFactory}
 }
 
 // RoleBindings returns a RoleBindingInformer.
 func (v *version) RoleBindings() RoleBindingInformer {
-	return &roleBindingInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &roleBindingInformer{factory: v.SharedInformerFactory}
 }

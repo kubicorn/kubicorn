@@ -188,8 +188,8 @@ func TestNewInvalid(t *testing.T) {
 	}
 }
 
-func TestReasonForError(t *testing.T) {
-	if e, a := metav1.StatusReasonUnknown, ReasonForError(nil); e != a {
+func Test_reasonForError(t *testing.T) {
+	if e, a := metav1.StatusReasonUnknown, reasonForError(nil); e != a {
 		t.Errorf("unexpected reason type: %#v", a)
 	}
 }

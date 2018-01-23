@@ -130,8 +130,8 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 	if isEqual {
 		return immutable, applyResource, nil
 	}
-	logger.Debug("Actual: %#v", actual)
-	logger.Debug("Expectd: %#v", expected)
+	//logger.Debug("Actual: %#v", actual)
+	//logger.Debug("Expectd: %#v", expected)
 	var sgs []*string
 	found := false
 	for _, serverPool := range immutable.ServerPools {
@@ -229,15 +229,16 @@ func (r *Lc) Apply(actual, expected cloud.Resource, immutable *cluster.Cluster) 
 		_, err = Sdk.ASG.CreateLaunchConfiguration(lcInput)
 		if err != nil {
 			if awserr, ok := err.(awserr.Error); ok {
+				errStr := fmt.Sprintf("Recoverable error: %v\n", awserr)
 				switch awserr.Code() {
 				case autoscaling.ErrCodeAlreadyExistsFault:
-					logger.Debug(autoscaling.ErrCodeAlreadyExistsFault, awserr.Error())
+					logger.Debug(autoscaling.ErrCodeAlreadyExistsFault,errStr)
 				case autoscaling.ErrCodeLimitExceededFault:
-					logger.Debug(autoscaling.ErrCodeLimitExceededFault, awserr.Error())
+					logger.Debug(autoscaling.ErrCodeLimitExceededFault, errStr)
 				case autoscaling.ErrCodeResourceContentionFault:
-					logger.Debug(autoscaling.ErrCodeResourceContentionFault, awserr.Error())
+					logger.Debug(autoscaling.ErrCodeResourceContentionFault, errStr)
 				default:
-					logger.Debug(awserr.Error())
+					logger.Debug(errStr)
 				}
 			} else {
 				logger.Debug(err.Error())
@@ -278,7 +279,7 @@ func (r *Lc) Delete(actual cloud.Resource, immutable *cluster.Cluster) (*cluster
 	if err != nil {
 		return nil, nil, err
 	}
-	logger.Success("Deleted Launch Configuration [%s]", actual.(*Lc).Name)
+	logger.Info("Deleted Launch Configuration [%s]", actual.(*Lc).Name)
 
 	// Kubernetes API
 	// Todo (@kris-nova) this obviously isn't immutable

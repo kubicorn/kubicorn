@@ -43,11 +43,7 @@ type Parser struct {
 	width int
 }
 
-var (
-	ErrSyntax        = errors.New("invalid syntax")
-	dictKeyRex       = regexp.MustCompile(`^'([^']*)'$`)
-	sliceOperatorRex = regexp.MustCompile(`^(-?[\d]*)(:-?[\d]*)?(:[\d]*)?$`)
-)
+var ErrSyntax = errors.New("invalid syntax")
 
 // Parse parsed the given text and return a node Parser.
 // If an error is encountered, parsing stops and an empty
@@ -287,7 +283,8 @@ Loop:
 	}
 
 	// dict key
-	value := dictKeyRex.FindStringSubmatch(text)
+	reg := regexp.MustCompile(`^'([^']*)'$`)
+	value := reg.FindStringSubmatch(text)
 	if value != nil {
 		parser, err := parseAction("arraydict", fmt.Sprintf(".%s", value[1]))
 		if err != nil {
@@ -300,7 +297,8 @@ Loop:
 	}
 
 	//slice operator
-	value = sliceOperatorRex.FindStringSubmatch(text)
+	reg = regexp.MustCompile(`^(-?[\d]*)(:-?[\d]*)?(:[\d]*)?$`)
+	value = reg.FindStringSubmatch(text)
 	if value == nil {
 		return fmt.Errorf("invalid array index %s", text)
 	}

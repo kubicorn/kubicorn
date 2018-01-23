@@ -170,12 +170,13 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 	if isEqual {
 		return immutable, applyResource, nil
 	}
-	logger.Debug("Actual: %#v", actual)
-	logger.Debug("Expectd: %#v", expected)
+	//logger.Debug("Actual: %#v", actual)
+	//logger.Debug("Expectd: %#v", expected)
 	newResource := &InstanceProfile{}
 	//TODO fill in instanceprofile attributes
 
 	// Create InstanceProfile
+	var nameStr, idStr string
 	profileinput := &iam.CreateInstanceProfileInput{
 		InstanceProfileName: &expected.(*InstanceProfile).Name,
 		Path:                S("/"),
@@ -185,10 +186,23 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 		logger.Debug("CreateInstanceProfile error: %v", err)
 		if err.(awserr.Error).Code() != iam.ErrCodeEntityAlreadyExistsException {
 			return nil, nil, err
+		}else {
+			profileinput := &iam.GetInstanceProfileInput{
+				InstanceProfileName: &expected.(*InstanceProfile).Name,
+			}
+			outInstanceProfile, err := Sdk.IAM.GetInstanceProfile(profileinput)
+			if err != nil {
+				return nil, nil, err
+			}
+			nameStr = *outInstanceProfile.InstanceProfile.InstanceProfileName
+			idStr = *outInstanceProfile.InstanceProfile.InstanceProfileId
 		}
+	}else {
+		nameStr = *outInstanceProfile.InstanceProfile.InstanceProfileName
+		idStr = *outInstanceProfile.InstanceProfile.InstanceProfileId
 	}
-	newResource.Name = *outInstanceProfile.InstanceProfile.InstanceProfileName
-	newResource.Identifier = *outInstanceProfile.InstanceProfile.InstanceProfileName
+	newResource.Name = nameStr
+	newResource.Identifier = idStr
 	logger.Info("InstanceProfile created: %s", newResource.Name)
 	// Create role
 	assumeRolePolicy := `{
@@ -208,24 +222,46 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 		Description:              S("Kubicorn Role"),
 		Path:                     S("/"),
 	}
+	createRole := true
 	outInstanceRole, err := Sdk.IAM.CreateRole(roleinput)
+	var newIamRole *IAMRole
 	if err != nil {
 		logger.Debug("CreateRole error: %v", err)
 		if err.(awserr.Error).Code() != iam.ErrCodeEntityAlreadyExistsException {
 			return nil, nil, err
+		}else if err.(awserr.Error).Code() == iam.ErrCodeEntityAlreadyExistsException {
+			createRole = false
+			input := &iam.GetRoleInput{
+				RoleName:  &expected.(*InstanceProfile).Role.Name,
+			}
+			role, err := Sdk.IAM.GetRole(input)
+			if err != nil {
+				return nil, nil, err
+			}
+			newIamRole = &IAMRole{
+				Shared: Shared{
+					Name: *role.Role.RoleName,
+				},
+			}
 		}
 	}
-	newIamRole := &IAMRole{
-		Shared: Shared{
-			Name: *outInstanceRole.Role.RoleName,
-			Tags: map[string]string{
-				"Name":              r.Name,
-				"KubernetesCluster": immutable.Name,
+
+	if createRole {
+		newIamRole = &IAMRole{
+			Shared: Shared{
+				Name: *outInstanceRole.Role.RoleName,
+				Tags: map[string]string{
+					"Name":              r.Name,
+					"KubernetesCluster": immutable.Name,
+				},
 			},
-		},
-		Policies: []*IAMPolicy{},
+			Policies: []*IAMPolicy{},
+		}
+		logger.Info("Role created")
 	}
-	logger.Info("Role created")
+
+	createPolicy := true
+
 	//Attach Policy to Role
 	for _, policy := range expected.(*InstanceProfile).Role.Policies {
 		policyinput := &iam.PutRolePolicyInput{
@@ -238,20 +274,24 @@ func (r *InstanceProfile) Apply(actual, expected cloud.Resource, immutable *clus
 			logger.Debug("PutRolePolicy error: %v", err)
 			if err.(awserr.Error).Code() != iam.ErrCodeLimitExceededException {
 				return nil, nil, err
+			}else if err.(awserr.Error).Code() == iam.ErrCodeLimitExceededException {
+				createPolicy = false
 			}
 		}
-		newPolicy := &IAMPolicy{
-			Shared: Shared{
-				Name: policy.Name,
-				Tags: map[string]string{
-					"Name":              r.Name,
-					"KubernetesCluster": immutable.Name,
+		if createPolicy {
+			newPolicy := &IAMPolicy{
+				Shared: Shared{
+					Name: policy.Name,
+					Tags: map[string]string{
+						"Name":              r.Name,
+						"KubernetesCluster": immutable.Name,
+					},
 				},
-			},
-			Document: policy.Document,
+				Document: policy.Document,
+			}
+			newIamRole.Policies = append(newIamRole.Policies, newPolicy)
+			logger.Info("Policy created")
 		}
-		newIamRole.Policies = append(newIamRole.Policies, newPolicy)
-		logger.Info("Policy created")
 	}
 	//Attach Role to Profile
 	roletoprofile := &iam.AddRoleToInstanceProfileInput{

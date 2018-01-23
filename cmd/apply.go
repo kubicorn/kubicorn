@@ -21,7 +21,6 @@ import (
 	"strings"
 
 	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/agent"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -32,6 +31,9 @@ import (
 	"github.com/spf13/cobra"
 	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
+	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
+	"github.com/kris-nova/kubicorn/profiles"
+	"github.com/kris-nova/kubicorn/crd"
 )
 
 type ApplyOptions struct {
@@ -79,9 +81,6 @@ func ApplyCmd() *cobra.Command {
 
 func RunApply(options *ApplyOptions) error {
 
-	// Ensure we have SSH agent
-	agent := agent.NewAgent()
-
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
@@ -125,10 +124,24 @@ func RunApply(options *ApplyOptions) error {
 		})
 	}
 
-	cluster, err := stateStore.GetCluster()
+	kubicornCluster, err := stateStore.GetCluster()
 	if err != nil {
-		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
+		return fmt.Errorf("unable to get cluster [%s]: %v", name, err)
 	}
+
+
+	// Translate into an API cluster
+	apiCluster, ok := kubicornCluster.(*v1alpha1.Cluster)
+	if !ok {
+		return fmt.Errorf("unable to unmarshal cluster, major error")
+	}
+
+	cluster, err := profiles.DeserializeProviderConfig(apiCluster.Spec.ProviderConfig)
+	if err != nil {
+		return fmt.Errorf("unable to deserialize provider config: %v", err)
+	}
+
+
 	logger.Info("Loaded cluster: %s", cluster.Name)
 
 	if options.Set != "" {
@@ -173,21 +186,41 @@ func RunApply(options *ApplyOptions) error {
 	}
 
 	logger.Info("Reconciling")
-	newCluster, err := reconciler.Reconcile(actual, expected)
-	if err != nil {
-		return fmt.Errorf("Unable to reconcile cluster: %v", err)
-	}
+	newCluster, reconcileErr := reconciler.Reconcile(actual, expected)
 
-	err = stateStore.Commit(newCluster)
+	providerConfig, err := profiles.SerializeProviderConfig(newCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to serialize provider config: %v", err)
+	}
+	apiCluster.Spec.ProviderConfig = providerConfig
+
+	err = stateStore.Commit(apiCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to commit state store: %v", err)
 	}
 
 	logger.Info("Updating state store for cluster [%s]", options.Name)
+	if reconcileErr != nil {
+		return fmt.Errorf("Unable to reconcile cluster: %v", err)
+	}
 
-	err = kubeconfig.RetryGetConfig(newCluster, agent)
+	err = kubeconfig.RetryGetConfig(newCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to write kubeconfig: %v", err)
+	}
+
+	logger.Info("Found kubeconfig")
+	manager, err := crd.NewCRDManager(newCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to initialize CRD manager: %v", err)
+	}
+	err = manager.CreateClusters()
+	if err != nil {
+		return fmt.Errorf("Unable to create Clusters CRD: %v", err)
+	}
+	err = manager.CreateMachines()
+	if err != nil {
+		return fmt.Errorf("Unable to create Machines CRD: %v", err)
 	}
 
 	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)

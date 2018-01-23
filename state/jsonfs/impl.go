@@ -27,6 +27,7 @@ import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
+	"github.com/kris-nova/kubicorn/apis"
 )
 
 type JSONFileSystemStoreOptions struct {
@@ -92,7 +93,7 @@ func (fs *JSONFileSystemStore) ReadStore() ([]byte, error) {
 	return fs.Read(state.ClusterJSONFile)
 }
 
-func (fs *JSONFileSystemStore) Commit(c *cluster.Cluster) error {
+func (fs *JSONFileSystemStore) Commit(c apis.KubicornCluster) error {
 	if c == nil {
 		return fmt.Errorf("Nil cluster spec")
 	}
@@ -112,7 +113,7 @@ func (fs *JSONFileSystemStore) Destroy() error {
 	return os.RemoveAll(fs.AbsolutePath)
 }
 
-func (fs *JSONFileSystemStore) GetCluster() (*cluster.Cluster, error) {
+func (fs *JSONFileSystemStore) GetCluster() (apis.KubicornCluster, error) {
 	configBytes, err := fs.Read(state.ClusterJSONFile)
 	if err != nil {
 		return nil, err
@@ -121,7 +122,7 @@ func (fs *JSONFileSystemStore) GetCluster() (*cluster.Cluster, error) {
 	return fs.BytesToCluster(configBytes)
 }
 
-func (fs *JSONFileSystemStore) BytesToCluster(bytes []byte) (*cluster.Cluster, error) {
+func (fs *JSONFileSystemStore) BytesToCluster(bytes []byte) (apis.KubicornCluster, error) {
 	cluster := &cluster.Cluster{}
 	err := json.Unmarshal(bytes, cluster)
 	if err != nil {

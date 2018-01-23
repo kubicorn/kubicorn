@@ -1,5 +1,15 @@
 # Profiles
 
+### Legacy
+
+These are profiles from the original cluster API
+
+### API
+
+These are profiles from the new community driven API
+
+### What is a profile?
+
 A profile is a unique representation of a cluster.
 Think of these as handy snippets of Go that represent a cluster.
 Ideally you can pass these around from dev to dev, and tweak them to your liking.

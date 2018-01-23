@@ -1,5 +1,5 @@
 /*
-Copyright 2018 The Kubernetes Authors.
+Copyright 2017 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -37,37 +37,35 @@ type Interface interface {
 }
 
 type version struct {
-	factory          internalinterfaces.SharedInformerFactory
-	namespace        string
-	tweakListOptions internalinterfaces.TweakListOptionsFunc
+	internalinterfaces.SharedInformerFactory
 }
 
 // New returns a new Interface.
-func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakListOptions internalinterfaces.TweakListOptionsFunc) Interface {
-	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
+func New(f internalinterfaces.SharedInformerFactory) Interface {
+	return &version{f}
 }
 
 // ControllerRevisions returns a ControllerRevisionInformer.
 func (v *version) ControllerRevisions() ControllerRevisionInformer {
-	return &controllerRevisionInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &controllerRevisionInformer{factory: v.SharedInformerFactory}
 }
 
 // DaemonSets returns a DaemonSetInformer.
 func (v *version) DaemonSets() DaemonSetInformer {
-	return &daemonSetInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &daemonSetInformer{factory: v.SharedInformerFactory}
 }
 
 // Deployments returns a DeploymentInformer.
 func (v *version) Deployments() DeploymentInformer {
-	return &deploymentInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &deploymentInformer{factory: v.SharedInformerFactory}
 }
 
 // ReplicaSets returns a ReplicaSetInformer.
 func (v *version) ReplicaSets() ReplicaSetInformer {
-	return &replicaSetInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &replicaSetInformer{factory: v.SharedInformerFactory}
 }
 
 // StatefulSets returns a StatefulSetInformer.
 func (v *version) StatefulSets() StatefulSetInformer {
-	return &statefulSetInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &statefulSetInformer{factory: v.SharedInformerFactory}
 }

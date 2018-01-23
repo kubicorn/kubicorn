@@ -27,6 +27,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/apimachinery/pkg/util/remotecommand"
 	restclient "k8s.io/client-go/rest"
+	"k8s.io/client-go/transport"
 	spdy "k8s.io/client-go/transport/spdy"
 )
 
@@ -71,18 +72,8 @@ type streamExecutor struct {
 // NewSPDYExecutor connects to the provided server and upgrades the connection to
 // multiplexed bidirectional streams.
 func NewSPDYExecutor(config *restclient.Config, method string, url *url.URL) (Executor, error) {
-	wrapper, upgradeRoundTripper, err := spdy.RoundTripperFor(config)
-	if err != nil {
-		return nil, err
-	}
-	return NewSPDYExecutorForTransports(wrapper, upgradeRoundTripper, method, url)
-}
-
-// NewSPDYExecutorForTransports connects to the provided server using the given transport,
-// upgrades the response using the given upgrader to multiplexed bidirectional streams.
-func NewSPDYExecutorForTransports(transport http.RoundTripper, upgrader spdy.Upgrader, method string, url *url.URL) (Executor, error) {
 	return NewSPDYExecutorForProtocols(
-		transport, upgrader, method, url,
+		config, method, url,
 		remotecommand.StreamProtocolV4Name,
 		remotecommand.StreamProtocolV3Name,
 		remotecommand.StreamProtocolV2Name,
@@ -92,11 +83,16 @@ func NewSPDYExecutorForTransports(transport http.RoundTripper, upgrader spdy.Upg
 
 // NewSPDYExecutorForProtocols connects to the provided server and upgrades the connection to
 // multiplexed bidirectional streams using only the provided protocols. Exposed for testing, most
-// callers should use NewSPDYExecutor or NewSPDYExecutorForTransports.
-func NewSPDYExecutorForProtocols(transport http.RoundTripper, upgrader spdy.Upgrader, method string, url *url.URL, protocols ...string) (Executor, error) {
+// callers should use NewSPDYExecutor.
+func NewSPDYExecutorForProtocols(config *restclient.Config, method string, url *url.URL, protocols ...string) (Executor, error) {
+	wrapper, upgradeRoundTripper, err := spdy.RoundTripperFor(config)
+	if err != nil {
+		return nil, err
+	}
+	wrapper = transport.DebugWrappers(wrapper)
 	return &streamExecutor{
-		upgrader:  upgrader,
-		transport: transport,
+		upgrader:  upgradeRoundTripper,
+		transport: wrapper,
 		method:    method,
 		url:       url,
 		protocols: protocols,

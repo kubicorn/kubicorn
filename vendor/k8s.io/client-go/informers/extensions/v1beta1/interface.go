@@ -1,5 +1,5 @@
 /*
-Copyright 2018 The Kubernetes Authors.
+Copyright 2017 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -34,40 +34,45 @@ type Interface interface {
 	PodSecurityPolicies() PodSecurityPolicyInformer
 	// ReplicaSets returns a ReplicaSetInformer.
 	ReplicaSets() ReplicaSetInformer
+	// ThirdPartyResources returns a ThirdPartyResourceInformer.
+	ThirdPartyResources() ThirdPartyResourceInformer
 }
 
 type version struct {
-	factory          internalinterfaces.SharedInformerFactory
-	namespace        string
-	tweakListOptions internalinterfaces.TweakListOptionsFunc
+	internalinterfaces.SharedInformerFactory
 }
 
 // New returns a new Interface.
-func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakListOptions internalinterfaces.TweakListOptionsFunc) Interface {
-	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
+func New(f internalinterfaces.SharedInformerFactory) Interface {
+	return &version{f}
 }
 
 // DaemonSets returns a DaemonSetInformer.
 func (v *version) DaemonSets() DaemonSetInformer {
-	return &daemonSetInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &daemonSetInformer{factory: v.SharedInformerFactory}
 }
 
 // Deployments returns a DeploymentInformer.
 func (v *version) Deployments() DeploymentInformer {
-	return &deploymentInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &deploymentInformer{factory: v.SharedInformerFactory}
 }
 
 // Ingresses returns a IngressInformer.
 func (v *version) Ingresses() IngressInformer {
-	return &ingressInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &ingressInformer{factory: v.SharedInformerFactory}
 }
 
 // PodSecurityPolicies returns a PodSecurityPolicyInformer.
 func (v *version) PodSecurityPolicies() PodSecurityPolicyInformer {
-	return &podSecurityPolicyInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+	return &podSecurityPolicyInformer{factory: v.SharedInformerFactory}
 }
 
 // ReplicaSets returns a ReplicaSetInformer.
 func (v *version) ReplicaSets() ReplicaSetInformer {
-	return &replicaSetInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &replicaSetInformer{factory: v.SharedInformerFactory}
+}
+
+// ThirdPartyResources returns a ThirdPartyResourceInformer.
+func (v *version) ThirdPartyResources() ThirdPartyResourceInformer {
+	return &thirdPartyResourceInformer{factory: v.SharedInformerFactory}
 }

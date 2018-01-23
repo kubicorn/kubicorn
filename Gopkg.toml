@@ -22,8 +22,12 @@
 
 
 [[constraint]]
+  name = "github.com/c-bata/go-prompt"
+  version = "0.1.1"
+
+[[constraint]]
   name = "github.com/digitalocean/godo"
-  version = "1.1.0"
+  version = "1.1.1"
 
 [[constraint]]
   name = "github.com/fatih/color"
@@ -34,8 +38,8 @@
   version = "1.0.0"
 
 [[constraint]]
-  name = "github.com/gravitational/trace"
-  version = "1.0.0"
+  branch = "master"
+  name = "github.com/golang/glog"
 
 [[constraint]]
   branch = "master"
@@ -46,33 +50,37 @@
   version = "0.8.0"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/pkg/sftp"
+  version = "1.0.0"
+
+[[constraint]]
+  name = "github.com/spf13/cobra"
+  version = "0.0.1"
+
+[[constraint]]
+  name = "github.com/spf13/pflag"
+  version = "1.0.0"
 
 [[constraint]]
   branch = "master"
-  name = "github.com/spf13/cobra"
+  name = "github.com/yuroyoro/swalker"
 
 [[constraint]]
   branch = "master"
   name = "golang.org/x/oauth2"
 
 [[constraint]]
-  branch = "master"
-  name = "google.golang.org/api"
-
-[[constraint]]
-  name = "github.com/c-bata/go-prompt"
-  version = "0.1.0"
-
-[[constraint]]
-  name = "k8s.io/client-go"
-  revision = "9389c055a838d4f208b699b3c7c51b70f2368861"
+  name = "k8s.io/api"
+  branch = "kubernetes-1.9"
 
 [[constraint]]
   name = "k8s.io/apimachinery"
-  revision = "68f9c3a1feb3140df59c67ced62d3a5df8e6c9c2"
+  branch = "release-1.8"
 
 [[constraint]]
-  name = "k8s.io/api"
-  revision = "006a217681ae70cbacdd66a5e2fca1a61a8ff28e"
+  name = "k8s.io/apiserver"
+  branch = "kubernetes-1.9"
+
+[[constraint]]
+  name = "k8s.io/client-go"
+  branch = "release-5.0"

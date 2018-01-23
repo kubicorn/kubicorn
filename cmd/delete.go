@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
+	cluster2 "github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cutil"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/cutil/task"
@@ -29,6 +29,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	gg "github.com/tcnksm/go-gitconfig"
+	"k8s.io/kube-deploy/cluster-api/api/cluster/v1alpha1"
+	"github.com/kris-nova/kubicorn/profiles"
 )
 
 type DeleteOptions struct {
@@ -127,9 +129,20 @@ func RunDelete(options *DeleteOptions) error {
 		return nil
 	}
 
-	expectedCluster, err := stateStore.GetCluster()
+	kubicornCluster, err := stateStore.GetCluster()
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
+	}
+
+	// Translate into an API cluster
+	apiCluster, ok := kubicornCluster.(*v1alpha1.Cluster)
+	if !ok {
+		return fmt.Errorf("unable to unmarshal cluster, major error")
+	}
+
+	cluster, err := profiles.DeserializeProviderConfig(apiCluster.Spec.ProviderConfig)
+	if err != nil {
+		return fmt.Errorf("unable to deserialize provider config: %v", err)
 	}
 
 	runtimeParams := &cutil.RuntimeParameters{}
@@ -138,11 +151,11 @@ func RunDelete(options *DeleteOptions) error {
 		runtimeParams.AwsProfile = ao.AwsProfile
 	}
 
-	reconciler, err := cutil.GetReconciler(expectedCluster, runtimeParams)
+	reconciler, err := cutil.GetReconciler(cluster, runtimeParams)
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
 	}
-	var deleteCluster *cluster.Cluster
+	var deleteCluster *cluster2.Cluster
 	var deleteClusterTask = func() error {
 		deleteCluster, err = reconciler.Destroy()
 		return err

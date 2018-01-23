@@ -30,6 +30,7 @@ import (
 
 	g "gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/config"
+	"github.com/kris-nova/kubicorn/apis"
 )
 
 type JSONGitStoreOptions struct {
@@ -119,7 +120,7 @@ func (git *JSONGitStore) ReadStore() ([]byte, error) {
 }
 
 //Performs a git 'commit' and 'push' of the current cluster changes.
-func (git *JSONGitStore) Commit(c *cluster.Cluster) error {
+func (git *JSONGitStore) Commit(c apis.KubicornCluster) error {
 	if c == nil {
 		return fmt.Errorf("Nil cluster spec")
 	}
@@ -158,7 +159,7 @@ func (git *JSONGitStore) Destroy() error {
 	return os.RemoveAll(git.AbsolutePath)
 }
 
-func (git *JSONGitStore) GetCluster() (*cluster.Cluster, error) {
+func (git *JSONGitStore) GetCluster() (apis.KubicornCluster, error) {
 	configBytes, err := git.Read(state.ClusterJSONFile)
 	if err != nil {
 		return nil, err
@@ -167,7 +168,7 @@ func (git *JSONGitStore) GetCluster() (*cluster.Cluster, error) {
 	return git.BytesToCluster(configBytes)
 }
 
-func (git *JSONGitStore) BytesToCluster(bytes []byte) (*cluster.Cluster, error) {
+func (git *JSONGitStore) BytesToCluster(bytes []byte) (apis.KubicornCluster, error) {
 	cluster := &cluster.Cluster{}
 	err := json.Unmarshal(bytes, cluster)
 	if err != nil {

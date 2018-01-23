@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kris-nova/kubicorn/cutil/agent"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -29,6 +28,7 @@ import (
 	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
 	gg "github.com/tcnksm/go-gitconfig"
+	cluster2 "github.com/kris-nova/kubicorn/apis/cluster"
 )
 
 type GetConfigOptions struct {
@@ -73,9 +73,6 @@ func GetConfigCmd() *cobra.Command {
 
 func RunGetConfig(options *GetConfigOptions) error {
 
-	// Ensure we have SSH agent
-	agent := agent.NewAgent()
-
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
@@ -119,10 +116,13 @@ func RunGetConfig(options *GetConfigOptions) error {
 		})
 	}
 
-	cluster, err := stateStore.GetCluster()
+	kubicornCluster, err := stateStore.GetCluster()
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
+
+	cluster := kubicornCluster.(*cluster2.Cluster)
+
 	logger.Info("Loaded cluster: %s", cluster.Name)
 
 	cluster, err = initapi.InitCluster(cluster)
@@ -130,7 +130,7 @@ func RunGetConfig(options *GetConfigOptions) error {
 		return err
 	}
 
-	err = kubeconfig.GetConfig(cluster, agent)
+	err = kubeconfig.GetConfig(cluster)
 	if err != nil {
 		return err
 	}
