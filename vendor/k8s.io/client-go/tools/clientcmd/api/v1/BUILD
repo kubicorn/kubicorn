@@ -14,10 +14,6 @@ go_library(
         "types.go",
         "zz_generated.deepcopy.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/tools/clientcmd/api/v1",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/apimachinery/pkg/conversion:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",

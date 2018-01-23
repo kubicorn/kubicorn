@@ -25,17 +25,11 @@ import (
 	"reflect"
 	"testing"
 
-<<<<<<< HEAD
-	"github.com/gogo/protobuf/proto"
-	"github.com/googleapis/gnostic/OpenAPIv2"
-
-=======
 	"github.com/emicklei/go-restful-swagger12"
 	"github.com/gogo/protobuf/proto"
 	"github.com/googleapis/gnostic/OpenAPIv2"
 
 	"k8s.io/api/core/v1"
->>>>>>> Initial dep workover
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -273,8 +267,6 @@ func TestGetServerResources(t *testing.T) {
 	}
 }
 
-<<<<<<< HEAD
-=======
 func swaggerSchemaFakeServer() (*httptest.Server, error) {
 	request := 1
 	var sErr error
@@ -337,7 +329,6 @@ func TestGetSwaggerSchemaFail(t *testing.T) {
 	}
 }
 
->>>>>>> Initial dep workover
 var returnedOpenAPI = openapi_v2.Document{
 	Definitions: &openapi_v2.Definitions{
 		AdditionalProperties: []*openapi_v2.NamedSchema{

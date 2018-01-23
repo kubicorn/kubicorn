@@ -9,10 +9,6 @@ load(
 go_test(
     name = "go_default_test",
     srcs = ["azure_test.go"],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/plugin/pkg/client/auth/azure",
-=======
->>>>>>> Initial dep workover
     library = ":go_default_library",
     deps = ["//vendor/github.com/Azure/go-autorest/autorest/adal:go_default_library"],
 )
@@ -20,10 +16,6 @@ go_test(
 go_library(
     name = "go_default_library",
     srcs = ["azure.go"],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/plugin/pkg/client/auth/azure",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/Azure/go-autorest/autorest:go_default_library",
         "//vendor/github.com/Azure/go-autorest/autorest/adal:go_default_library",

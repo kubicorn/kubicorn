@@ -22,17 +22,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-<<<<<<< HEAD
-	"path/filepath"
-
-	appsv1beta1 "k8s.io/api/apps/v1beta1"
-	apiv1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/client-go/util/homedir"
-	"k8s.io/client-go/util/retry"
-=======
 
 	appsv1beta1 "k8s.io/api/apps/v1beta1"
 	apiv1 "k8s.io/api/core/v1"
@@ -40,28 +29,16 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
->>>>>>> Initial dep workover
 	// Uncomment the following line to load the gcp plugin (only required to authenticate against GKE clusters).
 	// _ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 )
 
 func main() {
-<<<<<<< HEAD
-	var kubeconfig *string
-	if home := homedir.HomeDir(); home != "" {
-		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
-	} else {
-		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
-	}
-	flag.Parse()
-
-=======
 	kubeconfig := flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
 	flag.Parse()
 	if *kubeconfig == "" {
 		panic("-kubeconfig not specified")
 	}
->>>>>>> Initial dep workover
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
 		panic(err)
@@ -89,11 +66,7 @@ func main() {
 					Containers: []apiv1.Container{
 						{
 							Name:  "web",
-<<<<<<< HEAD
-							Image: "nginx:1.12",
-=======
 							Image: "nginx:1.13",
->>>>>>> Initial dep workover
 							Ports: []apiv1.ContainerPort{
 								{
 									Name:          "http",
@@ -124,54 +97,6 @@ func main() {
 	//    1. Modify the "deployment" variable and call: Update(deployment).
 	//       This works like the "kubectl replace" command and it overwrites/loses changes
 	//       made by other clients between you Create() and Update() the object.
-<<<<<<< HEAD
-	//    2. Modify the "result" returned by Get() and retry Update(result) until
-	//       you no longer get a conflict error. This way, you can preserve changes made
-	//       by other clients between Create() and Update(). This is implemented below
-	//			 using the retry utility package included with client-go. (RECOMMENDED)
-	//
-	// More Info:
-	// https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md#concurrency-control-and-consistency
-
-	retryErr := retry.RetryOnConflict(retry.DefaultRetry, func() error {
-		// Retrieve the latest version of Deployment before attempting update
-		// RetryOnConflict uses exponential backoff to avoid exhausting the apiserver
-		result, getErr := deploymentsClient.Get("demo-deployment", metav1.GetOptions{})
-		if getErr != nil {
-			panic(fmt.Errorf("Failed to get latest version of Deployment: %v", getErr))
-		}
-
-		result.Spec.Replicas = int32Ptr(1)                           // reduce replica count
-		result.Spec.Template.Spec.Containers[0].Image = "nginx:1.13" // change nginx version
-		_, updateErr := deploymentsClient.Update(result)
-		return updateErr
-	})
-	if retryErr != nil {
-		panic(fmt.Errorf("Update failed: %v", retryErr))
-	}
-	fmt.Println("Updated deployment...")
-
-	// Rollback Deployment
-	prompt()
-	fmt.Println("Rolling back deployment...")
-	// Once again use RetryOnConflict to avoid update conflicts
-	retryErr = retry.RetryOnConflict(retry.DefaultRetry, func() error {
-		result, getErr := deploymentsClient.Get("demo-deployment", metav1.GetOptions{})
-		if getErr != nil {
-			panic(fmt.Errorf("Failed to get latest version of Deployment: %v", getErr))
-		}
-
-		result.Spec.RollbackTo = &appsv1beta1.RollbackConfig{
-			Revision: 0, // can be specific revision number, or 0 for last revision
-		}
-		_, updateErr := deploymentsClient.Update(result)
-		return updateErr
-	})
-	if retryErr != nil {
-		panic(fmt.Errorf("Rollback failed: %v", retryErr))
-	}
-	fmt.Println("Rolled back deployment...")
-=======
 	//    2. Modify the "result" returned by Create()/Get() and retry Update(result) until
 	//       you no longer get a conflict error. This way, you can preserve changes made
 	//       by other clients between Create() and Update(). This is implemented below:
@@ -201,7 +126,6 @@ func main() {
 		// avoid getting stuck in this loop indefintiely.
 	}
 	fmt.Println("Updated deployment...")
->>>>>>> Initial dep workover
 
 	// List Deployments
 	prompt()

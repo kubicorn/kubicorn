@@ -8,10 +8,6 @@ load(
 go_library(
     name = "go_default_library",
     srcs = ["interface.go"],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/informers/rbac",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/client-go/informers/internalinterfaces:go_default_library",
         "//vendor/k8s.io/client-go/informers/rbac/v1:go_default_library",

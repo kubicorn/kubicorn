@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,10 +19,6 @@ limitations under the License.
 package internalinterfaces
 
 import (
-<<<<<<< HEAD
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-=======
->>>>>>> Initial dep workover
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	kubernetes "k8s.io/client-go/kubernetes"
 	cache "k8s.io/client-go/tools/cache"
@@ -40,8 +32,3 @@ type SharedInformerFactory interface {
 	Start(stopCh <-chan struct{})
 	InformerFor(obj runtime.Object, newFunc NewInformerFunc) cache.SharedIndexInformer
 }
-<<<<<<< HEAD
-
-type TweakListOptionsFunc func(*v1.ListOptions)
-=======
->>>>>>> Initial dep workover

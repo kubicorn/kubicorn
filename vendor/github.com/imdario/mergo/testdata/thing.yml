@@ -3,11 +3,4 @@ fields:
     name: string
     parent: ref "datu:thing"
     status: enum(draft, public, private)
-<<<<<<< HEAD
-<<<<<<< HEAD
     author: updater
-=======
->>>>>>> Working on getting compiling
-=======
-    author: updater
->>>>>>> moar deps

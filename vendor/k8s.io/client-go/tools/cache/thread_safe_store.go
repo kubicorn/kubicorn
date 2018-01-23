@@ -241,11 +241,7 @@ func (c *threadSafeMap) AddIndexers(newIndexers Indexers) error {
 
 // updateIndices modifies the objects location in the managed indexes, if this is an update, you must provide an oldObj
 // updateIndices must be called from a function that already has a lock on the cache
-<<<<<<< HEAD
-func (c *threadSafeMap) updateIndices(oldObj interface{}, newObj interface{}, key string) {
-=======
 func (c *threadSafeMap) updateIndices(oldObj interface{}, newObj interface{}, key string) error {
->>>>>>> Initial dep workover
 	// if we got an old object, we need to remove it before we add it again
 	if oldObj != nil {
 		c.deleteFromIndices(oldObj, key)
@@ -253,11 +249,7 @@ func (c *threadSafeMap) updateIndices(oldObj interface{}, newObj interface{}, ke
 	for name, indexFunc := range c.indexers {
 		indexValues, err := indexFunc(newObj)
 		if err != nil {
-<<<<<<< HEAD
-			panic(fmt.Errorf("unable to calculate an index entry for key %q on index %q: %v", key, name, err))
-=======
 			return err
->>>>>>> Initial dep workover
 		}
 		index := c.indices[name]
 		if index == nil {
@@ -274,27 +266,16 @@ func (c *threadSafeMap) updateIndices(oldObj interface{}, newObj interface{}, ke
 			set.Insert(key)
 		}
 	}
-<<<<<<< HEAD
-=======
 	return nil
->>>>>>> Initial dep workover
 }
 
 // deleteFromIndices removes the object from each of the managed indexes
 // it is intended to be called from a function that already has a lock on the cache
-<<<<<<< HEAD
-func (c *threadSafeMap) deleteFromIndices(obj interface{}, key string) {
-	for name, indexFunc := range c.indexers {
-		indexValues, err := indexFunc(obj)
-		if err != nil {
-			panic(fmt.Errorf("unable to calculate an index entry for key %q on index %q: %v", key, name, err))
-=======
 func (c *threadSafeMap) deleteFromIndices(obj interface{}, key string) error {
 	for name, indexFunc := range c.indexers {
 		indexValues, err := indexFunc(obj)
 		if err != nil {
 			return err
->>>>>>> Initial dep workover
 		}
 
 		index := c.indices[name]
@@ -308,10 +289,7 @@ func (c *threadSafeMap) deleteFromIndices(obj interface{}, key string) error {
 			}
 		}
 	}
-<<<<<<< HEAD
-=======
 	return nil
->>>>>>> Initial dep workover
 }
 
 func (c *threadSafeMap) Resync() error {

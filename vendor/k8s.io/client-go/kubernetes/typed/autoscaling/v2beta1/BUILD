@@ -8,10 +8,6 @@ go_library(
         "generated_expansion.go",
         "horizontalpodautoscaler.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/kubernetes/typed/autoscaling/v2beta1",
-=======
->>>>>>> Initial dep workover
     visibility = ["//visibility:public"],
     deps = [
         "//vendor/k8s.io/api/autoscaling/v2beta1:go_default_library",

@@ -28,14 +28,7 @@ const (
 	StatefulSetRevisionLabel       = ControllerRevisionHashLabelKey
 	DeprecatedRollbackTo           = "deprecated.deployment.rollback.to"
 	DeprecatedTemplateGeneration   = "deprecated.daemonset.template.generation"
-<<<<<<< HEAD
-<<<<<<< HEAD
 	StatefulSetPodNameLabel        = "statefulset.kubernetes.io/pod-name"
-=======
->>>>>>> Initial dep workover
-=======
-	StatefulSetPodNameLabel        = "statefulset.kubernetes.io/pod-name"
->>>>>>> moar deps
 )
 
 // ScaleSpec describes the attributes of a scale subresource
@@ -89,16 +82,8 @@ type Scale struct {
 // +genclient:method=UpdateScale,verb=update,subresource=scale,input=Scale,result=Scale
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the release notes for
 // more information.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED - This group version of StatefulSet is deprecated by apps/v1/StatefulSet. See the release notes for
-// more information.
->>>>>>> moar deps
 // StatefulSet represents a set of pods with consistent identities.
 // Identities are defined as:
 //  - Network: A single stable DNS and hostname.
@@ -187,22 +172,9 @@ type StatefulSetSpec struct {
 	Replicas *int32 `json:"replicas,omitempty" protobuf:"varint,1,opt,name=replicas"`
 
 	// selector is a label query over pods that should match the replica count.
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// It must match the pod template's labels.
 	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,2,opt,name=selector"`
-=======
-	// If empty, defaulted to labels on the pod template.
-	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	// +optional
-	Selector *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,2,opt,name=selector"`
->>>>>>> Initial dep workover
-=======
-	// It must match the pod template's labels.
-	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,2,opt,name=selector"`
->>>>>>> moar deps
 
 	// template is the object that describes the pod that will be created if
 	// insufficient replicas are detected. Each pod stamped out by the StatefulSet
@@ -284,10 +256,6 @@ type StatefulSetStatus struct {
 	// newest ControllerRevision.
 	// +optional
 	CollisionCount *int32 `json:"collisionCount,omitempty" protobuf:"varint,9,opt,name=collisionCount"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 
 	// Represents the latest available observations of a statefulset's current state.
 	// +optional
@@ -313,11 +281,6 @@ type StatefulSetCondition struct {
 	// A human readable message indicating details about the transition.
 	// +optional
 	Message string `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -333,16 +296,8 @@ type StatefulSetList struct {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the release notes for
 // more information.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED - This group version of Deployment is deprecated by apps/v1/Deployment. See the release notes for
-// more information.
->>>>>>> moar deps
 // Deployment enables declarative updates for Pods and ReplicaSets.
 type Deployment struct {
 	metav1.TypeMeta `json:",inline"`
@@ -368,18 +323,8 @@ type DeploymentSpec struct {
 
 	// Label selector for pods. Existing ReplicaSets whose pods are
 	// selected by this will be the ones affected by this deployment.
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// It must match the pod template's labels.
 	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,2,opt,name=selector"`
-=======
-	// +optional
-	Selector *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,2,opt,name=selector"`
->>>>>>> Initial dep workover
-=======
-	// It must match the pod template's labels.
-	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,2,opt,name=selector"`
->>>>>>> moar deps
 
 	// Template describes the pods that will be created.
 	Template v1.PodTemplateSpec `json:"template" protobuf:"bytes,3,opt,name=template"`
@@ -609,22 +554,9 @@ type RollingUpdateDaemonSet struct {
 type DaemonSetSpec struct {
 	// A label query over pods that are managed by the daemon set.
 	// Must match in order to be controlled.
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// It must match the pod template's labels.
 	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,1,opt,name=selector"`
-=======
-	// If empty, defaulted to labels on Pod template.
-	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	// +optional
-	Selector *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,1,opt,name=selector"`
->>>>>>> Initial dep workover
-=======
-	// It must match the pod template's labels.
-	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,1,opt,name=selector"`
->>>>>>> moar deps
 
 	// An object that describes the pod that will be created.
 	// The DaemonSet will create exactly one copy of this pod on every node
@@ -697,10 +629,6 @@ type DaemonSetStatus struct {
 	// create the name for the newest ControllerRevision.
 	// +optional
 	CollisionCount *int32 `json:"collisionCount,omitempty" protobuf:"varint,9,opt,name=collisionCount"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 
 	// Represents the latest available observations of a DaemonSet's current state.
 	// +optional
@@ -728,26 +656,13 @@ type DaemonSetCondition struct {
 	// A human readable message indicating details about the transition.
 	// +optional
 	Message string `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the release notes for
 // more information.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED - This group version of DaemonSet is deprecated by apps/v1/DaemonSet. See the release notes for
-// more information.
->>>>>>> moar deps
 // DaemonSet represents the configuration of a daemon set.
 type DaemonSet struct {
 	metav1.TypeMeta `json:",inline"`
@@ -794,22 +709,9 @@ type DaemonSetList struct {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-// DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the release notes for
-// more information.
-=======
->>>>>>> Initial dep workover
-// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
-=======
-// ReplicaSet represents the configuration of a ReplicaSet.
->>>>>>> Working on getting compiling
-=======
 // DEPRECATED - This group version of ReplicaSet is deprecated by apps/v1/ReplicaSet. See the release notes for
 // more information.
 // ReplicaSet ensures that a specified number of pod replicas are running at any given time.
->>>>>>> moar deps
 type ReplicaSet struct {
 	metav1.TypeMeta `json:",inline"`
 
@@ -864,26 +766,10 @@ type ReplicaSetSpec struct {
 	MinReadySeconds int32 `json:"minReadySeconds,omitempty" protobuf:"varint,4,opt,name=minReadySeconds"`
 
 	// Selector is a label query over pods that should match the replica count.
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// Label keys and values that must match in order to be controlled by this replica set.
 	// It must match the pod template's labels.
 	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,2,opt,name=selector"`
-=======
-	// If the selector is empty, it is defaulted to the labels present on the pod template.
-=======
->>>>>>> moar deps
-	// Label keys and values that must match in order to be controlled by this replica set.
-	// It must match the pod template's labels.
-	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-<<<<<<< HEAD
-	// +optional
-	Selector *metav1.LabelSelector `json:"selector,omitempty" protobuf:"bytes,2,opt,name=selector"`
->>>>>>> Initial dep workover
-=======
-	Selector *metav1.LabelSelector `json:"selector" protobuf:"bytes,2,opt,name=selector"`
->>>>>>> moar deps
 
 	// Template is the object that describes the pod that will be created if
 	// insufficient replicas are detected.
@@ -951,16 +837,8 @@ type ReplicaSetCondition struct {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1/ControllerRevision. See the
 // release notes for more information.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED - This group version of ControllerRevision is deprecated by apps/v1/ControllerRevision. See the
-// release notes for more information.
->>>>>>> moar deps
 // ControllerRevision implements an immutable snapshot of state data. Clients
 // are responsible for serializing and deserializing the objects that contain
 // their internal state.

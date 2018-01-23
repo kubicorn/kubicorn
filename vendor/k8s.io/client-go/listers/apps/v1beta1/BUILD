@@ -15,10 +15,6 @@ go_library(
         "statefulset.go",
         "statefulset_expansion.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/listers/apps/v1beta1",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/apps/v1beta1:go_default_library",
         "//vendor/k8s.io/api/core/v1:go_default_library",

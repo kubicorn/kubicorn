@@ -25,10 +25,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime"
-<<<<<<< HEAD
-	"k8s.io/apimachinery/pkg/util/wait"
-=======
->>>>>>> Initial dep workover
 	"k8s.io/apimachinery/pkg/watch"
 	restclient "k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/pager"
@@ -55,12 +51,8 @@ type WatchFunc func(options metav1.ListOptions) (watch.Interface, error)
 type ListWatch struct {
 	ListFunc  ListFunc
 	WatchFunc WatchFunc
-<<<<<<< HEAD
-	// DisableChunking requests no chunking for this list watcher.
-=======
 	// DisableChunking requests no chunking for this list watcher. It has no effect in Kubernetes 1.8, but in
 	// 1.9 will allow a controller to opt out of chunking.
->>>>>>> Initial dep workover
 	DisableChunking bool
 }
 
@@ -101,13 +93,9 @@ func timeoutFromListOptions(options metav1.ListOptions) time.Duration {
 
 // List a set of apiserver resources
 func (lw *ListWatch) List(options metav1.ListOptions) (runtime.Object, error) {
-<<<<<<< HEAD
-	if !lw.DisableChunking {
-=======
 	// chunking will become the default for list watchers starting in Kubernetes 1.9, unless
 	// otherwise disabled.
 	if false && !lw.DisableChunking {
->>>>>>> Initial dep workover
 		return pager.New(pager.SimplePageFunc(lw.ListFunc)).List(context.TODO(), options)
 	}
 	return lw.ListFunc(options)
@@ -118,11 +106,6 @@ func (lw *ListWatch) Watch(options metav1.ListOptions) (watch.Interface, error) 
 	return lw.WatchFunc(options)
 }
 
-<<<<<<< HEAD
-// ListWatchUntil checks the provided conditions against the items returned by the list watcher, returning wait.ErrWaitTimeout
-// if timeout is exceeded without all conditions returning true, or an error if an error occurs.
-=======
->>>>>>> Initial dep workover
 // TODO: check for watch expired error and retry watch from latest point?  Same issue exists for Until.
 func ListWatchUntil(timeout time.Duration, lw ListerWatcher, conditions ...watch.ConditionFunc) (*watch.Event, error) {
 	if len(conditions) == 0 {
@@ -186,14 +169,5 @@ func ListWatchUntil(timeout time.Duration, lw ListerWatcher, conditions ...watch
 		return nil, err
 	}
 
-<<<<<<< HEAD
-	evt, err := watch.Until(timeout, watchInterface, remainingConditions...)
-	if err == watch.ErrWatchClosed {
-		// present a consistent error interface to callers
-		err = wait.ErrWaitTimeout
-	}
-	return evt, err
-=======
 	return watch.Until(timeout, watchInterface, remainingConditions...)
->>>>>>> Initial dep workover
 }

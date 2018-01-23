@@ -11,10 +11,6 @@ go_library(
         "expansion_generated.go",
         "podpreset.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/listers/settings/v1alpha1",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/settings/v1alpha1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/api/errors:go_default_library",

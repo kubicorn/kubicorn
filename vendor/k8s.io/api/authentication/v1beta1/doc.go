@@ -14,15 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // +k8s:deepcopy-gen=package
-=======
-// +k8s:deepcopy-gen=package,register
->>>>>>> Initial dep workover
-=======
-// +k8s:deepcopy-gen=package
->>>>>>> moar deps
 // +groupName=authentication.k8s.io
 // +k8s:openapi-gen=true
 package v1beta1 // import "k8s.io/api/authentication/v1beta1"

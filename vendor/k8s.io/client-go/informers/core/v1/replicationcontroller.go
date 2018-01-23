@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -42,47 +38,19 @@ type ReplicationControllerInformer interface {
 }
 
 type replicationControllerInformer struct {
-<<<<<<< HEAD
-	factory          internalinterfaces.SharedInformerFactory
-	tweakListOptions internalinterfaces.TweakListOptionsFunc
-	namespace        string
-=======
 	factory internalinterfaces.SharedInformerFactory
->>>>>>> Initial dep workover
 }
 
 // NewReplicationControllerInformer constructs a new informer for ReplicationController type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
 func NewReplicationControllerInformer(client kubernetes.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-<<<<<<< HEAD
-	return NewFilteredReplicationControllerInformer(client, namespace, resyncPeriod, indexers, nil)
-}
-
-// NewFilteredReplicationControllerInformer constructs a new informer for ReplicationController type.
-// Always prefer using an informer factory to get a shared informer instead of getting an independent
-// one. This reduces memory footprint and number of connections to the server.
-func NewFilteredReplicationControllerInformer(client kubernetes.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
-	return cache.NewSharedIndexInformer(
-		&cache.ListWatch{
-			ListFunc: func(options meta_v1.ListOptions) (runtime.Object, error) {
-				if tweakListOptions != nil {
-					tweakListOptions(&options)
-				}
-				return client.CoreV1().ReplicationControllers(namespace).List(options)
-			},
-			WatchFunc: func(options meta_v1.ListOptions) (watch.Interface, error) {
-				if tweakListOptions != nil {
-					tweakListOptions(&options)
-				}
-=======
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options meta_v1.ListOptions) (runtime.Object, error) {
 				return client.CoreV1().ReplicationControllers(namespace).List(options)
 			},
 			WatchFunc: func(options meta_v1.ListOptions) (watch.Interface, error) {
->>>>>>> Initial dep workover
 				return client.CoreV1().ReplicationControllers(namespace).Watch(options)
 			},
 		},
@@ -92,21 +60,12 @@ func NewFilteredReplicationControllerInformer(client kubernetes.Interface, names
 	)
 }
 
-<<<<<<< HEAD
-func (f *replicationControllerInformer) defaultInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredReplicationControllerInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
-}
-
-func (f *replicationControllerInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&core_v1.ReplicationController{}, f.defaultInformer)
-=======
 func defaultReplicationControllerInformer(client kubernetes.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
 	return NewReplicationControllerInformer(client, meta_v1.NamespaceAll, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc})
 }
 
 func (f *replicationControllerInformer) Informer() cache.SharedIndexInformer {
 	return f.factory.InformerFor(&core_v1.ReplicationController{}, defaultReplicationControllerInformer)
->>>>>>> Initial dep workover
 }
 
 func (f *replicationControllerInformer) Lister() v1.ReplicationControllerLister {

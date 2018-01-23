@@ -8,10 +8,6 @@ load(
 go_library(
     name = "go_default_library",
     srcs = ["provider.go"],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/plugin/pkg/auth/authenticator/token/oidc/testing",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/coreos/go-oidc/jose:go_default_library",
         "//vendor/github.com/coreos/go-oidc/key:go_default_library",

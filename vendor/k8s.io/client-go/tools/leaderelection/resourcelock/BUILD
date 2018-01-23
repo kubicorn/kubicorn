@@ -12,10 +12,6 @@ go_library(
         "endpointslock.go",
         "interface.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/tools/leaderelection/resourcelock",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/core/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

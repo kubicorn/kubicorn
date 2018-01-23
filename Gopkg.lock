@@ -213,8 +213,8 @@
 [[projects]]
   name = "github.com/kris-nova/klone"
   packages = ["pkg/local"]
-  revision = "a9d1a9905c22559b040697cd0a22b89217d56c9a"
-  version = "v1.2.0"
+  revision = "2217bf3479abb92275417e26b948209df4e402e9"
+  version = "v1.1.1"
 
 [[projects]]
   branch = "master"
@@ -277,16 +277,12 @@
   revision = "b1f72af2d63057363398bec5873d16a98b453312"
 
 [[projects]]
-<<<<<<< HEAD
   branch = "master"
   name = "github.com/sergi/go-diff"
   packages = ["diffmatchpatch"]
   revision = "1744e2970ca51c86172c8190fadad617561ed6e7"
 
 [[projects]]
-  branch = "master"
-=======
->>>>>>> moar deps
   name = "github.com/spf13/cobra"
   packages = ["."]
   revision = "7b2c5ac9fc04fc5efafb60700713d4fa609b777b"
@@ -371,8 +367,6 @@
   version = "v0.9.0"
 
 [[projects]]
-<<<<<<< HEAD
-<<<<<<< HEAD
   name = "gopkg.in/src-d/go-git.v4"
   packages = [".","config","plumbing","plumbing/format/config","plumbing/format/idxfile","plumbing/format/index","plumbing/format/objfile","plumbing/format/packfile","plumbing/format/pktline","plumbing/object","plumbing/protocol/packp","plumbing/protocol/packp/capability","plumbing/protocol/packp/sideband","plumbing/storer","plumbing/transport","plumbing/transport/client","plumbing/transport/file","plumbing/transport/git","plumbing/transport/http","plumbing/transport/internal/common","plumbing/transport/ssh","storage/filesystem","storage/filesystem/internal/dotgit","storage/memory","utils/binary","utils/diff","utils/fs","utils/fs/os","utils/ioutil"]
   revision = "c9353b2bd7c1cbdf8f78dad6deac64ed2f2ed9eb"
@@ -385,11 +379,6 @@
   version = "v0.1.2"
 
 [[projects]]
-=======
-<<<<<<< HEAD
->>>>>>> dep update
-=======
->>>>>>> working on deps
   branch = "v2"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
@@ -434,22 +423,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  inputs-digest = "909a87a76d9b33f0bcffc5122367bead20130f24a39897313a9bce385baa7060"
-=======
-<<<<<<< HEAD
-=======
->>>>>>> working on deps
-  inputs-digest = "eb659276a4d1b33498822fd2b81abb4a5154ee0670108e18bf3d7886000cd74f"
->>>>>>> dep update
-=======
-  inputs-digest = "e818e9674d84ea733cf396dc78cf5f75979ff6ba68dce1a29878a0164e6b4472"
->>>>>>> moar deps
-=======
-  inputs-digest = "03928443499d3aadfb3a3a9e0e1b3d309dd7ed59a6ab8dc8661be691936666a7"
->>>>>>> omg dep constraints
+  inputs-digest = "39d2616499e4af2e3e4caebedee01e0288a07cfe02740d5981edaea2ca55a78e"
   solver-name = "gps-cdcl"
   solver-version = 1

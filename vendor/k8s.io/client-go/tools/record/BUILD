@@ -12,10 +12,6 @@ go_test(
         "event_test.go",
         "events_cache_test.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/tools/record",
-=======
->>>>>>> Initial dep workover
     library = ":go_default_library",
     deps = [
         "//vendor/k8s.io/api/core/v1:go_default_library",
@@ -39,10 +35,6 @@ go_library(
         "events_cache.go",
         "fake.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/tools/record",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/golang/glog:go_default_library",
         "//vendor/github.com/golang/groupcache/lru:go_default_library",

@@ -43,15 +43,7 @@ var (
 	AddToScheme   = SchemeBuilder.AddToScheme
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // Adds the list of known types to the given scheme.
-=======
-// Adds the list of known types to api.Scheme.
->>>>>>> Initial dep workover
-=======
-// Adds the list of known types to the given scheme.
->>>>>>> moar deps
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&Pod{},

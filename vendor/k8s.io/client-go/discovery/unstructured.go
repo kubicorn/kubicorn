@@ -17,34 +17,12 @@ limitations under the License.
 package discovery
 
 import (
-<<<<<<< HEAD
-	"reflect"
-=======
 	"fmt"
->>>>>>> Initial dep workover
 
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-<<<<<<< HEAD
-// UnstructuredObjectTyper provides a runtime.ObjectTyper implementation for
-// runtime.Unstructured object based on discovery information.
-type UnstructuredObjectTyper struct {
-	registered map[schema.GroupVersionKind]bool
-	typers     []runtime.ObjectTyper
-}
-
-// NewUnstructuredObjectTyper returns a runtime.ObjectTyper for
-// unstructured objects based on discovery information. It accepts a list of fallback typers
-// for handling objects that are not runtime.Unstructured. It does not delegate the Recognizes
-// check, only ObjectKinds.
-func NewUnstructuredObjectTyper(groupResources []*APIGroupResources, typers ...runtime.ObjectTyper) *UnstructuredObjectTyper {
-	dot := &UnstructuredObjectTyper{
-		registered: make(map[schema.GroupVersionKind]bool),
-		typers:     typers,
-	}
-=======
 // UnstructuredObjectTyper provides a runtime.ObjectTyper implmentation for
 // runtime.Unstructured object based on discovery information.
 type UnstructuredObjectTyper struct {
@@ -55,7 +33,6 @@ type UnstructuredObjectTyper struct {
 // unstructred objects based on discovery information.
 func NewUnstructuredObjectTyper(groupResources []*APIGroupResources) *UnstructuredObjectTyper {
 	dot := &UnstructuredObjectTyper{registered: make(map[schema.GroupVersionKind]bool)}
->>>>>>> Initial dep workover
 	for _, group := range groupResources {
 		for _, discoveryVersion := range group.Group.Versions {
 			resources, ok := group.VersionedResources[discoveryVersion.Version]
@@ -72,8 +49,6 @@ func NewUnstructuredObjectTyper(groupResources []*APIGroupResources) *Unstructur
 	return dot
 }
 
-<<<<<<< HEAD
-=======
 // ObjectKind returns the group,version,kind of the provided object, or an error
 // if the object in not runtime.Unstructured or has no group,version,kind
 // information.
@@ -85,45 +60,18 @@ func (d *UnstructuredObjectTyper) ObjectKind(obj runtime.Object) (schema.GroupVe
 	return obj.GetObjectKind().GroupVersionKind(), nil
 }
 
->>>>>>> Initial dep workover
 // ObjectKinds returns a slice of one element with the group,version,kind of the
 // provided object, or an error if the object is not runtime.Unstructured or
 // has no group,version,kind information. unversionedType will always be false
 // because runtime.Unstructured object should always have group,version,kind
 // information set.
 func (d *UnstructuredObjectTyper) ObjectKinds(obj runtime.Object) (gvks []schema.GroupVersionKind, unversionedType bool, err error) {
-<<<<<<< HEAD
-	if _, ok := obj.(runtime.Unstructured); ok {
-		gvk := obj.GetObjectKind().GroupVersionKind()
-		if len(gvk.Kind) == 0 {
-			return nil, false, runtime.NewMissingKindErr("object has no kind field ")
-		}
-		if len(gvk.Version) == 0 {
-			return nil, false, runtime.NewMissingVersionErr("object has no apiVersion field")
-		}
-		return []schema.GroupVersionKind{gvk}, false, nil
-	}
-	var lastErr error
-	for _, typer := range d.typers {
-		gvks, unversioned, err := typer.ObjectKinds(obj)
-		if err != nil {
-			lastErr = err
-			continue
-		}
-		return gvks, unversioned, nil
-	}
-	if lastErr == nil {
-		lastErr = runtime.NewNotRegisteredErrForType(reflect.TypeOf(obj))
-	}
-	return nil, false, lastErr
-=======
 	gvk, err := d.ObjectKind(obj)
 	if err != nil {
 		return nil, false, err
 	}
 
 	return []schema.GroupVersionKind{gvk}, false, nil
->>>>>>> Initial dep workover
 }
 
 // Recognizes returns true if the provided group,version,kind was in the
@@ -132,8 +80,6 @@ func (d *UnstructuredObjectTyper) Recognizes(gvk schema.GroupVersionKind) bool {
 	return d.registered[gvk]
 }
 
-<<<<<<< HEAD
-=======
 // IsUnversioned returns false always because runtime.Unstructured objects
 // should always have group,version,kind information set. ok will be true if the
 // object's group,version,kind is api.Registry.
@@ -146,5 +92,4 @@ func (d *UnstructuredObjectTyper) IsUnversioned(obj runtime.Object) (unversioned
 	return false, d.registered[gvk]
 }
 
->>>>>>> Initial dep workover
 var _ runtime.ObjectTyper = &UnstructuredObjectTyper{}

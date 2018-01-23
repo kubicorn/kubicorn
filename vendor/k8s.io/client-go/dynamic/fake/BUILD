@@ -11,10 +11,6 @@ go_library(
         "client.go",
         "client_pool.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/dynamic/fake",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1/unstructured:go_default_library",

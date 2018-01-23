@@ -19,15 +19,10 @@ package fake
 import (
 	"fmt"
 
-<<<<<<< HEAD
-	"github.com/googleapis/gnostic/OpenAPIv2"
-
-=======
 	"github.com/emicklei/go-restful-swagger12"
 	"github.com/googleapis/gnostic/OpenAPIv2"
 
 	"k8s.io/api/core/v1"
->>>>>>> Initial dep workover
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/version"
@@ -75,48 +70,7 @@ func (c *FakeDiscovery) ServerPreferredNamespacedResources() ([]*metav1.APIResou
 }
 
 func (c *FakeDiscovery) ServerGroups() (*metav1.APIGroupList, error) {
-<<<<<<< HEAD
-	action := testing.ActionImpl{
-		Verb:     "get",
-		Resource: schema.GroupVersionResource{Resource: "group"},
-	}
-	c.Invokes(action, nil)
-
-	groups := map[string]*metav1.APIGroup{}
-
-	for _, res := range c.Resources {
-		gv, err := schema.ParseGroupVersion(res.GroupVersion)
-		if err != nil {
-			return nil, err
-		}
-		group := groups[gv.Group]
-		if group == nil {
-			group = &metav1.APIGroup{
-				Name: gv.Group,
-				PreferredVersion: metav1.GroupVersionForDiscovery{
-					GroupVersion: res.GroupVersion,
-					Version:      gv.Version,
-				},
-			}
-			groups[gv.Group] = group
-		}
-
-		group.Versions = append(group.Versions, metav1.GroupVersionForDiscovery{
-			GroupVersion: res.GroupVersion,
-			Version:      gv.Version,
-		})
-	}
-
-	list := &metav1.APIGroupList{}
-	for _, apiGroup := range groups {
-		list.Groups = append(list.Groups, *apiGroup)
-	}
-
-	return list, nil
-
-=======
 	return nil, nil
->>>>>>> Initial dep workover
 }
 
 func (c *FakeDiscovery) ServerVersion() (*version.Info, error) {
@@ -133,8 +87,6 @@ func (c *FakeDiscovery) ServerVersion() (*version.Info, error) {
 	return &versionInfo, nil
 }
 
-<<<<<<< HEAD
-=======
 func (c *FakeDiscovery) SwaggerSchema(version schema.GroupVersion) (*swagger.ApiDeclaration, error) {
 	action := testing.ActionImpl{}
 	action.Verb = "get"
@@ -148,7 +100,6 @@ func (c *FakeDiscovery) SwaggerSchema(version schema.GroupVersion) (*swagger.Api
 	return &swagger.ApiDeclaration{}, nil
 }
 
->>>>>>> Initial dep workover
 func (c *FakeDiscovery) OpenAPISchema() (*openapi_v2.Document, error) {
 	return &openapi_v2.Document{}, nil
 }

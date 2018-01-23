@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,11 +18,6 @@ package fake
 
 import (
 	admissionregistrationv1alpha1 "k8s.io/api/admissionregistration/v1alpha1"
-<<<<<<< HEAD
-	admissionregistrationv1beta1 "k8s.io/api/admissionregistration/v1beta1"
-	appsv1 "k8s.io/api/apps/v1"
-=======
->>>>>>> Initial dep workover
 	appsv1beta1 "k8s.io/api/apps/v1beta1"
 	appsv1beta2 "k8s.io/api/apps/v1beta2"
 	authenticationv1 "k8s.io/api/authentication/v1"
@@ -40,10 +31,6 @@ import (
 	batchv2alpha1 "k8s.io/api/batch/v2alpha1"
 	certificatesv1beta1 "k8s.io/api/certificates/v1beta1"
 	corev1 "k8s.io/api/core/v1"
-<<<<<<< HEAD
-	eventsv1beta1 "k8s.io/api/events/v1beta1"
-=======
->>>>>>> Initial dep workover
 	extensionsv1beta1 "k8s.io/api/extensions/v1beta1"
 	networkingv1 "k8s.io/api/networking/v1"
 	policyv1beta1 "k8s.io/api/policy/v1beta1"
@@ -53,10 +40,6 @@ import (
 	schedulingv1alpha1 "k8s.io/api/scheduling/v1alpha1"
 	settingsv1alpha1 "k8s.io/api/settings/v1alpha1"
 	storagev1 "k8s.io/api/storage/v1"
-<<<<<<< HEAD
-	storagev1alpha1 "k8s.io/api/storage/v1alpha1"
-=======
->>>>>>> Initial dep workover
 	storagev1beta1 "k8s.io/api/storage/v1beta1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
@@ -89,15 +72,8 @@ func init() {
 // correctly.
 func AddToScheme(scheme *runtime.Scheme) {
 	admissionregistrationv1alpha1.AddToScheme(scheme)
-<<<<<<< HEAD
-	admissionregistrationv1beta1.AddToScheme(scheme)
 	appsv1beta1.AddToScheme(scheme)
 	appsv1beta2.AddToScheme(scheme)
-	appsv1.AddToScheme(scheme)
-=======
-	appsv1beta1.AddToScheme(scheme)
-	appsv1beta2.AddToScheme(scheme)
->>>>>>> Initial dep workover
 	authenticationv1.AddToScheme(scheme)
 	authenticationv1beta1.AddToScheme(scheme)
 	authorizationv1.AddToScheme(scheme)
@@ -109,10 +85,6 @@ func AddToScheme(scheme *runtime.Scheme) {
 	batchv2alpha1.AddToScheme(scheme)
 	certificatesv1beta1.AddToScheme(scheme)
 	corev1.AddToScheme(scheme)
-<<<<<<< HEAD
-	eventsv1beta1.AddToScheme(scheme)
-=======
->>>>>>> Initial dep workover
 	extensionsv1beta1.AddToScheme(scheme)
 	networkingv1.AddToScheme(scheme)
 	policyv1beta1.AddToScheme(scheme)
@@ -123,9 +95,5 @@ func AddToScheme(scheme *runtime.Scheme) {
 	settingsv1alpha1.AddToScheme(scheme)
 	storagev1beta1.AddToScheme(scheme)
 	storagev1.AddToScheme(scheme)
-<<<<<<< HEAD
-	storagev1alpha1.AddToScheme(scheme)
-=======
->>>>>>> Initial dep workover
 
 }

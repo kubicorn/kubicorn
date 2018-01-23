@@ -14,13 +14,8 @@ go_library(
         "interface.go",
         "podsecuritypolicy.go",
         "replicaset.go",
-<<<<<<< HEAD
-    ],
-    importpath = "k8s.io/client-go/informers/extensions/v1beta1",
-=======
         "thirdpartyresource.go",
     ],
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/extensions/v1beta1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

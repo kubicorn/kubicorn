@@ -59,10 +59,6 @@ type StorageClass struct {
 	// AllowVolumeExpansion shows whether the storage class allow volume expand
 	// +optional
 	AllowVolumeExpansion *bool `json:"allowVolumeExpansion,omitempty" protobuf:"varint,6,opt,name=allowVolumeExpansion"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 
 	// VolumeBindingMode indicates how PersistentVolumeClaims should be
 	// provisioned and bound.  When unset, VolumeBindingImmediate is used.
@@ -70,11 +66,6 @@ type StorageClass struct {
 	// the VolumeScheduling feature.
 	// +optional
 	VolumeBindingMode *VolumeBindingMode `json:"volumeBindingMode,omitempty" protobuf:"bytes,7,opt,name=volumeBindingMode"`
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -90,10 +81,6 @@ type StorageClassList struct {
 	// Items is the list of StorageClasses
 	Items []StorageClass `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 
 // VolumeBindingMode indicates how PersistentVolumeClaims should be bound.
 type VolumeBindingMode string
@@ -109,8 +96,3 @@ const (
 	// binding will occur during Pod scheduing.
 	VolumeBindingWaitForFirstConsumer VolumeBindingMode = "WaitForFirstConsumer"
 )
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps

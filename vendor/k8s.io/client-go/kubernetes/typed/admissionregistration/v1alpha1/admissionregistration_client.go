@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,10 +25,7 @@ import (
 
 type AdmissionregistrationV1alpha1Interface interface {
 	RESTClient() rest.Interface
-<<<<<<< HEAD
-=======
 	ExternalAdmissionHookConfigurationsGetter
->>>>>>> Initial dep workover
 	InitializerConfigurationsGetter
 }
 
@@ -41,13 +34,10 @@ type AdmissionregistrationV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-<<<<<<< HEAD
-=======
 func (c *AdmissionregistrationV1alpha1Client) ExternalAdmissionHookConfigurations() ExternalAdmissionHookConfigurationInterface {
 	return newExternalAdmissionHookConfigurations(c)
 }
 
->>>>>>> Initial dep workover
 func (c *AdmissionregistrationV1alpha1Client) InitializerConfigurations() InitializerConfigurationInterface {
 	return newInitializerConfigurations(c)
 }

@@ -8,20 +8,12 @@ load(
 
 go_binary(
     name = "in-cluster-client-configuration",
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/examples/in-cluster-client-configuration",
-=======
->>>>>>> Initial dep workover
     library = ":go_default_library",
 )
 
 go_library(
     name = "go_default_library",
     srcs = ["main.go"],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/examples/in-cluster-client-configuration",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/apimachinery/pkg/api/errors:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

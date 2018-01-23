@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -35,10 +31,7 @@ type ExtensionsV1beta1Interface interface {
 	PodSecurityPoliciesGetter
 	ReplicaSetsGetter
 	ScalesGetter
-<<<<<<< HEAD
-=======
 	ThirdPartyResourcesGetter
->>>>>>> Initial dep workover
 }
 
 // ExtensionsV1beta1Client is used to interact with features provided by the extensions group.
@@ -70,13 +63,10 @@ func (c *ExtensionsV1beta1Client) Scales(namespace string) ScaleInterface {
 	return newScales(c, namespace)
 }
 
-<<<<<<< HEAD
-=======
 func (c *ExtensionsV1beta1Client) ThirdPartyResources() ThirdPartyResourceInterface {
 	return newThirdPartyResources(c)
 }
 
->>>>>>> Initial dep workover
 // NewForConfig creates a new ExtensionsV1beta1Client for the given config.
 func NewForConfig(c *rest.Config) (*ExtensionsV1beta1Client, error) {
 	config := *c

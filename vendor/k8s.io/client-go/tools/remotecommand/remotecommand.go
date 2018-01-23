@@ -27,10 +27,7 @@ import (
 	"k8s.io/apimachinery/pkg/util/httpstream"
 	"k8s.io/apimachinery/pkg/util/remotecommand"
 	restclient "k8s.io/client-go/rest"
-<<<<<<< HEAD
-=======
 	"k8s.io/client-go/transport"
->>>>>>> Initial dep workover
 	spdy "k8s.io/client-go/transport/spdy"
 )
 
@@ -75,23 +72,8 @@ type streamExecutor struct {
 // NewSPDYExecutor connects to the provided server and upgrades the connection to
 // multiplexed bidirectional streams.
 func NewSPDYExecutor(config *restclient.Config, method string, url *url.URL) (Executor, error) {
-<<<<<<< HEAD
-	wrapper, upgradeRoundTripper, err := spdy.RoundTripperFor(config)
-	if err != nil {
-		return nil, err
-	}
-	return NewSPDYExecutorForTransports(wrapper, upgradeRoundTripper, method, url)
-}
-
-// NewSPDYExecutorForTransports connects to the provided server using the given transport,
-// upgrades the response using the given upgrader to multiplexed bidirectional streams.
-func NewSPDYExecutorForTransports(transport http.RoundTripper, upgrader spdy.Upgrader, method string, url *url.URL) (Executor, error) {
-	return NewSPDYExecutorForProtocols(
-		transport, upgrader, method, url,
-=======
 	return NewSPDYExecutorForProtocols(
 		config, method, url,
->>>>>>> Initial dep workover
 		remotecommand.StreamProtocolV4Name,
 		remotecommand.StreamProtocolV3Name,
 		remotecommand.StreamProtocolV2Name,
@@ -101,13 +83,6 @@ func NewSPDYExecutorForTransports(transport http.RoundTripper, upgrader spdy.Upg
 
 // NewSPDYExecutorForProtocols connects to the provided server and upgrades the connection to
 // multiplexed bidirectional streams using only the provided protocols. Exposed for testing, most
-<<<<<<< HEAD
-// callers should use NewSPDYExecutor or NewSPDYExecutorForTransports.
-func NewSPDYExecutorForProtocols(transport http.RoundTripper, upgrader spdy.Upgrader, method string, url *url.URL, protocols ...string) (Executor, error) {
-	return &streamExecutor{
-		upgrader:  upgrader,
-		transport: transport,
-=======
 // callers should use NewSPDYExecutor.
 func NewSPDYExecutorForProtocols(config *restclient.Config, method string, url *url.URL, protocols ...string) (Executor, error) {
 	wrapper, upgradeRoundTripper, err := spdy.RoundTripperFor(config)
@@ -118,7 +93,6 @@ func NewSPDYExecutorForProtocols(config *restclient.Config, method string, url *
 	return &streamExecutor{
 		upgrader:  upgradeRoundTripper,
 		transport: wrapper,
->>>>>>> Initial dep workover
 		method:    method,
 		url:       url,
 		protocols: protocols,

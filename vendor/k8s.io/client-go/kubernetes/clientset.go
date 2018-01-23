@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,11 +20,6 @@ import (
 	glog "github.com/golang/glog"
 	discovery "k8s.io/client-go/discovery"
 	admissionregistrationv1alpha1 "k8s.io/client-go/kubernetes/typed/admissionregistration/v1alpha1"
-<<<<<<< HEAD
-	admissionregistrationv1beta1 "k8s.io/client-go/kubernetes/typed/admissionregistration/v1beta1"
-	appsv1 "k8s.io/client-go/kubernetes/typed/apps/v1"
-=======
->>>>>>> Initial dep workover
 	appsv1beta1 "k8s.io/client-go/kubernetes/typed/apps/v1beta1"
 	appsv1beta2 "k8s.io/client-go/kubernetes/typed/apps/v1beta2"
 	authenticationv1 "k8s.io/client-go/kubernetes/typed/authentication/v1"
@@ -42,10 +33,6 @@ import (
 	batchv2alpha1 "k8s.io/client-go/kubernetes/typed/batch/v2alpha1"
 	certificatesv1beta1 "k8s.io/client-go/kubernetes/typed/certificates/v1beta1"
 	corev1 "k8s.io/client-go/kubernetes/typed/core/v1"
-<<<<<<< HEAD
-	eventsv1beta1 "k8s.io/client-go/kubernetes/typed/events/v1beta1"
-=======
->>>>>>> Initial dep workover
 	extensionsv1beta1 "k8s.io/client-go/kubernetes/typed/extensions/v1beta1"
 	networkingv1 "k8s.io/client-go/kubernetes/typed/networking/v1"
 	policyv1beta1 "k8s.io/client-go/kubernetes/typed/policy/v1beta1"
@@ -55,10 +42,6 @@ import (
 	schedulingv1alpha1 "k8s.io/client-go/kubernetes/typed/scheduling/v1alpha1"
 	settingsv1alpha1 "k8s.io/client-go/kubernetes/typed/settings/v1alpha1"
 	storagev1 "k8s.io/client-go/kubernetes/typed/storage/v1"
-<<<<<<< HEAD
-	storagev1alpha1 "k8s.io/client-go/kubernetes/typed/storage/v1alpha1"
-=======
->>>>>>> Initial dep workover
 	storagev1beta1 "k8s.io/client-go/kubernetes/typed/storage/v1beta1"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
@@ -67,23 +50,12 @@ import (
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	AdmissionregistrationV1alpha1() admissionregistrationv1alpha1.AdmissionregistrationV1alpha1Interface
-<<<<<<< HEAD
-	AdmissionregistrationV1beta1() admissionregistrationv1beta1.AdmissionregistrationV1beta1Interface
-	// Deprecated: please explicitly pick a version if possible.
-	Admissionregistration() admissionregistrationv1beta1.AdmissionregistrationV1beta1Interface
-	AppsV1beta1() appsv1beta1.AppsV1beta1Interface
-	AppsV1beta2() appsv1beta2.AppsV1beta2Interface
-	AppsV1() appsv1.AppsV1Interface
-	// Deprecated: please explicitly pick a version if possible.
-	Apps() appsv1.AppsV1Interface
-=======
 	// Deprecated: please explicitly pick a version if possible.
 	Admissionregistration() admissionregistrationv1alpha1.AdmissionregistrationV1alpha1Interface
 	AppsV1beta1() appsv1beta1.AppsV1beta1Interface
 	AppsV1beta2() appsv1beta2.AppsV1beta2Interface
 	// Deprecated: please explicitly pick a version if possible.
 	Apps() appsv1beta2.AppsV1beta2Interface
->>>>>>> Initial dep workover
 	AuthenticationV1() authenticationv1.AuthenticationV1Interface
 	// Deprecated: please explicitly pick a version if possible.
 	Authentication() authenticationv1.AuthenticationV1Interface
@@ -107,12 +79,6 @@ type Interface interface {
 	CoreV1() corev1.CoreV1Interface
 	// Deprecated: please explicitly pick a version if possible.
 	Core() corev1.CoreV1Interface
-<<<<<<< HEAD
-	EventsV1beta1() eventsv1beta1.EventsV1beta1Interface
-	// Deprecated: please explicitly pick a version if possible.
-	Events() eventsv1beta1.EventsV1beta1Interface
-=======
->>>>>>> Initial dep workover
 	ExtensionsV1beta1() extensionsv1beta1.ExtensionsV1beta1Interface
 	// Deprecated: please explicitly pick a version if possible.
 	Extensions() extensionsv1beta1.ExtensionsV1beta1Interface
@@ -137,10 +103,6 @@ type Interface interface {
 	StorageV1() storagev1.StorageV1Interface
 	// Deprecated: please explicitly pick a version if possible.
 	Storage() storagev1.StorageV1Interface
-<<<<<<< HEAD
-	StorageV1alpha1() storagev1alpha1.StorageV1alpha1Interface
-=======
->>>>>>> Initial dep workover
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
@@ -148,15 +110,8 @@ type Interface interface {
 type Clientset struct {
 	*discovery.DiscoveryClient
 	admissionregistrationV1alpha1 *admissionregistrationv1alpha1.AdmissionregistrationV1alpha1Client
-<<<<<<< HEAD
-	admissionregistrationV1beta1  *admissionregistrationv1beta1.AdmissionregistrationV1beta1Client
 	appsV1beta1                   *appsv1beta1.AppsV1beta1Client
 	appsV1beta2                   *appsv1beta2.AppsV1beta2Client
-	appsV1                        *appsv1.AppsV1Client
-=======
-	appsV1beta1                   *appsv1beta1.AppsV1beta1Client
-	appsV1beta2                   *appsv1beta2.AppsV1beta2Client
->>>>>>> Initial dep workover
 	authenticationV1              *authenticationv1.AuthenticationV1Client
 	authenticationV1beta1         *authenticationv1beta1.AuthenticationV1beta1Client
 	authorizationV1               *authorizationv1.AuthorizationV1Client
@@ -168,10 +123,6 @@ type Clientset struct {
 	batchV2alpha1                 *batchv2alpha1.BatchV2alpha1Client
 	certificatesV1beta1           *certificatesv1beta1.CertificatesV1beta1Client
 	coreV1                        *corev1.CoreV1Client
-<<<<<<< HEAD
-	eventsV1beta1                 *eventsv1beta1.EventsV1beta1Client
-=======
->>>>>>> Initial dep workover
 	extensionsV1beta1             *extensionsv1beta1.ExtensionsV1beta1Client
 	networkingV1                  *networkingv1.NetworkingV1Client
 	policyV1beta1                 *policyv1beta1.PolicyV1beta1Client
@@ -182,10 +133,6 @@ type Clientset struct {
 	settingsV1alpha1              *settingsv1alpha1.SettingsV1alpha1Client
 	storageV1beta1                *storagev1beta1.StorageV1beta1Client
 	storageV1                     *storagev1.StorageV1Client
-<<<<<<< HEAD
-	storageV1alpha1               *storagev1alpha1.StorageV1alpha1Client
-=======
->>>>>>> Initial dep workover
 }
 
 // AdmissionregistrationV1alpha1 retrieves the AdmissionregistrationV1alpha1Client
@@ -193,22 +140,10 @@ func (c *Clientset) AdmissionregistrationV1alpha1() admissionregistrationv1alpha
 	return c.admissionregistrationV1alpha1
 }
 
-<<<<<<< HEAD
-// AdmissionregistrationV1beta1 retrieves the AdmissionregistrationV1beta1Client
-func (c *Clientset) AdmissionregistrationV1beta1() admissionregistrationv1beta1.AdmissionregistrationV1beta1Interface {
-	return c.admissionregistrationV1beta1
-}
-
-// Deprecated: Admissionregistration retrieves the default version of AdmissionregistrationClient.
-// Please explicitly pick a version.
-func (c *Clientset) Admissionregistration() admissionregistrationv1beta1.AdmissionregistrationV1beta1Interface {
-	return c.admissionregistrationV1beta1
-=======
 // Deprecated: Admissionregistration retrieves the default version of AdmissionregistrationClient.
 // Please explicitly pick a version.
 func (c *Clientset) Admissionregistration() admissionregistrationv1alpha1.AdmissionregistrationV1alpha1Interface {
 	return c.admissionregistrationV1alpha1
->>>>>>> Initial dep workover
 }
 
 // AppsV1beta1 retrieves the AppsV1beta1Client
@@ -221,22 +156,10 @@ func (c *Clientset) AppsV1beta2() appsv1beta2.AppsV1beta2Interface {
 	return c.appsV1beta2
 }
 
-<<<<<<< HEAD
-// AppsV1 retrieves the AppsV1Client
-func (c *Clientset) AppsV1() appsv1.AppsV1Interface {
-	return c.appsV1
-}
-
-// Deprecated: Apps retrieves the default version of AppsClient.
-// Please explicitly pick a version.
-func (c *Clientset) Apps() appsv1.AppsV1Interface {
-	return c.appsV1
-=======
 // Deprecated: Apps retrieves the default version of AppsClient.
 // Please explicitly pick a version.
 func (c *Clientset) Apps() appsv1beta2.AppsV1beta2Interface {
 	return c.appsV1beta2
->>>>>>> Initial dep workover
 }
 
 // AuthenticationV1 retrieves the AuthenticationV1Client
@@ -330,20 +253,6 @@ func (c *Clientset) Core() corev1.CoreV1Interface {
 	return c.coreV1
 }
 
-<<<<<<< HEAD
-// EventsV1beta1 retrieves the EventsV1beta1Client
-func (c *Clientset) EventsV1beta1() eventsv1beta1.EventsV1beta1Interface {
-	return c.eventsV1beta1
-}
-
-// Deprecated: Events retrieves the default version of EventsClient.
-// Please explicitly pick a version.
-func (c *Clientset) Events() eventsv1beta1.EventsV1beta1Interface {
-	return c.eventsV1beta1
-}
-
-=======
->>>>>>> Initial dep workover
 // ExtensionsV1beta1 retrieves the ExtensionsV1beta1Client
 func (c *Clientset) ExtensionsV1beta1() extensionsv1beta1.ExtensionsV1beta1Interface {
 	return c.extensionsV1beta1
@@ -436,14 +345,6 @@ func (c *Clientset) Storage() storagev1.StorageV1Interface {
 	return c.storageV1
 }
 
-<<<<<<< HEAD
-// StorageV1alpha1 retrieves the StorageV1alpha1Client
-func (c *Clientset) StorageV1alpha1() storagev1alpha1.StorageV1alpha1Interface {
-	return c.storageV1alpha1
-}
-
-=======
->>>>>>> Initial dep workover
 // Discovery retrieves the DiscoveryClient
 func (c *Clientset) Discovery() discovery.DiscoveryInterface {
 	if c == nil {
@@ -464,13 +365,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-<<<<<<< HEAD
-	cs.admissionregistrationV1beta1, err = admissionregistrationv1beta1.NewForConfig(&configShallowCopy)
-	if err != nil {
-		return nil, err
-	}
-=======
->>>>>>> Initial dep workover
 	cs.appsV1beta1, err = appsv1beta1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -479,13 +373,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-<<<<<<< HEAD
-	cs.appsV1, err = appsv1.NewForConfig(&configShallowCopy)
-	if err != nil {
-		return nil, err
-	}
-=======
->>>>>>> Initial dep workover
 	cs.authenticationV1, err = authenticationv1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -530,13 +417,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-<<<<<<< HEAD
-	cs.eventsV1beta1, err = eventsv1beta1.NewForConfig(&configShallowCopy)
-	if err != nil {
-		return nil, err
-	}
-=======
->>>>>>> Initial dep workover
 	cs.extensionsV1beta1, err = extensionsv1beta1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -577,13 +457,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-<<<<<<< HEAD
-	cs.storageV1alpha1, err = storagev1alpha1.NewForConfig(&configShallowCopy)
-	if err != nil {
-		return nil, err
-	}
-=======
->>>>>>> Initial dep workover
 
 	cs.DiscoveryClient, err = discovery.NewDiscoveryClientForConfig(&configShallowCopy)
 	if err != nil {
@@ -598,15 +471,8 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.admissionregistrationV1alpha1 = admissionregistrationv1alpha1.NewForConfigOrDie(c)
-<<<<<<< HEAD
-	cs.admissionregistrationV1beta1 = admissionregistrationv1beta1.NewForConfigOrDie(c)
 	cs.appsV1beta1 = appsv1beta1.NewForConfigOrDie(c)
 	cs.appsV1beta2 = appsv1beta2.NewForConfigOrDie(c)
-	cs.appsV1 = appsv1.NewForConfigOrDie(c)
-=======
-	cs.appsV1beta1 = appsv1beta1.NewForConfigOrDie(c)
-	cs.appsV1beta2 = appsv1beta2.NewForConfigOrDie(c)
->>>>>>> Initial dep workover
 	cs.authenticationV1 = authenticationv1.NewForConfigOrDie(c)
 	cs.authenticationV1beta1 = authenticationv1beta1.NewForConfigOrDie(c)
 	cs.authorizationV1 = authorizationv1.NewForConfigOrDie(c)
@@ -618,10 +484,6 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	cs.batchV2alpha1 = batchv2alpha1.NewForConfigOrDie(c)
 	cs.certificatesV1beta1 = certificatesv1beta1.NewForConfigOrDie(c)
 	cs.coreV1 = corev1.NewForConfigOrDie(c)
-<<<<<<< HEAD
-	cs.eventsV1beta1 = eventsv1beta1.NewForConfigOrDie(c)
-=======
->>>>>>> Initial dep workover
 	cs.extensionsV1beta1 = extensionsv1beta1.NewForConfigOrDie(c)
 	cs.networkingV1 = networkingv1.NewForConfigOrDie(c)
 	cs.policyV1beta1 = policyv1beta1.NewForConfigOrDie(c)
@@ -632,10 +494,6 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	cs.settingsV1alpha1 = settingsv1alpha1.NewForConfigOrDie(c)
 	cs.storageV1beta1 = storagev1beta1.NewForConfigOrDie(c)
 	cs.storageV1 = storagev1.NewForConfigOrDie(c)
-<<<<<<< HEAD
-	cs.storageV1alpha1 = storagev1alpha1.NewForConfigOrDie(c)
-=======
->>>>>>> Initial dep workover
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -645,15 +503,8 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.admissionregistrationV1alpha1 = admissionregistrationv1alpha1.New(c)
-<<<<<<< HEAD
-	cs.admissionregistrationV1beta1 = admissionregistrationv1beta1.New(c)
 	cs.appsV1beta1 = appsv1beta1.New(c)
 	cs.appsV1beta2 = appsv1beta2.New(c)
-	cs.appsV1 = appsv1.New(c)
-=======
-	cs.appsV1beta1 = appsv1beta1.New(c)
-	cs.appsV1beta2 = appsv1beta2.New(c)
->>>>>>> Initial dep workover
 	cs.authenticationV1 = authenticationv1.New(c)
 	cs.authenticationV1beta1 = authenticationv1beta1.New(c)
 	cs.authorizationV1 = authorizationv1.New(c)
@@ -665,10 +516,6 @@ func New(c rest.Interface) *Clientset {
 	cs.batchV2alpha1 = batchv2alpha1.New(c)
 	cs.certificatesV1beta1 = certificatesv1beta1.New(c)
 	cs.coreV1 = corev1.New(c)
-<<<<<<< HEAD
-	cs.eventsV1beta1 = eventsv1beta1.New(c)
-=======
->>>>>>> Initial dep workover
 	cs.extensionsV1beta1 = extensionsv1beta1.New(c)
 	cs.networkingV1 = networkingv1.New(c)
 	cs.policyV1beta1 = policyv1beta1.New(c)
@@ -679,10 +526,6 @@ func New(c rest.Interface) *Clientset {
 	cs.settingsV1alpha1 = settingsv1alpha1.New(c)
 	cs.storageV1beta1 = storagev1beta1.New(c)
 	cs.storageV1 = storagev1.New(c)
-<<<<<<< HEAD
-	cs.storageV1alpha1 = storagev1alpha1.New(c)
-=======
->>>>>>> Initial dep workover
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

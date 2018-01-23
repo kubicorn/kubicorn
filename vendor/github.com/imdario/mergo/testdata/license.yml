@@ -1,11 +1,4 @@
 import: ../../../../fossene/db/schema/thing.yml
 fields:
     site: string
-<<<<<<< HEAD
-<<<<<<< HEAD
     author: root
-=======
->>>>>>> Working on getting compiling
-=======
-    author: root
->>>>>>> moar deps

@@ -11,10 +11,6 @@ go_library(
         "interface.go",
         "networkpolicy.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/informers/networking/v1",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/networking/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

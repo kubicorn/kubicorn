@@ -13,10 +13,6 @@ go_test(
         "round_trippers_test.go",
         "transport_test.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/transport",
-=======
->>>>>>> Initial dep workover
     library = ":go_default_library",
 )
 
@@ -28,10 +24,6 @@ go_library(
         "round_trippers.go",
         "transport.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/transport",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/golang/glog:go_default_library",
         "//vendor/github.com/gregjones/httpcache:go_default_library",

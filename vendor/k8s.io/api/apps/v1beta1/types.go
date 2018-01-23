@@ -26,14 +26,7 @@ import (
 const (
 	ControllerRevisionHashLabelKey = "controller-revision-hash"
 	StatefulSetRevisionLabel       = ControllerRevisionHashLabelKey
-<<<<<<< HEAD
-<<<<<<< HEAD
 	StatefulSetPodNameLabel        = "statefulset.kubernetes.io/pod-name"
-=======
->>>>>>> Initial dep workover
-=======
-	StatefulSetPodNameLabel        = "statefulset.kubernetes.io/pod-name"
->>>>>>> moar deps
 )
 
 // ScaleSpec describes the attributes of a scale subresource
@@ -255,10 +248,6 @@ type StatefulSetStatus struct {
 	// newest ControllerRevision.
 	// +optional
 	CollisionCount *int32 `json:"collisionCount,omitempty" protobuf:"varint,9,opt,name=collisionCount"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 
 	// Represents the latest available observations of a statefulset's current state.
 	// +optional
@@ -284,11 +273,6 @@ type StatefulSetCondition struct {
 	// A human readable message indicating details about the transition.
 	// +optional
 	Message string `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

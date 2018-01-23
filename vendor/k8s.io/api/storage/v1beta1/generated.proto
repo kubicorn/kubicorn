@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -67,10 +63,6 @@ message StorageClass {
   // AllowVolumeExpansion shows whether the storage class allow volume expand
   // +optional
   optional bool allowVolumeExpansion = 6;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 
   // VolumeBindingMode indicates how PersistentVolumeClaims should be
   // provisioned and bound.  When unset, VolumeBindingImmediate is used.
@@ -78,11 +70,6 @@ message StorageClass {
   // the VolumeScheduling feature.
   // +optional
   optional string volumeBindingMode = 7;
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 }
 
 // StorageClassList is a collection of storage classes.

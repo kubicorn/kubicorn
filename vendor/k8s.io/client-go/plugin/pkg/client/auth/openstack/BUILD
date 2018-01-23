@@ -9,20 +9,12 @@ load(
 go_test(
     name = "go_default_test",
     srcs = ["openstack_test.go"],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/plugin/pkg/client/auth/openstack",
-=======
->>>>>>> Initial dep workover
     library = ":go_default_library",
 )
 
 go_library(
     name = "go_default_library",
     srcs = ["openstack.go"],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/plugin/pkg/client/auth/openstack",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/golang/glog:go_default_library",
         "//vendor/github.com/gophercloud/gophercloud/openstack:go_default_library",

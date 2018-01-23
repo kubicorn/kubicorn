@@ -143,25 +143,6 @@ After modifying, run `glide up -v` again to re-populate your /vendor directory.
 Optionally, Glide users can also use [`glide-vc`](https://github.com/sgotti/glide-vc)
 after running `glide up -v` to remove unused files from /vendor.
 
-<<<<<<< HEAD
-### Dep (Not supported yet!)
-
-[dep](https://github.com/golang/dep) is an up-and-coming dependency management
-tool, which has the goal of being accepted as part of the standard go toolchain.
-However, client-go does **NOT** work well with `dep` yet. To support `dep`, we
-need to fix at least two issues:
-1. publish native `Gopkg.toml` in client-go and other k8s.io repos, like `k8s.io/apimachinery`;
-2. find a way to express transitive constraints (see https://github.com/golang/dep/issues/1124).
-
-As a workaround, which may or may not be worthwhile, you can specify all
-client-go dependencies manually as
-[override](https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md#override)
-in Gopkg.toml with the versions listed in [Godeps.json](./Godeps/Godeps.json),
-and manually update them when you upgrade client-go version.
-
-We are actively working on the two issues blocking using `dep`. For the
-meantime, we recommend using `glide` or `godeps`.
-=======
 ### Dep
 
 [dep](https://github.com/golang/dep) is an up-and-coming dependency management tool,
@@ -197,4 +178,3 @@ One thing to note about dep is that it will omit dependencies that aren't
 actually used, and some dependencies of `client-go` are used only if you import
 one of the plugins (for example, the auth plugins). So you may need to run `dep
 ensure` again if you start importing a plugin that you weren't using before.
->>>>>>> Initial dep workover

@@ -109,15 +109,7 @@ func NewNamedReflector(name string, lw ListerWatcher, expectedType interface{}, 
 	r := &Reflector{
 		name: name,
 		// we need this to be unique per process (some names are still the same)but obvious who it belongs to
-<<<<<<< HEAD
-<<<<<<< HEAD
 		metrics:       newReflectorMetrics(makeValidPromethusMetricLabel(fmt.Sprintf("reflector_"+name+"_%d", reflectorSuffix))),
-=======
-		metrics:       newReflectorMetrics(makeValidPromethusMetricName(fmt.Sprintf("reflector_"+name+"_%d", reflectorSuffix))),
->>>>>>> Initial dep workover
-=======
-		metrics:       newReflectorMetrics(makeValidPromethusMetricLabel(fmt.Sprintf("reflector_"+name+"_%d", reflectorSuffix))),
->>>>>>> omg dep constraints
 		listerWatcher: lw,
 		store:         store,
 		expectedType:  reflect.TypeOf(expectedType),
@@ -128,21 +120,9 @@ func NewNamedReflector(name string, lw ListerWatcher, expectedType interface{}, 
 	return r
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 func makeValidPromethusMetricLabel(in string) string {
 	// this isn't perfect, but it removes our common characters
 	return strings.NewReplacer("/", "_", ".", "_", "-", "_", ":", "_").Replace(in)
-=======
-func makeValidPromethusMetricName(in string) string {
-	// this isn't perfect, but it removes our common characters
-	return strings.NewReplacer("/", "_", ".", "_", "-", "_").Replace(in)
->>>>>>> Initial dep workover
-=======
-func makeValidPromethusMetricLabel(in string) string {
-	// this isn't perfect, but it removes our common characters
-	return strings.NewReplacer("/", "_", ".", "_", "-", "_", ":", "_").Replace(in)
->>>>>>> omg dep constraints
 }
 
 // internalPackages are packages that ignored when creating a default reflector name. These packages are in the common
@@ -315,16 +295,6 @@ func (r *Reflector) ListAndWatch(stopCh <-chan struct{}) error {
 	}()
 
 	for {
-<<<<<<< HEAD
-		// give the stopCh a chance to stop the loop, even in case of continue statements further down on errors
-		select {
-		case <-stopCh:
-			return nil
-		default:
-		}
-
-=======
->>>>>>> Initial dep workover
 		timemoutseconds := int64(minWatchTimeout.Seconds() * (rand.Float64() + 1.0))
 		options = metav1.ListOptions{
 			ResourceVersion: resourceVersion,

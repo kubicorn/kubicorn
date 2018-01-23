@@ -12,19 +12,10 @@ go_library(
         "doc.go",
         "import.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/kubernetes",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/github.com/golang/glog:go_default_library",
         "//vendor/k8s.io/client-go/discovery:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/admissionregistration/v1alpha1:go_default_library",
-<<<<<<< HEAD
-        "//vendor/k8s.io/client-go/kubernetes/typed/admissionregistration/v1beta1:go_default_library",
-        "//vendor/k8s.io/client-go/kubernetes/typed/apps/v1:go_default_library",
-=======
->>>>>>> Initial dep workover
         "//vendor/k8s.io/client-go/kubernetes/typed/apps/v1beta1:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/apps/v1beta2:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/authentication/v1:go_default_library",
@@ -38,10 +29,6 @@ go_library(
         "//vendor/k8s.io/client-go/kubernetes/typed/batch/v2alpha1:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/certificates/v1beta1:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/core/v1:go_default_library",
-<<<<<<< HEAD
-        "//vendor/k8s.io/client-go/kubernetes/typed/events/v1beta1:go_default_library",
-=======
->>>>>>> Initial dep workover
         "//vendor/k8s.io/client-go/kubernetes/typed/extensions/v1beta1:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/networking/v1:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/policy/v1beta1:go_default_library",
@@ -51,10 +38,6 @@ go_library(
         "//vendor/k8s.io/client-go/kubernetes/typed/scheduling/v1alpha1:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/settings/v1alpha1:go_default_library",
         "//vendor/k8s.io/client-go/kubernetes/typed/storage/v1:go_default_library",
-<<<<<<< HEAD
-        "//vendor/k8s.io/client-go/kubernetes/typed/storage/v1alpha1:go_default_library",
-=======
->>>>>>> Initial dep workover
         "//vendor/k8s.io/client-go/kubernetes/typed/storage/v1beta1:go_default_library",
         "//vendor/k8s.io/client-go/rest:go_default_library",
         "//vendor/k8s.io/client-go/util/flowcontrol:go_default_library",
@@ -75,11 +58,6 @@ filegroup(
         "//staging/src/k8s.io/client-go/kubernetes/fake:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/scheme:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/admissionregistration/v1alpha1:all-srcs",
-<<<<<<< HEAD
-        "//staging/src/k8s.io/client-go/kubernetes/typed/admissionregistration/v1beta1:all-srcs",
-        "//staging/src/k8s.io/client-go/kubernetes/typed/apps/v1:all-srcs",
-=======
->>>>>>> Initial dep workover
         "//staging/src/k8s.io/client-go/kubernetes/typed/apps/v1beta1:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/apps/v1beta2:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/authentication/v1:all-srcs",
@@ -93,10 +71,6 @@ filegroup(
         "//staging/src/k8s.io/client-go/kubernetes/typed/batch/v2alpha1:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/certificates/v1beta1:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/core/v1:all-srcs",
-<<<<<<< HEAD
-        "//staging/src/k8s.io/client-go/kubernetes/typed/events/v1beta1:all-srcs",
-=======
->>>>>>> Initial dep workover
         "//staging/src/k8s.io/client-go/kubernetes/typed/extensions/v1beta1:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/networking/v1:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/policy/v1beta1:all-srcs",
@@ -106,10 +80,6 @@ filegroup(
         "//staging/src/k8s.io/client-go/kubernetes/typed/scheduling/v1alpha1:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/settings/v1alpha1:all-srcs",
         "//staging/src/k8s.io/client-go/kubernetes/typed/storage/v1:all-srcs",
-<<<<<<< HEAD
-        "//staging/src/k8s.io/client-go/kubernetes/typed/storage/v1alpha1:all-srcs",
-=======
->>>>>>> Initial dep workover
         "//staging/src/k8s.io/client-go/kubernetes/typed/storage/v1beta1:all-srcs",
     ],
     tags = ["automanaged"],

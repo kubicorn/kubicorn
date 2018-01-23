@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -41,10 +37,7 @@ type ScaleListerExpansion interface{}
 // ScaleNamespaceListerExpansion allows custom methods to be added to
 // ScaleNamespaceLister.
 type ScaleNamespaceListerExpansion interface{}
-<<<<<<< HEAD
-=======
 
 // ThirdPartyResourceListerExpansion allows custom methods to be added to
 // ThirdPartyResourceLister.
 type ThirdPartyResourceListerExpansion interface{}
->>>>>>> Initial dep workover

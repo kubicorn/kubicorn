@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,30 +29,15 @@ type Interface interface {
 }
 
 type version struct {
-<<<<<<< HEAD
-	factory          internalinterfaces.SharedInformerFactory
-	namespace        string
-	tweakListOptions internalinterfaces.TweakListOptionsFunc
-}
-
-// New returns a new Interface.
-func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakListOptions internalinterfaces.TweakListOptionsFunc) Interface {
-	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
-=======
 	internalinterfaces.SharedInformerFactory
 }
 
 // New returns a new Interface.
 func New(f internalinterfaces.SharedInformerFactory) Interface {
 	return &version{f}
->>>>>>> Initial dep workover
 }
 
 // StorageClasses returns a StorageClassInformer.
 func (v *version) StorageClasses() StorageClassInformer {
-<<<<<<< HEAD
-	return &storageClassInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
-=======
 	return &storageClassInformer{factory: v.SharedInformerFactory}
->>>>>>> Initial dep workover
 }

@@ -22,18 +22,6 @@
 
 
 [[constraint]]
-  name = "github.com/Azure/azure-sdk-for-go"
-  version = "11.2.2-beta"
-
-[[constraint]]
-  name = "github.com/Azure/go-autorest"
-  version = "9.4.0"
-
-[[constraint]]
-  name = "github.com/aws/aws-sdk-go"
-  version = "1.12.29"
-
-[[constraint]]
   name = "github.com/c-bata/go-prompt"
   version = "0.1.1"
 
@@ -51,15 +39,7 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/kris-nova/charlie"
-
-[[constraint]]
-  name = "github.com/kris-nova/klone"
-  version = "1.2.0"
-
-[[constraint]]
   name = "github.com/golang/glog"
-  branch = "master"
 
 [[constraint]]
   branch = "master"
@@ -87,51 +67,11 @@
 
 [[constraint]]
   branch = "master"
-  name = "golang.org/x/crypto"
-
-[[constraint]]
-  branch = "master"
-  name = "golang.org/x/net"
-
-[[constraint]]
-  branch = "master"
   name = "golang.org/x/oauth2"
 
 [[constraint]]
-  branch = "master"
-  name = "google.golang.org/api"
-
-[[constraint]]
-  name = "github.com/c-bata/go-prompt"
-  version = "0.1.0"
-
-[[constraint]]
-  name = "k8s.io/client-go"
-  revision = "9389c055a838d4f208b699b3c7c51b70f2368861"
-
-[[constraint]]
-  name = "k8s.io/apimachinery"
-  revision = "68f9c3a1feb3140df59c67ced62d3a5df8e6c9c2"
-
-[[constraint]]
   name = "k8s.io/api"
-  revision = "006a217681ae70cbacdd66a5e2fca1a61a8ff28e"
-
-[[constraint]]
-  branch = "master"
-  name = "k8s.io/kube-deploy"
-
-[[constraint]]
-  name = "golang.org/x/oauth2"
-  branch = "master"
-
-[[constraint]]
-  name = "k8s.io/api"
-  branch = "release-1.8"
-
-[[constraint]]
-  name = "k8s.io/apiextensions-apiserver"
-  branch = "release-1.8"
+  branch = "kubernetes-1.9"
 
 [[constraint]]
   name = "k8s.io/apimachinery"
@@ -139,9 +79,8 @@
 
 [[constraint]]
   name = "k8s.io/apiserver"
-  branch = "release-1.8"
+  branch = "kubernetes-1.9"
 
 [[constraint]]
   name = "k8s.io/client-go"
   branch = "release-5.0"
-

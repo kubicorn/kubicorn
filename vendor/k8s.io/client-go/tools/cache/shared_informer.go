@@ -25,10 +25,6 @@ import (
 	"k8s.io/apimachinery/pkg/util/clock"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
-<<<<<<< HEAD
-	"k8s.io/client-go/util/buffer"
-=======
->>>>>>> Initial dep workover
 
 	"github.com/golang/glog"
 )
@@ -96,18 +92,8 @@ func NewSharedIndexInformer(lw ListerWatcher, objType runtime.Object, defaultEve
 // InformerSynced is a function that can be used to determine if an informer has synced.  This is useful for determining if caches have synced.
 type InformerSynced func() bool
 
-<<<<<<< HEAD
-const (
-	// syncedPollPeriod controls how often you look at the status of your sync funcs
-	syncedPollPeriod = 100 * time.Millisecond
-
-	// initialBufferSize is the initial number of event notifications that can be buffered.
-	initialBufferSize = 1024
-)
-=======
 // syncedPollPeriod controls how often you look at the status of your sync funcs
 const syncedPollPeriod = 100 * time.Millisecond
->>>>>>> Initial dep workover
 
 // WaitForCacheSync waits for caches to populate.  It returns true if it was successful, false
 // if the controller should shutdown
@@ -327,11 +313,7 @@ func (s *sharedIndexInformer) AddEventHandlerWithResyncPeriod(handler ResourceEv
 		}
 	}
 
-<<<<<<< HEAD
-	listener := newProcessListener(handler, resyncPeriod, determineResyncPeriod(resyncPeriod, s.resyncCheckPeriod), s.clock.Now(), initialBufferSize)
-=======
 	listener := newProcessListener(handler, resyncPeriod, determineResyncPeriod(resyncPeriod, s.resyncCheckPeriod), s.clock.Now())
->>>>>>> Initial dep workover
 
 	if !s.started {
 		s.processor.addListener(listener)
@@ -483,16 +465,6 @@ type processorListener struct {
 
 	handler ResourceEventHandler
 
-<<<<<<< HEAD
-	// pendingNotifications is an unbounded ring buffer that holds all notifications not yet distributed.
-	// There is one per listener, but a failing/stalled listener will have infinite pendingNotifications
-	// added until we OOM.
-	// TODO: This is no worse than before, since reflectors were backed by unbounded DeltaFIFOs, but
-	// we should try to do something better.
-	pendingNotifications buffer.RingGrowing
-
-=======
->>>>>>> Initial dep workover
 	// requestedResyncPeriod is how frequently the listener wants a full resync from the shared informer
 	requestedResyncPeriod time.Duration
 	// resyncPeriod is how frequently the listener wants a full resync from the shared informer. This
@@ -505,19 +477,11 @@ type processorListener struct {
 	resyncLock sync.Mutex
 }
 
-<<<<<<< HEAD
-func newProcessListener(handler ResourceEventHandler, requestedResyncPeriod, resyncPeriod time.Duration, now time.Time, bufferSize int) *processorListener {
-=======
 func newProcessListener(handler ResourceEventHandler, requestedResyncPeriod, resyncPeriod time.Duration, now time.Time) *processorListener {
->>>>>>> Initial dep workover
 	ret := &processorListener{
 		nextCh:                make(chan interface{}),
 		addCh:                 make(chan interface{}),
 		handler:               handler,
-<<<<<<< HEAD
-		pendingNotifications:  *buffer.NewRingGrowing(bufferSize),
-=======
->>>>>>> Initial dep workover
 		requestedResyncPeriod: requestedResyncPeriod,
 		resyncPeriod:          resyncPeriod,
 	}
@@ -535,27 +499,18 @@ func (p *processorListener) pop() {
 	defer utilruntime.HandleCrash()
 	defer close(p.nextCh) // Tell .run() to stop
 
-<<<<<<< HEAD
-=======
 	// pendingNotifications is an unbounded slice that holds all notifications not yet distributed
 	// there is one per listener, but a failing/stalled listener will have infinite pendingNotifications
 	// added until we OOM.
 	// TODO This is no worse than before, since reflectors were backed by unbounded DeltaFIFOs, but
 	// we should try to do something better
 	var pendingNotifications []interface{}
->>>>>>> Initial dep workover
 	var nextCh chan<- interface{}
 	var notification interface{}
 	for {
 		select {
 		case nextCh <- notification:
 			// Notification dispatched
-<<<<<<< HEAD
-			var ok bool
-			notification, ok = p.pendingNotifications.ReadOne()
-			if !ok { // Nothing to pop
-				nextCh = nil // Disable this select case
-=======
 			if len(pendingNotifications) == 0 { // Nothing to pop
 				nextCh = nil // Disable this select case
 				notification = nil
@@ -563,7 +518,6 @@ func (p *processorListener) pop() {
 				notification = pendingNotifications[0]
 				pendingNotifications[0] = nil
 				pendingNotifications = pendingNotifications[1:]
->>>>>>> Initial dep workover
 			}
 		case notificationToAdd, ok := <-p.addCh:
 			if !ok {
@@ -574,11 +528,7 @@ func (p *processorListener) pop() {
 				notification = notificationToAdd
 				nextCh = p.nextCh
 			} else { // There is already a notification waiting to be dispatched
-<<<<<<< HEAD
-				p.pendingNotifications.WriteOne(notificationToAdd)
-=======
 				pendingNotifications = append(pendingNotifications, notificationToAdd)
->>>>>>> Initial dep workover
 			}
 		}
 	}

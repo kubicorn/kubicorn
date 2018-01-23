@@ -101,69 +101,6 @@ type CustomMetricCurrentStatusList struct {
 }
 
 // +genclient
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-// +genclient:nonNamespaced
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
-// A ThirdPartyResource is a generic representation of a resource, it is used by add-ons and plugins to add new resource
-// types to the API.  It consists of one or more Versions of the api.
-type ThirdPartyResource struct {
-	metav1.TypeMeta `json:",inline"`
-
-	// Standard object metadata
-	// +optional
-	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
-
-	// Description is the description of this object.
-	// +optional
-	Description string `json:"description,omitempty" protobuf:"bytes,2,opt,name=description"`
-
-	// Versions are versions for this third party object
-	// +optional
-	Versions []APIVersion `json:"versions,omitempty" protobuf:"bytes,3,rep,name=versions"`
-}
-
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
-// ThirdPartyResourceList is a list of ThirdPartyResources.
-type ThirdPartyResourceList struct {
-	metav1.TypeMeta `json:",inline"`
-
-	// Standard list metadata.
-	// +optional
-	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
-
-	// Items is the list of ThirdPartyResources.
-	Items []ThirdPartyResource `json:"items" protobuf:"bytes,2,rep,name=items"`
-}
-
-// An APIVersion represents a single concrete version of an object model.
-type APIVersion struct {
-	// Name of this version (e.g. 'v1').
-	// +optional
-	Name string `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
-}
-
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
-// An internal object, used for versioned storage in etcd.  Not exposed to the end user.
-type ThirdPartyResourceData struct {
-	metav1.TypeMeta `json:",inline"`
-	// Standard object metadata.
-	// +optional
-	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
-
-	// Data is the raw JSON data for this data.
-	// +optional
-	Data []byte `json:"data,omitempty" protobuf:"bytes,2,opt,name=data"`
-}
-
-// +genclient
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 // +genclient:method=GetScale,verb=get,subresource=scale,result=Scale
 // +genclient:method=UpdateScale,verb=update,subresource=scale,input=Scale,result=Scale
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -538,10 +475,6 @@ type DaemonSetStatus struct {
 	// create the name for the newest ControllerRevision.
 	// +optional
 	CollisionCount *int32 `json:"collisionCount,omitempty" protobuf:"varint,9,opt,name=collisionCount"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 
 	// Represents the latest available observations of a DaemonSet's current state.
 	// +optional
@@ -569,11 +502,6 @@ type DaemonSetCondition struct {
 	// A human readable message indicating details about the transition.
 	// +optional
 	Message string `json:"message,omitempty" protobuf:"bytes,5,opt,name=message"`
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 }
 
 // +genclient
@@ -630,26 +558,6 @@ type DaemonSetList struct {
 	Items []DaemonSet `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
-// ThirdPartyResrouceDataList is a list of ThirdPartyResourceData.
-type ThirdPartyResourceDataList struct {
-	metav1.TypeMeta `json:",inline"`
-	// Standard list metadata
-	// More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#metadata
-	// +optional
-	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
-
-	// Items is the list of ThirdpartyResourceData.
-	Items []ThirdPartyResourceData `json:"items" protobuf:"bytes,2,rep,name=items"`
-}
-
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
@@ -974,20 +882,9 @@ type PodSecurityPolicySpec struct {
 	// +optional
 	Privileged bool `json:"privileged,omitempty" protobuf:"varint,1,opt,name=privileged"`
 	// DefaultAddCapabilities is the default set of capabilities that will be added to the container
-<<<<<<< HEAD
-<<<<<<< HEAD
 	// unless the pod spec specifically drops the capability.  You may not list a capability in both
 	// DefaultAddCapabilities and RequiredDropCapabilities. Capabilities added here are implicitly
 	// allowed, and need not be included in the AllowedCapabilities list.
-=======
-	// unless the pod spec specifically drops the capability.  You may not list a capabiility in both
-	// DefaultAddCapabilities and RequiredDropCapabilities.
->>>>>>> Initial dep workover
-=======
-	// unless the pod spec specifically drops the capability.  You may not list a capability in both
-	// DefaultAddCapabilities and RequiredDropCapabilities. Capabilities added here are implicitly
-	// allowed, and need not be included in the AllowedCapabilities list.
->>>>>>> moar deps
 	// +optional
 	DefaultAddCapabilities []v1.Capability `json:"defaultAddCapabilities,omitempty" protobuf:"bytes,2,rep,name=defaultAddCapabilities,casttype=k8s.io/api/core/v1.Capability"`
 	// RequiredDropCapabilities are the capabilities that will be dropped from the container.  These
@@ -1041,20 +938,11 @@ type PodSecurityPolicySpec struct {
 	// is a white list of allowed host paths. Empty indicates that all host paths may be used.
 	// +optional
 	AllowedHostPaths []AllowedHostPath `json:"allowedHostPaths,omitempty" protobuf:"bytes,17,rep,name=allowedHostPaths"`
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 	// AllowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all
 	// Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes
 	// is allowed in the "Volumes" field.
 	// +optional
 	AllowedFlexVolumes []AllowedFlexVolume `json:"allowedFlexVolumes,omitempty" protobuf:"bytes,18,rep,name=allowedFlexVolumes"`
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 }
 
 // defines the host volume conditions that will be enabled by a policy
@@ -1098,21 +986,12 @@ var (
 	All                   FSType = "*"
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 // AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
 type AllowedFlexVolume struct {
 	// Driver is the name of the Flexvolume driver.
 	Driver string `json:"driver" protobuf:"bytes,1,opt,name=driver"`
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 // Host Port Range defines a range of host ports that will be enabled by a policy
 // for pods to use.  It requires both the start and end to be defined.
 type HostPortRange struct {
@@ -1233,14 +1112,7 @@ type PodSecurityPolicyList struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy.
->>>>>>> moar deps
 // NetworkPolicy describes what network traffic is allowed for a set of Pods
 type NetworkPolicy struct {
 	metav1.TypeMeta `json:",inline"`
@@ -1254,14 +1126,7 @@ type NetworkPolicy struct {
 	Spec NetworkPolicySpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of PolicyType is deprecated by networking/v1/PolicyType.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of PolicyType is deprecated by networking/v1/PolicyType.
->>>>>>> moar deps
 // Policy Type string describes the NetworkPolicy type
 // This type is beta-level in 1.8
 type PolicyType string
@@ -1273,14 +1138,7 @@ const (
 	PolicyTypeEgress PolicyType = "Egress"
 )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by networking/v1/NetworkPolicySpec.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by networking/v1/NetworkPolicySpec.
->>>>>>> moar deps
 type NetworkPolicySpec struct {
 	// Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules
 	// is applied to any pods selected by this field. Multiple network policies can select the
@@ -1323,14 +1181,7 @@ type NetworkPolicySpec struct {
 	PolicyTypes []PolicyType `json:"policyTypes,omitempty" protobuf:"bytes,4,rep,name=policyTypes,casttype=PolicyType"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by networking/v1/NetworkPolicyIngressRule.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by networking/v1/NetworkPolicyIngressRule.
->>>>>>> moar deps
 // This NetworkPolicyIngressRule matches traffic if and only if the traffic matches both ports AND from.
 type NetworkPolicyIngressRule struct {
 	// List of ports which should be made accessible on the pods selected for this rule.
@@ -1350,14 +1201,7 @@ type NetworkPolicyIngressRule struct {
 	From []NetworkPolicyPeer `json:"from,omitempty" protobuf:"bytes,2,rep,name=from"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by networking/v1/NetworkPolicyEgressRule.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by networking/v1/NetworkPolicyEgressRule.
->>>>>>> moar deps
 // NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods
 // matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to.
 // This type is beta-level in 1.8
@@ -1379,14 +1223,7 @@ type NetworkPolicyEgressRule struct {
 	To []NetworkPolicyPeer `json:"to,omitempty" protobuf:"bytes,2,rep,name=to"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
->>>>>>> moar deps
 type NetworkPolicyPort struct {
 	// Optional.  The protocol (TCP or UDP) which traffic must match.
 	// If not specified, this field defaults to TCP.
@@ -1402,14 +1239,7 @@ type NetworkPolicyPort struct {
 	Port *intstr.IntOrString `json:"port,omitempty" protobuf:"bytes,2,opt,name=port"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of IPBlock is deprecated by networking/v1/IPBlock.
->>>>>>> moar deps
 // IPBlock describes a particular CIDR (Ex. "192.168.1.1/24") that is allowed to the pods
 // matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should
 // not be included within this rule.
@@ -1424,14 +1254,7 @@ type IPBlock struct {
 	Except []string `json:"except,omitempty" protobuf:"bytes,2,rep,name=except"`
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by networking/v1/NetworkPolicyPeer.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by networking/v1/NetworkPolicyPeer.
->>>>>>> moar deps
 type NetworkPolicyPeer struct {
 	// Exactly one of the following must be specified.
 
@@ -1455,14 +1278,7 @@ type NetworkPolicyPeer struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList.
-=======
->>>>>>> Initial dep workover
-=======
-// DEPRECATED 1.9 - This group version of NetworkPolicyList is deprecated by networking/v1/NetworkPolicyList.
->>>>>>> moar deps
 // Network Policy List is a list of NetworkPolicy objects.
 type NetworkPolicyList struct {
 	metav1.TypeMeta `json:",inline"`

@@ -228,17 +228,9 @@ func newCmdTokenSource(cmd string, args []string, tokenKey, expiryKey, timeFmt s
 func (c *commandTokenSource) Token() (*oauth2.Token, error) {
 	fullCmd := strings.Join(append([]string{c.cmd}, c.args...), " ")
 	cmd := execCommand(c.cmd, c.args...)
-<<<<<<< HEAD
-	var stderr bytes.Buffer
-	cmd.Stderr = &stderr
-	output, err := cmd.Output()
-	if err != nil {
-		return nil, fmt.Errorf("error executing access token command %q: err=%v output=%s stderr=%s", fullCmd, err, output, string(stderr.Bytes()))
-=======
 	output, err := cmd.Output()
 	if err != nil {
 		return nil, fmt.Errorf("error executing access token command %q: err=%v output=%s", fullCmd, err, output)
->>>>>>> Initial dep workover
 	}
 	token, err := c.parseTokenCmdOutput(output)
 	if err != nil {

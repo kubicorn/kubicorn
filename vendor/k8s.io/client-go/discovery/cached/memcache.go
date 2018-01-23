@@ -21,17 +21,11 @@ import (
 	"fmt"
 	"sync"
 
-<<<<<<< HEAD
-	"github.com/googleapis/gnostic/OpenAPIv2"
-
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-=======
 	"github.com/emicklei/go-restful-swagger12"
 	"github.com/googleapis/gnostic/OpenAPIv2"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
->>>>>>> Initial dep workover
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/version"
 	"k8s.io/client-go/discovery"
@@ -122,13 +116,10 @@ func (d *memCacheClient) ServerVersion() (*version.Info, error) {
 	return d.delegate.ServerVersion()
 }
 
-<<<<<<< HEAD
-=======
 func (d *memCacheClient) SwaggerSchema(version schema.GroupVersion) (*swagger.ApiDeclaration, error) {
 	return d.delegate.SwaggerSchema(version)
 }
 
->>>>>>> Initial dep workover
 func (d *memCacheClient) OpenAPISchema() (*openapi_v2.Document, error) {
 	return d.delegate.OpenAPISchema()
 }

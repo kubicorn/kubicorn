@@ -14,15 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // +k8s:deepcopy-gen=package
-=======
-// +k8s:deepcopy-gen=package,register
->>>>>>> Initial dep workover
-=======
-// +k8s:deepcopy-gen=package
->>>>>>> moar deps
 // +k8s:openapi-gen=true
 
 // +groupName=imagepolicy.k8s.io

@@ -11,16 +11,8 @@ go_library(
         "factory.go",
         "generic.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/informers",
     deps = [
         "//vendor/k8s.io/api/admissionregistration/v1alpha1:go_default_library",
-        "//vendor/k8s.io/api/admissionregistration/v1beta1:go_default_library",
-        "//vendor/k8s.io/api/apps/v1:go_default_library",
-=======
-    deps = [
-        "//vendor/k8s.io/api/admissionregistration/v1alpha1:go_default_library",
->>>>>>> Initial dep workover
         "//vendor/k8s.io/api/apps/v1beta1:go_default_library",
         "//vendor/k8s.io/api/apps/v1beta2:go_default_library",
         "//vendor/k8s.io/api/autoscaling/v1:go_default_library",
@@ -30,10 +22,6 @@ go_library(
         "//vendor/k8s.io/api/batch/v2alpha1:go_default_library",
         "//vendor/k8s.io/api/certificates/v1beta1:go_default_library",
         "//vendor/k8s.io/api/core/v1:go_default_library",
-<<<<<<< HEAD
-        "//vendor/k8s.io/api/events/v1beta1:go_default_library",
-=======
->>>>>>> Initial dep workover
         "//vendor/k8s.io/api/extensions/v1beta1:go_default_library",
         "//vendor/k8s.io/api/networking/v1:go_default_library",
         "//vendor/k8s.io/api/policy/v1beta1:go_default_library",
@@ -43,13 +31,7 @@ go_library(
         "//vendor/k8s.io/api/scheduling/v1alpha1:go_default_library",
         "//vendor/k8s.io/api/settings/v1alpha1:go_default_library",
         "//vendor/k8s.io/api/storage/v1:go_default_library",
-<<<<<<< HEAD
-        "//vendor/k8s.io/api/storage/v1alpha1:go_default_library",
         "//vendor/k8s.io/api/storage/v1beta1:go_default_library",
-        "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",
-=======
-        "//vendor/k8s.io/api/storage/v1beta1:go_default_library",
->>>>>>> Initial dep workover
         "//vendor/k8s.io/apimachinery/pkg/runtime:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/runtime/schema:go_default_library",
         "//vendor/k8s.io/client-go/informers/admissionregistration:go_default_library",
@@ -58,10 +40,6 @@ go_library(
         "//vendor/k8s.io/client-go/informers/batch:go_default_library",
         "//vendor/k8s.io/client-go/informers/certificates:go_default_library",
         "//vendor/k8s.io/client-go/informers/core:go_default_library",
-<<<<<<< HEAD
-        "//vendor/k8s.io/client-go/informers/events:go_default_library",
-=======
->>>>>>> Initial dep workover
         "//vendor/k8s.io/client-go/informers/extensions:go_default_library",
         "//vendor/k8s.io/client-go/informers/internalinterfaces:go_default_library",
         "//vendor/k8s.io/client-go/informers/networking:go_default_library",
@@ -92,10 +70,6 @@ filegroup(
         "//staging/src/k8s.io/client-go/informers/batch:all-srcs",
         "//staging/src/k8s.io/client-go/informers/certificates:all-srcs",
         "//staging/src/k8s.io/client-go/informers/core:all-srcs",
-<<<<<<< HEAD
-        "//staging/src/k8s.io/client-go/informers/events:all-srcs",
-=======
->>>>>>> Initial dep workover
         "//staging/src/k8s.io/client-go/informers/extensions:all-srcs",
         "//staging/src/k8s.io/client-go/informers/internalinterfaces:all-srcs",
         "//staging/src/k8s.io/client-go/informers/networking:all-srcs",

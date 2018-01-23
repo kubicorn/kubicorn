@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,13 +21,6 @@ package v1beta1
 import (
 	v1beta1 "k8s.io/api/authorization/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
->>>>>>> Initial dep workover
-=======
->>>>>>> omg dep constraints
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/tools/cache"
 )
@@ -65,16 +54,7 @@ func (s *selfSubjectAccessReviewLister) List(selector labels.Selector) (ret []*v
 
 // Get retrieves the SelfSubjectAccessReview from the index for a given name.
 func (s *selfSubjectAccessReviewLister) Get(name string) (*v1beta1.SelfSubjectAccessReview, error) {
-<<<<<<< HEAD
-<<<<<<< HEAD
 	obj, exists, err := s.indexer.GetByKey(name)
-=======
-	key := &v1beta1.SelfSubjectAccessReview{ObjectMeta: v1.ObjectMeta{Name: name}}
-	obj, exists, err := s.indexer.Get(key)
->>>>>>> Initial dep workover
-=======
-	obj, exists, err := s.indexer.GetByKey(name)
->>>>>>> omg dep constraints
 	if err != nil {
 		return nil, err
 	}

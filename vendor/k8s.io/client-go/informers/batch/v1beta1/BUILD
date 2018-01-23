@@ -1,10 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 
-<<<<<<< HEAD
-=======
 licenses(["notice"])
 
->>>>>>> Initial dep workover
 load(
     "@io_bazel_rules_go//go:def.bzl",
     "go_library",
@@ -16,11 +13,7 @@ go_library(
         "cronjob.go",
         "interface.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/informers/batch/v1beta1",
-=======
     tags = ["automanaged"],
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/batch/v1beta1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

@@ -11,10 +11,6 @@ go_library(
         "interface.go",
         "storageclass.go",
     ],
-<<<<<<< HEAD
-    importpath = "k8s.io/client-go/informers/storage/v1",
-=======
->>>>>>> Initial dep workover
     deps = [
         "//vendor/k8s.io/api/storage/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/apis/meta/v1:go_default_library",

@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
-Copyright 2018 The Kubernetes Authors.
-=======
 Copyright 2017 The Kubernetes Authors.
->>>>>>> Initial dep workover
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,14 +25,7 @@ limitations under the License.
 		k8s.io/kubernetes/vendor/k8s.io/api/rbac/v1beta1/generated.proto
 
 	It has these top-level messages:
-<<<<<<< HEAD
-<<<<<<< HEAD
 		AggregationRule
-=======
->>>>>>> Initial dep workover
-=======
-		AggregationRule
->>>>>>> moar deps
 		ClusterRole
 		ClusterRoleBinding
 		ClusterRoleBindingList
@@ -55,16 +44,8 @@ import proto "github.com/gogo/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import k8s_io_apimachinery_pkg_apis_meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-=======
->>>>>>> Initial dep workover
-=======
-import k8s_io_apimachinery_pkg_apis_meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
->>>>>>> moar deps
 import strings "strings"
 import reflect "reflect"
 
@@ -81,15 +62,10 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 func (m *AggregationRule) Reset()                    { *m = AggregationRule{} }
 func (*AggregationRule) ProtoMessage()               {}
 func (*AggregationRule) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{0} }
 
-<<<<<<< HEAD
 func (m *ClusterRole) Reset()                    { *m = ClusterRole{} }
 func (*ClusterRole) ProtoMessage()               {}
 func (*ClusterRole) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{1} }
@@ -136,59 +112,6 @@ func (*Subject) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, [
 
 func init() {
 	proto.RegisterType((*AggregationRule)(nil), "k8s.io.api.rbac.v1beta1.AggregationRule")
-=======
-=======
->>>>>>> moar deps
-func (m *ClusterRole) Reset()                    { *m = ClusterRole{} }
-func (*ClusterRole) ProtoMessage()               {}
-func (*ClusterRole) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{1} }
-
-func (m *ClusterRoleBinding) Reset()                    { *m = ClusterRoleBinding{} }
-func (*ClusterRoleBinding) ProtoMessage()               {}
-func (*ClusterRoleBinding) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{2} }
-
-func (m *ClusterRoleBindingList) Reset()                    { *m = ClusterRoleBindingList{} }
-func (*ClusterRoleBindingList) ProtoMessage()               {}
-func (*ClusterRoleBindingList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{3} }
-
-func (m *ClusterRoleList) Reset()                    { *m = ClusterRoleList{} }
-func (*ClusterRoleList) ProtoMessage()               {}
-func (*ClusterRoleList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{4} }
-
-func (m *PolicyRule) Reset()                    { *m = PolicyRule{} }
-func (*PolicyRule) ProtoMessage()               {}
-func (*PolicyRule) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{5} }
-
-func (m *Role) Reset()                    { *m = Role{} }
-func (*Role) ProtoMessage()               {}
-func (*Role) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{6} }
-
-func (m *RoleBinding) Reset()                    { *m = RoleBinding{} }
-func (*RoleBinding) ProtoMessage()               {}
-func (*RoleBinding) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{7} }
-
-func (m *RoleBindingList) Reset()                    { *m = RoleBindingList{} }
-func (*RoleBindingList) ProtoMessage()               {}
-func (*RoleBindingList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{8} }
-
-func (m *RoleList) Reset()                    { *m = RoleList{} }
-func (*RoleList) ProtoMessage()               {}
-func (*RoleList) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{9} }
-
-func (m *RoleRef) Reset()                    { *m = RoleRef{} }
-func (*RoleRef) ProtoMessage()               {}
-func (*RoleRef) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{10} }
-
-func (m *Subject) Reset()                    { *m = Subject{} }
-func (*Subject) ProtoMessage()               {}
-func (*Subject) Descriptor() ([]byte, []int) { return fileDescriptorGenerated, []int{11} }
-
-func init() {
-<<<<<<< HEAD
->>>>>>> Initial dep workover
-=======
-	proto.RegisterType((*AggregationRule)(nil), "k8s.io.api.rbac.v1beta1.AggregationRule")
->>>>>>> moar deps
 	proto.RegisterType((*ClusterRole)(nil), "k8s.io.api.rbac.v1beta1.ClusterRole")
 	proto.RegisterType((*ClusterRoleBinding)(nil), "k8s.io.api.rbac.v1beta1.ClusterRoleBinding")
 	proto.RegisterType((*ClusterRoleBindingList)(nil), "k8s.io.api.rbac.v1beta1.ClusterRoleBindingList")
@@ -201,10 +124,6 @@ func init() {
 	proto.RegisterType((*RoleRef)(nil), "k8s.io.api.rbac.v1beta1.RoleRef")
 	proto.RegisterType((*Subject)(nil), "k8s.io.api.rbac.v1beta1.Subject")
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 func (m *AggregationRule) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -235,11 +154,6 @@ func (m *AggregationRule) MarshalTo(dAtA []byte) (int, error) {
 	return i, nil
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 func (m *ClusterRole) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -275,10 +189,6 @@ func (m *ClusterRole) MarshalTo(dAtA []byte) (int, error) {
 			i += n
 		}
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 	if m.AggregationRule != nil {
 		dAtA[i] = 0x1a
 		i++
@@ -289,11 +199,6 @@ func (m *ClusterRole) MarshalTo(dAtA []byte) (int, error) {
 		}
 		i += n2
 	}
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 	return i, nil
 }
 
@@ -315,27 +220,11 @@ func (m *ClusterRoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0xa
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n3, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n3
-=======
-	n2, err := m.ObjectMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n2
->>>>>>> Initial dep workover
-=======
-	n3, err := m.ObjectMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n3
->>>>>>> moar deps
 	if len(m.Subjects) > 0 {
 		for _, msg := range m.Subjects {
 			dAtA[i] = 0x12
@@ -351,27 +240,11 @@ func (m *ClusterRoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0x1a
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.RoleRef.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n4, err := m.RoleRef.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n4
-=======
-	n3, err := m.RoleRef.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n3
->>>>>>> Initial dep workover
-=======
-	n4, err := m.RoleRef.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n4
->>>>>>> moar deps
 	return i, nil
 }
 
@@ -393,27 +266,11 @@ func (m *ClusterRoleBindingList) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0xa
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n5, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n5
-=======
-	n4, err := m.ListMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n4
->>>>>>> Initial dep workover
-=======
-	n5, err := m.ListMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n5
->>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -447,27 +304,11 @@ func (m *ClusterRoleList) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0xa
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n6, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n6
-=======
-	n5, err := m.ListMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n5
->>>>>>> Initial dep workover
-=======
-	n6, err := m.ListMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n6
->>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -594,27 +435,11 @@ func (m *Role) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0xa
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n7, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n7
-=======
-	n6, err := m.ObjectMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n6
->>>>>>> Initial dep workover
-=======
-	n7, err := m.ObjectMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n7
->>>>>>> moar deps
 	if len(m.Rules) > 0 {
 		for _, msg := range m.Rules {
 			dAtA[i] = 0x12
@@ -648,27 +473,11 @@ func (m *RoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0xa
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ObjectMeta.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n8, err := m.ObjectMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n8
-=======
-	n7, err := m.ObjectMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n7
->>>>>>> Initial dep workover
-=======
-	n8, err := m.ObjectMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n8
->>>>>>> moar deps
 	if len(m.Subjects) > 0 {
 		for _, msg := range m.Subjects {
 			dAtA[i] = 0x12
@@ -684,27 +493,11 @@ func (m *RoleBinding) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0x1a
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.RoleRef.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n9, err := m.RoleRef.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n9
-=======
-	n8, err := m.RoleRef.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n8
->>>>>>> Initial dep workover
-=======
-	n9, err := m.RoleRef.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n9
->>>>>>> moar deps
 	return i, nil
 }
 
@@ -726,27 +519,11 @@ func (m *RoleBindingList) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0xa
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n10, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n10
-=======
-	n9, err := m.ListMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n9
->>>>>>> Initial dep workover
-=======
-	n10, err := m.ListMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n10
->>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -780,27 +557,11 @@ func (m *RoleList) MarshalTo(dAtA []byte) (int, error) {
 	dAtA[i] = 0xa
 	i++
 	i = encodeVarintGenerated(dAtA, i, uint64(m.ListMeta.Size()))
-<<<<<<< HEAD
-<<<<<<< HEAD
 	n11, err := m.ListMeta.MarshalTo(dAtA[i:])
 	if err != nil {
 		return 0, err
 	}
 	i += n11
-=======
-	n10, err := m.ListMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n10
->>>>>>> Initial dep workover
-=======
-	n11, err := m.ListMeta.MarshalTo(dAtA[i:])
-	if err != nil {
-		return 0, err
-	}
-	i += n11
->>>>>>> moar deps
 	if len(m.Items) > 0 {
 		for _, msg := range m.Items {
 			dAtA[i] = 0x12
@@ -907,10 +668,6 @@ func encodeVarintGenerated(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return offset + 1
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 func (m *AggregationRule) Size() (n int) {
 	var l int
 	_ = l
@@ -923,11 +680,6 @@ func (m *AggregationRule) Size() (n int) {
 	return n
 }
 
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 func (m *ClusterRole) Size() (n int) {
 	var l int
 	_ = l
@@ -939,19 +691,10 @@ func (m *ClusterRole) Size() (n int) {
 			n += 1 + l + sovGenerated(uint64(l))
 		}
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 	if m.AggregationRule != nil {
 		l = m.AggregationRule.Size()
 		n += 1 + l + sovGenerated(uint64(l))
 	}
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 	return n
 }
 
@@ -1132,10 +875,6 @@ func sovGenerated(x uint64) (n int) {
 func sozGenerated(x uint64) (n int) {
 	return sovGenerated(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 func (this *AggregationRule) String() string {
 	if this == nil {
 		return "nil"
@@ -1146,11 +885,6 @@ func (this *AggregationRule) String() string {
 	}, "")
 	return s
 }
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 func (this *ClusterRole) String() string {
 	if this == nil {
 		return "nil"
@@ -1158,14 +892,7 @@ func (this *ClusterRole) String() string {
 	s := strings.Join([]string{`&ClusterRole{`,
 		`ObjectMeta:` + strings.Replace(strings.Replace(this.ObjectMeta.String(), "ObjectMeta", "k8s_io_apimachinery_pkg_apis_meta_v1.ObjectMeta", 1), `&`, ``, 1) + `,`,
 		`Rules:` + strings.Replace(strings.Replace(fmt.Sprintf("%v", this.Rules), "PolicyRule", "PolicyRule", 1), `&`, ``, 1) + `,`,
-<<<<<<< HEAD
-<<<<<<< HEAD
 		`AggregationRule:` + strings.Replace(fmt.Sprintf("%v", this.AggregationRule), "AggregationRule", "AggregationRule", 1) + `,`,
-=======
->>>>>>> Initial dep workover
-=======
-		`AggregationRule:` + strings.Replace(fmt.Sprintf("%v", this.AggregationRule), "AggregationRule", "AggregationRule", 1) + `,`,
->>>>>>> moar deps
 		`}`,
 	}, "")
 	return s
@@ -1296,10 +1023,6 @@ func valueToStringGenerated(v interface{}) string {
 	pv := reflect.Indirect(rv).Interface()
 	return fmt.Sprintf("*%v", pv)
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 func (m *AggregationRule) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1381,11 +1104,6 @@ func (m *AggregationRule) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 func (m *ClusterRole) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -1476,10 +1194,6 @@ func (m *ClusterRole) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 		case 3:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field AggregationRule", wireType)
@@ -1513,11 +1227,6 @@ func (m *ClusterRole) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-<<<<<<< HEAD
-=======
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGenerated(dAtA[iNdEx:])
@@ -2984,10 +2693,6 @@ func init() {
 }
 
 var fileDescriptorGenerated = []byte{
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> moar deps
 	// 833 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x55, 0xbf, 0x8f, 0xe3, 0x44,
 	0x14, 0xce, 0x64, 0x13, 0x6d, 0x3c, 0xcb, 0x2a, 0xdc, 0x70, 0x02, 0x6b, 0x05, 0xce, 0x2a, 0x50,
@@ -3042,57 +2747,4 @@ var fileDescriptorGenerated = []byte{
 	0x78, 0x9a, 0x1a, 0xe0, 0x59, 0x6a, 0x80, 0xbf, 0x53, 0x03, 0xfc, 0xf2, 0x8f, 0xd1, 0xfa, 0xe6,
 	0xb8, 0x70, 0xfd, 0xbf, 0x00, 0x00, 0x00, 0xff, 0xff, 0xd1, 0x99, 0xaf, 0xff, 0x74, 0x0b, 0x00,
 	0x00,
-<<<<<<< HEAD
-=======
-	// 751 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x94, 0xcd, 0x6e, 0xd3, 0x4a,
-	0x14, 0xc7, 0xe3, 0x7c, 0x28, 0xf1, 0xe4, 0x46, 0xb9, 0xf5, 0x95, 0xee, 0xb5, 0x2a, 0x5d, 0x27,
-	0x0a, 0x2c, 0x2a, 0x95, 0xda, 0xb4, 0x20, 0x60, 0x83, 0x04, 0x66, 0x01, 0x55, 0x4b, 0xa8, 0x06,
-	0xc1, 0x02, 0xb1, 0x60, 0xe2, 0x4c, 0xd3, 0x21, 0xf1, 0x87, 0x66, 0xc6, 0x91, 0x2a, 0x36, 0x3c,
-	0x00, 0x0b, 0x24, 0x5e, 0x83, 0x15, 0x3b, 0x78, 0x82, 0x2c, 0xbb, 0xec, 0x2a, 0xa2, 0xe6, 0x41,
-	0x40, 0x33, 0xb6, 0xe3, 0xa4, 0x69, 0xda, 0xac, 0x22, 0x21, 0xb1, 0x4a, 0xe6, 0x9c, 0xdf, 0xf9,
-	0x9f, 0x0f, 0xcf, 0x1c, 0xf0, 0xa0, 0x7f, 0x8f, 0x99, 0xc4, 0xb7, 0xfa, 0x61, 0x07, 0x53, 0x0f,
-	0x73, 0xcc, 0xac, 0x21, 0xf6, 0xba, 0x3e, 0xb5, 0x12, 0x07, 0x0a, 0x88, 0x45, 0x3b, 0xc8, 0xb1,
-	0x86, 0xdb, 0x1d, 0xcc, 0xd1, 0xb6, 0xd5, 0xc3, 0x1e, 0xa6, 0x88, 0xe3, 0xae, 0x19, 0x50, 0x9f,
-	0xfb, 0xda, 0x7f, 0x31, 0x68, 0xa2, 0x80, 0x98, 0x02, 0x34, 0x13, 0x70, 0x7d, 0xab, 0x47, 0xf8,
-	0x51, 0xd8, 0x31, 0x1d, 0xdf, 0xb5, 0x7a, 0x7e, 0xcf, 0xb7, 0x24, 0xdf, 0x09, 0x0f, 0xe5, 0x49,
-	0x1e, 0xe4, 0xbf, 0x58, 0x67, 0xfd, 0x76, 0x96, 0xd0, 0x45, 0xce, 0x11, 0xf1, 0x30, 0x3d, 0xb6,
-	0x82, 0x7e, 0x4f, 0x18, 0x98, 0xe5, 0x62, 0x8e, 0xac, 0xe1, 0x5c, 0xf6, 0x75, 0x6b, 0x51, 0x14,
-	0x0d, 0x3d, 0x4e, 0x5c, 0x3c, 0x17, 0x70, 0xe7, 0xaa, 0x00, 0xe6, 0x1c, 0x61, 0x17, 0xcd, 0xc5,
-	0xdd, 0x5a, 0x14, 0x17, 0x72, 0x32, 0xb0, 0x88, 0xc7, 0x19, 0xa7, 0xe7, 0x83, 0x5a, 0x5f, 0x15,
-	0x50, 0x7d, 0x34, 0x08, 0x19, 0xc7, 0x14, 0xfa, 0x03, 0xac, 0xbd, 0x01, 0x15, 0xd1, 0x48, 0x17,
-	0x71, 0xa4, 0x2b, 0x4d, 0x65, 0xa3, 0xba, 0x73, 0xd3, 0xcc, 0xc6, 0x37, 0xd1, 0x35, 0x83, 0x7e,
-	0x4f, 0x18, 0x98, 0x29, 0x68, 0x73, 0xb8, 0x6d, 0x3e, 0xeb, 0xbc, 0xc5, 0x0e, 0x7f, 0x8a, 0x39,
-	0xb2, 0xb5, 0xd1, 0xb8, 0x91, 0x8b, 0xc6, 0x0d, 0x90, 0xd9, 0xe0, 0x44, 0x55, 0x7b, 0x02, 0x4a,
-	0x34, 0x1c, 0x60, 0xa6, 0xe7, 0x9b, 0x85, 0x8d, 0xea, 0xce, 0x35, 0x73, 0xc1, 0xd7, 0x31, 0x0f,
-	0xfc, 0x01, 0x71, 0x8e, 0x61, 0x38, 0xc0, 0x76, 0x2d, 0x51, 0x2c, 0x89, 0x13, 0x83, 0xb1, 0x40,
-	0xeb, 0x53, 0x1e, 0x68, 0x53, 0xb5, 0xdb, 0xc4, 0xeb, 0x12, 0xaf, 0xb7, 0x82, 0x16, 0xda, 0xa0,
-	0xc2, 0x42, 0xe9, 0x48, 0xbb, 0x68, 0x2e, 0xec, 0xe2, 0x79, 0x0c, 0xda, 0x7f, 0x27, 0x8a, 0x95,
-	0xc4, 0xc0, 0xe0, 0x44, 0x43, 0xdb, 0x03, 0x65, 0xea, 0x0f, 0x30, 0xc4, 0x87, 0x7a, 0x41, 0x16,
-	0xbc, 0x58, 0x0e, 0xc6, 0x9c, 0x5d, 0x4f, 0xe4, 0xca, 0x89, 0x01, 0xa6, 0x0a, 0xad, 0x91, 0x02,
-	0xfe, 0x9d, 0x9f, 0xca, 0x3e, 0x61, 0x5c, 0x7b, 0x3d, 0x37, 0x19, 0x73, 0xb9, 0xc9, 0x88, 0x68,
-	0x39, 0x97, 0x49, 0x17, 0xa9, 0x65, 0x6a, 0x2a, 0x07, 0xa0, 0x44, 0x38, 0x76, 0xd3, 0x91, 0x6c,
-	0x2e, 0xec, 0x61, 0xbe, 0xba, 0xec, 0x03, 0xef, 0x0a, 0x05, 0x18, 0x0b, 0xb5, 0xbe, 0x29, 0xa0,
-	0x3e, 0x05, 0xaf, 0xa0, 0x87, 0xdd, 0xd9, 0x1e, 0xae, 0x2f, 0xd5, 0xc3, 0xc5, 0xc5, 0xff, 0x54,
-	0x00, 0xc8, 0xae, 0xb0, 0xd6, 0x00, 0xa5, 0x21, 0xa6, 0x1d, 0xa6, 0x2b, 0xcd, 0xc2, 0x86, 0x6a,
-	0xab, 0x82, 0x7f, 0x29, 0x0c, 0x30, 0xb6, 0x6b, 0x9b, 0x40, 0x45, 0x01, 0x79, 0x4c, 0xfd, 0x30,
-	0x88, 0xd3, 0xab, 0x76, 0x2d, 0x1a, 0x37, 0xd4, 0x87, 0x07, 0xbb, 0xb1, 0x11, 0x66, 0x7e, 0x01,
-	0x53, 0xcc, 0xfc, 0x90, 0x3a, 0x98, 0xe9, 0x85, 0x0c, 0x86, 0xa9, 0x11, 0x66, 0x7e, 0xed, 0x2e,
-	0xa8, 0xa5, 0x87, 0x36, 0x72, 0x31, 0xd3, 0x8b, 0x32, 0x60, 0x2d, 0x1a, 0x37, 0x6a, 0x70, 0xda,
-	0x01, 0x67, 0x39, 0xed, 0x3e, 0xa8, 0x7b, 0xbe, 0x97, 0x22, 0x2f, 0xe0, 0x3e, 0xd3, 0x4b, 0x32,
-	0xf4, 0x9f, 0x68, 0xdc, 0xa8, 0xb7, 0x67, 0x5d, 0xf0, 0x3c, 0xdb, 0xfa, 0xa2, 0x80, 0xe2, 0x6f,
-	0xb7, 0x54, 0x3e, 0xe4, 0x41, 0xf5, 0xcf, 0x36, 0x99, 0x6c, 0x13, 0xf1, 0x04, 0x57, 0xbb, 0x46,
-	0x96, 0x7e, 0x82, 0x57, 0xef, 0x8f, 0xcf, 0x0a, 0xa8, 0xac, 0x68, 0x71, 0xd8, 0xb3, 0x55, 0xff,
-	0x7f, 0x79, 0xd5, 0x17, 0x97, 0xfb, 0x0e, 0xa4, 0xf3, 0xd7, 0x6e, 0x80, 0x4a, 0xfa, 0xd8, 0x65,
-	0xb1, 0x6a, 0x96, 0x3c, 0xdd, 0x07, 0x70, 0x42, 0x68, 0x4d, 0x50, 0xec, 0x13, 0xaf, 0xab, 0xe7,
-	0x25, 0xf9, 0x57, 0x42, 0x16, 0xf7, 0x88, 0xd7, 0x85, 0xd2, 0x23, 0x08, 0x0f, 0xb9, 0x58, 0x5e,
-	0x88, 0x29, 0x42, 0x3c, 0x73, 0x28, 0x3d, 0x62, 0x56, 0xe5, 0xe4, 0x32, 0x4d, 0xf4, 0x94, 0x85,
-	0x7a, 0xd3, 0xf5, 0xe5, 0x97, 0xa9, 0xef, 0xf2, 0xec, 0x9a, 0x05, 0x54, 0xf1, 0xcb, 0x02, 0xe4,
-	0x60, 0xbd, 0x28, 0xb1, 0xb5, 0x04, 0x53, 0xdb, 0xa9, 0x03, 0x66, 0x8c, 0xbd, 0x35, 0x3a, 0x33,
-	0x72, 0x27, 0x67, 0x46, 0xee, 0xf4, 0xcc, 0xc8, 0xbd, 0x8f, 0x0c, 0x65, 0x14, 0x19, 0xca, 0x49,
-	0x64, 0x28, 0xa7, 0x91, 0xa1, 0x7c, 0x8f, 0x0c, 0xe5, 0xe3, 0x0f, 0x23, 0xf7, 0xaa, 0x9c, 0x4c,
-	0xfd, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0x74, 0x24, 0x6a, 0xfa, 0x45, 0x0a, 0x00, 0x00,
->>>>>>> Initial dep workover
-=======
->>>>>>> moar deps
 }
