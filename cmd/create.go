@@ -142,6 +142,10 @@ var profileMapIndexed = map[string]profileMap{
 		profileFunc: amazon.NewCentosCluster,
 		description: "CentOS on Amazon",
 	},
+	"aws-debian": {
+		profileFunc: amazon.NewDebianCluster,
+		description: "Debian on Amazon",
+	},
 	"packet": {
 		profileFunc: packet.NewUbuntuCluster,
 		description: "Ubuntu on Packet x86",
