@@ -4,11 +4,15 @@
 # and the shell script real work. If you need conditional logic, write it in bash or make another shell script.
 # ------------------------------------------------------------------------------------------------------------------------
 
+# Specify the Kubernetes version to use.
+KUBERNETES_VERSION="1.9.2"
+KUBERNETES_CNI="0.6.0"
 
-sudo rpm --import https://packages.cloud.google.com/yum/doc/yum-key.gpg
-sudo rpm --import https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+# Import GPG keys and add repository entries for Kuberenetes.
+rpm --import https://packages.cloud.google.com/yum/doc/yum-key.gpg
+rpm --import https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 
-sudo sh -c 'cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=http://yum.kubernetes.io/repos/kubernetes-el7-x86_64
@@ -17,32 +21,39 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
        https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-EOF'
+EOF
 
-# SELinux is disabled in DO. This is not recommended and will be fixed later.
-
-sudo yum makecache -y
-sudo sudo yum install -y \
+yum makecache -y
+yum install -y \
      docker \
      socat \
      ebtables \
-     kubelet \
-     kubeadm \
+     kubelet-${KUBERNETES_VERSION}-0 \
+     kubeadm-${KUBERNETES_VERSION}-0 \
+     kubernetes-cni-${KUBERNETES_CNI}-0 \
      epel-release
 
-# jq needs its own special yum install as it depends on epel-release
-sudo yum install -y jq
+# "jq" depends on epel-release, so it needs its own yum install command.
+yum install -y jq
 
+# Enable Docker and Kubelet services.
 sudo systemctl enable docker
 sudo systemctl enable kubelet
 sudo systemctl start docker
 
-# Required by kubeadm
+# Required by kubeadm.
 sysctl -w net.bridge.bridge-nf-call-iptables=1
 sysctl -p
 
+# Specify node IP for kubelet.
+echo "Environment=\"KUBELET_EXTRA_ARGS=--node-ip=${PUBLICIP}\"" >> /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+systemctl daemon-reload
+systemctl restart kubelet
+
+# Parse kubicorn configuration file.
 TOKEN=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDTOKEN')
 MASTER=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDMASTER')
 
-sudo -E kubeadm reset
-sudo -E kubeadm join --token ${TOKEN} ${MASTER}
+# Join node a cluster.
+kubeadm reset
+kubeadm join --node-name ${HOSTNAME} --token ${TOKEN} ${MASTER} --discovery-token-unsafe-skip-ca-verification

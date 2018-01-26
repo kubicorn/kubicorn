@@ -39,6 +39,9 @@ func NewUbuntuCluster(name string) *cluster.Cluster {
 				"INJECTEDTOKEN": kubeadm.GetRandomToken(),
 			},
 		},
+		Components: &cluster.Components{
+			ComponentVPN: false,
+		},
 		ServerPools: []*cluster.ServerPool{
 			{
 				Type:     cluster.ServerPoolTypeMaster,

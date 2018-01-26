@@ -34,6 +34,7 @@ func NewClusterDefaults(base *cluster.Cluster) *cluster.Cluster {
 		KubernetesAPI: base.KubernetesAPI,
 		ServerPools:   base.ServerPools,
 		Project:       base.Project,
+		Components:    base.Components,
 	}
 	return new
 }

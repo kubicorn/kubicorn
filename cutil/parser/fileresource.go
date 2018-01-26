@@ -16,6 +16,7 @@ package fileresource
 
 import (
 	"net/url"
+	"os"
 	"strings"
 
 	"github.com/kris-nova/kubicorn/cutil/logger"
@@ -24,9 +25,11 @@ import (
 // ReadFromResource reads a file from different sources
 // at the moment suppoted resources are http, http, local file system(POSIX)
 func ReadFromResource(r string) (string, error) {
+	env := os.Getenv("KUBICORN_ENVIRONMENT")
+
 	switch {
 
-	case strings.HasPrefix(strings.ToLower(r), "bootstrap/"):
+	case strings.HasPrefix(strings.ToLower(r), "bootstrap/") && env != "LOCAL":
 
 		// If we start with bootstrap/ we know this is a resource we should pull from github.com
 		// So here we build the GitHub URL and send the request
