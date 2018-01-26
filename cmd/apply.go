@@ -24,6 +24,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/agent"
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
+	"github.com/kris-nova/kubicorn/cutil/local"
 	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
@@ -191,6 +192,11 @@ func RunApply(options *ApplyOptions) error {
 	}
 
 	logger.Always("The [%s] cluster has applied successfully!", newCluster.Name)
+	if path, ok := newCluster.Annotations[kubeconfig.ClusterAnnotationKubeconfigLocalFile]; ok {
+		path = local.Expand(path)
+		logger.Always("To start using your cluster, you need to run")
+		logger.Always("  export KUBECONFIG=\"${KUBECONFIG}:%s\"", path)
+	}
 	logger.Always("You can now `kubectl get nodes`")
 	privKeyPath := strings.Replace(cluster.SSH.PublicKeyPath, ".pub", "", 1)
 	logger.Always("You can SSH into your cluster ssh -i %s %s@%s", privKeyPath, newCluster.SSH.User, newCluster.KubernetesAPI.Endpoint)
