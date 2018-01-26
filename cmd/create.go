@@ -223,6 +223,8 @@ func RunCreate(options *CreateOptions) error {
 			BasePath:    options.StateStorePath,
 			ClusterName: name,
 		})
+	default:
+		return fmt.Errorf("State store [%s] has an invalid type [%s].", name, options.StateStore)
 	}
 
 	// Check if state store exists
