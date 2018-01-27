@@ -15,7 +15,6 @@
 package cmd
 
 import (
-	"errors"
 	"fmt"
 	"math"
 	"os"
@@ -30,12 +29,7 @@ import (
 	"github.com/kris-nova/kubicorn/profiles/digitalocean"
 	"github.com/kris-nova/kubicorn/profiles/googlecompute"
 	"github.com/kris-nova/kubicorn/profiles/packet"
-	"github.com/kris-nova/kubicorn/state"
-	"github.com/kris-nova/kubicorn/state/fs"
-	"github.com/kris-nova/kubicorn/state/git"
-	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
-	gg "github.com/tcnksm/go-gitconfig"
 	"github.com/yuroyoro/swalker"
 )
 
@@ -191,49 +185,16 @@ func RunCreate(options *CreateOptions) error {
 	// Todo (@kris-nova) please pull this into a filepath package or something
 	options.StateStorePath = expandPath(options.StateStorePath)
 
-	// Register state store
-	var stateStore state.ClusterStorer
-	switch options.StateStore {
-	case "fs":
-		logger.Info("Selected [fs] state store")
-		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-		})
-	case "git":
-		logger.Info("Selected [git] state store")
-		if options.GitRemote == "" {
-			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
-		}
-		user, _ := gg.Global("user.name")
-		email, _ := gg.Email()
-
-		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-			CommitConfig: &git.JSONGitCommitConfig{
-				Name:   user,
-				Email:  email,
-				Remote: options.GitRemote,
-			},
-		})
-	case "jsonfs":
-		logger.Info("Selected [jsonfs] state store")
-		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-		})
-	default:
-		return fmt.Errorf("State store [%s] has an invalid type [%s].", name, options.StateStore)
-	}
-
-	// Check if state store exists
-	if stateStore.Exists() {
+	// Register state store and check if it exists
+	stateStore, err := options.NewStateStore()
+	if err != nil {
+		return err
+	} else if stateStore.Exists() {
 		return fmt.Errorf("State store [%s] exists, will not overwrite. Delete existing profile [%s] and retry", name, options.StateStorePath+"/"+name)
 	}
 
 	// Init new state store with the cluster resource
-	err := stateStore.Commit(newCluster)
+	err = stateStore.Commit(newCluster)
 	if err != nil {
 		return fmt.Errorf("Unable to init state store: %v", err)
 	}

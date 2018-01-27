@@ -23,12 +23,7 @@ import (
 	"github.com/kris-nova/kubicorn/cutil/initapi"
 	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/state"
-	"github.com/kris-nova/kubicorn/state/fs"
-	"github.com/kris-nova/kubicorn/state/git"
-	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
-	gg "github.com/tcnksm/go-gitconfig"
 )
 
 type GetConfigOptions struct {
@@ -85,38 +80,12 @@ func RunGetConfig(options *GetConfigOptions) error {
 	// Expand state store path
 	options.StateStorePath = expandPath(options.StateStorePath)
 
-	// Register state store
-	var stateStore state.ClusterStorer
-	switch options.StateStore {
-	case "fs":
-		logger.Info("Selected [fs] state store")
-		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-		})
-	case "git":
-		logger.Info("Selected [git] state store")
-		if options.GitRemote == "" {
-			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
-		}
-		user, _ := gg.Global("user.name")
-		email, _ := gg.Email()
-
-		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-			CommitConfig: &git.JSONGitCommitConfig{
-				Name:   user,
-				Email:  email,
-				Remote: options.GitRemote,
-			},
-		})
-	case "jsonfs":
-		logger.Info("Selected [jsonfs] state store")
-		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-		})
+	// Register state store and check if it exists
+	stateStore, err := options.NewStateStore()
+	if err != nil {
+		return err
+	} else if stateStore.Exists() {
+		return fmt.Errorf("State store [%s] exists, will not overwrite. Delete existing profile [%s] and retry", name, options.StateStorePath+"/"+name)
 	}
 
 	cluster, err := stateStore.GetCluster()
