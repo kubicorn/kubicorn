@@ -80,12 +80,10 @@ func RunGetConfig(options *GetConfigOptions) error {
 	// Expand state store path
 	options.StateStorePath = expandPath(options.StateStorePath)
 
-	// Register state store and check if it exists
+	// Register state store
 	stateStore, err := options.NewStateStore()
 	if err != nil {
 		return err
-	} else if stateStore.Exists() {
-		return fmt.Errorf("State store [%s] exists, will not overwrite. Delete existing profile [%s] and retry", name, options.StateStorePath+"/"+name)
 	}
 
 	cluster, err := stateStore.GetCluster()
