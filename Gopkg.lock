@@ -100,6 +100,12 @@
   version = "v1.1.1"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/dustin/go-humanize"
+  packages = ["."]
+  revision = "bb3d318650d48840a39aa21a027c6630e198e626"
+
+[[projects]]
   name = "github.com/emicklei/go-restful"
   packages = [
     ".",
@@ -322,6 +328,16 @@
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   revision = "a4e142e9c047c904fa2f1e144d9a84e6133024bc"
+  name = "github.com/minio/minio-go"
+  packages = [".","pkg/credentials","pkg/encrypt","pkg/policy","pkg/s3signer","pkg/s3utils","pkg/set"]
+  revision = "06dcf064d9e3b1dfd21b9a01a822da7665a9c971"
+  version = "4.0.4"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/mitchellh/go-homedir"
+  packages = ["."]
+  revision = "b8bc1bf767474819792c23f32d8286a45736f1c6"
 
 [[projects]]
   name = "github.com/packethost/packngo"
@@ -409,6 +425,10 @@
   packages = ["."]
   revision = "acbeb36b902d72a7a4c18e8f3241075e7ab763e4"
   version = "v1.1.0"
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  revision = "d682213848ed68c0a260ca37d6dd5ace8423f5ba"
+  version = "v1.0.4"
 
 [[projects]]
   branch = "master"
@@ -745,6 +765,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "b1e14ac232f79b0448ff6f3030291380e43f97a87a2cedf5b2d0b1761c88761b"
+  inputs-digest = "cb9e324d036a0fc26410c3e1d318974e5773487be4af9e1b91ef2c1d51219335"
   solver-name = "gps-cdcl"
   solver-version = 1
