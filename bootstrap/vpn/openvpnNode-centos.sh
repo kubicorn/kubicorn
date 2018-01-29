@@ -6,17 +6,24 @@
 
 PRIVATE_IP=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 
-# OpenVPN
 yum install epel-release -y
-yum install openvpn -y
 yum install jq -y
 
-OPENVPN_CONF=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDCONF')
+VPN=$(cat /etc/kubicorn/cluster.json | jq -r '.components.vpn')
 
-echo -e ${OPENVPN_CONF} > /etc/openvpn/clients.conf
+if [ -z $VPN ]; then
+    sleep 7
+    export VPN=$(cat /etc/kubicorn/cluster.json | jq -r '.components.vpn')
+fi
 
-systemctl start openvpn@clients
-systemctl enable openvpn@clients
+if $VPN; then
+    # OpenVPN
+    yum install openvpn -y
 
+    OPENVPN_CONF=$(cat /etc/kubicorn/cluster.json | jq -r '.values.itemMap.INJECTEDCONF')
 
+    echo -e ${OPENVPN_CONF} > /etc/openvpn/clients.conf
 
+    systemctl start openvpn@clients
+    systemctl enable openvpn@clients
+fi
