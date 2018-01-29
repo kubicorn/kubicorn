@@ -40,3 +40,15 @@ func IntEnvDef(env string, def int) int {
 	}
 	return ival
 }
+
+func boolEnvDef(env string, def bool) bool {
+	val := os.Getenv(env)
+	if val == "" {
+		return def
+	}
+	b, err := strconv.ParseBool(val)
+	if err != nil {
+		return def
+	}
+	return b
+}

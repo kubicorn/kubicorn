@@ -19,7 +19,14 @@ KUBICORN_ENVIRONMENT | string | If it's set to `LOCAL`, `kubicorn` will use boot
 KUBICORN_FORCE_DELETE_KEY | bool | Force delete key for AWS or Packet
 KUBICORN_FORCE_DISABLE_SSH_AGENT | bool | Force SCP and SSH to never use SSH agent
 --- | --- | ---
+KUBICORN_S3_ACCESS_KEY | string | Access key for S3-compatible object storage
+KUBICORN_S3_SECRET_KEY | string | Secret key for S3-compatible object storage
+KUBICORN_S3_ENDPOINT | string | Endpoint URL of S3-compatible object storage
+KUBICORN_S3_SSL | bool | Use SSL to access S3-compatible object storage
+KUBICORN_S3_BUCKET | string | Name of the S3-compatible bucket
+--- | --- | ---
 AWS_PROFILE | string | The name of the Amazon profile stored in `~/.aws/credentials`
+--- | --- | ---
 AWS_ACCESS_KEY_ID | string | The AWS access key to use with AWS profiles - Optional, see [AWS Walkthrough](http://kubicorn.io/documentation/aws-walkthrough.html)
 AWS_SECRET_ACCESS_KEY | string | The AWS secret to use with AWS profiles - Optional, see [AWS Walkthrough](http://kubicorn.io/documentation/aws-walkthrough.html)
 --- | --- | ---

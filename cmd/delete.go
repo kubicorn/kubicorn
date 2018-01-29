@@ -63,8 +63,17 @@ func DeleteCmd() *cobra.Command {
 	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
-	deleteCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", cli.StrEnvDef("AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
-	deleteCmd.Flags().StringVar(&ao.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	deleteCmd.Flags().StringVar(&do.AwsProfile, "aws-profile", strEnvDef("KUBICORN_AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
+
+	// git flags
+	deleteCmd.Flags().StringVar(&do.GitRemote, "git-config", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+
+	// s3 flags
+	deleteCmd.Flags().StringVar(&do.S3AccessKey, "s3-access", strEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
+	deleteCmd.Flags().StringVar(&do.S3SecretKey, "s3-secret", strEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
+	deleteCmd.Flags().StringVar(&do.BucketEndpointURL, "s3-endpoint", strEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
+	deleteCmd.Flags().BoolVar(&do.BucketSSL, "s3-ssl", boolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
+	deleteCmd.Flags().StringVar(&do.BucketName, "s3-bucket", strEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
 
 	return deleteCmd
 }
@@ -95,8 +104,8 @@ func RunDelete(options *cli.DeleteOptions) error {
 
 	runtimeParams := &pkg.RuntimeParameters{}
 
-	if len(ao.AwsProfile) > 0 {
-		runtimeParams.AwsProfile = ao.AwsProfile
+	if len(do.AwsProfile) > 0 {
+		runtimeParams.AwsProfile = do.AwsProfile
 	}
 
 	reconciler, err := pkg.GetReconciler(expectedCluster, runtimeParams)
