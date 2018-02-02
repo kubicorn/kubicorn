@@ -19,12 +19,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kris-nova/kubicorn/cutil/signals"
+	"github.com/kris-nova/kubicorn/pkg/signals"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil/defaults"
-	"github.com/kris-nova/kubicorn/cutil/hang"
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg/defaults"
+	"github.com/kris-nova/kubicorn/pkg/hang"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 )
 
 var sigCaught = false

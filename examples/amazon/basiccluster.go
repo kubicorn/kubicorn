@@ -15,9 +15,9 @@
 package main
 
 import (
-	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/initapi"
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/initapi"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/kris-nova/kubicorn/profiles/amazon"
 )
 
@@ -29,7 +29,7 @@ func main() {
 		panic(err.Error())
 	}
 
-	reconciler, err := cutil.GetReconciler(cluster, &cutil.RuntimeParameters{AwsProfile: "default"})
+	reconciler, err := pkg.GetReconciler(cluster, &pkg.RuntimeParameters{AwsProfile: "default"})
 	if err != nil {
 		panic(err.Error())
 	}

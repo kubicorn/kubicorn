@@ -15,9 +15,9 @@
 package main
 
 import (
-	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/initapi"
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/initapi"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/kris-nova/kubicorn/profiles/googlecompute"
 )
 
@@ -28,7 +28,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	reconciler, err := cutil.GetReconciler(cluster, nil)
+	reconciler, err := pkg.GetReconciler(cluster, nil)
 	if err != nil {
 		panic(err.Error())
 	}

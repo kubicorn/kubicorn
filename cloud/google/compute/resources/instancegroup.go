@@ -22,10 +22,10 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cutil/compare"
-	"github.com/kris-nova/kubicorn/cutil/defaults"
-	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/cutil/script"
+	"github.com/kris-nova/kubicorn/pkg/compare"
+	"github.com/kris-nova/kubicorn/pkg/defaults"
+	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kris-nova/kubicorn/pkg/script"
 	"google.golang.org/api/compute/v1"
 )
 

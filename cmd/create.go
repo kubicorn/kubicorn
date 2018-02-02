@@ -22,8 +22,8 @@ import (
 	"strings"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/cutil/namer"
+	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kris-nova/kubicorn/pkg/namer"
 	"github.com/kris-nova/kubicorn/profiles/amazon"
 	"github.com/kris-nova/kubicorn/profiles/azure"
 	"github.com/kris-nova/kubicorn/profiles/digitalocean"

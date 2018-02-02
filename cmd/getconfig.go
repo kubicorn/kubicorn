@@ -19,10 +19,10 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kris-nova/kubicorn/cutil/agent"
-	"github.com/kris-nova/kubicorn/cutil/initapi"
-	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg/agent"
+	"github.com/kris-nova/kubicorn/pkg/initapi"
+	"github.com/kris-nova/kubicorn/pkg/kubeconfig"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
 )
 

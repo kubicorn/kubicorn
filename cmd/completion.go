@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 
 	"github.com/spf13/cobra"
 )

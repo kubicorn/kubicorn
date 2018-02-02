@@ -20,12 +20,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/agent"
-	"github.com/kris-nova/kubicorn/cutil/initapi"
-	"github.com/kris-nova/kubicorn/cutil/kubeconfig"
-	"github.com/kris-nova/kubicorn/cutil/local"
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/agent"
+	"github.com/kris-nova/kubicorn/pkg/initapi"
+	"github.com/kris-nova/kubicorn/pkg/kubeconfig"
+	"github.com/kris-nova/kubicorn/pkg/local"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
 	"github.com/yuroyoro/swalker"
 )
@@ -118,13 +118,13 @@ func RunApply(options *ApplyOptions) error {
 		return err
 	}
 
-	runtimeParams := &cutil.RuntimeParameters{}
+	runtimeParams := &pkg.RuntimeParameters{}
 
 	if len(ao.AwsProfile) > 0 {
 		runtimeParams.AwsProfile = ao.AwsProfile
 	}
 
-	reconciler, err := cutil.GetReconciler(cluster, runtimeParams)
+	reconciler, err := pkg.GetReconciler(cluster, runtimeParams)
 	if err != nil {
 		return fmt.Errorf("Unable to get reconciler: %v", err)
 	}

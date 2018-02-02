@@ -18,8 +18,8 @@ import (
 	"fmt"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil/kubeadm"
-	"github.com/kris-nova/kubicorn/cutil/uuid"
+	"github.com/kris-nova/kubicorn/pkg/kubeadm"
+	"github.com/kris-nova/kubicorn/pkg/uuid"
 )
 
 // NewUbuntuCluster creates a simple Ubuntu Amazon cluster
