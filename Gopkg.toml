@@ -20,6 +20,7 @@
 #  name = "github.com/x/y"
 #  version = "2.4.0"
 
+ignored = ["github.com/kris-nova/kubicorn/*"]
 
 [[constraint]]
   name = "github.com/digitalocean/godo"
@@ -31,10 +32,6 @@
 
 [[constraint]]
   name = "github.com/ghodss/yaml"
-  version = "1.0.0"
-
-[[constraint]]
-  name = "github.com/gravitational/trace"
   version = "1.0.0"
 
 [[constraint]]
@@ -66,13 +63,17 @@
   version = "0.1.0"
 
 [[constraint]]
-  name = "k8s.io/client-go"
-  revision = "9389c055a838d4f208b699b3c7c51b70f2368861"
-
-[[constraint]]
   name = "k8s.io/apimachinery"
   revision = "68f9c3a1feb3140df59c67ced62d3a5df8e6c9c2"
 
-[[constraint]]
+[[override]]
+  name = "k8s.io/client-go"
+  revision = "9389c055a838d4f208b699b3c7c51b70f2368861"
+
+[[override]]
   name = "k8s.io/api"
   revision = "006a217681ae70cbacdd66a5e2fca1a61a8ff28e"
+
+[[override]]
+  name = "github.com/gravitational/trace"
+  version = "1.0.0"
