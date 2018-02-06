@@ -1,0 +1,24 @@
+
+[[dependencies]]
+  branch = "master"
+  name = "github.com/fatih/color"
+
+[[dependencies]]
+  branch = "master"
+  name = "github.com/google/go-github"
+
+[[dependencies]]
+  branch = "master"
+  name = "github.com/spf13/cobra"
+
+[[dependencies]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+
+[[dependencies]]
+  branch = "master"
+  name = "golang.org/x/oauth2"
+
+[[dependencies]]
+  name = "gopkg.in/src-d/go-git.v4"
+  revision = "7e249dfcf28765939bde8f38784b3274b522f880"

@@ -18,3 +18,4 @@ func TestEnvUserPass(t *testing.T) {
 		t.Fatalf("Unable to auth: %v", err)
 	}
 }
+

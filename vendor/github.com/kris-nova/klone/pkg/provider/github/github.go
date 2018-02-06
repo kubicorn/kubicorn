@@ -324,6 +324,7 @@ func (s *GitServer) getCredentials() (*GitHubCredentials, error) {
 
 	// We have a token in memory, this always wins
 	if !RefreshCredentials {
+		fmt.Println(".")
 		if setToken != "" {
 			token = setToken
 			if setToken != cachedToken {
