@@ -115,6 +115,12 @@
   version = "v1.5.0"
 
 [[projects]]
+  name = "github.com/fsnotify/fsnotify"
+  packages = ["."]
+  revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
+  version = "v1.4.7"
+
+[[projects]]
   name = "github.com/ghodss/yaml"
   packages = ["."]
   revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
@@ -216,15 +222,19 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/howeyc/gopass"
-  packages = ["."]
-  revision = "bf9dde6d0d2c004a008c27aaee91170c786f6db8"
-
-[[projects]]
-  name = "github.com/imdario/mergo"
-  packages = ["."]
-  revision = "f1ac5984e69fed03e0574a92f70c59f132616ea2"
-  version = "0.3.0"
+  name = "github.com/hashicorp/hcl"
+  packages = [
+    ".",
+    "hcl/ast",
+    "hcl/parser",
+    "hcl/scanner",
+    "hcl/strconv",
+    "hcl/token",
+    "json/parser",
+    "json/scanner",
+    "json/token"
+  ]
+  revision = "23c074d0eceb2b8a5bfdbb271ab780cde70f05a8"
 
 [[projects]]
   name = "github.com/inconshreveable/mousetrap"
@@ -264,14 +274,20 @@
 [[projects]]
   name = "github.com/kris-nova/klone"
   packages = ["pkg/local"]
-  revision = "a9d1a9905c22559b040697cd0a22b89217d56c9a"
-  version = "v1.2.0"
+  revision = "2217bf3479abb92275417e26b948209df4e402e9"
+  version = "v1.1.1"
 
 [[projects]]
   branch = "master"
   name = "github.com/kris-nova/lolgopher"
   packages = ["."]
   revision = "14bbba5e911d8e26eda5a2254405941b2c38607d"
+
+[[projects]]
+  name = "github.com/magiconair/properties"
+  packages = ["."]
+  revision = "d419a98cdbed11a922bf76f257b7c4be79b50e73"
+  version = "v1.7.4"
 
 [[projects]]
   branch = "master"
@@ -296,10 +312,22 @@
   version = "v0.0.3"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/mitchellh/mapstructure"
+  packages = ["."]
+  revision = "a4e142e9c047c904fa2f1e144d9a84e6133024bc"
+
+[[projects]]
   name = "github.com/packethost/packngo"
   packages = ["."]
   revision = "131798f2804a1b3e895ca98047d56f0d7e094e2a"
   version = "v0.1.0"
+
+[[projects]]
+  name = "github.com/pelletier/go-toml"
+  packages = ["."]
+  revision = "acdc4509485b587f5e675510c4f2c63e90ff68a8"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
@@ -338,15 +366,42 @@
   revision = "1744e2970ca51c86172c8190fadad617561ed6e7"
 
 [[projects]]
+  name = "github.com/spf13/afero"
+  packages = [
+    ".",
+    "mem"
+  ]
+  revision = "bb8f1927f2a9d3ab41c9340aa034f6b803f4359c"
+  version = "v1.0.2"
+
+[[projects]]
+  name = "github.com/spf13/cast"
+  packages = ["."]
+  revision = "acbeb36b902d72a7a4c18e8f3241075e7ab763e4"
+  version = "v1.1.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/spf13/cobra"
   packages = ["."]
   revision = "ccaecb155a2177302cb56cae929251a256d0f646"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/spf13/jwalterweatherman"
+  packages = ["."]
+  revision = "7c0cea34c8ece3fbeb2b27ab9b59511d360fb394"
+
+[[projects]]
   name = "github.com/spf13/pflag"
   packages = ["."]
   revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "github.com/spf13/viper"
+  packages = ["."]
+  revision = "25b30aa063fc18e48662b86996252eabdcf2f0c7"
   version = "v1.0.0"
 
 [[projects]]
@@ -641,17 +696,12 @@
     "pkg/version",
     "rest",
     "rest/watch",
-    "tools/auth",
-    "tools/clientcmd",
     "tools/clientcmd/api",
-    "tools/clientcmd/api/latest",
-    "tools/clientcmd/api/v1",
     "tools/metrics",
     "tools/reference",
     "transport",
     "util/cert",
     "util/flowcontrol",
-    "util/homedir",
     "util/integer"
   ]
   revision = "9389c055a838d4f208b699b3c7c51b70f2368861"
@@ -665,6 +715,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5908391d16240b1d6bf6fd02e4683556e41914d8a108e96d72b5ffd9ee4fbc37"
+  inputs-digest = "5634d9852a2684a203c3c7b7e6378469f4d18459c4891f037e9bd81fe047f81b"
   solver-name = "gps-cdcl"
   solver-version = 1

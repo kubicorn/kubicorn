@@ -76,3 +76,6 @@
 [[constraint]]
   name = "k8s.io/api"
   revision = "006a217681ae70cbacdd66a5e2fca1a61a8ff28e"
+[[constraint]]
+  name = "github.com/spf13/viper"
+  version = "1.0.0"
