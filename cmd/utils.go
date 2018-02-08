@@ -18,7 +18,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/git"

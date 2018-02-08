@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"github.com/kris-nova/charlie/network"
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	profile "github.com/kris-nova/kubicorn/profiles/digitalocean"
 	"github.com/kris-nova/kubicorn/test"
 	"os"

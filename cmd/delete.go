@@ -19,9 +19,9 @@ import (
 	"os"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/logger"
-	"github.com/kris-nova/kubicorn/cutil/task"
+	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kris-nova/kubicorn/pkg/task"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
@@ -97,13 +97,13 @@ func RunDelete(options *DeleteOptions) error {
 		return fmt.Errorf("Unable to get cluster [%s]: %v", name, err)
 	}
 
-	runtimeParams := &cutil.RuntimeParameters{}
+	runtimeParams := &pkg.RuntimeParameters{}
 
 	if len(ao.AwsProfile) > 0 {
 		runtimeParams.AwsProfile = ao.AwsProfile
 	}
 
-	reconciler, err := cutil.GetReconciler(expectedCluster, runtimeParams)
+	reconciler, err := pkg.GetReconciler(expectedCluster, runtimeParams)
 	if err != nil {
 		return fmt.Errorf("Unable to get cluster reconciler: %v", err)
 	}

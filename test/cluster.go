@@ -16,8 +16,8 @@ package test
 
 import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/initapi"
+	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/initapi"
 )
 
 // Create will create a new test cluster
@@ -26,7 +26,7 @@ func Create(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	reconciler, err := cutil.GetReconciler(testCluster, nil)
+	reconciler, err := pkg.GetReconciler(testCluster, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func Create(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 
 // Read will read a test cluster
 func Read(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
-	reconciler, err := cutil.GetReconciler(testCluster, nil)
+	reconciler, err := pkg.GetReconciler(testCluster, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func Update(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 	if err != nil {
 		return nil, err
 	}
-	reconciler, err := cutil.GetReconciler(testCluster, nil)
+	reconciler, err := pkg.GetReconciler(testCluster, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func Update(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
 
 // Delete will delete a test cluster
 func Delete(testCluster *cluster.Cluster) (*cluster.Cluster, error) {
-	reconciler, err := cutil.GetReconciler(testCluster, nil)
+	reconciler, err := pkg.GetReconciler(testCluster, nil)
 	if err != nil {
 		return nil, err
 	}

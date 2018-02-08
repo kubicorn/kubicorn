@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	prompt "github.com/c-bata/go-prompt"
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
