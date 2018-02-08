@@ -154,4 +154,4 @@ We will try to summarize it in this document, but you should read the above link
 ## Why we are doing stuff this way?
 
 In this document, we'll not explain reasoning and decisions involved in this project. If you are interested in the details, you should take a look at the [Cloud Native Infrastructure](http://shop.oreilly.com/product/0636920075837.do) book by Justin Garrison and Kris Nova.
-Also, if you have any question, feel free to create an issue or ask us on the `kubicorn` channel at the [Gophers Slack](https://invite.slack.golangbridge.org/).
+Also, if you have any question, feel free to create an issue or ask us on the `kubicorn` channel at the [Kubernetes Slack](http://slack.k8s.io/).
