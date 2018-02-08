@@ -15,8 +15,12 @@
 With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
 
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
-Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the #kubicorn channel in the [Gophers Slack community](https://invite.slack.golangbridge.org/).
+Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the `#kubicorn` channel in the [Kubernetes Slack community](http://slack.k8s.io/).
 
+Previously, we mainly used a channel in the [Gophers Slack community](https://invite.slack.golangbridge.org/), which is still active, but we're moving to the Kubernetes Slack.
+You can also get involved and send your questions to our [public mailing list](https://groups.google.com/forum/#!forum/kubicorn-users-and-developers).
+
+We hold developer calls on every 3rd Friday of the month. By joining the [mailing list](https://groups.google.com/forum/#!forum/kubicorn-users-and-developers), you'll get a calendar invite.
 
 <img src="https://github.com/ashleymcnamara/gophers/blob/master/NERDY.png" width="60"> Proudly packaged with Golang [dep](https://github.com/golang/dep)
 
