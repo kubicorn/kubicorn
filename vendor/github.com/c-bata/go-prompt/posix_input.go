@@ -1,3 +1,5 @@
+// +build !windows
+
 package prompt
 
 import (
@@ -9,12 +11,16 @@ import (
 	"github.com/pkg/term/termios"
 )
 
-type VT100Parser struct {
+const maxReadBytes = 1024
+
+// PosixParser is a ConsoleParser implementation for POSIX environment.
+type PosixParser struct {
 	fd          int
 	origTermios syscall.Termios
 }
 
-func (t *VT100Parser) Setup() error {
+// Setup should be called before starting input
+func (t *PosixParser) Setup() error {
 	// Set NonBlocking mode because if syscall.Read block this goroutine, it cannot receive data from stopCh.
 	if err := syscall.SetNonblock(t.fd, true); err != nil {
 		log.Println("[ERROR] Cannot set non blocking mode.")
@@ -27,7 +33,8 @@ func (t *VT100Parser) Setup() error {
 	return nil
 }
 
-func (t *VT100Parser) TearDown() error {
+// TearDown should be called after stopping input
+func (t *PosixParser) TearDown() error {
 	if err := syscall.SetNonblock(t.fd, false); err != nil {
 		log.Println("[ERROR] Cannot set blocking mode.")
 		return err
@@ -39,7 +46,17 @@ func (t *VT100Parser) TearDown() error {
 	return nil
 }
 
-func (t *VT100Parser) setRawMode() error {
+// Read returns byte array.
+func (t *PosixParser) Read() ([]byte, error) {
+	buf := make([]byte, maxReadBytes)
+	n, err := syscall.Read(syscall.Stdin, buf)
+	if err != nil {
+		return []byte{}, err
+	}
+	return buf[:n], nil
+}
+
+func (t *PosixParser) setRawMode() error {
 	x := t.origTermios.Lflag
 	if x &^= syscall.ICANON; x != 0 && x == t.origTermios.Lflag {
 		// fd is already raw mode
@@ -58,14 +75,15 @@ func (t *VT100Parser) setRawMode() error {
 	return nil
 }
 
-func (t *VT100Parser) resetRawMode() error {
+func (t *PosixParser) resetRawMode() error {
 	if t.origTermios.Lflag == 0 {
 		return nil
 	}
 	return termios.Tcsetattr(uintptr(t.fd), termios.TCSANOW, &t.origTermios)
 }
 
-func (t *VT100Parser) GetKey(b []byte) Key {
+// GetKey returns Key correspond to input byte codes.
+func (t *PosixParser) GetKey(b []byte) Key {
 	for _, k := range asciiSequences {
 		if bytes.Equal(k.ASCIICode, b) {
 			return k.Key
@@ -82,8 +100,8 @@ type ioctlWinsize struct {
 	Y   uint16 // pixel value
 }
 
-// GetWinSize returns winsize struct which is the response of ioctl(2).
-func (t *VT100Parser) GetWinSize() *WinSize {
+// GetWinSize returns WinSize object to represent width and height of terminal.
+func (t *PosixParser) GetWinSize() *WinSize {
 	ws := &ioctlWinsize{}
 	retCode, _, errno := syscall.Syscall(
 		syscall.SYS_IOCTL,
@@ -100,7 +118,7 @@ func (t *VT100Parser) GetWinSize() *WinSize {
 	}
 }
 
-var asciiSequences []*ASCIICode = []*ASCIICode{
+var asciiSequences = []*ASCIICode{
 	{Key: Escape, ASCIICode: []byte{0x1b}},
 
 	{Key: ControlSpace, ASCIICode: []byte{0x00}},
@@ -237,10 +255,11 @@ var asciiSequences []*ASCIICode = []*ASCIICode{
 	{Key: Ignore, ASCIICode: []byte{0x1b, 0x5b, 0x46}}, // Linux console
 }
 
-var _ ConsoleParser = &VT100Parser{}
+var _ ConsoleParser = &PosixParser{}
 
-func NewVT100StandardInputParser() *VT100Parser {
-	return &VT100Parser{
+// NewStandardInputParser returns ConsoleParser object to read from stdin.
+func NewStandardInputParser() *PosixParser {
+	return &PosixParser{
 		fd: syscall.Stdin,
 	}
 }

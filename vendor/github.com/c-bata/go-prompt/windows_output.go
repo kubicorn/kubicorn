@@ -1,39 +1,50 @@
+// +build windows
+
 package prompt
 
 import (
+	"io"
 	"strconv"
-	"syscall"
+
+	"github.com/mattn/go-colorable"
 )
 
-type VT100Writer struct {
-	fd     int
+// WindowsWriter is a ConsoleWriter implementation for Win32 console.
+// Output is converted from VT100 escape sequences by mattn/go-colorable.
+type WindowsWriter struct {
+	out    io.Writer
 	buffer []byte
 }
 
-func (w *VT100Writer) WriteRaw(data []byte) {
+// WriteRaw to write raw byte array
+func (w *WindowsWriter) WriteRaw(data []byte) {
 	w.buffer = append(w.buffer, data...)
 	// Flush because sometimes the render is broken when a large amount data in buffer.
 	w.Flush()
 	return
 }
 
-func (w *VT100Writer) Write(data []byte) {
+// Write to write byte array without control sequences
+func (w *WindowsWriter) Write(data []byte) {
 	w.WriteRaw(byteFilter(data, writeFilter))
 	return
 }
 
-func (w *VT100Writer) WriteRawStr(data string) {
+// WriteRawStr to write raw string
+func (w *WindowsWriter) WriteRawStr(data string) {
 	w.WriteRaw([]byte(data))
 	return
 }
 
-func (w *VT100Writer) WriteStr(data string) {
+// WriteStr to write string without control sequences
+func (w *WindowsWriter) WriteStr(data string) {
 	w.Write([]byte(data))
 	return
 }
 
-func (w *VT100Writer) Flush() error {
-	_, err := syscall.Write(w.fd, w.buffer)
+// Flush to flush buffer
+func (w *WindowsWriter) Flush() error {
+	_, err := w.out.Write(w.buffer)
 	if err != nil {
 		return err
 	}
@@ -43,48 +54,62 @@ func (w *VT100Writer) Flush() error {
 
 /* Erase */
 
-func (w *VT100Writer) EraseScreen() {
+// EraseScreen erases the screen with the background colour and moves the cursor to home.
+func (w *WindowsWriter) EraseScreen() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x32, 0x4a})
 	return
 }
 
-func (w *VT100Writer) EraseUp() {
+// EraseUp erases the screen from the current line up to the top of the screen.
+func (w *WindowsWriter) EraseUp() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x31, 0x4a})
 	return
 }
 
-func (w *VT100Writer) EraseDown() {
+// EraseDown erases the screen from the current line down to the bottom of the screen.
+func (w *WindowsWriter) EraseDown() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x4a})
 	return
 }
 
-func (w *VT100Writer) EraseStartOfLine() {
+// EraseStartOfLine erases from the current cursor position to the start of the current line.
+func (w *WindowsWriter) EraseStartOfLine() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x31, 0x4b})
 	return
 }
 
-func (w *VT100Writer) EraseEndOfLine() {
+// EraseEndOfLine erases from the current cursor position to the end of the current line.
+func (w *WindowsWriter) EraseEndOfLine() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x4b})
 	return
 }
 
-func (w *VT100Writer) EraseLine() {
+// EraseLine erases the entire current line.
+func (w *WindowsWriter) EraseLine() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x32, 0x4b})
 	return
 }
 
 /* Cursor */
 
-func (w *VT100Writer) ShowCursor() {
+// ShowCursor stops blinking cursor and show.
+func (w *WindowsWriter) ShowCursor() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x3f, 0x31, 0x32, 0x6c, 0x1b, 0x5b, 0x3f, 0x32, 0x35, 0x68})
 }
 
-func (w *VT100Writer) HideCursor() {
+// HideCursor hides cursor.
+func (w *WindowsWriter) HideCursor() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x3f, 0x32, 0x35, 0x6c})
 	return
 }
 
-func (w *VT100Writer) CursorGoTo(row, col int) {
+// CursorGoTo sets the cursor position where subsequent text will begin.
+func (w *WindowsWriter) CursorGoTo(row, col int) {
+	if row == 0 && col == 0 {
+		// If no row/column parameters are provided (ie. <ESC>[H), the cursor will move to the home position.
+		w.WriteRaw([]byte{0x1b, 0x5b, 0x3b, 0x48})
+		return
+	}
 	r := strconv.Itoa(row)
 	c := strconv.Itoa(col)
 	w.WriteRaw([]byte{0x1b, 0x5b})
@@ -95,7 +120,8 @@ func (w *VT100Writer) CursorGoTo(row, col int) {
 	return
 }
 
-func (w *VT100Writer) CursorUp(n int) {
+// CursorUp moves the cursor up by 'n' rows; the default count is 1.
+func (w *WindowsWriter) CursorUp(n int) {
 	if n < 0 {
 		w.CursorDown(n)
 		return
@@ -107,7 +133,8 @@ func (w *VT100Writer) CursorUp(n int) {
 	return
 }
 
-func (w *VT100Writer) CursorDown(n int) {
+// CursorDown moves the cursor down by 'n' rows; the default count is 1.
+func (w *WindowsWriter) CursorDown(n int) {
 	if n < 0 {
 		w.CursorUp(n)
 		return
@@ -119,7 +146,8 @@ func (w *VT100Writer) CursorDown(n int) {
 	return
 }
 
-func (w *VT100Writer) CursorForward(n int) {
+// CursorForward moves the cursor forward by 'n' columns; the default count is 1.
+func (w *WindowsWriter) CursorForward(n int) {
 	if n == 0 {
 		return
 	} else if n < 0 {
@@ -133,7 +161,8 @@ func (w *VT100Writer) CursorForward(n int) {
 	return
 }
 
-func (w *VT100Writer) CursorBackward(n int) {
+// CursorBackward moves the cursor backward by 'n' columns; the default count is 1.
+func (w *WindowsWriter) CursorBackward(n int) {
 	if n == 0 {
 		return
 	} else if n < 0 {
@@ -147,61 +176,69 @@ func (w *VT100Writer) CursorBackward(n int) {
 	return
 }
 
-func (w *VT100Writer) AskForCPR() {
+// AskForCPR asks for a cursor position report (CPR).
+func (w *WindowsWriter) AskForCPR() {
 	// CPR: Cursor Position Request.
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x36, 0x6e})
 	w.Flush()
 	return
 }
 
-func (w *VT100Writer) SaveCursor() {
+// SaveCursor saves current cursor position.
+func (w *WindowsWriter) SaveCursor() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x73})
 	return
 }
 
-func (w *VT100Writer) UnSaveCursor() {
+// UnSaveCursor restores cursor position after a Save Cursor.
+func (w *WindowsWriter) UnSaveCursor() {
 	w.WriteRaw([]byte{0x1b, 0x5b, 0x75})
 	return
 }
 
 /* Scrolling */
 
-func (w *VT100Writer) ScrollDown() {
+// ScrollDown scrolls display down one line.
+func (w *WindowsWriter) ScrollDown() {
 	w.WriteRaw([]byte{0x1b, 0x44})
 	return
 }
 
-func (w *VT100Writer) ScrollUp() {
+// ScrollUp scroll display up one line.
+func (w *WindowsWriter) ScrollUp() {
 	w.WriteRaw([]byte{0x1b, 0x4d})
 	return
 }
 
 /* Title */
 
-func (w *VT100Writer) SetTitle(title string) {
+// SetTitle sets a title of terminal window.
+func (w *WindowsWriter) SetTitle(title string) {
 	w.WriteRaw([]byte{0x1b, 0x5d, 0x32, 0x3b})
 	w.WriteRaw(byteFilter([]byte(title), setTextFilter))
 	w.WriteRaw([]byte{0x07})
 	return
 }
 
-func (w *VT100Writer) ClearTitle() {
+// ClearTitle clears a title of terminal window.
+func (w *WindowsWriter) ClearTitle() {
 	w.WriteRaw([]byte{0x1b, 0x5d, 0x32, 0x3b, 0x07})
 	return
 }
 
 /* Font */
 
-func (w *VT100Writer) SetColor(fg, bg Color, bold bool) {
+// SetColor sets text and background colors. and specify whether text is bold.
+func (w *WindowsWriter) SetColor(fg, bg Color, bold bool) {
 	f, ok := foregroundANSIColors[fg]
 	if !ok {
-		f = foregroundANSIColors[DefaultColor]
+		f, _ = foregroundANSIColors[DefaultColor]
 	}
 	b, ok := backgroundANSIColors[bg]
 	if !ok {
-		b = backgroundANSIColors[DefaultColor]
+		b, _ = backgroundANSIColors[DefaultColor]
 	}
-	syscall.Write(syscall.Stdout, []byte{0x1b, 0x5b, 0x33, 0x39, 0x3b, 0x34, 0x39, 0x6d})
+	w.out.Write([]byte{0x1b, 0x5b, 0x33, 0x39, 0x3b, 0x34, 0x39, 0x6d})
 	w.WriteRaw([]byte{0x1b, 0x5b})
 	if !bold {
 		w.WriteRaw([]byte{0x30, 0x3b})
@@ -286,10 +323,11 @@ func byteFilter(buf []byte, fn ...func(b byte) bool) []byte {
 	return byteFilter(ret, fn[1:]...)
 }
 
-var _ ConsoleWriter = &VT100Writer{}
+var _ ConsoleWriter = &WindowsWriter{}
 
-func NewVT100StandardOutputWriter() *VT100Writer {
-	return &VT100Writer{
-		fd: syscall.Stdout,
+// NewStandardOutputWriter returns ConsoleWriter object to write to stdout.
+func NewStandardOutputWriter() *WindowsWriter {
+	return &WindowsWriter{
+		out: colorable.NewColorableStdout(),
 	}
 }

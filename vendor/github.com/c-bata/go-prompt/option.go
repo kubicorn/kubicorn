@@ -1,7 +1,5 @@
 package prompt
 
-import "syscall"
-
 // Option is the type to replace default parameters.
 // prompt.New accepts any number of options (this is functional option pattern).
 type Option func(prompt *Prompt) error
@@ -34,6 +32,14 @@ func OptionTitle(x string) Option {
 func OptionPrefix(x string) Option {
 	return func(p *Prompt) error {
 		p.renderer.prefix = x
+		return nil
+	}
+}
+
+// OptionLivePrefix to change the prefix dynamically by callback function
+func OptionLivePrefix(f func() (prefix string, useLivePrefix bool)) Option {
+	return func(p *Prompt) error {
+		p.renderer.livePrefixCallback = f
 		return nil
 	}
 }
@@ -136,6 +142,20 @@ func OptionSelectedDescriptionBGColor(x Color) Option {
 	}
 }
 
+func OptionScrollbarThumbColor(x Color) Option {
+	return func(p *Prompt) error {
+		p.renderer.scrollbarThumbColor = x
+		return nil
+	}
+}
+
+func OptionScrollbarBGColor(x Color) Option {
+	return func(p *Prompt) error {
+		p.renderer.scrollbarBGColor = x
+		return nil
+	}
+}
+
 // OptionMaxSuggestion specify the max number of displayed suggestions.
 func OptionMaxSuggestion(x uint16) Option {
 	return func(p *Prompt) error {
@@ -176,10 +196,11 @@ func OptionAddKeyBind(b ...KeyBind) Option {
 // New returns a Prompt with powerful auto-completion.
 func New(executor Executor, completer Completer, opts ...Option) *Prompt {
 	pt := &Prompt{
-		in: &VT100Parser{fd: syscall.Stdin},
+		in: NewStandardInputParser(),
 		renderer: &Render{
 			prefix:                       "> ",
-			out:                          &VT100Writer{fd: syscall.Stdout},
+			out:                          NewStandardOutputWriter(),
+			livePrefixCallback:           func() (string, bool) { return "", false },
 			prefixTextColor:              Blue,
 			prefixBGColor:                DefaultColor,
 			inputTextColor:               DefaultColor,
@@ -194,6 +215,8 @@ func New(executor Executor, completer Completer, opts ...Option) *Prompt {
 			descriptionBGColor:           Turquoise,
 			selectedDescriptionTextColor: White,
 			selectedDescriptionBGColor:   Cyan,
+			scrollbarThumbColor:          DarkGray,
+			scrollbarBGColor:             Cyan,
 		},
 		buf:         NewBuffer(),
 		executor:    executor,

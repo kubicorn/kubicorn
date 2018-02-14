@@ -81,8 +81,8 @@
 [[projects]]
   name = "github.com/c-bata/go-prompt"
   packages = ["."]
-  revision = "c292a2f4b4fe8563883871456e19028ff9df0f26"
-  version = "v0.1.1"
+  revision = "e99fbc797b795e0a7a94affc8d44f6a0350d85f0"
+  version = "v0.2.1"
 
 [[projects]]
   name = "github.com/dgrijalva/jwt-go"
@@ -310,6 +310,12 @@
   packages = ["."]
   revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
   version = "v0.0.3"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/mattn/go-tty"
+  packages = ["."]
+  revision = "c1750293025292316a611ae8f632d9791515e51c"
 
 [[projects]]
   branch = "master"
