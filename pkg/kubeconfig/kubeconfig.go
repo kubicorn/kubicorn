@@ -28,6 +28,9 @@ import (
 	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
+	"strings"
+	"golang.org/x/crypto/ssh/terminal"
+	"syscall"
 )
 
 const (
@@ -36,9 +39,10 @@ const (
 	ClusterAnnotationKubeconfigLocalFile = "cluster.alpha.kubicorn.io/kubeconfig-local-file"
 )
 
-func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
+func GetConfig(existing *cluster.Cluster) error {
 	user := existing.SSH.User
 	pubKeyPath := local.Expand(existing.SSH.PublicKeyPath)
+	privKeyPath := strings.Replace(pubKeyPath, ".pub", "", 1)
 	if existing.SSH.Port == "" {
 		existing.SSH.Port = "22"
 	}
@@ -67,17 +71,49 @@ func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
 		remotePath = filepath.Join("/home", user, ".kube/config")
 	}
 
-	// Check for key
-	if err := sshAgent.CheckKey(pubKeyPath); err != nil {
-		if keyring, err := sshAgent.AddKey(pubKeyPath); err != nil {
-			return err
-		} else {
-			sshAgent = keyring
-		}
-	}
 
-	if sshAgent != nil && os.Getenv("KUBICORN_FORCE_DISABLE_SSH_AGENT") == "" {
+	// @xmudrii you probably want to set this to something other than ""
+	// so that your SSH agent works for kubicorn.
+	// By default I think it makes sense for this to be off. You can enable it
+	// by setting
+	// $ export KUBICORN_FORCE_SSH_AGENT = "1"
+	//
+	// Added by @kris-nova
+	//
+	//
+	//
+	// Actually we need a todo here
+	// TODO Can we have the agent package check if an agent is configured?
+	//
+	if os.Getenv("KUBICORN_FORCE_SSH_AGENT") != "" {
+
+
+
+
+		// New SSH Agent
+		sshAgent := agent.NewAgent()
+
+		sshAgent.GetAgent()
+
+		// Check for key
+		if err := sshAgent.CheckKey(pubKeyPath); err != nil {
+			if keyring, err := sshAgent.AddKey(pubKeyPath); err != nil {
+				return err
+			} else {
+				sshAgent = keyring
+			}
+		}
 		sshConfig.Auth = append(sshConfig.Auth, sshAgent.GetAgent())
+	}else {
+		pemBytes, err := ioutil.ReadFile(privKeyPath)
+		if err != nil {
+			return err
+		}
+		signer, err := getSigner(pemBytes)
+		if err != nil {
+			return err
+		}
+		sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 	}
 
 	sshConfig.SetDefaults()
@@ -129,9 +165,9 @@ const (
 	RetrySleepSeconds = 5
 )
 
-func RetryGetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
+func RetryGetConfig(existing *cluster.Cluster) error {
 	for i := 0; i <= RetryAttempts; i++ {
-		err := GetConfig(existing, sshAgent)
+		err := GetConfig(existing)
 		if err != nil {
 			logger.Debug("Waiting for Kubernetes to come up.. [%v]", err)
 			time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)
@@ -139,7 +175,10 @@ func RetryGetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
 		}
 		return nil
 	}
-	return fmt.Errorf("Timedout writing kubeconfig")
+	timeoutErrorMessage := `We were unable to SSH to the server to automatically pull down a kubeconfig.
+This is a recoverable error, and YOUR CLUSTER IS STILL ONLINE. You can retrieve your kube config file
+by SSHing into your cluster and finding it in ~/.kube/config`
+	return fmt.Errorf(timeoutErrorMessage)
 }
 
 func getKubeConfigPath(path string) (string, error) {
@@ -149,4 +188,26 @@ func getKubeConfigPath(path string) (string, error) {
 		}
 	}
 	return filepath.Join(path, "/config"), nil
+}
+
+
+func getSigner(pemBytes []byte) (ssh.Signer, error) {
+	signerwithoutpassphrase, err := ssh.ParsePrivateKey(pemBytes)
+	if err != nil {
+		logger.Debug(err.Error())
+		fmt.Print("SSH Key Passphrase [none]: ")
+		passPhrase, err := terminal.ReadPassword(int(syscall.Stdin))
+		fmt.Println("")
+		if err != nil {
+			return nil, err
+		}
+		signerwithpassphrase, err := ssh.ParsePrivateKeyWithPassphrase(pemBytes, passPhrase)
+		if err != nil {
+			return nil, err
+		}
+
+		return signerwithpassphrase, err
+	}
+
+	return signerwithoutpassphrase, err
 }
