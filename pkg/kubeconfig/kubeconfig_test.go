@@ -23,7 +23,6 @@ import (
 	"testing"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/pkg/agent"
 )
 
 func TestMain(m *testing.M) {
@@ -70,7 +69,7 @@ func TestGetConfigHappy(t *testing.T) {
 	}
 	os.Setenv("KUBICORN_TEST_HOME_DIRECTORY", dir+"/tmp")
 
-	err = GetConfig(testCluster, agent.NewAgent())
+	err = GetConfig(testCluster)
 
 	result, err := ioutil.ReadFile(dir + "/tmp/.kube/config")
 	if err != nil {
