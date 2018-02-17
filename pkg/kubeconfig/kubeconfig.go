@@ -36,7 +36,7 @@ const (
 	ClusterAnnotationKubeconfigLocalFile = "cluster.alpha.kubicorn.io/kubeconfig-local-file"
 )
 
-func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
+func GetConfig(existing *cluster.Cluster) error {
 	user := existing.SSH.User
 	pubKeyPath := local.Expand(existing.SSH.PublicKeyPath)
 	if existing.SSH.Port == "" {
@@ -56,31 +56,36 @@ func GetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
 		}
 	}
 
-	sshConfig := &ssh.ClientConfig{
-		User:            user,
-		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
-	}
 	remotePath := ""
-	if user == "root" {
+	if user == "root" { // --------------------------------------------------------------------------------
 		remotePath = "/root/.kube/config"
 	} else {
 		remotePath = filepath.Join("/home", user, ".kube/config")
 	}
 
-	// Check for key
-	if err := sshAgent.CheckKey(pubKeyPath); err != nil {
-		if keyring, err := sshAgent.AddKey(pubKeyPath); err != nil {
-			return err
-		} else {
-			sshAgent = keyring
-		}
+	// --------------------------------------------------------------------------------
+	//
+	// @kris-nova
+	//
+	// We don't need to check a key first, because SSH can support multiple auth implementations
+	// So here we just add BOTH a key based auth, and an arbitrary agent. Please don't touch this
+	// without talking to @kris-nova first OR unless something is just completely fucked
+	//
+	sshAgent := agent.NewAgent()
+	sshAgentWithKey, err := sshAgent.AddKey(pubKeyPath)
+	if err != nil {
+		return fmt.Errorf("Unable to add key: %v", err)
 	}
-
-	if sshAgent != nil && os.Getenv("KUBICORN_FORCE_DISABLE_SSH_AGENT") == "" {
-		sshConfig.Auth = append(sshConfig.Auth, sshAgent.GetAgent())
+	sshConfig := &ssh.ClientConfig{
+		User:            user,
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
-
+	sshConfig.Auth = append(sshConfig.Auth, sshAgent.GetAgent())
+	sshConfig.Auth = append(sshConfig.Auth, sshAgentWithKey.GetAgent())
 	sshConfig.SetDefaults()
+	//
+	// --------------------------------------------------------------------------------
+
 	conn, err := ssh.Dial("tcp", address, sshConfig)
 	if err != nil {
 		return err
@@ -129,9 +134,9 @@ const (
 	RetrySleepSeconds = 5
 )
 
-func RetryGetConfig(existing *cluster.Cluster, sshAgent *agent.Keyring) error {
+func RetryGetConfig(existing *cluster.Cluster) error {
 	for i := 0; i <= RetryAttempts; i++ {
-		err := GetConfig(existing, sshAgent)
+		err := GetConfig(existing)
 		if err != nil {
 			logger.Debug("Waiting for Kubernetes to come up.. [%v]", err)
 			time.Sleep(time.Duration(RetrySleepSeconds) * time.Second)

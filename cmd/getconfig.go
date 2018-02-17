@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kris-nova/kubicorn/pkg/agent"
 	"github.com/kris-nova/kubicorn/pkg/initapi"
 	"github.com/kris-nova/kubicorn/pkg/kubeconfig"
 	"github.com/kris-nova/kubicorn/pkg/logger"
@@ -68,9 +67,6 @@ func GetConfigCmd() *cobra.Command {
 
 func RunGetConfig(options *GetConfigOptions) error {
 
-	// Ensure we have SSH agent
-	agent := agent.NewAgent()
-
 	// Ensure we have a name
 	name := options.Name
 	if name == "" {
@@ -97,7 +93,7 @@ func RunGetConfig(options *GetConfigOptions) error {
 		return err
 	}
 
-	err = kubeconfig.GetConfig(cluster, agent)
+	err = kubeconfig.GetConfig(cluster)
 	if err != nil {
 		return err
 	}
