@@ -31,6 +31,9 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/google/compute"
 	gr "github.com/kris-nova/kubicorn/cloud/google/compute/resources"
 	"github.com/kris-nova/kubicorn/cloud/google/googleSDK"
+	"github.com/kris-nova/kubicorn/cloud/openstack/openstackSdk"
+	osr "github.com/kris-nova/kubicorn/cloud/openstack/operator/generic/resources"
+	osovh "github.com/kris-nova/kubicorn/cloud/openstack/operator/ovh"
 	"github.com/kris-nova/kubicorn/cloud/packet/packetSDK"
 	packetpub "github.com/kris-nova/kubicorn/cloud/packet/public"
 	packetr "github.com/kris-nova/kubicorn/cloud/packet/public/resources"
@@ -74,6 +77,13 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		azr.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, azpub.NewAzurePublicModel(known)), nil
+	case cluster.CloudOVH:
+		sdk, err := openstackSdk.NewSdk(known.Location)
+		if err != nil {
+			return nil, err
+		}
+		osr.Sdk = sdk
+		return cloud.NewAtomicReconciler(known, osovh.NewOvhPublicModel(known)), nil
 	case cluster.CloudPacket:
 		sdk, err := packetSDK.NewSdk()
 		if err != nil {
@@ -84,5 +94,4 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 	default:
 		return nil, fmt.Errorf("Invalid cloud type: %s", known.Cloud)
 	}
-
 }
