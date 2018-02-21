@@ -84,20 +84,10 @@ This asciicast shows how to get a Kubernetes cluster on Digital Ocean using kubi
 
 Define what you want, then apply it. That simple.
 
-### Adopt
-
-`kubicorn` can adopt any Kubernetes cluster at any time.
-
 ### Scale
 
 `kubicorn` is powered by a state enforcement pattern.
 A user defines the intended state of Kubernetes infrastructure, and `kubicorn` can enforce the intended state.
-
-### Snapshot
-
-`kubicorn` allows a user to take a snapshot of a Kubernetes cluster, and run the image in any cloud at any time.
-A snapshot is compressed file that will represent intended infrastructure **and** intended application definitions.
-Take a snap, save a snap, deploy a snap.
 
 ### Enforce
 

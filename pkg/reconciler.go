@@ -22,9 +22,6 @@ import (
 	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
 	awspub "github.com/kris-nova/kubicorn/cloud/amazon/public"
 	ar "github.com/kris-nova/kubicorn/cloud/amazon/public/resources"
-	"github.com/kris-nova/kubicorn/cloud/azure/azureSDK"
-	azpub "github.com/kris-nova/kubicorn/cloud/azure/public"
-	azr "github.com/kris-nova/kubicorn/cloud/azure/public/resources"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/droplet"
 	dr "github.com/kris-nova/kubicorn/cloud/digitalocean/droplet/resources"
 	"github.com/kris-nova/kubicorn/cloud/digitalocean/godoSdk"
@@ -67,13 +64,6 @@ func GetReconciler(known *cluster.Cluster, runtimeParameters *RuntimeParameters)
 		}
 		ar.Sdk = sdk
 		return cloud.NewAtomicReconciler(known, awspub.NewAmazonPublicModel(known)), nil
-	case cluster.CloudAzure:
-		sdk, err := azureSDK.NewSdk()
-		if err != nil {
-			return nil, err
-		}
-		azr.Sdk = sdk
-		return cloud.NewAtomicReconciler(known, azpub.NewAzurePublicModel(known)), nil
 	case cluster.CloudPacket:
 		sdk, err := packetSDK.NewSdk()
 		if err != nil {
