@@ -20,18 +20,14 @@ import (
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/cli"
 	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/kris-nova/kubicorn/pkg/task"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )
 
-type DeleteOptions struct {
-	Options
-	Purge bool
-}
-
-var do = &DeleteOptions{}
+var do = &cli.DeleteOptions{}
 
 // DeleteCmd represents the delete command
 func DeleteCmd() *cobra.Command {
@@ -47,7 +43,7 @@ func DeleteCmd() *cobra.Command {
 	To delete the resource AND the API model in the state store, use --purge.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
-				do.Name = strEnvDef("KUBICORN_NAME", "")
+				do.Name = cli.StrEnvDef("KUBICORN_NAME", "")
 			} else if len(args) > 1 {
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
@@ -64,16 +60,16 @@ func DeleteCmd() *cobra.Command {
 		},
 	}
 
-	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	deleteCmd.Flags().StringVarP(&do.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	deleteCmd.Flags().StringVarP(&do.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	deleteCmd.Flags().BoolVarP(&do.Purge, "purge", "p", false, "Remove the API model from the state store after the resources are deleted.")
-	deleteCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
-	deleteCmd.Flags().StringVar(&ao.GitRemote, "git-config", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	deleteCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", cli.StrEnvDef("AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
+	deleteCmd.Flags().StringVar(&ao.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
 
 	return deleteCmd
 }
 
-func RunDelete(options *DeleteOptions) error {
+func RunDelete(options *cli.DeleteOptions) error {
 
 	// Ensure we have a name
 	name := options.Name
@@ -81,7 +77,7 @@ func RunDelete(options *DeleteOptions) error {
 		return errors.New("Empty name. Must specify the name of the cluster to delete")
 	}
 	// Expand state store path
-	options.StateStorePath = expandPath(options.StateStorePath)
+	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	// Register state store and check if it exists
 	stateStore, err := options.NewStateStore()

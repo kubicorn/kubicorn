@@ -12,40 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package local
+package cli
 
 import (
 	"os"
-	"os/user"
-	"strings"
-
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"strconv"
 )
 
-const (
-	TestHome string = "KUBICORN_TEST_HOME_DIRECTORY"
-)
-
-func Home() string {
-	if os.Getenv(TestHome) != "" {
-		return os.Getenv(TestHome)
+// StrEnvDef get environment variable, or some default def
+func StrEnvDef(env string, def string) string {
+	val := os.Getenv(env)
+	if val == "" {
+		return def
 	}
-
-	home := os.Getenv("HOME")
-	if strings.Contains(home, "root") {
-		return "/root"
-	}
-	usr, err := user.Current()
-	if err != nil {
-		logger.Warning("unable to find user: %v", err)
-		return ""
-	}
-	return usr.HomeDir
+	return val
 }
 
-func Expand(path string) string {
-	if strings.Contains(path, "~") {
-		return strings.Replace(path, "~", Home(), 1)
+// IntEnvDef get environment variable, or some default def
+func IntEnvDef(env string, def int) int {
+	val := os.Getenv(env)
+	if val == "" {
+		return def
 	}
-	return path
+	ival, err := strconv.Atoi(val)
+	if err != nil {
+		return def
+	}
+	return ival
 }

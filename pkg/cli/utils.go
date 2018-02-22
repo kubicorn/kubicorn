@@ -12,29 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd
+package cli
 
 import (
 	"os"
-	"strconv"
+	"os/user"
+
+	"github.com/kris-nova/kubicorn/pkg/logger"
 )
 
-func strEnvDef(env string, def string) string {
-	val := os.Getenv(env)
-	if val == "" {
-		return def
+// ExpandPath returns working directory path
+func ExpandPath(path string) string {
+	switch path {
+	case ".":
+		wd, err := os.Getwd()
+		if err != nil {
+			logger.Critical("Unable to get current working directory: %v", err)
+			return ""
+		}
+		path = wd
+	case "~":
+		homeVar := os.Getenv("HOME")
+		if homeVar == "" {
+			homeUser, err := user.Current()
+			if err != nil {
+				logger.Critical("Unable to use user.Current() for user. Maybe a cross compile issue: %v", err)
+				return ""
+			}
+			path = homeUser.HomeDir
+		}
 	}
-	return val
-}
 
-func intEnvDef(env string, def int) int {
-	val := os.Getenv(env)
-	if val == "" {
-		return def
-	}
-	ival, err := strconv.Atoi(val)
-	if err != nil {
-		return def
-	}
-	return ival
+	return path
 }

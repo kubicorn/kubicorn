@@ -51,8 +51,6 @@ __custom_func() {
 `
 )
 
-var cfgFile string
-
 // RootCmd represents the base command when called without any subcommands
 var RootCmd = &cobra.Command{
 	Use:   "kubicorn",
@@ -70,16 +68,6 @@ var RootCmd = &cobra.Command{
 		cmd.Help()
 	},
 	BashCompletionFunction: bashCompletionFunc,
-}
-
-type Options struct {
-	StateStore     string
-	StateStorePath string
-	Name           string
-	CloudId        string
-	Set            string
-	AwsProfile     string
-	GitRemote      string
 }
 
 func Execute() {

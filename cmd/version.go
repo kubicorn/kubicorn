@@ -24,8 +24,14 @@ import (
 	"runtime"
 	"time"
 
+	"github.com/kris-nova/kubicorn/pkg/cli"
 	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
+)
+
+var (
+	versionFile = "/src/github.com/kris-nova/kubicorn/VERSION"
+	vo          = &cli.VersionOptions{}
 )
 
 // VersionCmd represents the version command
@@ -47,20 +53,8 @@ func VersionCmd() *cobra.Command {
 	}
 }
 
-// VersionOptions contains fields for version output
-type VersionOptions struct {
-	Version   string `json:"Version"`
-	GitCommit string `json:"GitCommit"`
-	BuildDate string `json:"BuildDate"`
-	GOVersion string `json:"GOVersion"`
-	GOARCH    string `json:"GOARCH"`
-	GOOS      string `json:"GOOS"`
-}
-
-var vo = &VersionOptions{}
-
 // RunVersion populates VersionOptions and prints to stdout
-func RunVersion(vo *VersionOptions) error {
+func RunVersion(vo *cli.VersionOptions) error {
 
 	vo.Version = getVersion()
 	vo.GitCommit = getGitCommit()
@@ -75,10 +69,6 @@ func RunVersion(vo *VersionOptions) error {
 	fmt.Println("Kubicorn version: ", string(voBytes))
 	return nil
 }
-
-var (
-	versionFile = "/src/github.com/kris-nova/kubicorn/VERSION"
-)
 
 func getVersion() string {
 	path := filepath.Join(os.Getenv("GOPATH") + versionFile)

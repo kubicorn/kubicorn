@@ -16,29 +16,18 @@ package cmd
 
 import (
 	"fmt"
-	"math"
 	"os"
-	"os/user"
 	"strings"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kris-nova/kubicorn/pkg/cli"
 	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/kris-nova/kubicorn/pkg/namer"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
-	"github.com/kris-nova/kubicorn/profiles/azure"
-	"github.com/kris-nova/kubicorn/profiles/digitalocean"
-	"github.com/kris-nova/kubicorn/profiles/googlecompute"
-	"github.com/kris-nova/kubicorn/profiles/packet"
 	"github.com/spf13/cobra"
 	"github.com/yuroyoro/swalker"
 )
 
-type CreateOptions struct {
-	Options
-	Profile string
-}
-
-var co = &CreateOptions{}
+var co = &cli.CreateOptions{}
 
 // CreateCmd represents create command
 func CreateCmd() *cobra.Command {
@@ -52,7 +41,7 @@ func CreateCmd() *cobra.Command {
 	After a model is defined and configured properly, the user can then apply the model.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
-				co.Name = strEnvDef("KUBICORN_NAME", namer.RandomName())
+				co.Name = cli.StrEnvDef("KUBICORN_NAME", namer.RandomName())
 			} else if len(args) > 1 {
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
@@ -69,95 +58,29 @@ func CreateCmd() *cobra.Command {
 		},
 	}
 
-	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", strEnvDef("KUBICORN_PROFILE", "google"), "The cluster profile to use")
-	createCmd.Flags().StringVarP(&co.CloudId, "cloudid", "c", strEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
-	createCmd.Flags().StringVarP(&co.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
-	createCmd.Flags().StringVarP(&co.GitRemote, "git-config", "g", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", cli.StrEnvDef("KUBICORN_PROFILE", "google"), "The cluster profile to use")
+	createCmd.Flags().StringVarP(&co.CloudID, "cloudid", "c", cli.StrEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
+	createCmd.Flags().StringVarP(&co.Set, "set", "e", cli.StrEnvDef("KUBICORN_SET", ""), "set cluster setting")
+	createCmd.Flags().StringVarP(&co.GitRemote, "git-config", "g", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
 
-	createCmd.SetUsageTemplate(usageTemplate)
+	createCmd.SetUsageTemplate(cli.UsageTemplate)
 
 	return createCmd
 }
 
-type profileFunc func(name string) *cluster.Cluster
-
-type profileMap struct {
-	profileFunc profileFunc
-	description string
-}
-
-var profileMapIndexed = map[string]profileMap{
-	"azure": {
-		profileFunc: azure.NewUbuntuCluster,
-		description: "Ubuntu on Azure",
-	},
-	"azure-ubuntu": {
-		profileFunc: azure.NewUbuntuCluster,
-		description: "Ubuntu on Azure",
-	},
-	"amazon": {
-		profileFunc: amazon.NewUbuntuCluster,
-		description: "Ubuntu on Amazon",
-	},
-	"aws": {
-		profileFunc: amazon.NewUbuntuCluster,
-		description: "Ubuntu on Amazon",
-	},
-	"do": {
-		profileFunc: digitalocean.NewUbuntuCluster,
-		description: "Ubuntu on DigitalOcean",
-	},
-	"google": {
-		profileFunc: googlecompute.NewUbuntuCluster,
-		description: "Ubuntu on Google Compute",
-	},
-	"digitalocean": {
-		profileFunc: digitalocean.NewUbuntuCluster,
-		description: "Ubuntu on DigitalOcean",
-	},
-	"do-ubuntu": {
-		profileFunc: digitalocean.NewUbuntuCluster,
-		description: "Ubuntu on DigitalOcean",
-	},
-	"aws-ubuntu": {
-		profileFunc: amazon.NewUbuntuCluster,
-		description: "Ubuntu on Amazon",
-	},
-	"do-centos": {
-		profileFunc: digitalocean.NewCentosCluster,
-		description: "CentOS on DigitalOcean",
-	},
-	"aws-centos": {
-		profileFunc: amazon.NewCentosCluster,
-		description: "CentOS on Amazon",
-	},
-	"aws-debian": {
-		profileFunc: amazon.NewDebianCluster,
-		description: "Debian on Amazon",
-	},
-	"packet": {
-		profileFunc: packet.NewUbuntuCluster,
-		description: "Ubuntu on Packet x86",
-	},
-	"packet-ubuntu": {
-		profileFunc: packet.NewUbuntuCluster,
-		description: "Ubuntu on Packet x86",
-	},
-}
-
 // RunCreate is the starting point when a user runs the create command.
-func RunCreate(options *CreateOptions) error {
+func RunCreate(options *cli.CreateOptions) error {
 
 	// Create our cluster resource
 	name := options.Name
 	var newCluster *cluster.Cluster
-	if _, ok := profileMapIndexed[options.Profile]; ok {
-		newCluster = profileMapIndexed[options.Profile].profileFunc(name)
+	if _, ok := cli.ProfileMapIndexed[options.Profile]; ok {
+		newCluster = cli.ProfileMapIndexed[options.Profile].ProfileFunc(name)
 	} else {
 		return fmt.Errorf("Invalid profile [%s]", options.Profile)
 	}
@@ -176,14 +99,14 @@ func RunCreate(options *CreateOptions) error {
 		}
 	}
 
-	if newCluster.Cloud == cluster.CloudGoogle && options.CloudId == "" {
+	if newCluster.Cloud == cluster.CloudGoogle && options.CloudID == "" {
 		return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
 	}
-	newCluster.CloudId = options.CloudId
+	newCluster.CloudId = options.CloudID
 
 	// Expand state store path
 	// Todo (@kris-nova) please pull this into a filepath package or something
-	options.StateStorePath = expandPath(options.StateStorePath)
+	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	// Register state store and check if it exists
 	stateStore, err := options.NewStateStore()
@@ -202,71 +125,3 @@ func RunCreate(options *CreateOptions) error {
 	logger.Always("The state [%s/%s/cluster.yaml] has been created. You can edit the file, then run `kubicorn apply %s`", options.StateStorePath, name, name)
 	return nil
 }
-
-func expandPath(path string) string {
-	if path == "." {
-		wd, err := os.Getwd()
-		if err != nil {
-			logger.Critical("Unable to get current working directory: %v", err)
-			return ""
-		}
-		path = wd
-	}
-	if path == "~" {
-		homeVar := os.Getenv("HOME")
-		if homeVar == "" {
-			homeUser, err := user.Current()
-			if err != nil {
-				logger.Critical("Unable to use user.Current() for user. Maybe a cross compile issue: %v", err)
-				return ""
-			}
-			path = homeUser.HomeDir
-		}
-	}
-	return path
-}
-
-var (
-	p = func() string {
-		str := ""
-		spaces := ""
-		maxLen := 0
-		for shorthand := range profileMapIndexed {
-			l := len(shorthand)
-			if l > maxLen {
-				maxLen = l
-			}
-		}
-		for shorthand, pmap := range profileMapIndexed {
-			spaces = ""
-			k := math.Abs(float64(maxLen) - float64(len(shorthand)) + 3)
-			for i := 0; i < int(k); i++ {
-				spaces = fmt.Sprintf("%s%s", spaces, " ")
-			}
-			str = fmt.Sprintf("%s   %s%s %s\n", str, shorthand, spaces, pmap.description)
-		}
-		return str
-	}()
-	usageTemplate = fmt.Sprintf(`Usage:{{if .Runnable}}
-  {{if .HasAvailableFlags}}{{appendIfNotPresent .UseLine "[flags]"}}{{else}}{{.UseLine}}{{end}}{{end}}{{if .HasAvailableSubCommands}}
-  {{ .CommandPath}} [command]{{end}}
-
-Profiles:
-%s{{if gt .Aliases 0}}
-Aliases:
-  {{.NameAndAliases}}
-{{end}}{{if .HasExample}}
-Examples:
-{{ .Example }}{{end}}{{ if .HasAvailableSubCommands}}
-Available Commands:{{range .Commands}}{{if .IsAvailableCommand}}
-  {{rpad .Name .NamePadding }} {{.Short}}{{end}}{{end}}{{end}}{{ if .HasAvailableLocalFlags}}
-Flags:
-{{.LocalFlags.FlagUsages | trimRightSpace}}{{end}}{{ if .HasAvailableInheritedFlags}}
-
-Global Flags:
-{{.InheritedFlags.FlagUsages | trimRightSpace}}{{end}}{{if .HasHelpSubCommands}}
-Additional help topics:{{range .Commands}}{{if .IsHelpCommand}}
-  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}{{end}}{{end}}{{end}}{{ if .HasAvailableSubCommands }}
-Use "{{.CommandPath}} [command] --help" for more information about a command.{{end}}
-`, p)
-)

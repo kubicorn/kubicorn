@@ -14,12 +14,14 @@
 
 package cmd
 
-import "fmt"
+import (
+	"fmt"
+)
 
-var GitSha string
-var Version string
-
-var Unicorn = fmt.Sprintf(`-----------------------------------------------------------------------------------
+var (
+	GitSha  string
+	Version string
+	Unicorn string = fmt.Sprintf(`-----------------------------------------------------------------------------------
                                                          ,/
                                                         //
                                                       ,//
@@ -63,3 +65,4 @@ var Unicorn = fmt.Sprintf(`-----------------------------------------------------
 
 Create, Manage, Image, and Scale Kubernetes infrastructure in the cloud.
 `, Version, GitSha)
+)

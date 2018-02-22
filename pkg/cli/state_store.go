@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cmd
+package cli
 
 import (
 	"errors"
@@ -26,6 +26,7 @@ import (
 	gg "github.com/tcnksm/go-gitconfig"
 )
 
+// NewStateStore returns clusterStorer object based on type.
 func (options Options) NewStateStore() (state.ClusterStorer, error) {
 	var stateStore state.ClusterStorer
 
@@ -39,7 +40,7 @@ func (options Options) NewStateStore() (state.ClusterStorer, error) {
 	case "git":
 		logger.Info("Selected [git] state store")
 		if options.GitRemote == "" {
-			return nil, errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
+			return nil, errors.New("empty GitRemote url. Must specify the link to the remote git repo")
 		}
 		user, _ := gg.Global("user.name")
 		email, _ := gg.Email()
@@ -60,7 +61,7 @@ func (options Options) NewStateStore() (state.ClusterStorer, error) {
 			ClusterName: options.Name,
 		})
 	default:
-		return nil, fmt.Errorf("State store [%s] has an invalid type [%s].", options.Name, options.StateStore)
+		return nil, fmt.Errorf("state store [%s] has an invalid type [%s]", options.Name, options.StateStore)
 	}
 
 	return stateStore, nil
