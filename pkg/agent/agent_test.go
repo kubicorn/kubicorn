@@ -14,90 +14,117 @@
 
 package agent
 
-import "testing"
+import (
+	"testing"
+)
+
+const (
+	incorrectError  string = "error message incorrect\n got:       %v\n"
+	expectedAnError string = "expected an error, received none."
+)
 
 func TestCheckKeyWithoutPassword(t *testing.T) {
 	a := NewAgent()
 
-	err := a.CheckKey("./testdata/ssh_without_password.pub")
-	if err == nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+	if a.CheckKey("./testdata/ssh_without_password.pub") == nil {
+		t.Fatal(expectedAnError)
 	}
+
+	// clean test
+	defer a.RemoveKeyUsingFile("./testdata/ssh_without_password.pub")
 }
 
 func TestAddKeyWithoutPassword(t *testing.T) {
 	a := NewAgent()
 
-	err := a.CheckKey("./testdata/ssh_without_password.pub")
-	if err == nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+	if a.CheckKey("./testdata/ssh_without_password.pub") == nil {
+		t.Fatal(expectedAnError)
 	}
 
-	a, err = a.AddKey("./testdata/ssh_without_password.pub")
+	a, err := a.AddKey("./testdata/ssh_without_password.pub")
 	if err != nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+		t.Fatalf(incorrectError, err)
 	}
 
 	err = a.CheckKey("./testdata/ssh_without_password.pub")
 	if err != nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+		t.Fatalf(incorrectError, err)
 	}
+
+	// clean test
+	defer a.RemoveKeyUsingFile("./testdata/ssh_without_password.pub")
 }
 
 func TestCheckKeyWithPassword(t *testing.T) {
 	a := NewAgent()
 
-	err := a.CheckKey("./testdata/ssh_with_password.pub")
-	if err == nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+	if a.CheckKey("./testdata/ssh_with_password.pub") == nil {
+		t.Fatal(expectedAnError)
 	}
+
+	// clean test
+	defer a.RemoveKeyUsingFile("./testdata/ssh_with_password.pub")
 }
 
 func TestAddKeyWithPassword(t *testing.T) {
 	retriveSSHKeyPassword = func() ([]byte, error) {
 		return []byte("kubicornbesttoolever"), nil
 	}
+
 	a := NewAgent()
 
-	err := a.CheckKey("./testdata/ssh_with_password.pub")
-	if err == nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+	if a.CheckKey("./testdata/ssh_with_password.pub") == nil {
+		t.Fatal(expectedAnError)
 	}
 
-	a, err = a.AddKey("./testdata/ssh_with_password.pub")
+	a, err := a.AddKey("./testdata/ssh_with_password.pub")
 	if err != nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+		t.Fatalf(incorrectError, err)
 	}
 
-	err = a.CheckKey("./testdata/ssh_with_password.pub")
-	if err != nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+	if err = a.CheckKey("./testdata/ssh_with_password.pub"); err != nil {
+		t.Fatalf(incorrectError, err)
 	}
+
+	// clean test
+	defer a.RemoveKeyUsingFile("./testdata/ssh_with_password.pub")
 }
 
 func TestAddKeyWithPasswordIncorrect(t *testing.T) {
 	retriveSSHKeyPassword = func() ([]byte, error) {
 		return []byte("random"), nil
 	}
+
 	a := NewAgent()
 
-	err := a.CheckKey("./testdata/ssh_with_password.pub")
-	if err == nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+	if a.CheckKey("./testdata/ssh_with_password.pub") == nil {
+		t.Fatal(expectedAnError)
 	}
 
-	a, err = a.AddKey("./testdata/ssh_with_password.pub")
-	if err == nil {
-		t.Fatalf("error message incorrect\n"+
-			"got:       %v\n", err)
+	if _, err := a.AddKey("./testdata/ssh_with_password.pub"); err == nil {
+		t.Fatalf(expectedAnError)
+	}
+
+	if a.CheckKey("./testdata/ssh_with_password.pub") == nil {
+		t.Fatal(expectedAnError)
+	}
+}
+
+func TestRemoveKey(t *testing.T) {
+	var err error
+	a := NewAgent()
+
+	// check that key doesnt exist
+	if a.CheckKey("./testdata/ssh_without_password.pub") == nil {
+		t.Fatal(expectedAnError)
+	}
+
+	if _, err = a.AddKey("./testdata/ssh_without_password.pub"); err != nil {
+		t.Fatalf(incorrectError, err)
+	}
+
+	// should be able to remove this key
+	if err = a.RemoveKeyUsingFile("./testdata/ssh_without_password.pub"); err != nil {
+		t.Fatalf("no error expecting in removing key:\n        %v", err)
 	}
 }

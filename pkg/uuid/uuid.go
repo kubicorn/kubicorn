@@ -21,7 +21,7 @@ import (
 	"github.com/kris-nova/kubicorn/pkg/rand"
 )
 
-// Generates a time ordered UUID. Top 32b are timestamp bottom 96b are random.
+// TimeOrderedUUID generates a time ordered UUID. Top 32b are timestamp bottom 96b are random.
 func TimeOrderedUUID() string {
 	unixTime := uint32(time.Now().UTC().Unix())
 	return fmt.Sprintf("%08x-%04x-%04x-%04x-%04x%08x",

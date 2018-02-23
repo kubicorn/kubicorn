@@ -28,9 +28,11 @@ import (
 	"github.com/spf13/pflag"
 )
 
-var commandFlagSuggestions = make(map[string][]prompt.Suggest)
-var commandMap = make(map[string][]prompt.Suggest)
-var promptSuggestions = []prompt.Suggest{}
+var (
+	commandFlagSuggestions = make(map[string][]prompt.Suggest)
+	commandMap             = make(map[string][]prompt.Suggest)
+	promptSuggestions      = []prompt.Suggest{}
+)
 
 // PromptCmd represents the kubicorn interactive prompt.
 func PromptCmd() *cobra.Command {

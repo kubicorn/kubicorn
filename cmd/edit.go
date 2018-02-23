@@ -20,17 +20,13 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/kris-nova/kubicorn/pkg/cli"
 	"github.com/kris-nova/kubicorn/pkg/initapi"
 	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
 )
 
-type EditOptions struct {
-	Options
-	Editor string
-}
-
-var eo = &EditOptions{}
+var eo = &cli.EditOptions{}
 
 // EditCmd represents edit command
 func EditCmd() *cobra.Command {
@@ -40,7 +36,7 @@ func EditCmd() *cobra.Command {
 		Long:  `Use this command to edit a state.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
-				ao.Name = strEnvDef("KUBICORN_NAME", "")
+				ao.Name = cli.StrEnvDef("KUBICORN_NAME", "")
 			} else if len(args) > 1 {
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
@@ -57,16 +53,16 @@ func EditCmd() *cobra.Command {
 		},
 	}
 
-	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", strEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
-	editCmd.Flags().StringVarP(&eo.GitRemote, "git-config", "g", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", cli.StrEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
+	editCmd.Flags().StringVarP(&eo.GitRemote, "git-config", "g", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
 
 	return editCmd
 }
 
-func RunEdit(options *EditOptions) error {
-	options.StateStorePath = expandPath(options.StateStorePath)
+func RunEdit(options *cli.EditOptions) error {
+	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	name := options.Name
 

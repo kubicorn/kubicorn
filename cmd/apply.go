@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/cli"
 	"github.com/kris-nova/kubicorn/pkg/initapi"
 	"github.com/kris-nova/kubicorn/pkg/kubeconfig"
 	"github.com/kris-nova/kubicorn/pkg/local"
@@ -29,11 +30,7 @@ import (
 	"github.com/yuroyoro/swalker"
 )
 
-type ApplyOptions struct {
-	Options
-}
-
-var ao = &ApplyOptions{}
+var ao = &cli.ApplyOptions{}
 
 // ApplyCmd represents the apply command
 func ApplyCmd() *cobra.Command {
@@ -46,7 +43,7 @@ func ApplyCmd() *cobra.Command {
 	The apply will run once, and ultimately time out if something goes wrong.`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
-				ao.Name = strEnvDef("KUBICORN_NAME", "")
+				ao.Name = cli.StrEnvDef("KUBICORN_NAME", "")
 			} else if len(args) > 1 {
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
@@ -63,16 +60,16 @@ func ApplyCmd() *cobra.Command {
 		},
 	}
 
-	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	applyCmd.Flags().StringVarP(&ao.Set, "set", "e", strEnvDef("KUBICORN_SET", ""), "set cluster setting")
-	applyCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", strEnvDef("AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
-	applyCmd.Flags().StringVar(&ao.GitRemote, "git-config", strEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to be used for saving the git state for the cluster.")
+	applyCmd.Flags().StringVarP(&ao.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	applyCmd.Flags().StringVarP(&ao.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	applyCmd.Flags().StringVarP(&ao.Set, "set", "e", cli.StrEnvDef("KUBICORN_SET", ""), "set cluster setting")
+	applyCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", cli.StrEnvDef("AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
+	applyCmd.Flags().StringVar(&ao.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to be used for saving the git state for the cluster.")
 
 	return applyCmd
 }
 
-func RunApply(options *ApplyOptions) error {
+func RunApply(options *cli.ApplyOptions) error {
 
 	// Ensure we have a name
 	name := options.Name
@@ -81,7 +78,7 @@ func RunApply(options *ApplyOptions) error {
 	}
 
 	// Expand state store path
-	options.StateStorePath = expandPath(options.StateStorePath)
+	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	// Register state store
 	stateStore, err := options.NewStateStore()

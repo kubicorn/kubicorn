@@ -19,17 +19,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/kris-nova/kubicorn/pkg/cli"
 	"github.com/kris-nova/kubicorn/pkg/initapi"
 	"github.com/kris-nova/kubicorn/pkg/kubeconfig"
 	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
 )
 
-type GetConfigOptions struct {
-	Options
-}
-
-var cro = &GetConfigOptions{}
+var cro = &cli.GetConfigOptions{}
 
 // GetConfigCmd represents the apply command
 func GetConfigCmd() *cobra.Command {
@@ -41,7 +38,7 @@ func GetConfigCmd() *cobra.Command {
 	This command will attempt to find a cluster, and append a local kubeconfig file with a kubeconfig `,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
-				cro.Name = strEnvDef("KUBICORN_NAME", "")
+				cro.Name = cli.StrEnvDef("KUBICORN_NAME", "")
 			} else if len(args) > 1 {
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
@@ -58,14 +55,14 @@ func GetConfigCmd() *cobra.Command {
 		},
 	}
 
-	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	getConfigCmd.Flags().StringVarP(&cro.GitRemote, "git-config", "g", strEnvDef("KUBICORN", "git"), "The git remote url to use")
+	getConfigCmd.Flags().StringVarP(&cro.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	getConfigCmd.Flags().StringVarP(&cro.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	getConfigCmd.Flags().StringVarP(&cro.GitRemote, "git-config", "g", cli.StrEnvDef("KUBICORN", "git"), "The git remote url to use")
 
 	return getConfigCmd
 }
 
-func RunGetConfig(options *GetConfigOptions) error {
+func RunGetConfig(options *cli.GetConfigOptions) error {
 
 	// Ensure we have a name
 	name := options.Name
@@ -74,7 +71,7 @@ func RunGetConfig(options *GetConfigOptions) error {
 	}
 
 	// Expand state store path
-	options.StateStorePath = expandPath(options.StateStorePath)
+	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	// Register state store
 	stateStore, err := options.NewStateStore()

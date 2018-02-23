@@ -301,7 +301,7 @@ func (r *SecurityGroup) immutableRender(newResource cloud.Resource, inaccurateCl
 func strToInt(s string) (int, error) {
 	i, err := strconv.Atoi(s)
 	if err != nil {
-		return 0, fmt.Errorf("failed to convert string to int err: ", err)
+		return 0, fmt.Errorf("failed to convert string to int err: %#v", err)
 	}
 	return i, nil
 }

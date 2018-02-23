@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/kris-nova/kubicorn/pkg/cli"
 	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
@@ -26,14 +27,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type ListOptions struct {
-	Options
-	Profile string
-}
-
-var lo = &ListOptions{}
-
-var noHeaders bool
+var (
+	lo        = &cli.ListOptions{}
+	noHeaders bool
+)
 
 // ListCmd represents the list command
 func ListCmd() *cobra.Command {
@@ -50,15 +47,15 @@ func ListCmd() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	cmd.Flags().StringVarP(&lo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	cmd.Flags().StringVarP(&lo.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	cmd.Flags().StringVarP(&lo.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	cmd.Flags().BoolVarP(&noHeaders, "no-headers", "n", false, "Show the list containing names only")
 
 	return cmd
 }
 
-func RunList(options *ListOptions) error {
-	options.StateStorePath = expandPath(options.StateStorePath)
+func RunList(options *cli.ListOptions) error {
+	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	var stateStore state.ClusterStorer
 	switch options.StateStore {

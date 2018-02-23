@@ -86,6 +86,7 @@ func (k *Keyring) CheckKey(pubkey string) error {
 			return nil
 		}
 	}
+
 	return fmt.Errorf("key not found in keyring")
 }
 
@@ -110,6 +111,26 @@ func (k *Keyring) AddKey(pubkey string) (*Keyring, error) {
 	}
 
 	return k, nil
+}
+
+// RemoveKey removes an existing key from keyring
+func (k *Keyring) RemoveKey(key ssh.PublicKey) error {
+	return k.Agent.Remove(key)
+}
+
+// RemoveKeyUsingFile removes an existing key from keyring given a file
+func (k *Keyring) RemoveKeyUsingFile(pubkey string) error {
+	p, err := ioutil.ReadFile(pubkey)
+	if err != nil {
+		return err
+	}
+
+	key, _, _, _, _ := ssh.ParseAuthorizedKey(p)
+	if err != nil {
+		return err
+	}
+
+	return k.RemoveKey(key)
 }
 
 func systemAgent() sshagent.Agent {
