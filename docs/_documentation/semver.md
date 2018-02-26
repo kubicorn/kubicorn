@@ -40,7 +40,7 @@ Every bug and feature will have a link to the github issue associated with the c
 ## Updating major releases
 
 When `kubicorn` decides to release a new major version we will include documentation that explains all backwards compatibility breaks.
-The documentation wil also provider recommended ways to upgrade your environment to the new version of `kubicorn`. 
+The documentation will also provide recommended ways to upgrade your environment to the new version of `kubicorn`. 
 Major updates don't have backwards compatibility by default.
 A major release can be released without breaking backwards compatibility.
 
