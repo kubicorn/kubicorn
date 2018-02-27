@@ -367,6 +367,30 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/rackspace/gophercloud"
+  packages = [
+    ".",
+    "openstack",
+    "openstack/compute/v2/extensions/keypairs",
+    "openstack/compute/v2/flavors",
+    "openstack/compute/v2/images",
+    "openstack/compute/v2/servers",
+    "openstack/identity/v2/tenants",
+    "openstack/identity/v2/tokens",
+    "openstack/identity/v3/tokens",
+    "openstack/networking/v2/extensions/security/groups",
+    "openstack/networking/v2/extensions/security/rules",
+    "openstack/networking/v2/networks",
+    "openstack/networking/v2/subnets",
+    "openstack/utils",
+    "pagination",
+    "testhelper",
+    "testhelper/client"
+  ]
+  revision = "e00690e87603abe613e9f02c816c7c4bef82e063"
+
+[[projects]]
+  branch = "master"
   name = "github.com/sergi/go-diff"
   packages = ["diffmatchpatch"]
   revision = "1744e2970ca51c86172c8190fadad617561ed6e7"
@@ -721,6 +745,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5634d9852a2684a203c3c7b7e6378469f4d18459c4891f037e9bd81fe047f81b"
+  inputs-digest = "b1e14ac232f79b0448ff6f3030291380e43f97a87a2cedf5b2d0b1761c88761b"
   solver-name = "gps-cdcl"
   solver-version = 1

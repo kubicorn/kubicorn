@@ -15,16 +15,28 @@
 package cli
 
 import (
+	"sort"
+
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/profiles/amazon"
 	"github.com/kris-nova/kubicorn/profiles/azure"
 	"github.com/kris-nova/kubicorn/profiles/digitalocean"
 	"github.com/kris-nova/kubicorn/profiles/googlecompute"
+	"github.com/kris-nova/kubicorn/profiles/openstack/ovh"
 	"github.com/kris-nova/kubicorn/profiles/packet"
 
 	"fmt"
 	"math"
 )
+
+func sortedKeys(profileMap map[string]ProfileMap) []string {
+	keys := []string{}
+	for k := range profileMap {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
 
 var (
 	// P helps format usage details
@@ -38,13 +50,13 @@ var (
 				maxLen = l
 			}
 		}
-		for shorthand, pmap := range ProfileMapIndexed {
+		for _, shorthand := range sortedKeys(ProfileMapIndexed) {
 			spaces = ""
 			k := math.Abs(float64(maxLen) - float64(len(shorthand)) + 3)
 			for i := 0; i < int(k); i++ {
 				spaces = fmt.Sprintf("%s%s", spaces, " ")
 			}
-			str = fmt.Sprintf("%s   %s%s %s\n", str, shorthand, spaces, pmap.Description)
+			str = fmt.Sprintf("%s   %s%s %s\n", str, shorthand, spaces, ProfileMapIndexed[shorthand].Description)
 		}
 		return str
 	}()
@@ -131,6 +143,14 @@ var ProfileMapIndexed = map[string]ProfileMap{
 	"aws-debian": {
 		ProfileFunc: amazon.NewDebianCluster,
 		Description: "Debian on Amazon",
+	},
+	"ovh": {
+		ProfileFunc: ovh.NewUbuntuCluster,
+		Description: "Ubuntu on OVH",
+	},
+	"ovh-ubuntu": {
+		ProfileFunc: ovh.NewUbuntuCluster,
+		Description: "Ubuntu on OVH",
 	},
 	"packet": {
 		ProfileFunc: packet.NewUbuntuCluster,

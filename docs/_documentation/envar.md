@@ -27,5 +27,13 @@ DIGITALOCEAN_ACCESS_TOKEN | string | The DigitalOcean access token used to authe
 --- | --- | ---
 GOOGLE_APPLICATION_CREDENTIALS | string | The location of the Google service account key file
 --- | --- | ---
+OS_AUTH_URL | string | The URL of the Openstack Identity service
+OS_USERNAME | string | The name of the Openstack user
+OS_PASSWORD | string | The password of the Openstack user
+OS_TENANT_ID | string | The identifier of the Openstack tenant - either this or OS_TENANT_NAME should be set
+OS_TENANT_NAME | string | The name of the Openstack tenant - either this or OS_TENANT_ID should be set
+OS_DOMAIN_ID | string | The identifier of the Openstack domain - (identity v3) either this or OS_DOMAIN_NAME should be set
+OS_DOMAIN_NAME | string | The name of the Openstack domain - (identity v3) either this or OS_DOMAIN_ID should be set
+--- | --- | ---
 PACKET_APITOKEN | string | The Packet API token used to authenticate with the API
 KUBICORN_FORCE_DELETE_PROJECT | bool | Force delete Packet project
