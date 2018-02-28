@@ -75,6 +75,15 @@ layout: default
             </div>
 
         <div class="sidebar mb-2 mt-4">
+            <h6 class="mb-3">OVH</h6>
+            {% for cookie in docs %} {% if cookie.doctype == "ovh" %}
+            <a href="{{ cookie.url | relative_url }}">
+                <p class="mb-2">{{ cookie.title }}</p>
+            </a>
+            {% endif %} {% endfor %}
+        </div>
+
+        <div class="sidebar mb-2 mt-4">
                 <h6 class="mb-3">Packet</h6>
                 {% for cookie in docs %} {% if cookie.doctype == "packet" %}
                 <a href="{{ cookie.url | relative_url }}">

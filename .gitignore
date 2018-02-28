@@ -3,3 +3,5 @@ _state*
 .DS_Store
 bin/*
 .vscode
+.sass-cache/
+_site/
