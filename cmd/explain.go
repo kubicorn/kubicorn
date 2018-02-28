@@ -21,10 +21,11 @@ import (
 	"os"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/initapi"
+	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/cli"
+	"github.com/kris-nova/kubicorn/pkg/initapi"
 
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/kris-nova/kubicorn/state"
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/git"
@@ -33,18 +34,12 @@ import (
 	gg "github.com/tcnksm/go-gitconfig"
 )
 
-type ExplainOptions struct {
-	Options
-	Profile string
-	Output  string
-}
-
 type OutputData struct {
 	Actual   *cluster.Cluster
 	Expected *cluster.Cluster
 }
 
-var exo = &ExplainOptions{}
+var exo = &cli.ExplainOptions{}
 
 // ExplainCmd represents the explain command
 func ExplainCmd() *cobra.Command {
@@ -54,7 +49,7 @@ func ExplainCmd() *cobra.Command {
 		Long:  `Output expected and actual state of the given cluster`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
-				exo.Name = strEnvDef("KUBICORN_NAME", "")
+				exo.Name = cli.StrEnvDef("KUBICORN_NAME", "")
 			} else if len(args) > 1 {
 				logger.Critical("Too many arguments.")
 				os.Exit(1)
@@ -70,14 +65,14 @@ func ExplainCmd() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringVarP(&exo.StateStore, "state-store", "s", strEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
-	cmd.Flags().StringVarP(&exo.StateStorePath, "state-store-path", "S", strEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
-	cmd.Flags().StringVarP(&exo.Output, "output", "o", strEnvDef("KUBICORN_OUTPUT", "json"), "Output format (currently only JSON supported)")
+	cmd.Flags().StringVarP(&exo.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	cmd.Flags().StringVarP(&exo.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	cmd.Flags().StringVarP(&exo.Output, "output", "o", cli.StrEnvDef("KUBICORN_OUTPUT", "json"), "Output format (currently only JSON supported)")
 
 	return cmd
 }
 
-func RunExplain(options *ExplainOptions) error {
+func RunExplain(options *cli.ExplainOptions) error {
 
 	// Ensure we have a name
 	name := options.Name
@@ -86,7 +81,7 @@ func RunExplain(options *ExplainOptions) error {
 	}
 
 	// Expand state store path
-	options.StateStorePath = expandPath(options.StateStorePath)
+	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	// Register state store
 	var stateStore state.ClusterStorer
@@ -129,13 +124,13 @@ func RunExplain(options *ExplainOptions) error {
 		return err
 	}
 
-	runtimeParams := &cutil.RuntimeParameters{}
+	runtimeParams := &pkg.RuntimeParameters{}
 
 	if len(ao.AwsProfile) > 0 {
 		runtimeParams.AwsProfile = ao.AwsProfile
 	}
 
-	reconciler, err := cutil.GetReconciler(cluster, runtimeParams)
+	reconciler, err := pkg.GetReconciler(cluster, runtimeParams)
 	if err != nil {
 		return fmt.Errorf("Unable to get reconciler: %v", err)
 	}
