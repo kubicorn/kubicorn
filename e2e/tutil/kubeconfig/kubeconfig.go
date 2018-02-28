@@ -23,9 +23,9 @@ import (
 	"path/filepath"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil/agent"
-	"github.com/kris-nova/kubicorn/cutil/local"
-	"github.com/kris-nova/kubicorn/cutil/logger"
+	"github.com/kris-nova/kubicorn/pkg/agent"
+	"github.com/kris-nova/kubicorn/pkg/local"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 )

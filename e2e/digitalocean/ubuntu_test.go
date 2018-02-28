@@ -14,16 +14,17 @@
 
 package digitalocean
 
+/*
 import (
 	"testing"
 	"time"
 
-	"github.com/kris-nova/kubicorn/cutil/agent"
 	"github.com/kris-nova/kubicorn/e2e/tutil/healthcheck"
 	"github.com/kris-nova/kubicorn/e2e/tutil/k8slogger"
 	"github.com/kris-nova/kubicorn/e2e/tutil/kubeconfig"
 	"github.com/kris-nova/kubicorn/e2e/tutil/kubernetes"
 	"github.com/kris-nova/kubicorn/e2e/tutil/sshcmd"
+	"github.com/kris-nova/kubicorn/pkg/agent"
 )
 
 func TestMain(m *testing.M) {
@@ -83,3 +84,4 @@ func TestMain(m *testing.M) {
 		panic(err)
 	}
 }
+*/

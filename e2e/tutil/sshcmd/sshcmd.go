@@ -19,8 +19,8 @@ import (
 	"os"
 
 	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cutil/agent"
-	"github.com/kris-nova/kubicorn/cutil/local"
+	"github.com/kris-nova/kubicorn/pkg/agent"
+	"github.com/kris-nova/kubicorn/pkg/local"
 	"golang.org/x/crypto/ssh"
 )
 

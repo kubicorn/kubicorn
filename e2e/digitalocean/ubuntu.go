@@ -14,13 +14,14 @@
 
 package digitalocean
 
+/*
 import (
 	"github.com/kris-nova/kubicorn/apis/cluster"
 	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cutil"
-	"github.com/kris-nova/kubicorn/cutil/initapi"
-	"github.com/kris-nova/kubicorn/cutil/logger"
 	"github.com/kris-nova/kubicorn/e2e/tutil/clustername"
+	"github.com/kris-nova/kubicorn/pkg"
+	"github.com/kris-nova/kubicorn/pkg/initapi"
+	"github.com/kris-nova/kubicorn/pkg/logger"
 	"github.com/kris-nova/kubicorn/profiles/digitalocean"
 )
 
@@ -37,7 +38,7 @@ func CreateDOUbuntuCluster() (*cluster.Cluster, cloud.Reconciler, error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	reconciler, err := cutil.GetReconciler(cluster, nil)
+	reconciler, err := pkg.GetReconciler(cluster, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -66,3 +67,4 @@ func DestroyDOUbuntuCluster(reconciler cloud.Reconciler) error {
 	}
 	return nil
 }
+*/

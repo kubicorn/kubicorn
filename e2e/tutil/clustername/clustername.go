@@ -17,7 +17,7 @@ package clustername
 import (
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/cutil/rand"
+	"github.com/kris-nova/kubicorn/pkg/rand"
 )
 
 // GetClusterName returns a cluster name based on a provided
