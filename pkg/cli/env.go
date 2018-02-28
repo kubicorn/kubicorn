@@ -41,7 +41,8 @@ func IntEnvDef(env string, def int) int {
 	return ival
 }
 
-func boolEnvDef(env string, def bool) bool {
+// BoolEnvDef get environemnt variable and return bool.
+func BoolEnvDef(env string, def bool) bool {
 	val := os.Getenv(env)
 	if val == "" {
 		return def
