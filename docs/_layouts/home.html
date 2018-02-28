@@ -414,6 +414,19 @@ Y88b 888 Y88..88P Y88b.   Y88b  d88P Y88..88P 888  888
             </div>
           </div>
 
+        <div class="row sidebar mb-2 mt-4">
+            <div class="col col-sm-3">
+                <p class="mb-3"><strong>OVH</strong></p>
+            </div>
+            <div class="col">
+                {% for cookie in docs %} {% if cookie.doctype == "ovh" %}
+                <a href="{{ cookie.url | relative_url }}">
+                    <p class="mb-2">{{ cookie.title }}</p>
+                </a>
+                {% endif %} {% endfor %}
+            </div>
+        </div>
+
 
       <div class="row sidebar mb-2 mt-4">
           <div class="col col-sm-3">

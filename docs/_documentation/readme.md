@@ -32,6 +32,7 @@ The most important package is the [`cloud`](https://github.com/kris-nova/kubicor
 * [Amazon](https://github.com/kris-nova/kubicorn/tree/master/cloud/amazon)
 * [DigitalOcean](https://github.com/kris-nova/kubicorn/tree/master/cloud/digitalocean)
 * [Google](https://github.com/kris-nova/kubicorn/tree/master/cloud/google)
+* [OVH](https://github.com/kris-nova/kubicorn/tree/master/cloud/openstack/operator/ovh)
 * [Packet](https://github.com/kris-nova/kubicorn/tree/master/cloud/packet) 
 * [Azure in-development](https://github.com/kris-nova/kubicorn/pull/327).
 
