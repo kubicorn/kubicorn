@@ -66,6 +66,13 @@ func ApplyCmd() *cobra.Command {
 	applyCmd.Flags().StringVar(&ao.AwsProfile, "aws-profile", cli.StrEnvDef("AWS_PROFILE", ""), "The profile to be used as defined in $HOME/.aws/credentials")
 	applyCmd.Flags().StringVar(&ao.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to be used for saving the git state for the cluster.")
 
+	// s3 flags
+	applyCmd.Flags().StringVar(&ao.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
+	applyCmd.Flags().StringVar(&ao.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
+	applyCmd.Flags().StringVar(&ao.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
+	applyCmd.Flags().BoolVar(&ao.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
+	applyCmd.Flags().StringVar(&ao.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the git state for the cluster.")
+
 	return applyCmd
 }
 

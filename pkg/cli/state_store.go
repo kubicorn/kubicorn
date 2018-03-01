@@ -23,6 +23,8 @@ import (
 	"github.com/kris-nova/kubicorn/state/fs"
 	"github.com/kris-nova/kubicorn/state/git"
 	"github.com/kris-nova/kubicorn/state/jsonfs"
+	"github.com/kris-nova/kubicorn/state/s3"
+	minio "github.com/minio/minio-go"
 	gg "github.com/tcnksm/go-gitconfig"
 )
 
@@ -59,6 +61,21 @@ func (options Options) NewStateStore() (state.ClusterStorer, error) {
 		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
 			BasePath:    options.StateStorePath,
 			ClusterName: options.Name,
+		})
+	case "s3":
+		logger.Info("Selected [s3] state store")
+		client, err := minio.New(options.BucketEndpointURL, options.S3AccessKey, options.S3SecretKey, options.BucketSSL)
+		if err != nil {
+			return nil, err
+		}
+		stateStore = s3.NewJSONFS3Store(&s3.JSONS3StoreOptions{
+			BasePath:    options.StateStorePath,
+			ClusterName: options.Name,
+			Client:      client,
+			BucketOptions: &s3.S3BucketOptions{
+				EndpointURL: options.BucketEndpointURL,
+				BucketName:  options.BucketName,
+			},
 		})
 	default:
 		return nil, fmt.Errorf("state store [%s] has an invalid type [%s]", options.Name, options.StateStore)

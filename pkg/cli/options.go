@@ -23,6 +23,12 @@ type Options struct {
 	Set            string
 	AwsProfile     string
 	GitRemote      string
+
+	S3AccessKey       string
+	S3SecretKey       string
+	BucketEndpointURL string
+	BucketSSL         bool
+	BucketName        string
 }
 
 // EditOptions represents edit command options.

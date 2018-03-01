@@ -70,6 +70,23 @@ var RootCmd = &cobra.Command{
 	BashCompletionFunction: bashCompletionFunc,
 }
 
+type Options struct {
+	StateStore     string
+	StateStorePath string
+	Name           string
+	CloudId        string
+	Set            string
+	AwsProfile     string
+
+	GitRemote string
+
+	S3AccessKey       string
+	S3SecretKey       string
+	BucketEndpointURL string
+	BucketSSL         bool
+	BucketName        string
+}
+
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)

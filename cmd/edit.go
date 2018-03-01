@@ -56,7 +56,16 @@ func EditCmd() *cobra.Command {
 	editCmd.Flags().StringVarP(&eo.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
 	editCmd.Flags().StringVarP(&eo.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	editCmd.Flags().StringVarP(&eo.Editor, "editor", "e", cli.StrEnvDef("EDITOR", "vi"), "The editor used to edit the state store")
-	editCmd.Flags().StringVarP(&eo.GitRemote, "git-config", "g", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+
+	// git flags
+	editCmd.Flags().StringVar(&eo.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+
+	// s3 flags
+	editCmd.Flags().StringVar(&eo.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
+	editCmd.Flags().StringVar(&eo.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
+	editCmd.Flags().StringVar(&eo.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
+	editCmd.Flags().BoolVar(&eo.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
+	editCmd.Flags().StringVar(&eo.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
 
 	return editCmd
 }

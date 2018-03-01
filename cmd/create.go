@@ -63,7 +63,16 @@ func CreateCmd() *cobra.Command {
 	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", cli.StrEnvDef("KUBICORN_PROFILE", "google"), "The cluster profile to use")
 	createCmd.Flags().StringVarP(&co.CloudID, "cloudid", "c", cli.StrEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
 	createCmd.Flags().StringVarP(&co.Set, "set", "e", cli.StrEnvDef("KUBICORN_SET", ""), "set cluster setting")
+
+	// git flags
 	createCmd.Flags().StringVarP(&co.GitRemote, "git-config", "g", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+
+	// s3 flags
+	createCmd.Flags().StringVar(&co.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
+	createCmd.Flags().StringVar(&co.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
+	createCmd.Flags().StringVar(&co.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
+	createCmd.Flags().BoolVar(&co.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
+	createCmd.Flags().StringVar(&co.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
 
 	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
 	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
