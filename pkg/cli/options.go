@@ -59,6 +59,13 @@ type ListOptions struct {
 	Profile string
 }
 
+// ExplainOptions represents explain command options.
+type ExplainOptions struct {
+	Options
+	Profile string
+	Output  string
+}
+
 // VersionOptions contains fields for version output
 type VersionOptions struct {
 	Version   string `json:"Version"`

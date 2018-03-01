@@ -15,7 +15,7 @@ In order to add a new cloud provider, you need to implement several key function
 3. Create a subdirectory in the [profiles directory](https://github.com/kris-nova/kubicorn/tree/master/profiles) named for the provider. The directory name should be the same as the name of the provider from the first step.
 4. Create one or more profiles for the provider in the [profiles directory](https://github.com/kris-nova/kubicorn/tree/master/profiles) for the provider. A profile contains all of the necessary information to create a specific implementation in a given cloud provider, e.g. instance size, ssh key, etc.
 5. Add the implemented profiles as profile options to `profileMapIndexed` in [create.go](https://github.com/kris-nova/kubicorn/blob/master/cmd/create.go). Be sure to `import` the necessary package from `profiles/`
-6. Add the provider as a `known.Cloud` to [reconciler.go](https://github.com/kris-nova/kubicorn/blob/master/cutil/reconciler.go)
+6. Add the provider as a `known.Cloud` to [reconciler.go](https://github.com/kris-nova/kubicorn/blob/master/pkg/reconciler.go)
 7. Add any bootstrap scripts required in [bootstrap/](https://github.com/kris-nova/kubicorn/tree/master/bootstrap/). As a general rule, the name of the script should be `<provider>_k8s_<profile>_master.sh` or `<provider>_k8s_<profile>_node.sh`
 
 ### Profile
@@ -58,7 +58,7 @@ The function should use the `known` parameter to provide profile-specific inform
 
 You can name the function anything you want.
 
-This model factory should be called from within the appropriate provider-specific block in [reconciler.go](https://github.com/kris-nova/kubicorn/blob/master/cutil/reconciler.go). the block is expected to do the following:
+This model factory should be called from within the appropriate provider-specific block in [reconciler.go](https://github.com/kris-nova/kubicorn/blob/master/pkg/reconciler.go). the block is expected to do the following:
 
 1. Initialize any APIs or SDKs necessary.
 2. Call `cloud.NewAtomicReconciler(known, ModelFunc(known))` , where `ModelFunc` is the model function for your cloud provider implementation.
