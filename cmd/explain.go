@@ -26,12 +26,7 @@ import (
 	"github.com/kris-nova/kubicorn/pkg/initapi"
 
 	"github.com/kris-nova/kubicorn/pkg/logger"
-	"github.com/kris-nova/kubicorn/state"
-	"github.com/kris-nova/kubicorn/state/fs"
-	"github.com/kris-nova/kubicorn/state/git"
-	"github.com/kris-nova/kubicorn/state/jsonfs"
 	"github.com/spf13/cobra"
-	gg "github.com/tcnksm/go-gitconfig"
 )
 
 type OutputData struct {
@@ -69,6 +64,16 @@ func ExplainCmd() *cobra.Command {
 	cmd.Flags().StringVarP(&exo.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
 	cmd.Flags().StringVarP(&exo.Output, "output", "o", cli.StrEnvDef("KUBICORN_OUTPUT", "json"), "Output format (currently only JSON supported)")
 
+	// git flags
+	cmd.Flags().StringVar(&exo.GitRemote, "git-config", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+
+	// s3 flags
+	cmd.Flags().StringVar(&exo.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
+	cmd.Flags().StringVar(&exo.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
+	cmd.Flags().StringVar(&exo.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
+	cmd.Flags().BoolVar(&exo.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
+	cmd.Flags().StringVar(&exo.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
+
 	return cmd
 }
 
@@ -84,34 +89,11 @@ func RunExplain(options *cli.ExplainOptions) error {
 	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
 
 	// Register state store
-	var stateStore state.ClusterStorer
-	switch options.StateStore {
-	case "fs":
-		stateStore = fs.NewFileSystemStore(&fs.FileSystemStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-		})
-	case "git":
-		if options.GitRemote == "" {
-			return errors.New("Empty GitRemote url. Must specify the link to the remote git repo.")
-		}
-		user, _ := gg.Global("user.name")
-		email, _ := gg.Email()
-
-		stateStore = git.NewJSONGitStore(&git.JSONGitStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-			CommitConfig: &git.JSONGitCommitConfig{
-				Name:   user,
-				Email:  email,
-				Remote: options.GitRemote,
-			},
-		})
-	case "jsonfs":
-		stateStore = jsonfs.NewJSONFileSystemStore(&jsonfs.JSONFileSystemStoreOptions{
-			BasePath:    options.StateStorePath,
-			ClusterName: name,
-		})
+	stateStore, err := options.NewStateStore()
+	if err != nil {
+		return err
+	} else if !stateStore.Exists() {
+		return fmt.Errorf("State store [%s] does not exists, can't edit", name)
 	}
 
 	cluster, err := stateStore.GetCluster()
