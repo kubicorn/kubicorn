@@ -15,9 +15,9 @@
 package public
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/azure/public/resources"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/cloud"
+	"github.com/kubicorn/kubicorn/cloud/azure/public/resources"
 )
 
 type Model struct {

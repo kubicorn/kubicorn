@@ -22,8 +22,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/pkg/local"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/local"
 )
 
 func TestMain(m *testing.M) {

@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/kris-nova/kubicorn/cmd"
+	"github.com/kubicorn/kubicorn/cmd"
 )
 
 func main() {

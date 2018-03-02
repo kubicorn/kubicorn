@@ -15,9 +15,9 @@
 package test
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/pkg"
-	"github.com/kris-nova/kubicorn/pkg/initapi"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg"
+	"github.com/kubicorn/kubicorn/pkg/initapi"
 )
 
 // Create will create a new test cluster

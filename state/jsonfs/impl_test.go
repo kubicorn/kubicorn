@@ -21,9 +21,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
-	"github.com/kris-nova/kubicorn/state"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/profiles/amazon"
+	"github.com/kubicorn/kubicorn/state"
 )
 
 func TestJsonFileSystem(t *testing.T) {

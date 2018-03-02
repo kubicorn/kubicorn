@@ -18,11 +18,11 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/pkg"
-	"github.com/kris-nova/kubicorn/pkg/cli"
-	"github.com/kris-nova/kubicorn/pkg/logger"
-	"github.com/kris-nova/kubicorn/pkg/task"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg"
+	"github.com/kubicorn/kubicorn/pkg/cli"
+	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/task"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 )

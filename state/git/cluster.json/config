@@ -1,5 +1,5 @@
 [core]
 	bare = false
 [remote "git-test"]
-	url = https://github.com/kris-nova/kubicorn
+	url = https://github.com/kubicorn/kubicorn
 	fetch = +refs/heads/*:refs/remotes/git-test/*

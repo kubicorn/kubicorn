@@ -18,7 +18,7 @@ import (
 	"os"
 	"os/user"
 
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 // ExpandPath returns working directory path

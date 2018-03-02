@@ -16,7 +16,7 @@ Because there are a lot of different combinations of cluster resources a user mi
 
 ### Can I add one to the repo?
 
-Yep. Check out [contributing](https://github.com/kris-nova/kubicorn/blob/master/CONTRIBUTING.md) for more information!
+Yep. Check out [contributing](https://github.com/kubicorn/kubicorn/blob/master/CONTRIBUTING.md) for more information!
 
 ### Can I host my own?
 

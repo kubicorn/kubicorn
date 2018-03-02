@@ -19,7 +19,7 @@ import (
 
 	"reflect"
 
-	"github.com/kris-nova/kubicorn/profiles/amazon"
+	"github.com/kubicorn/kubicorn/profiles/amazon"
 	"github.com/minio/minio-go"
 )
 

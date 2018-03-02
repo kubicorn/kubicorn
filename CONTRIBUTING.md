@@ -60,7 +60,7 @@ No exceptions.
 
 We strive for using the concept of the Happy/Sad tests. Happy test must pass only in case when the given request is correct and response for the request is valid. Sad test must pass only in case when the given request is malformed and appropriate error is returned while parsing it.  
 
-You can take a look at the following [example of Happy/Sad tests](https://github.com/kris-nova/kubicorn/blob/master/cloud/digitalocean/godoSdk/sdk_test.go).
+You can take a look at the following [example of Happy/Sad tests](https://github.com/kubicorn/kubicorn/blob/master/cloud/digitalocean/godoSdk/sdk_test.go).
 
 # Twitter
 

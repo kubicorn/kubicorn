@@ -21,9 +21,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
-	"github.com/kris-nova/kubicorn/state"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/profiles/amazon"
+	"github.com/kubicorn/kubicorn/state"
 )
 
 func TestJsonGit(t *testing.T) {
@@ -36,7 +36,7 @@ func TestJsonGit(t *testing.T) {
 		CommitConfig: &JSONGitCommitConfig{
 			Name:   "Dummy Cluster",
 			Email:  "dummy@clustermail.co",
-			Remote: "https://github.com/kris-nova/kubicorn",
+			Remote: "https://github.com/kubicorn/kubicorn",
 		},
 	}
 	git := NewJSONGitStore(o)

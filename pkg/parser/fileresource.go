@@ -19,7 +19,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 // ReadFromResource reads a file from different sources

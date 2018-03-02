@@ -20,12 +20,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/kris-nova/kubicorn/pkg"
-	"github.com/kris-nova/kubicorn/pkg/cli"
-	"github.com/kris-nova/kubicorn/pkg/initapi"
-	"github.com/kris-nova/kubicorn/pkg/kubeconfig"
-	"github.com/kris-nova/kubicorn/pkg/local"
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg"
+	"github.com/kubicorn/kubicorn/pkg/cli"
+	"github.com/kubicorn/kubicorn/pkg/initapi"
+	"github.com/kubicorn/kubicorn/pkg/kubeconfig"
+	"github.com/kubicorn/kubicorn/pkg/local"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
 	"github.com/yuroyoro/swalker"
 )

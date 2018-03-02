@@ -14,7 +14,7 @@
 
 package state
 
-import "github.com/kris-nova/kubicorn/apis/cluster"
+import "github.com/kubicorn/kubicorn/apis/cluster"
 
 type ClusterStorer interface {
 	Exists() bool

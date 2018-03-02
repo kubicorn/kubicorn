@@ -24,13 +24,13 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/kris-nova/kubicorn/pkg/cli"
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/cli"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/spf13/cobra"
 )
 
 var (
-	versionFile = "/src/github.com/kris-nova/kubicorn/VERSION"
+	versionFile = "/src/github.com/kubicorn/kubicorn/VERSION"
 	vo          = &cli.VersionOptions{}
 )
 

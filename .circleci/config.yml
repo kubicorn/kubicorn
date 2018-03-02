@@ -5,7 +5,7 @@ jobs:
       # CircleCI Go images available at: https://hub.docker.com/r/circleci/golang/
       - image: circleci/golang:1.8
 
-    working_directory: /go/src/github.com/kris-nova/kubicorn
+    working_directory: /go/src/github.com/kubicorn/kubicorn
 
     steps:
       - checkout

@@ -17,8 +17,8 @@ package script
 import (
 	"encoding/json"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/pkg/parser"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/parser"
 )
 
 const (

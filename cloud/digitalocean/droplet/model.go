@@ -17,9 +17,9 @@ package droplet
 import (
 	"net"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/digitalocean/droplet/resources"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/cloud"
+	"github.com/kubicorn/kubicorn/cloud/digitalocean/droplet/resources"
 )
 
 type Model struct {

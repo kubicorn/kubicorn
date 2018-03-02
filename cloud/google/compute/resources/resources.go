@@ -15,8 +15,8 @@
 package resources
 
 import (
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/google/googleSDK"
+	"github.com/kubicorn/kubicorn/cloud"
+	"github.com/kubicorn/kubicorn/cloud/google/googleSDK"
 )
 
 // Sdk represents the connection to the google cloud SDK

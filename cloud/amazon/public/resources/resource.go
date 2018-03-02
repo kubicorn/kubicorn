@@ -17,7 +17,7 @@ package resources
 import (
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/cloud/amazon/awsSdkGo"
+	"github.com/kubicorn/kubicorn/cloud/amazon/awsSdkGo"
 )
 
 type Shared struct {

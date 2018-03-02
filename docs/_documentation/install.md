@@ -13,7 +13,7 @@ If you have a working Golang environment the fastest way to install and run
 `kubicorn` is:
 
 ```bash
-$ go get github.com/kris-nova/kubicorn
+$ go get github.com/kubicorn/kubicorn
 $ ls $GOPATH/bin/kubicorn
 /home/pczarkowski/development/go/bin/kubicorn
 ```

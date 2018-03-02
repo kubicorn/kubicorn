@@ -17,13 +17,13 @@ package cli
 import (
 	"sort"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
-	"github.com/kris-nova/kubicorn/profiles/azure"
-	"github.com/kris-nova/kubicorn/profiles/digitalocean"
-	"github.com/kris-nova/kubicorn/profiles/googlecompute"
-	"github.com/kris-nova/kubicorn/profiles/openstack/ovh"
-	"github.com/kris-nova/kubicorn/profiles/packet"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/profiles/amazon"
+	"github.com/kubicorn/kubicorn/profiles/azure"
+	"github.com/kubicorn/kubicorn/profiles/digitalocean"
+	"github.com/kubicorn/kubicorn/profiles/googlecompute"
+	"github.com/kubicorn/kubicorn/profiles/openstack/ovh"
+	"github.com/kubicorn/kubicorn/profiles/packet"
 
 	"fmt"
 	"math"

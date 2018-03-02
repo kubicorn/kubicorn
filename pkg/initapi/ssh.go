@@ -21,7 +21,7 @@ import (
 	"strings"
 
 	"github.com/kris-nova/klone/pkg/local"
-	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/apis/cluster"
 	"golang.org/x/crypto/ssh"
 )
 

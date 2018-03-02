@@ -17,9 +17,9 @@ package amazon
 import (
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/pkg/kubeadm"
-	"github.com/kris-nova/kubicorn/pkg/uuid"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/kubeadm"
+	"github.com/kubicorn/kubicorn/pkg/uuid"
 )
 
 // NewCentosCluster creates a simple CentOS Amazon cluster

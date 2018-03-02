@@ -14,7 +14,7 @@
 
 package resources
 
-import "github.com/kris-nova/kubicorn/cloud/openstack/openstackSdk"
+import "github.com/kubicorn/kubicorn/cloud/openstack/openstackSdk"
 
 type Shared struct {
 	Identifier string

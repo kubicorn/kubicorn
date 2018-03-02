@@ -17,7 +17,7 @@ package initapi
 import (
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/apis/cluster"
 )
 
 func validateAtLeastOneServerPool(initCluster *cluster.Cluster) error {

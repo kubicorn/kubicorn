@@ -15,7 +15,7 @@ default: authorsfile compile ## Parse Bootstrap scripts and create kubicorn exec
 all: default install
 
 compile: ## Create the kubicorn executable in the ./bin directory.
-	go build -o bin/kubicorn -ldflags "-X github.com/kris-nova/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kris-nova/kubicorn/cmd.Version=${VERSION}" main.go
+	go build -o bin/kubicorn -ldflags "-X github.com/kubicorn/kubicorn/cmd.GitSha=${GIT_SHA} -X github.com/kubicorn/kubicorn/cmd.Version=${VERSION}" main.go
 
 install: ## Create the kubicorn executable in $GOPATH/bin directory.
 	install -m 0755 bin/kubicorn ${GOPATH}/bin/kubicorn
@@ -48,8 +48,8 @@ build-linux-amd64: ## Create the kubicorn executable for Linux 64-bit OS in the 
 	docker run \
 	-u $$(id -u):$$(id -g) \
 	-it \
-	-w /go/src/github.com/kris-nova/kubicorn \
-	-v ${PWD}:/go/src/github.com/kris-nova/kubicorn \
+	-w /go/src/github.com/kubicorn/kubicorn \
+	-v ${PWD}:/go/src/github.com/kubicorn/kubicorn \
 	-e GOPATH=/go \
 	--rm golang:1.8.1 make docker-build-linux-amd64
 
@@ -69,8 +69,8 @@ linux: shell
 shell: ## Exec into a container with the kubicorn source mounted inside
 	docker run \
 	-i -t \
-	-w /go/src/github.com/kris-nova/kubicorn \
-	-v ${PWD}:/go/src/github.com/kris-nova/kubicorn \
+	-w /go/src/github.com/kubicorn/kubicorn \
+	-v ${PWD}:/go/src/github.com/kubicorn/kubicorn \
 	--rm ${SHELL_IMAGE} /bin/bash
 
 lint: install-tools ## check for style mistakes all Go files using golint
@@ -118,10 +118,10 @@ update-headers: ## Update the headers in the repository. Required for all new fi
 apimachinery:
 	go get k8s.io/kubernetes/cmd/libs/go2idl/conversion-gen
 	go get k8s.io/kubernetes/cmd/libs/go2idl/defaulter-gen
-	${GOPATH}/bin/conversion-gen --skip-unsafe=true --input-dirs github.com/kris-nova/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.conversion
-	${GOPATH}/bin/conversion-gen --skip-unsafe=true --input-dirs github.com/kris-nova/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.conversion
-	${GOPATH}/bin/defaulter-gen --input-dirs github.com/kris-nova/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.defaults
-	${GOPATH}/bin/defaulter-gen --input-dirs github.com/kris-nova/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.defaults
+	${GOPATH}/bin/conversion-gen --skip-unsafe=true --input-dirs github.com/kubicorn/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.conversion
+	${GOPATH}/bin/conversion-gen --skip-unsafe=true --input-dirs github.com/kubicorn/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.conversion
+	${GOPATH}/bin/defaulter-gen --input-dirs github.com/kubicorn/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.defaults
+	${GOPATH}/bin/defaulter-gen --input-dirs github.com/kubicorn/kubicorn/apis/cluster/v1alpha1 --v=0  --output-file-base=zz_generated.defaults
 
 .PHONY: install-tools
 install-tools:

@@ -23,7 +23,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 	"golang.org/x/crypto/ssh"
 	sshagent "golang.org/x/crypto/ssh/agent"
 	"golang.org/x/crypto/ssh/terminal"

@@ -12,7 +12,7 @@ As a prerequisite, you need to have `kubicorn` installed. Since we don't have bi
 #### Installing
 
 ```
-$ go get github.com/kris-nova/kubicorn
+$ go get github.com/kubicorn/kubicorn
 ```
 
 The first thing you will do now is to define the cluster resources.
@@ -129,4 +129,4 @@ $ kubicorn delete myfirstk8s
 ```
 
 Congratulations, you're an official `kubicorn` user now and might want to dive deeper,
-for example, learning how to define your own [profiles](https://github.com/kris-nova/kubicorn/tree/master/profiles).
+for example, learning how to define your own [profiles](https://github.com/kubicorn/kubicorn/tree/master/profiles).

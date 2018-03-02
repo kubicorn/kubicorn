@@ -18,13 +18,13 @@ import "fmt"
 
 const (
 	githubProtocol = "https://"
-	githubRepo     = "raw.githubusercontent.com/kris-nova/kubicorn"
+	githubRepo     = "raw.githubusercontent.com/kubicorn/kubicorn"
 	githubBranch   = "master"
 )
 
 // getGitHubUrl will build a query-able URL from a bootstrap script that we can parse in at runtime.
 // Example URL:
-// https://raw.githubusercontent.com/kris-nova/kubicorn/master/bootstrap/amazon_k8s_centos_7_master.sh
+// https://raw.githubusercontent.com/kubicorn/kubicorn/master/bootstrap/amazon_k8s_centos_7_master.sh
 func getGitHubUrl(bootstrapScript string) string {
 	gitHubUrl := fmt.Sprintf("%s%s/%s/%s", githubProtocol, githubRepo, githubBranch, bootstrapScript)
 	return gitHubUrl
