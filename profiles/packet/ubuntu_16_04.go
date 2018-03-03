@@ -17,8 +17,8 @@ package packet
 import (
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/pkg/kubeadm"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/kubeadm"
 )
 
 // NewUbuntuCluster creates a simple Ubuntu Amazon cluster

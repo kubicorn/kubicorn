@@ -19,10 +19,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/pkg/cli"
-	"github.com/kris-nova/kubicorn/pkg/logger"
-	"github.com/kris-nova/kubicorn/pkg/namer"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/cli"
+	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/namer"
 	"github.com/spf13/cobra"
 	"github.com/yuroyoro/swalker"
 )

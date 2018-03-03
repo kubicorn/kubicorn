@@ -1,8 +1,8 @@
 <p align="center"><img src="docs/img/kubicorn-trans.png" width="360"></p>
 <p align="center"><b>Create, manage, snapshot, and scale Kubernetes infrastructure in the public cloud.</b></p>
 <p align="center">
-  <a href="https://travis-ci.org/kris-nova/kubicorn"><img src="https://travis-ci.org/kris-nova/kubicorn.svg?branch=master" alt="Build Status"></img></a>
-  <a href="https://goreportcard.com/report/github.com/kris-nova/kubicorn"><img src="https://goreportcard.com/badge/github.com/kris-nova/kubicorn" alt="Go Report Card"></img></a>
+  <a href="https://travis-ci.org/kubicorn/kubicorn"><img src="https://travis-ci.org/kubicorn/kubicorn.svg?branch=master" alt="Build Status"></img></a>
+  <a href="https://goreportcard.com/report/github.com/kubicorn/kubicorn"><img src="https://goreportcard.com/badge/github.com/kubicorn/kubicorn" alt="Go Report Card"></img></a>
 </p>
 
 **Phonetic pronunciation**: `KEW - BHIK - OH - AR - IN`
@@ -49,7 +49,7 @@ We believe that sharing is important, and encouraging our peers is even more imp
 # Installing
 
 ```bash
-$ go get github.com/kris-nova/kubicorn
+$ go get github.com/kubicorn/kubicorn
 ```
 
 ..or read the [Install Guide](http://kubicorn.io/documentation/install.html).

@@ -22,7 +22,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 type tickerTickBounds struct {

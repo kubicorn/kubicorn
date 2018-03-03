@@ -19,8 +19,8 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/kris-nova/kubicorn/pkg/agent"
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/agent"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 )

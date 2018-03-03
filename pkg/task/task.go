@@ -17,7 +17,7 @@ package task
 import (
 	"time"
 
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 type Task func() error

@@ -15,7 +15,7 @@
 package resources
 
 import (
-	"github.com/kris-nova/kubicorn/cloud/azure/azureSDK"
+	"github.com/kubicorn/kubicorn/cloud/azure/azureSDK"
 )
 
 type Shared struct {

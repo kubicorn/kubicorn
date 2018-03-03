@@ -18,12 +18,12 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/pkg/logger"
-	"github.com/kris-nova/kubicorn/state"
-	"github.com/kris-nova/kubicorn/state/fs"
-	"github.com/kris-nova/kubicorn/state/git"
-	"github.com/kris-nova/kubicorn/state/jsonfs"
-	"github.com/kris-nova/kubicorn/state/s3"
+	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/state"
+	"github.com/kubicorn/kubicorn/state/fs"
+	"github.com/kubicorn/kubicorn/state/git"
+	"github.com/kubicorn/kubicorn/state/jsonfs"
+	"github.com/kubicorn/kubicorn/state/s3"
 	minio "github.com/minio/minio-go"
 	gg "github.com/tcnksm/go-gitconfig"
 )

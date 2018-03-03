@@ -25,17 +25,17 @@ You can add these two lines to `~/.bash_profile` to make sure these variables ar
 If you have this you should be able to run the following command:
 
 ```bash
-$ go get github.com/kris-nova/kubicorn
+$ go get github.com/kubicorn/kubicorn
 ```
 
 ### Building
 Now you can run `make` from the `src` directory of `kubicorn`:
 
 ```bash
-$ cd $GOPATH/src/github.com/kris-nova/kubicorn/
+$ cd $GOPATH/src/github.com/kubicorn/kubicorn/
 $ make
 ```
-The `kubicorn` binary will get built and placed under `$GOPATH/src/github.com/kris-nova/kubicorn/bin`. You can also run `make all` to also get the binary under `$GOPATH/bin`. 
+The `kubicorn` binary will get built and placed under `$GOPATH/src/github.com/kubicorn/kubicorn/bin`. You can also run `make all` to also get the binary under `$GOPATH/bin`. 
 
 Now you can run `kubicorn` to check if everything is working:
 
@@ -46,7 +46,7 @@ $ kubicorn
 ### Other branches or your fork
 If you want to build a different git branch just switch inside the `kubicorn` project:
 ```bash
-$ cd $GOPATH/src/github.com/kris-nova/kubicorn/
+$ cd $GOPATH/src/github.com/kubicorn/kubicorn/
 $ git checkout digitalocean2
 $ make
 ```
@@ -72,7 +72,7 @@ Have a look at the [official Docker documentation](https://docs.docker.com/engin
 
 To use this script just make a git checkout of the `kubicorn` repository and run the build.sh:
 ```bash
-$ git clone https://github.com/kris-nova/kubicorn.git
+$ git clone https://github.com/kubicorn/kubicorn.git
 $ cd kubicorn/docker
 $ ./build.sh 
 ```

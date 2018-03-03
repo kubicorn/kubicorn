@@ -20,8 +20,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/profiles/amazon"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/profiles/amazon"
 )
 
 func TestBuildBootstrapScriptHappy(t *testing.T) {

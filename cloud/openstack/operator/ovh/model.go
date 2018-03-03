@@ -15,10 +15,10 @@
 package ovh
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/openstack/operator/generic/resources"
-	ovhr "github.com/kris-nova/kubicorn/cloud/openstack/operator/ovh/resources"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/cloud"
+	"github.com/kubicorn/kubicorn/cloud/openstack/operator/generic/resources"
+	ovhr "github.com/kubicorn/kubicorn/cloud/openstack/operator/ovh/resources"
 )
 
 type Model struct {

@@ -17,10 +17,10 @@ package public
 import (
 	"encoding/json"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/cloud/packet/public/resources"
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/cloud"
+	"github.com/kubicorn/kubicorn/cloud/packet/public/resources"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 type Model struct {

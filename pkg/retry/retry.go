@@ -20,8 +20,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/kris-nova/kubicorn/pkg/logger"
-	"github.com/kris-nova/kubicorn/pkg/signals"
+	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/signals"
 )
 
 // Retryable is an interface that implements retrier.

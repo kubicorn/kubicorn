@@ -17,7 +17,7 @@ package resources
 import (
 	"testing"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/apis/cluster"
 )
 
 func TestExpectedHappy(t *testing.T) {

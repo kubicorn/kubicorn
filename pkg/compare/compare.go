@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 func IsEqual(actual, expected interface{}) (bool, error) {

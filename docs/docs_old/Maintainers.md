@@ -18,7 +18,7 @@ Kubicorn is a small team currently, things are evolving at a very fast pace. We 
     - resolve conflicts
     - research what's best for the community.
  - Work with other maintainers to keep the project growing and stable.
- - Avoid having too many API changes, if necessary it should fullfil [backwards-compatibility-promise](https://github.com/kris-nova/kubicorn/blob/master/docs/SEMVER.md#backwards-compatibility-promise)
+ - Avoid having too many API changes, if necessary it should fullfil [backwards-compatibility-promise](https://github.com/kubicorn/kubicorn/blob/master/docs/SEMVER.md#backwards-compatibility-promise)
  - Don't say Yes unless you are 99.999% (there is nothing 100%).
  - Remember, you are not alone, there are people to help you as well.
  - Take a break, whenever you need.

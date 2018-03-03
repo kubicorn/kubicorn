@@ -15,7 +15,7 @@
 package cloud
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/apis/cluster"
 )
 
 // Reconciler will create and destroy infrastructure based on an intended state. A Reconciler will

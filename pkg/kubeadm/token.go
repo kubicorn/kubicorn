@@ -17,7 +17,7 @@ package kubeadm
 import (
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/pkg/rand"
+	"github.com/kubicorn/kubicorn/pkg/rand"
 )
 
 func GetRandomToken() string {

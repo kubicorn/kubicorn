@@ -17,7 +17,7 @@ package namer
 import (
 	"fmt"
 
-	"github.com/kris-nova/kubicorn/pkg/rand"
+	"github.com/kubicorn/kubicorn/pkg/rand"
 )
 
 func RandomName() string {

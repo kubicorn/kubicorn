@@ -19,10 +19,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/pkg/defaults"
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/cloud"
+	"github.com/kubicorn/kubicorn/pkg/defaults"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 	"github.com/packethost/packngo"
 )
 

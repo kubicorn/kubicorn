@@ -15,7 +15,7 @@
 package resources
 
 import (
-	"github.com/kris-nova/kubicorn/cloud/packet/packetSDK"
+	"github.com/kubicorn/kubicorn/cloud/packet/packetSDK"
 )
 
 type Shared struct {

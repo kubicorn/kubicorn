@@ -20,7 +20,7 @@ import (
 func TestGithubUrl(t *testing.T) {
 
 	testData := map[string]string{
-		"bootstrap/myscript.sh": "https://raw.githubusercontent.com/kris-nova/kubicorn/master/bootstrap/myscript.sh",
+		"bootstrap/myscript.sh": "https://raw.githubusercontent.com/kubicorn/kubicorn/master/bootstrap/myscript.sh",
 	}
 
 	for input, expectedOutput := range testData {

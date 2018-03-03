@@ -6,9 +6,9 @@
 FROM golang:latest
 
 # Create the default data directory
-RUN go get github.com/kris-nova/kubicorn/...
+RUN go get github.com/kubicorn/kubicorn/...
 
-WORKDIR /go/src/github.com/kris-nova/kubicorn/
+WORKDIR /go/src/github.com/kubicorn/kubicorn/
 
 # Runs appropriate make command based on environment
 RUN  CGO_ENABLED=0 GOOS=linux  make docker-build-linux-amd64
@@ -29,7 +29,7 @@ RUN	apk add --no-cache \
 	ca-certificates
 
 WORKDIR /root/
-COPY --from=0 /go/src/github.com/kris-nova/kubicorn .
+COPY --from=0 /go/src/github.com/kubicorn/kubicorn .
 
 RUN echo "Image build complete."
 

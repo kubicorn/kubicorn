@@ -14,7 +14,7 @@ Before continuing, make sure that you can use the `go` command from your shell.
 
 ### Building `kubicorn`
 
-Details about the building process can be found in [BUILD docs](https://github.com/kris-nova/kubicorn/blob/master/docs/BUILD.md) and [INSTALL docs](https://github.com/kris-nova/kubicorn/blob/master/docs/INSTALL.md).
+Details about the building process can be found in [BUILD docs](https://github.com/kubicorn/kubicorn/blob/master/docs/BUILD.md) and [INSTALL docs](https://github.com/kubicorn/kubicorn/blob/master/docs/INSTALL.md).
 
 The following `make` commands are available for building `kubicorn`:
 * `make` — parse Bootstrap scripts and create `kubicorn` executable in the `./bin` directory and the `AUTHORS` file.
@@ -46,7 +46,7 @@ The following commands can be used to format and verify Go code:
 
 ### Testing
 
-`make test` and `make ci` are used to run tests and E2E tests. More about testing can be found in the [`test` package](https://github.com/kris-nova/kubicorn/tree/master/test).
+`make test` and `make ci` are used to run tests and E2E tests. More about testing can be found in the [`test` package](https://github.com/kubicorn/kubicorn/tree/master/test).
 
 ### `Makefile` verbose mode
 

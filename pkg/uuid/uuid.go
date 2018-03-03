@@ -18,7 +18,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/kris-nova/kubicorn/pkg/rand"
+	"github.com/kubicorn/kubicorn/pkg/rand"
 )
 
 // TimeOrderedUUID generates a time ordered UUID. Top 32b are timestamp bottom 96b are random.

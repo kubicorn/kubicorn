@@ -19,11 +19,11 @@ import (
 	"strconv"
 
 	"github.com/aws/aws-sdk-go/service/ec2"
-	"github.com/kris-nova/kubicorn/apis/cluster"
-	"github.com/kris-nova/kubicorn/cloud"
-	"github.com/kris-nova/kubicorn/pkg/compare"
-	"github.com/kris-nova/kubicorn/pkg/defaults"
-	"github.com/kris-nova/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/cloud"
+	"github.com/kubicorn/kubicorn/pkg/compare"
+	"github.com/kubicorn/kubicorn/pkg/defaults"
+	"github.com/kubicorn/kubicorn/pkg/logger"
 )
 
 var _ cloud.Resource = &SecurityGroup{}

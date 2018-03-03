@@ -15,10 +15,10 @@
 package main
 
 import (
-	"github.com/kris-nova/kubicorn/pkg"
-	"github.com/kris-nova/kubicorn/pkg/initapi"
-	"github.com/kris-nova/kubicorn/pkg/logger"
-	"github.com/kris-nova/kubicorn/profiles/googlecompute"
+	"github.com/kubicorn/kubicorn/pkg"
+	"github.com/kubicorn/kubicorn/pkg/initapi"
+	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/profiles/googlecompute"
 )
 
 func main() {

@@ -15,7 +15,7 @@
 package defaults
 
 import (
-	"github.com/kris-nova/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/apis/cluster"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
