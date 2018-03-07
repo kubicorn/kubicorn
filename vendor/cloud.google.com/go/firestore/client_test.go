@@ -17,13 +17,10 @@ package firestore
 import (
 	"testing"
 
+	"golang.org/x/net/context"
+	pb "google.golang.org/genproto/googleapis/firestore/v1beta1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
-
-	"cloud.google.com/go/internal/pretty"
-	pb "google.golang.org/genproto/googleapis/firestore/v1beta1"
-
-	"golang.org/x/net/context"
 )
 
 var testClient = &Client{
@@ -95,10 +92,23 @@ func TestClientCollDocErrors(t *testing.T) {
 }
 
 func TestGetAll(t *testing.T) {
-	ctx := context.Background()
-	const dbPath = "projects/projectID/databases/(default)"
 	c, srv := newMock(t)
 	defer c.Close()
+	const dbPath = "projects/projectID/databases/(default)"
+	req := &pb.BatchGetDocumentsRequest{
+		Database: dbPath,
+		Documents: []string{
+			dbPath + "/documents/C/a",
+			dbPath + "/documents/C/b",
+			dbPath + "/documents/C/c",
+		},
+	}
+	testGetAll(t, c, srv, dbPath, func(drs []*DocumentRef) ([]*DocumentSnapshot, error) {
+		return c.GetAll(context.Background(), drs)
+	}, req)
+}
+
+func testGetAll(t *testing.T, c *Client, srv *mockServer, dbPath string, getAll func([]*DocumentRef) ([]*DocumentSnapshot, error), req *pb.BatchGetDocumentsRequest) {
 	wantPBDocs := []*pb.Document{
 		{
 			Name:       dbPath + "/documents/C/a",
@@ -114,15 +124,7 @@ func TestGetAll(t *testing.T) {
 			Fields:     map[string]*pb.Value{"f": intval(1)},
 		},
 	}
-	srv.addRPC(
-		&pb.BatchGetDocumentsRequest{
-			Database: dbPath,
-			Documents: []string{
-				dbPath + "/documents/C/a",
-				dbPath + "/documents/C/b",
-				dbPath + "/documents/C/c",
-			},
-		},
+	srv.addRPC(req,
 		[]interface{}{
 			// deliberately put these out of order
 			&pb.BatchGetDocumentsResponse{
@@ -141,7 +143,7 @@ func TestGetAll(t *testing.T) {
 	for _, name := range []string{"a", "b", "c"} {
 		docRefs = append(docRefs, coll.Doc(name))
 	}
-	docs, err := c.GetAll(ctx, docRefs)
+	docs, err := getAll(docRefs)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -156,10 +158,8 @@ func TestGetAll(t *testing.T) {
 				t.Fatal(err)
 			}
 		}
-		if !testEqual(got, want) {
-			got.c = nil
-			want.c = nil
-			t.Errorf("#%d: got %+v, want %+v", i, pretty.Value(got), pretty.Value(want))
+		if diff := testDiff(got, want); diff != "" {
+			t.Errorf("#%d: got=--, want==++\n%s", i, diff)
 		}
 	}
 }

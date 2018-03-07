@@ -208,6 +208,9 @@ type About struct {
 	// AppInstalled: Whether the user has installed the requesting app.
 	AppInstalled bool `json:"appInstalled,omitempty"`
 
+	// CanCreateTeamDrives: Whether the user can create Team Drives.
+	CanCreateTeamDrives bool `json:"canCreateTeamDrives,omitempty"`
+
 	// ExportFormats: A map of source MIME type to possible targets for all
 	// supported exports.
 	ExportFormats map[string][]string `json:"exportFormats,omitempty"`
@@ -791,8 +794,10 @@ type File struct {
 
 	// Parents: The IDs of the parent folders which contain the file.
 	// If not specified as part of a create request, the file will be placed
-	// directly in the My Drive folder. Update requests must use the
-	// addParents and removeParents parameters to modify the values.
+	// directly in the user's My Drive folder. If not specified as part of a
+	// copy request, the file will inherit any discoverable parents of the
+	// source file. Update requests must use the addParents and
+	// removeParents parameters to modify the parents list.
 	Parents []string `json:"parents,omitempty"`
 
 	// PermissionIds: List of permission IDs for users with access to this
@@ -4141,11 +4146,12 @@ func (c *FilesCreateCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("POST", urls, body)
 	req.Header = reqHeaders
+	gensupport.SetGetBody(req, getBody)
 	return gensupport.SendRequest(c.ctx_, c.s.client, req)
 }
 
@@ -5404,11 +5410,12 @@ func (c *FilesUpdateCall) doRequest(alt string) (*http.Response, error) {
 		body = new(bytes.Buffer)
 		reqHeaders.Set("Content-Type", "application/json")
 	}
-	body, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
+	body, getBody, cleanup := c.mediaInfo_.UploadRequest(reqHeaders, body)
 	defer cleanup()
 	urls += "?" + c.urlParams_.Encode()
 	req, _ := http.NewRequest("PATCH", urls, body)
 	req.Header = reqHeaders
+	gensupport.SetGetBody(req, getBody)
 	googleapi.Expand(req.URL, map[string]string{
 		"fileId": c.fileId,
 	})
@@ -5758,8 +5765,8 @@ func (r *PermissionsService) Create(fileId string, permission *Permission) *Perm
 	return c
 }
 
-// EmailMessage sets the optional parameter "emailMessage": A custom
-// message to include in the notification email.
+// EmailMessage sets the optional parameter "emailMessage": A plain text
+// custom message to include in the notification email.
 func (c *PermissionsCreateCall) EmailMessage(emailMessage string) *PermissionsCreateCall {
 	c.urlParams_.Set("emailMessage", emailMessage)
 	return c
@@ -5895,7 +5902,7 @@ func (c *PermissionsCreateCall) Do(opts ...googleapi.CallOption) (*Permission, e
 	//   ],
 	//   "parameters": {
 	//     "emailMessage": {
-	//       "description": "A custom message to include in the notification email.",
+	//       "description": "A plain text custom message to include in the notification email.",
 	//       "location": "query",
 	//       "type": "string"
 	//     },

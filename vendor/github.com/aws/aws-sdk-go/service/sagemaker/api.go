@@ -349,9 +349,8 @@ func (c *SageMaker) CreateModelRequest(input *CreateModelInput) (req *request.Re
 // Amazon SageMaker then deploys all of the containers that you defined for
 // the model in the hosting environment.
 //
-// In the CreateModel request, you must define at least one container with the
-// PrimaryContainer parameter. You can optionally specify additional containers
-// with the SupplementalContainers parameter.
+// In the CreateModel request, you must define a container with the PrimaryContainer
+// parameter.
 //
 // In the request, you also provide an IAM role that Amazon SageMaker can assume
 // to access model artifacts and docker image for deployment on ML compute hosting
@@ -2303,8 +2302,8 @@ func (c *SageMaker) StartNotebookInstanceRequest(input *StartNotebookInstanceInp
 // Launches an ML compute instance with the latest version of the libraries
 // and attaches your ML storage volume. After configuring the notebook instance,
 // Amazon SageMaker sets the notebook instance status to InService. A notebook
-// instance's status must be InService (is this same as "Running" in the console?)
-// before you can connect to your Jupyter notebook.
+// instance's status must be InService before you can connect to your Jupyter
+// notebook.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
 // with awserr.Error's Code and Message methods to get detailed information about
@@ -2647,12 +2646,11 @@ func (c *SageMaker) UpdateEndpointWeightsAndCapacitiesRequest(input *UpdateEndpo
 
 // UpdateEndpointWeightsAndCapacities API operation for Amazon SageMaker Service.
 //
-// Updates variant weight, capacity, or both of one or more variants associated
-// with an endpoint. This operation updates weight, capacity, or both for the
-// previously provisioned endpoint. When it receives the request, Amazon SageMaker
-// sets the endpoint status to Updating. After updating the endpoint, it sets
-// the status to InService. To check the status of an endpoint, use the DescribeEndpoint
-// (http://docs.aws.amazon.com/sagemaker/latest/dg/API_DescribeEndpoint.html)
+// Updates variant weight of one or more variants associated with an existing
+// endpoint, or capacity of one variant associated with an existing endpoint.
+// When it receives the request, Amazon SageMaker sets the endpoint status to
+// Updating. After updating the endpoint, it sets the status to InService. To
+// check the status of an endpoint, use the DescribeEndpoint (http://docs.aws.amazon.com/sagemaker/latest/dg/API_DescribeEndpoint.html)
 // API.
 //
 // Returns awserr.Error for service API and SDK errors. Use runtime type assertions
@@ -2772,7 +2770,6 @@ func (c *SageMaker) UpdateNotebookInstanceWithContext(ctx aws.Context, input *Up
 	return out, req.Send()
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AddTagsInput
 type AddTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -2837,7 +2834,6 @@ func (s *AddTagsInput) SetTags(v []*Tag) *AddTagsInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AddTagsOutput
 type AddTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -2867,7 +2863,6 @@ func (s *AddTagsOutput) SetTags(v []*Tag) *AddTagsOutput {
 // For more information about algorithms provided by Amazon SageMaker, see Algorithms
 // (http://docs.aws.amazon.com/sagemaker/latest/dg/algos.html). For information
 // about using your own algorithms, see Bring Your Own Algorithms  (http://docs.aws.amazon.com/sagemaker/latest/dg/adv-topics-own-algo.html).
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AlgorithmSpecification
 type AlgorithmSpecification struct {
 	_ struct{} `type:"structure"`
 
@@ -2941,7 +2936,6 @@ func (s *AlgorithmSpecification) SetTrainingInputMode(v string) *AlgorithmSpecif
 }
 
 // A channel is a named input source that training algorithms can consume.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/Channel
 type Channel struct {
 	_ struct{} `type:"structure"`
 
@@ -3036,7 +3030,6 @@ func (s *Channel) SetRecordWrapperType(v string) *Channel {
 }
 
 // Describes the container, as part of model definition.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ContainerDefinition
 type ContainerDefinition struct {
 	_ struct{} `type:"structure"`
 
@@ -3110,7 +3103,6 @@ func (s *ContainerDefinition) SetModelDataUrl(v string) *ContainerDefinition {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateEndpointConfigInput
 type CreateEndpointConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3120,6 +3112,11 @@ type CreateEndpointConfigInput struct {
 	//
 	// EndpointConfigName is a required field
 	EndpointConfigName *string `type:"string" required:"true"`
+
+	// The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon
+	// SageMaker uses to encrypt data on the storage volume attached to the ML compute
+	// instance that hosts the endpoint.
+	KmsKeyId *string `type:"string"`
 
 	// An array of ProductionVariant objects, one for each model that you want to
 	// host at this endpoint.
@@ -3188,6 +3185,12 @@ func (s *CreateEndpointConfigInput) SetEndpointConfigName(v string) *CreateEndpo
 	return s
 }
 
+// SetKmsKeyId sets the KmsKeyId field's value.
+func (s *CreateEndpointConfigInput) SetKmsKeyId(v string) *CreateEndpointConfigInput {
+	s.KmsKeyId = &v
+	return s
+}
+
 // SetProductionVariants sets the ProductionVariants field's value.
 func (s *CreateEndpointConfigInput) SetProductionVariants(v []*ProductionVariant) *CreateEndpointConfigInput {
 	s.ProductionVariants = v
@@ -3200,7 +3203,6 @@ func (s *CreateEndpointConfigInput) SetTags(v []*Tag) *CreateEndpointConfigInput
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateEndpointConfigOutput
 type CreateEndpointConfigOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3226,7 +3228,6 @@ func (s *CreateEndpointConfigOutput) SetEndpointConfigArn(v string) *CreateEndpo
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateEndpointInput
 type CreateEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3302,7 +3303,6 @@ func (s *CreateEndpointInput) SetTags(v []*Tag) *CreateEndpointInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateEndpointOutput
 type CreateEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3328,7 +3328,6 @@ func (s *CreateEndpointOutput) SetEndpointArn(v string) *CreateEndpointOutput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateModelInput
 type CreateModelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3336,7 +3335,9 @@ type CreateModelInput struct {
 	// assume to access model artifacts and docker image for deployment on ML compute
 	// instances. Deploying on ML compute instances is part of model hosting. For
 	// more information, see Amazon SageMaker Roles (http://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
-	ExecutionRoleArn *string `min:"20" type:"string"`
+	//
+	// ExecutionRoleArn is a required field
+	ExecutionRoleArn *string `min:"20" type:"string" required:"true"`
 
 	// The name of the new model.
 	//
@@ -3349,9 +3350,6 @@ type CreateModelInput struct {
 	//
 	// PrimaryContainer is a required field
 	PrimaryContainer *ContainerDefinition `type:"structure" required:"true"`
-
-	// The additional optional containers to deploy.
-	SupplementalContainers []*ContainerDefinition `type:"list"`
 
 	// An array of key-value pairs. For more information, see Using Cost Allocation
 	// Tags (http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
@@ -3372,6 +3370,9 @@ func (s CreateModelInput) GoString() string {
 // Validate inspects the fields of the type to determine if they are valid.
 func (s *CreateModelInput) Validate() error {
 	invalidParams := request.ErrInvalidParams{Context: "CreateModelInput"}
+	if s.ExecutionRoleArn == nil {
+		invalidParams.Add(request.NewErrParamRequired("ExecutionRoleArn"))
+	}
 	if s.ExecutionRoleArn != nil && len(*s.ExecutionRoleArn) < 20 {
 		invalidParams.Add(request.NewErrParamMinLen("ExecutionRoleArn", 20))
 	}
@@ -3384,16 +3385,6 @@ func (s *CreateModelInput) Validate() error {
 	if s.PrimaryContainer != nil {
 		if err := s.PrimaryContainer.Validate(); err != nil {
 			invalidParams.AddNested("PrimaryContainer", err.(request.ErrInvalidParams))
-		}
-	}
-	if s.SupplementalContainers != nil {
-		for i, v := range s.SupplementalContainers {
-			if v == nil {
-				continue
-			}
-			if err := v.Validate(); err != nil {
-				invalidParams.AddNested(fmt.Sprintf("%s[%v]", "SupplementalContainers", i), err.(request.ErrInvalidParams))
-			}
 		}
 	}
 	if s.Tags != nil {
@@ -3431,19 +3422,12 @@ func (s *CreateModelInput) SetPrimaryContainer(v *ContainerDefinition) *CreateMo
 	return s
 }
 
-// SetSupplementalContainers sets the SupplementalContainers field's value.
-func (s *CreateModelInput) SetSupplementalContainers(v []*ContainerDefinition) *CreateModelInput {
-	s.SupplementalContainers = v
-	return s
-}
-
 // SetTags sets the Tags field's value.
 func (s *CreateModelInput) SetTags(v []*Tag) *CreateModelInput {
 	s.Tags = v
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateModelOutput
 type CreateModelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3469,7 +3453,6 @@ func (s *CreateModelOutput) SetModelArn(v string) *CreateModelOutput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateNotebookInstanceInput
 type CreateNotebookInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3594,7 +3577,6 @@ func (s *CreateNotebookInstanceInput) SetTags(v []*Tag) *CreateNotebookInstanceI
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateNotebookInstanceOutput
 type CreateNotebookInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3618,7 +3600,6 @@ func (s *CreateNotebookInstanceOutput) SetNotebookInstanceArn(v string) *CreateN
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreatePresignedNotebookInstanceUrlInput
 type CreatePresignedNotebookInstanceUrlInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3669,7 +3650,6 @@ func (s *CreatePresignedNotebookInstanceUrlInput) SetSessionExpirationDurationIn
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreatePresignedNotebookInstanceUrlOutput
 type CreatePresignedNotebookInstanceUrlOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3693,7 +3673,6 @@ func (s *CreatePresignedNotebookInstanceUrlOutput) SetAuthorizedUrl(v string) *C
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateTrainingJobRequest
 type CreateTrainingJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -3932,7 +3911,6 @@ func (s *CreateTrainingJobInput) SetTrainingJobName(v string) *CreateTrainingJob
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateTrainingJobResponse
 type CreateTrainingJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -3959,7 +3937,6 @@ func (s *CreateTrainingJobOutput) SetTrainingJobArn(v string) *CreateTrainingJob
 }
 
 // Describes the location of the channel data.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DataSource
 type DataSource struct {
 	_ struct{} `type:"structure"`
 
@@ -4003,7 +3980,6 @@ func (s *DataSource) SetS3DataSource(v *S3DataSource) *DataSource {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteEndpointConfigInput
 type DeleteEndpointConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4042,7 +4018,6 @@ func (s *DeleteEndpointConfigInput) SetEndpointConfigName(v string) *DeleteEndpo
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteEndpointConfigOutput
 type DeleteEndpointConfigOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4057,7 +4032,6 @@ func (s DeleteEndpointConfigOutput) GoString() string {
 	return s.String()
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteEndpointInput
 type DeleteEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4096,7 +4070,6 @@ func (s *DeleteEndpointInput) SetEndpointName(v string) *DeleteEndpointInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteEndpointOutput
 type DeleteEndpointOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4111,7 +4084,6 @@ func (s DeleteEndpointOutput) GoString() string {
 	return s.String()
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteModelInput
 type DeleteModelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4150,7 +4122,6 @@ func (s *DeleteModelInput) SetModelName(v string) *DeleteModelInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteModelOutput
 type DeleteModelOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4165,7 +4136,6 @@ func (s DeleteModelOutput) GoString() string {
 	return s.String()
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteNotebookInstanceInput
 type DeleteNotebookInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4204,7 +4174,6 @@ func (s *DeleteNotebookInstanceInput) SetNotebookInstanceName(v string) *DeleteN
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteNotebookInstanceOutput
 type DeleteNotebookInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4219,7 +4188,6 @@ func (s DeleteNotebookInstanceOutput) GoString() string {
 	return s.String()
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteTagsInput
 type DeleteTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4275,7 +4243,6 @@ func (s *DeleteTagsInput) SetTagKeys(v []*string) *DeleteTagsInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteTagsOutput
 type DeleteTagsOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -4290,7 +4257,6 @@ func (s DeleteTagsOutput) GoString() string {
 	return s.String()
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeEndpointConfigInput
 type DescribeEndpointConfigInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4329,7 +4295,6 @@ func (s *DescribeEndpointConfigInput) SetEndpointConfigName(v string) *DescribeE
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeEndpointConfigOutput
 type DescribeEndpointConfigOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4347,6 +4312,10 @@ type DescribeEndpointConfigOutput struct {
 	//
 	// EndpointConfigName is a required field
 	EndpointConfigName *string `type:"string" required:"true"`
+
+	// AWS KMS key ID Amazon SageMaker uses to encrypt data when storing it on the
+	// ML storage volume attached to the instance.
+	KmsKeyId *string `type:"string"`
 
 	// An array of ProductionVariant objects, one for each model that you want to
 	// host at this endpoint.
@@ -4383,13 +4352,18 @@ func (s *DescribeEndpointConfigOutput) SetEndpointConfigName(v string) *Describe
 	return s
 }
 
+// SetKmsKeyId sets the KmsKeyId field's value.
+func (s *DescribeEndpointConfigOutput) SetKmsKeyId(v string) *DescribeEndpointConfigOutput {
+	s.KmsKeyId = &v
+	return s
+}
+
 // SetProductionVariants sets the ProductionVariants field's value.
 func (s *DescribeEndpointConfigOutput) SetProductionVariants(v []*ProductionVariant) *DescribeEndpointConfigOutput {
 	s.ProductionVariants = v
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeEndpointInput
 type DescribeEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4428,7 +4402,6 @@ func (s *DescribeEndpointInput) SetEndpointName(v string) *DescribeEndpointInput
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeEndpointOutput
 type DescribeEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4528,7 +4501,6 @@ func (s *DescribeEndpointOutput) SetProductionVariants(v []*ProductionVariantSum
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeModelInput
 type DescribeModelInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4567,7 +4539,6 @@ func (s *DescribeModelInput) SetModelName(v string) *DescribeModelInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeModelOutput
 type DescribeModelOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4597,12 +4568,6 @@ type DescribeModelOutput struct {
 	//
 	// PrimaryContainer is a required field
 	PrimaryContainer *ContainerDefinition `type:"structure" required:"true"`
-
-	// The description of additional optional containers that you defined when creating
-	// the model.
-	//
-	// SupplementalContainers is a required field
-	SupplementalContainers []*ContainerDefinition `type:"list" required:"true"`
 }
 
 // String returns the string representation
@@ -4645,13 +4610,6 @@ func (s *DescribeModelOutput) SetPrimaryContainer(v *ContainerDefinition) *Descr
 	return s
 }
 
-// SetSupplementalContainers sets the SupplementalContainers field's value.
-func (s *DescribeModelOutput) SetSupplementalContainers(v []*ContainerDefinition) *DescribeModelOutput {
-	s.SupplementalContainers = v
-	return s
-}
-
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeNotebookInstanceInput
 type DescribeNotebookInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4690,7 +4648,6 @@ func (s *DescribeNotebookInstanceInput) SetNotebookInstanceName(v string) *Descr
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeNotebookInstanceOutput
 type DescribeNotebookInstanceOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -4827,7 +4784,6 @@ func (s *DescribeNotebookInstanceOutput) SetUrl(v string) *DescribeNotebookInsta
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeTrainingJobRequest
 type DescribeTrainingJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -4869,7 +4825,6 @@ func (s *DescribeTrainingJobInput) SetTrainingJobName(v string) *DescribeTrainin
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeTrainingJobResponse
 type DescribeTrainingJobOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5080,7 +5035,6 @@ func (s *DescribeTrainingJobOutput) SetTrainingStartTime(v time.Time) *DescribeT
 }
 
 // Specifies weight and capacity values for a production variant.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DesiredWeightAndCapacity
 type DesiredWeightAndCapacity struct {
 	_ struct{} `type:"structure"`
 
@@ -5141,7 +5095,6 @@ func (s *DesiredWeightAndCapacity) SetVariantName(v string) *DesiredWeightAndCap
 }
 
 // Provides summary information for an endpoint configuration.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/EndpointConfigSummary
 type EndpointConfigSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -5190,7 +5143,6 @@ func (s *EndpointConfigSummary) SetEndpointConfigName(v string) *EndpointConfigS
 }
 
 // Provides summary information for an endpoint.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/EndpointSummary
 type EndpointSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -5260,7 +5212,6 @@ func (s *EndpointSummary) SetLastModifiedTime(v time.Time) *EndpointSummary {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListEndpointConfigsInput
 type ListEndpointConfigsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5356,7 +5307,6 @@ func (s *ListEndpointConfigsInput) SetSortOrder(v string) *ListEndpointConfigsIn
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListEndpointConfigsOutput
 type ListEndpointConfigsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5392,7 +5342,6 @@ func (s *ListEndpointConfigsOutput) SetNextToken(v string) *ListEndpointConfigsO
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListEndpointsInput
 type ListEndpointsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5517,7 +5466,6 @@ func (s *ListEndpointsInput) SetStatusEquals(v string) *ListEndpointsInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListEndpointsOutput
 type ListEndpointsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5553,7 +5501,6 @@ func (s *ListEndpointsOutput) SetNextToken(v string) *ListEndpointsOutput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListModelsInput
 type ListModelsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5647,7 +5594,6 @@ func (s *ListModelsInput) SetSortOrder(v string) *ListModelsInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListModelsOutput
 type ListModelsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5683,7 +5629,6 @@ func (s *ListModelsOutput) SetNextToken(v string) *ListModelsOutput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListNotebookInstancesInput
 type ListNotebookInstancesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5812,7 +5757,6 @@ func (s *ListNotebookInstancesInput) SetStatusEquals(v string) *ListNotebookInst
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListNotebookInstancesOutput
 type ListNotebookInstancesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5847,7 +5791,6 @@ func (s *ListNotebookInstancesOutput) SetNotebookInstances(v []*NotebookInstance
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListTagsInput
 type ListTagsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -5909,7 +5852,6 @@ func (s *ListTagsInput) SetResourceArn(v string) *ListTagsInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListTagsOutput
 type ListTagsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -5943,7 +5885,6 @@ func (s *ListTagsOutput) SetTags(v []*Tag) *ListTagsOutput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListTrainingJobsRequest
 type ListTrainingJobsInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6067,7 +6008,6 @@ func (s *ListTrainingJobsInput) SetStatusEquals(v string) *ListTrainingJobsInput
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListTrainingJobsResponse
 type ListTrainingJobsOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -6105,7 +6045,6 @@ func (s *ListTrainingJobsOutput) SetTrainingJobSummaries(v []*TrainingJobSummary
 
 // Provides information about the location that is configured for storing model
 // artifacts.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ModelArtifacts
 type ModelArtifacts struct {
 	_ struct{} `type:"structure"`
 
@@ -6133,7 +6072,6 @@ func (s *ModelArtifacts) SetS3ModelArtifacts(v string) *ModelArtifacts {
 }
 
 // Provides summary information about a model.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ModelSummary
 type ModelSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -6182,7 +6120,6 @@ func (s *ModelSummary) SetModelName(v string) *ModelSummary {
 }
 
 // Provides summary information for an Amazon SageMaker notebook instance.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/NotebookInstanceSummary
 type NotebookInstanceSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -6266,7 +6203,6 @@ func (s *NotebookInstanceSummary) SetUrl(v string) *NotebookInstanceSummary {
 }
 
 // Provides information about how to store model training results (model artifacts).
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/OutputDataConfig
 type OutputDataConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -6329,7 +6265,6 @@ func (s *OutputDataConfig) SetS3OutputPath(v string) *OutputDataConfig {
 // Identifies a model that you want to host and the resources to deploy for
 // hosting it. If you are deploying multiple models, tell Amazon SageMaker how
 // to distribute traffic among the models by specifying variant weights.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ProductionVariant
 type ProductionVariant struct {
 	_ struct{} `type:"structure"`
 
@@ -6429,7 +6364,6 @@ func (s *ProductionVariant) SetVariantName(v string) *ProductionVariant {
 // Describes weight and capacities for a production variant associated with
 // an endpoint. If you sent a request to the UpdateWeightAndCapacities API and
 // the endpoint status is Updating, you get different desired and current values.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ProductionVariantSummary
 type ProductionVariantSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -6493,7 +6427,6 @@ func (s *ProductionVariantSummary) SetVariantName(v string) *ProductionVariantSu
 
 // Describes the resources, including ML compute instances and ML storage volumes,
 // to use for model training.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ResourceConfig
 type ResourceConfig struct {
 	_ struct{} `type:"structure"`
 
@@ -6507,6 +6440,11 @@ type ResourceConfig struct {
 	//
 	// InstanceType is a required field
 	InstanceType *string `type:"string" required:"true" enum:"TrainingInstanceType"`
+
+	// The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon
+	// SageMaker uses to encrypt data on the storage volume attached to the ML compute
+	// instance(s) that run the training job.
+	VolumeKmsKeyId *string `type:"string"`
 
 	// The size of the ML storage volume that you want to provision.
 	//
@@ -6571,6 +6509,12 @@ func (s *ResourceConfig) SetInstanceType(v string) *ResourceConfig {
 	return s
 }
 
+// SetVolumeKmsKeyId sets the VolumeKmsKeyId field's value.
+func (s *ResourceConfig) SetVolumeKmsKeyId(v string) *ResourceConfig {
+	s.VolumeKmsKeyId = &v
+	return s
+}
+
 // SetVolumeSizeInGB sets the VolumeSizeInGB field's value.
 func (s *ResourceConfig) SetVolumeSizeInGB(v int64) *ResourceConfig {
 	s.VolumeSizeInGB = &v
@@ -6578,7 +6522,6 @@ func (s *ResourceConfig) SetVolumeSizeInGB(v int64) *ResourceConfig {
 }
 
 // Describes the S3 data source.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/S3DataSource
 type S3DataSource struct {
 	_ struct{} `type:"structure"`
 
@@ -6696,7 +6639,6 @@ func (s *S3DataSource) SetS3Uri(v string) *S3DataSource {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StartNotebookInstanceInput
 type StartNotebookInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6735,7 +6677,6 @@ func (s *StartNotebookInstanceInput) SetNotebookInstanceName(v string) *StartNot
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StartNotebookInstanceOutput
 type StartNotebookInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6750,7 +6691,6 @@ func (s StartNotebookInstanceOutput) GoString() string {
 	return s.String()
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StopNotebookInstanceInput
 type StopNotebookInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6789,7 +6729,6 @@ func (s *StopNotebookInstanceInput) SetNotebookInstanceName(v string) *StopNoteb
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StopNotebookInstanceOutput
 type StopNotebookInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6804,7 +6743,6 @@ func (s StopNotebookInstanceOutput) GoString() string {
 	return s.String()
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StopTrainingJobRequest
 type StopTrainingJobInput struct {
 	_ struct{} `type:"structure"`
 
@@ -6846,7 +6784,6 @@ func (s *StopTrainingJobInput) SetTrainingJobName(v string) *StopTrainingJobInpu
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StopTrainingJobOutput
 type StopTrainingJobOutput struct {
 	_ struct{} `type:"structure"`
 }
@@ -6874,7 +6811,6 @@ func (s StopTrainingJobOutput) GoString() string {
 // model might not be ready to save as some stages, for example training just
 // started). This intermediate data is a valid model artifact. You can use it
 // to create a model (CreateModel).
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StoppingCondition
 type StoppingCondition struct {
 	_ struct{} `type:"structure"`
 
@@ -6915,7 +6851,6 @@ func (s *StoppingCondition) SetMaxRuntimeInSeconds(v int64) *StoppingCondition {
 }
 
 // Describes a tag.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/Tag
 type Tag struct {
 	_ struct{} `type:"structure"`
 
@@ -6972,7 +6907,6 @@ func (s *Tag) SetValue(v string) *Tag {
 }
 
 // Provides summary information about a training job.
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/TrainingJobSummary
 type TrainingJobSummary struct {
 	_ struct{} `type:"structure"`
 
@@ -7051,7 +6985,6 @@ func (s *TrainingJobSummary) SetTrainingJobStatus(v string) *TrainingJobSummary 
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateEndpointInput
 type UpdateEndpointInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7104,7 +7037,6 @@ func (s *UpdateEndpointInput) SetEndpointName(v string) *UpdateEndpointInput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateEndpointOutput
 type UpdateEndpointOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7130,7 +7062,6 @@ func (s *UpdateEndpointOutput) SetEndpointArn(v string) *UpdateEndpointOutput {
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateEndpointWeightsAndCapacitiesInput
 type UpdateEndpointWeightsAndCapacitiesInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7196,7 +7127,6 @@ func (s *UpdateEndpointWeightsAndCapacitiesInput) SetEndpointName(v string) *Upd
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateEndpointWeightsAndCapacitiesOutput
 type UpdateEndpointWeightsAndCapacitiesOutput struct {
 	_ struct{} `type:"structure"`
 
@@ -7222,7 +7152,6 @@ func (s *UpdateEndpointWeightsAndCapacitiesOutput) SetEndpointArn(v string) *Upd
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateNotebookInstanceInput
 type UpdateNotebookInstanceInput struct {
 	_ struct{} `type:"structure"`
 
@@ -7282,7 +7211,6 @@ func (s *UpdateNotebookInstanceInput) SetRoleArn(v string) *UpdateNotebookInstan
 	return s
 }
 
-// See also, https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateNotebookInstanceOutput
 type UpdateNotebookInstanceOutput struct {
 	_ struct{} `type:"structure"`
 }

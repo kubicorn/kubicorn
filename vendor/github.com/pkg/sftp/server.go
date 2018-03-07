@@ -548,23 +548,33 @@ func statusFromError(p ider, err error) sshFxpStatusPacket {
 			Code: ssh_FX_OK,
 		},
 	}
-	if err != nil {
-		debug("statusFromError: error is %T %#v", err, err)
-		ret.StatusError.Code = ssh_FX_FAILURE
-		ret.StatusError.msg = err.Error()
-		if err == io.EOF {
-			ret.StatusError.Code = ssh_FX_EOF
-		} else if err == os.ErrNotExist {
-			ret.StatusError.Code = ssh_FX_NO_SUCH_FILE
-		} else if errno, ok := err.(syscall.Errno); ok {
+	if err == nil {
+		return ret
+	}
+
+	debug("statusFromError: error is %T %#v", err, err)
+	ret.StatusError.Code = ssh_FX_FAILURE
+	ret.StatusError.msg = err.Error()
+
+	switch e := err.(type) {
+	case syscall.Errno:
+		ret.StatusError.Code = translateErrno(e)
+	case *os.PathError:
+		debug("statusFromError,pathError: error is %T %#v", e.Err, e.Err)
+		if errno, ok := e.Err.(syscall.Errno); ok {
 			ret.StatusError.Code = translateErrno(errno)
-		} else if pathError, ok := err.(*os.PathError); ok {
-			debug("statusFromError: error is %T %#v", pathError.Err, pathError.Err)
-			if errno, ok := pathError.Err.(syscall.Errno); ok {
-				ret.StatusError.Code = translateErrno(errno)
-			}
+		}
+	case fxerr:
+		ret.StatusError.Code = uint32(e)
+	default:
+		switch e {
+		case io.EOF:
+			ret.StatusError.Code = ssh_FX_EOF
+		case os.ErrNotExist:
+			ret.StatusError.Code = ssh_FX_NO_SUCH_FILE
 		}
 	}
+
 	return ret
 }
 

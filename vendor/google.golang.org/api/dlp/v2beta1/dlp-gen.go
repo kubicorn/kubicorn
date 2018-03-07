@@ -372,6 +372,40 @@ func (s *GooglePrivacyDlpV2beta1AuxiliaryTable) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+// GooglePrivacyDlpV2beta1BigQueryKey: LINT.IfChange
+// Row key for identifying a record in BigQuery table.
+type GooglePrivacyDlpV2beta1BigQueryKey struct {
+	// RowNumber: Absolute number of the row from the beginning of the table
+	// at the time
+	// of scanning.
+	RowNumber int64 `json:"rowNumber,omitempty,string"`
+
+	// TableReference: Complete BigQuery table reference.
+	TableReference *GooglePrivacyDlpV2beta1BigQueryTable `json:"tableReference,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "RowNumber") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "RowNumber") to include in
+	// API requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *GooglePrivacyDlpV2beta1BigQueryKey) MarshalJSON() ([]byte, error) {
+	type NoMethod GooglePrivacyDlpV2beta1BigQueryKey
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
 // GooglePrivacyDlpV2beta1BigQueryOptions: Options defining BigQuery
 // table and row identifiers.
 type GooglePrivacyDlpV2beta1BigQueryOptions struct {
@@ -1816,16 +1850,17 @@ func (s *GooglePrivacyDlpV2beta1FileSet) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// GooglePrivacyDlpV2beta1Finding: Container structure describing a
-// single finding within a string or image.
+// GooglePrivacyDlpV2beta1Finding: Represents a piece of potentially
+// sensitive content.
 type GooglePrivacyDlpV2beta1Finding struct {
 	// CreateTime: Timestamp when finding was detected.
 	CreateTime string `json:"createTime,omitempty"`
 
-	// InfoType: The specific type of info the string might be.
+	// InfoType: The type of content that might have been found.
+	// Provided if requested by the `InspectConfig`.
 	InfoType *GooglePrivacyDlpV2beta1InfoType `json:"infoType,omitempty"`
 
-	// Likelihood: Estimate of how likely it is that the info_type is
+	// Likelihood: Estimate of how likely it is that the `info_type` is
 	// correct.
 	//
 	// Possible values:
@@ -1838,10 +1873,16 @@ type GooglePrivacyDlpV2beta1Finding struct {
 	//   "VERY_LIKELY" - Many matching elements.
 	Likelihood string `json:"likelihood,omitempty"`
 
-	// Location: Location of the info found.
+	// Location: Where the content was found.
 	Location *GooglePrivacyDlpV2beta1Location `json:"location,omitempty"`
 
-	// Quote: The specific string that may be potentially sensitive info.
+	// Quote: The content that was found. Even if the content is not
+	// textual, it
+	// may be converted to a textual representation here.
+	// Provided if requested by the `InspectConfig` and the finding is
+	// less than or equal to 4096 bytes long. If the finding exceeds 4096
+	// bytes
+	// in length, the quote may be omitted.
 	Quote string `json:"quote,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "CreateTime") to
@@ -3230,27 +3271,44 @@ func (s *GooglePrivacyDlpV2beta1ListRootCategoriesResponse) MarshalJSON() ([]byt
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// GooglePrivacyDlpV2beta1Location: Specifies the location of a finding
-// within its source item.
+// GooglePrivacyDlpV2beta1Location: Specifies the location of the
+// finding.
 type GooglePrivacyDlpV2beta1Location struct {
-	// ByteRange: Zero-based byte offsets within a content item.
+	// ByteRange: Zero-based byte offsets delimiting the finding.
+	// These are relative to the finding's containing element.
+	// Note that when the content is not textual, this references
+	// the UTF-8 encoded textual representation of the content.
+	// Omitted if content is an image.
 	ByteRange *GooglePrivacyDlpV2beta1Range `json:"byteRange,omitempty"`
 
-	// CodepointRange: Character offsets within a content item, included
-	// when content type
-	// is a text. Default charset assumed to be UTF-8.
+	// CodepointRange: Unicode character offsets delimiting the
+	// finding.
+	// These are relative to the finding's containing element.
+	// Provided when the content is text.
 	CodepointRange *GooglePrivacyDlpV2beta1Range `json:"codepointRange,omitempty"`
 
-	// FieldId: Field id of the field containing the finding.
+	// FieldId: The pointer to the property or cell that contained the
+	// finding.
+	// Provided when the finding's containing element is a cell in a
+	// table
+	// or a property of storage object.
 	FieldId *GooglePrivacyDlpV2beta1FieldId `json:"fieldId,omitempty"`
 
-	// ImageBoxes: Location within an image's pixels.
+	// ImageBoxes: The area within the image that contained the
+	// finding.
+	// Provided when the content is an image.
 	ImageBoxes []*GooglePrivacyDlpV2beta1ImageLocation `json:"imageBoxes,omitempty"`
 
-	// RecordKey: Key of the finding.
+	// RecordKey: The pointer to the record in storage that contained the
+	// field the
+	// finding was found in.
+	// Provided when the finding's containing element is a property
+	// of a storage object.
 	RecordKey *GooglePrivacyDlpV2beta1RecordKey `json:"recordKey,omitempty"`
 
-	// TableLocation: Location within a `ContentItem.Table`.
+	// TableLocation: The pointer to the row of the table that contained the
+	// finding.
+	// Provided when the finding's containing element is a cell of a table.
 	TableLocation *GooglePrivacyDlpV2beta1TableLocation `json:"tableLocation,omitempty"`
 
 	// ForceSendFields is a list of field names (e.g. "ByteRange") to
@@ -3774,11 +3832,13 @@ func (s *GooglePrivacyDlpV2beta1RecordCondition) MarshalJSON() ([]byte, error) {
 // GooglePrivacyDlpV2beta1RecordKey: Message for a unique key indicating
 // a record that contains a finding.
 type GooglePrivacyDlpV2beta1RecordKey struct {
+	BigQueryKey *GooglePrivacyDlpV2beta1BigQueryKey `json:"bigQueryKey,omitempty"`
+
 	CloudStorageKey *GooglePrivacyDlpV2beta1CloudStorageKey `json:"cloudStorageKey,omitempty"`
 
 	DatastoreKey *GooglePrivacyDlpV2beta1DatastoreKey `json:"datastoreKey,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g. "CloudStorageKey") to
+	// ForceSendFields is a list of field names (e.g. "BigQueryKey") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -3786,13 +3846,12 @@ type GooglePrivacyDlpV2beta1RecordKey struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "CloudStorageKey") to
-	// include in API requests with the JSON null value. By default, fields
-	// with empty values are omitted from API requests. However, any field
-	// with an empty value appearing in NullFields will be sent to the
-	// server as null. It is an error if a field in this list has a
-	// non-empty value. This may be used to include null fields in Patch
-	// requests.
+	// NullFields is a list of field names (e.g. "BigQueryKey") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
 	NullFields []string `json:"-"`
 }
 
@@ -4219,7 +4278,9 @@ func (s *GooglePrivacyDlpV2beta1SummaryResult) MarshalJSON() ([]byte, error) {
 // as
 // output. This should be used in conjunction with a field on
 // the
-// transformation such as `surrogate_info_type`.
+// transformation such as `surrogate_info_type`. This custom info type
+// does
+// not support the use of `detection_rules`.
 type GooglePrivacyDlpV2beta1SurrogateType struct {
 }
 
@@ -4254,7 +4315,7 @@ func (s *GooglePrivacyDlpV2beta1Table) MarshalJSON() ([]byte, error) {
 }
 
 // GooglePrivacyDlpV2beta1TableLocation: Location of a finding within a
-// `ContentItem.Table`.
+// table.
 type GooglePrivacyDlpV2beta1TableLocation struct {
 	// RowIndex: The zero-based index of the row where the finding is
 	// located.
@@ -4370,13 +4431,17 @@ func (s *GooglePrivacyDlpV2beta1TimePartConfig) MarshalJSON() ([]byte, error) {
 
 // GooglePrivacyDlpV2beta1TransformationSummary: Summary of a single
 // tranformation.
+// Only one of 'transformation', 'field_transformation', or
+// 'record_suppress'
+// will be set.
 type GooglePrivacyDlpV2beta1TransformationSummary struct {
 	// Field: Set if the transformation was limited to a specific FieldId.
 	Field *GooglePrivacyDlpV2beta1FieldId `json:"field,omitempty"`
 
-	// FieldTransformations: The field transformation that was applied. This
-	// list will contain
-	// multiple only in the case of errors.
+	// FieldTransformations: The field transformation that was applied.
+	// If multiple field transformations are requested for a single
+	// field,
+	// this list will contain all of them; otherwise, only one is supplied.
 	FieldTransformations []*GooglePrivacyDlpV2beta1FieldTransformation `json:"fieldTransformations,omitempty"`
 
 	// InfoType: Set if the transformation was limited to a specific
@@ -4390,6 +4455,10 @@ type GooglePrivacyDlpV2beta1TransformationSummary struct {
 
 	// Transformation: The specific transformation these stats apply to.
 	Transformation *GooglePrivacyDlpV2beta1PrimitiveTransformation `json:"transformation,omitempty"`
+
+	// TransformedBytes: Total size in bytes that were transformed in some
+	// way.
+	TransformedBytes int64 `json:"transformedBytes,omitempty,string"`
 
 	// ForceSendFields is a list of field names (e.g. "Field") to
 	// unconditionally include in API requests. By default, fields with
@@ -4484,6 +4553,15 @@ func (s *GooglePrivacyDlpV2beta1UnwrappedCryptoKey) MarshalJSON() ([]byte, error
 
 // GooglePrivacyDlpV2beta1Value: Set of primitive values supported by
 // the system.
+// Note that for the purposes of inspection or transformation, the
+// number
+// of bytes considered to comprise a 'Value' is based on its
+// representation
+// as a UTF-8 encoded string. For example, if 'integer_value' is set
+// to
+// 123456789, the number of bytes would be counted as 9, even though
+// an
+// int64 only holds up to 8 bytes of data.
 type GooglePrivacyDlpV2beta1Value struct {
 	BooleanValue bool `json:"booleanValue,omitempty"`
 

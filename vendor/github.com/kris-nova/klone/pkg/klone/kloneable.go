@@ -25,11 +25,11 @@ package klone
 import (
 	"errors"
 	"github.com/kris-nova/klone/pkg/klone/kloners"
-	"github.com/kris-nova/klone/pkg/klone/kloners/simple"
-	"github.com/kris-nova/klone/pkg/provider"
-	"github.com/kris-nova/klone/pkg/local"
-	"strings"
 	"github.com/kris-nova/klone/pkg/klone/kloners/gogit"
+	"github.com/kris-nova/klone/pkg/klone/kloners/simple"
+	"github.com/kris-nova/klone/pkg/local"
+	"github.com/kris-nova/klone/pkg/provider"
+	"strings"
 )
 
 const (
@@ -99,7 +99,7 @@ func (k *Kloneable) findKloner() error {
 		local.Printf("Found Kloner [%s]", k.repo.Language())
 		k.kloner = kloner
 	} else {
-		local.Printf("Unsupported language [%s], using Kloner [simple]")
+		local.Printf("Unsupported language [%s], using Kloner [simple]", lowerlang)
 		k.kloner = simple.NewKloner(k.gitServer)
 	}
 	return nil

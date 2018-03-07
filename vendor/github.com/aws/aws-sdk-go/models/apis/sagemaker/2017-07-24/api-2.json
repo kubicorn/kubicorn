@@ -372,11 +372,6 @@
         "Environment":{"shape":"EnvironmentMap"}
       }
     },
-    "ContainerDefinitionList":{
-      "type":"list",
-      "member":{"shape":"ContainerDefinition"},
-      "max":5
-    },
     "ContainerHostname":{
       "type":"string",
       "max":63,
@@ -395,7 +390,8 @@
       "members":{
         "EndpointConfigName":{"shape":"EndpointConfigName"},
         "ProductionVariants":{"shape":"ProductionVariantList"},
-        "Tags":{"shape":"TagList"}
+        "Tags":{"shape":"TagList"},
+        "KmsKeyId":{"shape":"KmsKeyId"}
       }
     },
     "CreateEndpointConfigOutput":{
@@ -428,12 +424,12 @@
       "type":"structure",
       "required":[
         "ModelName",
-        "PrimaryContainer"
+        "PrimaryContainer",
+        "ExecutionRoleArn"
       ],
       "members":{
         "ModelName":{"shape":"ModelName"},
         "PrimaryContainer":{"shape":"ContainerDefinition"},
-        "SupplementalContainers":{"shape":"ContainerDefinitionList"},
         "ExecutionRoleArn":{"shape":"RoleArn"},
         "Tags":{"shape":"TagList"}
       }
@@ -583,6 +579,7 @@
         "EndpointConfigName":{"shape":"EndpointConfigName"},
         "EndpointConfigArn":{"shape":"EndpointConfigArn"},
         "ProductionVariants":{"shape":"ProductionVariantList"},
+        "KmsKeyId":{"shape":"KmsKeyId"},
         "CreationTime":{"shape":"Timestamp"}
       }
     },
@@ -626,7 +623,6 @@
       "required":[
         "ModelName",
         "PrimaryContainer",
-        "SupplementalContainers",
         "ExecutionRoleArn",
         "CreationTime",
         "ModelArn"
@@ -634,7 +630,6 @@
       "members":{
         "ModelName":{"shape":"ModelName"},
         "PrimaryContainer":{"shape":"ContainerDefinition"},
-        "SupplementalContainers":{"shape":"ContainerDefinitionList"},
         "ExecutionRoleArn":{"shape":"RoleArn"},
         "CreationTime":{"shape":"Timestamp"},
         "ModelArn":{"shape":"ModelArn"}
@@ -1218,7 +1213,8 @@
       "members":{
         "InstanceType":{"shape":"TrainingInstanceType"},
         "InstanceCount":{"shape":"TrainingInstanceCount"},
-        "VolumeSizeInGB":{"shape":"VolumeSizeInGB"}
+        "VolumeSizeInGB":{"shape":"VolumeSizeInGB"},
+        "VolumeKmsKeyId":{"shape":"KmsKeyId"}
       }
     },
     "ResourceInUse":{

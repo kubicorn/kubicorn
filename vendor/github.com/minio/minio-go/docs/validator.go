@@ -215,7 +215,7 @@ FLAGS:
   {{range .VisibleFlags}}{{.}}
   {{end}}{{end}}
 TEMPLATE:
-  Validator uses Go's 'text/template' formatting so you need to ensure
+  Validator uses Go's 'text/template' formatting so you need to ensure 
   your template is formatted correctly, check 'docs/checker.go.template'
 
 USAGE:

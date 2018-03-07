@@ -1662,6 +1662,10 @@ type ManagedConfigurationsSettings struct {
 	// string "androidenterprise#managedConfigurationsSettings".
 	Kind string `json:"kind,omitempty"`
 
+	// LastUpdatedTimestampMillis: The last updated time of the managed
+	// configuration settings in milliseconds since 1970-01-01T00:00:00Z.
+	LastUpdatedTimestampMillis int64 `json:"lastUpdatedTimestampMillis,omitempty,string"`
+
 	// ManagedProperty: The set of managed properties for this
 	// configuration.
 	ManagedProperty []*ManagedProperty `json:"managedProperty,omitempty"`
@@ -1824,6 +1828,9 @@ type NewDeviceEvent struct {
 	// DeviceId: The Android ID of the device. This field will always be
 	// present.
 	DeviceId string `json:"deviceId,omitempty"`
+
+	// DpcPackageName: Policy app on the device.
+	DpcPackageName string `json:"dpcPackageName,omitempty"`
 
 	// ManagementType: Identifies the extent to which the device is
 	// controlled by an Android EMM in various deployment
@@ -2091,6 +2098,13 @@ func (s *Permission) MarshalJSON() ([]byte, error) {
 
 // Policy: The device policy for a given managed device.
 type Policy struct {
+	// AutoUpdatePolicy: The auto-update policy for apps installed on the
+	// device. "choiceToTheUser" allows the device's user to configure the
+	// app update policy. "always" enables auto updates. "never" disables
+	// auto updates. "wifiOnly" enables auto updates only when the device is
+	// connected to wifi.
+	AutoUpdatePolicy string `json:"autoUpdatePolicy,omitempty"`
+
 	// ProductAvailabilityPolicy: The availability granted to the device for
 	// the specified products. "all" gives the device access to all
 	// products, regardless of approval status. "allApproved" entitles the
@@ -2107,22 +2121,21 @@ type Policy struct {
 	// ProductPolicy: The list of product policies.
 	ProductPolicy []*ProductPolicy `json:"productPolicy,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g.
-	// "ProductAvailabilityPolicy") to unconditionally include in API
-	// requests. By default, fields with empty values are omitted from API
-	// requests. However, any non-pointer, non-interface field appearing in
-	// ForceSendFields will be sent to the server regardless of whether the
-	// field is empty or not. This may be used to include empty fields in
-	// Patch requests.
+	// ForceSendFields is a list of field names (e.g. "AutoUpdatePolicy") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g.
-	// "ProductAvailabilityPolicy") to include in API requests with the JSON
-	// null value. By default, fields with empty values are omitted from API
-	// requests. However, any field with an empty value appearing in
-	// NullFields will be sent to the server as null. It is an error if a
-	// field in this list has a non-empty value. This may be used to include
-	// null fields in Patch requests.
+	// NullFields is a list of field names (e.g. "AutoUpdatePolicy") to
+	// include in API requests with the JSON null value. By default, fields
+	// with empty values are omitted from API requests. However, any field
+	// with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
 	NullFields []string `json:"-"`
 }
 
@@ -2160,7 +2173,7 @@ type Product struct {
 	// ContentRating: The content rating for this app.
 	ContentRating string `json:"contentRating,omitempty"`
 
-	// Description: A localized promotional description, if available.
+	// Description: The localized promotional description, if available.
 	Description string `json:"description,omitempty"`
 
 	// DetailsUrl: A link to the (consumer) Google Play details page for the
@@ -2184,16 +2197,15 @@ type Product struct {
 	// string "androidenterprise#product".
 	Kind string `json:"kind,omitempty"`
 
-	// LastUpdatedTimestampMillis: The time (in milliseconds since epoch)
-	// when application was last published. (Timestamp is approximate within
-	// 7 days of actual publish time.)
+	// LastUpdatedTimestampMillis: The approximate time (within 7 days) the
+	// app was last published, expressed in milliseconds since epoch.
 	LastUpdatedTimestampMillis int64 `json:"lastUpdatedTimestampMillis,omitempty,string"`
 
 	// MinAndroidSdkVersion: The minimum Android SDK necessary to run the
 	// app.
 	MinAndroidSdkVersion int64 `json:"minAndroidSdkVersion,omitempty"`
 
-	// Permissions: The permissions required for this app.
+	// Permissions: A list of permissions required by the app.
 	Permissions []*ProductPermission `json:"permissions,omitempty"`
 
 	// ProductId: A string of the form app:<package name>. For example,

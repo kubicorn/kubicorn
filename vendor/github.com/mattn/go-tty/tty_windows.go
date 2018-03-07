@@ -126,6 +126,7 @@ type TTY struct {
 	out *os.File
 	st  uint32
 	rs  []rune
+	ws  chan WINSIZE
 }
 
 func readConsoleInput(fd uintptr, record *inputRecord) (err error) {
@@ -181,6 +182,8 @@ func open() (*TTY, error) {
 	// ignore error
 	procSetConsoleMode.Call(h, uintptr(st))
 
+	tty.ws = make(chan WINSIZE)
+
 	return tty, nil
 }
 
@@ -200,7 +203,14 @@ func (tty *TTY) readRune() (rune, error) {
 		return 0, err
 	}
 
-	if ir.eventType == keyEvent {
+	switch ir.eventType {
+	case windowBufferSizeEvent:
+		wr := (*windowBufferSizeRecord)(unsafe.Pointer(&ir.event))
+		tty.ws <- WINSIZE{
+			W: int(wr.size.x),
+			H: int(wr.size.y),
+		}
+	case keyEvent:
 		kr := (*keyEventRecord)(unsafe.Pointer(&ir.event))
 		if kr.keyDown != 0 {
 			if kr.controlKeyState&altPressed != 0 && kr.unicodeChar > 0 {
@@ -266,6 +276,7 @@ func (tty *TTY) readRune() (rune, error) {
 }
 
 func (tty *TTY) close() error {
+	close(tty.ws)
 	procSetConsoleMode.Call(tty.in.Fd(), uintptr(tty.st))
 	return nil
 }
@@ -276,7 +287,7 @@ func (tty *TTY) size() (int, int, error) {
 	if r1 == 0 {
 		return 0, 0, err
 	}
-	return int(csbi.window.right - csbi.window.left), int(csbi.window.bottom - csbi.window.top), nil
+	return int(csbi.window.right - csbi.window.left + 1), int(csbi.window.bottom - csbi.window.top + 1), nil
 }
 
 func (tty *TTY) input() *os.File {
@@ -305,4 +316,8 @@ func (tty *TTY) raw() (func() error, error) {
 		}
 		return nil
 	}, nil
+}
+
+func (tty *TTY) sigwinch() chan WINSIZE {
+	return tty.ws
 }

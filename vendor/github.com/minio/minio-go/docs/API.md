@@ -86,16 +86,27 @@ __Parameters__
 ### NewWithRegion(endpoint, accessKeyID, secretAccessKey string, ssl bool, region string) (*Client, error)
 Initializes minio client, with region configured. Unlike New(), NewWithRegion avoids bucket-location lookup operations and it is slightly faster. Use this function when your application deals with a single region.
 
+### NewWithOptions(endpoint string, options *Options) (*Client, error)
+Initializes minio client with options configured.
+
 __Parameters__
 
 |Param   |Type   |Description   |
 |:---|:---| :---|
 |`endpoint`   | _string_  |S3 compatible object storage endpoint |
-|`accessKeyID`  |_string_   |Access key for the object storage |
-|`secretAccessKey`  | _string_  |Secret key for the object storage |
-|`ssl` | _bool_  | If 'true' API requests will be secure (HTTPS), and insecure (HTTP) otherwise |
-|`region`| _string_ | Region for the object storage |
+|`opts`  |_minio.Options_   | Options for constructing a new client|
 
+__minio.Options__
+
+|Field | Type | Description |
+|:--- |:--- | :--- |
+| `opts.Creds` | _*credentials.Credentials_ | Access Credentials|
+| `opts.Secure` | _bool_ | If 'true' API requests will be secure (HTTPS), and insecure (HTTP) otherwise |
+| `opts.Region` | _string_ | region |
+| `opts.BucketLookup` | _BucketLookupType_ | Bucket lookup type can be one of the following values |
+| |  | _minio.BucketLookupDNS_ |
+| |  | _minio.BucketLookupPath_ |
+| |  | _minio.BucketLookupAuto_ |
 ## 2. Bucket operations
 
 <a name="MakeBucket"></a>
@@ -573,9 +584,10 @@ __minio.PutObjectOptions__
 | `opts.ContentType` | _string_ | Content type of object, e.g "application/text" |
 | `opts.ContentEncoding` | _string_ | Content encoding of object, e.g "gzip" |
 | `opts.ContentDisposition` | _string_ | Content disposition of object, "inline" |
+| `opts.ContentLanguage` | _string_ | Content language of object, e.g "French" |
 | `opts.CacheControl` | _string_ | Used to specify directives for caching mechanisms in both requests and responses e.g "max-age=600"|
 | `opts.EncryptMaterials` | _encrypt.Materials_ | Interface provided by `encrypt` package to encrypt a stream of data (For more information see https://godoc.org/github.com/minio/minio-go) |
-
+| `opts.StorageClass` | _string_ | Specify storage class for the object. Supported values for Minio server are `REDUCED_REDUNDANCY` and `STANDARD` |
 
 __Example__
 
@@ -618,7 +630,7 @@ __Parameters__
 |`objectName` | _string_  |Name of the object   |
 |`reader` | _io.Reader_  |Any Go type that implements io.Reader |
 |`objectSize`| _int64_ | size of the object being uploaded. Pass -1 if stream size is unknown |
-|`opts` | _minio.PutObjectOptions_  |Pointer to struct that allows user to set optional custom metadata, content-type, content-encoding,content-disposition and cache-control headers, pass encryption module for encrypting objects, and optionally configure number of threads for multipart put operation. |
+|`opts` | _minio.PutObjectOptions_  |Pointer to struct that allows user to set optional custom metadata, content-type, content-encoding, content-disposition, content-language and cache-control headers, pass encryption module for encrypting objects, and optionally configure number of threads for multipart put operation. |
 
 
 __Example__
@@ -900,7 +912,7 @@ __Parameters__
 |`bucketName`  | _string_  |Name of the bucket  |
 |`objectName` | _string_  |Name of the object |
 |`filePath` | _string_  |Path to file to be uploaded |
-|`opts` | _minio.PutObjectOptions_  |Pointer to struct that allows user to set optional custom metadata, content-type, content-encoding,content-disposition and cache-control headers, pass encryption module for encrypting objects, and optionally configure number of threads for multipart put operation.  |
+|`opts` | _minio.PutObjectOptions_  |Pointer to struct that allows user to set optional custom metadata, content-type, content-encoding, content-disposition, content-language and cache-control headers, pass encryption module for encrypting objects, and optionally configure number of threads for multipart put operation.  |
 
 
 __Example__
