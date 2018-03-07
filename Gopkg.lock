@@ -10,14 +10,24 @@
 [[projects]]
   name = "github.com/Azure/azure-sdk-for-go"
   packages = ["arm/examples/helpers","arm/network","arm/resources/resources"]
+<<<<<<< HEAD
   revision = "21b68149ccf7c16b3f028bb4c7fd0ab458fe308f"
   version = "v12.5.0-beta"
+=======
+  revision = "7692b0cef22674113fcf71cc17ac3ccc1a7fef48"
+  version = "v11.2.2-beta"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   name = "github.com/Azure/go-autorest"
   packages = ["autorest","autorest/adal","autorest/azure","autorest/date","autorest/to","autorest/validation"]
+<<<<<<< HEAD
   revision = "fc3b03a2d2d1f43fad3007038bd16f044f870722"
   version = "v9.10.0"
+=======
+  revision = "4f2543ee0bc9b28d71bf1be8b9318a1c1904b83a"
+  version = "v9.5.1"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   name = "github.com/PuerkitoBio/purell"
@@ -33,15 +43,27 @@
 
 [[projects]]
   name = "github.com/aws/aws-sdk-go"
+<<<<<<< HEAD
   packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/sdkrand","internal/shareddefaults","private/protocol","private/protocol/ec2query","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/restxml","private/protocol/xml/xmlutil","service/autoscaling","service/ec2","service/iam","service/s3","service/sts"]
   revision = "a580f1a44c64e950056e5151797c35c65ab3cb4b"
   version = "v1.13.9"
+=======
+  packages = ["aws","aws/awserr","aws/awsutil","aws/client","aws/client/metadata","aws/corehandlers","aws/credentials","aws/credentials/ec2rolecreds","aws/credentials/endpointcreds","aws/credentials/stscreds","aws/defaults","aws/ec2metadata","aws/endpoints","aws/request","aws/session","aws/signer/v4","internal/shareddefaults","private/protocol","private/protocol/ec2query","private/protocol/query","private/protocol/query/queryutil","private/protocol/rest","private/protocol/restxml","private/protocol/xml/xmlutil","service/autoscaling","service/ec2","service/iam","service/s3","service/sts"]
+  revision = "6e00e954421b0deeec5b07d99f256f58eda69907"
+  version = "v1.12.44"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   name = "github.com/c-bata/go-prompt"
   packages = ["."]
   revision = "e99fbc797b795e0a7a94affc8d44f6a0350d85f0"
   version = "v0.2.1"
+
+[[projects]]
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
+  version = "v1.1.0"
 
 [[projects]]
   name = "github.com/dgrijalva/jwt-go"
@@ -52,8 +74,13 @@
 [[projects]]
   name = "github.com/digitalocean/godo"
   packages = [".","context"]
+<<<<<<< HEAD
   revision = "3df1c7a8afafaa793257534bd1a3292cbd0714ee"
   version = "v1.1.2"
+=======
+  revision = "77ea48de76a7b31b234d854f15d003c68bb2fb90"
+  version = "v1.1.1"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   branch = "master"
@@ -64,14 +91,30 @@
 [[projects]]
   name = "github.com/emicklei/go-restful"
   packages = [".","log"]
+<<<<<<< HEAD
   revision = "26b41036311f2da8242db402557a0dbd09dc83da"
   version = "v2.6.0"
+=======
+  revision = "5741799b275a3c4a5a9623a993576d7545cf7b5c"
+  version = "v2.4.0"
+>>>>>>> Adding cluster api from kube-deploy
+
+[[projects]]
+  name = "github.com/emicklei/go-restful-swagger12"
+  packages = ["."]
+<<<<<<< HEAD
+  revision = "507f6050b8568533fb3f5504de8e5205fa62a114"
+  version = "v1.6.0"
+=======
+  revision = "dcef7f55730566d41eae5db10e7d6981829720f6"
+  version = "1.0.1"
 
 [[projects]]
   name = "github.com/fatih/color"
   packages = ["."]
-  revision = "507f6050b8568533fb3f5504de8e5205fa62a114"
-  version = "v1.6.0"
+  revision = "570b54cabe6b8eb0bc2dfce68d964677d63b5260"
+  version = "v1.5.0"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   name = "github.com/ghodss/yaml"
@@ -112,8 +155,13 @@
 [[projects]]
   name = "github.com/gogo/protobuf"
   packages = ["proto","sortkeys"]
+<<<<<<< HEAD
   revision = "1adfc126b41513cc696b209667c8656ea7aac67c"
   version = "v1.0.0"
+=======
+  revision = "342cbe0a04158f6dcb03ca0079991a51a4248c02"
+  version = "v0.5"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   branch = "master"
@@ -123,9 +171,20 @@
 
 [[projects]]
   name = "github.com/golang/protobuf"
+<<<<<<< HEAD
   packages = ["proto"]
   revision = "925541529c1fa6821df4e44ce2723319eb2be768"
   version = "v1.0.0"
+=======
+  packages = ["proto","ptypes","ptypes/any","ptypes/duration","ptypes/timestamp"]
+  revision = "1e59b77b52bf8e4b449a57e6f79f21226d571845"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/google/btree"
+  packages = ["."]
+  revision = "316fb6d3f031ae8f4d457c6c5186b9e3ded70435"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   branch = "master"
@@ -140,6 +199,21 @@
   revision = "24818f796faf91cd76ec7bddd72458fbced7a6c1"
 
 [[projects]]
+<<<<<<< HEAD
+=======
+  name = "github.com/googleapis/gnostic"
+  packages = ["OpenAPIv2","compiler","extensions"]
+  revision = "ee43cbb60db7bd22502942cccbc39059117352ab"
+  version = "v0.1.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/gregjones/httpcache"
+  packages = [".","diskcache"]
+  revision = "2bcd89a1743fd4b373f7370ce8ddc14dfbd18229"
+
+[[projects]]
+>>>>>>> Adding cluster api from kube-deploy
   name = "github.com/inconshreveable/mousetrap"
   packages = ["."]
   revision = "76626ae9c91c4f2a10f34cad8ce83ea42c93bb75"
@@ -175,12 +249,15 @@
   revision = "5e8fafac1cf071c78cd8f5440e940b85d8fcfc96"
 
 [[projects]]
+<<<<<<< HEAD
   branch = "master"
   name = "github.com/kris-nova/lolgopher"
   packages = ["."]
   revision = "14d43f83481a37e992f5899de8581727b9ba7702"
 
 [[projects]]
+=======
+>>>>>>> Adding cluster api from kube-deploy
   branch = "master"
   name = "github.com/mailru/easyjson"
   packages = ["buffer","jlexer","jwriter"]
@@ -217,6 +294,21 @@
   revision = "b8bc1bf767474819792c23f32d8286a45736f1c6"
 
 [[projects]]
+<<<<<<< HEAD
+=======
+  branch = "master"
+  name = "github.com/mitchellh/mapstructure"
+  packages = ["."]
+  revision = "a4e142e9c047c904fa2f1e144d9a84e6133024bc"
+
+[[projects]]
+  name = "github.com/packethost/packngo"
+  packages = ["."]
+  revision = "131798f2804a1b3e895ca98047d56f0d7e094e2a"
+  version = "v0.1.0"
+
+[[projects]]
+>>>>>>> Adding cluster api from kube-deploy
   branch = "master"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
@@ -267,8 +359,12 @@
 [[projects]]
   name = "github.com/spf13/cobra"
   packages = ["."]
+<<<<<<< HEAD
   revision = "7b2c5ac9fc04fc5efafb60700713d4fa609b777b"
   version = "v0.0.1"
+=======
+  revision = "ccaecb155a2177302cb56cae929251a256d0f646"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   name = "github.com/spf13/pflag"
@@ -303,38 +399,63 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
+<<<<<<< HEAD
   packages = ["curve25519","ed25519","ed25519/internal/edwards25519","internal/chacha20","poly1305","ssh","ssh/agent","ssh/terminal"]
   revision = "85f98707c97e11569271e4d9b3d397e079c4f4d0"
+=======
+  packages = ["curve25519","ed25519","ed25519/internal/edwards25519","ssh","ssh/agent","ssh/terminal"]
+  revision = "94eea52f7b742c7cbe0b03b22f0c4c8631ece122"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context","context/ctxhttp","http2","http2/hpack","idna","lex/httplex"]
+<<<<<<< HEAD
   revision = "d25186b37f34ebdbbea8f488ef055638dfab272d"
+=======
+  revision = "dc871a5d77e227f5bbf6545176ef3eeebf87e76e"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/oauth2"
   packages = [".","google","internal","jws","jwt"]
+<<<<<<< HEAD
   revision = "2f32c3ac0fa4fb807a0fcefb0b6f2468a0d99bd0"
+=======
+  revision = "6a2004c8907a86949d71c664c81574897a4e55a6"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix","windows"]
+<<<<<<< HEAD
   revision = "dd2ff4accc098aceecb86b36eaa7829b2a17b1c9"
+=======
+  revision = "b8f5ef32195cae6470b728e8ca677f0dbed1a004"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   name = "golang.org/x/text"
   packages = ["collate","collate/build","internal/colltab","internal/gen","internal/tag","internal/triegen","internal/ucd","language","secure/bidirule","transform","unicode/bidi","unicode/cldr","unicode/norm","unicode/rangetable","width"]
+<<<<<<< HEAD
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
+=======
+  revision = "be25de41fadfae372d6470bda81ca6beb55ef551"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   branch = "master"
   name = "google.golang.org/api"
   packages = ["compute/v1","gensupport","googleapi","googleapi/internal/uritemplates"]
+<<<<<<< HEAD
   revision = "8dd9492f46214d3ecd264e970de1cf530c51c12e"
+=======
+  revision = "3d8027ad5aac1c3f32ad0eeae4458a5d69682263"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[projects]]
   name = "google.golang.org/appengine"
@@ -351,7 +472,11 @@
 [[projects]]
   name = "gopkg.in/src-d/go-git.v4"
   packages = [".","config","plumbing","plumbing/format/config","plumbing/format/idxfile","plumbing/format/index","plumbing/format/objfile","plumbing/format/packfile","plumbing/format/pktline","plumbing/object","plumbing/protocol/packp","plumbing/protocol/packp/capability","plumbing/protocol/packp/sideband","plumbing/storer","plumbing/transport","plumbing/transport/client","plumbing/transport/file","plumbing/transport/git","plumbing/transport/http","plumbing/transport/internal/common","plumbing/transport/ssh","storage/filesystem","storage/filesystem/internal/dotgit","storage/memory","utils/binary","utils/diff","utils/fs","utils/fs/os","utils/ioutil"]
+<<<<<<< HEAD
   revision = ""
+=======
+  revision = "c9353b2bd7c1cbdf8f78dad6deac64ed2f2ed9eb"
+>>>>>>> Adding cluster api from kube-deploy
   version = "v4.0.0-rc5"
 
 [[projects]]
@@ -363,15 +488,50 @@
 [[projects]]
   name = "gopkg.in/yaml.v2"
   packages = ["."]
+<<<<<<< HEAD
   revision = "7f97868eec74b32b0982dd158a51a446d1da7eb5"
   version = "v2.1.1"
+=======
+  revision = "287cf08546ab5e7e37d55a84f7ed3fd1db036de5"
 
 [[projects]]
+  name = "k8s.io/api"
+  packages = ["admissionregistration/v1alpha1","apps/v1beta1","apps/v1beta2","authentication/v1","authentication/v1beta1","authorization/v1","authorization/v1beta1","autoscaling/v1","autoscaling/v2beta1","batch/v1","batch/v1beta1","batch/v2alpha1","certificates/v1beta1","core/v1","extensions/v1beta1","networking/v1","policy/v1beta1","rbac/v1","rbac/v1alpha1","rbac/v1beta1","scheduling/v1alpha1","settings/v1alpha1","storage/v1","storage/v1beta1"]
+  revision = "006a217681ae70cbacdd66a5e2fca1a61a8ff28e"
+>>>>>>> Adding cluster api from kube-deploy
+
+[[projects]]
+  branch = "master"
+  name = "k8s.io/apiextensions-apiserver"
+  packages = ["pkg/apis/apiextensions","pkg/apis/apiextensions/v1beta1","pkg/client/clientset/clientset","pkg/client/clientset/clientset/scheme","pkg/client/clientset/clientset/typed/apiextensions/v1beta1"]
+  revision = "0c8b798d0ec0619c6c8eed3630d0f40209eebb2f"
+
+[[projects]]
+  branch = "release-1.8"
   name = "k8s.io/apimachinery"
+<<<<<<< HEAD
   packages = ["pkg/api/resource","pkg/apis/meta/v1","pkg/conversion","pkg/conversion/queryparams","pkg/fields","pkg/labels","pkg/runtime","pkg/runtime/schema","pkg/selection","pkg/types","pkg/util/errors","pkg/util/intstr","pkg/util/json","pkg/util/net","pkg/util/runtime","pkg/util/sets","pkg/util/validation","pkg/util/validation/field","pkg/util/wait","pkg/watch","third_party/forked/golang/reflect"]
   revision = "68f9c3a1feb3140df59c67ced62d3a5df8e6c9c2"
 
 [[projects]]
+=======
+  packages = ["pkg/api/equality","pkg/api/errors","pkg/api/meta","pkg/api/resource","pkg/apis/meta/v1","pkg/apis/meta/v1/unstructured","pkg/apis/meta/v1alpha1","pkg/conversion","pkg/conversion/queryparams","pkg/conversion/unstructured","pkg/fields","pkg/labels","pkg/runtime","pkg/runtime/schema","pkg/runtime/serializer","pkg/runtime/serializer/json","pkg/runtime/serializer/protobuf","pkg/runtime/serializer/recognizer","pkg/runtime/serializer/streaming","pkg/runtime/serializer/versioning","pkg/selection","pkg/types","pkg/util/clock","pkg/util/diff","pkg/util/errors","pkg/util/framer","pkg/util/intstr","pkg/util/json","pkg/util/net","pkg/util/runtime","pkg/util/sets","pkg/util/validation","pkg/util/validation/field","pkg/util/wait","pkg/util/yaml","pkg/version","pkg/watch","third_party/forked/golang/reflect"]
+  revision = "019ae5ada31de202164b118aee88ee2d14075c31"
+
+[[projects]]
+  branch = "release-5.0"
+  name = "k8s.io/client-go"
+  packages = ["discovery","kubernetes/scheme","pkg/version","rest","rest/watch","tools/clientcmd/api","tools/metrics","transport","util/cert","util/flowcontrol","util/integer"]
+  revision = "3c9596422809744570e7b344a5597b4ad8aaabfb"
+
+[[projects]]
+  branch = "master"
+  name = "k8s.io/kube-deploy"
+  packages = ["cluster-api/api/cluster/v1alpha1"]
+  revision = "edf4ba7cb64997234cd9746a3daacdb703584e2b"
+
+[[projects]]
+>>>>>>> Adding cluster api from kube-deploy
   branch = "master"
   name = "k8s.io/kube-openapi"
   packages = ["pkg/common"]
@@ -380,6 +540,10 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
+<<<<<<< HEAD
   inputs-digest = "925d372c63fbac6ae8c0ee7f6d2e2992e60a7085c9da567125397696b949608f"
+=======
+  inputs-digest = "f3b0fa9ff5adeccb32d11c30bb112b43afacbee088f08886238ebe3ac8f4c172"
+>>>>>>> Adding cluster api from kube-deploy
   solver-name = "gps-cdcl"
   solver-version = 1

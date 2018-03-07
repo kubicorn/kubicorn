@@ -66,12 +66,17 @@
   version = "0.0.1"
 
 [[constraint]]
+<<<<<<< HEAD
   name = "github.com/spf13/pflag"
   version = "1.0.0"
 
 [[constraint]]
   name = "github.com/tcnksm/go-gitconfig"
   version = "0.1.2"
+=======
+  name = "k8s.io/apimachinery"
+  branch = "release-1.8"
+>>>>>>> Adding cluster api from kube-deploy
 
 [[constraint]]
   branch = "master"
@@ -82,5 +87,14 @@
   name = "golang.org/x/oauth2"
 
 [[constraint]]
+<<<<<<< HEAD
   name = "gopkg.in/src-d/go-git.v4"
   version = "v4.0.0-rc5"
+=======
+  name = "github.com/rackspace/gophercloud"
+  branch = "master"
+
+[[constraint]]
+  name = "k8s.io/client-go"
+  branch = "release-5.0"
+>>>>>>> Adding cluster api from kube-deploy
