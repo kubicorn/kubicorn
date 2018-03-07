@@ -652,7 +652,7 @@ fmt.Println("Successfully uploaded bytes: ", n)
 
 <a name="CopyObject"></a>
 ### CopyObject(dst DestinationInfo, src SourceInfo) error
-通过在服务端对已存在的对象进行拷贝，实现新建或者替换对象。它支持有条件的拷贝，拷贝对象的一部分，以及在服务端的加解密。请查看`SourceInfo`和`DestinationInfo`两个类型来了解更多细节。
+通过在服务端对已存在的对象进行拷贝，实现新建或者替换对象。它支持有条件的拷贝，拷贝对象的一部分，以及在服务端的加解密。请查看`SourceInfo`和`DestinationInfo`两个类型来了解更多细节。 
 
 拷贝多个源文件到一个目标对象，请查看`ComposeObject` API。
 

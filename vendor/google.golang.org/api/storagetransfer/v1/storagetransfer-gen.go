@@ -1,4 +1,4 @@
-// Package storagetransfer provides access to the Google Storage Transfer API.
+// Package storagetransfer provides access to the Storage Transfer API.
 //
 // See https://cloud.google.com/storage/transfer
 //
@@ -1141,8 +1141,9 @@ type TransferCounters struct {
 	// scheduled to be deleted.
 	BytesFoundOnlyFromSink int64 `json:"bytesFoundOnlyFromSink,omitempty,string"`
 
-	// BytesFromSourceFailed: Bytes in the data source that failed during
-	// the transfer.
+	// BytesFromSourceFailed: Bytes in the data source that failed to be
+	// transferred or that failed to
+	// be deleted after being transferred.
 	BytesFromSourceFailed int64 `json:"bytesFromSourceFailed,omitempty,string"`
 
 	// BytesFromSourceSkippedBySync: Bytes in the data source that are not
@@ -1175,8 +1176,9 @@ type TransferCounters struct {
 	// are scheduled to be deleted.
 	ObjectsFoundOnlyFromSink int64 `json:"objectsFoundOnlyFromSink,omitempty,string"`
 
-	// ObjectsFromSourceFailed: Objects in the data source that failed
-	// during the transfer.
+	// ObjectsFromSourceFailed: Objects in the data source that failed to be
+	// transferred or that failed
+	// to be deleted after being transferred.
 	ObjectsFromSourceFailed int64 `json:"objectsFromSourceFailed,omitempty,string"`
 
 	// ObjectsFromSourceSkippedBySync: Objects in the data source that are
@@ -1261,7 +1263,9 @@ type TransferJob struct {
 	//   "DELETED" - This is a soft delete state. After a transfer job is
 	// set to this
 	// state, the job and all the transfer executions are subject to
-	// garbage collection.
+	// garbage collection. Transfer jobs become eligible for garbage
+	// collection
+	// 30 days after their status is set to `DELETED`.
 	Status string `json:"status,omitempty"`
 
 	// TransferSpec: Transfer specification.

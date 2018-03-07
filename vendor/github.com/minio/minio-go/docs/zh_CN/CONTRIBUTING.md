@@ -17,6 +17,6 @@
     - 确保`go test -race ./...`和`go build`完成。
       注意：go test会进行功能测试，这需要你有一个AWS S3账号。将账户信息设为``ACCESS_KEY``和``SECRET_KEY``环境变量。如果想运行简版测试，请使用``go test -short -race ./...``。
 
-* 请阅读 [Effective Go](https://github.com/golang/go/wiki/CodeReviewComments)
+* 请阅读 [Effective Go](https://github.com/golang/go/wiki/CodeReviewComments) 
     - `minio-go`项目严格符合Golang风格
     - 如果您看到代码有问题，请随时发一个pull request

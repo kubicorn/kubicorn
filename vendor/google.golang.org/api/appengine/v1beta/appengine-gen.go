@@ -1,4 +1,4 @@
-// Package appengine provides access to the Google App Engine Admin API.
+// Package appengine provides access to the App Engine Admin API.
 //
 // See https://cloud.google.com/appengine/docs/admin-api/
 //
@@ -366,11 +366,11 @@ type Application struct {
 	// where you want to deploy your application. Example: myapp.
 	Id string `json:"id,omitempty"`
 
-	// LocationId: Location from which this application will be run.
-	// Application instances will run out of data centers in the chosen
-	// location, which is also where all of the application's end user
-	// content is stored.Defaults to us-central.Options are:us-central -
-	// Central USeurope-west - Western Europeus-east1 - Eastern US
+	// LocationId: Location from which this application runs. Application
+	// instances run out of the data centers in the specified location,
+	// which is also where all of the application's end user content is
+	// stored.Defaults to us-central1.View the list of supported locations
+	// (https://cloud.google.com/appengine/docs/locations).
 	LocationId string `json:"locationId,omitempty"`
 
 	// Name: Full path to the Application resource in the API. Example:
@@ -539,12 +539,15 @@ func (s *AuthorizedDomain) MarshalJSON() ([]byte, error) {
 type AutomaticScaling struct {
 	// CoolDownPeriod: Amount of time that the Autoscaler
 	// (https://cloud.google.com/compute/docs/autoscaler/) should wait
-	// between changes to the number of virtual machines. Only applicable
-	// for VM runtimes.
+	// between changes to the number of virtual machines. Only applicable in
+	// the App Engine flexible environment.
 	CoolDownPeriod string `json:"coolDownPeriod,omitempty"`
 
 	// CpuUtilization: Target scaling by CPU usage.
 	CpuUtilization *CpuUtilization `json:"cpuUtilization,omitempty"`
+
+	// CustomMetrics: Target scaling by user-provided metrics.
+	CustomMetrics []*CustomMetric `json:"customMetrics,omitempty"`
 
 	// DiskUtilization: Target scaling by disk usage.
 	DiskUtilization *DiskUtilization `json:"diskUtilization,omitempty"`
@@ -563,7 +566,7 @@ type AutomaticScaling struct {
 	MaxPendingLatency string `json:"maxPendingLatency,omitempty"`
 
 	// MaxTotalInstances: Maximum number of instances that should be started
-	// to handle requests.
+	// to handle requests for this version.
 	MaxTotalInstances int64 `json:"maxTotalInstances,omitempty"`
 
 	// MinIdleInstances: Minimum number of idle instances that should be
@@ -575,7 +578,7 @@ type AutomaticScaling struct {
 	// the pending queue before starting a new instance to handle it.
 	MinPendingLatency string `json:"minPendingLatency,omitempty"`
 
-	// MinTotalInstances: Minimum number of instances that should be
+	// MinTotalInstances: Minimum number of running instances that should be
 	// maintained for this version.
 	MinTotalInstances int64 `json:"minTotalInstances,omitempty"`
 
@@ -780,6 +783,46 @@ func (s *CertificateRawData) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
+// CloudBuildOptions: Options for the build operations performed as a
+// part of the version deployment. Only applicable for App Engine
+// flexible environment when creating a version using source code
+// directly.
+type CloudBuildOptions struct {
+	// AppYamlPath: Path to the yaml file used in deployment, used to
+	// determine runtime configuration details.Required for flexible
+	// environment builds.See
+	// https://cloud.google.com/appengine/docs/standard/python/config/appref
+	// for more details.
+	AppYamlPath string `json:"appYamlPath,omitempty"`
+
+	// CloudBuildTimeout: The Cloud Build timeout used as part of any
+	// dependent builds performed by version creation. Defaults to 10
+	// minutes.
+	CloudBuildTimeout string `json:"cloudBuildTimeout,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "AppYamlPath") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "AppYamlPath") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *CloudBuildOptions) MarshalJSON() ([]byte, error) {
+	type NoMethod CloudBuildOptions
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
 // ContainerInfo: Docker image that is used to create a container and
 // start a VM instance for the version that you deploy. Only applicable
 // for instances running in the App Engine flexible environment.
@@ -862,6 +905,129 @@ func (s *CpuUtilization) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// CreateVersionMetadataV1Alpha: Metadata for the given
+// google.longrunning.Operation during a
+// google.appengine.v1alpha.CreateVersionRequest.
+type CreateVersionMetadataV1Alpha struct {
+	// CloudBuildId: The Cloud Build ID if one was created as part of the
+	// version create. @OutputOnly
+	CloudBuildId string `json:"cloudBuildId,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "CloudBuildId") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "CloudBuildId") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *CreateVersionMetadataV1Alpha) MarshalJSON() ([]byte, error) {
+	type NoMethod CreateVersionMetadataV1Alpha
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// CreateVersionMetadataV1Beta: Metadata for the given
+// google.longrunning.Operation during a
+// google.appengine.v1beta.CreateVersionRequest.
+type CreateVersionMetadataV1Beta struct {
+	// CloudBuildId: The Cloud Build ID if one was created as part of the
+	// version create. @OutputOnly
+	CloudBuildId string `json:"cloudBuildId,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "CloudBuildId") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "CloudBuildId") to include
+	// in API requests with the JSON null value. By default, fields with
+	// empty values are omitted from API requests. However, any field with
+	// an empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *CreateVersionMetadataV1Beta) MarshalJSON() ([]byte, error) {
+	type NoMethod CreateVersionMetadataV1Beta
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+// CustomMetric: Allows autoscaling based on Stackdriver metrics.
+type CustomMetric struct {
+	// Filter: Allows filtering on the metric's fields.
+	Filter string `json:"filter,omitempty"`
+
+	// MetricName: The name of the metric.
+	MetricName string `json:"metricName,omitempty"`
+
+	// SingleInstanceAssignment: May be used instead of target_utilization
+	// when an instance can handle a specific amount of work/resources and
+	// the metric value is equal to the current amount of work remaining.
+	// The autoscaler will try to keep the number of instances equal to the
+	// metric value divided by single_instance_assignment.
+	SingleInstanceAssignment float64 `json:"singleInstanceAssignment,omitempty"`
+
+	// TargetType: The type of the metric. Must be a string representing a
+	// Stackdriver metric type e.g. GAGUE, DELTA_PER_SECOND, etc.
+	TargetType string `json:"targetType,omitempty"`
+
+	// TargetUtilization: The target value for the metric.
+	TargetUtilization float64 `json:"targetUtilization,omitempty"`
+
+	// ForceSendFields is a list of field names (e.g. "Filter") to
+	// unconditionally include in API requests. By default, fields with
+	// empty values are omitted from API requests. However, any non-pointer,
+	// non-interface field appearing in ForceSendFields will be sent to the
+	// server regardless of whether the field is empty or not. This may be
+	// used to include empty fields in Patch requests.
+	ForceSendFields []string `json:"-"`
+
+	// NullFields is a list of field names (e.g. "Filter") to include in API
+	// requests with the JSON null value. By default, fields with empty
+	// values are omitted from API requests. However, any field with an
+	// empty value appearing in NullFields will be sent to the server as
+	// null. It is an error if a field in this list has a non-empty value.
+	// This may be used to include null fields in Patch requests.
+	NullFields []string `json:"-"`
+}
+
+func (s *CustomMetric) MarshalJSON() ([]byte, error) {
+	type NoMethod CustomMetric
+	raw := NoMethod(*s)
+	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
+}
+
+func (s *CustomMetric) UnmarshalJSON(data []byte) error {
+	type NoMethod CustomMetric
+	var s1 struct {
+		SingleInstanceAssignment gensupport.JSONFloat64 `json:"singleInstanceAssignment"`
+		TargetUtilization        gensupport.JSONFloat64 `json:"targetUtilization"`
+		*NoMethod
+	}
+	s1.NoMethod = (*NoMethod)(s)
+	if err := json.Unmarshal(data, &s1); err != nil {
+		return err
+	}
+	s.SingleInstanceAssignment = float64(s1.SingleInstanceAssignment)
+	s.TargetUtilization = float64(s1.TargetUtilization)
+	return nil
+}
+
 // DebugInstanceRequest: Request message for Instances.DebugInstance.
 type DebugInstanceRequest struct {
 	// SshKey: Public SSH key to add to the instance.
@@ -900,8 +1066,18 @@ func (s *DebugInstanceRequest) MarshalJSON() ([]byte, error) {
 // Deployment: Code and application artifacts used to deploy a version
 // to App Engine.
 type Deployment struct {
-	// Build: Google Cloud Container Builder build information.
+	// Build: Google Cloud Container Builder build information. Only
+	// applicable for instances running in the App Engine flexible
+	// environment.
 	Build *BuildInfo `json:"build,omitempty"`
+
+	// CloudBuildOptions: Options for any Google Cloud Container Builder
+	// builds created as a part of this deployment.Note that this is
+	// orthogonal to the build parameter, where the deployment depends on an
+	// already existing cloud build. These options will only be used if a
+	// new build is created, such as when deploying to the App Engine
+	// flexible environment using files or zip.
+	CloudBuildOptions *CloudBuildOptions `json:"cloudBuildOptions,omitempty"`
 
 	// Container: The Docker image for the container that runs the version.
 	// Only applicable for instances running in the App Engine flexible
@@ -939,8 +1115,8 @@ func (s *Deployment) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// DiskUtilization: Target scaling by disk usage. Only applicable for VM
-// runtimes.
+// DiskUtilization: Target scaling by disk usage. Only applicable in the
+// App Engine flexible environment.
 type DiskUtilization struct {
 	// TargetReadBytesPerSecond: Target bytes read per second.
 	TargetReadBytesPerSecond int64 `json:"targetReadBytesPerSecond,omitempty"`
@@ -1945,11 +2121,11 @@ func (s *Location) MarshalJSON() ([]byte, error) {
 // LocationMetadata: Metadata for the given
 // google.cloud.location.Location.
 type LocationMetadata struct {
-	// FlexibleEnvironmentAvailable: App Engine Flexible Environment is
+	// FlexibleEnvironmentAvailable: App Engine flexible environment is
 	// available in the given location.@OutputOnly
 	FlexibleEnvironmentAvailable bool `json:"flexibleEnvironmentAvailable,omitempty"`
 
-	// StandardEnvironmentAvailable: App Engine Standard Environment is
+	// StandardEnvironmentAvailable: App Engine standard environment is
 	// available in the given location.@OutputOnly
 	StandardEnvironmentAvailable bool `json:"standardEnvironmentAvailable,omitempty"`
 
@@ -2073,16 +2249,16 @@ func (s *ManualScaling) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// Network: Extra network settings. Only applicable for App Engine
-// flexible environment versions
+// Network: Extra network settings. Only applicable in the App Engine
+// flexible environment.
 type Network struct {
 	// ForwardedPorts: List of ports, or port pairs, to forward from the
-	// virtual machine to the application container. Only applicable for App
-	// Engine flexible environment versions.
+	// virtual machine to the application container. Only applicable in the
+	// App Engine flexible environment.
 	ForwardedPorts []string `json:"forwardedPorts,omitempty"`
 
-	// InstanceTag: Tag to apply to the VM instance during creation. Only
-	// applicable for for App Engine flexible environment versions.
+	// InstanceTag: Tag to apply to the instance during creation. Only
+	// applicable in the App Engine flexible environment.
 	InstanceTag string `json:"instanceTag,omitempty"`
 
 	// Name: Google Compute Engine network where the virtual machines are
@@ -2090,19 +2266,23 @@ type Network struct {
 	// default.
 	Name string `json:"name,omitempty"`
 
+	// SessionAffinity: Enable session affinity.
+	SessionAffinity bool `json:"sessionAffinity,omitempty"`
+
 	// SubnetworkName: Google Cloud Platform sub-network where the virtual
 	// machines are created. Specify the short name, not the resource
 	// path.If a subnetwork name is specified, a network name will also be
 	// required unless it is for the default network.
-	// If the network the VM instance is being created in is a Legacy
+	// If the network that the instance is being created in is a Legacy
 	// network, then the IP address is allocated from the IPv4Range.
-	// If the network the VM instance is being created in is an auto Subnet
-	// Mode Network, then only network name should be specified (not the
-	// subnetwork_name) and the IP address is created from the IPCidrRange
-	// of the subnetwork that exists in that zone for that network.
-	// If the network the VM instance is being created in is a custom Subnet
-	// Mode Network, then the subnetwork_name must be specified and the IP
-	// address is created from the IPCidrRange of the subnetwork.If
+	// If the network that the instance is being created in is an auto
+	// Subnet Mode Network, then only network name should be specified (not
+	// the subnetwork_name) and the IP address is created from the
+	// IPCidrRange of the subnetwork that exists in that zone for that
+	// network.
+	// If the network that the instance is being created in is a custom
+	// Subnet Mode Network, then the subnetwork_name must be specified and
+	// the IP address is created from the IPCidrRange of the subnetwork.If
 	// specified, the subnetwork must exist in the same region as the App
 	// Engine flexible environment application.
 	SubnetworkName string `json:"subnetworkName,omitempty"`
@@ -2132,7 +2312,7 @@ func (s *Network) MarshalJSON() ([]byte, error) {
 }
 
 // NetworkUtilization: Target scaling by network usage. Only applicable
-// for VM runtimes.
+// in the App Engine flexible environment.
 type NetworkUtilization struct {
 	// TargetReceivedBytesPerSecond: Target bytes received per second.
 	TargetReceivedBytesPerSecond int64 `json:"targetReceivedBytesPerSecond,omitempty"`
@@ -2333,6 +2513,8 @@ func (s *OperationMetadataV1) MarshalJSON() ([]byte, error) {
 // OperationMetadataV1Alpha: Metadata for the given
 // google.longrunning.Operation.
 type OperationMetadataV1Alpha struct {
+	CreateVersionMetadata *CreateVersionMetadataV1Alpha `json:"createVersionMetadata,omitempty"`
+
 	// EndTime: Time that this operation completed.@OutputOnly
 	EndTime string `json:"endTime,omitempty"`
 
@@ -2358,20 +2540,22 @@ type OperationMetadataV1Alpha struct {
 	// @OutputOnly
 	Warning []string `json:"warning,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g. "EndTime") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
+	// ForceSendFields is a list of field names (e.g.
+	// "CreateVersionMetadata") to unconditionally include in API requests.
+	// By default, fields with empty values are omitted from API requests.
+	// However, any non-pointer, non-interface field appearing in
+	// ForceSendFields will be sent to the server regardless of whether the
+	// field is empty or not. This may be used to include empty fields in
+	// Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "EndTime") to include in
-	// API requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
+	// NullFields is a list of field names (e.g. "CreateVersionMetadata") to
+	// include in API requests with the JSON null value. By default, fields
+	// with empty values are omitted from API requests. However, any field
+	// with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
 	NullFields []string `json:"-"`
 }
 
@@ -2384,6 +2568,8 @@ func (s *OperationMetadataV1Alpha) MarshalJSON() ([]byte, error) {
 // OperationMetadataV1Beta: Metadata for the given
 // google.longrunning.Operation.
 type OperationMetadataV1Beta struct {
+	CreateVersionMetadata *CreateVersionMetadataV1Beta `json:"createVersionMetadata,omitempty"`
+
 	// EndTime: Time that this operation completed.@OutputOnly
 	EndTime string `json:"endTime,omitempty"`
 
@@ -2409,20 +2595,22 @@ type OperationMetadataV1Beta struct {
 	// @OutputOnly
 	Warning []string `json:"warning,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g. "EndTime") to
-	// unconditionally include in API requests. By default, fields with
-	// empty values are omitted from API requests. However, any non-pointer,
-	// non-interface field appearing in ForceSendFields will be sent to the
-	// server regardless of whether the field is empty or not. This may be
-	// used to include empty fields in Patch requests.
+	// ForceSendFields is a list of field names (e.g.
+	// "CreateVersionMetadata") to unconditionally include in API requests.
+	// By default, fields with empty values are omitted from API requests.
+	// However, any non-pointer, non-interface field appearing in
+	// ForceSendFields will be sent to the server regardless of whether the
+	// field is empty or not. This may be used to include empty fields in
+	// Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "EndTime") to include in
-	// API requests with the JSON null value. By default, fields with empty
-	// values are omitted from API requests. However, any field with an
-	// empty value appearing in NullFields will be sent to the server as
-	// null. It is an error if a field in this list has a non-empty value.
-	// This may be used to include null fields in Patch requests.
+	// NullFields is a list of field names (e.g. "CreateVersionMetadata") to
+	// include in API requests with the JSON null value. By default, fields
+	// with empty values are omitted from API requests. However, any field
+	// with an empty value appearing in NullFields will be sent to the
+	// server as null. It is an error if a field in this list has a
+	// non-empty value. This may be used to include null fields in Patch
+	// requests.
 	NullFields []string `json:"-"`
 }
 
@@ -2534,7 +2722,7 @@ type RepairApplicationRequest struct {
 }
 
 // RequestUtilization: Target scaling by request utilization. Only
-// applicable for VM runtimes.
+// applicable in the App Engine flexible environment.
 type RequestUtilization struct {
 	// TargetConcurrentRequests: Target number of concurrent requests.
 	TargetConcurrentRequests int64 `json:"targetConcurrentRequests,omitempty"`
@@ -2802,14 +2990,12 @@ func (s *SslSettings) MarshalJSON() ([]byte, error) {
 // StandardSchedulerSettings: Scheduler settings for standard
 // environment.
 type StandardSchedulerSettings struct {
-	// MaxInstances: Maximum number of instances for an app version. Set to
-	// a non-positive value (0 by convention) to disable max_instances
-	// configuration.
+	// MaxInstances: Maximum number of instances to run for this version.
+	// Set to zero to disable max_instances configuration.
 	MaxInstances int64 `json:"maxInstances,omitempty"`
 
-	// MinInstances: Minimum number of instances for an app version. Set to
-	// a non-positive value (0 by convention) to disable min_instances
-	// configuration.
+	// MinInstances: Minimum number of instances to run for this version.
+	// Set to zero to disable min_instances configuration.
 	MinInstances int64 `json:"minInstances,omitempty"`
 
 	// TargetCpuUtilization: Target CPU utilization ratio to maintain when
@@ -3237,7 +3423,7 @@ type Version struct {
 	Deployment *Deployment `json:"deployment,omitempty"`
 
 	// DiskUsageBytes: Total size in bytes of all the files that are
-	// included in this version and curerntly hosted on the App Engine
+	// included in this version and currently hosted on the App Engine
 	// disk.@OutputOnly
 	DiskUsageBytes int64 `json:"diskUsageBytes,omitempty,string"`
 
@@ -3264,10 +3450,10 @@ type Version struct {
 	// GET requests if view=FULL is set.
 	Handlers []*UrlMap `json:"handlers,omitempty"`
 
-	// HealthCheck: Configures health checking for VM instances. Unhealthy
+	// HealthCheck: Configures health checking for instances. Unhealthy
 	// instances are stopped and replaced with new instances. Only
-	// applicable for VM runtimes.Only returned in GET requests if view=FULL
-	// is set.
+	// applicable in the App Engine flexible environment.Only returned in
+	// GET requests if view=FULL is set.
 	HealthCheck *HealthCheck `json:"healthCheck,omitempty"`
 
 	// Id: Relative name of the version within the service. Example: v1.
@@ -3309,7 +3495,7 @@ type Version struct {
 	// view=FULL is set.
 	Libraries []*Library `json:"libraries,omitempty"`
 
-	// LivenessCheck: Configures liveness health checking for VM instances.
+	// LivenessCheck: Configures liveness health checking for instances.
 	// Unhealthy instances are stopped and replaced with new instancesOnly
 	// returned in GET requests if view=FULL is set.
 	LivenessCheck *LivenessCheck `json:"livenessCheck,omitempty"`
@@ -3323,8 +3509,8 @@ type Version struct {
 	// apps/myapp/services/default/versions/v1.@OutputOnly
 	Name string `json:"name,omitempty"`
 
-	// Network: Extra network settings. Only applicable for App Engine
-	// flexible environment versions.
+	// Network: Extra network settings. Only applicable in the App Engine
+	// flexible environment.
 	Network *Network `json:"network,omitempty"`
 
 	// NobuildFilesRegex: Files that match this pattern will not be built
@@ -3332,13 +3518,13 @@ type Version struct {
 	// GET requests if view=FULL is set.
 	NobuildFilesRegex string `json:"nobuildFilesRegex,omitempty"`
 
-	// ReadinessCheck: Configures readiness health checking for VM
-	// instances. Unhealthy instances are not put into the backend traffic
+	// ReadinessCheck: Configures readiness health checking for instances.
+	// Unhealthy instances are not put into the backend traffic
 	// rotation.Only returned in GET requests if view=FULL is set.
 	ReadinessCheck *ReadinessCheck `json:"readinessCheck,omitempty"`
 
-	// Resources: Machine resources for this version. Only applicable for VM
-	// runtimes.
+	// Resources: Machine resources for this version. Only applicable in the
+	// App Engine flexible environment.
 	Resources *Resources `json:"resources,omitempty"`
 
 	// Runtime: Desired runtime. Example: python27.
@@ -3348,6 +3534,10 @@ type Version struct {
 	// environment. Please see the app.yaml reference for valid values at
 	// https://cloud.google.com/appengine/docs/standard/<language>/config/appref
 	RuntimeApiVersion string `json:"runtimeApiVersion,omitempty"`
+
+	// RuntimeChannel: The channel of the runtime to use. Only available for
+	// some runtimes. Defaults to the default channel.
+	RuntimeChannel string `json:"runtimeChannel,omitempty"`
 
 	// ServingStatus: Current serving status of this version. Only the
 	// versions with a SERVING status create instances and can be
@@ -3374,6 +3564,10 @@ type Version struct {
 	// Vm: Whether to deploy this version in a container on a virtual
 	// machine.
 	Vm bool `json:"vm,omitempty"`
+
+	// Zones: The Google Compute Engine zones that are supported by this
+	// version in the App Engine flexible environment.
+	Zones []string `json:"zones,omitempty"`
 
 	// ServerResponse contains the HTTP response code and headers from the
 	// server.
@@ -3402,8 +3596,8 @@ func (s *Version) MarshalJSON() ([]byte, error) {
 	return gensupport.MarshalJSON(raw, s.ForceSendFields, s.NullFields)
 }
 
-// Volume: Volumes mounted within the app container. Only applicable for
-// VM runtimes.
+// Volume: Volumes mounted within the app container. Only applicable in
+// the App Engine flexible environment.
 type Volume struct {
 	// Name: Unique name for the volume.
 	Name string `json:"name,omitempty"`
@@ -3504,7 +3698,7 @@ type AppsCreateCall struct {
 // (https://cloud.google.com/appengine/docs/locations) where you want
 // the App Engine application located.For more information about App
 // Engine applications, see Managing Projects, Applications, and Billing
-// (https://cloud.google.com/appengine/docs/python/console/).
+// (https://cloud.google.com/appengine/docs/standard/python/console/).
 func (r *AppsService) Create(application *Application) *AppsCreateCall {
 	c := &AppsCreateCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.application = application
@@ -3594,7 +3788,7 @@ func (c *AppsCreateCall) Do(opts ...googleapi.CallOption) (*Operation, error) {
 	}
 	return ret, nil
 	// {
-	//   "description": "Creates an App Engine application for a Google Cloud Platform project. Required fields:\nid - The ID of the target Cloud Platform project.\nlocation - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/python/console/).",
+	//   "description": "Creates an App Engine application for a Google Cloud Platform project. Required fields:\nid - The ID of the target Cloud Platform project.\nlocation - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/standard/python/console/).",
 	//   "flatPath": "v1beta/apps",
 	//   "httpMethod": "POST",
 	//   "id": "appengine.apps.create",
@@ -8831,23 +9025,23 @@ type AppsServicesVersionsPatchCall struct {
 // (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1be
 // ta/apps.services.versions#Version.FIELDS.automatic_scaling):  For
 // Version resources that use automatic scaling and run in the App
-// Engine Flexible environment.
+// Engine flexible environment.
 // automatic_scaling.max_total_instances
 // (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1be
 // ta/apps.services.versions#Version.FIELDS.automatic_scaling):  For
 // Version resources that use automatic scaling and run in the App
-// Engine Flexible environment.
+// Engine flexible environment.
 // automatic_scaling.cool_down_period_sec
 // (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1be
 // ta/apps.services.versions#Version.FIELDS.automatic_scaling):  For
 // Version resources that use automatic scaling and run in the App
-// Engine Flexible
+// Engine flexible
 // environment.
 // automatic_scaling.cpu_utilization.target_utilization
 // (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1be
 // ta/apps.services.versions#Version.FIELDS.automatic_scaling):  For
 // Version resources that use automatic scaling and run in the App
-// Engine Flexible environment.
+// Engine flexible environment.
 func (r *AppsServicesVersionsService) Patch(appsId string, servicesId string, versionsId string, version *Version) *AppsServicesVersionsPatchCall {
 	c := &AppsServicesVersionsPatchCall{s: r.s, urlParams_: make(gensupport.URLParams)}
 	c.appsId = appsId
@@ -8952,7 +9146,7 @@ func (c *AppsServicesVersionsPatchCall) Do(opts ...googleapi.CallOption) (*Opera
 	}
 	return ret, nil
 	// {
-	//   "description": "Updates the specified Version resource. You can specify the following fields depending on the App Engine environment and type of scaling that the version resource uses:\nserving_status (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.serving_status):  For Version resources that use basic scaling, manual scaling, or run in  the App Engine flexible environment.\ninstance_class (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.instance_class):  For Version resources that run in the App Engine standard environment.\nautomatic_scaling.min_idle_instances (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine standard environment.\nautomatic_scaling.max_idle_instances (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine standard environment.\nautomatic_scaling.min_total_instances (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine Flexible environment.\nautomatic_scaling.max_total_instances (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine Flexible environment.\nautomatic_scaling.cool_down_period_sec (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine Flexible environment.\nautomatic_scaling.cpu_utilization.target_utilization (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine Flexible environment.",
+	//   "description": "Updates the specified Version resource. You can specify the following fields depending on the App Engine environment and type of scaling that the version resource uses:\nserving_status (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.serving_status):  For Version resources that use basic scaling, manual scaling, or run in  the App Engine flexible environment.\ninstance_class (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.instance_class):  For Version resources that run in the App Engine standard environment.\nautomatic_scaling.min_idle_instances (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine standard environment.\nautomatic_scaling.max_idle_instances (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine standard environment.\nautomatic_scaling.min_total_instances (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine flexible environment.\nautomatic_scaling.max_total_instances (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine flexible environment.\nautomatic_scaling.cool_down_period_sec (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine flexible environment.\nautomatic_scaling.cpu_utilization.target_utilization (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine flexible environment.",
 	//   "flatPath": "v1beta/apps/{appsId}/services/{servicesId}/versions/{versionsId}",
 	//   "httpMethod": "PATCH",
 	//   "id": "appengine.apps.services.versions.patch",

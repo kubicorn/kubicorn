@@ -809,3 +809,21 @@ func TestDelayWithRetryAfterWithSuccess(t *testing.T) {
 			r.Status, client.Attempts()-1)
 	}
 }
+
+func TestDoRetryForStatusCodes_NilResponse(t *testing.T) {
+	client := mocks.NewSender()
+	client.AppendResponse(nil)
+	client.SetError(fmt.Errorf("faux error"))
+
+	r, err := SendWithSender(client, mocks.NewRequest(),
+		DoRetryForStatusCodes(3, time.Duration(1*time.Second), StatusCodesForRetry...),
+	)
+
+	Respond(r,
+		ByDiscardingBody(),
+		ByClosing())
+
+	if err != nil || client.Attempts() != 2 {
+		t.Fatalf("autorest: Sender#TestDoRetryForStatusCodes_NilResponse -- Got: non-nil error or wrong number of attempts - %v", err)
+	}
+}

@@ -922,7 +922,9 @@ type LogEntry struct {
 	// log entry, then Stackdriver Logging assigns it the current
 	// time.Incoming log entries should have timestamps that are no more
 	// than the logs retention period in the past, and no more than 24 hours
-	// in the future. See the entries.write API method for more information.
+	// in the future. Log entries outside those time boundaries will not be
+	// available when calling entries.list, but those log entries can still
+	// be exported with LogSinks.
 	Timestamp string `json:"timestamp,omitempty"`
 
 	// Trace: Optional. Resource name of the trace associated with the log
@@ -1400,15 +1402,14 @@ type MetricDescriptor struct {
 	// Ki kibi (2**10)
 	// Mi mebi (2**20)
 	// Gi gibi (2**30)
-	// Ti tebi (2**40)GrammarThe grammar includes the dimensionless unit 1,
-	// such as 1/s.The grammar also includes these connectors:
+	// Ti tebi (2**40)GrammarThe grammar also includes these connectors:
 	// / division (as an infix operator, e.g. 1/s).
 	// . multiplication (as an infix operator, e.g. GBy.d)The grammar for a
 	// unit is as follows:
 	// Expression = Component { "." Component } { "/" Component }
 	// ;
 	//
-	// Component = [ PREFIX ] UNIT [ Annotation ]
+	// Component = ( [ PREFIX ] UNIT | "%" ) [ Annotation ]
 	//           | Annotation
 	//           | "1"
 	//           ;
@@ -1420,6 +1421,9 @@ type MetricDescriptor struct {
 	// By{transmitted}/s == By/s.
 	// NAME is a sequence of non-blank printable ASCII characters not
 	// containing '{' or '}'.
+	// 1 represents dimensionless value 1, such as in 1/s.
+	// % represents dimensionless value 1/100, and annotates values giving
+	// a percentage.
 	Unit string `json:"unit,omitempty"`
 
 	// ValueType: Whether the measurement is an integer, a floating-point
@@ -1808,6 +1812,12 @@ func (s *SourceReference) MarshalJSON() ([]byte, error) {
 
 // WriteLogEntriesRequest: The parameters to WriteLogEntries.
 type WriteLogEntriesRequest struct {
+	// DryRun: Optional. If true, the request should expect normal response,
+	// but the entries won't be persisted nor exported. Useful for checking
+	// whether the logging API endpoints are working properly before sending
+	// valuable data.
+	DryRun bool `json:"dryRun,omitempty"`
+
 	// Entries: Required. The log entries to send to Stackdriver Logging.
 	// The order of log entries in this list does not matter. Values
 	// supplied in this method's log_name, resource, and labels fields are
@@ -1820,11 +1830,12 @@ type WriteLogEntriesRequest struct {
 	// entries earlier in the list will sort before the entries later in the
 	// list. See the entries.list method.Log entries with timestamps that
 	// are more than the logs retention period in the past or more than 24
-	// hours in the future might be discarded. Discarding does not return an
-	// error.To improve throughput and to avoid exceeding the quota limit
-	// for calls to entries.write, you should try to include several log
-	// entries in this list, rather than calling this method for each
-	// individual log entry.
+	// hours in the future will not be available when calling entries.list.
+	// However, those log entries can still be exported with LogSinks.To
+	// improve throughput and to avoid exceeding the quota limit for calls
+	// to entries.write, you should try to include several log entries in
+	// this list, rather than calling this method for each individual log
+	// entry.
 	Entries []*LogEntry `json:"entries,omitempty"`
 
 	// Labels: Optional. Default labels that are added to the labels field
@@ -1866,7 +1877,7 @@ type WriteLogEntriesRequest struct {
 	// See LogEntry.
 	Resource *MonitoredResource `json:"resource,omitempty"`
 
-	// ForceSendFields is a list of field names (e.g. "Entries") to
+	// ForceSendFields is a list of field names (e.g. "DryRun") to
 	// unconditionally include in API requests. By default, fields with
 	// empty values are omitted from API requests. However, any non-pointer,
 	// non-interface field appearing in ForceSendFields will be sent to the
@@ -1874,8 +1885,8 @@ type WriteLogEntriesRequest struct {
 	// used to include empty fields in Patch requests.
 	ForceSendFields []string `json:"-"`
 
-	// NullFields is a list of field names (e.g. "Entries") to include in
-	// API requests with the JSON null value. By default, fields with empty
+	// NullFields is a list of field names (e.g. "DryRun") to include in API
+	// requests with the JSON null value. By default, fields with empty
 	// values are omitted from API requests. However, any field with an
 	// empty value appearing in NullFields will be sent to the server as
 	// null. It is an error if a field in this list has a non-empty value.

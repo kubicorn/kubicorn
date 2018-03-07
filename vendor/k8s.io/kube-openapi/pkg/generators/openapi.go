@@ -278,21 +278,35 @@ func newOpenAPITypeWriter(sw *generator.SnippetWriter) openAPITypeWriter {
 	}
 }
 
+func methodReturnsValue(mt *types.Type, pkg, name string) bool {
+	if len(mt.Signature.Parameters) != 0 || len(mt.Signature.Results) != 1 {
+		return false
+	}
+	r := mt.Signature.Results[0]
+	return r.Name.Name == name && r.Name.Package == pkg
+}
+
 func hasOpenAPIDefinitionMethod(t *types.Type) bool {
 	for mn, mt := range t.Methods {
 		if mn != "OpenAPIDefinition" {
 			continue
 		}
-		if len(mt.Signature.Parameters) != 0 || len(mt.Signature.Results) != 1 {
-			return false
-		}
-		r := mt.Signature.Results[0]
-		if r.Name.Name != "OpenAPIDefinition" || r.Name.Package != openAPICommonPackagePath {
-			return false
-		}
-		return true
+		return methodReturnsValue(mt, openAPICommonPackagePath, "OpenAPIDefinition")
 	}
 	return false
+}
+
+func hasOpenAPIDefinitionMethods(t *types.Type) bool {
+	var hasSchemaTypeMethod, hasOpenAPISchemaFormat bool
+	for mn, mt := range t.Methods {
+		switch mn {
+		case "OpenAPISchemaType":
+			hasSchemaTypeMethod = methodReturnsValue(mt, "", "[]string")
+		case "OpenAPISchemaFormat":
+			hasOpenAPISchemaFormat = methodReturnsValue(mt, "", "string")
+		}
+	}
+	return hasSchemaTypeMethod && hasOpenAPISchemaFormat
 }
 
 // typeShortName returns short package name (e.g. the name x appears in package x definition) dot type name.
@@ -336,6 +350,28 @@ func (g openAPITypeWriter) generate(t *types.Type) error {
 		g.Do("\"$.$\": ", t.Name)
 		if hasOpenAPIDefinitionMethod(t) {
 			g.Do("$.type|raw${}.OpenAPIDefinition(),\n", args)
+			return nil
+		}
+		if hasOpenAPIDefinitionMethods(t) {
+			// Since this generated snippet is part of a map:
+			//
+			//		map[string]common.OpenAPIDefinition: {
+			//			"TYPE_NAME": {
+			//				Schema: spec.Schema{ ... },
+			//			},
+			//		}
+			//
+			// For compliance with gofmt -s it's important we elide the
+			// struct type. The type is implied by the map and will be
+			// removed otherwise.
+			g.Do("{\n"+
+				"Schema: spec.Schema{\n"+
+				"SchemaProps: spec.SchemaProps{\n"+
+				"Type:$.type|raw${}.OpenAPISchemaType(),\n"+
+				"Format:$.type|raw${}.OpenAPISchemaFormat(),\n"+
+				"},\n"+
+				"},\n"+
+				"},\n", args)
 			return nil
 		}
 		g.Do("{\nSchema: spec.Schema{\nSchemaProps: spec.SchemaProps{\n", nil)
@@ -598,6 +634,8 @@ func (g openAPITypeWriter) generateSliceProperty(t *types.Type) error {
 		return fmt.Errorf("please add type %v to getOpenAPITypeFormat function", elemType)
 	case types.Struct:
 		g.generateReferenceProperty(elemType)
+	case types.Slice, types.Array:
+		g.generateSliceProperty(elemType)
 	default:
 		return fmt.Errorf("slice Element kind %v is not supported in %v", elemType.Kind, t)
 	}

@@ -16,6 +16,12 @@ func main() {
 	}
 	defer t.Close()
 
+	go func() {
+		for ws := range t.SIGWINCH() {
+			fmt.Println("Resized", ws.W, ws.H)
+		}
+	}()
+
 	fmt.Println("Hit any key")
 	for {
 		r, err := t.ReadRune()
