@@ -211,6 +211,12 @@
   version = "v1.1.1"
 
 [[projects]]
+  branch = "add-cluster-api-directive"
+  name = "github.com/kris-nova/kubicorn"
+  packages = ["apis/cluster"]
+  revision = "220d36cfe470ee2e142264325a989da1b9f47de0"
+
+[[projects]]
   branch = "master"
   name = "github.com/kris-nova/lolgopher"
   packages = ["."]
@@ -452,6 +458,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f3b0fa9ff5adeccb32d11c30bb112b43afacbee088f08886238ebe3ac8f4c172"
+  inputs-digest = "23f83f0c8375b8addd18788cfb4592ebe27878db5d3bb1154bab4b2ee9b9a68c"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -1,0 +1,136 @@
+// Copyright © 2017 The Kubicorn Authors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package cmd
+
+import (
+	"fmt"
+	"os"
+	"strings"
+
+	"github.com/kubicorn/kubicorn/apis/cluster"
+	"github.com/kubicorn/kubicorn/pkg/cli"
+	"github.com/kubicorn/kubicorn/pkg/logger"
+	"github.com/kubicorn/kubicorn/pkg/namer"
+	"github.com/spf13/cobra"
+	"github.com/yuroyoro/swalker"
+)
+
+var co = &cli.CreateOptions{}
+
+// CreateCmd represents create command
+func CreateCmd() *cobra.Command {
+	var createCmd = &cobra.Command{
+		Use:   "create [NAME] [-p|--profile PROFILENAME] [-c|--cloudid CLOUDID]",
+		Short: "Create a Kubicorn API model from a profile",
+		Long: `Use this command to create a Kubicorn API model in a defined state store.
+
+	This command will create a cluster API model as a YAML manifest in a state store.
+	Once the API model has been created, a user can optionally change the model to their liking.
+	After a model is defined and configured properly, the user can then apply the model.`,
+		Run: func(cmd *cobra.Command, args []string) {
+			if len(args) == 0 {
+				co.Name = cli.StrEnvDef("KUBICORN_NAME", namer.RandomName())
+			} else if len(args) > 1 {
+				logger.Critical("Too many arguments.")
+				os.Exit(1)
+			} else {
+				co.Name = args[0]
+			}
+
+			err := RunCreate(co)
+			if err != nil {
+				logger.Critical(err.Error())
+				os.Exit(1)
+			}
+
+		},
+	}
+
+	createCmd.Flags().StringVarP(&co.StateStore, "state-store", "s", cli.StrEnvDef("KUBICORN_STATE_STORE", "fs"), "The state store type to use for the cluster")
+	createCmd.Flags().StringVarP(&co.StateStorePath, "state-store-path", "S", cli.StrEnvDef("KUBICORN_STATE_STORE_PATH", "./_state"), "The state store path to use")
+	createCmd.Flags().StringVarP(&co.Profile, "profile", "p", cli.StrEnvDef("KUBICORN_PROFILE", "google"), "The cluster profile to use")
+	createCmd.Flags().StringVarP(&co.CloudID, "cloudid", "c", cli.StrEnvDef("KUBICORN_CLOUDID", ""), "The cloud id")
+	createCmd.Flags().StringVarP(&co.Set, "set", "e", cli.StrEnvDef("KUBICORN_SET", ""), "set cluster setting")
+
+	// git flags
+	createCmd.Flags().StringVarP(&co.GitRemote, "git-config", "g", cli.StrEnvDef("KUBICORN_GIT_CONFIG", "git"), "The git remote url to use")
+
+	// s3 flags
+	createCmd.Flags().StringVar(&co.S3AccessKey, "s3-access", cli.StrEnvDef("KUBICORN_S3_ACCESS_KEY", ""), "The s3 access key.")
+	createCmd.Flags().StringVar(&co.S3SecretKey, "s3-secret", cli.StrEnvDef("KUBICORN_S3_SECRET_KEY", ""), "The s3 secret key.")
+	createCmd.Flags().StringVar(&co.BucketEndpointURL, "s3-endpoint", cli.StrEnvDef("KUBICORN_S3_ENDPOINT", ""), "The s3 endpoint url.")
+	createCmd.Flags().BoolVar(&co.BucketSSL, "s3-ssl", cli.BoolEnvDef("KUBICORN_S3_SSL", true), "The s3 bucket name to be used for saving the git state for the cluster.")
+	createCmd.Flags().StringVar(&co.BucketName, "s3-bucket", cli.StrEnvDef("KUBICORN_S3_BUCKET", ""), "The s3 bucket name to be used for saving the s3 state for the cluster.")
+
+	flagApplyAnnotations(createCmd, "profile", "__kubicorn_parse_profiles")
+	flagApplyAnnotations(createCmd, "cloudid", "__kubicorn_parse_cloudid")
+
+	createCmd.SetUsageTemplate(cli.UsageTemplate)
+
+	return createCmd
+}
+
+// RunCreate is the starting point when a user runs the create command.
+func RunCreate(options *cli.CreateOptions) error {
+
+	// Create our cluster resource
+	name := options.Name
+	var newCluster *cluster.Cluster
+	if _, ok := cli.ProfileMapIndexed[options.Profile]; ok {
+		newCluster = cli.ProfileMapIndexed[options.Profile].ProfileFunc(name)
+	} else {
+		return fmt.Errorf("Invalid profile [%s]", options.Profile)
+	}
+
+	if options.Set != "" {
+		sets := strings.Split(options.Set, ",")
+		for _, set := range sets {
+			parts := strings.SplitN(set, "=", 2)
+			if len(parts) == 1 {
+				continue
+			}
+			err := swalker.Write(strings.Title(parts[0]), newCluster, parts[1])
+			if err != nil {
+				println(err)
+			}
+		}
+	}
+
+	if newCluster.Cloud == cluster.CloudGoogle && options.CloudID == "" {
+		return fmt.Errorf("CloudID is required for google cloud. Please set it to your project ID")
+	}
+	newCluster.CloudId = options.CloudID
+
+	// Expand state store path
+	// Todo (@kris-nova) please pull this into a filepath package or something
+	options.StateStorePath = cli.ExpandPath(options.StateStorePath)
+
+	// Register state store and check if it exists
+	stateStore, err := options.NewStateStore()
+	if err != nil {
+		return err
+	} else if stateStore.Exists() {
+		return fmt.Errorf("State store [%s] exists, will not overwrite. Delete existing profile [%s] and retry", name, options.StateStorePath+"/"+name)
+	}
+
+	// Init new state store with the cluster resource
+	err = stateStore.Commit(newCluster)
+	if err != nil {
+		return fmt.Errorf("Unable to init state store: %v", err)
+	}
+
+	logger.Always("The state [%s/%s/cluster.yaml] has been created. You can edit the file, then run `kubicorn apply %s`", options.StateStorePath, name, name)
+	return nil
+}
