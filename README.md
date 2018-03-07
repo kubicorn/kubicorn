@@ -7,12 +7,18 @@
 
 **Phonetic pronunciation**: `KEW - BHIK - OH - AR - IN`
 
+## Project Update
+
+ - Kubicorn will be going through a *breaking* API change as we adopt the upstream [cluster API](https://github.com/kubernetes-sigs/clife_cluster-api)
+ - Kubicorn has moved to `github.com/kubicorn/kubicorn` permanently.
+ - Kubicorn will be targeting a stable release shortly!
+
 ## About
 
-`kubicorn` is an **unofficial** project that solves the Kubernetes infrastructure problem and gives users a rich golang library to work with infrastructure.
+`kubicorn` is an free and open source project that solves the Kubernetes infrastructure problem and gives users a rich golang library to work with infrastructure.
 
 `kubicorn` is a project that helps a user manage cloud infrastructure for Kubernetes.
-With `kubicorn` a user can create new clusters, modify and scale them, and take a snapshot of their cluster at any time.
+With `kubicorn` a user can declaratively create new clusters, modify and scale them.
 
 **NOTE:** This is a work-in-progress, we do not consider it production ready.
 Use at your own risk and if you're as excited about it as we are, maybe you want to join us on the `#kubicorn` channel in the [Kubernetes Slack community](http://slack.k8s.io/).
@@ -60,20 +66,6 @@ This asciicast shows how to get a Kubernetes cluster on Digital Ocean using kubi
 
 [![asciicast](https://asciinema.org/a/7JKtK7RSNSjznOYpX1rOprRRq.png)](https://asciinema.org/a/7JKtK7RSNSjznOYpX1rOprRRq)
 
-## How is Kubicorn different?
-
-1) We use kubeadm to bootstrap our clusters
-2) We strive for developer empathy, and clean and simple code
-3) We strive for operational empathy, and clean and simple user experience
-4) We start with struct literals for profiles, and then marshal into an object
-5) We offer the tooling as a library, more than a command line tool
-6) We are atomic, and will un-do any work if there is an error
-7) We run on many operating systems
-8) We allow users to define their own arbitrary bootstrap logic
-9) We have no guarantee that anything works, ever, use at your own risk
-10) We have no dependency on DNS
-11) We believe in snapshots, and that a user should be able to capture a cluster, and move it
-
 # Concepts
 
 ### Create
@@ -84,20 +76,10 @@ This asciicast shows how to get a Kubernetes cluster on Digital Ocean using kubi
 
 Define what you want, then apply it. That simple.
 
-### Adopt
-
-`kubicorn` can adopt any Kubernetes cluster at any time.
-
 ### Scale
 
 `kubicorn` is powered by a state enforcement pattern.
 A user defines the intended state of Kubernetes infrastructure, and `kubicorn` can enforce the intended state.
-
-### Snapshot
-
-`kubicorn` allows a user to take a snapshot of a Kubernetes cluster, and run the image in any cloud at any time.
-A snapshot is compressed file that will represent intended infrastructure **and** intended application definitions.
-Take a snap, save a snap, deploy a snap.
 
 ### Enforce
 
